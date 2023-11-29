@@ -9,6 +9,24 @@ const ReservationShowComponent = function (
 ) {
     const $ctrl = this;
 
+    const prepareStateAndProduct = () => {
+        $ctrl.product = $ctrl.reservation.product;
+        $ctrl.media = $ctrl.product.photo || $ctrl.product.logo || null;
+        $ctrl.stateData = ProductReservationService.composeStateAndExpires($ctrl.reservation);
+    }
+
+    const fetchReservation = () => {
+        return $q((resolve, reject) => {
+            ProductReservationService.read($ctrl.reservation.id).then((res) => {
+                $ctrl.reservation = res.data.data;
+                $ctrl.showLoadingBtn = false;
+
+                prepareStateAndProduct();
+                resolve($ctrl.reservation);
+            }, reject);
+        })
+    };
+
     $ctrl.payExtraReservation = () => {
         fetchReservation().then(() => {
             if (!$ctrl.reservation.extra_payment?.is_paid) {
@@ -41,25 +59,6 @@ const ReservationShowComponent = function (
             },
         });
     };
-
-    const fetchReservation = () => {
-        return $q((resolve, reject) => {
-            ProductReservationService.read($ctrl.reservation.id).then((res) => {
-                $ctrl.reservation = res.data.data;
-                $ctrl.showLoadingBtn = false;
-                prepareStateAndProduct();
-
-                resolve($ctrl.reservation);
-            }, reject);
-        })
-    };
-
-    const prepareStateAndProduct = () => {
-        $ctrl.product = $ctrl.reservation.product;
-        $ctrl.media = $ctrl.product.photo || $ctrl.product.logo || null;
-
-        $ctrl.stateData = ProductReservationService.composeStateAndExpires($ctrl.reservation);
-    }
 
     $ctrl.$onInit = function () {
         prepareStateAndProduct();

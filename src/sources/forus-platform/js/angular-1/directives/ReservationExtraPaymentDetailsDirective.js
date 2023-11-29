@@ -14,6 +14,11 @@ const ReservationExtraPaymentDetailsDirective = function (
             (res) => {
                 $dir.reservation = res.data.data;
                 $dir.payment = $dir.reservation.extra_payment;
+
+                if (typeof $dir.onUpdate == 'function') {
+                    $dir.onUpdate();
+                }
+
                 PushNotificationsService.success('Opgeslagen!');
             },
             (res) => PushNotificationsService.danger(res.data.message),
@@ -28,10 +33,12 @@ const ReservationExtraPaymentDetailsDirective = function (
                 (res) => {
                     $dir.reservation = res.data.data;
                     $dir.payment = $dir.reservation.extra_payment;
-                    PushNotificationsService.success('Refund created!');
+
                     if (typeof $dir.onUpdate == 'function') {
                         $dir.onUpdate();
                     }
+
+                    PushNotificationsService.success('Refund created!');
                 },
                 (res) => PushNotificationsService.danger(res.data?.message || 'Onbekende foutmelding!')
             ).finally(() => PageLoadingBarService.setProgress(100));

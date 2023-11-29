@@ -7,35 +7,35 @@ const ProductReservationService = function (
     const $currencyFormat = $filter('currency_format');
 
     return new (function () {
-        this.list = function(organization_id, data) {
+        this.list = function (organization_id, data) {
             return ApiRequest.get(`${uriPrefix}/${organization_id}/product-reservations`, data);
         }
 
-        this.store = function(organization_id, data = {}) {
+        this.store = function (organization_id, data = {}) {
             return ApiRequest.post(`${uriPrefix}/${organization_id}/product-reservations`, { ...data });
         }
 
-        this.storeBatch = function(organization_id, data = {}) {
+        this.storeBatch = function (organization_id, data = {}) {
             return ApiRequest.post(`${uriPrefix}/${organization_id}/product-reservations/batch`, { ...data });
         }
 
-        this.read = function(organization_id, id) {
+        this.read = function (organization_id, id) {
             return ApiRequest.get(`${uriPrefix}/${organization_id}/product-reservations/${id}`);
         }
 
-        this.accept = function(organization_id, id, data = {}) {
+        this.accept = function (organization_id, id, data = {}) {
             return ApiRequest.post(`${uriPrefix}/${organization_id}/product-reservations/${id}/accept`, data);
         }
 
-        this.reject = function(organization_id, id, data = {}) {
+        this.reject = function (organization_id, id, data = {}) {
             return ApiRequest.post(`${uriPrefix}/${organization_id}/product-reservations/${id}/reject`, data);
         }
 
-        this.destroy = function(organization_id, id) {
+        this.destroy = function (organization_id, id) {
             return ApiRequest._delete(`${uriPrefix}/${organization_id}/product-reservations/${id}`);
         }
 
-        this.exportFields = function(organization_id) {
+        this.exportFields = function (organization_id) {
             return ApiRequest.get(`${uriPrefix}/${organization_id}/product-reservations/export-fields`);
         };
 
@@ -49,20 +49,20 @@ const ProductReservationService = function (
 
             return ApiRequest.get(`${uriPrefix}/${organization_id}/product-reservations/export`, data, {}, true, callback);
         };
-        
-        this.archive = function(organization_id, id) {
+
+        this.archive = function (organization_id, id) {
             return ApiRequest.post(`${uriPrefix}/${organization_id}/product-reservations/${id}/archive`);
         }
 
-        this.unarchive = function(organization_id, id) {
+        this.unarchive = function (organization_id, id) {
             return ApiRequest.post(`${uriPrefix}/${organization_id}/product-reservations/${id}/unarchive`);
         }
 
-        this.fetchReservationExtraPayment = function(organization_id, id) {
+        this.fetchReservationExtraPayment = function (organization_id, id) {
             return ApiRequest.get(`${uriPrefix}/${organization_id}/product-reservations/${id}/extra-payments/fetch`);
         }
 
-        this.refundReservationExtraPayment = function(organization_id, id) {
+        this.refundReservationExtraPayment = function (organization_id, id) {
             return ApiRequest.get(`${uriPrefix}/${organization_id}/product-reservations/${id}/extra-payments/refund`);
         }
 
@@ -136,6 +136,15 @@ const ProductReservationService = function (
                 confirmButton: "Bevestigen",
                 onConfirm,
             });
+        };
+
+        this.acceptAllowed = (reservation) => {
+            return reservation &&
+                reservation.state === 'pending' &&
+                !reservation.expired &&
+                !reservation.product.deleted &&
+                (!reservation.extra_payment || reservation.extra_payment.state == 'paid') &&
+                (!reservation.extra_payment || !reservation.extra_payment.is_fully_refunded);
         };
     });
 };

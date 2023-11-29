@@ -67,17 +67,18 @@ main(id="main-content"): section.section.section-profile: .wrapper
                                             ng-bind="$ctrl.reservation.price_locale")
 
                                 .reservation-actions
-                                    .button.button-light.button-sm(
-                                        ng-if="$ctrl.reservation.cancelable"
+                                    button.button.button-light.button-sm(
+                                        ng-if="$ctrl.reservation.cancelable && !$ctrl.showLoadingBtn"
                                         ng-click="$ctrl.cancelReservation()")
                                         em.mdi.mdi-trash-can-outline.icon-start
                                         | {{ "reservation.labels.cancel" | translate }}
 
-                                    .button.button-primary.button-sm(
+                                    button.button.button-primary.button-sm(
                                         ng-if="$ctrl.reservation.state === 'waiting' && $ctrl.stateData.expiresIn > 0 && !$ctrl.showLoadingBtn"
                                         ng-click="$ctrl.payExtraReservation()")
                                         em.mdi.mdi-credit-card-outline.icon-start
                                         | Ga door naar betalen
+
                                     button.button.button-primary.button-sm(ng-if="$ctrl.showLoadingBtn" disabled)
                                         em.mdi.mdi-loading.mdi-spin.icon-start
                                         | Loading
