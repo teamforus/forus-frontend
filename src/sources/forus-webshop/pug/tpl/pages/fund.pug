@@ -88,13 +88,15 @@ main(id="main-content" ng-if="$ctrl.loaded")
                 type="budget"
                 ng-if="$ctrl.products && (!$ctrl.fund.description_html || $ctrl.fund.description_position !== 'replace')"
                 products="$ctrl.products.data"
-                filters="{fund_id: $ctrl.fund.id}")
+                filters="{fund_id: $ctrl.fund.id}"
+                title-align-dir="{{ $ctrl.fund.description_html ? 'left' : 'center' }}")
 
             block-products(
                 type="subsidies"
                 ng-if="$ctrl.subsidies && (!$ctrl.fund.description_html || $ctrl.fund.description_position !== 'replace')"
                 products="$ctrl.subsidies.data"
-                filters="{fund_id: $ctrl.fund.id}")
+                filters="{fund_id: $ctrl.fund.id}"
+                title-align-dir="{{ $ctrl.fund.description_html ? 'left' : 'center' }}")
 
             div
                 markdown(
