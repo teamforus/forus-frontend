@@ -27,7 +27,7 @@ module.exports = {
         user_note: "Notitie",
         amount: "Betaald vanuit tegoed",
         amount_extra: "Betaald door inwoner",
-        method: "Method",
+        method: "Methode",
         extra_payment_paid_at: "Datum van bijbetaling",
         refund_date: "Datum van terugbetaling",
         refund_amount: "Terugbetaald"
