@@ -11,5 +11,9 @@ module.exports = {
     description_pending: {
         formal: 'U kunt het aanbod na annuleren weer opnieuw reserveren zolang de voorraad strekt.',
         informal: 'Je kunt het aanbod na annuleren weer opnieuw reserveren zolang de voorraad strekt.',
-    }
+    },
+    header_extra_paid: {
+        title: 'Neem contact op met {{organizationname}}',
+    },
+    description_extra_paid: 'Deze reservering is al door de aanbieder geaccepteerd. Neem voor het annuleren binnen 14 dagen na datum van de reservering contact op met de aanbieder.',
 }

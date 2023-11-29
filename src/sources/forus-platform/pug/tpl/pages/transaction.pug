@@ -17,3 +17,9 @@
             organization="$root.activeOrganization"
             transaction="$ctrl.transaction"
             show-amount="true")
+
+        reservation-extra-payment-details(
+            ng-if="$ctrl.transaction.reservation.extra_payment"
+            organization="$root.activeOrganization"
+            reservation="$ctrl.transaction.reservation"
+            payment="$ctrl.transaction.reservation.extra_payment")
