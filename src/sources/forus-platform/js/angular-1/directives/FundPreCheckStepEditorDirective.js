@@ -9,19 +9,32 @@ const FundPreCheckStepEditorDirective = function (
 
     $dir.collapsed = false;
 
-    const updatePreChecksData = (eventData) => {
-        let sourcePreCheck = $dir.preChecks.find((preCheck) => preCheck.id == eventData.model.pre_check_id);
+    const removeDuplicatePreCheckRecords = (from_pre_check_id, record_type_key) => {
+        const recordKeys = $dir.preChecks.reduce((recordKeys, preCheck) => {
+            return recordKeys.concat(preCheck.pre_check_records.map((record) => record.record_type.key));
+        }, []);
+        const duplicateRecord = recordKeys.find((recordKey, index) => recordKeys.indexOf(recordKey) !== index);
 
-        // remove the source record
+        if (!duplicateRecord) {
+            return;
+        }
+        
+        let sourcePreCheck = $dir.preChecks.find((preCheck) => preCheck.id == from_pre_check_id);
         sourcePreCheck.pre_check_records = sourcePreCheck.pre_check_records.filter((record) => {
-            return record.record_type.key != eventData.model.record_type.key;
+            return record.record_type.key != record_type_key;
         });
+    };
 
-        // update pre-check indexes in pre-check records
+    const updatePreCheckIndexes = () => {
         $dir.preChecks = $dir.preChecks.map(preCheck => ({
             ...preCheck,
             pre_check_records: preCheck.pre_check_records.map(record => ({ ...record, pre_check_id: preCheck.id }))
         }));
+    };
+
+    const updatePreChecksData = (eventData) => {
+        removeDuplicatePreCheckRecords(eventData.model.pre_check_id, eventData.model.record_type.key);
+        updatePreCheckIndexes();
     }
     
     $dir.sortablePreCheck = {

@@ -3,37 +3,12 @@ const FundPreCheckComponent = function (
     $timeout,
     FundService,
     PreCheckService,
+    FormBuilderService,
 ) {
     const $ctrl = this;
 
     $ctrl.activeStepIndex = 0;
     $ctrl.showTotals = false;
-
-    $ctrl.sortByOptions = [{
-        label: 'Nieuwe eerst',
-        value: {
-            order_by: 'created_at',
-            order_by_dir: 'desc',
-        }
-    }, {
-        label: 'Oudste eerst',
-        value: {
-            order_by: 'created_at',
-            order_by_dir: 'asc',
-        }
-    }, {
-        label: 'Naam (oplopend)',
-        value: {
-            order_by: 'name',
-            order_by_dir: 'asc',
-        }
-    }, {
-        label: 'Naam (aflopend)',
-        value: {
-            order_by: 'name',
-            order_by_dir: 'desc',
-        }
-    }];
 
     const mapPreCheckRecords = () => {
         $ctrl.preChecks = $ctrl.preChecks.map(preCheck => ({
@@ -50,6 +25,10 @@ const FundPreCheckComponent = function (
         $ctrl.activePreCheck = $ctrl.preChecks[$ctrl.activeStepIndex];
     };
 
+    const isLastPreCheck = () => {
+        return $ctrl.activeStepIndex == $ctrl.preChecks.length - 1;
+    };
+
     $ctrl.activePreCheckFilled = () => {
         return $ctrl.activePreCheck.pre_check_records.filter(pre_check_record => {
             return pre_check_record.input_value !== '' || pre_check_record.control_type == 'ui_control_checkbox';
@@ -57,13 +36,20 @@ const FundPreCheckComponent = function (
     };
 
     $ctrl.submitPreChecks = () => {
-        return $q((resolve, reject) => {
-            PreCheckService.calculateTotals({
-                pre_checks: $ctrl.preChecks
-            }).then((res) => {
-                resolve($ctrl.totals = res.data);
-            }, reject);
-        });
+        $timeout(() => {
+            if (!isLastPreCheck() && !$ctrl.showTotals) {
+                return;
+            }
+    
+            return $q((resolve, reject) => {
+                PreCheckService.calculateTotals({
+                    pre_checks: $ctrl.preChecks,
+                    ...$ctrl.form.values,
+                }).then((res) => {
+                    resolve($ctrl.totals = res.data);
+                }, reject);
+            });
+        }, 10);
     };
 
     $ctrl.changeAnswers = () => {
@@ -81,7 +67,7 @@ const FundPreCheckComponent = function (
 
     $ctrl.next = () => {
         // Last step - get the totals
-        if ($ctrl.activeStepIndex == $ctrl.preChecks.length - 1) {
+        if (isLastPreCheck()) {
             $ctrl.submitPreChecks();
             $ctrl.showTotals = true;
         }
@@ -99,6 +85,22 @@ const FundPreCheckComponent = function (
     $ctrl.$onInit = function () {
         $ctrl.recordTypesByKey = $ctrl.recordTypes.reduce((acc, type) => ({ ...acc, [type.key]: type }), {});
 
+        $ctrl.tags.unshift({
+            id: null,
+            name: 'Alle categorieën',
+        });
+
+        $ctrl.organizations.unshift({
+            id: null,
+            name: 'Alle organisaties',
+        });
+
+        $ctrl.form = FormBuilderService.build({
+            q: '',
+            tag_id: null,
+            organization_id: null,
+        });
+
         mapPreCheckRecords();
         updateActivePreCheck();
     };
@@ -106,15 +108,17 @@ const FundPreCheckComponent = function (
 
 module.exports = {
     bindings: {
-        funds: '<',
         preChecks: '<',
         recordTypes: '<',
+        tags: '<',
+        organizations: '<',
     },
     controller: [
         '$q',
         '$timeout',
         'FundService',
         'PreCheckService',
+        'FormBuilderService',
         FundPreCheckComponent,
     ],
     templateUrl: 'assets/tpl/pages/fund-pre-check.html',

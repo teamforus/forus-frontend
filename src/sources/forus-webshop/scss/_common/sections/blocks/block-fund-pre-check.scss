@@ -1,14 +1,5 @@
 &.block-fund-pre-check {
     .block-fund-pre-check-progress {
-        height: fit-content;
-        width: 320px;
-        max-width: 320px;
-        min-width: 320px;
-        padding: 20px;
-        background: #fff;
-        border-radius: var(--border-radius);
-        box-shadow: 2px 2px 15px rgba(0,0,0,.05);
-
         .block-pre-check-progress-title {
             font: 700 18px/27px var(--base-font);
             margin-bottom: 15px;
@@ -21,52 +12,84 @@
                 margin-right: 10px;
 
                 .block-pre-check-progress-step {
-                    margin-bottom: 38px;
                     position: relative;
+                    margin-bottom: 20px;
 
-                    .block-pre-check-progress-step-number {
-                        width: 30px;
-                        height: 30px;
-                        border-radius: 50%;
-                        font: 600 14px/30px var(--base-font);
-                        text-align: center;
-                        background-color: #fff;
-                        color: #000;
-                        position: relative;
-                        box-shadow: 0 0 0 2px #DBDCDB;
-                    }
+                    .block-pre-check-progress-step-wrapper {
+                        display: flex;
 
-                    .block-pre-check-progress-step-separator {
-                        position: absolute;
-                        right: -2px;
-                        margin-top: 18px;
-                        width: 34px;
-                        transform: rotate(-90deg);
-                        border-bottom: 2px solid #DBDCDB;
+                        .block-pre-check-progress-step-number {
+                            width: 30px;
+                            height: 30px;
+                            margin-right: 10px;
+                            border-radius: 50%;
+                            font: 600 14px/30px var(--base-font);
+                            text-align: center;
+                            background-color: #fff;
+                            color: #000;
+                            position: relative;
+                            box-shadow: 0 0 0 2px #DBDCDB;
+                        }
+    
+                        .block-pre-check-progress-questions {
+                            flex-grow: 1;
+    
+                            .block-pre-check-progress-question {
+                                margin-bottom: 10px;
+                                margin-top: 3px;
+                                position: relative;
+                
+                                .block-pre-check-progress-question-title {
+                                    font: 700 16px/24px var(--base-font);
+                                    margin-bottom: 5px;
+                                }
+                
+                                .block-pre-check-progress-question-answer {
+                                    margin-bottom: 5px;
+                                    font: 400 14px/21px var(--base-font);
+                                }
+                
+                                &:last-child {
+                                    margin-bottom: 0;
+                                }
+                            }
+                        }
+
+                        .block-pre-check-progress-step-separator {
+                            position: absolute;
+                            top: 32px;
+                            left: 14px;
+                            width: 2px;
+                            height: calc(100% - 14px);
+                            background-color: #dbdcdb;
+                        }
                     }
 
                     &.block-pre-check-progress-step-totals {
-                        margin-bottom: 24px;
-
-                        .block-pre-check-progress-step-number {
-                            background: url("../img/icon-pre-check-totals-inactive.svg") center no-repeat;
+                        .block-pre-check-progress-step-wrapper {
+                            .block-pre-check-progress-step-number {
+                                background: url("../img/icon-pre-check-totals-inactive.svg") center no-repeat;
+                            }
                         }
 
                         &.active {
-                            background-color: #315efd;
-                            border-radius: 50%;
-
-                            .block-pre-check-progress-step-number {
-                                background: url("../img/icon-pre-check-totals-active.svg") center no-repeat;
+                            .block-pre-check-progress-step-wrapper {
+                                .block-pre-check-progress-step-number {
+                                    background: url("../img/icon-pre-check-totals-active.svg") center no-repeat;
+                                    color: #fff;
+                                    background-color: #315efd;
+                                }
                             }
                         }
                     }
 
                     &.active {
-                        .block-pre-check-progress-step-number {
-                            background-color: #315EFD;
-                            box-shadow: 0 0 0 2px #315EFD;
-                            color: #fff;
+                        .block-pre-check-progress-step-wrapper {
+                            .block-pre-check-progress-step-number {
+                                background-color: #315EFD;
+                                box-shadow: 0 0 0 2px #315EFD;
+                                color: #fff;
+                            }
                         }
 
                         .block-pre-check-progress-step-separator {
@@ -75,8 +98,10 @@
                     }
 
                     &.next {
-                        .block-pre-check-progress-step-number {
-                            box-shadow: 0 0 0 2px #315EFD;
+                        .block-pre-check-progress-step-wrapper {
+                            .block-pre-check-progress-step-number {
+                                box-shadow: 0 0 0 2px #315EFD;
+                            }
                         }
 
                         .block-pre-check-progress-step-separator {
@@ -88,30 +113,6 @@
                         .block-pre-check-progress-step-separator {
                             display: none;
                         }
-                    }
-                }
-            }
-
-            .block-pre-check-progress-questions {
-                width: 100%;
-
-                .block-pre-check-progress-question {
-                    margin-bottom: 44px;
-                    margin-top: 3px;
-                    position: relative;
-    
-                    .block-pre-check-progress-question-title {
-                        font: 700 16px/24px var(--base-font);
-                        margin-bottom: 5px;
-                    }
-    
-                    .block-pre-check-progress-question-answer {
-                        font: 400 14px/21px var(--base-font);
-                        position: absolute;
-                    }
-    
-                    &:last-child {
-                        margin-bottom: 0;
                     }
                 }
             }
@@ -144,17 +145,19 @@
         }
     }
 
-    .block-fund-pre-check-step {
-        .block-fund-pre-check-step-title {
+    .block-fund-pre-check-info {
+        .block-fund-pre-check-info-title {
             font: 700 22px/32px var(--base-font);
             margin-bottom: 5px;
         }
 
-        .block-fund-pre-check-step-description {
+        .block-fund-pre-check-info-description {
             font: 400 16px/24px var(--base-font);
             margin-bottom: 15px;
         }
+    }
 
+    .block-fund-pre-check-step {
         .block-fund-pre-check-step-section {
             background: #fff;
             padding: 25px 30px;
@@ -194,6 +197,10 @@
                 display: flex;
             }
         }
+
+        &.block-fund-pre-check-step-totals {
+            border: none;
+        }
     }
 
     .block-fund-pre-check-step-section-results {
@@ -203,6 +210,11 @@
 
     @media screen and (max-width: 1000px) {
         .block-fund-pre-check-progress {
+            width: 100%;
+            max-width: 100%;
+            border: 1px solid #E5E5E5;
+            border-radius: var(--border-radius);
+
             .block-pre-check-progress-title {
                 font: 600 18px/22px var(--base-font);
             }
@@ -222,17 +234,50 @@
                         align-items: center;
                         width: 100%;
 
-                        .block-pre-check-progress-step-number {
-                            font: 700 12px/24px var(--base-font);
-                            width: 24px;
-                            height: 24px;
+                        .block-pre-check-progress-step-wrapper {
+                            width: 100%;
+                            flex-wrap: wrap;
+
+                            .block-pre-check-progress-step-number {
+                                font: 700 12px/24px var(--base-font);
+                                width: 24px;
+                                height: 24px;
+                                margin-right: 0;
+                            }
+
+                            .block-pre-check-progress-step-separator {
+                                position: initial;
+                                margin-top: -14px;
+                                width: 100%;
+                                height: 2px;
+                            }
+
+                            .block-pre-check-progress-questions {
+                                display: flex;
+                                flex-grow: 1;
+                                justify-content: space-between;
+            
+                                .block-pre-check-progress-question {
+                                    margin-bottom: 20px;
+            
+                                    .block-pre-check-progress-question-title {
+                                        font: 700 10px/15px var(--base-font);
+                                    }
+            
+                                    .block-pre-check-progress-question-answer {
+                                        display: none;
+                                    }
+            
+                                    &:last-child {
+                                        width: auto;
+                                        margin-left: -10px;
+                                    }
+                                }
+                            }
                         }
 
-                        .block-pre-check-progress-step-separator {
-                            margin-top: 0;
-                            transform: none;
-                            position: initial;
-                            flex-grow: 1;
+                        &.block-pre-check-progress-step-totals {
+                            margin-bottom: 0;
                         }
 
                         &:last-child {
@@ -240,28 +285,67 @@
                         }
                     }
                 }
+            }
+        }
+        
+        .block-fund-pre-check-info {
+            margin: 15px 0;
+            border-bottom: 1px solid #E5E5E5;
 
-                .block-pre-check-progress-questions {
-                    display: flex;
-                    width: 100%;
-                    justify-content: space-between;
+            .block-fund-pre-check-info-title {
+                margin-bottom: 15px;
+                font: 600 18px/22px var(--base-font);
+            }
 
-                    .block-pre-check-progress-question {
-                        margin-bottom: 20px;
-                        margin-left: -10px;
+            .block-fund-pre-check-info-description {
+                font: 400 12px/18px var(--base-font);
+            }
+        }
 
-                        .block-pre-check-progress-question-title {
-                            font: 700 10px/15px var(--base-font);
-                        }
+        .block-fund-pre-check-step {
+            border: 1px solid #E5E5E5;
+            border-radius: var(--border-radius);
 
-                        .block-pre-check-progress-question-answer {
-                            display: none;
-                        }
+            .block-fund-pre-check-step-section {
+                padding: 15px;
 
-                        &:last-child {
-                            width: auto;
-                            margin-left: -10px;
-                        }
+                .block-fund-pre-check-step-section-details {
+                    margin-bottom: 20px;
+                    padding-bottom: 20px;
+
+                    .block-fund-pre-check-step-section-title {
+                        font: 700 14px/24px var(--base-font);
+                    }
+
+                    .block-fund-pre-check-step-section-description {
+                        font: 400 13px/18px var(--base-font);
+                    }
+                }
+
+                .block-fund-pre-check-step-section-question {
+                    margin-bottom: 20px;
+                    padding-bottom: 20px;
+
+                    .block-fund-pre-check-step-section-question-title {
+                        font: 700 14px/24px var(--base-font);
+                    }
+                }
+            }
+        }
+
+        .showcase-layout {
+            .showcase-aside {
+                display: flex;
+                position: initial;
+                box-shadow: none;
+                border-top: none;
+                border-bottom: none;
+
+                .showcase-aside-block {
+                    border: none;
+
+                    .block-fund-pre-check-progress {
+                        border: none;
                     }
                 }
             }

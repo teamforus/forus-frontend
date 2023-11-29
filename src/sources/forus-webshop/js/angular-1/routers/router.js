@@ -1132,6 +1132,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
                     with_external: 1,
                 }));
             }],
+            organizations: ['OrganizationService', (OrganizationService) => {
+                return repackResponse(OrganizationService.list({ implementation: 1, is_employee: 0 }));
+            }],
+            tags: ['TagService', (TagService) => {
+                return repackResponse(TagService.list({ type: 'funds', per_page: 1000 }));
+            }],
             preChecks: ['PreCheckService', (PreCheckService) => {
                 return repackResponse(PreCheckService.list());
             }],

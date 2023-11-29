@@ -79,19 +79,23 @@
                                     translate(translate="Uitklappen")
 
                         //- Block form
-                        .block-body(ng-if="record.collapsed"): .form
+                        .block-body(ng-show="record.collapsed"): .form
                             .row
                                 //- Short title
                                 .col.col-lg-6.col-xs-12: .form-group
                                     label.form-label Short title
                                     input(type="text" ng-model="record.short_title" placeholder="Title...").form-control
-                                    .form-error(ng-repeat="error in $dir.errors['records.' + $parent.$index + '.title']" ng-bind="error")
+                                    .form-error(
+                                        ng-repeat="error in $dir.errors['preChecks.' + $parent.$index]['pre_check_records.' + $index + '.short_title']" 
+                                        ng-bind="error")
                                 
                                 //- Title
                                 .col.col-lg-6.col-xs-12: .form-group
                                     label.form-label.form-label-required Title
                                     input(type="text" ng-model="record.title" placeholder="Title...").form-control
-                                    .form-error(ng-repeat="error in $dir.errors['records.' + $parent.$index + '.title']" ng-bind="error")
+                                    .form-error(
+                                        ng-repeat="error in $dir.errors['preChecks.' + $parent.$index + '.' + 'pre_check_records.' + $index + '.title']" 
+                                        ng-bind="error")
 
                             .row: .col.col-lg-12
                                 //- Block description
@@ -102,7 +106,9 @@
                                         ng-model="record.description" 
                                         placeholder="Omschrijving...")
                                     .form-hint Max. 1000 tekens
-                                    .form-error(ng-repeat="error in $dir.errors['records.' + $parent.$index + '.description']" ng-bind="error")
+                                    .form-error(
+                                        ng-repeat="error in $dir.errors['preChecks.' + $parent.$index]['pre_check_records.' + $index + '.description']" 
+                                        ng-bind="error")
 
                     .block-record-items-empty(ng-if="!preCheck.pre_check_records.length")
                         .block-record-items-empty-img 

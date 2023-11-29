@@ -3,6 +3,11 @@ block content
     .block.block-showcase(ng-class="{'block-showcase-fullscreen': $ctrl.showMap}")
         top-navbar(hide-on-scroll="true")
 
+        mixin pre_check_info
+            .block-fund-pre-check-info
+                .block-fund-pre-check-info-title(ng-bind="$root.appConfigs.features.pre_check_title")
+                .block-fund-pre-check-info-description(ng-bind="$root.appConfigs.features.pre_check_description")
+
         main(id="main-content")
             .showcase-wrapper: .block.block-fund-pre-check
                 .showcase-mobile-filters(ng-class="{active: $ctrl.countFiltersApplied > 0}")
@@ -14,50 +19,78 @@ block content
                     a(ui-sref="home").breadcrumb-item Home
                     .breadcrumb-item.active(aria-current="location") De Potjes check
 
+                    .show-sm: +pre_check_info()
+
                 .showcase-layout
-                    .block-fund-pre-check-progress
-                        .block-pre-check-progress-title Uw gegevens
-                        .block-pre-check-progress-preview
-                            .block-pre-check-progress-steps
-                                .block-pre-check-progress-step(
-                                    ng-repeat="preCheck in $ctrl.preChecks"
-                                    ng-class="{active: $ctrl.activeStepIndex >= $index, next: $ctrl.activeStepIndex + 1 == $index}")
+                    .showcase-aside
+                        .showcase-aside-block: .block-fund-pre-check-progress
+                            .block-pre-check-progress-title.hide-sm Uw gegevens
+                            .block-pre-check-progress-preview
+                                .block-pre-check-progress-steps
+                                    .block-pre-check-progress-step(
+                                        ng-repeat="preCheck in $ctrl.preChecks"
+                                        ng-class="{active: $ctrl.activeStepIndex >= $index, next: $ctrl.activeStepIndex + 1 == $index}")
 
-                                    .block-pre-check-progress-step-number {{ $index + 1 }}
-                                    .block-pre-check-progress-step-separator
+                                        .block-pre-check-progress-step-wrapper
+                                            .block-pre-check-progress-step-number {{ $index + 1 }}
+                                            .block-pre-check-progress-step-separator
+                                            .block-pre-check-progress-questions
+                                                .block-pre-check-progress-question
+                                                    .block-pre-check-progress-question-title(ng-bind="preCheck.title")
+                                                    .block-pre-check-progress-question-answer(
+                                                        ng-if="$ctrl.activeStepIndex > $parent.$index"
+                                                        ng-repeat="preCheckRecord in preCheck.pre_check_records") 
+                                                        | {{ preCheckRecord.short_title }}: 
+                                                        | {{ preCheckRecord.control_type == 'ui_control_checkbox' ? (preCheckRecord.is_checked ? 'Ja' : 'Nee') : preCheckRecord.input_value }}
 
-                                .block-pre-check-progress-step.block-pre-check-progress-step-totals(ng-class="{active: $ctrl.showTotals}")
-                                    .block-pre-check-progress-step-number    
 
-                            .block-pre-check-progress-questions
-                                .block-pre-check-progress-question(ng-repeat="preCheck in $ctrl.preChecks track by $index")
-                                    .block-pre-check-progress-question-title(ng-bind="preCheck.title")
-                                    .block-pre-check-progress-question-answer(
-                                        ng-if="$ctrl.activeStepIndex > $parent.$index"
-                                        ng-repeat="preCheckRecord in preCheck.pre_check_records") 
-                                        | {{ preCheckRecord.short_title }}: 
-                                        | {{ preCheckRecord.control_type == 'ui_control_checkbox' ? (preCheckRecord.is_checked ? 'Ja' : 'Nee') : preCheckRecord.input_value }}
+                                    .block-pre-check-progress-step.block-pre-check-progress-step-totals(ng-class="{active: $ctrl.showTotals}")
+                                        .block-pre-check-progress-step-wrapper
+                                            .block-pre-check-progress-step-number    
 
-                                .block-pre-check-progress-question
-                                    .block-pre-check-progress-question-title Advies
-                                    .block-pre-check-progress-question-answer
-                                        | Je bent er bijna!
+                                            .block-pre-check-progress-questions: .block-pre-check-progress-question
+                                                .block-pre-check-progress-question-title Advies
+                                                .block-pre-check-progress-question-answer
+                                                    | Je bent er bijna!
 
-                        .block-pre-check-amounts(ng-if="$ctrl.showTotals")
-                            .block-pre-check-amount
-                                .block-pre-check-amount-title Totaal bedrag
-                                .block-pre-check-amount-value {{ $ctrl.totals.amounts.amount_total_currency | currency_format  }}
+                            .block-pre-check-amounts(ng-if="$ctrl.showTotals")
+                                .block-pre-check-amount
+                                    .block-pre-check-amount-title Totaal bedrag
+                                    .block-pre-check-amount-value {{ $ctrl.totals.amounts.amount_total_currency | currency_format  }}
+                            
+                            .block-pre-check-actions(ng-if="$ctrl.showTotals")
+                                .button.button-light.button-fill(ng-click="$ctrl.changeAnswers()") Change answers
 
-                            .block-pre-check-amount
-                                .block-pre-check-amount-title Totaal regelingen
-                                .block-pre-check-amount-value 36
-                        
-                        .block-pre-check-actions(ng-if="$ctrl.showTotals")
-                            .button.button-light.button-fill(ng-click="$ctrl.changeAnswers()") Change answers
+                        .showcase-aside-block.hide-sm(ng-if="$ctrl.showTotals"): .form.form-compact
+                            .form-group
+                                ui-control-search-input(
+                                    ng-model="$ctrl.form.values.q"
+                                    placeholder="Zoeken..." 
+                                    aria-label="Zoeken"
+                                    ng-change="$ctrl.submitPreChecks()")
 
-                    .showcase-content: .block-fund-pre-check-step
-                        .block-fund-pre-check-step-title(ng-bind="$root.appConfigs.features.pre_check_title")
-                        .block-fund-pre-check-step-description(ng-bind="$root.appConfigs.features.pre_check_description")
+                            .form-group
+                                label.form-label(for="select_organization") Organisatie
+                                select-control(
+                                    id="select_organization"
+                                    prop="id"
+                                    ng-model="$ctrl.form.values.organization_id"
+                                    ng-change="$ctrl.submitPreChecks()"
+                                    options="$ctrl.organizations"
+                                    placeholder="{{ $ctrl.organizations[0].name }}")
+
+                            .form-group
+                                label.form-label(for="select_category") Categorie
+                                select-control(
+                                    id="select_category"
+                                    prop="id"
+                                    ng-model="$ctrl.form.values.tag_id"
+                                    ng-change="$ctrl.submitPreChecks()"
+                                    options="$ctrl.tags"
+                                    placeholder="{{ $ctrl.tags[0].name }}")
+
+                    .showcase-content: .block-fund-pre-check-step(ng-class="{'block-fund-pre-check-step-totals': $ctrl.showTotals}")
+                        .hide-sm: +pre_check_info()
 
                         .block-fund-pre-check-step-section(ng-if="!$ctrl.showTotals")
                             //- Questions step
@@ -136,22 +169,10 @@ block content
                         //- Answer results
                         div(ng-if="$ctrl.showTotals")
                             .block-fund-pre-check-step-section-results
-                                .showcase-content-header
+                                .showcase-content-header.hide-sm
                                     h1.showcase-filters-title
                                         span Funds
                                         .showcase-filters-title-count(ng-bind="$ctrl.totals.funds.length")
-
-                                    .showcase-filters-block: .block.block-label-tabs.form
-                                        .showcase-filters-item
-                                            label.form-label Sorteer
-                                            select-control(
-                                                id="sort_by"
-                                                as="label"
-                                                search="false"
-                                                ng-model="$ctrl.sort_by"
-                                                ng-change="$ctrl.updateSortBy()"
-                                                options="$ctrl.sortByOptions"
-                                                placeholder="Sorteer")
 
                                 .block.block-funds-pre-check-list(id="fund_list")
                                     fund-pre-check-item(
@@ -163,7 +184,7 @@ block content
                                         title= "{{ 'block_funds.labels.title' | translate }}"
                                         description="{{ 'block_funds.labels.subtitle' | translate }}"
                                         hide-link="true"
-                                        ng-if="$ctrl.totals.length.length == 0")
+                                        ng-if="$ctrl.totals.length == 0")    
 
                 
     

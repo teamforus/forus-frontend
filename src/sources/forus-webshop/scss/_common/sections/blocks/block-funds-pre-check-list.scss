@@ -18,45 +18,30 @@
             }
         }
 
-        .fund-photo {
-            display: block;
-            overflow: hidden;
-            position: relative;
-            padding: 15px 0 15px 15px;
-            border-bottom: 1px solid var(--border-color);
-
-            img {
-                display: block;
-                width: 105px;
-            }
-        }
-
         .fund-content {
             display: flex;
             width: 100%;
             flex: 1 0;
-            overflow: hidden;
+            flex-wrap: wrap;
+
+            .fund-photo {
+                display: block;
+                position: relative;
+                padding: 15px 0 15px 15px;
+    
+                img {
+                    display: block;
+                    width: 105px;
+                }
+            }
 
             .fund-details {
-                flex-grow: 1;
-                position: relative;
                 display: flex;
                 flex-direction: column;
-                overflow: hidden;
+                position: relative;
+                width: calc(100% - 120px);
                 word-wrap: break-word;
                 padding: 15px 15px;
-                border-bottom: 1px solid var(--border-color);
-    
-                .fund-status-label {
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    display: flex;
-    
-                    .label {
-                        cursor: pointer;
-                    }
-                }
     
                 .fund-name {
                     font: 700 22px/32px var(--hf);
@@ -92,102 +77,126 @@
                         }
                     }
                 }
-    
-                .fund-organization {
-                    font: 400 16px/28px var(--base-font);
-                    margin-bottom: 5px;
+            }
+        }
+
+        .fund-related-funds-block {
+            flex-grow: 1;
+            padding: 15px;
+            background-color: #FFFCEB;
+            margin: 15px;
+            border-radius: var(--border-radius);
+            border: 1px solid #DBDCDB;
+
+            .fund-related-funds-description {
+                font: 600 13px/18px var(--base-font);
+                margin-bottom: 10px;
+            }
+
+            .fund-related-funds-list {
+                list-style-type: disc;
+                list-style-position: inside;
+
+                .fund-related-funds-list-item {
+                    font: 400 13px/18px var(--base-font);
+                    
+                    &::marker {
+                        font-size: 8px;
+                    }
                 }
             }
+        }
     
-            .fund-actions {
-                text-align: center;
-                min-width: 200px;
-                border-left: 1px solid var(--border-color);
+        .fund-actions {
+            text-align: center;
+            min-width: 200px;
+            border-left: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+
+            .fund-request-block {
+                padding: 20px 10px;
                 border-bottom: 1px solid var(--border-color);
-    
-                .fund-request-block {
-                    padding: 20px 10px;
-                    border-bottom: 1px solid var(--border-color);
-    
-                    .fund-request-block-progress {
-                        min-height: 100px;
-                        padding: 20px 0;
-    
-                        .fund-request-block-progress-title {
-                            font: 700 16px/24px var(--base-font);
-                            margin-bottom: 10px;
+
+                .fund-request-block-progress {
+                    min-height: 100px;
+                    padding: 20px 0;
+
+                    .fund-request-block-progress-title {
+                        font: 700 16px/24px var(--base-font);
+                        margin-bottom: 10px;
+                    }
+
+                    .fund-request-block-progress-bar {
+                        display: flex;
+
+                        .fund-request-block-progress-bar-completed {
+                            border: 3px solid #2E9D1C;
+                            border-top-left-radius: 3px;
+                            border-bottom-left-radius: 3px;
+                            background-color: #2E9D1C;
                         }
-    
-                        .fund-request-block-progress-bar {
-                            display: flex;
-    
+
+                        .fund-request-block-progress-bar-remaining {
+                            border: 3px solid #C0C5D4;
+                            border-top-right-radius: 3px;
+                            border-bottom-right-radius: 3px;
+                            background-color: #C0C5D4;
+                        }
+
+                        &.no-progress {
                             .fund-request-block-progress-bar-completed {
-                                border: 3px solid #2E9D1C;
+                                border: none;
+                            }
+
+                            .fund-request-block-progress-bar-remaining {
                                 border-top-left-radius: 3px;
                                 border-bottom-left-radius: 3px;
                             }
-    
-                            .fund-request-block-progress-bar-remaining {
-                                border: 3px solid #C0C5D4;
-                                border-top-right-radius: 3px;
-                                border-bottom-right-radius: 3px;
-                            }
-
-                            &.no-progress {
-                                .fund-request-block-progress-bar-completed {
-                                    border: none;
-                                }
-
-                                .fund-request-block-progress-bar-remaining {
-                                    border-top-left-radius: 3px;
-                                    border-bottom-left-radius: 3px;
-                                }
-                            }
                         }
                     }
-    
-                    .fund-request-block-button {
-                        width: 100%;
+                }
+
+                .fund-request-block-button {
+                    width: 100%;
+                }
+            }
+
+            .fund-totals-block {
+                display: flex;
+                padding: 10px;
+                position: relative;
+
+                .fund-totals-block-amount {
+                    flex-grow: 1;
+                    text-align: left;
+
+                    .fund-totals-block-amount-description {
+                        font: 400 11px/16px var(--base-font);
+                    }
+
+                    .fund-totals-block-amount-value {
+                        font: 600 14px/21px var(--base-font);
                     }
                 }
-    
+
+                .fund-totals-block-show-details {
+                    .button {
+                        font: 600 13px/15px var(--base-font);
+                        color: var(--tc);
+                        text-decoration: underline;
+                        position: absolute;
+                        right: 12px;
+                        top: 50%;
+                        transform: translate(0%, -50%);
+                    }
+                }
+            }
+
+            &.expanded {
+                border-bottom: none;
+                
                 .fund-totals-block {
-                    display: flex;
-                    padding: 10px;
-                    position: relative;
-    
-                    .fund-totals-block-amount {
-                        flex-grow: 1;
-                        text-align: left;
-    
-                        .fund-totals-block-amount-description {
-                            font: 400 11px/16px var(--base-font);
-                        }
-    
-                        .fund-totals-block-amount-value {
-                            font: 600 14px/21px var(--base-font);
-                        }
-                    }
-    
-                    .fund-totals-block-show-details {
-                        .button {
-                            font: 600 13px/15px var(--base-font);
-                            color: var(--tc);
-                            text-decoration: underline;
-                            position: absolute;
-                            right: 12px;
-                            top: 50%;
-                            transform: translate(0%, -50%);
-                        }
-                    }
-                }
-
-                &.expanded {
-                    border-bottom: none;
-                    
-                    .fund-totals-block {
-                        background-color: #fbfbfb;
-                    }
+                    background-color: #fbfbfb;
                 }
             }
         }
@@ -293,61 +302,54 @@
     }
 
     @media screen and (max-width: 1000px) {
-        .fund-item {}
+        .fund-item {
+            flex-wrap: wrap;
+
+            .fund-content {
+                width: 100%;
+                overflow: visible;
+
+                .fund-photo {
+                    border-bottom: none;
+                }
+
+                .fund-details {
+                    border-bottom: none;
+
+                    .fund-name {
+                        font: 600 14px/19px var(--base-font);
+                    }
+
+                    .fund-description {
+                        font: 400 12px/16px var(--base-font);
+                    }
+                }
+
+                .fund-related-funds-block {
+                    .fund-related-funds-description {
+                        font: 600 12px/16px var(--base-font);
+                    }
+
+                    .fund-related-funds-list {
+                        .fund-related-funds-list-item {
+                            font: 400 13px/20px var(--base-font);
+                        }
+                    }
+                }
+            }
+
+            .fund-actions {
+                width: 100%;
+                border: none;
+
+                .fund-request-block {
+                    .fund-request-block-progress {
+                        .fund-request-block-progress-title {
+                            font: 700 14px/21px var(--base-font);
+                        }
+                    }
+                }
+            }
+        }
     }
-
-    // @media screen and (max-width: 1000px) {
-    //     .fund-item {
-    //         grid-template-columns: 70px 1fr;
-
-    //         .fund-photo {
-    //             padding: 10px 0 10px 10px;
-    //         }
-
-    //         .fund-content {
-    //             padding: 10px 15px 10px 10px;
-    //         }
-
-    //         .fund-details {
-    //             .fund-name,
-    //             .fund-description,
-    //             .fund-status-label {
-    //                 margin: 0 0 5px;
-    //                 padding: 0 0 0;
-    //             }
-                    
-    //             .fund-status-label {
-    //                 position: initial;
-    //             }
-
-    //             .fund-name {
-    //                 font: 700 14px/20px var(--hf);
-    //             }
-
-    //             .fund-description {
-    //                 font: 400 12px/18px var(--base-font);
-    //             }
-    //         }
-
-    //         .fund-actions {
-    //             padding-top: 10px;
-    //         }
-    //     }
-    // }
-
-    // @media screen and (max-width: 360px) {
-    //     .fund-item {
-    //         .fund-content {
-    //             .fund-details {
-    //                 .fund-name {
-    //                     font: 700 12px/20px var(--base-font);
-    //                 }
-
-    //                 .fund-description {
-    //                     font: 400 12px/20px var(--base-font);
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
 }
