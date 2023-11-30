@@ -264,3 +264,11 @@
             filter-values="$ctrl.transactionsFilters"
             register="$ctrl.registerTransactionsDirective(directive)"
             block-title="Transacties")
+
+        //- Reservation voucher transactions
+        voucher-transactions(
+            ng-if="$ctrl.voucher"
+            organization="$ctrl.organization"
+            filter-values="$ctrl.reservationTransactionsFilters"
+            register="$ctrl.registerTransactionsDirective(directive)"
+            block-title="Reservatie Transacties")

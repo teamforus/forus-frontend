@@ -190,6 +190,14 @@ const VouchersShowComponent = function (
             order_dir: 'desc',
             voucher_id: $ctrl.voucher.id,
         };
+
+        $ctrl.reservationTransactionsFilters = {
+            per_page: 20,
+            order_by: 'created_at',
+            order_dir: 'desc',
+            parent_voucher_id: $ctrl.voucher.id,
+            has_product_reservation: true,
+        };
     }
 };
 
