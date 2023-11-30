@@ -89,6 +89,8 @@ app.component('featureComponent', require('./components/FeatureComponent'));
 app.component('featuresComponent', require('./components/FeaturesComponent'));
 app.component('paymentMethodsComponent', require('./components/PaymentMethodsComponent'));
 app.component('molliePrivacyComponent', require('./components/MolliePrivacyComponent'));
+app.component('reservationExtraPaymentsComponent', require('./components/ReservationExtraPaymentsComponent'));
+app.component('reservationExtraPaymentShowComponent', require('./components/ReservationExtraPaymentShowComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -115,7 +117,6 @@ app.component('modalFundCriteriaDescriptionEditComponent', require('./components
 app.component('modalFundInviteProvidersComponent', require('./components/Modals/ModalFundInviteProvidersComponent'));
 app.component('modalEmployeeAddConfirmationComponent', require('./components/Modals/ModalEmployeeAddConfirmationComponent'));
 app.component('modalFundOffersComponent', require('./components/Modals/ModalFundOffersComponent'));
-app.component('modalBusinessSelectComponent', require('./components/Modals/ModalBusinessSelectComponent'));
 app.component('modalCreatePrevalidationComponent', require('./components/Modals/ModalCreatePrevalidationComponent'));
 app.component('modalDangerZoneComponent', require('./components/Modals/ModalDangerZoneComponent'));
 app.component('modalFundProviderChatSponsorComponent', require('./components/Modals/ModalFundProviderChatSponsorComponent'));
@@ -227,6 +228,7 @@ app.service('ReimbursementsExportService', require('./services/ReimbursementsExp
 app.service('ClipboardService', require('./services/ClipboardService'));
 app.service('FeaturesService', require('./services/FeaturesService'));
 app.service('MollieConnectionService', require('./services/MollieConnectionService'));
+app.service('ReservationExtraPaymentService', require('./services/ReservationExtraPaymentService'));
 
 // Directives
 app.directive('menu', {
@@ -295,6 +297,8 @@ app.directive('blockCardNote', require('./directives/blocks/BlockCardNoteDirecti
 app.directive('auth2FAInfoBox', require('./directives/Auth2FAInfoBoxDirective'));
 app.directive('reimbursementCategories', require('./directives/ReimbursementCategoriesDirective'));
 app.directive('blockFeature', require('./directives/blocks/BlockFeatureDirective'));
+app.directive('reservationExtraPaymentDetails', require('./directives/ReservationExtraPaymentDetailsDirective'));
+app.directive('reservationExtraPaymentRefunds', require('./directives/ReservationExtraPaymentRefundsDirective'));
 
 app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));
 app.directive('fundRequestRecord', require('./directives/FundRequestRecordDirective'));

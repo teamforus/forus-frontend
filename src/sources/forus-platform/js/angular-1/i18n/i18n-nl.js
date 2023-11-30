@@ -54,7 +54,6 @@ module.exports = {
         modal_voucher_deactivation: require('./nl/modals/modal-voucher-deactivation.pug.i18n'),
         modal_voucher_activation: require('./nl/modals/modal-voucher-activation.pug.i18n'),
         modal_funds_offers: require('./nl/modals/modal-fund-offers.pug.i18n'),
-        modal_business_add: require('./nl/modals/modal-business-add.pug.i18n'),
         modal_voucher_export: require('./nl/modals/modal-voucher-export.pug.i18n'),
         modal_export_data: require('./nl/modals/modal-export-data-select.pug.i18n'),
         modal_transfer_organization_ownership: require('./nl/modals/modal-transfer-organization-ownership.pug.i18n'),
@@ -102,6 +101,9 @@ module.exports = {
     reservation_settings: require('./nl/pages/reservations-settings.pug.i18n'),
     features: require('./nl/pages/features.pug.i18n'),
     mollie_connection: require('./nl/pages/mollie-connection.pug.i18n'),
+    reservation: require('./nl/pages/reservation.pug.i18n'),
+    reservations: require('./nl/pages/reservations.pug.i18n'),
+    extra_payments: require('./nl/pages/extra-payments.pug.i18n'),
 
     components: require("./nl/i18n-components"),
 
@@ -735,6 +737,7 @@ module.exports = {
             unlimited: "Onbeperkt",
             alternative_text: "Alt-tekst",
             alternative_text_placeholder: "Omschrijving van de afbeelding",
+            extra_payments: 'Bijbetaling accepteren',
         },
         tooltips: {
             product_type: ["Kies het soort aanbod. Voorbeelden:",
@@ -1314,47 +1317,6 @@ module.exports = {
                 "- De klant heeft geen tegoed meer",
                 "- Uw aanbod is inactief",
             ].join('\n')
-        },
-    },
-    // RESERVATION = reservations.pug
-    reservations: {
-        header: {
-            title: "Reserveringen ({{ total }})",
-        },
-        filters: {
-            fund: "Fonds",
-            product: "Aanbod",
-            status: "Status",
-            search: "Zoeken",
-            from: "Vanaf",
-            to: "Tot en met",
-            state: "Status",
-        },
-        labels: {
-            number: "Nummer",
-            product: "Aanbod",
-            price: "Bedrag",
-            reserved_at: "Aangemaakt op",
-            description: "Beschrijving",
-            customer: "Gegevens",
-            fund: "Fonds",
-            status: "Status",
-            actions: "Opties",
-            email: "E-mailadres",
-            expired_at: "Verlopen op",
-            first_name: "Voornaam",
-            last_name: "Achternaam",
-            price: "Bedrag",
-            sponsor_organization: "Sponsor",
-            product: "Aanbod",
-            rejected_at: "Geweigerd op",
-            accepted_at: "Geaccepteerd op",
-            created_at: "Aangemaakt op",
-            expire_at: "Verloopdatum",
-            phone: "Telefoonnummer",
-            address: "Adres",
-            birth_date: "Geboortedatum",
-            user_note: "Notitie",
         },
     },
 
