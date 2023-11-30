@@ -32,20 +32,6 @@ const ProductsEditComponent = function (
         label: 'Handmatig controleren',
     }];
 
-    $ctrl.reservationFieldOptions = [{
-        value: 'global',
-        label: 'Gebruik standaard instelling',
-    }, {
-        value: "no",
-        label: "Nee"
-    }, {
-        value: "optional",
-        label: "Optioneel"
-    }, {
-        value: "required",
-        label: "Verplicht"
-    }];
-
     $ctrl.extraPaymentsOptions = [{
         value: 'global',
         label: 'Gebruik standaard instelling',
@@ -56,6 +42,40 @@ const ProductsEditComponent = function (
         value: "yes",
         label: "Ja"
     }];
+
+    $ctrl.reservationFieldOptions = [{
+        value: "no",
+        label: "Nee"
+    }, {
+        value: "optional",
+        label: "Optioneel"
+    }, {
+        value: "required",
+        label: "Verplicht"
+    }];
+
+    $ctrl.reservationFieldText = {
+        no: "Nee",
+        optional: "Optioneel",
+        required: "Verplicht",
+    };
+
+    $ctrl.buildFiledOptions = () => {
+        $ctrl.reservationPhoneOptions = [{
+            value: 'global',
+            label: `Gebruik standaard instelling (${$ctrl.reservationFieldText[$ctrl.organization.reservation_phone]})`,
+        }, ...$ctrl.reservationFieldOptions];
+
+        $ctrl.reservationAddressOptions = [{
+            value: 'global',
+            label: `Gebruik standaard instelling (${$ctrl.reservationFieldText[$ctrl.organization.reservation_address]})`,
+        }, ...$ctrl.reservationFieldOptions];
+
+        $ctrl.reservationBirthDateOptions = [{
+            value: 'global',
+            label: `Gebruik standaard instelling (${$ctrl.reservationFieldText[$ctrl.organization.reservation_birth_date]})`,
+        }, ...$ctrl.reservationFieldOptions];
+    };
 
     $ctrl.goToFundProvider = (provider) => {
         $state.go('fund-provider', {
@@ -270,6 +290,7 @@ const ProductsEditComponent = function (
         $ctrl.maxProductCount = parseInt(appConfigs.features.products_hard_limit);
         $ctrl.allowsReservations = reservations_budget_enabled || reservations_subsidy_enabled;
 
+        $ctrl.buildFiledOptions();
         $ctrl.buildForm();
         $ctrl.isEditable = !$ctrl.product || !$ctrl.product.sponsor_organization_id || (
             $ctrl.product.sponsor_organization_id === $ctrl.organization.id
