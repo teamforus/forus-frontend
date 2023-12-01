@@ -3,9 +3,9 @@
     cursor: default;
 
     .block-title {
-        font: 600 18px/18px var(--base-font);
-        text-align: left;
-        margin: 20px 0;
+        font: 700 40px/56px var(--base-font);
+        text-align: center;
+        margin: 40px 0;
     }
 
     .block-icon {
@@ -165,8 +165,8 @@
 
         .sign_up-pane-header {
             border-bottom: 1px solid #ebedf0;
-            font: 500 18px/34px var(--base-font);
-            padding: 15px 40px;
+            font: 700 22px/32px var(--base-font);
+            padding: 25px 40px;
             text-align: center;
             margin: 0 0;
 
@@ -176,8 +176,8 @@
         }
 
         .sign_up-pane-body {
-            padding: 20px 40px 20px;
-            font: 400 16px/26px var(--base-font);
+            padding: 30px;
+            font: 400 16px/24px var(--base-font);
 
             h2 {
                 margin: 0;
@@ -197,11 +197,12 @@
             }
 
             .sign_up-pane-heading {
-                font: 500 21px/27px var(--base-font);
+                font: 700 16px/24px var(--base-font);
                 margin: 0 0 15px;
 
                 &.sign_up-pane-heading-lg {
-                    font: 500 28px/36px var(--base-font);
+                    font: 700 22px/32px var(--base-font);
+                    margin: 0;
                 }
             }
 
@@ -210,24 +211,21 @@
                 margin: 0 0 15px;
 
                 .sign_up-pane-heading {
-                    font: inherit;
-                    font-weight: 600;
                     margin: 0;
                 }
 
                 .sign_up-pane-link {
-                    font-size: inherit;
-                    line-height: inherit;
+                    font: 600 13px/18px var(--base-font);
                     color: var(--sign_up_accent_color);
-                    font-weight: 500;
+                    text-decoration: none;
                 }
 
                 &.sign_up-pane-text-sm {
-                    font: 400 15px/26px var(--base-font);
+                    font: 400 13px/18px var(--base-font);
                 }
 
                 &.sign_up-pane-text-xs {
-                    font: 400 11px/26px var(--base-font);
+                    font: 400 11px/18px var(--base-font);
                 }
 
                 &.list-item-normal {
@@ -491,15 +489,15 @@
                 }
 
                 .sign_up-email_sent-title {
-                    font: 500 28px/38px var(--base-font);
+                    font: 700 22px/32px var(--base-font);
                     color: var(--color-primary);
-                    margin: 0 0 20px;
+                    margin: 0 0 5px;
                 }
 
                 .sign_up-email_sent-text {
-                    font: 500 18px/27px var(--base-font);
-                    color: #454545;
-                    margin: 0 0 20px;
+                    font: 400 16px/24px var(--base-font);
+                    color: #595959;
+                    margin: 0 0 15px;
                 }
             }
 
@@ -558,16 +556,15 @@
         }
 
         .sign_up-pane-footer {
-            padding: 15px 40px;
+            padding: 15px 30px 25px;
 
             .button {
                 &.button-text {
-                    font-weight: 500;
+                    font-weight: 600;
                     font-size: 16px;
-                    line-height: 20px;
                     color: var(--sign_up_step_btns_color);
-
                     line-height: 30px;
+                    padding: 0;
 
                     .mdi {
                         color: var(--sign_up_step_btns_color);
@@ -688,6 +685,10 @@
                 padding-right: 0;
             }
         }
+
+        &:first-child {
+            padding-top: 0;
+        }
     }
 
     .sign_up-options {
@@ -701,7 +702,7 @@
             border: 1px solid #ebedf0;
             border-radius: calc(var(--border-radius) / 2);
             margin-bottom: 10px;
-            padding: 20px;
+            padding: 15px;
             cursor: pointer;
             background-color: #fff;
             transition: background-color .4s, border-color .4s;
@@ -713,7 +714,7 @@
                 margin-right: 15px;
 
                 .sign_up-option-media-img {
-                    width: 55px;
+                    width: 40px;
                     display: block;
                 }   
             }
@@ -726,14 +727,14 @@
                 .sign_up-option-title {
                     display: flex;
                     flex-direction: row;
-                    font: 700 16px var(--base-font);
+                    font: 700 16px/24px var(--base-font);
                     flex-wrap: wrap;
                 }
 
                 .sign_up-option-description {
                     display: flex;
                     flex-direction: row;
-                    font: 400 13px/20px var(--base-font);
+                    font: 400 13px/18px var(--base-font);
                     flex-wrap: wrap;
                 }
             }
@@ -764,12 +765,11 @@
         display: flex;
         border: 1px solid #ebedf0;
         border-radius: calc(var(--border-radius) / 2);
-        margin-bottom: 10px;
-        padding: 25px 20px;
+        padding: 15px;
         background-color: #fff;
-        font: 400 16px/22px var(--base-font);
+        font: 700 14px/21px var(--base-font);
         flex-wrap: wrap;
-        flex-direction: column;
+        flex-direction: row;
 
         .sign_up-restore-label {
             display: inline-flex;
@@ -782,13 +782,12 @@
         .sign_up-restore-link {
             display: inline-flex;
             font: inherit;
-            font-weight: 600;
             color: var(--color-primary);
         }
 
         .sign_up-restore-chevron {
             color: #dbdcdb;
-            font-size: 24px;
+            font-size: 20px;
         }
     }
 
@@ -841,6 +840,11 @@
     }
 
     @media (max-width: 1199px) {
+        .block-title {
+            font: 700 28px/40px var(--base-font);
+            margin: 20px 0;
+        }
+
         .sign_up-header {
             margin: 0 -90px 25px;
         }
@@ -849,6 +853,11 @@
     @media (max-width: 991px) {
         margin: 0px -10px;
         padding: 10px 0 50px;
+
+        .block-title {
+            font: 700 24px/38px var(--base-font);
+            margin: 10px 0 15px;
+        }
 
         .sign_up-header {
             margin: 0 -10px 25px;
@@ -878,7 +887,7 @@
                 }
 
                 .sign_up-pane-heading {
-                    font: 500 21px/36px var(--base-font);
+                    font: 700 14px/22px var(--base-font);
                 }
 
                 .sign_up-pane-text {
