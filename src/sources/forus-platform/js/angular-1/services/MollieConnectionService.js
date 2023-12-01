@@ -10,8 +10,8 @@ const MollieConnectionService = function(ApiRequest) {
             return ApiRequest.post(`${prefix}/${organization_id}/mollie-connections/connect`);
         };
 
-        this.getConfigured = function(organization_id, query = {}) {
-            return ApiRequest.get(`${prefix}/${organization_id}/mollie-connections/configured`, query);
+        this.getActive = function(organization_id, query = {}) {
+            return ApiRequest.get(`${prefix}/${organization_id}/mollie-connections/active`, query);
         };
 
         this.fetch = function(organization_id) {

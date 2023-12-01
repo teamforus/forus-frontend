@@ -1,0 +1,92 @@
+top-navbar
+
+main(id="main-content"): section.section.section-profile: .wrapper
+    //- Breadcrumbs
+    .block.block-breadcrumbs
+        a(ui-sref="home").breadcrumb-item Home
+        a(translate="reservations.header.title" ui-sref="reservations").breadcrumb-item
+        .breadcrumb-item.active(aria-current="location") Reservering
+
+    //- Page
+    .block.block-profile
+        //- Menu
+        .profile-aside: profile-menu.hide-sm
+
+        //- Page content
+        .profile-content(dusk="reservationDetailsPage")
+            .card
+                .card-section
+                    .block.block-reservation(dusk="reservationOverview")
+                        .reservation-section
+                            .reservation-media
+                                .media-preview: img(
+                                    ng-src="{{ $ctrl.media.sizes.small || $ctrl.media.sizes.thumbnail || './assets/img/placeholders/product-small.png' }}"
+                                    alt="")
+
+                            .reservation-content
+                                .reservation-header
+                                    h2.reservation-title 
+                                        | Details van de reservering
+                                    .label(
+                                        ng-class="'label-' + $ctrl.stateData.stateClass"
+                                        ng-bind="$ctrl.stateData.stateText")
+
+                                .reservation-props
+                                    .reservation-prop
+                                        .reservation-prop-label Titel
+                                        .reservation-prop-value(dusk="reservationOverviewTitle")
+                                            a(ui-sref="product($ctrl.reservation.product)" ng-bind="$ctrl.reservation.product.name")
+
+                                    .reservation-prop
+                                        .reservation-prop-label ID
+                                        .reservation-prop-value(dusk="reservationOverviewCode")
+                                            | {{ '#' + $ctrl.reservation.code }}
+
+                                    .reservation-prop
+                                        .reservation-prop-label Fonds naam
+                                        .reservation-prop-value(
+                                            dusk="reservationOverviewFundName"
+                                            ng-bind="$ctrl.reservation.fund.name")
+
+                                    .reservation-prop(ng-if="$ctrl.reservation.amount_extra > 0")
+                                        .reservation-prop-label Betaald van tegoed
+                                        .reservation-prop-value(
+                                            dusk="reservationOverviewCode"
+                                            ng-bind="$ctrl.reservation.amount_locale")
+
+                                    .reservation-prop(ng-if="$ctrl.reservation.amount_extra > 0")
+                                        .reservation-prop-label Zelf bijbetaald
+                                        .reservation-prop-value(
+                                            dusk="reservationOverviewExtraAmount"
+                                            ng-bind="$ctrl.reservation.amount_extra_locale")
+
+                                    .reservation-prop
+                                        .reservation-prop-label Bedrag
+                                        .reservation-prop-value(
+                                            dusk="reservationOverviewAmount"
+                                            ng-bind="$ctrl.reservation.price_locale")
+
+                                .reservation-actions
+                                    button.button.button-light.button-sm(
+                                        ng-if="$ctrl.reservation.cancelable && !$ctrl.showLoadingBtn"
+                                        ng-click="$ctrl.cancelReservation()")
+                                        em.mdi.mdi-trash-can-outline.icon-start
+                                        | {{ "reservation.labels.cancel" | translate }}
+
+                                    button.button.button-primary.button-sm(
+                                        ng-if="$ctrl.reservation.state === 'waiting' && $ctrl.stateData.expiresIn > 0 && !$ctrl.showLoadingBtn"
+                                        ng-click="$ctrl.payExtraReservation()")
+                                        em.mdi.mdi-credit-card-outline.icon-start
+                                        | Ga door naar betalen
+
+                                    button.button.button-primary.button-sm(ng-if="$ctrl.showLoadingBtn" disabled)
+                                        em.mdi.mdi-loading.mdi-spin.icon-start
+                                        | Loading
+
+                .card-footer.card-footer-warning.card-footer-sm(
+                    ng-if="$ctrl.reservation.state === 'waiting' && $ctrl.stateData.expiresIn && !$ctrl.showLoadingBtn")
+                    | Houd er rekening mee dat er nog #[strong {{ $ctrl.stateData.expiresIn }} minuten] over zijn 
+                    | om de bijbetaling uit te voeren. Anders zal de reservering automatisch worden geannuleerd.
+
+                .card-footer.card-footer-warning.card-footer-sm(ng-if="$ctrl.reservation.state === 'canceled_payment_expired'")
+                    | Sorry, uw reservering is tijdens het afrekenproces geannuleerd omdat het geselecteerde product uitverkocht is.

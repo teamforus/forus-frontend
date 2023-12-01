@@ -32,7 +32,7 @@ const FundCriteriaEditorItemDirective = function (
 
         const isCurrency = currency_types.includes(criterion.record_type_key);
 
-        return criterion.is_new ? 'Nieuw criterium' : [
+        return criterion.is_new ? 'Nieuwe voorwaarde' : [
             $dir.recordType?.name,
             criterion?.value ? operatorKeys[criterion?.operator] || '' : null,
             criterion?.value ? (isCurrency ? $currency_format(criterion.value || 0) : valueName) : null,
