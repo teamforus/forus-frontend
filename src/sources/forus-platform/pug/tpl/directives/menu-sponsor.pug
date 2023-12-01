@@ -111,6 +111,12 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
             'transactions', 'transactionsPage')
 
         +nav_item(
+            "Bijbetalingen", "extra-payments", 'extra-payments',
+            '{organization_id: $root.activeOrganization.id}',
+            '$root.activeOrganization | hasPerm:["view_finances"]',
+            'extra-payments', 'extraPaymentsPage')
+
+        +nav_item(
             'Activiteitenlogboek', 'organization-logs', 'organization-logs',
             '{organization_id: $root.activeOrganization.id}',
             'true',

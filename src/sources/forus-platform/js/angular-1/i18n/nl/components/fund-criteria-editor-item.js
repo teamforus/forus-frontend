@@ -8,7 +8,7 @@ module.exports = {
         },
 
         allow_attachments: "Bijlage uploaden",
-        validation: "Validation",
-        optional: "Optional",
+        validation: "Validatie",
+        optional: "Optioneel",
     }
 };

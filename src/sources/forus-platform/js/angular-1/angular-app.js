@@ -90,6 +90,8 @@ app.component('featuresComponent', require('./components/FeaturesComponent'));
 app.component('paymentMethodsComponent', require('./components/PaymentMethodsComponent'));
 app.component('molliePrivacyComponent', require('./components/MolliePrivacyComponent'));
 app.component('fundPreCheckComponent', require('./components/FundPreCheckComponent'));
+app.component('reservationExtraPaymentsComponent', require('./components/ReservationExtraPaymentsComponent'));
+app.component('reservationExtraPaymentShowComponent', require('./components/ReservationExtraPaymentShowComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -228,6 +230,7 @@ app.service('ClipboardService', require('./services/ClipboardService'));
 app.service('FeaturesService', require('./services/FeaturesService'));
 app.service('MollieConnectionService', require('./services/MollieConnectionService'));
 app.service('PreCheckService', require('./services/PreCheckService'));
+app.service('ReservationExtraPaymentService', require('./services/ReservationExtraPaymentService'));
 
 // Directives
 app.directive('menu', {
@@ -296,6 +299,8 @@ app.directive('blockCardNote', require('./directives/blocks/BlockCardNoteDirecti
 app.directive('auth2FAInfoBox', require('./directives/Auth2FAInfoBoxDirective'));
 app.directive('reimbursementCategories', require('./directives/ReimbursementCategoriesDirective'));
 app.directive('blockFeature', require('./directives/blocks/BlockFeatureDirective'));
+app.directive('reservationExtraPaymentDetails', require('./directives/ReservationExtraPaymentDetailsDirective'));
+app.directive('reservationExtraPaymentRefunds', require('./directives/ReservationExtraPaymentRefundsDirective'));
 
 app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));
 app.directive('fundRequestRecord', require('./directives/FundRequestRecordDirective'));

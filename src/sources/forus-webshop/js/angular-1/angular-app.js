@@ -61,6 +61,7 @@ app.component('auth2FAComponent', require('./components/Auth2FAComponent'));
 app.component('fundRequestShowComponent', require('./components/FundRequestShowComponent'));
 app.component('fundRequestsComponent', require('./components/FundRequestsComponent'));
 app.component('fundPreCheckComponent', require('./components/FundPreCheckComponent'));
+app.component('reservationShowComponent', require('./components/ReservationShowComponent'));
 
 // Services
 app.service('ArrService', require('./services/ArrService'));

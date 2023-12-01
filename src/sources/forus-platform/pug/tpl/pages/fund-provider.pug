@@ -29,9 +29,11 @@
                             .label.label-warning(ng-if="!$ctrl.fundProvider.allow_extra_payments") Geweigerd
                             .label.label-success(ng-if="$ctrl.fundProvider.allow_extra_payments") Geaccepteerd
 
-                        a(href="#").connection-content-info
+                        .connection-content-info.block.block-tooltip-details.block-tooltip-hover
                             | Transactiekosten bekijken
                             em.mdi.mdi-information
+                            .tooltip-content
+                                .tooltip-text Transactiekosten bekijken description
 
                 .connection-actions
                     label(
@@ -44,6 +46,9 @@
                             ng-change="$ctrl.updateFundProviderAllow($ctrl.fundProvider, 'allow_extra_payments')"
                             ng-model="$ctrl.fundProvider.allow_extra_payments")
                         .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+
+            .card-footer.card-footer-warning.card-footer-sm
+                .card-title: .text-small Wij gebruiken uitsluitend Ideal. Per transactie betaalt u 0,29 cent.
 
         //- Products for subsidy fund (managed by sponsor)
         .card(ng-if="$ctrl.organization.manage_provider_products && $ctrl.fundProvider.fund.type == 'subsidies'")

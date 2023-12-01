@@ -35,11 +35,11 @@ const ModalCreatePrevalidationComponent = function (
         fund.criteria.forEach((criteria) => {
             const operatorLocale = {
                 '<': 'minder dan',
-                '<=': 'less or equal',
+                '<=': 'minder dan of gelijk aan',
                 '>': 'meer dan',
-                '>=': 'more or equal',
+                '>=': 'meer dan of gelijk aan',
                 '=': 'is',
-                '*': 'elk',
+                '*': 'elke',
             }[criteria.operator];
 
             $ctrl.criteriaRuleByKey[criteria.record_type.key] = `${operatorLocale} ${criteria.value}`;
