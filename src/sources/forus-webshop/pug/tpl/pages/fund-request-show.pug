@@ -14,6 +14,12 @@ main(id="main-content"): section.section.section-profile: .wrapper
 
         //- Page content
         .profile-content
+            //- Header
+            .profile-content-header
+                .flex
+                    .flex.flex-grow.flex-center: .profile-content-title.flex.flex-center.flex-vertical
+                        | Aanvraag {{ '#' + $ctrl.fundRequest.id }}
+
             .card: .card-section
                 h3.card-heading.card-heading-lg.flex
                     .flex.flex-grow Status aanvraag
@@ -42,7 +48,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
                             .fund-request-prop-label Aantal eigenschappen:
                             .fund-request-prop-value(ng-bind="$ctrl.fundRequest.records.length")
 
-            h2.profile-content-header: .profile-content-title Mijn gegevens
+            h2.profile-content-header: .profile-content-title.profile-content-title-sm Mijn gegevens
 
             .card.card-fund-request-conversation(
                 ng-repeat="record in $ctrl.fundRequest.records"
