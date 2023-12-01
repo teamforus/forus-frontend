@@ -37,12 +37,12 @@ const TransactionDetailsDirective = function (
         });
     };
 
-    $dir.$onInit = () => {
+    $dir.$onInit = () => {        
+        const { product_reservation, voucher_id } = $dir.transaction;
+
         $dir.appConfigs = appConfigs;
         $dir.showVoucherDetailsPage = $dir.transaction.voucher && appConfigs.panel_type == 'sponsor';
-        
-        const { has_voucher_reservation, voucher_parent_id, voucher_id } = $dir.transaction;
-        $dir.voucherDetailsId = has_voucher_reservation && voucher_parent_id ? voucher_parent_id : voucher_id;
+        $dir.voucherDetailsId = product_reservation?.voucher_id || voucher_id;
     };
 };
 

@@ -19,6 +19,7 @@ const VouchersShowComponent = function (
             $ctrl.voucher = res.data.data;
             $ctrl.logsDirective?.onPageChange();
             $ctrl.transactionsDirective?.onPageChange();
+            $ctrl.reservationTransactionsDirective?.onPageChange();
             $ctrl.updateFlags();
 
             switch (action) {
@@ -105,6 +106,7 @@ const VouchersShowComponent = function (
             $ctrl.voucher = res.data.data;
             $ctrl.logsDirective?.onPageChange();
             $ctrl.transactionsDirective?.onPageChange();
+            $ctrl.reservationTransactionsDirective?.onPageChange();
             $ctrl.updateFlags();
         }));
     };
@@ -174,6 +176,10 @@ const VouchersShowComponent = function (
         $ctrl.transactionsDirective = directive;
     };
 
+    $ctrl.registerReservationTransactionsDirective = (directive) => {
+        $ctrl.reservationTransactionsDirective = directive;
+    };
+
     $ctrl.$onInit = function () {
         $ctrl.updateFlags();
 
@@ -195,8 +201,7 @@ const VouchersShowComponent = function (
             per_page: 20,
             order_by: 'created_at',
             order_dir: 'desc',
-            parent_voucher_id: $ctrl.voucher.id,
-            has_product_reservation: true,
+            reservation_voucher_id: $ctrl.voucher.id,
         };
     }
 };
