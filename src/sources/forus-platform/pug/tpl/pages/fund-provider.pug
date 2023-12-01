@@ -18,6 +18,38 @@
             update-fund-provider-allow="$ctrl.updateFundProviderAllow"
             update-fund-provider-excluded="$ctrl.updateFundProviderExcluded")
 
+
+        .card(ng-if="$ctrl.organization.allow_provider_extra_payments")
+            .card-section: .block.block-payment-connection.form
+                .connection-content
+                    .connection-content-icon: include ../../../resources/platform-general/assets/img/svg/mollie-connection-icon.svg
+                    .connection-content-details
+                        .connection-content-title
+                            | Verbinding met betaalmethode toestaan
+                            .label.label-warning(ng-if="!$ctrl.fundProvider.allow_extra_payments") Geweigerd
+                            .label.label-success(ng-if="$ctrl.fundProvider.allow_extra_payments") Geaccepteerd
+
+                        .connection-content-info.block.block-tooltip-details.block-tooltip-hover
+                            | Transactiekosten bekijken
+                            em.mdi.mdi-information
+                            .tooltip-content
+                                .tooltip-text Transactiekosten bekijken description
+
+                .connection-actions
+                    label(
+                        ng-disabled="$ctrl.fundProvider.submittingAllow"
+                        ng-class="$ctrl.fundProvider.state != 'accepted' ? 'form-toggle-disabled form-toggle-off' : ''"
+                        for="provider_allow_extra_payments").form-toggle
+                        input(
+                            type="checkbox"
+                            id="provider_allow_extra_payments"
+                            ng-change="$ctrl.updateFundProviderAllow($ctrl.fundProvider, 'allow_extra_payments')"
+                            ng-model="$ctrl.fundProvider.allow_extra_payments")
+                        .form-toggle-inner.flex-end: .toggle-input: .toggle-input-dot
+
+            .card-footer.card-footer-warning.card-footer-sm
+                .card-title: .text-small Wij gebruiken uitsluitend Ideal. Per transactie betaalt u 0,29 cent.
+
         //- Products for subsidy fund (managed by sponsor)
         .card(ng-if="$ctrl.organization.manage_provider_products && $ctrl.fundProvider.fund.type == 'subsidies'")
             .card-header: .row

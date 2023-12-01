@@ -1,4 +1,4 @@
-module.exports = [() => {
+module.exports = [function () {
     let PrintableEnablerDirective = function($scope, $element, PrintableService) {
         $scope.printables = PrintableService.getPrintables();
 

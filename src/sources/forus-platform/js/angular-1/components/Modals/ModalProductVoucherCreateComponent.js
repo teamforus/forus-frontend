@@ -179,7 +179,7 @@ const ModalProductVoucherCreateComponent = function(
             simplified: 1,
             per_page: 1000,
             order_by: 'name',
-            order_by_dir: 'asc',
+            order_dir: 'asc',
         }).then((res) => {
             $ctrl.products = res.data.data.map((product) => ({
                 id: product.id,

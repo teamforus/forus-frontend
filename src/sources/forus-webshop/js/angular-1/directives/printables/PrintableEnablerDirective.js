@@ -1,5 +1,5 @@
-module.exports = [() => {
-    let PrintableEnablerDirective = function($scope, $element, PrintableService) {
+module.exports = [function () {
+    let PrintableEnablerDirective = function ($scope, $element, PrintableService) {
         $scope.printables = PrintableService.getPrintables();
 
         $scope.$watch('printables', (printables) => {

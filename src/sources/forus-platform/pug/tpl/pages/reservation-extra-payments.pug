@@ -1,0 +1,93 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .card
+            .card-header: .flex-row
+                .flex.flex-grow: .card-title
+                    span(i18n="extra_payments.header.title")
+                    span(ng-bind="$ctrl.extraPayments.meta.total").span-count
+
+                //- Filters
+                .flex: .block.block-inline-filters
+                    .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
+                        em.mdi.mdi-close.icon-start
+                        span(i18n="Wis filters")
+
+                    .form(ng-if="!$ctrl.filters.show"): .form-group: input(
+                        ng-model="$ctrl.filters.values.q"
+                        dusk="searchTransaction"
+                        placeholder="{{ 'extra_payments.labels.search' | i18n }}").form-control
+
+                    .form: .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
+                        .inline-filters-dropdown-content(ng-show="$ctrl.filters.show")
+                            .arrow-box.bg-dim: .arrow
+                            .form
+                                .form-group
+                                    form-label-toggle(label="{{ 'extra_payments.labels.search' | i18n }}" is-active)
+                                    input(
+                                        ng-model="$ctrl.filters.values.q" 
+                                        placeholder="{{ 'extra_payments.labels.search' | i18n }}").form-control
+                                
+                                .form-group(ng-click="$event.stopPropagation()")
+                                    form-label-toggle(label="{{ 'extra_payments.labels.fund' | i18n }}")
+                                    .form-offset: select-control(
+                                        prop="id"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.fund_id"
+                                        options="$ctrl.funds").form-control
+
+                        .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
+
+            //- Extra payments
+            .card-section(ng-if="$ctrl.extraPayments.meta.total > 0")
+                .card-block.card-block-table
+                    .table-wrapper
+                        table.table
+                            tr
+                                th(th-sortable filters="$ctrl.filters.values" label="extra_payments.labels.id" value="id")
+                                th(th-sortable filters="$ctrl.filters.values" label="extra_payments.labels.price" value="price")
+                                th(th-sortable filters="$ctrl.filters.values" label="extra_payments.labels.amount_extra" value="amount")
+                                th(th-sortable filters="$ctrl.filters.values" label="extra_payments.labels.method" value="method")
+                                th(th-sortable filters="$ctrl.filters.values" label="extra_payments.labels.paid_at" value="paid_at")
+                                th(th-sortable filters="$ctrl.filters.values" label="extra_payments.labels.fund" value="fund_name")
+                                th(th-sortable filters="$ctrl.filters.values" label="extra_payments.labels.product" value="product_name")
+                                th(th-sortable filters="$ctrl.filters.values" label="extra_payments.labels.provider" value="provider_name")
+                                th(th-sortable filters="$ctrl.filters.values" label="extra_payments.labels.actions").th-narrow.text-right
+
+                            tr(ng-repeat="extraPayment in $ctrl.extraPayments.data" dusk="extraPaymentItem")
+                                td(ng-bind="extraPayment.id")
+                                td(ng-bind="extraPayment.reservation.price_locale")
+                                td(ng-bind="extraPayment.amount_locale")
+                                td(ng-bind="extraPayment.method")
+
+                                td
+                                    strong(ng-bind="extraPayment.paid_at_locale.split(' - ')[0]").text-primary
+                                    br
+                                    strong(ng-bind="extraPayment.paid_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
+
+                                td(
+                                    ng-bind="extraPayment.reservation.fund.name | str_limit:25"
+                                    title="{{ extraPayment.reservation.fund.name }}")
+
+                                td(
+                                    ng-bind="extraPayment.reservation.product.name | str_limit:25"
+                                    title="{{ extraPayment.reservation.product.name }}")
+
+                                td(
+                                    ng-bind="extraPayment.reservation.product.organization.name | str_limit:25"
+                                    title="{{ extraPayment.reservation.product.organization.name }}")
+
+                                td.td-narrow.text-right: a(ui-sref="extra-payment(extraPayment.ui_sref)").button.button-sm.button-primary.button-icon.pull-right
+                                    em.mdi.mdi-eye-outline.icon-start
+
+            //- Extra payments pagination
+            .card-section(ng-if="$ctrl.extraPayments" ng-show="$ctrl.extraPayments.meta.last_page > 1")
+                paginator(
+                    meta="$ctrl.extraPayments.meta"
+                    filters="$ctrl.filters.values"
+                    delayed-filters="['q']"
+                    on-page-change="$ctrl.onPageChange(query)")
+
+            //- Empty extra_payments block
+            .card-section(ng-if="$ctrl.extraPayments.meta.total == 0"): .block.block-empty.text-center
+                .empty-title Geen extra payments gevonden

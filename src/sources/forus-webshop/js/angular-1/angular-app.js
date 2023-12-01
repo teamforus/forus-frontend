@@ -60,6 +60,7 @@ app.component('bookmarkedProductsComponent', require('./components/BookmarkedPro
 app.component('auth2FAComponent', require('./components/Auth2FAComponent'));
 app.component('fundRequestShowComponent', require('./components/FundRequestShowComponent'));
 app.component('fundRequestsComponent', require('./components/FundRequestsComponent'));
+app.component('reservationShowComponent', require('./components/ReservationShowComponent'));
 
 // Services
 app.service('ArrService', require('./services/ArrService'));
@@ -114,6 +115,7 @@ app.service('DateService', require('./services/DateService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
+app.directive('markdown', require('./directives/MarkdownDirective'));
 app.directive('topNavbar', require('./directives/TopNavbarDirective')); // todo: cleanup
 app.directive('topNavbarSearch', require('./directives/TopNavbarSearchDirective'));
 app.directive('mobileMenu', require('./directives/MobileMenuDirective'));
@@ -139,7 +141,6 @@ app.directive('appFooter', require('./directives/AppFooterDirective'));
 app.directive('i18n', require('./directives/I18nDirective'));
 app.directive('forusSupport', require('./directives/ForusSupportDirective'));
 app.directive('preventPropagation', require('./directives/PreventPropagation'));
-app.directive('phoneControlLegacy', require('./directives/PhoneControlDirective'));
 app.directive('phoneControl', require('./directives/phone_control/PhoneControlDirective'));
 app.directive('tooltip', require('./directives/TooltipDirective'));
 app.directive('forusChat', require('./directives/ForusChatDirective'));

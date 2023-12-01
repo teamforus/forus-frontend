@@ -54,7 +54,6 @@ module.exports = {
     implementation_name: {
         general: 'General',
         potjeswijzer: 'Potjeswijzer',
-        nijmegen: 'Nijmegen',
         westerkwartier: 'Westerkwartier',
         forus: 'Forus platform & ',
         kerstpakket: 'Kerstpakket',
@@ -70,9 +69,9 @@ module.exports = {
         ede: "Ede",
         schagen: "Schagen",
         hartvanwestbrabant: "HvWB",
-        participatiemunt: "Participatiemunt",
         eemsdelta: "Eemsdelta",
         doetegoed: "Doe-tegoed",
+        goereeoverflakkee: "Goeree-Overflakkee",
     },
     languages: {
         en: 'English',
@@ -93,15 +92,14 @@ module.exports = {
         heumen: "Gemeente Heumen",
         hartvanwestbrabant: "Werkplein",
         noordoostpolder: "Gemeente Noordoostpolder",
-        nijmegen: "Nijmegen",
         potjeswijzer: "Potjeswijzer",
-        participatiemunt: "Participatiemunt",
         oostgelre: "Gemeente Oost Gelre",
         winterswijk: "Gemeente Winterswijk",
         westerkwartier: "Gemeente Westerkwartier",
         waalwijk: "Pas Wijzer",
         vergoedingen: "Nijmegen",
-        schagen: "Gemeente Schagen"
+        schagen: "Gemeente Schagen",
+        goereeoverflakkee: "Goeree-Overflakkee",
     },
 
     // COMPONENTS
@@ -150,6 +148,7 @@ module.exports = {
     modal: require("./nl/modals/modal"),
     modal_product_reserve: require("./nl/modals/modal-product-reserve"),
     modal_product_reserve_notes: require("./nl/modals/modal-product-reserve-notes"),
+    modal_product_reserve_extra_payment: require("./nl/modals/modal-product-reserve-extra-payment"),
     modal_product_reserve_cancel: require("./nl/modals/modal-product-reserve-cancel"),
 
     // DIRECTIVES

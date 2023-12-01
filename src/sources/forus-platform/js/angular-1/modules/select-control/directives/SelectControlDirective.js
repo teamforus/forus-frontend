@@ -121,6 +121,10 @@ const SelectControlDirective = function ($scope, $timeout) {
         $dir.optionsPrepared = [];
         $dir.optionsFiltered = [];
 
+        $scope.$watch('$dir.search', (search) => {
+            $dir.searchEnabled = typeof search === 'undefined' ? true : search;
+        });
+
         $scope.$watch('$dir.options', (options) => {
             if (!Array.isArray(options)) {
                 return;

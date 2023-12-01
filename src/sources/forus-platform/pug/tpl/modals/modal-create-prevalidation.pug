@@ -6,7 +6,7 @@
         a(ng-click="$ctrl.closeModal()" role="button").mdi.mdi-close.modal-close
         .modal-header(ng-if="!$ctrl.verificationRequested") Activatiecode aanmaken
         .modal-header(ng-if="$ctrl.verificationRequested") Gegevens controleren
-        .modal-body.modal-body-visible
+        .modal-body
             .modal-section(ng-if="$ctrl.verificationRequested && !$ctrl.prevalidation")
                 .modal-text.text-center Controleer of u de juiste gegevens hebt ingevuld voordat u deze bevestigd.
                 .row: .col.col-lg-8.col-lg-offset-2
@@ -17,6 +17,7 @@
             .modal-section(
                 ng-if="!$ctrl.prevalidation && !$ctrl.verificationRequested"
                 ).form: .row: .col.col-lg-8.col-lg-offset-2.col-lg-12
+                
                 .form-group(ng-repeat="fundRecord in $ctrl.prevalidationRecords")
                     label.form-label
                         | {{ $ctrl.recordTypesByKey[fundRecord].name }} 
@@ -24,9 +25,32 @@
                             | ({{ $ctrl.criteriaRuleByKey[fundRecord] }})
 
                     .flex-row
-                        .flex-col.flex-col-padless-right.flex-grow: input(
-                            type="{{ $ctrl.recordTypesByKey[fundRecord].type == 'number' ? 'number' : 'text' }}"
-                            ng-model="$ctrl.form.values[fundRecord]").form-control
+                        .flex-col.flex-col-padless-right.flex-grow
+                            select-control(
+                                ng-if="['select', 'bool'].includes($ctrl.recordTypesByKey[fundRecord].type)"
+                                prop="value"
+                                placeholder="Waarde"
+                                search="$dir.recordType.type != 'bool'"
+                                ng-model="$ctrl.form.values[fundRecord]"
+                                options="$ctrl.recordTypesByKey[fundRecord].options").form-control
+
+                            datepicker(
+                                ng-if="$ctrl.recordTypesByKey[fundRecord].type == 'date'"
+                                date-format="dd-MM-yyyy"
+                                datepicker-mobile="" 
+                                date-week-start-day="1").form-control
+                                input(ng-model="$ctrl.form.values[fundRecord]" type="text" placeholder="dd-MM-jjjj").form-control
+
+                            input(
+                                type='number'
+                                ng-if="$ctrl.recordTypesByKey[fundRecord].type == 'number'"
+                                ng-model="$ctrl.form.values[fundRecord]").form-control
+
+                            input(
+                                type='string'
+                                ng-if="!['number', 'select', 'bool', 'date'].includes($ctrl.recordTypesByKey[fundRecord].type)"
+                                ng-model="$ctrl.form.values[fundRecord]").form-control
+
                         .flex-col(ng-if="$ctrl.fund.csv_required_keys.indexOf(fundRecord) == -1")
                             .button.button-text.button-text-muted(ng-click="$ctrl.removeExtraRecord(fundRecord)"): .mdi.mdi-close
 
@@ -35,11 +59,10 @@
                 .form-group(ng-if="$ctrl.formNewRecord")
                     label.form-label Selecteer eigenschap
                     .flex-row 
-                        .flex-col.flex-grow 
-                            .form-offset: select-control(
-                                prop="key"
-                                ng-model="$ctrl.formNewRecord.values.record_type_key"
-                                options="$ctrl.recordTypesAvailable").form-control
+                        .flex-col.flex-grow: .form-offset: select-control(
+                            prop="key"
+                            ng-model="$ctrl.formNewRecord.values.record_type_key"
+                            options="$ctrl.recordTypesAvailable").form-control
                         .flex-col: button(
                             type="button" 
                             ng-click="$ctrl.submitNewRecord()").button.button-primary Toevoegen        

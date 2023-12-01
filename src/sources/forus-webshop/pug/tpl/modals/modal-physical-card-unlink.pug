@@ -13,12 +13,14 @@
         .modal-header: h2.modal-title(translate="physical_card.modal_section.link_card_unlink.title")
         .modal-content: .modal-section: .physical-card-result
             .physical-card-media: include ../../../resources/_webshop-common/assets/img/icon-physical-cards/icon-physical-card-exclamation.svg
+
             .physical-card-description 
                 | Wil je je pas met pasnummer 
                 span.label.label-dark {{ $ctrl.voucher.physical_card.code }} 
                 | &nbsp;blokkeren?
+
             .flex.flex-center: .button-group
-                button.button.button-dark(type="button" ng-click="$ctrl.closeModal()" translate="physical_card.modal_section.link_card_unlink.buttons.cancel")
+                button.button.button-light(type="button" ng-click="$ctrl.closeModal()" translate="physical_card.modal_section.link_card_unlink.buttons.cancel")
                 button.button.button-dark(type="button" ng-click="$ctrl.unlink()" translate="physical_card.modal_section.link_card_unlink.buttons.submit")
 
     //- Card unlinked
@@ -32,5 +34,5 @@
                 span.label.label-dark {{ $ctrl.voucher.physical_card.code }} 
                 | &nbsp;is geblokkeerd!
             .flex.flex-center: .button-group.button-group-sm-vertical
-                button.button.button-dark(type="button" ng-click="$ctrl.closeModal()") Afsluiten
+                button.button.button-light(type="button" ng-click="$ctrl.closeModal()") Afsluiten
                 button.button.button-dark(type="button" ng-click="$ctrl.requestNewCard()") Bestel nieuwe pas

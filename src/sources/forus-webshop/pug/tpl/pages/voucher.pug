@@ -280,7 +280,14 @@ main(id="main-content")
                     .transactions-item-icon: em.mdi(ng-class="transaction.incoming ? 'mdi-arrow-down' : 'mdi-arrow-up'")
 
                     .transactions-item-details
-                        .transactions-item-counterpart(ng-if="transaction.type == 'product_voucher' || $ctrl.voucherCard.fund.type != 'budget'") 
+                        .transactions-item-counterpart(ng-if="transaction.type == 'product_voucher' && transaction.product_reservation")
+                            | Reservering 
+                            a(
+                                ui-sref="reservation-show({id: transaction.product_reservation.id})"
+                                ng-bind="'#' + transaction.product_reservation.code")
+
+                        .transactions-item-counterpart(
+                            ng-if="(transaction.type == 'product_voucher' || $ctrl.voucherCard.fund.type != 'budget') && !transaction.product_reservation")
                             | {{ transaction.product.name }}
 
                         .transactions-item-counterpart(ng-if="transaction.type == 'transaction' && transaction.target == 'provider'") 
@@ -337,7 +344,6 @@ main(id="main-content")
                     | Bekijk details 
                     em.mdi.mdi-arrow-right(aria-hidden="true") 
 
-            .pane-section: .block.block-markdown
-                div(ng-bind-html="$ctrl.voucherCard.description")
+            .pane-section: markdown(content="$ctrl.voucherCard.description")
 
         span

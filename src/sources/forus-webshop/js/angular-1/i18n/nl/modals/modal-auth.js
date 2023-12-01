@@ -1,7 +1,7 @@
 module.exports = {
     // AUTHENTICATION POPUP = popup-auth.pug
     header: {
-        title: 'Login met e-mail',
+        title: 'E-mail verstuurd',
         subtitle_formal: 'Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen.',
         subtitle_informal: 'Vul jouw e-mailadres in om een link te ontvangen waarmee je kunt inloggen.',
 
@@ -32,9 +32,6 @@ module.exports = {
         confirm: "Volgende",
     },
     labels: {
-        nijmegen: {
-            mail: "<strong>Let op</strong>: gebruik uw eigen e-mailadres.<br /> U kunt voor de Meedoen-regeling per jaar maximaal één activatiecode per e-mailadres gebruiken.",
-        },
         zuidhorn: {
             mail: "<strong>Let op</strong>: gebruik uw eigen e-mailadres.<br /> U kunt voor het Kindpakket per jaar maximaal één activatiecode per e-mailadres gebruiken.",
         },

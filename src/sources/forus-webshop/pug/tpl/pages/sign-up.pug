@@ -33,8 +33,9 @@ mixin restore_link(ngIf, label="Kun je niet meer inloggen?", link="Account herst
             ng-click="$ctrl.setState('restore')"
             role="button"
             tabindex="0"
-            ng-show=ngShow dusk=dusk)=link
-        .sign_up-restore-chevron: .mdi.mdi-chevron-right
+            ng-show=ngShow dusk=dusk)
+            span=link
+            .sign_up-restore-chevron: .mdi.mdi-chevron-right
 
 mixin inline_email_form(showPolicy=true)
     form(ng-submit="$ctrl.authForm.submit()" dusk="authEmailForm").form
@@ -195,7 +196,7 @@ main(id="main-content")
             //- For new users
             .sign_up-pane(ng-if="$ctrl.authEmailConfirmationSent")
                 h1.sr-only(role="heading") Start aanmelden
-                h2.sign_up-pane-header(role="heading") Aanmelding bevestigen
+                h2.sign_up-pane-header(role="heading") E-mail verstuurd
 
                 .sign_up-pane-body(dusk="authEmailSentConfirmation")
                     .sign_up-email_sent

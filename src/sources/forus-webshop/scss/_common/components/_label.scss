@@ -1,10 +1,11 @@
 .label {
-    font: 600 11px/20px var(--base-font);
+    font: 600 11px/18px var(--base-font);
     display: inline-block;
     padding: 0 7.5px;
     border-radius: var(--border-radius);
     cursor: default;
     height: fit-content;
+    border: 1px solid transparent;
 
     .mdi {
         font-size: 1.4em;
@@ -36,6 +37,10 @@
         margin-right: 4px;
         text-align: center;
 
+        &.label-blink-primary {
+            color: var(--color-primary);
+        }
+
         &:before {
             content: '•';
             color: inherit;
@@ -57,6 +62,11 @@
         color: #030304;
     }
 
+    &.label-waiting {
+        background: #a36a14;
+        color: #fff;
+    }
+
     &.label-warning {
         background: #EFD77F;
         color: #030304;
@@ -68,8 +78,8 @@
     }
 
     &.label-default {
-        background: #777;
-        color: #fff;
+        color: var(--label-default-color);
+        background: var(--label-default-background);
     }
 
     &.label-primary {
@@ -109,6 +119,10 @@
 
     &.label-round {
         border-radius: 30px;
+    }
+
+    &.label-default-outline {
+        border: 1px solid #E5E5E5;
     }
 
     &:not(:last-child):not(:last-of-type) {

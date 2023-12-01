@@ -1,0 +1,30 @@
+.modal.modal-md.modal-animated.modal-loading.modal-feature-contact(ng-class="$ctrl.modal.loaded ? '' : 'modal-loading'")
+    .modal-backdrop(ng-click="$ctrl.close()")
+
+    .modal-window.form
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button")
+        .modal-header(translate="modals.modal_feature_contact.title")
+        .modal-body
+            .modal-section.text-center
+                .icon-wrapper: .icon: em.mdi.mdi-email-outline
+                .title(translate="modals.modal_feature_contact.modal_section.title")
+                .description(translate="modals.modal_feature_contact.modal_section.description")
+
+                .contact-row
+                    if (qdt_c.platform.env_data.features_contact_phone)
+                        .contact-item
+                            .icon: em.mdi.mdi-cellphone-basic
+                            .title(translate="modals.modal_feature_contact.modal_section.phone.title")
+                            .description !{qdt_c.platform.env_data.features_contact_phone}
+
+                    if (qdt_c.platform.env_data.features_contact_email)
+                        .contact-item
+                            .icon: em.mdi.mdi-email-outline
+                            .title(translate="modals.modal_feature_contact.modal_section.email.title")
+                            .description !{qdt_c.platform.env_data.features_contact_email}
+
+        .modal-footer.text-center
+            button.button.button-default(
+                type="button" 
+                ng-click="$ctrl.close()"
+                translate="modals.modal_feature_contact.buttons.close")
