@@ -15,7 +15,7 @@ const ProductReservationService = function ($filter, ApiRequest, DateService) {
         }
 
         this.validateFields = function (data) {
-            return ApiRequest.post(uriPrefix + '/validate-fields', data);
+            return ApiRequest.post(uriPrefix + '/validate-fields', this.apiFormToResource(data));
         }
 
         this.validateAddress = function (data) {
