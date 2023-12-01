@@ -590,7 +590,7 @@ module.exports = {
             organization_name: "Organisatienaam",
             product_count: "Aantal aanbiedingen",
             last_active: "Laatst actief",
-            related_funds: "Aangesloten fondsen",
+            funds_count: "Aangesloten fondsen",
             actions: "Actie",
             fund_provider_state: {
                 pending: 'Wachtend',

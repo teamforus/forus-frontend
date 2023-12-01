@@ -252,6 +252,38 @@
                     margin: -5px 0;
                 }
 
+                .td-collapsable {
+                    display: grid;
+                    grid-template-columns: 15px auto 1fr;
+
+                    .collapsable-icon,
+                    .collapsable-content {
+                        display: grid;
+                        align-items: center;
+                    }
+
+                    .collapsable-icon {
+                        font-size: 20px;
+                        margin-left: -7.5px;
+
+                        .mdi {
+                            color: var(--text-color);
+                            transition: color .4s;
+                        }
+
+                        &:hover {
+                            .mdi {
+                                color: var(--color-primary);
+                            }
+                        }
+                    }
+
+                    .collapsable-content {
+                        grid-template-columns: repeat(10, auto) 1fr;
+                        gap: 10px;
+                    }
+                }
+
                 &:first-child {
                     padding-left: 25px;
                 }
@@ -270,60 +302,6 @@
                 
                 &.td-paddless {
                     padding: 0;
-                }
-
-                &.td-collapsable {
-                    .icon-collapse {
-                        font-size: 20px;
-                    }
-
-                    .td-media {
-                        margin-right: 5px;
-                    }
-                }
-
-                &.td-table {
-                    padding: 0;
-
-                    .table-wrapper {
-                        .table {
-                            &>tbody {
-                                tr {
-                                    td, th {
-                                        border-bottom: 1px solid #d4d9dd;
-                                    }
-
-                                    th {
-                                        background-color: #F7F9FC;
-                                    }
-
-                                    td {
-                                        background-color: #F6F8F9;
-                                    }
-
-                                    &:last-child {
-                                        td, th {
-                                            border-bottom: 0;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    &.td-pagination {
-                        .table-wrapper {
-                            .table {
-                                &>tbody {
-                                    tr {
-                                        td {
-                                            background-color: #FFF;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
                 }
             }
 
@@ -373,13 +351,9 @@
             }
         }
 
-        &>tr,
-        &>thead:last-child>tr,
         &>tbody:last-child>tr {
             &:last-child {
-
-                td,
-                th {
+                &>td {
                     border-bottom: 0;
                 }
             }

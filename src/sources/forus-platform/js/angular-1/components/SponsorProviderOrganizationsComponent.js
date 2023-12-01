@@ -1,18 +1,15 @@
 const { pick } = require("lodash");
 
-const SponsorProviderOrganizationsComponent = function(
+const SponsorProviderOrganizationsComponent = function (
     $state,
-    $filter,
     $stateParams,
     FileService,
     ModalService,
     OrganizationService,
-    ProviderFundService
+    PageLoadingBarService,
+    PushNotificationsService,
 ) {
     const $ctrl = this;
-    const $translate = $filter('translate');
-
-    $ctrl.loaded = false;
 
     $ctrl.orderByOptions = [{
         value: 'application_date',
@@ -35,15 +32,37 @@ const SponsorProviderOrganizationsComponent = function(
             allow_products: '',
             has_products: '',
         },
-        reset: function() {
+        reset: function () {
             this.values = { ...this.defaultValues };
-            $ctrl.updateState(this.defaultValues);
-        }
+            updateState(this.defaultValues);
+        },
+        hide: function () {
+            this.show = false;
+        },
     };
 
-    $ctrl.fundFilters = {};
+    const transformProviders = (providerOrganizations) => {
+        return providerOrganizations.map((providerOrganization) => ({
+            ...providerOrganization,
+            uiViewParams: {
+                organization_id: $ctrl.organization.id,
+                provider_organization_id: providerOrganization.id
+            },
+        }));
+    };
 
-    $ctrl.updateState = (query) => {
+    const transformFundProviders = (fundProviders) => {
+        return fundProviders.map((fundProvider) => ({
+            ...fundProvider,
+            uiViewParams: {
+                fund_id: fundProvider.fund_id,
+                organization_id: $ctrl.organization.id,
+                fund_provider_id: fundProvider.id,
+            },
+        }));
+    };
+
+    const updateState = (query) => {
         $state.go(
             'sponsor-provider-organizations',
             { ...query, organization_id: $ctrl.organization.id },
@@ -54,29 +73,17 @@ const SponsorProviderOrganizationsComponent = function(
     $ctrl.onPageChange = (query) => {
         const filter = { ...query, ...{ order_dir: query.order_by == 'name' ? 'asc' : 'desc' } };
 
-        OrganizationService.providerOrganizations($ctrl.organization.id, filter).then((res => {
-            $ctrl.providerOrganizations = {
-                meta: res.data.meta,
-                data: $ctrl.transformList(res.data.data),
-            };
-            $ctrl.updateState(query);
-        }));
-    };
+        PageLoadingBarService.setProgress(0);
 
-    $ctrl.onFundsPageChange = (query) => {
-        ProviderFundService.listFunds(query.organization_id, {
-            page: query.page,
-            per_page: query.per_page,
-            archived: 0,
-            sponsor_organization_id: $ctrl.organization.id,
-        }).then((res => {
-            $ctrl.rows.find(row => row.index == query.organization_id && row.fundsBlock).data = transformFundProviderItems(res.data.data);
-            
-            $ctrl.rows.find(row => row.index == query.organization_id && row.paginationBlock).data = { 
-                ...res.data.meta,
-                organization_id: query.organization_id,
-            };
-        }));
+        OrganizationService.providerOrganizations($ctrl.organization.id, filter).then(
+            (res) => {
+                $ctrl.providerOrganizations = { ...res.data, data: transformProviders(res.data.data) };
+                updateState(query);
+            },
+            (res) => {
+                PushNotificationsService.danger('Error', res?.data?.message);
+            },
+        ).finally(() => PageLoadingBarService.setProgress(100));
     };
 
     // Export to XLS file
@@ -85,105 +92,53 @@ const SponsorProviderOrganizationsComponent = function(
             success: (data) => {
                 const fileName = 'providers_' + $ctrl.organization.id + '_' + moment().format('YYYY-MM-DD HH:mm:ss') + '.' + data.exportType;
 
+                PageLoadingBarService.setProgress(0);
+
                 OrganizationService.providerOrganizationsExport($ctrl.organization.id, {
                     ...$ctrl.filters.values,
                     ...{ export_format: data.exportType }
-                }).then((res => {
-                    FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
-                }));
+                }).then(
+                    (res => FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;')),
+                    (res) => PushNotificationsService.danger('Error', res?.data?.message),
+                ).finally(() => PageLoadingBarService.setProgress(100));
             }
         });
     };
 
+    $ctrl.fetchProvidersOrganizations = (providerOrganization, query = {}) => {
+        PageLoadingBarService.setProgress(0);
 
-    $ctrl.hideFilters = () => $ctrl.filters.show = false;
-    $ctrl.transformList = (providers) => providers.map(provider => $ctrl.transformItem(provider));
-
-    const transformFundProviderItems = (fund_providers) => {
-        return (fund_providers || []).map((fundProvider) => ({
-            ...fundProvider,
-            state_locale: $translate(`provider_organizations.labels.fund_provider_state.${fundProvider.state}`),
-            uiViewParams: {
-                fund_id: fundProvider.fund.id,
-                organization_id: fundProvider.fund.organization_id,
-                fund_provider_id: fundProvider.id,
-            },
-        }));
+        OrganizationService.listProviders($ctrl.organization.id, query).then(
+            (res) => providerOrganization.fundProviders = { ...res.data, data: transformFundProviders(res.data?.data) },
+            (res) => PushNotificationsService.danger('Error', res?.data?.message),
+        ).finally(() => PageLoadingBarService.setProgress(100));
     };
 
-    $ctrl.transformItem = (providerOrganization) => {
-        const acceptedFunds = (providerOrganization.fund_providers.data || [])
-            .filter((fund_provider) => fund_provider.state === 'accepted').length;
+    $ctrl.showProviderOrganizationFunds = (e, providerOrganization) => {
+        e?.preventDefault();
+        e?.stopPropagation();
 
-        const acceptedFundsLocale = acceptedFunds === 0
-            ? 'geen fondsen'
-            : acceptedFunds + (acceptedFunds === 1 ? ' fonds' : ' fondsen');
+        if (providerOrganization.fundProviders) {
+            delete providerOrganization.fundProviders;
+            delete providerOrganization.fundProvidersFilters;
+        } else {
+            providerOrganization.fundProvidersFilters = {
+                page: 1,
+                per_page: 10,
+                organization_id: providerOrganization.id,
+            };
 
-        return {
-            ...providerOrganization,
-            ...{
-                uiViewParams: {
-                    organization_id: $ctrl.organization.id,
-                    provider_organization_id: providerOrganization.id
-                },
-                fund_providers: {
-                    ...providerOrganization.fund_providers,
-                    data: transformFundProviderItems(providerOrganization.fund_providers.data),
-                },
-                accepted_funds_count: acceptedFunds,
-                accepted_funds_count_locale: acceptedFundsLocale,
-                collapsed: false,
-            }
-        };
+            $ctrl.fetchProvidersOrganizations(providerOrganization, providerOrganization.fundProvidersFilters);
+        }
     };
 
-    const makeTableRows = (providerOrganizations) => {
-        $ctrl.rows = [];
-
-        providerOrganizations.forEach(organization => {
-            //- Main content block
-            $ctrl.rows.push({
-                data: organization,
-                show: true,
-                collapsed: false,
-                mainContentBlock: true,
-            });
-
-            //- Fund details block
-            $ctrl.rows.push({
-                data: organization.fund_providers.data,
-                index: organization.id,
-                show: false,
-                fundsBlock: true,
-            });
-
-            //- Pagination block
-            $ctrl.rows.push({
-                data: {
-                    ...organization.fund_providers,
-                    organization_id: organization.id,
-                },
-                index: organization.id,
-                show: false,
-                paginationBlock: true,
-            });
-        });
+    $ctrl.onProviderOrganizationFundsPageChange = (providerOrganization, query) => {
+        $ctrl.fetchProvidersOrganizations(providerOrganization, query);
     };
 
-    $ctrl.toggleOrganizationDetails = (tableRow) => {
-        tableRow.collapsed = !tableRow.collapsed;
-
-        // Toggle the related details section
-        $ctrl.rows.filter(row => row.index == tableRow.data.id && !row.mainContentBlock).map(row => {
-            row.show = tableRow.collapsed;
-            return row;
-        });
-    };
-
-    $ctrl.$onInit = function() {
+    $ctrl.$onInit = function () {
         $ctrl.funds = [...[{ id: null, name: 'Alle' }], ...$ctrl.funds];
-        $ctrl.providerOrganizations.data = $ctrl.transformList($ctrl.providerOrganizations.data);
-        makeTableRows($ctrl.providerOrganizations.data);
+        $ctrl.providerOrganizations.data = transformProviders($ctrl.providerOrganizations.data);
 
         $ctrl.requests = $ctrl.fundUnsubscribes.length;
         $ctrl.requestsExpired = $ctrl.fundUnsubscribes.filter((item) => item.state == 'overdue').length;
@@ -200,13 +155,13 @@ module.exports = {
     },
     controller: [
         '$state',
-        '$filter',
         '$stateParams',
         'FileService',
         'ModalService',
         'OrganizationService',
-        'ProviderFundService',
-        SponsorProviderOrganizationsComponent
+        'PageLoadingBarService',
+        'PushNotificationsService',
+        SponsorProviderOrganizationsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/sponsor-provider-organizations.html'
+    templateUrl: 'assets/tpl/pages/sponsor-provider-organizations.html',
 };

@@ -8,7 +8,7 @@
                     | &nbsp;
                     span(ng-bind="$ctrl.providerOrganizations.meta.total").span-count
 
-                .flex: .block.block-inline-filters
+                .flex-row: .block.block-inline-filters
                     .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                         em.mdi.mdi-close.icon-start
                         span(i18n="Wis filters")
@@ -24,7 +24,7 @@
                                 options="$ctrl.orderByOptions").form-control.form-control-text.nowrap
                         .form-group: input(ng-model="$ctrl.filters.values.q" placeholder="Zoeken").form-control
 
-                    .inline-filters-dropdown(click-outside="$ctrl.hideFilters()")
+                    .inline-filters-dropdown(click-outside="$ctrl.filters.hide()")
                         .inline-filters-dropdown-content(ng-show="$ctrl.filters.show")
                             .arrow-box.bg-dim: .arrow
                             .form
@@ -142,53 +142,68 @@
             .card-section(ng-if="$ctrl.providerOrganizations.data.length > 0"): .card-block.card-block-table: .table-wrapper: table.table
                 tr
                     th(translate="provider_organizations.labels.organization_name")
-                    th(translate="provider_organizations.labels.product_count")
                     th(translate="provider_organizations.labels.last_active")
-                    th(translate="provider_organizations.labels.related_funds")
+                    th(translate="provider_organizations.labels.product_count")
+                    th(translate="provider_organizations.labels.funds_count")
                     th(translate="provider_organizations.labels.actions").text-right
 
-                tr(ng-repeat="row in $ctrl.rows" ng-if="row.show")
-                    td.td-collapsable(ng-if="row.mainContentBlock" ng-click="$ctrl.toggleOrganizationDetails(row)"): .flex.flex-align-items-center
-                        em.mdi.icon-collapse(ng-class="row.collapsed ? 'mdi-menu-down' : 'mdi-menu-right'")
-                        img.td-media.td-media-sm(
-                            ng-src="{{ row.data.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
-                        .text-primary.text-strong(
-                            ng-bind="row.data.name | str_limit:40")
-                    
-                    td(ng-if="row.mainContentBlock" ng-bind="row.data.products_count")
-                    td(ng-if="row.mainContentBlock" ng-bind="row.data.last_activity_locale")
-                    td(ng-if="row.mainContentBlock" ng-bind="row.data.accepted_funds_count_locale")
-                    
-                    td.text-right(ng-if="row.mainContentBlock")
-                        a(ui-sref="sponsor-provider-organization(row.data.uiViewParams)").button.button-primary 
-                            em.mdi.mdi-eye-outline.icon-start
-                            translate(translate="provider_organizations.buttons.view")
+                tbody(ng-repeat="providerOrganization in $ctrl.providerOrganizations.data")
+                    tr(ui-sref="sponsor-provider-organization(providerOrganization.uiViewParams)")
+                        td(ng-click="$ctrl.showProviderOrganizationFunds($event, providerOrganization)"): .td-collapsable
+                            .collapsable-icon: .mdi.icon-collapse(
+                                ng-class="providerOrganization.fundProviders ? 'mdi-menu-down' : 'mdi-menu-right'")
 
-                    td(ng-if="row.fundsBlock" colspan = "5").td-table: .table-wrapper: table.table
-                        tr
-                            th Fondsnaam
-                            th Status
-                            th Opties
-                        tr(ng-repeat="fundProvider in row.data")
-                            td(ng-bind="fundProvider.fund.name")
-                            td
-                                .label.label-success(ng-if="fundProvider.state == 'accepted'" ng-bind="fundProvider.state_locale")
-                                .label.label-default(ng-if="fundProvider.state == 'pending'" ng-bind="fundProvider.state_locale")
-                                .label.label-danger(ng-if="fundProvider.state == 'rejected'" ng-bind="fundProvider.state_locale")
-                            td.td-narrow.text-right
-                                a(ui-sref="fund-provider(fundProvider.uiViewParams)").button.button-default.nowrap  
-                                    em.mdi.mdi-eye-outline.icon-start
-                                    | Bekijk aanbod
+                            .collapsable-content
+                                img.td-media.td-media-sm(
+                                    ng-src="{{ providerOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
 
-                    td(ng-if="row.paginationBlock" colspan = "5").td-table.td-pagination: .table-wrapper: table.table
-                        tr: td
-                            //- Pagination
-                            div(ng-if="row.data.total" ng-show="row.data.last_page > 0")
+                                .text-primary.text-strong(
+                                    ng-bind="providerOrganization.name | str_limit:40")
+                        
+                        td(ng-bind="providerOrganization.last_activity_locale")
+                        td(ng-bind="providerOrganization.products_count")
+                        td(ng-bind="providerOrganization.funds.length")
+                        
+                        td.text-right
+                            a(ui-sref="sponsor-provider-organization(providerOrganization.uiViewParams)").button.button-primary.button-sm
+                                em.mdi.mdi-eye-outline.icon-start
+                                translate(translate="provider_organizations.buttons.view")
+
+                    tr(ng-if="providerOrganization.fundProviders"): td(colspan="5").td-paddless
+                        table.table.table-embed(ng-if="providerOrganization.fundProviders.meta.total > 0")
+                            thead: tr
+                                th Fondsnaam
+                                th Status
+                                th Opties
+
+                            tbody: tr(
+                                ng-repeat="fundProvider in providerOrganization.fundProviders.data" 
+                                ng-click="$ctrl.showTransaction(transaction)"
+                                ui-sref="fund-provider(fundProvider.uiViewParams)")
+
+                                td: .td-collapsable
+                                    .collapsable-icon: .mdi
+                                    .collapsable-content
+                                        img.td-media.td-media-sm(
+                                            ng-src="{{ fundProvider.fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+
+                                        .text-primary.text-strong(
+                                            ng-bind="fundProvider.fund.name | str_limit:40")
+                                td
+                                    .label.label-success(ng-if="fundProvider.state == 'accepted'" ng-bind="fundProvider.state_locale")
+                                    .label.label-default(ng-if="fundProvider.state == 'pending'" ng-bind="fundProvider.state_locale")
+                                    .label.label-danger(ng-if="fundProvider.state == 'rejected'" ng-bind="fundProvider.state_locale")
+
+                                td.td-narrow.text-right
+                                    a(ui-sref="fund-provider(fundProvider.uiViewParams)").button.button-default.button-sm.nowrap  
+                                        em.mdi.mdi-eye-outline.icon-start
+                                        | Bekijk aanbod
+
+                            tr: td(colspan="5")
                                 paginator(
-                                    meta="row.data"
-                                    filters="row.data" 
-                                    count-buttons="5" 
-                                    on-page-change="$ctrl.onFundsPageChange(query)")
+                                    meta="providerOrganization.fundProviders.meta"
+                                    filters="providerOrganization.fundProvidersFilters"
+                                    on-page-change="$ctrl.onProviderOrganizationFundsPageChange(providerOrganization, query)")
 
             //- Pagination
             .card-section(ng-if="$ctrl.providerOrganizations.meta" ng-show="$ctrl.providerOrganizations.meta.last_page > 0")
