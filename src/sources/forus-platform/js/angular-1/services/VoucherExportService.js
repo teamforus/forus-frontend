@@ -114,8 +114,8 @@ const VoucherExportService = function (
 
         const saveExportedVouchers = (res, qrFormat) => {
             return $q((resolve) => {
-                const data = res.data;
-                const zipName = 'vouchers_' + moment().format('YYYY-MM-DD HH:mm:ss') + '.zip';
+                const { data, name } = res;
+                const zipName = `${name}.zip`;
 
                 const files = Object.keys(res.files).reduce((files, fileKey) => {
                     return { ...files, [fileKey]: base64ToBlob(res.files[fileKey], fileTypes[fileKey]) };
@@ -126,7 +126,8 @@ const VoucherExportService = function (
                 }
 
                 JSZip.loadAsync(files.zip).then(function (zip) {
-                    const imgDirectory = data.length > 0 ? zip.folder("images") : null;
+                    const imagesDirName = `${name}_QR_codes_images`;
+                    const imgDirectory = data.length > 0 ? zip.folder(imagesDirName) : null;
 
                     const promises = data.map(async (voucherData, index) => {
                         console.info('- making qr file ' + (index + 1) + ' from ' + data.length + '.');
