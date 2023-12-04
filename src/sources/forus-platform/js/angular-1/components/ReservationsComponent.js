@@ -20,6 +20,9 @@ const ReservationsComponent = function (
         key: null,
         name: 'Alle'
     }, {
+        key: 'waiting',
+        name: 'Wachtend op bijbetaling', // Waiting
+    }, {
         key: 'pending',
         name: 'In afwachting', // Pending
     }, {
@@ -30,10 +33,19 @@ const ReservationsComponent = function (
         name: 'Geweigerd' // Rejected
     }, {
         key: 'canceled',
-        name: 'Geannuleerd' // Canceled by provider
+        name: 'Geannuleerd door aanbieder' // Canceled by provider
     }, {
         key: 'canceled_by_client',
         name: 'Geannuleerd door aanvrager' // Canceled by client
+    }, {
+        key: 'canceled_payment_expired',
+        name: 'Geannuleerd door verlopen bijbetaling' // Canceled payment expired
+    }, {
+        key: 'canceled_payment_canceled',
+        name: 'Geannuleerd door ingetrokken bijbetaling' // Canceled payment canceled
+    }, {
+        key: 'canceled_payment_failed',
+        name: 'Geannuleerd door mislukte bijbetaling' // Canceled payment failed
     }];
 
     $ctrl.filters = {
@@ -64,6 +76,16 @@ const ReservationsComponent = function (
         );
     };
 
+    const mapReservations = (reservations) => {
+        return {
+            ...reservations,
+            data: reservations.data.map((reservation) => ({
+                ...reservation,
+                allowAcceptReservation: ProductReservationService.acceptAllowed(reservation),
+            })),
+        };
+    }
+
     $ctrl.onPageChange = (query = {}) => {
         PageLoadingBarService.setProgress(0);
 
@@ -71,9 +93,10 @@ const ReservationsComponent = function (
             fetchReservations(query).then((res) => $ctrl.activeReservations = res.data),
             fetchReservations(query, true).then((res) => $ctrl.archivedReservations = res.data),
         ]).then(() => {
-            $ctrl.reservations = $ctrl.shownReservationsType == 'active' ?
+            $ctrl.reservations = mapReservations($ctrl.shownReservationsType == 'active' ?
                 $ctrl.activeReservations :
-                $ctrl.archivedReservations;
+                $ctrl.archivedReservations,
+            );
 
             PageLoadingBarService.setProgress(100);
         });
@@ -89,6 +112,10 @@ const ReservationsComponent = function (
     }
 
     $ctrl.rejectReservation = (reservation) => {
+        if (reservation.extra_payment?.is_paid && !reservation.extra_payment?.is_fully_refunded) {
+            return ProductReservationService.showRejectInfoExtraPaid();
+        }
+
         ProductReservationService.confirmRejection(() => {
             ProductReservationService.reject($ctrl.organization.id, reservation.id).then((res) => {
                 PushNotificationsService.success('Opgeslagen!');
@@ -183,7 +210,11 @@ const ReservationsComponent = function (
         const { reservations_budget_enabled, reservations_subsidy_enabled } = $ctrl.organization;
 
         $ctrl.filters.reset();
-        $ctrl.reservations = $ctrl.shownReservationsType == 'active' ? $ctrl.activeReservations : $ctrl.archivedReservations;
+        $ctrl.reservations = mapReservations($ctrl.shownReservationsType == 'active' ?
+            $ctrl.activeReservations :
+            $ctrl.archivedReservations,
+        );
+
         $ctrl.acceptedByDefault = $ctrl.organization.reservations_auto_accept;
         $ctrl.reservationEnabled = reservations_budget_enabled || reservations_subsidy_enabled;
 

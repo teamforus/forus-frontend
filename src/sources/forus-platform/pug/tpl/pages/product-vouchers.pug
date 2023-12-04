@@ -159,7 +159,7 @@
                                         br
                                         | {{ 'NR: ' + (voucher.client_uid || voucher.physical_card.code || 'Nee') }}
 
-                                td: strong(ng-bind="'vouchers.labels.source_' + voucher.source | translate").text-md.text-muted-dark
+                                td: strong(ng-bind="voucher.source_locale").text-md.text-muted-dark
 
                                 td
                                     strong(ng-bind="voucher.product.organization.name | str_limit:25").text-primary
