@@ -14,30 +14,3 @@ $(window).on('load', function() {
 		g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
 	})();
 });
-
-var previousScroll = 0,
-	headerOrgOffset = $('.cf-wr').height();
-
-$('.navbar').height($('.navbar').height());
-
-$(window).scroll(function() {
-	var currentScroll = $(this).scrollTop();
-	if (currentScroll > headerOrgOffset) {
-		if (currentScroll > previousScroll) {
-			$('.navbar').addClass('nav-hide');
-		} else {
-			$('.navbar').removeClass('nav-hide');
-		}
-	}
-	previousScroll = currentScroll;
-});
-
-$('.navbar-collapse ul li a').click(function() {
-	$('.navbar-toggle:visible').click();
-});
-
-$(document).on('click', '.navbar-collapse.in', function(e) {
-	if ($(e.target).is('a') && ($(e.target).attr('class') != 'dropdown-toggle')) {
-		$(this).collapse('hide');
-	}
-});

@@ -45,8 +45,8 @@
                         organization="$ctrl.organization"
                         errors="$ctrl.form.errors")
 
-            //-.card-section.card-section-primary.card-section-settings(
-                ng-if="$ctrl.organization.allow_extra_payments_by_sponsor"
+            .card-section.card-section-primary.card-section-settings(
+                ng-if="$ctrl.organization.allow_extra_payments_by_sponsor && ($ctrl.organization | hasPerm:'manage_payment_methods')"
                 ): .row: .col-xs-12.col-lg-8
                 .form-group.form-group-inline
                     label(for="reservation_extra_payments" translate="reservation_settings.labels.extra_payments").form-label

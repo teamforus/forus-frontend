@@ -187,14 +187,33 @@
                 min-height: 100px;
                 border: 1px solid var(--border-color);
                 border-radius: var(--border-radius);
+                display: grid;
+                grid-template-columns: 100px 1fr auto auto;
 
                 .voucher-image {
                     flex-basis: 100px;
+                    border-radius: inherit;
+                    object-fit: initial;
+                    display: grid;
+
+                    img {
+                        display: block;
+                        border-radius: inherit;
+                        height: auto;
+                        object-fit: initial;
+                    }
                 }
 
                 .voucher-details {
-                    padding: 15px 15px;
+                    padding: 15px 15px 15px 0px;
                     position: relative;
+                    display: grid;
+                    width: auto;
+
+                    .voucher-base-information {
+                        display: grid;
+                        grid-template-columns: 1fr auto;
+                    }
 
                     .voucher-name {
                         font: 600 14px/20px var(--hf);
@@ -214,13 +233,32 @@
 
                     .voucher-records {
                         display: flex;
+                        margin-top: -25px;
                     }
 
-                    .voucher-value {
-                        font: 700 18px/30px var(--base-font);
-                        position: absolute;
-                        right: 15px;
-                        top: 15px;;
+                    .voucher-amounts {
+                        display: grid;
+                        text-align: right;
+                        position: relative;
+                        align-items: center;
+                        gap: 5px;
+
+                        .voucher-value {
+                            font: 700 16px/24px var(--base-font);
+                        }
+
+                        .voucher-extra-payment {
+                            color: #595959;
+
+                            .voucher-extra-payment-value {
+                                font: 600 14px/21px var(--base-font);
+                            }
+
+                            .voucher-extra-payment-description {
+                                font: 400 11px/16px var(--base-font);
+                                margin-top: -2px;
+                            }
+                        }
                     }
                 }
 
@@ -466,9 +504,9 @@
                         }
     
                         .voucher-value {
-                            position: initial;
+                            // position: initial;
                             font: 700 22px/22px var(--base-font);
-                            margin: 0 0 10px;
+                            // margin: 0 0 10px;
                         }
                     }
 

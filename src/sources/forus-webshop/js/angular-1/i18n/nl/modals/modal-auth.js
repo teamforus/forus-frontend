@@ -1,7 +1,7 @@
 module.exports = {
     // AUTHENTICATION POPUP = popup-auth.pug
     header: {
-        title: 'Login met e-mail',
+        title: 'E-mail verstuurd',
         subtitle_formal: 'Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen.',
         subtitle_informal: 'Vul jouw e-mailadres in om een link te ontvangen waarmee je kunt inloggen.',
 

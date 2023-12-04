@@ -161,6 +161,10 @@
             margin: 0 -25px 25px;
         }
 
+        &.card-section-md {
+            padding: 15px;
+        }
+
         &.card-section-sm {
             padding: 10px;
         }
@@ -183,6 +187,19 @@
             .card-heading:first-child {
                 margin-top: -5px;
             }
+        }
+    }
+
+    .card-footer {
+        font: 400 13px/18px var(--base-font);
+        color: #222222;
+
+        &.card-footer-warning {
+            background: #FFFCEB;
+        }
+
+        &.card-footer-sm {
+            padding: 15px;
         }
     }
 
