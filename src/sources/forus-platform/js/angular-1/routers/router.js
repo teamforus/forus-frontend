@@ -1732,7 +1732,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             organization: organizationResolver(),
             mollieConnection: ['$transition$', 'MollieConnectionService', (
                 $transition$, MollieConnectionService
-            ) => repackResponse(MollieConnectionService.getConfigured(
+            ) => repackResponse(MollieConnectionService.getActive(
                 $transition$.params().organization_id,
             ))],
         }
@@ -1745,6 +1745,48 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "molliePrivacyComponent",
         resolve: {
             organization: organizationResolver(),
+        }
+    });
+
+    // Extra payments
+    $stateProvider.state({
+        name: "extra-payments",
+        url: "/organizations/{organization_id}/extra-payments?{q:string}&{fund_id:int}",
+        params: {
+            q: routeParam(''),
+            fund_id: routeParam(null),
+        },
+        component: "reservationExtraPaymentsComponent",
+        resolve: {
+            organization: organizationResolver(),
+            permission: permissionMiddleware('organization-funds', ['manage_funds', 'view_funds'], false),
+            funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
+                return repackResponse(FundService.list($transition$.params().organization_id));
+            }],
+            extraPayments: ['$transition$', 'ReservationExtraPaymentService', (
+                $transition$, ReservationExtraPaymentService
+            ) => repackPagination(ReservationExtraPaymentService.list(
+                $transition$.params().organization_id, {
+                    ...pick($transition$.params(), ['q', 'fund_id']),
+                    per_page: 20,
+                },
+            ))],
+        }
+    });
+
+    // Extra payment
+    $stateProvider.state({
+        name: "extra-payment",
+        url: "/organizations/{organization_id}/extra-payments/{id}",
+        component: "reservationExtraPaymentShowComponent",
+        resolve: {
+            organization: organizationResolver(),
+            extraPayment: ['$transition$', 'ReservationExtraPaymentService', (
+                $transition$, ReservationExtraPaymentService
+            ) => repackResponse(ReservationExtraPaymentService.read(
+                $transition$.params().organization_id,
+                $transition$.params().id,
+            ))],
         }
     });
 

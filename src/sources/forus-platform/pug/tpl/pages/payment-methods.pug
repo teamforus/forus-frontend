@@ -13,10 +13,9 @@
                 .connection-content-details
                     .connection-content-title Bijbetalen mogelijk maken via Mollie
                     .connection-content-description 
-                        | De koppeling met Mollie maakt het voor klanten mogelijk om direct en veilig bij te betalen|
-                        | aan u als aanbieder, wanneer hun tegoed ontoereikend is. Deze functionaliteit zorgt voor|
-                        | een gestroomlijnde en beveiligde betaalervaring, waardoor transacties efficiënter worden|
-                        | afgehandeld.
+                        | De koppeling met Mollie maakt het mogelijk om bijbetalingen van deelnemers te ontvangen. Hierdoor 
+                        | kunnen deelnemers het tegoed volledig besteden. De deelnemer betaalt een gedeelte van de kosten van  
+                        | het aanbod vanuit het resterende tegoed en een gedeelte zelf. Beide transacties worden naar u overgemaakt.
                     
                     label(for='privacy').checkbox.checkbox-narrow
                         input(type="checkbox" ng-model="$ctrl.privacy" id='privacy')
@@ -94,6 +93,9 @@
                                     em.mdi.mdi-close.icon-start
                                     translate(translate="mollie_connection.buttons.delete")
 
+                .card-footer.card-footer-warning.card-footer-sm: .card-title
+                    .text-small(translate="mollie_connection.header.warning")
+
             //- Connection details
             .card
                 .card-header: .card-title(translate="mollie_connection.titles.general_information")
@@ -117,17 +119,17 @@
                         +keyvalue_item('last_name', 'last_name')
 
             //- Profile details
-            .card(ng-if="$ctrl.mollieConnection.active_profile")
+            .card(ng-if="$ctrl.mollieConnection.profile_active")
                 .card-header: .card-title(translate="mollie_connection.titles.current_profile_information")
 
                 .card-section: .card-block.card-block-keyvalue
-                    +keyvalue_item('name', 'active_profile.name')
-                    +keyvalue_item('phone', 'active_profile.phone')
-                    +keyvalue_item('email', 'active_profile.email')
-                    +keyvalue_item('website', 'active_profile.website')
+                    +keyvalue_item('name', 'profile_active.name')
+                    +keyvalue_item('phone', 'profile_active.phone')
+                    +keyvalue_item('email', 'profile_active.email')
+                    +keyvalue_item('website', 'profile_active.website')
 
             //- Profile form
-            .card(ng-if="!$ctrl.mollieConnection.active_profile"): .form
+            .card(ng-if="!$ctrl.mollieConnection.profile_active"): .form
                 .card-header: .card-title(translate="mollie_connection.header_update_profile.title")
 
                 .card-section.card-section-primary

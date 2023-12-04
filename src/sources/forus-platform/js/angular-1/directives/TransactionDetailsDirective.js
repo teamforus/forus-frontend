@@ -19,6 +19,10 @@ const TransactionDetailsDirective = function (
     }
 
     $dir.cancelTransaction = (reservation) => {
+        if (reservation.extra_payment?.is_paid && !reservation.extra_payment?.is_fully_refunded) {
+            return ProductReservationService.showRejectInfoExtraPaid();
+        }
+
         ModalService.open("dangerZone", {
             title: "Weet u zeker dat u de betaling wilt annuleren?",
             description_text: "Als u de betaling annuleert wordt de bestelling ongedaan gemaakt. U ontvangt geen betaling en de klant krijgt het tegoed terug.",
@@ -37,9 +41,12 @@ const TransactionDetailsDirective = function (
         });
     };
 
-    $dir.$onInit = () => {
+    $dir.$onInit = () => {        
+        const { product_reservation, voucher_id } = $dir.transaction;
+
         $dir.appConfigs = appConfigs;
         $dir.showVoucherDetailsPage = $dir.transaction.voucher && appConfigs.panel_type == 'sponsor';
+        $dir.voucherDetailsId = product_reservation?.voucher_id || voucher_id;
     };
 };
 

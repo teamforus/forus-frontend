@@ -1,70 +1,68 @@
 nav.navbar.navbar-inverse
-	.container-fluid.cf-wr
-		.navbar-header
-			button.navbar-toggle(type='button' data-toggle='collapse' data-target='#myNavbar')
-				span.icon-bar
-				span.icon-bar
-				span.icon-bar
-			a.navbar-brand(href="/#!/")
-				include ../../../../resources/platform-general/assets/img/svg/forus-logo.svg
-		#myNavbar.collapse.navbar-collapse
-			ul.nav.navbar-nav
-				li.dropdown
-					a.dropdown-toggle(ui-sref="platform")
-						| Platform Forus
-				//-span.caret
-					ul.dropdown-menu
-						li
-							a(href='#') Page 1-1
-						li
-							a(href='#') Page 1-2
-						li
-							a(href='#') Page 1-3
-				li
-					a(ui-sref="me") Me-app
-				li
-					a(ui-sref="current") Over ons
-				li
-					a(ui-sref="research") Onderzoek
-				li
-					a(ui-sref="contact") Contact
-				li
-					a(href="https://vacatures.forus.io/jobs/Careers" target="_blank") Vacatures
-			
-			ul.nav.navbar-nav.navbar-right(ng-if="!$root.auth_user")
-				li
-					a.login_btn(ng-click="openAuthPopup()")
-						span.glyphicon.glyphicon-log-in
-						|  Inloggen
+	.navbar-inner.wrapper
+		.navbar-logo-block
+			a.navbar-logo-wrapper.hide-sm
+				.navbar-logo(ui-sref="home"): include ../../../../resources/platform-general/assets/img/svg/forus-logo.svg
 
-			ul.nav.navbar-nav.navbar-right.auth-out(ng-if="$root.auth_user")
-				.header-auth
-					.auth-user(ng-click="$ctrl.openUserMenu($event)")
-						.auth-user-details
-							.auth-user-name {{ $root.auth_user.email || ($root.auth_user.address | str_limit:32) }}
-							.auth-user-role Uw profiel
+			a.navbar-logo-wrapper.navbar-logo-wrapper-mobile
+				.navbar-logo(ui-sref="home"): include ../../../../resources/platform-general/assets/img/svg/forus-logo.svg
 
-						img(ng-src="{{ $root.activeOrganization ? ($root.activeOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png') : './assets/img/placeholders/organization-thumbnail.png'}} ").auth-user-img
+				button.navbar-toggle(ng-click="$root.showMobileMenu = !$root.showMobileMenu").show-sm
+					.icon-bar
+					.icon-bar
+					.icon-bar
+		
+		ul.nav.navbar-list.hide-sm(ng-class="{'show-sm': $root.showMobileMenu}")
+			li.navbar-item-wrapper
+				a.navbar-item(ui-sref="platform" ng-click="$root.showMobileMenu = false;")
+					| Platform Forus
 
-						.auth-user-caret: em(ng-class="$root.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
+			li.navbar-item-wrapper
+				a(ui-sref="me" ng-click="$root.showMobileMenu = false;").navbar-item Me-app
 
-						nav.auth-user-menu.hide-sm(
-							ng-class="{active: $ctrl.userMenuOpened}"
-							ng-if="$ctrl.userMenuOpened"
-							click-outside="$ctrl.hideUserMenu()")
-							.triangle
-							.inner
-								.auth-user-menu-item(ng-click="$ctrl.goToHref('/sponsor')")
-									| Sponsor
+			li.navbar-item-wrapper
+				a(ui-sref="current" ng-click="$root.showMobileMenu = false;").navbar-item Over ons
 
-								.auth-user-menu-item(ng-click="$ctrl.goToHref('/provider')")
-									| Aanbieder
+			li.navbar-item-wrapper
+				a(ui-sref="research" ng-click="$root.showMobileMenu = false;").navbar-item Onderzoek
 
-								.auth-user-menu-item(ng-click="$ctrl.goToHref('/validator')")
-									| Beoordelaar
+			li.navbar-item-wrapper
+				a(ui-sref="contact" ng-click="$root.showMobileMenu = false;").navbar-item Contact
 
-								.auth-user-menu-sep
+			li.navbar-item-wrapper
+				a(href="https://vacatures.forus.io/jobs/Careers" target="_blank").navbar-item Vacatures
 
-								.auth-user-menu-item(ng-click="$root.signOut()" id="sign_out")
-									em.mdi.mdi-logout
-									span(translate="topnavbar.buttons.logout")
+			li.header-auth.hide-sm
+				a.login_btn(ng-if="!$root.auth_user" ng-click="openAuthPopup()")
+					span.glyphicon.glyphicon-log-in
+					|  Inloggen
+
+				.auth-user(ng-if="$root.auth_user" ng-click="$ctrl.openUserMenu($event)")
+					.auth-user-details
+						.auth-user-name {{ $root.auth_user.email || ($root.auth_user.address | str_limit:32) }}
+						.auth-user-role Uw profiel
+
+					img(ng-src="{{ $root.activeOrganization ? ($root.activeOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png') : './assets/img/placeholders/organization-thumbnail.png'}} ").auth-user-img
+
+					.auth-user-caret: em(ng-class="$root.userMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'").mdi
+
+					nav.auth-user-menu.hide-sm(
+						ng-class="{active: $ctrl.userMenuOpened}"
+						ng-if="$ctrl.userMenuOpened"
+						click-outside="$ctrl.hideUserMenu()")
+						.triangle
+						.inner
+							.auth-user-menu-item(ng-click="$ctrl.goToHref('/sponsor')")
+								| Sponsor
+
+							.auth-user-menu-item(ng-click="$ctrl.goToHref('/provider')")
+								| Aanbieder
+
+							.auth-user-menu-item(ng-click="$ctrl.goToHref('/validator')")
+								| Beoordelaar
+
+							.auth-user-menu-sep
+
+							.auth-user-menu-item(ng-click="$root.signOut()" id="sign_out")
+								em.mdi.mdi-logout
+								span(translate="topnavbar.buttons.logout")

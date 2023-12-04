@@ -197,7 +197,7 @@
                                     span(ng-if="voucher.client_uid || (!voucher.identity_email && voucher.activation_code) || ((!voucher.identity_bsn && !voucher.relation_bsn) && voucher.physical_card.code)").text-strong.text-md.text-muted-dark
                                         br
                                         | {{ 'NR: ' + (voucher.client_uid || voucher.physical_card.code || 'Nee') }}
-                                td: strong(ng-bind="'vouchers.labels.source_' + voucher.source | translate").text-md.text-muted-dark
+                                td: strong(ng-bind="voucher.source_locale").text-md.text-muted-dark
 
                                 td(
                                     ng-if="$ctrl.fund.type == 'budget'" 
