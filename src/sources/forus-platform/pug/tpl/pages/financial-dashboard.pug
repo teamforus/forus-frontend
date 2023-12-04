@@ -235,7 +235,7 @@
                                             strong(ng-bind="transaction.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
                                         td(ng-bind="{pending: 'In afwachting', success : 'Voltooid'}[transaction.state]").text-right
                                     
-                                    tr: td(colspan="4")
+                                    tr: td(colspan="5")
                                         paginator(
                                             meta="provider.transactions.meta"
                                             filters="provider.filter" 

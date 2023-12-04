@@ -252,6 +252,38 @@
                     margin: -5px 0;
                 }
 
+                .td-collapsable {
+                    display: grid;
+                    grid-template-columns: 15px auto 1fr;
+
+                    .collapsable-icon,
+                    .collapsable-content {
+                        display: grid;
+                        align-items: center;
+                    }
+
+                    .collapsable-icon {
+                        font-size: 20px;
+                        margin-left: -7.5px;
+
+                        .mdi {
+                            color: var(--text-color);
+                            transition: color .4s;
+                        }
+
+                        &:hover {
+                            .mdi {
+                                color: var(--color-primary);
+                            }
+                        }
+                    }
+
+                    .collapsable-content {
+                        grid-template-columns: repeat(10, auto) 1fr;
+                        gap: 10px;
+                    }
+                }
+
                 &:first-child {
                     padding-left: 25px;
                 }
@@ -319,13 +351,9 @@
             }
         }
 
-        &>tr,
-        &>thead:last-child>tr,
         &>tbody:last-child>tr {
             &:last-child {
-
-                td,
-                th {
+                &>td {
                     border-bottom: 0;
                 }
             }
