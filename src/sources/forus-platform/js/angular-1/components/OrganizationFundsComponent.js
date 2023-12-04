@@ -11,18 +11,19 @@ const OrganizationFundsComponent = function (
     const $ctrl = this;
     const $translate = $filter('translate');
     const $translateDangerZone = (type, key) => $translate(`modals.danger_zone.${type}.${key}`);
+    const $translateFundStates = (state) => $translate(`components.organization_funds.states.${state}`);
 
     $ctrl.shownFundsType = $stateParams.funds_type || 'active';
 
     $ctrl.states = [{
         key: 'active',
-        name: 'Active',
+        name: $translateFundStates('active'),
     }, {
         key: 'paused',
-        name: 'Paused',
+        name: $translateFundStates('paused'),
     }, {
         key: 'closed',
-        name: 'Closed',
+        name: $translateFundStates('closed'),
     }];
 
     $ctrl.filters = {

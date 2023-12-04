@@ -41,7 +41,7 @@
                             span(i18n="Wis filters")
 
                         .form(ng-if="!$ctrl.filters.show")
-                            .form-group.inline-filters-search: input(
+                            .form-group: input(
                                 ng-model="$ctrl.filters.values.q"
                                 placeholder="Zoeken").form-control
 
@@ -96,7 +96,7 @@
                                     .td-entity-main-media: img.td-media.td-media-sm.td-media-round(
                                         ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
                                     .td-entity-main-content
-                                        .text-strong.text-primary(ng-bind="fund.name | str_limit:25" title="{{ fund.name || '-' }}")
+                                        .text-strong.text-primary(ng-bind="fund.name | str_limit:50" title="{{ fund.name || '-' }}")
                                         .text-muted-dark(ng-bind="fund.type_locale")
 
                                 //- Fund amount left
@@ -113,7 +113,7 @@
                                 td
                                     .label.label-success(
                                         ng-if="!fund.archived && fund.state == 'active'"
-                                        ng-bind="fund.state")
+                                        translate="components.organization_funds.states.active")
 
                                     .label.label-warning(
                                         ng-if="!fund.archived && fund.state == 'paused'"
