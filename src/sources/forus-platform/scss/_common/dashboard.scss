@@ -4711,18 +4711,6 @@ body {
             }
         }
 
-        .inline-filters-search {
-            width: 220px;
-            max-width: 100%;
-
-            input {
-                background-image: assetUrl('img/looking-glass.png');
-                background-repeat: no-repeat;
-                background-size: auto 120%;
-                background-position: 100% 50%;
-            }
-        }
-
         .inline-filters-dropdown {
             position: relative;
             display: inline-block;

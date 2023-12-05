@@ -20,7 +20,7 @@
                                 id="orderBy"
                                 prop="value"
                                 search="false"
-                                ng-model="$ctrl.filters.values.order_by" 
+                                ng-model="$ctrl.filters.values.order_by"
                                 options="$ctrl.orderByOptions").form-control.form-control-text.nowrap
                         .form-group: input(ng-model="$ctrl.filters.values.q" placeholder="Zoeken").form-control
 
@@ -41,72 +41,72 @@
                                     .inline-filters-pane
                                         .radio
                                             input#allow_budget_yes(
-                                                type="radio" 
-                                                name="allow_budget" 
+                                                type="radio"
+                                                name="allow_budget"
                                                 ng-model="$ctrl.filters.values.allow_budget" value="1")
                                             label(for="allow_budget_yes").radio-label
                                                 .radio-circle
                                                 | Ja
                                         .radio
                                             input#allow_budget_no(
-                                                type="radio" 
-                                                name="allow_budget" 
+                                                type="radio"
+                                                name="allow_budget"
                                                 ng-model="$ctrl.filters.values.allow_budget" value="0")
                                             label(for="allow_budget_no").radio-label
                                                 .radio-circle
                                                 | Nee
                                         .radio
                                             input#allow_budget_all(
-                                                type="radio" 
-                                                name="allow_budget" 
+                                                type="radio"
+                                                name="allow_budget"
                                                 ng-model="$ctrl.filters.values.allow_budget" value="")
                                             label(for="allow_budget_all").radio-label
                                                 .radio-circle
                                                 | Alles
-                                
+
                                 .form-group
                                     form-label-toggle(label="Accepteer aanbiedingen")
                                     .inline-filters-pane
                                         .radio
                                             input#allow_products_yes(
-                                                type="radio" 
-                                                name="allow_products" 
+                                                type="radio"
+                                                name="allow_products"
                                                 ng-model="$ctrl.filters.values.allow_products" value="1")
                                             label(for="allow_products_yes").radio-label
                                                 .radio-circle
                                                 | Alle aanbiedingen
                                         .radio
                                             input#allow_products_some(
-                                                type="radio" 
-                                                name="allow_products" 
+                                                type="radio"
+                                                name="allow_products"
                                                 ng-model="$ctrl.filters.values.allow_products" value="some")
                                             label(for="allow_products_some").radio-label
                                                 .radio-circle
                                                 | Sommige aanbiedingen
                                         .radio
                                             input#allow_products_no(
-                                                type="radio" 
-                                                name="allow_products" 
+                                                type="radio"
+                                                name="allow_products"
                                                 ng-model="$ctrl.filters.values.allow_products" value="0")
                                             label(for="allow_products_no").radio-label
                                                 .radio-circle
                                                 | Geen aanbiedingen
                                         .radio
                                             input#allow_products_all(
-                                                type="radio" 
-                                                name="allow_products" 
+                                                type="radio"
+                                                name="allow_products"
                                                 ng-model="$ctrl.filters.values.allow_products" value="")
                                             label(for="allow_products_all").radio-label
                                                 .radio-circle
                                                 | Alles
-                                
+
                                 .form-group
                                     form-label-toggle(label="Levert producten")
                                     .inline-filters-pane
                                         .radio
                                             input#has_products_yes(
-                                                type="radio" 
-                                                name="has_products" 
+                                                type="radio"
+                                                name="has_products"
                                                 ng-model="$ctrl.filters.values.has_products" value="1")
                                             label(for="has_products_yes").radio-label
                                                 .radio-circle
@@ -114,8 +114,8 @@
 
                                         .radio
                                             input#has_products_no(
-                                                type="radio" 
-                                                name="has_products" 
+                                                type="radio"
+                                                name="has_products"
                                                 ng-model="$ctrl.filters.values.has_products" value="0")
                                             label(for="has_products_no").radio-label
                                                 .radio-circle
@@ -123,22 +123,22 @@
 
                                         .radio
                                             input#has_products_all(
-                                                type="radio" 
-                                                name="has_products" 
+                                                type="radio"
+                                                name="has_products"
                                                 ng-model="$ctrl.filters.values.has_products" value="")
                                             label(for="has_products_all").radio-label
                                                 .radio-circle
                                                 | Alles
-                                
+
                                 .form-actions
                                     button.button.button-primary.button-wide(
                                         ng-click="$ctrl.exportList()"
                                         ng-disabled="$ctrl.providerOrganizations.meta.total == 0")
-                                        em.mdi.mdi-download.icon-start  
+                                        em.mdi.mdi-download.icon-start
                                         span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.providerOrganizations.meta.total }")
 
                         .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
-        
+
             .card-section(ng-if="$ctrl.providerOrganizations.data.length > 0"): .card-block.card-block-table: .table-wrapper: table.table
                 tr
                     th(translate="provider_organizations.labels.organization_name")
@@ -159,11 +159,11 @@
 
                                 .text-primary.text-strong(
                                     ng-bind="providerOrganization.name | str_limit:40")
-                        
+
                         td(ng-bind="providerOrganization.last_activity_locale")
                         td(ng-bind="providerOrganization.products_count")
                         td(ng-bind="providerOrganization.funds.length")
-                        
+
                         td.text-right
                             a(ui-sref="sponsor-provider-organization(providerOrganization.uiViewParams)").button.button-primary.button-sm
                                 em.mdi.mdi-eye-outline.icon-start
@@ -177,7 +177,7 @@
                                 th Opties
 
                             tbody: tr(
-                                ng-repeat="fundProvider in providerOrganization.fundProviders.data" 
+                                ng-repeat="fundProvider in providerOrganization.fundProviders.data"
                                 ng-click="$ctrl.showTransaction(transaction)"
                                 ui-sref="fund-provider(fundProvider.uiViewParams)")
 
@@ -195,7 +195,7 @@
                                     .label.label-danger(ng-if="fundProvider.state == 'rejected'" ng-bind="fundProvider.state_locale")
 
                                 td.td-narrow.text-right
-                                    a(ui-sref="fund-provider(fundProvider.uiViewParams)").button.button-default.button-sm.nowrap  
+                                    a(ui-sref="fund-provider(fundProvider.uiViewParams)").button.button-default.button-sm.nowrap
                                         em.mdi.mdi-eye-outline.icon-start
                                         | Bekijk aanbod
 

@@ -5,7 +5,7 @@
             .card-header: .flex-row
                 //- Organization funds title
                 .flex-col.flex-grow: .card-title
-                    span(i18n="components.organization_funds.title") 
+                    span(i18n="components.organization_funds.title")
                     span(ng-bind="$ctrl.funds.meta.total").span-count
 
                 //- Filters
@@ -22,9 +22,9 @@
                         ui-sref="organization-security({organization_id: $ctrl.organization.id, view_type: 'funds'})")
                         em.mdi.mdi-security.icon-start
                         translate(translate="components.organization_funds.buttons.security")
-                    
+
                     //- View type
-                    .form: .flex: div: .block.block-label-tabs: .label-tab-set 
+                    .form: .flex: div: .block.block-label-tabs: .label-tab-set
                         .label-tab.label-tab-sm(
                             ng-class="{'active' : $ctrl.shownFundsType == 'active'}"
                             ui-sref="organization-funds({funds_type: 'active'})")
@@ -33,7 +33,7 @@
                         .label-tab.label-tab-sm(
                             ng-class="{'active' : $ctrl.shownFundsType == 'archived'}"
                             ui-sref="organization-funds({funds_type: 'archived'})")
-                            | Archief ({{ $ctrl.funds.meta.archived_funds_total }})    
+                            | Archief ({{ $ctrl.funds.meta.archived_funds_total }})
 
                     .flex
                         .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
@@ -55,7 +55,7 @@
                                             type="text"
                                             ng-model="$ctrl.filters.values.q"
                                             placeholder="{{ 'components.organization_funds.filters.search' | i18n }}").form-control
-                                    
+
                                     .form-group(ng-click="$event.stopPropagation()")
                                         form-label-toggle(label="{{ 'components.organization_funds.filters.state' | translate }}")
                                         
@@ -64,7 +64,7 @@
                                             search="false"
                                             ng-model="$ctrl.filters.values.state"
                                             options="$ctrl.states").form-control
-                        
+
                             .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
             //- Funds list
@@ -131,12 +131,12 @@
                                 td.td-narrow.text-right
                                     button.button.button-text.button-menu(
                                         ng-if="!fund.archived"
-                                        type="button" 
+                                        type="button"
                                         ng-click="$ctrl.toggleActions($event, fund)")
                                         em.mdi.mdi-dots-horizontal
 
                                         .menu-dropdown(
-                                            click-outside="$ctrl.onClickOutsideMenu($event, fund)" 
+                                            click-outside="$ctrl.onClickOutsideMenu($event, fund)"
                                             ng-if="fund.showMenu")
 
                                             .menu-dropdown-arrow
@@ -154,7 +154,7 @@
                                                     ng-if="$ctrl.organization.allow_2fa_restrictions && ($ctrl.organization | hasPerm:['manage_organization'])"
                                                     ui-sref="funds-security(fund)").dropdown-item
                                                     | #[em.mdi.mdi-security.icon-start] Beveiliging
-                                                
+
                                                 a(
                                                     ng-if="fund.balance_provider == 'top_ups' && fund.key && fund.state != 'closed'"
                                                     ng-disabled="!fund.organization.has_bank_connection"
@@ -162,13 +162,13 @@
                                                     | #[em.mdi.mdi-plus-circle.icon-start] Budget toevoegen
 
                                                 a(
-                                                    ng-disabled="fund.key && fund.state != 'closed'" 
+                                                    ng-disabled="fund.key && fund.state != 'closed'"
                                                     ng-click="$ctrl.archiveFund(fund)").dropdown-item
                                                     | #[em.mdi.mdi-download-box-outline.icon-start]
                                                     span(translate="components.organization_funds.buttons.archive")
 
                                     .button.button-primary(
-                                        ng-if="fund.archived && (fund.organization | hasPerm:'manage_funds')" 
+                                        ng-if="fund.archived && (fund.organization | hasPerm:'manage_funds')"
                                         ng-click="$ctrl.restoreFund($event, fund)")
                                         em.mdi.mdi-lock-reset.icon-start
                                         translate(translate="components.organization_funds.buttons.restore")
@@ -176,7 +176,7 @@
             //- Funds pagination
             .card-section(ng-if="$ctrl.funds" ng-show="$ctrl.funds.meta.last_page > 1")
                 paginator(
-                    meta="$ctrl.funds.meta" 
+                    meta="$ctrl.funds.meta"
                     filters="$ctrl.filters.values"
                     on-page-change="$ctrl.onPageChange(query)")
 
