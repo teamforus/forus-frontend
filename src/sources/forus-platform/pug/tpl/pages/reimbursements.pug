@@ -15,14 +15,32 @@
                     span(ng-bind="$ctrl.reimbursements.meta.total").span-count
 
                 .flex: .block.block-inline-filters
+                    button.button.button-default.button-sm(
+                        type="button" 
+                        ui-sref="reimbursement-categories-edit({organization_id: $ctrl.organization.id})")
+                        em.mdi.mdi-cog.icon-start
+                        | Categorieën
+
+                    //- View type
+                    .flex.form: div
+                        .block.block-label-tabs: .label-tab-set: .label-tab.label-tab-sm(
+                            ng-repeat="viewType in $ctrl.archived_options" 
+                            ng-class="{active: $ctrl.filters.values.archived == viewType.value}"
+                            ng-click="$ctrl.setArchivedOption(viewType.value)"
+                            ng-bind="viewType.name"
+                            dusk="{{ 'reimbursementsFilter' + (viewType.value ? 'Archived' : 'Active') }}")
+                    
                     //- Reset filters
                     .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                         em.mdi.mdi-close.icon-start 
                         span(translate="reimbursements.buttons.clear_filter")
 
                     //- Search box
-                    .form(ng-if="!$ctrl.filters.show")
-                        .form-group: input(ng-model="$ctrl.filters.values.q" type="text" placeholder="{{ 'reimbursements.labels.search' | translate }}" dusk="searchReimbursement").form-control
+                    .form(ng-if="!$ctrl.filters.show"): .form-group: input(
+                        type="text"
+                        ng-model="$ctrl.filters.values.q"
+                        placeholder="{{ 'reimbursements.labels.search' | translate }}"
+                        dusk="searchReimbursement").form-control
 
                     //- Filters dropdown
                     .form: .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
@@ -106,21 +124,6 @@
                                         span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.reimbursements.meta.total }")
 
                         .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
-
-                    //- View type
-                    .flex
-                        button.button.button-default.button-sm(
-                            type="button" 
-                            ui-sref="reimbursement-categories-edit({organization_id: $ctrl.organization.id})")
-                            em.mdi.mdi-cog.icon-start
-                            | Categorieën
-
-                        .block.block-label-tabs: .label-tab-set: .label-tab.label-tab-sm(
-                            ng-repeat="viewType in $ctrl.archived_options" 
-                            ng-class="{active: $ctrl.filters.values.archived == viewType.value}"
-                            ng-click="$ctrl.setArchivedOption(viewType.value)"
-                            ng-bind="viewType.name"
-                            dusk="{{ 'reimbursementsFilter' + (viewType.value ? 'Archived' : 'Active') }}")
 
             //- Vouchers list
             .card-section(ng-if="$ctrl.reimbursements.data.length > 0" dusk="reimbursementsList")

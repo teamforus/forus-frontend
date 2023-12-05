@@ -29,8 +29,6 @@ module.exports = {
         qr_code: "QR-Code",
         yes: "Ja",
         no: "Nee",
-        source_employee: "Medewerker",
-        source_user: "Gebruiker",
         active: 'Actief',
         deactivated: 'Gedeactiveerd',
         pending: 'Inactief',
