@@ -101,14 +101,27 @@
                 .form-group.form-group-inline.tooltipped
                     label.form-label Downtime pad
                     .form-offset
-                        select-control(
-                            as="label"
-                            prop="value"
-                            search="false"
-                            ng-model="$ctrl.form.values.backoffice_fallback"
-                            options="$ctrl.fallbackOptions").form-control
+                        .form-group-info
+                            .form-group-info-control
+                                select-control(
+                                    as="label"
+                                    prop="value"
+                                    search="false"
+                                    ng-model="$ctrl.form.values.backoffice_fallback"
+                                    options="$ctrl.fallbackOptions").form-control
+
+                            .form-group-info-button: .button.button-default.button-icon.pull-left(
+                                ng-click="$ctrl.showInfoBlock = !$ctrl.showInfoBlock"
+                                ng-class="{active: $ctrl.showInfoBlock}")
+                                em.mdi.mdi-information
+
+                        .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showInfoBlock")
+                            .info-box-icon.mdi.mdi-information
+
+                            .info-box-content: .block.block-markdown
+                                p Stel in wat de gebruiker ziet als de externe API downtime heeft.
+                        
                         .form-error(ng-repeat="error in $ctrl.form.errors.description" ng-bind="error")
-                    tooltip(text="'Stel in wat de gebruiker ziet als de externe API downtime heeft.'")
 
             //- Ineligibility
             .card-section.card-section-primary: .row: .col.col-lg-9.col-lg-12
@@ -116,14 +129,27 @@
                 .form-group.form-group-inline
                     label.form-label Ineligibility policy
                     .form-offset
-                        select-control(
-                            as="label"
-                            prop="value"
-                            search="false"
-                            ng-model="$ctrl.form.values.backoffice_ineligible_policy"
-                            options="$ctrl.ineligiblePolicyOptions")
+                        .form-group-info
+                            .form-group-info-control
+                                select-control(
+                                    as="label"
+                                    prop="value"
+                                    search="false"
+                                    ng-model="$ctrl.form.values.backoffice_ineligible_policy"
+                                    options="$ctrl.ineligiblePolicyOptions").form-control
+
+                            .form-group-info-button: .button.button-default.button-icon.pull-left(
+                                ng-click="$ctrl.showPolicyInfoBlock = !$ctrl.showPolicyInfoBlock"
+                                ng-class="{active: $ctrl.showPolicyInfoBlock}")
+                                em.mdi.mdi-information
+
+                        .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showPolicyInfoBlock")
+                            .info-box-icon.mdi.mdi-information
+
+                            .info-box-content: .block.block-markdown
+                                p What should happen when the requester is not eligible.
+
                         .form-error(ng-repeat="error in $ctrl.form.errors.backoffice_ineligible_policy" ng-bind="error")
-                    tooltip(text="'What should happen when the requester is not eligible.'")
 
                 //- Ineligibility redirect URL
                 .form-group.form-group-inline(ng-if="$ctrl.form.values.backoffice_ineligible_policy == 'redirect'")
