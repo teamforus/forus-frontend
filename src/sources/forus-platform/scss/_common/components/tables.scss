@@ -219,6 +219,21 @@
                     margin: -5px 0;
                 }
 
+                .td-entity-main {
+                    display: grid;
+                    grid-template-columns: auto 1fr;
+                    gap: 10px;
+
+                    .td-entity-main-media {
+                        display: grid;
+                        align-items: center;
+                    }
+
+                    .td-entity-main-content {
+                        display: grid;
+                    }
+                }
+
                 .td-media {
                     display: block;
                     width: 70px;
@@ -228,6 +243,10 @@
                     &.td-media-sm {
                         width: 30px;
                         border-radius: 4px;
+                    }
+
+                    &.td-media-round {
+                        border-radius: 70px;
                     }
                 }
 
