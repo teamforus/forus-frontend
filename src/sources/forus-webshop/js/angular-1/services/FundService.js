@@ -2,10 +2,12 @@ import { format } from 'date-fns';
 
 const FundService = function (
     $q,
+    $filter,
     ApiRequest,
     ModalService
 ) {
     const uriPrefix = '/platform/organizations/';
+    const $trans = $filter('translate');
 
     return new (function () {
         this.list = function (organization_id, values = {}) {
@@ -237,7 +239,7 @@ const FundService = function (
             });
         };
 
-        this.getControlType = (record_type, operator = null) => {
+        this.getCriterionControlType = (record_type, operator = null) => {
             const checkboxKeys = ['children', 'kindpakket_eligible', 'kindpakket_2018_eligible'];
             const stepKeys = ['children_nth', 'waa_kind_0_tm_4_2021_eligible_nth', 'waa_kind_4_tm_18_2021_eligible_nth', 'adults_nth'];
             const currencyKeys = ['net_worth', 'base_salary'];
@@ -274,8 +276,8 @@ const FundService = function (
                 control_type_key || control_type_base || control_type_default;
         }
 
-        this.getControlDefaultValue = (record_type, operator = null) => {
-            const control_type = this.getControlType(record_type, operator);
+        this.getCriterionControlDefaultValue = (record_type, operator = null) => {
+            const control_type = this.getCriterionControlType(record_type, operator);
 
             return {
                 ui_control_checkbox: null,
@@ -286,11 +288,20 @@ const FundService = function (
                 ui_control_text: '',
             }[control_type];
         }
+
+        this.getCriterionLabelValue = (criteria_record_key, value = null) => {
+            const trans_key = `fund_request.sign_up.record_checkbox.${criteria_record_key}`;
+            const translated = $trans(trans_key, { value });
+            const trans_fallback_key = 'fund_request.sign_up.record_checkbox.default';
+
+            return translated === trans_key ? $trans(trans_fallback_key, { value: value }) : translated;
+        }
     });
 };
 
 module.exports = [
     '$q',
+    '$filter',
     'ApiRequest',
     'ModalService',
     FundService

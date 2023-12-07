@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
 
-    .block-item {
+    .pre-check-item {
         display: flex;
         flex-direction: column;
         margin: 0 0 10px;
@@ -12,12 +12,12 @@
         border-radius: calc(var(--border-radius) / 2);
         position: relative;
 
-        .block-header {
+        .pre-check-item-header {
             display: flex;
             flex-direction: row;
             padding: 10px 10px 10px 20px;
 
-            .block-title {
+            .pre-check-item-header-title {
                 flex-grow: 1;
                 font: 700 14px/30px var(--base-font);
                 margin: 0 0;
@@ -25,14 +25,21 @@
                 @include ellipsis();
             }
             
-            .block-drag {
-                font-size: 15px;
+            .pre-check-item-header-drag {
+                font-size: 20px;
                 line-height: 30px;
                 padding-right: 5px;
+                margin-left: -10px;
                 cursor: grab;
+                color: #9da1a3;
+                transition: color .4s;
+
+                &:hover {
+                    color: var(--text-color);
+                }
             }
 
-            .block-actions {
+            .pre-check-item-header-actions {
                 display: flex;
                 padding-left: 20px;
             }
@@ -42,40 +49,43 @@
             }
         }
 
-        .block-body {
+        .pre-check-item-body {
             display: block;
 
-            .block-pre-check-body, .block-records-body {
+            .pre-check-item-body-content, .pre-check-item-body-records {
                 padding: 20px;
             }
-        }
 
-        .block-records-body {
-            border-top: 1px solid var(--border-color);
-
-            .block-records-title {
-                font: 700 14px/30px var(--base-font);
-                margin-bottom: 20px;
-            }
-
-            .block-record-items {
-                .block-record-item {
-                    .block-body {
-                        padding: 20px;
-                    }
+            .pre-check-item-body-records {
+                border-top: 1px solid var(--border-color);
+    
+                .block-records-title {
+                    font: 700 14px/24px var(--base-font);
+                    margin-bottom: 10px;
                 }
+    
+                .pre-check-item-body-records-items {
+                    .pre-check-item-body-records-empty {
+                        height: 200px;
+                        border: 1px dashed #8fa2a5;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: var(--border-radius);
+                        gap: 10px;
 
-                .block-record-items-empty {
-                    height: 200px;
-                    border: 1px dashed var(--border-color);
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-
-                    .block-record-items-empty-title {
-                        font: 500 14px/21px var(--base-font);
-                        color: #646F79;
+                        .pre-check-item-body-records-empty-img {
+                            img {
+                                width: 50px;
+                                display: block;
+                            }
+                        }
+    
+                        .pre-check-item-body-records-empty-title {
+                            font: 500 14px/21px var(--base-font);
+                            color: #646F79;
+                        }
                     }
                 }
             }
@@ -86,19 +96,7 @@
         }
     }
 
-    .block-markdownable {
-        .note-editor {
-            .note-editing-area {
-                .note-editable {
-                    height: 150px !important;
-                }
-            }
-        }
-    }
-
-    .block-actions {
-        &:first-child {
-            padding: 0 0 0;
-        }
+    .pre-check-actions {
+        padding-top: 10px;
     }
 }

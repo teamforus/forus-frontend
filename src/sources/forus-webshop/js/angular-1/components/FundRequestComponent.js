@@ -18,7 +18,6 @@ const FundRequestComponent = function (
 ) {
     const $ctrl = this;
     const $i18n = $filter('i18n');
-    const $trans = $filter('translate');
     const $currency_format = $filter('currency_format');
 
     $ctrl.step = 1;
@@ -40,14 +39,6 @@ const FundRequestComponent = function (
     $ctrl.contactInformation = '';
     $ctrl.contactInformationError = null;
     $ctrl.steps = [];
-
-    const $transRecordCheckbox = (criteria_record_key, value) => {
-        const trans_key = 'fund_request.sign_up.record_checkbox.' + criteria_record_key;
-        const translated = $trans(trans_key, { value });
-        const trans_fallback_key = 'fund_request.sign_up.record_checkbox.default';
-
-        return translated === trans_key ? $trans(trans_fallback_key, { value: value }) : translated;
-    };
 
     const formDataBuild = (criteria) => {
         return {
@@ -218,9 +209,10 @@ const FundRequestComponent = function (
 
             criterion.title_default = $ctrl.criterionTitle(criterion);
             criterion.files = [];
-            criterion.label = $transRecordCheckbox(criterion.record_type.key, criterion.value);
-            criterion.input_value = FundService.getControlDefaultValue(criterion.record_type, criterion.operator);
-            criterion.control_type = FundService.getControlType(criterion.record_type, criterion.operator);
+
+            criterion.label = FundService.getCriterionLabelValue(criterion.record_type, criterion.value);
+            criterion.input_value = FundService.getCriterionControlDefaultValue(criterion.record_type, criterion.operator);
+            criterion.control_type = FundService.getCriterionControlType(criterion.record_type, criterion.operator);
             criterion.description_html = $sce.trustAsHtml(criterion.description_html);
         }
 

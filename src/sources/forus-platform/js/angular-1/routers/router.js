@@ -213,9 +213,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "fundPreCheckComponent",
         resolve: {
             organization: organizationResolver(),
-            funds: ['permission', '$transition$', 'FundService', (
-                permission, $transition$, FundService
-            ) => repackResponse(FundService.list(
+            funds: ['$transition$', 'FundService', 'permission', (
+                $transition$, FundService
+            ) => repackPagination(FundService.list(
                 $transition$.params().organization_id, {
                 implementation_id: $transition$.params().id
             }))],
@@ -225,6 +225,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $transition$.params().organization_id,
                 $transition$.params().id
             ))],
+            preChecks: ['implementations', 'organization' , 'PreCheckService', function (
+                implementations, organization, PreCheckService,
+            ) {
+                if (implementations.data[0]) {
+                    return repackResponse(PreCheckService.list(organization.id, implementations.data[0].id));
+                }
+
+                return null;
+            }],
             permission: permissionMiddleware('fund-requests', ['manage_organization']),
         }
     });

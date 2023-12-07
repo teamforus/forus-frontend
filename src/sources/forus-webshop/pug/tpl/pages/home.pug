@@ -78,16 +78,22 @@ main(id="main-content")
                     li: a(href="https://www.leergeldnijmegen.nl/hulp-voor-uw-kind") Hulp voor uw kind
                 a(href="https://www.leergeldnijmegen.nl/homepagina") Meer informatie over Stichting Leergeld Nijmegen
 
-    section.section.section-fund-pre-check(ng-if="$root.appConfigs.features.pre_check_enabled"): .wrapper
-        .block.block-fund-pre-check-preview
-            .block-fund-pre-check-media: img(ng-src="{{ $root.appConfigs.features.pre_check_banner.sizes.large || './assets/img/fund-pre-check-preview.png' }}" alt="")
-            .block-fund-pre-check-information
-                h2.block-fund-pre-check-label: span.label.label-primary(ng-bind="$root.appConfigs.features.pre_check_homepage_label")
-                h2.block-fund-pre-check-title(ng-bind="$root.appConfigs.features.pre_check_homepage_title")
-                .block-fund-pre-check-description(ng-bind="$root.appConfigs.features.pre_check_homepage_description")
+    //- Pre-check banner
+    .wrapper(ng-if="$root.appConfigs.features.pre_check_enabled && $root.appConfigs.features.pre_check_banner_state == 'public'")
+        .block.block-pre-check-banner
+            .pre-check-banner-media(ng-if="$root.appConfigs.features.pre_check_banner.sizes.large"): img(
+                ng-src="{{ $root.appConfigs.features.pre_check_banner.sizes.large }}" 
+                alt="")
+
+            .pre-check-banner-content
+                h2.pre-check-banner-label(ng-if="$root.appConfigs.features.pre_check_banner_label")
+                    span.label.label-primary(ng-bind="$root.appConfigs.features.pre_check_banner_label")
+
+                h2.pre-check-banner-title(ng-bind="$root.appConfigs.features.pre_check_banner_title")
+                .pre-check-banner-description(ng-bind="$root.appConfigs.features.pre_check_banner_description")
                 
-                .block-fund-pre-check-button: button(ui-sref="fund-pre-check()").button.button-primary
-                    translate Doe de check
+                .pre-check-banner-actions: button(ui-sref="fund-pre-check()").button.button-primary
+                    | Doe de check
                     em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
     //- Home CMS blocks

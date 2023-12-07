@@ -1,4 +1,35 @@
 &.block-fund-pre-check {
+    // example
+    .progress-pie {
+        position: relative;
+        height: fit-content;
+        width: fit-content;
+    
+        img {
+            display: block;
+        }
+    
+        &:before {
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            bottom: 5px;
+            right: 5px;
+            content: '';
+            display: block;
+            background-color: #fff;
+            border-radius: 100px;
+        }
+    
+        .progress-pie-text {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font: 500 14px/20px var(--base-font);
+        }
+    }
+
     .block-fund-pre-check-progress {
         .block-pre-check-progress-title {
             font: 700 18px/27px var(--base-font);
@@ -160,6 +191,10 @@
     .block-fund-pre-check-step {
         .block-fund-pre-check-step-section {
             background: #fff;
+            border: var(--showcase-aside-border);
+            box-shadow: var(--showcase-aside-shadow);
+            background: var(--showcase-item-background);
+            border-radius: var(--showcase-aside-border-radius);
             padding: 25px 30px;
 
             .block-fund-pre-check-step-section-details {
@@ -168,12 +203,12 @@
                 border-bottom: 1px solid #DBDCDB;
 
                 .block-fund-pre-check-step-section-title {
-                    font: 700 16px/24px var(--base-font);
+                    font: 700 18px/26px var(--base-font);
                     margin-bottom: 5px;
                 }
 
                 .block-fund-pre-check-step-section-description {
-                    font: 400 14px/21px var(--base-font);
+                    font: 400 14px/22px var(--base-font);
                 }
             }
 
@@ -183,12 +218,12 @@
                 border-bottom: 1px solid #DBDCDB;
 
                 .block-fund-pre-check-step-section-question-title {
-                    font: 700 18px/27px var(--base-font);
+                    font: 700 18px/26px var(--base-font);
                     margin-bottom: 5px;
                 }
 
                 .block-fund-pre-check-step-section-question-description {
-                    font: 400 14px/21px var(--base-font);
+                    font: 400 14px/22px var(--base-font);
                     margin-bottom: 15px;
                 }
             }

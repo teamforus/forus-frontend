@@ -18,7 +18,6 @@ block content
                 .block.block-breadcrumbs
                     a(ui-sref="home").breadcrumb-item Home
                     .breadcrumb-item.active(aria-current="location") De Potjes check
-
                     .show-sm: +pre_check_info()
 
                 .showcase-layout
@@ -39,8 +38,8 @@ block content
                                                     .block-pre-check-progress-question-title(ng-bind="preCheck.title")
                                                     .block-pre-check-progress-question-answer(
                                                         ng-if="$ctrl.activeStepIndex > $parent.$index"
-                                                        ng-repeat="preCheckRecord in preCheck.pre_check_records") 
-                                                        | {{ preCheckRecord.short_title }}: 
+                                                        ng-repeat="preCheckRecord in preCheck.record_types") 
+                                                        | {{ preCheckRecord.title_short }}: 
                                                         | {{ preCheckRecord.control_type == 'ui_control_checkbox' ? (preCheckRecord.is_checked ? 'Ja' : 'Nee') : preCheckRecord.input_value }}
 
 
@@ -90,6 +89,19 @@ block content
                                     placeholder="{{ $ctrl.tags[0].name }}")
 
                     .showcase-content: .block-fund-pre-check-step(ng-class="{'block-fund-pre-check-step-totals': $ctrl.showTotals}")
+
+                        //- example
+                        //- .progress-pie
+                            progress-pie(
+                                style-image="width: 60px;"
+                                title="{{ 'Average activity level: ' + $ctrl.totals.activityLevel + '%' }}"
+                                size="100" 
+                                progress=".75"
+                                color="#315EFD"
+                                background-color="#D9D9D9"
+                                stroke-width="0")
+                            .progress-pie-text 1/5
+                        
                         .hide-sm: +pre_check_info()
 
                         .block-fund-pre-check-step-section(ng-if="!$ctrl.showTotals")
@@ -98,7 +110,7 @@ block content
                                 .block-fund-pre-check-step-section-title(ng-bind="$ctrl.activePreCheck.title")
                                 .block-fund-pre-check-step-section-description(ng-bind="$ctrl.activePreCheck.description")
 
-                            .block-fund-pre-check-step-section-question(ng-repeat="preCheckRecord in $ctrl.activePreCheck.pre_check_records")
+                            .block-fund-pre-check-step-section-question(ng-repeat="preCheckRecord in $ctrl.activePreCheck.record_types")
                                 .block-fund-pre-check-step-section-question-title(ng-bind="preCheckRecord.title")
                                 .block-fund-pre-check-step-section-question-description(ng-bind="preCheckRecord.description")
                                 
@@ -118,7 +130,7 @@ block content
                                             ng-model="preCheckRecord.is_checked"
                                             name="{{ preCheckRecord.record_type.key }}"
                                             data-id="pre_check_record_{{ preCheckRecord.id }}"
-                                            data-label="{{ preCheckRecord.title }}"
+                                            data-label="{{ preCheckRecord.label }}"
                                             ng-change="$ctrl.setRecordValue(preCheckRecord)")
 
                                         ui-control-step(
@@ -185,7 +197,3 @@ block content
                                         description="{{ 'block_funds.labels.subtitle' | translate }}"
                                         hide-link="true"
                                         ng-if="$ctrl.totals.length == 0")    
-
-                
-    
-

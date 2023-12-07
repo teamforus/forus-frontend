@@ -3,14 +3,13 @@ const FundPreCheckComponent = function (
     MediaService,
     PreCheckService,
     FormBuilderService,
-    OrganizationService,
     ImplementationService,
+    PageLoadingBarService,
     PushNotificationsService,
 ) {
     const $ctrl = this;
 
     $ctrl.mediaFile = null;
-    $ctrl.stepsEditor = null;
 
     $ctrl.enableOptions = [{
         key: 0,
@@ -18,6 +17,14 @@ const FundPreCheckComponent = function (
     }, {
         key: 1,
         name: `Enabled`,
+    }];
+
+    $ctrl.bannerStates = [{
+        value: 'draft',
+        name: 'Draft',
+    }, {
+        value: 'public',
+        name: 'Public',
     }];
 
     $ctrl.steps = [];
@@ -32,54 +39,48 @@ const FundPreCheckComponent = function (
         $ctrl.deleteMedia = true;
     };
 
-    $ctrl.storeMedia = function(mediaFile) {
+    $ctrl.storeMedia = function (mediaFile) {
+        PageLoadingBarService.setProgress(0);
+
         return $q(async (resolve, reject) => {
             if ($ctrl.deleteMedia) {
                 await MediaService.delete($ctrl.implementation.email_logo.uid);
             }
 
             if (mediaFile) {
-                return MediaService.store('pre_check_banner', mediaFile).then((res) => {
-                    return resolve(res.data.data);
-                }, reject);
+                return MediaService.store('pre_check_banner', mediaFile).then(
+                    (res) => resolve(res.data.data),
+                    (res) => {
+                        PushNotificationsService.danger('Error!', res.data?.message || 'Onbekende foutmelding!');
+                        reject(res);
+                    },
+                );
             }
 
-            resolve();
-        });
+            resolve(null);
+        }).finally(() => PageLoadingBarService.setProgress(100));
     }
-
-    $ctrl.registerStepsEditor = function(childRef) {
-        $ctrl.stepsEditor = childRef;
-    }
-
-    const loadPreChecks = () => {
-        return $q((resolve, reject) => {
-            PreCheckService.list(
-                $ctrl.organization.id,
-                $ctrl.implementation.id 
-            ).then((res) => resolve($ctrl.preChecks = res.data.data), reject);
-        });
-    };
 
     $ctrl.$onInit = function () {
         $ctrl.implementation = $ctrl.implementations.data[0];
-        $ctrl.thumbnailMedia = $ctrl.implementation.pre_check_banner;
+        $ctrl.thumbnailMedia = $ctrl.implementation?.pre_check_banner;
 
-        loadPreChecks();
+        if (!$ctrl.implementation) {
+            return;
+        }
 
         $ctrl.bannerForm = FormBuilderService.build({
-            pre_check_homepage_title: $ctrl.implementation.pre_check_homepage_title,
-            pre_check_homepage_description: $ctrl.implementation.pre_check_homepage_description,
-            pre_check_homepage_label: $ctrl.implementation.pre_check_homepage_label,
+            pre_check_banner_state: $ctrl.implementation.pre_check_banner_state,
+            pre_check_banner_label: $ctrl.implementation.pre_check_banner_label,
+            pre_check_banner_title: $ctrl.implementation.pre_check_banner_title,
+            pre_check_banner_description: $ctrl.implementation.pre_check_banner_description,
         }, (form) => {
             $ctrl.storeMedia($ctrl.mediaFile).then((media) => {
-                ImplementationService.updatePreCheckBanner(
-                    $ctrl.organization.id, 
-                    $ctrl.implementation.id, {
-                        ...form.values,
-                        ...(media ? { pre_check_media_uid: media.uid } : {})
-                    }
-                ).then(() => {
+                ImplementationService.updatePreCheckBanner($ctrl.organization.id, $ctrl.implementation.id, {
+                    ...form.values,
+                    ...(media ? { pre_check_media_uid: media.uid } : {})
+                }).then(() => {
+                    form.errors = null;
                     PushNotificationsService.success('Opgeslagen!');
                 }, (res) => {
                     form.errors = res.data.errors;
@@ -95,9 +96,14 @@ const FundPreCheckComponent = function (
         }, (form) => {
             PreCheckService.sync($ctrl.organization.id, $ctrl.implementation.id, {
                 ...form.values,
-                preChecks: $ctrl.preChecks
+                pre_checks: $ctrl.preChecks
             }).then(() => {
+                form.errors = null;
                 PushNotificationsService.success('Opgeslagen!');
+
+                ImplementationService.read($ctrl.organization.id, $ctrl.implementation.id).then((res) => {
+                    $ctrl.implementation = res.data.data;
+                });
             }, (res) => {
                 form.errors = res.data.errors;
                 PushNotificationsService.danger(res.data?.message || 'Onbekende foutmelding!');
@@ -108,8 +114,9 @@ const FundPreCheckComponent = function (
 
 module.exports = {
     bindings: {
-        organization: '<',
         funds: '<',
+        preChecks: '<',
+        organization: '<',
         implementations: '<',
     },
     controller: [
@@ -117,8 +124,8 @@ module.exports = {
         'MediaService',
         'PreCheckService',
         'FormBuilderService',
-        'OrganizationService',
         'ImplementationService',
+        'PageLoadingBarService',
         'PushNotificationsService',
         FundPreCheckComponent,
     ],

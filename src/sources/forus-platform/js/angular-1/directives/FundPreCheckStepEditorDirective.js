@@ -5,48 +5,19 @@ const FundPreCheckStepEditorDirective = function (
 ) {
     const $dir = $scope.$dir;
     const $translate = $filter('translate');
-    const $translateDangerZone = (key) => $translate('modals.danger_zone.remove_implementation_block.' + key);
+    const $translateDangerZone = (key) => $translate(`modals.danger_zone.remove_implementation_block.${key}`);
 
-    $dir.collapsed = false;
-
-    const removeDuplicatePreCheckRecords = (from_pre_check_id, record_type_key) => {
-        const recordKeys = $dir.preChecks.reduce((recordKeys, preCheck) => {
-            return recordKeys.concat(preCheck.pre_check_records.map((record) => record.record_type.key));
-        }, []);
-        const duplicateRecord = recordKeys.find((recordKey, index) => recordKeys.indexOf(recordKey) !== index);
-
-        if (!duplicateRecord) {
-            return;
-        }
-        
-        let sourcePreCheck = $dir.preChecks.find((preCheck) => preCheck.id == from_pre_check_id);
-        sourcePreCheck.pre_check_records = sourcePreCheck.pre_check_records.filter((record) => {
-            return record.record_type.key != record_type_key;
-        });
-    };
-
-    const updatePreCheckIndexes = () => {
-        $dir.preChecks = $dir.preChecks.map(preCheck => ({
-            ...preCheck,
-            pre_check_records: preCheck.pre_check_records.map(record => ({ ...record, pre_check_id: preCheck.id }))
-        }));
-    };
-
-    const updatePreChecksData = (eventData) => {
-        removeDuplicatePreCheckRecords(eventData.model.pre_check_id, eventData.model.record_type.key);
-        updatePreCheckIndexes();
-    }
-    
     $dir.sortablePreCheck = {
         group: {
             name: 'pre-check',
             put: false,
         },
         sort: true,
-		animation: 150,
-		swapThreshold: 0.65,
+        animation: 150,
+        swapThreshold: 0.65,
+        handle: '.pre-check-item-header-drag',
     };
-    
+
     $dir.sortablePreCheckRecord = {
         group: {
             name: 'pre-check-record',
@@ -54,12 +25,26 @@ const FundPreCheckStepEditorDirective = function (
         },
         sort: true,
         animation: 150,
-		fallbackOnBody: true,
-		swapThreshold: 0.65,
-        draggable: '.block-record-item',
-        onEnd: function (evt)
-        {
-            updatePreChecksData(evt);
+        fallbackOnBody: true,
+        swapThreshold: 0.65,
+        draggable: '.pre-check-item-record',
+        handle: '.pre-check-item-header-drag',
+        onEnd: (eventData) => {
+            const isMoved = eventData.originalEvent.from !== eventData.originalEvent.to;
+            const fromPreCheck = $dir.preChecks.find((item) => {
+                return eventData.model.pre_check_id === null ? item.default : item.id === eventData.model.pre_check_id;
+            });
+    
+            if (isMoved) {
+                fromPreCheck.record_types = fromPreCheck.record_types.filter((record_type) => {
+                    return record_type.record_type_key != eventData.model.record_type_key;
+                })
+    
+                $dir.preChecks = $dir.preChecks.map(preCheck => ({
+                    ...preCheck,
+                    record_types: preCheck.record_types.map(record => ({ ...record, pre_check_id: preCheck.id }))
+                }));
+            }
         },
     };
 
@@ -78,18 +63,9 @@ const FundPreCheckStepEditorDirective = function (
         $dir.preChecks.push({
             label: '',
             title: '',
-            collapsed: true,
+            uncollapsed: true,
             description: '',
-            pre_check_records: [],
-        });
-    };
-
-    $dir.addRecord = (preCheckIndex) => {
-        $dir.preChecks.at(preCheckIndex).pre_check_records.push({
-            label: '',
-            title: '',
-            collapsed: true,
-            description: '',
+            record_types: [],
         });
     };
 
@@ -101,12 +77,8 @@ const FundPreCheckStepEditorDirective = function (
         const list = Array.isArray(index) ? index : [index];
 
         for (let i = 0; i < list.length; i++) {
-            $dir.preChecks[list[i]].collapsed = true;
+            $dir.preChecks[list[i]].uncollapsed = true;
         }
-    };
-
-    $dir.$onInit = function () {
-        $dir.registerParent({ childRef: $dir });
     };
 };
 
@@ -116,7 +88,6 @@ module.exports = () => {
             preChecks: '=',
             errors: '=',
             implementation: '=',
-            registerParent: '&',
         },
         restrict: "EA",
         replace: true,

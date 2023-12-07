@@ -158,6 +158,7 @@ app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirect
 app.directive('auth2FAInfoBox', require('./directives/Auth2FAInfoBoxDirective'));
 app.directive('fundRequestCard', require('./directives/FundRequestCardDirective'));
 app.directive('fundPreCheckItem', require('./directives/lists/FundPreCheckItemDirective'));
+app.directive('progressPie', require('./directives/ProgressPie'));
 
 app.directive('pdfPreview', require('./directives/file_preview/PdfPreviewDirective'));
 

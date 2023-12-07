@@ -81,7 +81,7 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
         +nav_item(
             "Pre–Check", "pre-check", 'pre-check',
             '{organization_id: $root.activeOrganization.id}',
-            '$root.activeOrganization | hasPerm:["manage_organization"]')
+            '$root.activeOrganization | hasPerm:["manage_implementation"]')
 
         +nav_item(
             "Beveiliging", "organization-security", 'organization-security', 

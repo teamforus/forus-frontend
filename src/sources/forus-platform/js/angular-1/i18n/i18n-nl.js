@@ -530,7 +530,7 @@ module.exports = {
         labels: {
             description_title: "Main description",
             title: "Title",
-            title_label: "Label title",
+            label: "Label",
             description: "Description",
             status: "Enabled",
         },
