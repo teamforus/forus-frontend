@@ -30,7 +30,7 @@
 
                 a(
                     ng-if="$dir.transaction.voucher_id && $dir.appConfigs.panel_type == 'sponsor'"
-                    ui-sref="vouchers-show({organization_id: $dir.organization.id, voucher_id: $dir.transaction.voucher_id})").button.button-primary
+                    ui-sref="vouchers-show({organization_id: $dir.organization.id, voucher_id: $dir.voucherDetailsId})").button.button-primary
                     em.mdi.mdi-eye-outline.icon-start
                     | Voucher details
 

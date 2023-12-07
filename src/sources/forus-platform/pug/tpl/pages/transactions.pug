@@ -4,12 +4,12 @@
         .card
             .card-header: .flex-row
                 //- Transactions title
-                .flex.flex-grow(ng-if="$ctrl.viewType.key == 'transactions'"): .card-title
+                .flex-col.flex-grow(ng-if="$ctrl.viewType.key == 'transactions'"): .card-title
                     span(i18n="transactions.header.title") 
                     span(ng-bind="$ctrl.transactions.meta.total").span-count
 
                 //- Transaction bulks title
-                .flex.flex-grow(ng-if="$ctrl.viewType.key == 'bulks'"): .card-title
+                .flex-col.flex-grow(ng-if="$ctrl.viewType.key == 'bulks'"): .card-title
                     span(i18n="transactions.header.titleBulks") 
                     span(ng-bind="$ctrl.transactionBulks.meta.total").span-count
 
@@ -21,6 +21,13 @@
                         dusk="uploadTransactionsBatchButton")
                         em.mdi.mdi-upload.icon-start
                         | Upload bulkbestand
+
+                    //- View type
+                    .flex.form(ng-if="$ctrl.isSponsor"): div: .block.block-label-tabs: .label-tab-set: .label-tab.label-tab-sm(
+                        ng-repeat="viewType in $ctrl.viewTypes" 
+                        ng-class="{active: $ctrl.viewType == viewType}"
+                        ng-click="$ctrl.setViewType(viewType)"
+                        ng-bind="viewType.label")
 
                     .button.button-text(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.filters.show" ng-click="$ctrl.filters.reset()")
                         em.mdi.mdi-close.icon-start
@@ -190,13 +197,6 @@
                                         span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.transactionBulks.meta.total }")
 
                         .button.button-default.button-icon(ng-click="$ctrl.bulkFilters.show = !$ctrl.bulkFilters.show"): em.mdi.mdi-filter-outline
-
-                    //- View type
-                    .flex(ng-if="$ctrl.isSponsor"): div: .block.block-label-tabs: .label-tab-set: .label-tab.label-tab-sm(
-                        ng-repeat="viewType in $ctrl.viewTypes" 
-                        ng-class="{active: $ctrl.viewType == viewType}"
-                        ng-click="$ctrl.setViewType(viewType)"
-                        ng-bind="viewType.label")
 
             //- Transactions
             .card-section(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.transactions.meta.total > 0")

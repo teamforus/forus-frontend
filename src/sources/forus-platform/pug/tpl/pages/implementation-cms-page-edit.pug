@@ -41,15 +41,28 @@
                     .form-group.form-group-inline.form-group-inline-xl(ng-if="$ctrl.allow_external").tooltipped
                         label.form-label Pagina type
                         .form-offset
-                            select-control(
-                                prop="value"
-                                search="false"
-                                options="$ctrl.types"
-                                ng-model="$ctrl.form.values.external").form-control
+                            .form-group-info
+                                .form-group-info-control
+                                    select-control(
+                                        prop="value"
+                                        search="false"
+                                        options="$ctrl.types"
+                                        ng-model="$ctrl.form.values.external").form-control
+
+                                .form-group-info-button: .button.button-default.button-icon.pull-left(
+                                    ng-click="$ctrl.showInfoBlockType = !$ctrl.showInfoBlockType"
+                                    ng-class="{active: $ctrl.showInfoBlockType}")
+                                    em.mdi.mdi-information
+
+                            .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showInfoBlockType")
+                                .info-box-icon.mdi.mdi-information
+
+                                .info-box-content: .block.block-markdown
+                                    | Internal pages are hosted on our webshop domain and you can edit the content of the page below. 
+                                    | Or you can select external, to provider a custom url for the page.
+                                
                             .form-error(ng-repeat="error in $ctrl.form.errors.external" ng-bind="error")
-
-                        tooltip(text="'Internal pages are hosted on our webshop domain and you can edit the content of the page below. Or you can select external, to provider a custom url for the page.'")
-
+                            
                     //- External page url
                     .form-group.form-group-inline.form-group-inline-xl(ng-if="$ctrl.form.values.external")
                         label.form-label Externe url
@@ -71,18 +84,30 @@
                                 block-alignment="$ctrl.form.values.description_alignment")
                     
                     //- Select description default settings
-                    .form-group.form-group-inline.form-group-inline-xl.tooltipped(ng-if="$ctrl.page_type_config.description_position_configurable && !$ctrl.form.values.external")
+                    .form-group.form-group-inline.form-group-inline-xl(
+                        ng-if="$ctrl.page_type_config.description_position_configurable && !$ctrl.form.values.external")
                         label.form-label Positie van de content
                         .form-offset
-                            select-control(
-                                prop="value"
-                                search="false"
-                                options="$ctrl.descriptionPositions"
-                                ng-model="$ctrl.form.values.description_position").form-control
-                            .form-error(ng-repeat="error in $ctrl.form.errors.description_position" ng-bind="error")
+                            .form-group-info
+                                .form-group-info-control
+                                    select-control(
+                                        prop="value"
+                                        search="false"
+                                        options="$ctrl.descriptionPositions"
+                                        ng-model="$ctrl.form.values.description_position").form-control
 
-                        tooltip(text="'implementation_edit.tooltips.' + $ctrl.page_type | translate")
-                        .form-error(ng-repeat="error in $ctrl.form.errors.content" ng-bind="error")
+                                .form-group-info-button: .button.button-default.button-icon.pull-left(
+                                    ng-click="$ctrl.showInfoBlockTypePosition = !$ctrl.showInfoBlockTypePosition"
+                                    ng-class="{active: $ctrl.showInfoBlockTypePosition}")
+                                    em.mdi.mdi-information
+
+                            .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showInfoBlockTypePosition")
+                                .info-box-icon.mdi.mdi-information
+
+                                .info-box-content: .block.block-markdown
+                                    p(ng-bind="'implementation_edit.tooltips.' + $ctrl.page_type | translate")
+
+                            .form-error(ng-repeat="error in $ctrl.form.errors.description_position" ng-bind="error")
 
             //- Blocks
             .card-section.card-section-primary(ng-if="$ctrl.page_type_config.blocks && !$ctrl.form.values.external")

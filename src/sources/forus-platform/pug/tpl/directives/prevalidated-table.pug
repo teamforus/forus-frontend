@@ -9,7 +9,7 @@ div
                     span(i18n="Wis filters")
                 
                 .form(ng-if="!filters.show")
-                    .form-group.inline-filters-search: input(
+                    .form-group: input(
                         ng-model="filters.values.q" 
                         type="text" 
                         placeholder="{{ 'prevalidated_table.labels.search' | i18n }}").form-control

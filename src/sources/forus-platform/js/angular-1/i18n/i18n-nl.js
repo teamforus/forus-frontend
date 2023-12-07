@@ -542,7 +542,57 @@ module.exports = {
 
     // SHOW FUNDS = funds-show.pug
     funds_show: {
-        criterion: "Criteria's (3)",
+        titles: {
+            top_ups: 'Bekijk aanvullingen',
+            identities: 'Aanvragers',
+            implementations: 'Webshop',
+        },
+        labels: {
+            base_card: {
+                header: {
+                    description: "Beschrijving",
+                    statistics: "Statistieken",
+                    criteria: "Voorwaarden",
+                },
+            },
+            details_card: {
+                header: {
+                    transactions: "Bekijk aanvullingen",
+                    webshop: "Webshop",
+                    providers: "Aanvragers",
+                },
+            }
+        },
+        top_up_table: {
+            filters: {
+                search: "Search",
+                code: "Used code",
+                iban: "IBAN",
+                amount: "Amount",
+                amount_min: "0",
+                amount_max: "All",
+                from: "Created from",
+                to: "Created to"
+            },
+            columns: {
+                fund: "Fund",
+                code: "Used code",
+                iban: "IBAN",
+                top_up_id: "Fund top-up ID",
+                amount: "Amount",
+                date: "Date",
+            }
+        },
+        implementations_table: {
+            filters: {
+                search: "Search",
+            },
+        },
+        implementations_table: {
+            filters: {
+                search: "Search",
+            },
+        }
     },
 
     // FUNDS = funds.pug
@@ -602,36 +652,25 @@ module.exports = {
         }
     },
 
-    // ORGANIZATION PROVIDERS = organization-providers.pug
-    organization_providers: {
+    // ORGANIZATION PROVIDERS = provider-organizations.pug
+    provider_organizations: {
         header: {
             title: "Aanbieders"
         },
-        status: {
-            accepted: "Geaccepteerd",
-            rejected: "Geweigerd",
-            hold: "Wacht op goedkeuring",
-        },
-        state: 'Status',
         labels: {
-            mail: "E-mail",
-            phone: "Telefoonnummer",
-            website: "Website",
-            kvk: "KVK",
-            categories: "Categorieën",
-            business_type: "Organisatie type",
-            nocategories: "Geen categorieën",
-            no_business_type: "Geen organisatie type",
-            join: "Aanmelding voor fonds",
-            accept_budget: "Accepteer budget",
-            accept_all_offers: "Accepteer al het aanbod"
+            organization_name: "Organisatienaam",
+            product_count: "Aantal aanbiedingen",
+            last_active: "Laatst actief",
+            funds_count: "Aangesloten fondsen",
+            actions: "Actie",
+            fund_provider_state: {
+                pending: 'Wachtend',
+                accepted: 'Geaccepteerd',
+                rejected: 'Geweigerd',
+            }
         },
         buttons: {
-            reject: "Weigeren",
-            accept: "Accepteren",
-            view_request: "Bekijk aanvraag",
-            export_csv: "Exporteer als .CSV",
-            export_xls: "Exporteer als .XLS",
+            view: "Bekijken",
         },
     },
 

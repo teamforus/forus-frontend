@@ -95,12 +95,11 @@
                             em.mdi.mdi-play.icon-start
                             | Start subsidie
 
-                        .button.button-icon.button-text.button-menu.active.pull-right(ng-click="$ctrl.toggleActions($event, product.id)")
+                        .button.button-text.button-menu(ng-click="$ctrl.toggleActions($event, product.id)")
                             em.mdi.mdi-dots-horizontal
                             .menu-dropdown(click-outside="$ctrl.onClickOutsideMenu($event)" ng-if="product.id === $ctrl.dropdownMenuItem")
                                 .menu-dropdown-arrow
                                 .dropdown.dropdown-actions
-                                    .dropdown-heading Opties
                                     a(ui-sref="fund-provider-product(product.viewParams)").dropdown-item Bekijken
                                     a(ui-sref="fund-provider-product-create(product.copyParams)").dropdown-item Kopieren
                                     a(ui-sref="fund-provider-product-edit(product.editParams)").dropdown-item Bewerken
@@ -159,12 +158,11 @@
                         .form-toggle-inner: .toggle-input: .toggle-input-dot
 
                     td.td-narrow.text-right: .button-group.flex-end
-                        .button.button-icon.button-text.button-menu.active.pull-right(ng-click="$ctrl.toggleActions($event, product.id)")
+                        .button.button-text.button-menu(ng-click="$ctrl.toggleActions($event, product.id)")
                             em.mdi.mdi-dots-horizontal
                             .menu-dropdown(click-outside="$ctrl.onClickOutsideMenu($event)" ng-if="product.id === $ctrl.dropdownMenuItem")
                                 .menu-dropdown-arrow
                                 .dropdown.dropdown-actions
-                                    .dropdown-heading Opties
                                     a(ui-sref="fund-provider-product(product.viewParams)").dropdown-item Bekijken
                                     a(ui-sref="fund-provider-product-create(product.copyParams)").dropdown-item Kopieren
                                     a(ui-sref="fund-provider-product-edit(product.editParams)").dropdown-item Bewerken 
@@ -220,12 +218,11 @@
                         .form-toggle-inner: .toggle-input: .toggle-input-dot
 
                     td.td-narrow.text-right: .button-group.flex-end
-                        .button.button-icon.button-text.button-menu.active.pull-right(ng-click="$ctrl.toggleActions($event, product.id)")
+                        .button.button-text.button-menu(ng-click="$ctrl.toggleActions($event, product.id)")
                             em.mdi.mdi-dots-horizontal
                             .menu-dropdown(click-outside="$ctrl.onClickOutsideMenu($event)" ng-if="product.id === $ctrl.dropdownMenuItem")
                                 .menu-dropdown-arrow
                                 .dropdown.dropdown-actions
-                                    .dropdown-heading Opties
                                     a(ui-sref="fund-provider-product(product.viewParams)").dropdown-item Bekijken
                                     a(ui-sref="fund-provider-product-create(product.copyParams)" ng-if="$ctrl.organization.manage_provider_products").dropdown-item Kopieren
 
@@ -275,12 +272,11 @@
                             .tag.tag-text.nowrap Niet beschikbaar 
                             .hidden
 
-                        .button.button-icon.button-text.button-menu.active.pull-right(ng-click="$ctrl.toggleActions($event, product.id)")
+                        .button.button-text.button-menu(ng-click="$ctrl.toggleActions($event, product.id)")
                             em.mdi.mdi-dots-horizontal
                             .menu-dropdown(click-outside="$ctrl.onClickOutsideMenu($event)" ng-if="product.id === $ctrl.dropdownMenuItem")
                                 .menu-dropdown-arrow
                                 .dropdown.dropdown-actions
-                                    .dropdown-heading Opties
                                     a(ui-sref="fund-provider-product(product.viewParams)").dropdown-item Bekijken
                                     a(ui-sref="fund-provider-product-create(product.copyParams)" ng-if="$ctrl.organization.manage_provider_products").dropdown-item Kopieren
 
