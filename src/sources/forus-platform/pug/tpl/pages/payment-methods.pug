@@ -87,7 +87,7 @@
                                     translate(translate="mollie_connection.buttons.fetch")
 
                                 .button.button-danger.button-sm(
-                                    ng-if="$root.auth_user.address === $ctrl.organization.identity_address"
+                                    ng-if="$ctrl.organization | hasPerm:['manage_payment_methods']"
                                     ng-disabled="$ctrl.fetching"
                                     ng-click="$ctrl.askConfirmationDelete()")
                                     em.mdi.mdi-close.icon-start
