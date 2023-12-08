@@ -3,8 +3,8 @@ const DateService = function() {
         this.dateFormat = 'dd-MM-yyyy'
         this.datePrettyFormat = 'MMM DD, YYYY'
 
-        this._dateParse = (date) => {
-            return moment(date, this.dateFormat.toUpperCase());
+        this._dateParse = (date, strict = true) => {
+            return moment(date, this.dateFormat.toUpperCase(), strict);
         };
 
         this._dateParseYmd = (date) => {
