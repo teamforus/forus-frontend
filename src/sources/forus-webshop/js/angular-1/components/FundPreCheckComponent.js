@@ -20,8 +20,8 @@ const FundPreCheckComponent = function (
 
     $ctrl.activePreCheckFilled = () => {
         return $ctrl.activePreCheck.record_types.filter(pre_check_record => {
-            return pre_check_record.input_value !== '' || pre_check_record.control_type == 'ui_control_checkbox';
-        }).length;
+            return pre_check_record.input_value || pre_check_record.control_type == 'ui_control_checkbox';
+        }).length == $ctrl.activePreCheck.record_types.length;
     };
 
     $ctrl.submitPreChecks = () => {
@@ -30,12 +30,28 @@ const FundPreCheckComponent = function (
                 return;
             }
 
+            const recordsData = $ctrl.preChecks.reduce((recordsData, preCheck) => {
+                return [
+                    ...recordsData,
+                    ...preCheck.record_types.reduce((recordData, record) => {
+                        return [
+                            ...recordData, 
+                            {
+                                key: record.record_type_key,
+                                value: record.input_value?.toString(),
+                            }
+                        ];
+                    }, [])
+                ];
+            }, []);
+
             return $q((resolve, reject) => {
                 PreCheckService.calculateTotals({
-                    pre_checks: $ctrl.preChecks,
+                    records: recordsData,
                     ...$ctrl.form.values,
                 }).then((res) => {
                     resolve($ctrl.totals = res.data);
+                    $ctrl.showTotals = true;
                 }, reject);
             });
         }, 10);
@@ -58,7 +74,7 @@ const FundPreCheckComponent = function (
         // Last step - get the totals
         if (isLastPreCheck()) {
             $ctrl.submitPreChecks();
-            $ctrl.showTotals = true;
+            return;
         }
 
         if ($ctrl.activeStepIndex < $ctrl.preChecks.length && $ctrl.activePreCheckFilled()) {
@@ -68,8 +84,15 @@ const FundPreCheckComponent = function (
     };
 
     $ctrl.setRecordValue = (criteria) => $timeout(() => {
-        criteria.input_value = criteria.is_checked ? 1 : 0;
+        criteria.input_value = criteria.is_checked ? criteria.value : null;
     }, 250);
+    
+    $ctrl.setShowMorePreCheckInfo = (e, showMorePreCheckInfo = false) => {
+        e?.preventDefault();
+        e?.stopPropagation();
+        
+        $ctrl.showMorePreCheckInfo = showMorePreCheckInfo;
+    };
 
     $ctrl.$onInit = function () {
         $ctrl.recordTypesByKey = $ctrl.recordTypes.reduce((acc, type) => ({ ...acc, [type.key]: type }), {});

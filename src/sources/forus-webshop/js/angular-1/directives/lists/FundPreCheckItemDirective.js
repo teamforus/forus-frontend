@@ -13,10 +13,10 @@ const FundPreCheckItemDirective = function(
         }
 
         if ($dir.fund.criteria_valid_percentage < 66) {
-            return 'Goede kans';
+            return 'Gemiddelde kans';
         }
 
-        return 'Gemiddelde kans';
+        return 'Goede kans';
     }
 
     $dir.showMoreRequestInfo = false;

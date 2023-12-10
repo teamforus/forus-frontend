@@ -76,13 +76,13 @@
                     | Toon minder
                     em.mdi.mdi-chevron-up.icon-right
 
-    .fund-pre-check-info(ng-if="$dir.showMoreRequestInfo")
+    .fund-pre-check-info-block(ng-if="$dir.showMoreRequestInfo"): .fund-pre-check-info-wrapper
         .fund-pre-check-info-criterias
             .fund-pre-check-info-criterias-title Voorwaarden
             .fund-pre-check-info-criterias-list
                 .fund-pre-check-info-criterias-list-item(ng-repeat="criterion in $dir.fund.criteria" ng-class="{valid: criterion.is_valid}") 
                     em.mdi.mdi-check-circle 
-                    span(ng-bind="criterion.record_type_name")
+                    span(ng-bind="criterion.name")
                     | &nbsp;
                     span(ng-bind="criterion.value")
 
