@@ -13,6 +13,7 @@ const ReservationsComponent = function (
 
     $ctrl.empty = null;
     $ctrl.acceptedByDefault = false;
+    $ctrl.hasExtraPayments = false;
 
     $ctrl.shownReservationsType = $stateParams.reservations_type || 'active';
 
@@ -37,7 +38,9 @@ const ReservationsComponent = function (
     }, {
         key: 'canceled_by_client',
         name: 'Geannuleerd door aanvrager' // Canceled by client
-    }, {
+    }];
+
+    $ctrl.extraPaymentStates = [{
         key: 'canceled_payment_expired',
         name: 'Geannuleerd door verlopen bijbetaling' // Canceled payment expired
     }, {
@@ -86,6 +89,11 @@ const ReservationsComponent = function (
         };
     }
 
+    const checkExtraPaymentAvailable = (reservations) => {
+        $ctrl.hasExtraPayments = $ctrl.organization.can_view_provider_extra_payments ||
+            reservations.data.filter((reservation) => reservation.amount_extra > 0).length;
+    }
+
     $ctrl.onPageChange = (query = {}) => {
         PageLoadingBarService.setProgress(0);
 
@@ -97,6 +105,8 @@ const ReservationsComponent = function (
                 $ctrl.activeReservations :
                 $ctrl.archivedReservations,
             );
+
+            checkExtraPaymentAvailable($ctrl.reservations);
 
             PageLoadingBarService.setProgress(100);
         });
@@ -215,8 +225,14 @@ const ReservationsComponent = function (
             $ctrl.archivedReservations,
         );
 
+        checkExtraPaymentAvailable($ctrl.reservations);
+
         $ctrl.acceptedByDefault = $ctrl.organization.reservations_auto_accept;
         $ctrl.reservationEnabled = reservations_budget_enabled || reservations_subsidy_enabled;
+        $ctrl.states = [
+            ...$ctrl.states,
+            ...($ctrl.organization.can_view_provider_extra_payments ? $ctrl.extraPaymentStates : [])
+        ];
 
         $ctrl.funds.unshift({
             fund: {
