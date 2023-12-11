@@ -55,6 +55,7 @@ const VouchersComponent = function (
             count_per_identity_max: null,
             type: 'fund_voucher',
             source: 'all',
+            implementation_id: null,
             sort_by: 'created_at',
             sort_order: 'desc',
         },
@@ -62,6 +63,7 @@ const VouchersComponent = function (
             'q', 'granted', 'amount_min', 'amount_max', 'date_type', 'from', 'to',
             'state', 'in_use', 'count_per_identity_min', 'count_per_identity_max',
             'type', 'source', 'sort_by', 'sort_order', 'per_page', 'page', 'fund_id',
+            'implementation_id',
         ]),
         reset: function () {
             this.values = { ...this.defaultValues };
@@ -191,6 +193,11 @@ const VouchersComponent = function (
             $ctrl.init();
             $ctrl.onPageChange($ctrl.filters.values);
         }
+
+        $ctrl.implementations.unshift({
+            id: null,
+            name: 'Alle implementaties',
+        });
     };
 };
 
@@ -199,6 +206,7 @@ module.exports = {
         fund: '<',
         funds: '<',
         organization: '<',
+        implementations: '<',
     },
     controller: [
         '$state',

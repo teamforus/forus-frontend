@@ -93,6 +93,27 @@
     @include webkit_scrollbar($color);
 }
 
+@mixin webkit_scrollbar_table($color: var(--color-primary-light), $trak-border: 1px solid transparent) {
+    &::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f3f4f5;
+        border: $trak-border;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 12px;
+        height: 8px;
+        border: 3px solid rgba(0, 0, 0, 0);
+        background-clip: padding-box;
+        background-color: $color;
+        box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.05), inset 1px 1px 0px rgba(0, 0, 0, 0.05);
+    }
+}
+
 @mixin anim_blink() {
     @keyframes blink {
         0% {

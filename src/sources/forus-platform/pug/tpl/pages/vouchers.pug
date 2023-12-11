@@ -156,6 +156,14 @@
                                         date-week-start-day="1").form-control
                                         input(ng-model="$ctrl.filters.values.to" type="text" placeholder="dd-MM-yyyy").form-control
 
+                                .form-group(ng-click="$event.stopPropagation()")
+                                    form-label-toggle(label="{{ 'vouchers.labels.implementation' | translate }}")
+                                    .form-offset: select-control(
+                                        prop="id"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.implementation_id"
+                                        options="$ctrl.implementations").form-control
+
                                 .form-actions
                                     button.button.button-primary.button-wide(
                                         ng-click="$ctrl.exportVouchers()" 
@@ -168,17 +176,18 @@
             //- Vouchers list
             .card-section(ng-if="$ctrl.vouchers.data.length > 0")
                 .card-block.card-block-table
-                    .table-wrapper
+                    .table-wrapper.table-wrapper-scroll
                         table.table
                             tr
                                 th(translate="vouchers.labels.id")
                                 th(translate="vouchers.labels.assigned_to")
-                                th(translate="vouchers.labels.source")
+                                th(translate="vouchers.labels.source").nowrap
                                 th(ng-if="$ctrl.fund.type == 'budget'" translate="vouchers.labels.amount")
                                 th(translate="vouchers.labels.note")
                                 th(translate="vouchers.labels.created_date").nowrap
                                 th(ng-if="!$ctrl.fundClosed" translate="vouchers.labels.expire_date").nowrap
-                                th(ng-if="!$ctrl.fundClosed" translate="vouchers.labels.used")
+                                th(ng-if="!$ctrl.fundClosed" translate="vouchers.labels.used").nowrap
+                                th(translate="vouchers.labels.implementation")
                                 th(translate="vouchers.labels.assigned")
                                 th(translate="vouchers.labels.actions").nowrap.text-right
 
@@ -189,7 +198,7 @@
                                 
                                 td(ng-bind="voucher.id")
                                 
-                                td
+                                td.nowrap
                                     strong(ng-bind="(voucher.identity_email | str_limit:25) || voucher.activation_code || 'Niet toegewezen'").text-primary
                                     span(ng-if="voucher.identity_bsn || voucher.relation_bsn").text-strong.text-md.text-muted-dark
                                         br
@@ -220,7 +229,7 @@
                                     br
                                     strong(ng-bind="voucher.expire_at_locale.split(',')[1]").text-strong.text-md.text-muted-dark
 
-                                td(ng-if="!$ctrl.fundClosed"): .td-boolean.flex-vertical
+                                td(ng-if="!$ctrl.fundClosed").nowrap: .td-boolean.flex-vertical
                                     .text-primary
                                         em.mdi.mdi-check-circle(ng-if="voucher.in_use")
                                         em.mdi.mdi-close(ng-if="!voucher.in_use")
@@ -228,6 +237,9 @@
                                         strong(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale.split(',')[0]").text-primary
                                         br(ng-if="voucher.in_use")
                                         strong(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale.split(',')[1]").text-strong.text-md.text-muted-dark
+
+                                td
+                                    strong(ng-bind="voucher.implementation_name").text-strong.text-md.text-muted-dark
 
                                 td
                                     .td-boolean(ng-if="voucher.expired")
