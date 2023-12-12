@@ -1,11 +1,18 @@
-import { parse, format } from 'date-fns';
+import { isValid, parse, format } from 'date-fns';
 
 const DateService = function() {
     return new(function() {
         this.dateFormat = 'dd-MM-yyyy'
 
-        this._dateParse = (date) => {
-            return parse(date, this.dateFormat, new Date());
+        this._dateParse = (date, strict = true) => {
+            if (!strict) {
+                return parse(date, this.dateFormat, new Date());
+            }
+
+            const parsedDate = parse(date, this.dateFormat, new Date());
+            const isValidDate = isValid(parsedDate) && format(parsedDate, this.dateFormat) === date;
+
+            return isValidDate ? parsedDate : null;
         };
 
         this._dateFormatYmd = (date) => {
