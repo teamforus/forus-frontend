@@ -18,7 +18,6 @@
                     .step-item
                         .step-item-img(alt="Me-app aanmeldscherm schermafbeelding")
                             img(src="./assets/img/icon-auth/download-me-app.svg")
-                            img.img-hover(src="./assets/img/icon-auth/download-me-app-hover.svg")
                         h2.step-title Stap 1
                         .step-description 
                             a(ng-click="$ctrl.openInMeModal()") Download
@@ -26,12 +25,11 @@
                     
                     .step-separator 
                         img(src="./assets/img/icon-auth/icon-app-step-separator.svg").hide-sm
-                        em.mdi.mdi-chevron-right.show-sm
+                        img(src="./assets/img/icon-auth/icon-app-step-separator-mobile.svg").show-sm
 
                     .step-item
                         .step-item-img(alt="Me-app aanmeldscherm schermafbeelding, kies koppelen")
                             img(src="./assets/img/icon-auth/pair-me-app.svg")
-                            img.img-hover(src="./assets/img/icon-auth/pair-me-app-hover.svg")
                         h2.step-title Stap 2
                         .step-description Kies “Koppelen”
 
