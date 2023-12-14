@@ -139,12 +139,16 @@ const ProductReservationService = function (
         };
 
         this.acceptAllowed = (reservation) => {
+            const extraNotCanceledRefunds = reservation.extra_payment
+                ? reservation.extra_payment.refunds.filter((item) => !['canceled', 'failed'].includes(item.state))
+                : [];
+
             return reservation &&
                 reservation.state === 'pending' &&
                 !reservation.expired &&
                 !reservation.product.deleted &&
                 (!reservation.extra_payment || reservation.extra_payment.state == 'paid') &&
-                (!reservation.extra_payment || !reservation.extra_payment.is_fully_refunded);
+                (!reservation.extra_payment || !extraNotCanceledRefunds.length);
         };
     });
 };

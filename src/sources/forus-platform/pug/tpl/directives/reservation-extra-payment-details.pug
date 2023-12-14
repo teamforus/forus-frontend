@@ -11,6 +11,7 @@
 
             .button.button-danger.button-sm(
                 ng-if="!$dir.payment.is_fully_refunded && $dir.payment.is_paid"
+                ng-disabled="$dir.payment.available_refund_amount <= 0"
                 ng-click="$dir.refundReservationExtraPayment()")
                 em.mdi.mdi-undo-variant.icon-start
                 | Bijbetaling terugbetalen
