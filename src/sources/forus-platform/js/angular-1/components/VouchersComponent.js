@@ -182,6 +182,11 @@ const VouchersComponent = function (
     $ctrl.$onInit = () => {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
 
+        $ctrl.implementations.unshift({
+            id: null,
+            name: 'Alle implementaties',
+        });
+
         if (!$ctrl.fund && $ctrl.funds.length > 0) {
             return $state.go('vouchers', {
                 organization_id: $state.params.organization_id,
@@ -193,11 +198,6 @@ const VouchersComponent = function (
             $ctrl.init();
             $ctrl.onPageChange($ctrl.filters.values);
         }
-
-        $ctrl.implementations.unshift({
-            id: null,
-            name: 'Alle implementaties',
-        });
     };
 };
 

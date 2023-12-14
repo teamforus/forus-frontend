@@ -146,10 +146,10 @@
                                 th(translate="vouchers.labels.source").nowrap
                                 th(translate="product_vouchers.labels.product")
                                 th(translate="product_vouchers.labels.note")
+                                th(translate="product_vouchers.labels.fund")
                                 th(translate="product_vouchers.labels.created_date").nowrap
                                 th(ng-if="!$ctrl.fundClosed" translate="product_vouchers.labels.expire_date").nowrap
                                 th(ng-if="!$ctrl.fundClosed" translate="product_vouchers.labels.used").nowrap
-                                th(translate="vouchers.labels.implementation")
                                 th(translate="vouchers.labels.assigned")
                                 th(translate="vouchers.labels.actions").nowrap.text-right
 
@@ -182,6 +182,11 @@
                                     .tooltip-content(ng-if="voucher.showTooltip" click-outside="$ctrl.hideTooltip($event, voucher)")
                                         .tooltip-text(ng-bind="(voucher.note || '-') | str_limit:128" title="{{ voucher.note }}")
 
+                                td.nowrap
+                                    strong(ng-bind="voucher.fund.name | str_limit:25").text-primary
+                                    br
+                                    span(ng-bind="voucher.fund.implementation.name | str_limit:25").text-strong.text-md.text-muted-dark
+
                                 td
                                     strong(ng-bind="voucher.created_at_locale.split(' - ')[0]").text-primary
                                     br
@@ -200,12 +205,9 @@
                                         string(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale.split(',')[0]").text-primary
                                         br(ng-if="voucher.in_use")
                                         string(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale.split(',')[1]").text-strong.text-md.text-muted-dark
-                                                 
-                                td
-                                    strong(ng-bind="voucher.implementation_name").text-strong.text-md.text-muted-dark 
 
                                 //- voucher state
-                                td
+                                td.nowrap
                                     .td-boolean(ng-if="voucher.expired")
                                         em.mdi.mdi-close
                                         span.text-md.text-muted-dark Verlopen               
