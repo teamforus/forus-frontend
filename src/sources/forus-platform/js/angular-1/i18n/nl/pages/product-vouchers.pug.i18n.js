@@ -7,8 +7,7 @@ module.exports = {
         product: "Aanbod",
         created_date: "Aangemaakt op",
         expire_date: "Geldig tot en  met",
-        fund: "Fond",
-        fund: "Fond",
+        fund: "Fonds",
         granted: "Toegekend",
         used: "In gebruik",
         used_date: 'In gebruik date',
@@ -18,7 +17,6 @@ module.exports = {
         yes: "Ja",
         no: "Nee",
         date_type: 'Pas toe op',
-        implementation: "Implementatie",
     },
     buttons: {
         add_new: "Aanmaken",
