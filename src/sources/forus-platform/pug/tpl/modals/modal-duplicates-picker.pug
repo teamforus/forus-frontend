@@ -11,22 +11,26 @@
         
         .modal-body.modal-body-padless.form
             .block.block-switch-table(scroll-end="$ctrl.loadMore()")
-                label.switch-row(
-                    for="option_{{ $index }}_enabled" 
-                    ng-repeat="item in $ctrl.itemsShown" 
-                    ng-class="{'switch-row-disabled' : !($ctrl.enableToggles && $ctrl.itemsShown.length > 1)}")
+                .table-wrapper: table.table
+                    tr(
+                        ng-repeat="item in $ctrl.itemsShown"
+                        ng-click="item.model = !item.model; $ctrl.blink(item);"
+                        ng-class="{'switch-row-disabled' : !($ctrl.enableToggles && $ctrl.itemsShown.length > 1)}")
 
-                    .switch-label
-                        em.mdi.mdi-alert-outline.text-warning.switch-key-icon
-                        span(ng-bind="item.value")
-                    
-                    .switch-input(ng-if="$ctrl.enableToggles && $ctrl.itemsShown.length > 1"): .flex-row
-                        .flex-col.switch-input-label(
-                            ng-class="{'switch-input-label-blink' : item.blink}"
-                            ng-bind="item.model ? $ctrl.labels.label_on : $ctrl.labels.label_off")
-                        .flex-col: .form-group.form-group-inline: .form-toggle
-                            input(type="checkbox" id=("option_{{ $index }}_enabled") ng-model="item.model" ng-change="$ctrl.blink(item)")
-                            .form-toggle-inner: .toggle-input: .toggle-input-dot            
+                        td
+                            em.mdi.mdi-alert-outline.text-warning.switch-key-icon
+                            span(ng-bind="item.value")
+
+                        td(ng-if="item.columns" ng-repeat="column in item.columns")
+                            span(ng-bind="column")
+
+                        td(ng-if="$ctrl.enableToggles && $ctrl.itemsShown.length > 1"): .flex-row
+                            .flex-col.switch-input-label(
+                                ng-class="{'switch-input-label-blink' : item.blink}"
+                                ng-bind="item.model ? $ctrl.labels.label_on : $ctrl.labels.label_off")
+                            .flex-col: .form-group.form-group-inline: .form-toggle
+                                input(type="checkbox" ng-model="item.model" ng-change="$ctrl.blink(item)")
+                                .form-toggle-inner: .toggle-input: .toggle-input-dot
 
         .modal-footer.text-center
             .button-group.flex-grow

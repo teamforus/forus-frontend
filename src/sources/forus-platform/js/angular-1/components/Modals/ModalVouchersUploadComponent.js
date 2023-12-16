@@ -184,6 +184,7 @@ const ModalVouchersUploadComponent = function(
                         });
 
                         row.note = row.note || this.defaultNote(row);
+                        row.fund_id = row.fund_id || $ctrl.fund.id;
                         row.client_uid = row.client_uid || row.activation_code_uid || null;
                         delete row.activation_code_uid;
 
@@ -240,12 +241,14 @@ const ModalVouchersUploadComponent = function(
                 };
             };
 
-            this.confirmEmailSkip = function(existingEmails, onConfirm) {
-                let items = existingEmails.map(email => ({ value: email }));
+            this.confirmEmailSkip = function(existingEmails, fundName, onConfirm) {
+                let items = existingEmails.map(email => ({ value: email, columns: {fund: fundName} }));
 
                 if (items.length === 0) {
                     return onConfirm();
                 }
+
+                PushNotificationsService.success(`Processing duplicates for fund ${fundName}...`);
 
                 ModalService.open('duplicatesPicker', {
                     hero_title: "Dubbele e-mailadressen gedetecteerd.",
@@ -272,12 +275,14 @@ const ModalVouchersUploadComponent = function(
                 });
             };
 
-            this.confirmBsnSkip = function(existingBsn, onConfirm) {
-                let items = existingBsn.map(bsn => ({ value: bsn }));
+            this.confirmBsnSkip = function(existingBsn, fundName, onConfirm) {
+                let items = existingBsn.map(bsn => ({ value: bsn, columns: {fund: fundName} }));
 
                 if (items.length === 0) {
                     return onConfirm();
                 }
+
+                PushNotificationsService.success(`Processing duplicates for fund ${fundName}...`);
 
                 ModalService.open('duplicatesPicker', {
                     hero_title: "Dubbele bsn(s) gedetecteerd.",
@@ -319,63 +324,77 @@ const ModalVouchersUploadComponent = function(
                     'download-outline'
                 );
 
-                HelperService.recursiveLeacher((page) => {
-                    return VoucherService.index($ctrl.organization.id, {
-                        fund_id: $ctrl.fund.id,
-                        type: $ctrl.type,
-                        per_page: 100,
-                        page: page,
-                        source: 'employee',
-                        expired: 0,
-                    });
-                }, 4).then(data => {
-                    PushNotificationsService.success(
-                        'Aan het vergelijken...',
-                        'De tegoeden zijn ingeladen en worden vergeleken met het .csv bestand...',
-                        'timer-sand'
-                    );
+                const dataGrouped = groupBy(this.data, 'fund_id');
+                const list = Object.keys(dataGrouped).map(fund_id => ({
+                    fund_id: fund_id,
+                    fund_name: $ctrl.availableFundsNames[fund_id] || ' - ',
+                    list: dataGrouped[fund_id]
+                }));
 
-                    const emails = data.map(voucher => voucher.identity_email);
-                    const bsnList = [
-                        ...data.map(voucher => voucher.relation_bsn),
-                        ...data.map(voucher => voucher.identity_bsn)
-                    ];
-
-                    const existingEmails = this.data.filter((csvRow) => {
-                        return emails.indexOf(csvRow.email) != -1;
-                    }).map((csvRow) => csvRow.email);
-
-                    const existingBsn = this.data.filter((csvRow) => {
-                        return bsnList.indexOf(csvRow.bsn) != -1;
-                    }).map((csvRow) => csvRow.bsn);
-
-                    $ctrl.loading = false;
-
-                    if (existingEmails.length === 0 && existingBsn.length === 0) {
+                list.reduce(
+                    (promiseChain, value) => promiseChain.then(() => this.checkDuplicates(value)),
+                    $q.resolve()
+                ).then(() => {
+                    if (this.data.length > 0) {
                         return this.startUploading(true).then(() => this.startUploading());
                     }
 
-                    this.confirmEmailSkip(existingEmails, () => {
-                        this.confirmBsnSkip(existingBsn, () => {
-                            if (this.data.length > 0) {
-                                return this.startUploading(true).then(() => this.startUploading());
-                            }
+                    $ctrl.close();
+                });
+            }
 
-                            $ctrl.close();
+            this.checkDuplicates = (obj) => {
+                const { fund_id, fund_name, list } = obj;
+
+                return $q((resolve) => {
+                    HelperService.recursiveLeacher((page) => {
+                        return VoucherService.index($ctrl.organization.id, {
+                            fund_id: fund_id,
+                            type: $ctrl.type,
+                            per_page: 100,
+                            page: page,
+                            source: 'employee',
+                            expired: 0,
                         });
-                    });
-                }, () => $ctrl.loading = false);
+                    }, 4).then(data => {
+                        PushNotificationsService.success(
+                            'Aan het vergelijken...',
+                            'De tegoeden zijn ingeladen en worden vergeleken met het .csv bestand...',
+                            'timer-sand'
+                        );
+
+                        const emails = data.map(voucher => voucher.identity_email);
+                        const bsnList = [
+                            ...data.map(voucher => voucher.relation_bsn),
+                            ...data.map(voucher => voucher.identity_bsn)
+                        ];
+
+                        const existingEmails = list.filter((csvRow) => {
+                            return emails.indexOf(csvRow.email) != -1;
+                        }).map((csvRow) => csvRow.email);
+
+                        const existingBsn = list.filter((csvRow) => {
+                            return bsnList.indexOf(csvRow.bsn) != -1;
+                        }).map((csvRow) => csvRow.bsn);
+
+                        $ctrl.loading = false;
+
+                        if (existingEmails.length === 0 && existingBsn.length === 0) {
+                            return resolve();
+                        }
+
+                        this.confirmEmailSkip(existingEmails, fund_name, () => {
+                            this.confirmBsnSkip(existingBsn, fund_name, resolve);
+                        });
+                    }, () => $ctrl.loading = false);
+                });
             }
 
             this.startUploading = function(validation = false) {
                 return $q(async (resolve) => {
                     let totalRows = this.data.length;
                     let uploadedRows = 0;
-                    let data = JSON.parse(JSON.stringify(this.data)).map(row => {
-                        return { ...row, ...{ fund_id: row.fund_id || $ctrl.fund.id } };
-                    });
-
-                    let dataGrouped = groupBy(data, 'fund_id');
+                    let dataGrouped = groupBy(this.data, 'fund_id');
                     this.progress = 2;
 
                     setProgress(0);
@@ -590,6 +609,7 @@ const ModalVouchersUploadComponent = function(
         $ctrl.type = $ctrl.modal.scope.type || 'fund_voucher';
         $ctrl.availableFunds = $ctrl.modal.scope.organizationFunds;
         $ctrl.availableFundsIds = $ctrl.availableFunds.map(fund => fund.id);
+        $ctrl.availableFundsNames = $ctrl.availableFunds.reduce((obj, fund) => ({ ...obj, [fund.id]: fund.name}), {})
 
         if ($ctrl.type == 'product_voucher') {
             HelperService.recursiveLeacher((page) => {
