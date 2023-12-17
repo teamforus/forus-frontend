@@ -118,12 +118,24 @@
                         display: block;
                         margin: 0 0 5px;
                         color: #00122a;
+                        width: fit-content;
+                        transition: color .4s;
+
+                        &:hover {
+                            color: #535561;
+                        }
                     }
 
                     .reservation-organization {
-                        font: 400 14px/22px var(--base-font);
+                        font: 600 14px/22px var(--base-font);
                         color: #282b39;
                         margin-bottom: 10px;
+                        width: fit-content;
+                        transition: color .4s;
+
+                        &:hover {
+                            color: #535561;
+                        }
                     }
 
                     .reservation-value-list {
