@@ -8,31 +8,13 @@
     .modal-window: .modal-content
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
-        .modal-section(ng-if="$ctrl.reservation.state === 'accepted'")
-            h2.title.text-center(translate="modal_product_reserve_cancel.header_accepted.title" translate-values="{organizationname: $ctrl.reservation.product.organization.name}")
-
-            .description
-                p.text-center(translate="modal_product_reserve_cancel.description_accepted")
-                p.text-center
-                    strong 
-                        | Neem contact op met de 
-                        a(
-                            target="_blank"
-                            ui-sref="provider($ctrl.reservation.product.organization)" 
-                            ng-bind="$ctrl.reservation.product.organization.name")
-                        |!
-                    br
-
-            .button-group.flex-center
-                button.button.button-dark(ng-click="$ctrl.close()") Sluiten
-
-        .modal-section(ng-if="$ctrl.reservation.state === 'pending' && $ctrl.reservation.extra_payment.is_paid")
+        .modal-section(ng-if="!$ctrl.reservation.cancelable")
             h2.title.text-center(
-                translate="modal_product_reserve_cancel.header_extra_paid.title" 
+                translate="modal_product_reserve_cancel.header_not_cancelable.title"
                 translate-values="{organizationname: $ctrl.reservation.product.organization.name}")
 
             .description
-                p.text-center(translate="modal_product_reserve_cancel.description_extra_paid")
+                p.text-center(translate="modal_product_reserve_cancel.description_not_cancelable")
                 p.text-center
                     strong
                         | Neem contact op met de
@@ -46,7 +28,7 @@
             .button-group.flex-center
                 button.button.button-dark(ng-click="$ctrl.close()") Sluiten
 
-        .modal-section(ng-if="($ctrl.reservation.state === 'pending' && !$ctrl.reservation.extra_payment) || $ctrl.reservation.state === 'waiting'")
+        .modal-section(ng-if="$ctrl.reservation.cancelable")
             
             h2.title.text-center(
                 translate="{{ 'modal_product_reserve_cancel.header_pending.title_' + $ctrl.appConfigs.features.communication_type }}")
