@@ -1139,6 +1139,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         },
         component: 'fundPreCheckComponent',
         resolve: {
+            configs: resolveConfigs(),
             funds: ['$transition$', 'FundService', ($transition$, FundService) => {
                 return repackPagination(FundService.list(null, {
                     q: $transition$.params().q,

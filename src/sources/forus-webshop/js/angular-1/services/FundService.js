@@ -4,7 +4,7 @@ const FundService = function (
     $q,
     $filter,
     ApiRequest,
-    ModalService
+    ModalService,
 ) {
     const uriPrefix = '/platform/organizations/';
     const $trans = $filter('translate');
@@ -276,12 +276,12 @@ const FundService = function (
                 control_type_key || control_type_base || control_type_default;
         }
 
-        this.getCriterionControlDefaultValue = (record_type, operator = null) => {
+        this.getCriterionControlDefaultValue = (record_type, operator = null, init_date = true) => {
             const control_type = this.getCriterionControlType(record_type, operator);
 
             return {
                 ui_control_checkbox: null,
-                ui_control_date: format(new Date(), 'dd-MM-yyyy'),
+                ui_control_date: init_date ? format(new Date(), 'dd-MM-yyyy') : null,
                 ui_control_step: record_type?.key == 'adults_nth' ? 1 : 0,
                 ui_control_number: undefined,
                 ui_control_currency: undefined,
@@ -289,8 +289,8 @@ const FundService = function (
             }[control_type];
         }
 
-        this.getCriterionLabelValue = (criteria_record_key, value = null) => {
-            const trans_key = `fund_request.sign_up.record_checkbox.${criteria_record_key}`;
+        this.getCriterionLabelValue = (criteria_record, value = null) => {
+            const trans_key = `fund_request.sign_up.record_checkbox.${criteria_record.key}`;
             const translated = $trans(trans_key, { value });
             const trans_fallback_key = 'fund_request.sign_up.record_checkbox.default';
 

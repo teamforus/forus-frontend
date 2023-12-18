@@ -93,7 +93,6 @@
     @import 'sections/blocks/block-steps.scss';
     @import 'sections/blocks/block-mobile-menu.scss';
     @import 'sections/blocks/block-funds-list.scss';
-    @import 'sections/blocks/block-funds-pre-check-list.scss';
 
     @import 'sections/blocks/block-map-office-card.scss';
     @import 'sections/blocks/block-sessions.scss';
@@ -131,6 +130,7 @@
     @import 'sections/blocks/block-fund-requests.scss';
     @import 'sections/blocks/block-pre-check-banner.scss';
     @import 'sections/blocks/block-fund-pre-check.scss';
+    @import 'sections/blocks/block-fund-pre-check-result.scss';
 }
 
 .modal {

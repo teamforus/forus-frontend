@@ -7,10 +7,6 @@ const FundPreCheckStepEditorDirective = function (
     const $translate = $filter('translate');
     const $translateDangerZone = (key) => $translate(`modals.danger_zone.remove_implementation_block.${key}`);
 
-    let getDefaultPreCheck = () => {
-        return $dir.preChecks.find((preCheck) => preCheck.default);
-    };
-
     $dir.sortablePreCheck = {
         group: {
             name: 'pre-check',
@@ -75,12 +71,13 @@ const FundPreCheckStepEditorDirective = function (
 
     $dir.removePreCheck = (preCheckIndex) => {
         $dir.askConfirmation(() => {
-            getDefaultPreCheck().record_types = [
-                ...getDefaultPreCheck().record_types,
-                ...$dir.preChecks[preCheckIndex].record_types,
-            ];
+            const deletedPreCheck = $dir.preChecks.splice(preCheckIndex, 1)[0];
+            const defaultPreCheck = $dir.preChecks.find((preCheck) => preCheck.default);
 
-            $dir.preChecks.splice(preCheckIndex, 1);
+            defaultPreCheck.record_types = [
+                ...defaultPreCheck.record_types,
+                ...deletedPreCheck.record_types,
+            ];
         });
     };
 

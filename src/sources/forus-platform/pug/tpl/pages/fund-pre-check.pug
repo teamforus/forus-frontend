@@ -15,7 +15,7 @@
                 .flex.flex-grow.flex-end
                     a.button.button-text.button-sm(
                         ng-if="$ctrl.implementation.pre_check_enabled" 
-                        href="{{ $ctrl.implementation.url_webshop }}/fund-pre-check"
+                        href="{{ $ctrl.implementation.pre_check_url }}"
                         target="_blank")
                         | Bekijk pagina
                         .mdi.mdi-open-in-new.icon-end 
@@ -57,6 +57,8 @@
                         .form-error(ng-repeat="error in $ctrl.preCheckForm.errors.pre_check_description" ng-bind="error")
 
             .card-section.card-section-primary(ng-if="$ctrl.funds.meta.total > 0"): .row: .col.col-lg-12.col-xs-12
+                .card-heading Steps ({{ $ctrl.preChecks.length }})
+
                 fund-pre-check-step-editor(
                     errors="$ctrl.preCheckForm.errors"
                     implementation="$ctrl.implementation"

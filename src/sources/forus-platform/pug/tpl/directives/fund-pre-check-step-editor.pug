@@ -7,7 +7,11 @@
             //- Block title
             .pre-check-item-header-drag: em.mdi.mdi-drag-vertical
             .pre-check-item-header-title
-                span(ng-bind="preCheck.title || (!preCheck.id ? 'New step' : 'Edit step')")
+                span(ng-if="preCheck.title")
+                    span(ng-bind="preCheck.title")
+                    span(ng-bind="' (' + preCheck.record_types.length + ' criteria)'").text-muted
+
+                span(ng-if="!preCheck.title" ng-bind="(!preCheck.id ? 'New step' : 'Edit step')")
                 span(ng-if="preCheck.default").text-muted &nbsp;#[span.mdi.mdi-lock-outline]
 
             //- Block actions

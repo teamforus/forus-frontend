@@ -1,101 +1,92 @@
 const FundPreCheckComponent = function (
-    $q,
+    $state,
     $timeout,
     FundService,
     PreCheckService,
     FormBuilderService,
+    PushNotificationsService,
 ) {
     const $ctrl = this;
 
+    $ctrl.totals = null;
     $ctrl.activeStepIndex = 0;
-    $ctrl.showTotals = false;
 
-    const updateActivePreCheck = () => {
-        $ctrl.activePreCheck = $ctrl.preChecks[$ctrl.activeStepIndex];
+    const mapPreCheck = (preCheck) => {
+        // TODO: handle record_types with multiple values
+        /* const record_types = preCheck.record_types.reduce((record_types, record_type) => [
+            ...record_types,
+            ...record_type.values.map((value) => ({ ...record_type, value }))
+        ], []); */
+
+        return {
+            ...preCheck,
+            record_types: preCheck.record_types.map((record_type) => ({
+                ...record_type,
+                label: FundService.getCriterionLabelValue(record_type.record_type, record_type.value),
+                control_type: FundService.getCriterionControlType(record_type.record_type),
+                input_value: FundService.getCriterionControlDefaultValue(record_type.record_type, '=', false),
+            }))
+        };
     };
 
-    const isLastPreCheck = () => {
-        return $ctrl.activeStepIndex == $ctrl.preChecks.length - 1;
+    $ctrl.preCheckFilled = (index) => {
+        const activePreCheck = $ctrl.preChecks[index];
+        const filledRecordTypes = activePreCheck.record_types.filter((pre_check_record) => {
+            return pre_check_record.input_value ||
+                pre_check_record.input_value === 0 ||
+                pre_check_record.control_type === 'ui_control_checkbox';
+        });
+
+        return filledRecordTypes.length === activePreCheck.record_types.length;
     };
 
-    $ctrl.activePreCheckFilled = () => {
-        return $ctrl.activePreCheck.record_types.filter(pre_check_record => {
-            return pre_check_record.input_value || pre_check_record.control_type == 'ui_control_checkbox';
-        }).length == $ctrl.activePreCheck.record_types.length;
-    };
+    $ctrl.fetchPreCheckTotals = (query) => {
+        const records = $ctrl.preChecks.reduce((recordsData, preCheck) => [
+            ...recordsData,
+            ...preCheck.record_types.reduce((recordData, record) => [
+                ...recordData,
+                { key: record.record_type_key, value: record.input_value?.toString() || '' },
+            ], [])
+        ], []);
 
-    $ctrl.submitPreChecks = () => {
-        $timeout(() => {
-            if (!isLastPreCheck() && !$ctrl.showTotals) {
-                return;
-            }
-
-            const recordsData = $ctrl.preChecks.reduce((recordsData, preCheck) => {
-                return [
-                    ...recordsData,
-                    ...preCheck.record_types.reduce((recordData, record) => {
-                        return [
-                            ...recordData, 
-                            {
-                                key: record.record_type_key,
-                                value: record.input_value?.toString(),
-                            }
-                        ];
-                    }, [])
-                ];
-            }, []);
-
-            return $q((resolve, reject) => {
-                PreCheckService.calculateTotals({
-                    records: recordsData,
-                    ...$ctrl.form.values,
-                }).then((res) => {
-                    resolve($ctrl.totals = res.data);
-                    $ctrl.showTotals = true;
-                }, reject);
-            });
-        }, 10);
+        PreCheckService.calculateTotals({ ...query, records })
+            .then((res) => $ctrl.totals = res.data)
+            .catch((res) => PushNotificationsService.danger(res.data.message));
     };
 
     $ctrl.changeAnswers = () => {
+        $ctrl.totals = null;
         $ctrl.activeStepIndex = 0;
-        $ctrl.showTotals = false;
-        updateActivePreCheck();
     };
 
     $ctrl.prev = () => {
-        if ($ctrl.activeStepIndex > 0) {
-            $ctrl.activeStepIndex--;
-            updateActivePreCheck();
-        }
+        $ctrl.activeStepIndex = Math.max($ctrl.activeStepIndex - 1, 0);
     };
 
     $ctrl.next = () => {
-        // Last step - get the totals
-        if (isLastPreCheck()) {
-            $ctrl.submitPreChecks();
-            return;
+        const isLastPreCheck = $ctrl.activeStepIndex == $ctrl.preChecks.length - 1;
+
+        if (isLastPreCheck) {
+            return $ctrl.fetchPreCheckTotals($ctrl.form.values);
         }
 
-        if ($ctrl.activeStepIndex < $ctrl.preChecks.length && $ctrl.activePreCheckFilled()) {
-            $ctrl.activeStepIndex++;
-            updateActivePreCheck();
+        if ($ctrl.preCheckFilled($ctrl.activeStepIndex)) {
+            $ctrl.activeStepIndex = Math.min($ctrl.activeStepIndex + 1, $ctrl.preChecks.length - 1);
         }
     };
 
     $ctrl.setRecordValue = (criteria) => $timeout(() => {
         criteria.input_value = criteria.is_checked ? criteria.value : null;
     }, 250);
-    
-    $ctrl.setShowMorePreCheckInfo = (e, showMorePreCheckInfo = false) => {
-        e?.preventDefault();
-        e?.stopPropagation();
-        
-        $ctrl.showMorePreCheckInfo = showMorePreCheckInfo;
-    };
 
     $ctrl.$onInit = function () {
+        $ctrl.enabled = $ctrl.configs?.pre_check_enabled && $ctrl.configs?.pre_check_banner_state == 'public';
         $ctrl.recordTypesByKey = $ctrl.recordTypes.reduce((acc, type) => ({ ...acc, [type.key]: type }), {});
+
+        if (!$ctrl.enabled) {
+            PushNotificationsService.danger('Deze pagina is niet beschikbaar.');
+            return $state.go('home');
+        }
 
         $ctrl.tags.unshift({
             id: null,
@@ -113,33 +104,27 @@ const FundPreCheckComponent = function (
             organization_id: null,
         });
 
-        $ctrl.preChecks = $ctrl.preChecks.map((preCheck) => ({
-            ...preCheck,
-            record_types: preCheck.record_types.map((pre_check_record) => ({
-                ...pre_check_record,
-                label: FundService.getCriterionLabelValue(pre_check_record.record_type),
-                control_type: FundService.getCriterionControlType(pre_check_record.record_type),
-                input_value: FundService.getCriterionControlDefaultValue(pre_check_record.record_type),
-            }))
-        }));
-
-        updateActivePreCheck();
+        $ctrl.preChecks = $ctrl.preChecks
+            .filter((preCheck) => preCheck.record_types.length > 0)
+            .map((preCheck) => mapPreCheck(preCheck));
     };
 };
 
 module.exports = {
     bindings: {
         tags: '<',
+        configs: '<',
         preChecks: '<',
         recordTypes: '<',
         organizations: '<',
     },
     controller: [
-        '$q',
+        '$state',
         '$timeout',
         'FundService',
         'PreCheckService',
         'FormBuilderService',
+        'PushNotificationsService',
         FundPreCheckComponent,
     ],
     templateUrl: 'assets/tpl/pages/fund-pre-check.html',

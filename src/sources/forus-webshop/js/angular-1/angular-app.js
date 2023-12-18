@@ -157,7 +157,7 @@ app.directive('inputCheckboxControl', require('./directives/InputCheckboxControl
 app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirective'));
 app.directive('auth2FAInfoBox', require('./directives/Auth2FAInfoBoxDirective'));
 app.directive('fundRequestCard', require('./directives/FundRequestCardDirective'));
-app.directive('fundPreCheckItem', require('./directives/lists/FundPreCheckItemDirective'));
+app.directive('fundItemPreCheck', require('./directives/lists/FundItemPreCheckDirective'));
 app.directive('progressPie', require('./directives/ProgressPie'));
 
 app.directive('pdfPreview', require('./directives/file_preview/PdfPreviewDirective'));

@@ -12,10 +12,10 @@ const FundPreCheckComponent = function (
     $ctrl.mediaFile = null;
 
     $ctrl.enableOptions = [{
-        key: 0,
+        key: false,
         name: `Disabled`,
     }, {
-        key: 1,
+        key: true,
         name: `Enabled`,
     }];
 
