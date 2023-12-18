@@ -173,6 +173,7 @@
                         table.table.table-embed(ng-if="providerOrganization.fundProviders.meta.total > 0")
                             thead: tr
                                 th Fondsnaam
+                                th Implementatie
                                 th Status
                                 th Opties
 
@@ -189,6 +190,9 @@
 
                                         .text-primary.text-strong(
                                             ng-bind="fundProvider.fund.name | str_limit:40")
+
+                                td(ng-bind="fundProvider.implementation_name")
+
                                 td
                                     .label.label-success(ng-if="fundProvider.state == 'accepted'" ng-bind="fundProvider.state_locale")
                                     .label.label-default(ng-if="fundProvider.state == 'pending'" ng-bind="fundProvider.state_locale")

@@ -55,6 +55,15 @@
                                             type="text"
                                             ng-model="$ctrl.filters.values.q"
                                             placeholder="{{ 'components.organization_funds.filters.search' | i18n }}").form-control
+                                    
+                                    .form-group(ng-click="$event.stopPropagation()")
+                                        form-label-toggle(label="{{ 'components.organization_funds.filters.implementation' | translate }}")
+                                        
+                                        .form-offset: select-control(
+                                            prop="id"
+                                            search="false"
+                                            ng-model="$ctrl.filters.values.implementation_id"
+                                            options="$ctrl.implementations").form-control
 
                                     .form-group(ng-click="$event.stopPropagation()")
                                         form-label-toggle(label="{{ 'components.organization_funds.filters.state' | translate }}")
@@ -75,6 +84,8 @@
                             tr
                                 th(translate="components.organization_funds.labels.name" value="name")
 
+                                th(translate="components.organization_funds.labels.implementation" value="implementation_id")
+
                                 th(
                                     value="remaining_amount"
                                     ng-if="$ctrl.shownFundsType == 'active'"
@@ -84,7 +95,7 @@
                                     value="requester_count"
                                     ng-if="$ctrl.shownFundsType == 'active'"
                                     translate="components.organization_funds.labels.requester_count")
-
+                                
                                 th(translate="components.organization_funds.labels.status" value="state")
                                 th(translate="components.organization_funds.labels.actions").th-narrow.text-right
 
@@ -98,6 +109,8 @@
                                     .td-entity-main-content
                                         .text-strong.text-primary(ng-bind="fund.name | str_limit:50" title="{{ fund.name || '-' }}")
                                         .text-muted-dark(ng-bind="fund.type_locale")
+
+                                td(ng-bind="fund.implementation.name").text-strong.text-muted-dark
 
                                 //- Fund amount left
                                 td(

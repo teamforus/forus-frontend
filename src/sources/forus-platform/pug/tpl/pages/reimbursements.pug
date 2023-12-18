@@ -55,6 +55,16 @@
                                         placeholder="{{ 'reimbursements.labels.search' | translate }}"
                                         dusk="searchReimbursement").form-control
 
+                                //- Implementation filter    
+                                .form-group(ng-click="$event.stopPropagation()")
+                                    form-label-toggle(label="{{ 'reimbursements.labels.implementation' | translate }}")
+                                    
+                                    .form-offset: select-control(
+                                        prop="id"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.implementation_id"
+                                        options="$ctrl.implementations").form-control
+
                                 //- State filter
                                 .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'reimbursements.labels.state' | translate }}")
@@ -133,6 +143,9 @@
                             tr
                                 //- Identity
                                 th(translate="reimbursements.labels.identity")
+
+                                //- Implementation
+                                th(translate="reimbursements.labels.implementation")
                                 
                                 //- Amount
                                 th(translate="reimbursements.labels.amount")
@@ -175,6 +188,11 @@
                                     span(ng-if="$ctrl.organization.bsn_enabled").text-strong.text-md.text-muted-dark
                                         br
                                         | {{ reimbursement.identity_bsn ? ('BSN: ' + reimbursement.identity_bsn) : 'Geen BSN' }}
+                                
+                                td 
+                                    strong(ng-bind="reimbursement.fund.name | str_limit:25").text-primary
+                                    br
+                                    span(ng-bind="reimbursement.implementation_name | str_limit:25").text-strong.text-md.text-muted-dark
 
                                 //- Amount
                                 td(ng-bind="reimbursement.amount | currency_format" dusk="{{ 'reimbursementAmount' + reimbursement.id }}").nowrap
