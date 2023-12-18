@@ -62,6 +62,7 @@ module.exports = {
         modal_markdown_custom_link: require("./nl/modals/modal-markdown-custom-link.pug.i18n"),
         modal_voucher_transaction: require('./nl/modals/modal-voucher-transaction.pug.i18n'),
         modal_feature_contact: require('./nl/modals/modal-feature-contact.pug.i18n'),
+        modal_2fa_setup: require("./nl/modals/modal-2fa-setup"),
         danger_zone: {
             remove_external_validators: require('./nl/modals/danger-zone/remove-external-validator'),
             remove_provider_application: require('./nl/modals/danger-zone/remove-provider-application'),

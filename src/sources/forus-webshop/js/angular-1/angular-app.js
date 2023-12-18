@@ -113,6 +113,7 @@ app.service('SearchService', require('./services/SearchService'));
 app.service('TagService', require('./services/TagService'));
 app.service('MenuService', require('./services/MenuService'));
 app.service('PreCheckService', require('./services/PreCheckService'));
+app.service('DateService', require('./services/DateService'));
 
 // Directives
 app.directive('emptyBlock', require('./directives/EmptyBlockDirective'));
