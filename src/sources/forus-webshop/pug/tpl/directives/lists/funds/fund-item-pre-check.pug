@@ -51,6 +51,7 @@
 
             .fund-request-block-button: button.button.button-primary.button-sm(
                 type="button"
+                ng-disabled="!$dir.fund.allow_direct_requests"
                 ng-click="$dir.applyFund($event, $dir.fund)")
                 translate Direct aanvragen 
                 em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
