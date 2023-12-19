@@ -26,9 +26,10 @@
                     .flex.flex-vertical.flex-grow
                         .voucher-name(ng-bind="$dir.value.raw.fund.name")
                         .voucher-organization
-                            span(ng-if="$dir.value.raw.records_title" ng-bind='$dir.value.raw.records_title')
+                            span(ng-if="$dir.value.raw.records_title" ng-bind='$dir.value.raw.records_title | str_limit:40')
                             .text-separator(ng-if="$dir.value.raw.records_title")
-                            span(ng-bind="$dir.value.raw.fund.organization.name")
+                            span(ng-bind="$dir.value.raw.fund.organization.name | str_limit:20")
+                            tooltip(ng-if="option.raw.fund.organization.name.length > 20" text="option.raw.fund.organization.name")
 
                     .flex.flex-vertical.text-right
                         .voucher-value(ng-if="$dir.value.raw.fund.type === 'budget'" ng-bind="$dir.value.raw.amount_locale")

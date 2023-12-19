@@ -488,8 +488,13 @@
                                 }
 
                                 .voucher-organization {
-                                    font: 400 11px/11px  var(--base-font);
+                                    font: 400 11px/14px  var(--base-font);
                                     color: #595959;
+                                    padding-bottom: 5px;
+            
+                                    .text-separator {
+                                        margin: 0 5px 0 0;
+                                    }
                                 }
 
                                 .voucher-base-information {
@@ -500,6 +505,7 @@
                                 .voucher-amounts {
                                     flex-direction: row;
                                     justify-content: space-between;
+                                    margin: 0;
 
                                     .voucher-amount {
                                         gap: 5px;

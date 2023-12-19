@@ -66,7 +66,7 @@
                 }
 
                 .voucher-organization {
-                    font: 400 14px/22px var(--base-font);
+                    font: 400 13px/18px var(--base-font);
                     color: #282b39;
                     margin-bottom: 10px;
                 }
@@ -221,10 +221,10 @@
                     }
 
                     .voucher-organization {
-                        font: 400 13px/20px var(--base-font);
+                        font: 400 12px/16px var(--base-font);
                         margin: 0 0 5px;
                         color: #595959;
-                        padding-right: 140px;
+                        text-wrap: nowrap;
 
                         &:last-child {
                             margin-bottom: 0;
@@ -233,7 +233,6 @@
 
                     .voucher-records {
                         display: flex;
-                        margin-top: -25px;
                     }
 
                     .voucher-amounts {
@@ -415,7 +414,6 @@
                     width: 80%;
                     text-align: left;
                     padding: 10px;
-                    padding-right: 110px;
                     display: flex;
                     justify-content: center;
                     flex-direction: column;
@@ -427,8 +425,10 @@
                     }
 
                     .voucher-organization {
-                        font: 400 11px/18px var(--base-font);
+                        font: 400 11px/14px var(--base-font);
                         margin: 0 0 0;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
                     }
 
                     .voucher-value {
@@ -491,22 +491,32 @@
                         border-bottom: 1px solid var(--border-color);
                         text-align: center;
 
-                        .voucher-name {
-                            font: 700 16px/20px var(--base-font);
-                            margin: 0 0 15px;
-                            @include ellipsis();
-                            padding-right: 0;
-                        }
-    
-                        .voucher-organization {
-                            font: 400 12px/20px var(--base-font);
-                            padding-right: 0;
-                        }
-    
-                        .voucher-value {
-                            // position: initial;
-                            font: 700 22px/22px var(--base-font);
-                            // margin: 0 0 10px;
+                        .voucher-base-information {
+                            display: flex;
+                            flex-direction: column;
+
+                            .voucher-information {
+                                .voucher-name {
+                                    font: 700 16px/20px var(--base-font);
+                                    margin: 0 0 15px;
+                                    @include ellipsis();
+                                    padding-right: 0;
+                                }
+            
+                                .voucher-organization {
+                                    font: 400 11px/13px var(--base-font);
+                                    padding-right: 0;
+                                    text-wrap: wrap;
+                                }
+            
+                                .voucher-value {
+                                    font: 700 22px/22px var(--base-font);
+                                }
+                            }
+
+                            .voucher-amounts {
+                                text-align: left;
+                            }
                         }
                     }
 
