@@ -13,7 +13,7 @@ const ReservationsComponent = function (
 
     $ctrl.empty = null;
     $ctrl.acceptedByDefault = false;
-    $ctrl.hasExtraPayments = false;
+    $ctrl.showExtraPayments = false;
 
     $ctrl.shownReservationsType = $stateParams.reservations_type || 'active';
 
@@ -89,9 +89,12 @@ const ReservationsComponent = function (
         };
     }
 
-    const checkExtraPaymentAvailable = (reservations) => {
-        $ctrl.hasExtraPayments = $ctrl.organization.can_view_provider_extra_payments ||
-            reservations.data.filter((reservation) => reservation.amount_extra > 0).length;
+    const showExtraPaymentDetails = (reservations) => {
+        const hasExtraPaymentsOnPage = reservations.filter((reservation) => {
+            return reservation.extra_payment !== null;
+        }).length > 0;
+
+        return $ctrl.organization.can_view_provider_extra_payments || hasExtraPaymentsOnPage;
     }
 
     $ctrl.onPageChange = (query = {}) => {
@@ -106,7 +109,7 @@ const ReservationsComponent = function (
                 $ctrl.archivedReservations,
             );
 
-            checkExtraPaymentAvailable($ctrl.reservations);
+            $ctrl.showExtraPayments = showExtraPaymentDetails($ctrl.reservations.data);
 
             PageLoadingBarService.setProgress(100);
         });
@@ -225,10 +228,10 @@ const ReservationsComponent = function (
             $ctrl.archivedReservations,
         );
 
-        checkExtraPaymentAvailable($ctrl.reservations);
-
+        $ctrl.showExtraPayments = showExtraPaymentDetails($ctrl.reservations.data);
         $ctrl.acceptedByDefault = $ctrl.organization.reservations_auto_accept;
         $ctrl.reservationEnabled = reservations_budget_enabled || reservations_subsidy_enabled;
+
         $ctrl.states = [
             ...$ctrl.states,
             ...($ctrl.organization.can_view_provider_extra_payments ? $ctrl.extraPaymentStates : [])
