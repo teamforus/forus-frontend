@@ -32,7 +32,7 @@ const FundRequestComponent = function (
 
 
     $ctrl.dateKeys = ['birth_date'];
-    $ctrl.stepKeys = ['children_nth', 'waa_kind_0_tm_4_2021_eligible_nth', 'waa_kind_4_tm_18_2021_eligible_nth', 'adults_nth', 'eem_kind_0_tm_4_eligible_nth', 'eem_kind_4_tm_12_eligible_nth', 'eem_kind_12_tm_14_eligible_nth', 'eem_kind_14_tm_18_eligible_nth',];
+    $ctrl.stepKeys = ['children_nth', 'waa_kind_0_tm_4_2021_eligible_nth', 'waa_kind_4_tm_18_2021_eligible_nth', 'adults_nth', 'eem_kind_0_tm_4_eligible_nth', 'eem_kind_4_tm_12_eligible_nth', 'eem_kind_12_tm_14_eligible_nth', 'eem_kind_14_tm_18_eligible_nth'];
     $ctrl.numberKeys = ['tax_id'];
     $ctrl.currencyKeys = ['net_worth', 'base_salary'];
     $ctrl.checkboxKeys = ['children', 'kindpakket_eligible', 'kindpakket_2018_eligible'];
