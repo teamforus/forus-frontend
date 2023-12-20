@@ -116,8 +116,13 @@
                     .reservation-name {
                         font: 700 18px/27px var(--hf);
                         display: block;
-                        margin: 0 0 5px;
+                        margin: 0 30px 5px 0;
                         color: #00122a;
+                        word-break: break-word;
+
+                        a {
+                            font: inherit;
+                        }
                     }
 
                     .reservation-organization {
