@@ -123,6 +123,7 @@
 
                         &:hover {
                             color: #535561;
+                            text-decoration: underline;
                         }
                     }
 
@@ -132,9 +133,11 @@
                         margin-bottom: 10px;
                         width: fit-content;
                         transition: color .4s;
+                        text-decoration: underline;
 
                         &:hover {
                             color: #535561;
+                            text-decoration: none;
                         }
                     }
 
