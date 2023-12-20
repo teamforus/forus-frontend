@@ -43,8 +43,14 @@
                             ng-click="$dir.toggle($event, invitation)")
 
                         td
-                            .fund-img: img(ng-src="{{ invitation.fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
-                            .fund-title(ng-bind="invitation.fund.name")
+                            .flex.flex-align-items-center
+                                .fund-img: img(ng-src="{{ invitation.fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
+                                .fund-title
+                                    span(ng-bind="invitation.fund.name | str_limit:25" title="{{ invitation.fund.name }}")
+                                    br
+                                    a(
+                                        href="{{ invitation.implementation.url_webshop }}" target="_blank"
+                                        ng-bind="invitation.implementation.name | str_limit:25").text-strong.text-md.text-primary
 
                         td(
                             ng-bind="invitation.fund.organization.name | str_limit:25"
