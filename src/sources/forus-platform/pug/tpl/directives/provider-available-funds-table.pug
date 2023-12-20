@@ -34,6 +34,13 @@
                                 placeholder="{{ 'provider_funds.filters.labels.search' | translate }}").form-control
 
                         .form-group(ng-click="$event.stopPropagation()")
+                            form-label-toggle(label="{{ 'provider_funds.filters.labels.implementations' | translate }}")
+                            .form-offset: select-control(
+                                prop="id"
+                                ng-model="$dir.filters.values.implementation_id"
+                                options="$dir.implementations").form-control
+
+                        .form-group(ng-click="$event.stopPropagation()")
                             form-label-toggle(label="{{ 'provider_funds.filters.labels.organizations' | translate }}")
                             .form-offset: select-control(
                                 prop="id"
@@ -72,8 +79,12 @@
                             ng-click="$dir.toggle($event, fund)")
 
                         td
-                            .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
-                            .fund-title(ng-bind="fund.name | str_limit:25" title="{{ fund.name }}")
+                            .flex.flex-align-items-center
+                                .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
+                                .fund-title
+                                    span(ng-bind="fund.name | str_limit:25" title="{{ fund.name }}")
+                                    br
+                                    a(href="{{ fund.implementation.url_webshop }}" target="_blank").text-strong.text-md.text-primary {{ fund.implementation.name | str_limit:25 }}
 
                         td(
                             ng-bind="fund.organization.name | str_limit:25"
