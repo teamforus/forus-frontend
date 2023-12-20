@@ -1,4 +1,6 @@
-.modal.modal-xl
+.modal.modal-xl.modal-animated(
+    ng-if="$ctrl.modal.ready"
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, ($ctrl.modal.loaded && !$ctrl.hideModal) ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
     //- Sign In by qr-code
     .modal-window
@@ -21,14 +23,17 @@
                             em.mdi.mdi-alert-outline.text-warning.switch-key-icon
                             span(ng-bind="item.value")
 
-                        td(ng-if="item.columns" ng-repeat="column in item.columns")
-                            span(ng-bind="column")
+                        td(
+                            ng-if="item.columns" 
+                            ng-repeat="column in item.columns"
+                            ng-bind="column")
 
-                        td(ng-if="$ctrl.enableToggles && $ctrl.itemsShown.length > 1"): .flex-row
-                            .flex-col.switch-input-label(
+                        td(ng-if="$ctrl.enableToggles && $ctrl.itemsShown.length > 1"): .switch-input
+                            .switch-input-label(
                                 ng-class="{'switch-input-label-blink' : item.blink}"
                                 ng-bind="item.model ? $ctrl.labels.label_on : $ctrl.labels.label_off")
-                            .flex-col: .form-group.form-group-inline: .form-toggle
+
+                            .switch-input-control: .form-group.form-group-inline: .form-toggle
                                 input(type="checkbox" ng-model="item.model" ng-change="$ctrl.blink(item)")
                                 .form-toggle-inner: .toggle-input: .toggle-input-dot
 

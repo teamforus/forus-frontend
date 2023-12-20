@@ -49,6 +49,7 @@
     @import 'blocks/block-banner-picker.scss';
     @import 'blocks/block-markdownable.scss';
     @import 'blocks/block-markdown.scss';
+    @import 'blocks/block-switch-table.scss';
     @import 'blocks/block-system-notification-editor.scss';
     @import 'blocks/block-mail_preview.scss';
     @import 'blocks/block-photo-selector-notifications.scss';
@@ -6208,50 +6209,6 @@ body {
                 .datalist-value {
                     color: var(--text-color);
                     font: 500 13px/20px var(--base-font);
-                }
-            }
-        }
-    }
-
-    &.block-switch-table {
-        max-height: 300px;
-        overflow: auto;
-        @include webkit_scrollbar();
-
-        .table-wrapper {
-            tr {
-                td {
-                    .switch-key-icon {
-                        margin-right: 5px;
-                    }
-
-                    .flex-row {
-                        justify-content: flex-end;
-                        width: 200px;
-                    }
-
-                    .flex-col {
-                        flex-grow: 0;
-                    }
-
-                    .switch-input-label {
-                        opacity: 1;
-                        transition: opacity .4s;
-                        cursor: pointer;
-
-                        &.switch-input-label-blink {
-                            opacity: 0;
-                        }
-                    }
-
-                    &:last-child:not(:first-child) {
-                        display: flex;
-                        justify-content: flex-end;
-                    }
-                }
-
-                &.switch-row-disabled {
-                    cursor: default;
                 }
             }
         }
