@@ -19,23 +19,16 @@ const ProductsEditComponent = function (
     $ctrl.nonExpiring = false;
 
     $ctrl.reservationPolicies = [{
-        value: 'global',
-        // Use global settings
-        label: 'Gebruik standaard instelling',
-    }, {
         // Auto accept
         value: 'accept',
         label: 'Automatisch accepteren'
     }, {
-        value: 'review',
         // Review all reservations
+        value: 'review',
         label: 'Handmatig controleren',
     }];
 
     $ctrl.extraPaymentsOptions = [{
-        value: 'global',
-        label: 'Gebruik standaard instelling',
-    }, {
         value: "no",
         label: "Nee"
     }, {
@@ -54,6 +47,16 @@ const ProductsEditComponent = function (
         label: "Verplicht"
     }];
 
+    $ctrl.reservationPoliciesText = {
+        accept: "Automatisch accepteren",
+        review: "Handmatig controleren",
+    };
+
+    $ctrl.reservationExtraPaymentText = {
+        no: "Nee",
+        yes: "Ja",
+    };
+
     $ctrl.reservationFieldText = {
         no: "Nee",
         optional: "Optioneel",
@@ -61,6 +64,19 @@ const ProductsEditComponent = function (
     };
 
     $ctrl.buildFiledOptions = () => {
+        const defaultPolicy = $ctrl.organization.reservations_auto_accept ? 'accept' : 'review';
+        const defaultExtraPayments = $ctrl.organization.reservation_allow_extra_payments ? 'yes' : 'no';
+
+        $ctrl.reservationPolicies = [{
+            value: 'global',
+            label: `Gebruik standaard instelling (${$ctrl.reservationPoliciesText[defaultPolicy]})`,
+        }, ...$ctrl.reservationPolicies];
+
+        $ctrl.extraPaymentsOptions = [{
+            value: 'global',
+            label: `Gebruik standaard instelling (${$ctrl.reservationExtraPaymentText[defaultExtraPayments]})`,
+        }, ...$ctrl.extraPaymentsOptions];
+
         $ctrl.reservationPhoneOptions = [{
             value: 'global',
             label: `Gebruik standaard instelling (${$ctrl.reservationFieldText[$ctrl.organization.reservation_phone]})`,
@@ -112,10 +128,12 @@ const ProductsEditComponent = function (
             $ctrl.product ? $ctrl.product : $ctrl.sourceProduct
         ) : {
             reservation_enabled: true,
+            reservation_fields: false,
             reservation_policy: 'global',
             reservation_phone: 'global',
             reservation_address: 'global',
             reservation_birth_date: 'global',
+            reservation_extra_payments: 'global',
             product_category_id: null,
             price_type: 'regular',
         };
