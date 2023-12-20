@@ -192,7 +192,7 @@
                                 td 
                                     strong(translate="vouchers.labels.source").text-strong.text-md.text-primary
                                     br
-                                    strong(ng-bind="'vouchers.labels.source_' + $ctrl.voucher.source | translate").text-black
+                                    strong(ng-bind="$ctrl.voucher.source_locale").text-black
 
                                 td(ng-if="!$ctrl.fundClosed")
                                     strong(translate="vouchers.labels.used").text-strong.text-md.text-primary
@@ -264,3 +264,11 @@
             filter-values="$ctrl.transactionsFilters"
             register="$ctrl.registerTransactionsDirective(directive)"
             block-title="Transacties")
+
+        //- Reservation voucher transactions
+        voucher-transactions(
+            ng-if="$ctrl.voucher"
+            organization="$ctrl.organization"
+            filter-values="$ctrl.reservationTransactionsFilters"
+            register="$ctrl.registerReservationTransactionsDirective(directive)"
+            block-title="Reserveringen")

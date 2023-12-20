@@ -21,7 +21,7 @@
             .form(ng-if="!$dir.filters.visible"): .form-group: input(
                 type="search"
                 ng-model="$dir.filters.values.q"
-                placeholder="{{ 'event_logs.labels.search' | i18n }}").form-control
+                placeholder="{{ 'event_logs.labels.search' | translate }}").form-control
 
             //- Filters menu
             .inline-filters-dropdown.pull-right

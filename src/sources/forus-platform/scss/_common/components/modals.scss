@@ -42,7 +42,7 @@
         background: #f6f9fc;
         width: 1200px;
         max-width: 100%;
-        border-radius: calc(var(--border-radius) / 2);
+        border-radius: calc(var(--border-radius));
         display: inline-block;
         min-height: 100px;
         margin: 0 auto;
@@ -649,7 +649,7 @@
                         font: 500 14px var(--base-font);
                         color: #282b39;
                         border: 1px solid #d4d9dd;
-                        border-radius: calc(var(--border-radius) / 2);
+                        border-radius: calc(var(--border-radius));
                         position: relative;
                         transition: .4s;
                         background: transparent;
@@ -757,6 +757,16 @@
     &.modal-sm {
         .modal-window {
             width: 480px;
+        }
+
+        .modal-footer {
+            padding: 20px 30px;
+        }
+    }
+
+    &.modal-reservation-create {
+        .modal-window {
+            width: 740px;
         }
 
         .modal-footer {

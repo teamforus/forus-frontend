@@ -66,15 +66,29 @@
                 .row: .col.col-lg-9
                     .form-group.form-group-inline.form-group-inline-xl.tooltipped
                         label(for="info_url" translate="implementation_edit.labels.communication").form-label
-                        select-control(
-                            as="label"
-                            prop="value"
-                            search="false"
-                            options="$ctrl.communicationTypes"
-                            ng-model="$ctrl.form.values.informal_communication").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.informal_communication" ng-bind="error")
+                        
+                        .form-offset
+                            .form-group-info
+                                .form-group-info-control
+                                    select-control(
+                                        as="label"
+                                        prop="value"
+                                        search="false"
+                                        options="$ctrl.communicationTypes"
+                                        ng-model="$ctrl.form.values.informal_communication").form-control
 
-                        tooltip(text="'Kies de aanspreekvorm. Deze aanspreekvorm staat in teksten op de website en in de berichten die het systeem verstuurt.'")
+                                .form-group-info-button: .button.button-default.button-icon.pull-left(
+                                    ng-click="$ctrl.showInfoBlock = !$ctrl.showInfoBlock"
+                                    ng-class="{active: $ctrl.showInfoBlock}")
+                                    em.mdi.mdi-information
+
+                            .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showInfoBlock")
+                                .info-box-icon.mdi.mdi-information
+
+                                .info-box-content: .block.block-markdown
+                                    p Kies de aanspreekvorm. Deze aanspreekvorm staat in teksten op de website en in de berichten die het systeem verstuurt.
+                                
+                            .form-error(ng-repeat="error in $ctrl.form.errors.informal_communication" ng-bind="error")
 
             //- Announcement
             .card-section.card-section-primary

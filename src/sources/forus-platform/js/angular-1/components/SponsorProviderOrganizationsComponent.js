@@ -1,16 +1,15 @@
 const { pick } = require("lodash");
 
-const SponsorProviderOrganizationsComponent = function(
+const SponsorProviderOrganizationsComponent = function (
     $state,
     $stateParams,
     FileService,
     ModalService,
-    OrganizationService
+    OrganizationService,
+    PageLoadingBarService,
+    PushNotificationsService,
 ) {
     const $ctrl = this;
-
-    $ctrl.loaded = false;
-    $ctrl.extendedView = localStorage.getItem('sponsor_providers.extended_view') === 'true';
 
     $ctrl.orderByOptions = [{
         value: 'application_date',
@@ -33,13 +32,37 @@ const SponsorProviderOrganizationsComponent = function(
             allow_products: '',
             has_products: '',
         },
-        reset: function() {
+        reset: function () {
             this.values = { ...this.defaultValues };
-            $ctrl.updateState(this.defaultValues);
-        }
+            updateState(this.defaultValues);
+        },
+        hide: function () {
+            this.show = false;
+        },
     };
 
-    $ctrl.updateState = (query) => {
+    const transformProviders = (providerOrganizations) => {
+        return providerOrganizations.map((providerOrganization) => ({
+            ...providerOrganization,
+            uiViewParams: {
+                organization_id: $ctrl.organization.id,
+                provider_organization_id: providerOrganization.id
+            },
+        }));
+    };
+
+    const transformFundProviders = (fundProviders) => {
+        return fundProviders.map((fundProvider) => ({
+            ...fundProvider,
+            uiViewParams: {
+                fund_id: fundProvider.fund_id,
+                organization_id: $ctrl.organization.id,
+                fund_provider_id: fundProvider.id,
+            },
+        }));
+    };
+
+    const updateState = (query) => {
         $state.go(
             'sponsor-provider-organizations',
             { ...query, organization_id: $ctrl.organization.id },
@@ -47,21 +70,20 @@ const SponsorProviderOrganizationsComponent = function(
         );
     };
 
-    $ctrl.setExtendedView = function(extendedView) {
-        localStorage.setItem('sponsor_providers.extended_view', extendedView)
-        $ctrl.extendedView = extendedView;
-    };
-
     $ctrl.onPageChange = (query) => {
         const filter = { ...query, ...{ order_dir: query.order_by == 'name' ? 'asc' : 'desc' } };
 
-        OrganizationService.providerOrganizations($ctrl.organization.id, filter).then((res => {
-            $ctrl.providerOrganizations = {
-                meta: res.data.meta,
-                data: $ctrl.transformList(res.data.data),
-            };
-            $ctrl.updateState(query);
-        }));
+        PageLoadingBarService.setProgress(0);
+
+        OrganizationService.providerOrganizations($ctrl.organization.id, filter).then(
+            (res) => {
+                $ctrl.providerOrganizations = { ...res.data, data: transformProviders(res.data.data) };
+                updateState(query);
+            },
+            (res) => {
+                PushNotificationsService.danger('Error', res?.data?.message);
+            },
+        ).finally(() => PageLoadingBarService.setProgress(100));
     };
 
     // Export to XLS file
@@ -70,52 +92,53 @@ const SponsorProviderOrganizationsComponent = function(
             success: (data) => {
                 const fileName = 'providers_' + $ctrl.organization.id + '_' + moment().format('YYYY-MM-DD HH:mm:ss') + '.' + data.exportType;
 
+                PageLoadingBarService.setProgress(0);
+
                 OrganizationService.providerOrganizationsExport($ctrl.organization.id, {
                     ...$ctrl.filters.values,
                     ...{ export_format: data.exportType }
-                }).then((res => {
-                    FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
-                }));
+                }).then(
+                    (res => FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;')),
+                    (res) => PushNotificationsService.danger('Error', res?.data?.message),
+                ).finally(() => PageLoadingBarService.setProgress(100));
             }
         });
     };
 
+    $ctrl.fetchProvidersOrganizations = (providerOrganization, query = {}) => {
+        PageLoadingBarService.setProgress(0);
 
-    $ctrl.hideFilters = () => $ctrl.filters.show = false;
-    $ctrl.transformList = (providers) => providers.map(provider => $ctrl.transformItem(provider));
-
-    $ctrl.transformItem = (providerOrganization) => {
-        const acceptedFunds = (providerOrganization.funds || [])
-            .filter((fund) => fund.fund_provider_state === 'accepted').length;
-
-        const acceptedFundsLocale = acceptedFunds === 0
-            ? 'geen fondsen'
-            : acceptedFunds + (acceptedFunds === 1 ? ' fonds' : ' fondsen');
-
-        return {
-            ...providerOrganization,
-            ...{
-                uiViewParams: {
-                    organization_id: $ctrl.organization.id,
-                    provider_organization_id: providerOrganization.id
-                },
-                funds: (providerOrganization.funds || []).map((fund) => ({
-                    ...fund,
-                    uiViewParams: {
-                        fund_id: fund.id,
-                        organization_id: fund.organization_id,
-                        fund_provider_id: fund.fund_provider_id
-                    },
-                })),
-                accepted_funds_count: acceptedFunds,
-                accepted_funds_count_locale: acceptedFundsLocale,
-            }
-        };
+        OrganizationService.listProviders($ctrl.organization.id, query).then(
+            (res) => providerOrganization.fundProviders = { ...res.data, data: transformFundProviders(res.data?.data) },
+            (res) => PushNotificationsService.danger('Error', res?.data?.message),
+        ).finally(() => PageLoadingBarService.setProgress(100));
     };
 
-    $ctrl.$onInit = function() {
+    $ctrl.showProviderOrganizationFunds = (e, providerOrganization) => {
+        e?.preventDefault();
+        e?.stopPropagation();
+
+        if (providerOrganization.fundProviders) {
+            delete providerOrganization.fundProviders;
+            delete providerOrganization.fundProvidersFilters;
+        } else {
+            providerOrganization.fundProvidersFilters = {
+                page: 1,
+                per_page: 10,
+                organization_id: providerOrganization.id,
+            };
+
+            $ctrl.fetchProvidersOrganizations(providerOrganization, providerOrganization.fundProvidersFilters);
+        }
+    };
+
+    $ctrl.onProviderOrganizationFundsPageChange = (providerOrganization, query) => {
+        $ctrl.fetchProvidersOrganizations(providerOrganization, query);
+    };
+
+    $ctrl.$onInit = function () {
         $ctrl.funds = [...[{ id: null, name: 'Alle' }], ...$ctrl.funds];
-        $ctrl.providerOrganizations.data = $ctrl.transformList($ctrl.providerOrganizations.data);
+        $ctrl.providerOrganizations.data = transformProviders($ctrl.providerOrganizations.data);
 
         $ctrl.requests = $ctrl.fundUnsubscribes.length;
         $ctrl.requestsExpired = $ctrl.fundUnsubscribes.filter((item) => item.state == 'overdue').length;
@@ -136,7 +159,9 @@ module.exports = {
         'FileService',
         'ModalService',
         'OrganizationService',
-        SponsorProviderOrganizationsComponent
+        'PageLoadingBarService',
+        'PushNotificationsService',
+        SponsorProviderOrganizationsComponent,
     ],
-    templateUrl: 'assets/tpl/pages/sponsor-provider-organizations.html'
+    templateUrl: 'assets/tpl/pages/sponsor-provider-organizations.html',
 };
