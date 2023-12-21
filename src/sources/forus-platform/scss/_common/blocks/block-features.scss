@@ -32,11 +32,16 @@
                 background: #EBEEF1;
                 color: #151B26;
                 display: inline-flex;
+                margin-right: 8px;
 
                 &.active {
                     border: 1px solid #134478;
                     background: #134478;
                     color: #fff;
+                }
+
+                &:last-child {
+                    margin-right: 0;
                 }
             }
 
