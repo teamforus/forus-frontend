@@ -13,10 +13,9 @@ div: .select-control-options(scroll-end="$dir.onScrolledOption()")
                 .flex.flex-vertical.flex-grow
                     .voucher-name(ng-bind="option.raw.fund.name")
                     .voucher-organization
-                        span(ng-if="option.raw.records_title" ng-bind='option.raw.records_title | str_limit:40')
-                        .text-separator(ng-if="option.raw.records_title")
-                        span(ng-bind="option.raw.fund.organization.name | str_limit:20")
-                        tooltip(ng-if="option.raw.fund.organization.name.length > 20" text="option.raw.fund.organization.name")
+                        span(ng-if="option.raw.records_title" ng-bind='option.raw.records_title')
+                        span.text-separator(ng-if="option.raw.records_title")
+                        span(ng-bind="option.raw.fund.organization.name")
 
                 .flex.flex-vertical.text-right
                     .voucher-value(ng-if="option.raw.fund.type === 'budget'" ng-bind="option.raw.amount_locale")

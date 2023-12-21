@@ -73,22 +73,21 @@
                                     h3.voucher-name(ng-bind="voucher.fund.name")
 
                                     .voucher-organization
-                                        span(ng-if="voucher.records_title" ng-bind="voucher.records_title | str_limit:35")
+                                        span(ng-if="voucher.records_title" ng-bind="voucher.records_title")
                                         span.text-separator(ng-if="voucher.records_title")
-                                        span(ng-bind="voucher.fund.organization.name | str_limit:25")
-                                        tooltip(ng-if="voucher.fund.organization.name.length > 25" text="voucher.fund.organization.name")
-
-                                .voucher-amounts
-                                    .voucher-amount(ng-if="voucher.fund.type === 'budget'")
-                                        .voucher-value(ng-bind="voucher.amount_locale")
-                                        .voucher-value-date(ng-bind="voucher.expire_at_locale")
-
-                                    .voucher-extra-payment(ng-if="$ctrl.extraPaymentAllowed && voucher.amount_extra > 0")
-                                        .voucher-extra-payment-value(ng-bind="voucher.amount_extra | currency_format")
-                                        .voucher-extra-payment-description Bijbetalen
+                                        span(ng-bind="voucher.fund.organization.name")
 
                             .voucher-records.hidden-xs.hidden-sm(ng-if="voucher.records.length")
                                 block-voucher-records(toggle="true" compact="true" voucher="voucher")
+
+                            .voucher-amounts
+                                .voucher-amount(ng-if="voucher.fund.type === 'budget'")
+                                    .voucher-value(ng-bind="voucher.amount_locale")
+                                    .voucher-value-date(ng-bind="voucher.expire_at_locale")
+
+                                .voucher-extra-payment(ng-if="$ctrl.extraPaymentAllowed && voucher.amount_extra > 0")
+                                    .voucher-extra-payment-value(ng-bind="voucher.amount_extra | currency_format")
+                                    .voucher-extra-payment-description Bijbetalen
 
                         .voucher-overview(ng-show="$ctrl.vouchers.length > 1")
                             button.button.button-primary.button-sm(ng-click="$ctrl.selectVoucher(voucher)") Kies

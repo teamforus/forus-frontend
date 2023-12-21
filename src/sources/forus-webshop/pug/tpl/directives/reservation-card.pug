@@ -26,12 +26,11 @@
                         tabindex="0")
 
                     .reservation-organization
-                        span(ng-if="$dir.reservation.records_title" ng-bind="$dir.reservation.records_title | str_limit:40")
-                        br(ng-if="$dir.reservation.records_title.length > 40")
+                        span(ng-if="$dir.reservation.records_title" ng-bind="$dir.reservation.records_title")
                         span.text-separator(ng-if="$dir.reservation.records_title")
                         a(
                             ng-click="$dir.goToProvider($event)" 
-                            ng-bind="$dir.product.organization.name | str_limit:25"
+                            ng-bind="$dir.product.organization.name"
                             role="link"
                             tabindex="0")
 
