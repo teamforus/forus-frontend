@@ -1,4 +1,4 @@
-module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
+module.exports = ['ModalRouteProvider', function (ModalRouteProvider) {
     ModalRouteProvider.modal('photoUploader', {
         component: 'modalPhotoUploaderComponent'
     });
@@ -154,11 +154,11 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
     ModalRouteProvider.modal('mailPreview', {
         component: 'modalMailPreviewComponent'
     });
-    
+
     ModalRouteProvider.modal('physicalCardOrder', {
         component: 'modalPhysicalCardOrderComponent'
     });
-  
+
     ModalRouteProvider.modal('switchBankConnectionAccount', {
         component: 'modalSwitchBankConnectionAccountComponent'
     });
@@ -221,5 +221,9 @@ module.exports = ['ModalRouteProvider', function(ModalRouteProvider) {
 
     ModalRouteProvider.modal('featureContact', {
         component: 'modalFeatureContactComponent'
+    });
+
+    ModalRouteProvider.modal('fundSelect', {
+        component: 'modalFundSelectComponent'
     });
 }];

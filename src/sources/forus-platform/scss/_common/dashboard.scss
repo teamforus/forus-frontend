@@ -74,6 +74,7 @@
 
 // Select controls
 .select-control {
+    @import 'select-controls/select-control-funds';
     @import 'select-controls/select-control-organizations';
 }
 
@@ -3310,7 +3311,7 @@ body {
         .tooltip-content {
             font: 500 13px/20px var(--base-font);
             display: none;
-            padding: 15px;
+            padding: 8px 15px;
             background: #fff;
             box-shadow: 2.5px 5px 10px rgba($color: #000000, $alpha: .1);
             border: 1px solid var(--border-color);
@@ -4653,6 +4654,32 @@ body {
             }
         }
 
+        .inline-filter-control {
+            width: 180px !important;
+
+            .select-control-input {
+                label.form-control:not([type=radio]):not([type=checkbox]) {
+                    padding-left: 7.5px;
+                    font-size: 12px;
+                    line-height: 28px;
+    
+                    .select-control-search-placeholder-media {
+                        margin: 4px 0;
+                    }
+                }
+
+                .select-control-search-container .select-control-search-clear {
+                    line-height: 18px;
+                }
+            } 
+
+            .select-control-options {
+                .select-control-option {
+                    padding-left: 7.5px;
+                }
+            }
+        }
+
         .form {
             display: flex;
             margin-right: 10px;
@@ -4693,7 +4720,7 @@ body {
 
                         .select-control-options {
                             .select-control-option {
-                                height: 30px;
+                                --option-height: 35px;
                                 color: #353535;
                                 font: 500 12px/20px var(--base-font);
                             }
@@ -4819,8 +4846,9 @@ body {
                                 }
 
                                 .select-control-options {
+                                    --option-height: 35px;
+
                                     .select-control-option {
-                                        height: 30px;
                                         color: #353535;
                                         font: 500 12px/20px var(--base-font);
                                     }
