@@ -113,22 +113,28 @@
                         flex-direction: column;
                     }
 
-                    .reservation-name {
-                        font: 700 18px/27px var(--hf);
-                        display: block;
-                        margin: 0 30px 5px 0;
-                        color: #00122a;
-                        word-break: break-word;
+                    .reservation-name,
+                    .reservation-organization {
+                        padding-right: 20px;
 
                         a {
                             font: inherit;
                         }
                     }
 
+                    .reservation-name {
+                        font: 700 18px/27px var(--hf);
+                        display: block;
+                        margin: 0 0 5px 0;
+                        color: #00122a;
+                        word-break: break-word;
+                    }
+
                     .reservation-organization {
                         font: 400 14px/22px var(--base-font);
                         color: #282b39;
                         margin-bottom: 10px;
+                        word-break: break-word;
                     }
 
                     .reservation-value-list {
@@ -268,6 +274,11 @@
                     gap: 0;
 
                     .reservation-section {
+                        .reservation-name,
+                        .reservation-organization {
+                            padding-right: 0;
+                        }
+
                         .reservation-name {
                             font: 600 14px/20px var(--base-font);
                         }
