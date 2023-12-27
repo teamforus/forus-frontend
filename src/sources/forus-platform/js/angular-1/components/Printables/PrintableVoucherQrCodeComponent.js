@@ -13,8 +13,7 @@ let PrintableVoucherQrCodeComponent = function($timeout) {
 
         $ctrl.organization = $ctrl.printable.scope.organization;
         $ctrl.qrCodeValue = $ctrl.voucher.address;
-
-        $ctrl.webshopUrl = $ctrl.fund.implementation.url_webshop;
+        $ctrl.webshopUrl = $ctrl.fund.url_webshop;
 
         $timeout(() => {
             window.print();
