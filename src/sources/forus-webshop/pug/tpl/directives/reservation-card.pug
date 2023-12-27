@@ -25,11 +25,14 @@
                         ng-bind="$dir.product.name"
                         tabindex="0")
 
-                    a.reservation-organization(
-                        ng-click="$dir.goToProvider($event)"
-                        ng-bind="$dir.product.organization.name"
-                        role="link"
-                        tabindex="0")
+                    .reservation-organization
+                        span(ng-if="$dir.reservation.records_title" ng-bind="$dir.reservation.records_title")
+                        span.text-separator(ng-if="$dir.reservation.records_title")
+                        a(
+                            ng-click="$dir.goToProvider($event)" 
+                            ng-bind="$dir.product.organization.name"
+                            role="link"
+                            tabindex="0")
 
                 .reservation-section-column
                     .reservation-overview

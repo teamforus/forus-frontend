@@ -77,17 +77,17 @@
                                         span.text-separator(ng-if="voucher.records_title")
                                         span(ng-bind="voucher.fund.organization.name")
 
-                                .voucher-amounts
-                                    .voucher-amount(ng-if="voucher.fund.type === 'budget'")
-                                        .voucher-value(ng-bind="voucher.amount_locale")
-                                        .voucher-value-date(ng-bind="voucher.expire_at_locale")
-
-                                    .voucher-extra-payment(ng-if="$ctrl.extraPaymentAllowed && voucher.amount_extra > 0")
-                                        .voucher-extra-payment-value(ng-bind="voucher.amount_extra | currency_format")
-                                        .voucher-extra-payment-description Bijbetalen
-
                             .voucher-records.hidden-xs.hidden-sm(ng-if="voucher.records.length")
                                 block-voucher-records(toggle="true" compact="true" voucher="voucher")
+
+                            .voucher-amounts
+                                .voucher-amount(ng-if="voucher.fund.type === 'budget'")
+                                    .voucher-value(ng-bind="voucher.amount_locale")
+                                    .voucher-value-date(ng-bind="voucher.expire_at_locale")
+
+                                .voucher-extra-payment(ng-if="$ctrl.extraPaymentAllowed && voucher.amount_extra > 0")
+                                    .voucher-extra-payment-value(ng-bind="voucher.amount_extra | currency_format")
+                                    .voucher-extra-payment-description Bijbetalen
 
                         .voucher-overview(ng-show="$ctrl.vouchers.length > 1")
                             button.button.button-primary.button-sm(ng-click="$ctrl.selectVoucher(voucher)") Kies
@@ -536,9 +536,11 @@
                                     h3.voucher-name(ng-bind="$ctrl.voucher.fund.name")
 
                                     .voucher-organization
-                                        span(ng-if="$ctrl.voucher.records_title" ng-bind="$ctrl.voucher.records_title")
+                                        span(ng-if="$ctrl.voucher.records_title" ng-bind="$ctrl.voucher.records_title | str_limit:50")
+                                        br(ng-if="$ctrl.voucher.records_title.length > 30").show-sm
                                         span.text-separator(ng-if="$ctrl.voucher.records_title")
-                                        span(ng-bind="$ctrl.voucher.fund.organization.name")
+                                        span(ng-bind="$ctrl.voucher.fund.organization.name | str_limit:20")
+                                        tooltip(ng-if="$ctrl.voucher.fund.organization.name.length > 20" text="$ctrl.voucher.fund.organization.name")
 
                                 .voucher-amounts
                                     .voucher-value(ng-bind="$ctrl.voucher.amount_locale")
