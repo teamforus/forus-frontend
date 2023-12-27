@@ -1,9 +1,12 @@
 const Identity2FAService = function (
     $q,
-    $filter,
     ApiRequest,
 ) {
-    const phoneError = $filter('translate')('modal_2fa_setup.errors.code_sent');
+    const phoneError = [
+        'Er is iets fout gegaan tijdens het versturen van de SMS.', 
+        'Is het juiste telefoonnummer ingevuld? Probeer het anders nog een keer.',
+    ].join(' ');
+
     const phoneErrorObj = { data: { message: phoneError, errors: { phone: [phoneError] } } };
 
     return new (function () {
@@ -48,7 +51,6 @@ const Identity2FAService = function (
 
 module.exports = [
     '$q',
-    '$filter',
     'ApiRequest',
     Identity2FAService,
 ];
