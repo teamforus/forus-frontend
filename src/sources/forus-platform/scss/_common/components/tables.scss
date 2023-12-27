@@ -18,20 +18,15 @@
             }
         }
 
-        .table-scroll-actions {
-            position: absolute;
-            right: 0;
-            top: 0;
-        }
-
         .table-scroll {
             overflow: auto;
             z-index: 1;
             @include webkit_scrollbar_vertical();
 
             tr {
-                th:last-child {
-                    padding-right: 25px;
+                th:last-child,
+                td:last-child {
+                    min-width: 75px;
                 }
             }
         }
@@ -48,7 +43,7 @@
                     position: relative;
                     padding-left: 0 !important;
                     padding-right: 17.5px !important;
-                    width: 80px;
+                    width: 75px;
 
                     .actions {
                         position: absolute;
@@ -72,16 +67,6 @@
                     background-color: transparent;
                 }
 
-                td:last-child {
-                    background: rgb(255, 255, 255);
-                    background: linear-gradient(
-                        90deg,
-                        rgba(246, 248, 249, 0) 0%,
-                        rgba(246, 248, 249, 1) 35%,
-                        rgba(248, 250, 251, 1) 100%
-                    );
-                }
-
                 th:last-child {
                     background: linear-gradient(
                         90deg,
@@ -90,16 +75,24 @@
                         rgba(246, 249, 252, 1) 100%
                     );
                 }
+
+                td:last-child {
+                    background: linear-gradient(
+                        90deg,
+                        rgba(255, 255, 255, 0) 0%,
+                        rgba(255, 255, 255, 1) 35%,
+                        rgba(255, 255, 255, 1) 100%
+                    );
+                }
             }
         }
 
         &.table-container-2 {
+            .table-scroll,
             .table-scroll-actions {
                 tr {
-                    td:last-child {
+                    td {
                         height: 61px !important;
-                        padding-top: 10px;
-                        padding-bottom: 10px;
                     }
                 }
             }

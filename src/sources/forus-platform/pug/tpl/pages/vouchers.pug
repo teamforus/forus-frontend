@@ -4,6 +4,8 @@
         .card(
             ng-if="$ctrl.vouchers && $ctrl.funds.length > 0"
             dusk="vouchersCard{{ $ctrl.vouchers.data[0].fund_id }}")
+
+            //- Header
             .card-header(ng-class="$ctrl.loading ? 'card-header-inactive' : ''"): .flex
                 .flex.flex-grow: .card-title(dusk="vouchersTitle")
                     span(translate="vouchers.header.title") 
@@ -12,12 +14,14 @@
 
                 .flex: .block.block-inline-filters
                     .button.button-primary(
+                        ng-if="!$ctrl.fundClosed"
                         ng-click="$ctrl.createVoucher()"
                         id="create_voucher")
                         em.mdi.mdi-plus-circle.icon-start 
                         span(translate="vouchers.buttons.add_new")
 
                     .button.button-primary(
+                        ng-if="!$ctrl.fundClosed"
                         ng-click="$ctrl.uploadVouchersCsv()"
                         id="voucher_upload_csv"
                         dusk="uploadVouchersBatchButton")

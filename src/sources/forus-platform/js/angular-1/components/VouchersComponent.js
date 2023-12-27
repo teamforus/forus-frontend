@@ -140,7 +140,9 @@ const VouchersComponent = function (
                     fund: fund,
                     type: $ctrl.filters.values.type,
                     organization: $ctrl.organization,
-                    organizationFunds: $ctrl.funds,
+                    organizationFunds: !fund.id ?
+                        $ctrl.funds :
+                        $ctrl.funds.filter((item) => item.id === fund.id),
                     done: () => $state.reload(),
                 });
             },
