@@ -252,10 +252,9 @@
                                     .text-primary
                                         em.mdi.mdi-check-circle(ng-if="voucher.in_use")
                                         em.mdi.mdi-close(ng-if="!voucher.in_use")
-                                        string(ng-if="!voucher.in_use" translate="product_vouchers.labels.no")
-                                        strong(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale.split(',')[0]").text-primary
-                                        br(ng-if="voucher.in_use")
-                                        strong(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale.split(',')[1]").text-strong.text-md.text-muted-dark
+                                        div(ng-if="!voucher.in_use" translate="product_vouchers.labels.no")
+                                        div(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale.split(',')[0]").text-primary
+                                        div(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale.split(',')[1]").text-strong.text-md.text-muted-dark
 
                                 td.nowrap
                                     .td-boolean(ng-if="voucher.expired")
