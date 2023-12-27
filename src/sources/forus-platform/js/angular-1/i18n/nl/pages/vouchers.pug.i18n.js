@@ -20,7 +20,7 @@ module.exports = {
         voucher_count_per_identity: "Aantal tegoeden",
         expired: "Verlopen",
         email: "E-mailadres",
-        fund: "Fonds",
+        fund: "Fond",
         granted: "Toegewezen",
         used: "In gebruik",
         used_date: 'In gebruik date',
@@ -41,6 +41,7 @@ module.exports = {
         date_type: 'Pas toe op',
         provider_name: "Aanbieder naam",
         product_name: "Aanbod naam",
+        implementation: "Implementatie",
     },
     events: {
         created_budget: 'Aangemaakt',
