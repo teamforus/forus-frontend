@@ -152,13 +152,12 @@
                         td(ng-click="$ctrl.showProviderOrganizationFunds($event, providerOrganization)"): .td-collapsable
                             .collapsable-icon: .mdi.icon-collapse(
                                 ng-class="providerOrganization.fundProviders ? 'mdi-menu-down' : 'mdi-menu-right'")
+                            
+                            .collapsable-media: img.td-media.td-media-sm(
+                                ng-src="{{ providerOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
 
-                            .collapsable-content
-                                img.td-media.td-media-sm(
-                                    ng-src="{{ providerOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
-
-                                .text-primary.text-strong(
-                                    ng-bind="providerOrganization.name | str_limit:40")
+                            .collapsable-content: .text-primary.text-medium(
+                                ng-bind="providerOrganization.name | str_limit:40")
 
                         td(ng-bind="providerOrganization.last_activity_locale")
                         td(ng-bind="providerOrganization.products_count")
@@ -173,7 +172,6 @@
                         table.table.table-embed(ng-if="providerOrganization.fundProviders.meta.total > 0")
                             thead: tr
                                 th Fondsnaam
-                                th Implementatie
                                 th Status
                                 th Opties
 
@@ -183,15 +181,13 @@
                                 ui-sref="fund-provider(fundProvider.uiViewParams)")
 
                                 td: .td-collapsable
-                                    .collapsable-icon: .mdi
-                                    .collapsable-content
-                                        img.td-media.td-media-sm(
+                                    .collapsable-icon: .mdi &nbsp;
+                                    .collapsable-media: img.td-media.td-media-sm(
                                             ng-src="{{ fundProvider.fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
 
-                                        .text-primary.text-strong(
-                                            ng-bind="fundProvider.fund.name | str_limit:40")
-
-                                td(ng-bind="fundProvider.implementation_name")
+                                    .collapsable-content
+                                        .text-primary.text-medium(ng-bind="fundProvider.fund.name | str_limit:40")
+                                        .text-strong.text-md.text-muted-dark(ng-bind="fundProvider.fund.implementation.name | str_limit:40")
 
                                 td
                                     .label.label-success(ng-if="fundProvider.state == 'accepted'" ng-bind="fundProvider.state_locale")

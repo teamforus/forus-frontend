@@ -276,11 +276,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             }],
             implementations: ['$transition$', 'ImplementationService', (
                 $transition$, ImplementationService
-            ) => repackResponse(ImplementationService.list(
-                $transition$.params().organization_id, {
-                    per_page: 100,
-                }
-            ))],
+            ) => repackResponse(ImplementationService.list($transition$.params().organization_id, {
+                per_page: 100,
+            }))],
         }
     });
 
@@ -993,12 +991,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 return FundService.getLastSelectedFund(funds) || funds[0];
             }],
             implementations: ['$transition$', 'ImplementationService', (
-                $transition$, ImplementationService
-            ) => repackResponse(ImplementationService.list(
-                $transition$.params().organization_id, {
-                    per_page: 100,
-                }
-            ))],
+                $transition$, ImplementationService,
+            ) => repackResponse(ImplementationService.list($transition$.params().organization_id, { 
+                per_page: 100,
+            }))],
         }
     });
 

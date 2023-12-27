@@ -55,16 +55,6 @@
                                         placeholder="{{ 'reimbursements.labels.search' | translate }}"
                                         dusk="searchReimbursement").form-control
 
-                                //- Implementation filter    
-                                .form-group(ng-click="$event.stopPropagation()")
-                                    form-label-toggle(label="{{ 'reimbursements.labels.implementation' | translate }}")
-                                    
-                                    .form-offset: select-control(
-                                        prop="id"
-                                        search="false"
-                                        ng-model="$ctrl.filters.values.implementation_id"
-                                        options="$ctrl.implementations").form-control
-
                                 //- State filter
                                 .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'reimbursements.labels.state' | translate }}")
@@ -126,6 +116,16 @@
                                         date-week-start-day="1").form-control
                                         input(ng-model="$ctrl.filters.values.to" type="text" placeholder="dd-MM-yyyy").form-control
 
+                                //- Implementation filter    
+                                .form-group(ng-click="$event.stopPropagation()")
+                                    form-label-toggle(label="{{ 'reimbursements.labels.implementation' | translate }}")
+                                    
+                                    .form-offset: select-control(
+                                        prop="id"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.implementation_id"
+                                        options="$ctrl.implementations").form-control
+
                                 .form-actions
                                     button.button.button-primary.button-wide(
                                         ng-click="$ctrl.exportReimbursements()"
@@ -145,7 +145,7 @@
                                 th(translate="reimbursements.labels.identity")
 
                                 //- Implementation
-                                th(translate="reimbursements.labels.implementation")
+                                th(translate="reimbursements.labels.fund")
                                 
                                 //- Amount
                                 th(translate="reimbursements.labels.amount")
