@@ -26,13 +26,8 @@ const ProviderAvailableFundsTableDirective = function (
     $dir.filters = {
         visible: false,
         values: angular.copy($dir.filtersDefault),
-        hide: (e) => {
-            if (e.target.tagName !== 'A') {
-                e?.preventDefault();
-                e?.stopPropagation();
-    
-                $dir.filters.visible = false;
-            }
+        hide: () => {
+            $dir.filters.visible = false;
         },
         show: (e) => {
             e?.preventDefault();

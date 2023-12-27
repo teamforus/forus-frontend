@@ -94,16 +94,17 @@
                         td(ng-if="[null, 'pending'].includes($dir.filters.values.state)").td-narrow: table-checkbox-control(
                             checked="$dir.selected.includes(unsubscription.id)"
                             ng-click="$dir.toggle($event, unsubscription)")
+                            
+                        td: .td-collapsable
+                            .collapsable-media: img.td-media.td-media-sm(
+                                ng-src="{{ unsubscription.fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
 
-                        td
-                            .flex.flex-align-items-center
-                                .fund-img: img(ng-src="{{ unsubscription.fund_provider.fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
-                                .fund-title
-                                    span(ng-bind="unsubscription.fund_provider.fund.name | str_limit:25" title="{{ unsubscription.fund_provider.fund.name }}")
-                                    br
-                                    a(
-                                        href="{{ unsubscription.implementation.url_webshop }}" target="_blank"
-                                        ng-bind="unsubscription.implementation.name | str_limit:25").text-strong.text-md.text-primary
+                            .collapsable-content
+                                .text-primary.text-medium(ng-bind="unsubscription.fund.name | str_limit:40")
+                                a.text-strong.text-md.text-muted-dark.text-inherit(
+                                    href="{{ unsubscription.fund.implementation.url_webshop }}" 
+                                    target="_blank"
+                                    ng-bind="unsubscription.fund.implementation.name | str_limit:40")
 
                         td(
                             ng-bind="unsubscription.fund_provider.fund.organization.name | str_limit:25"
