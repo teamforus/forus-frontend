@@ -49,6 +49,7 @@
     @import 'blocks/block-banner-picker.scss';
     @import 'blocks/block-markdownable.scss';
     @import 'blocks/block-markdown.scss';
+    @import 'blocks/block-switch-table.scss';
     @import 'blocks/block-system-notification-editor.scss';
     @import 'blocks/block-mail_preview.scss';
     @import 'blocks/block-photo-selector-notifications.scss';
@@ -6209,68 +6210,6 @@ body {
                     color: var(--text-color);
                     font: 500 13px/20px var(--base-font);
                 }
-            }
-        }
-    }
-
-    &.block-switch-table {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        background: #fff;
-        cursor: default;
-        max-height: 300px;
-        overflow: auto;
-        @include webkit_scrollbar();
-
-        .switch-row {
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            cursor: pointer;
-            
-            .switch-label {
-                font: 600 13px/20px var(--base-font);
-                color: var(--text-color);
-                padding: 12.5px 20px 11.5px;
-                flex-grow: 1;
-                display: flex;
-                flex-direction: row;
-                
-                .switch-key-icon {
-                    font-size: 1.2em;
-                    margin-right: 5px;
-                    line-height: 20px;
-                }
-            }
-            
-            .switch-input {
-                font: 600 13px/20px var(--base-font);
-                color: var(--text-color);
-                padding: 12.5px 20px 11.5px;
-                display: flex;
-                flex-direction: row;
-                white-space: nowrap;
-                overflow: hidden;
-
-                .switch-input-label {
-                    opacity: 1;
-                    transition: opacity .4s;
-                    cursor: pointer;
-
-                    &.switch-input-label-blink {
-                        opacity: 0;
-                    }
-                }
-            }
-
-            &:last-child {
-                border-bottom: none;
-            }
-
-            &.switch-row-disabled {
-                cursor: default;
             }
         }
     }
