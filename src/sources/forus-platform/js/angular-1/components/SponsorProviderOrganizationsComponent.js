@@ -139,8 +139,15 @@ const SponsorProviderOrganizationsComponent = function (
     };
 
     $ctrl.$onInit = function () {
-        $ctrl.funds = [...[{ id: null, name: 'Alle' }], ...$ctrl.funds];
-        $ctrl.implementations = [...[{ id: null, name: 'Alle implementaties' }], ...$ctrl.implementations];
+        $ctrl.funds.unshift({
+            id: null, 
+            name: 'Alle fondsen',
+        });
+
+        $ctrl.implementations.unshift({
+            id: null, 
+            name: 'Alle implementaties',
+        });
 
         $ctrl.requests = $ctrl.fundUnsubscribes.length;
         $ctrl.requestsExpired = $ctrl.fundUnsubscribes.filter((item) => item.state == 'overdue').length;

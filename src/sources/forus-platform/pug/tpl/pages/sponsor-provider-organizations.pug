@@ -128,17 +128,21 @@
                                 //- Funds filter
                                 .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="Fondsen")
-                                    .form-offset: select(
-                                        ng-options="fund.id as fund.name for fund in $ctrl.funds"
-                                        ng-model="$ctrl.filters.values.fund_id").form-control
+                                    .form-offset: select-control(
+                                        prop="id"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.fund_id"
+                                        options="$ctrl.funds").form-control
 
                                 //- Implementation filter 
                                 .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="Implementatie")
-                                    .form-offset: select(
-                                        ng-options="implementation.id as implementation.name for implementation in $ctrl.implementations"
-                                        ng-model="$ctrl.filters.values.implementation_id").form-control
-
+                                    .form-offset: select-control(
+                                        prop="id"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.implementation_id"
+                                        options="$ctrl.implementations").form-control
+                                        
                                 .form-actions
                                     button.button.button-primary.button-wide(
                                         ng-click="$ctrl.exportList()"

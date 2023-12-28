@@ -143,7 +143,7 @@ const SelectControlDirective = function ($scope, $timeout) {
                 return;
             }
     
-            if (Array.isArray($dir.optionsPrepared) && (ngModel != undefined)) {
+            if (Array.isArray($dir.optionsPrepared) && (ngModel !== undefined)) {
                 $dir.value = $dir.findValue(ngModel);
             }
         });
