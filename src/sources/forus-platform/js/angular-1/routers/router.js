@@ -329,7 +329,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         url: [
             "/organizations/{organization_id}/providers?",
             "{q:string}&{order_by:string}&{fund_id:int}&{allow_budget:string}&",
-            "{allow_products:string}&{has_products:string}",
+            "{allow_products:string}&{has_products:string}&{implementation_id:int}",
         ].join(''),
         params: {
             q: routeParam(''),
@@ -338,6 +338,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             allow_budget: routeParam(''),
             allow_products: routeParam(''),
             has_products: routeParam(''),
+            implementation_id: routeParam(null),
         },
         component: "sponsorProviderOrganizationsComponent",
         resolve: {
@@ -359,6 +360,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 ...pick($transition$.params(), [
                     'q', 'fund_id', 'allow_budget', 'allow_products', 'has_products', 'order_by',
                 ]),
+            }))],
+            implementations: ['$transition$', 'ImplementationService', (
+                $transition$, ImplementationService,
+            ) => repackResponse(ImplementationService.list($transition$.params().organization_id, { 
+                per_page: 100,
             }))],
         }
     });
