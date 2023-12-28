@@ -260,7 +260,7 @@ const ModalVouchersUploadComponent = function (
                                 return !existingEmails.includes(row.email) || allowedEmails.includes(row.email);
                             }));
                         },
-                        onCancel: () => reject(`Operation cancelled on fund ${fund.name}.`),
+                        onCancel: () => reject(`CSV upload is geannuleerd voor ${fund.name}.`),
                     });
 
                 });
@@ -292,7 +292,7 @@ const ModalVouchersUploadComponent = function (
                                 return !allowedBsn.includes(row.bsn) || allowedBsn.includes(row.bsn);
                             }));
                         },
-                        onCancel: () => reject(`Operation cancelled on fund ${fund.name}.`),
+                        onCancel: () => reject(`CSV upload is geannuleerd voor ${fund.name}.`),
                     });
                 });
             };
@@ -332,10 +332,10 @@ const ModalVouchersUploadComponent = function (
                             });
                         }
 
-                        PushNotificationsService.success('Canceled', "No vouchers were selected.");
+                        PushNotificationsService.success('CSV upload is geannuleerd', "Er zijn geen gegevens geselecteerd.");
                     })
                     .catch(() => {
-                        PushNotificationsService.danger('Canceled', "No vouchers were created.");
+                        PushNotificationsService.danger('CSV upload is geannuleerd', "Er zijn geen gegevens geselecteerd.");
                     })
                     .finally(() => {
                         $ctrl.setLoadingBarProgress(0);
@@ -406,7 +406,7 @@ const ModalVouchersUploadComponent = function (
             }
 
             this.getStatus = function (fund, validation = false) {
-                return validation ? `Validating vouchers for ${fund.name}...` : `Uploading vouchers for ${fund.name}...`;
+                return validation ? `Gegevens valideren voor ${fund.name}...` : `Gegevens uploaden voor ${fund.name}...`;
             };
 
             this.startUploading = function (data, validation = false) {

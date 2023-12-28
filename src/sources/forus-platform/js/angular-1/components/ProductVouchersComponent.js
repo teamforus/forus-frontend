@@ -129,7 +129,7 @@ const ProductVouchersComponent = function (
         ModalService.open('fundSelect', {
             funds: [
                 // Allow csv with multiple funds
-                { id: null, name: 'Eventuele fondsen', logo: anyFundMedia },
+                { id: null, name: 'Alle fondsen', logo: anyFundMedia },
                 ...$ctrl.funds.filter((fund) => fund.id),
             ],
             fund_id: $ctrl.filters.values.fund_id,
