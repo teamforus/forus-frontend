@@ -64,12 +64,19 @@
     @import 'blocks/block-bi-info.scss';
     @import 'blocks/block-pincode.scss';
     @import 'blocks/block-voucher-records-editor.scss';
+    @import 'blocks/block-content.scss';
+    
+    // Marketplace feature blocks
     @import 'blocks/block-features-overview.scss';
     @import 'blocks/block-features-demo-banner.scss';
-    @import 'blocks/block-content.scss';
+    @import 'blocks/block-feature-icons.scss';
+    @import 'blocks/block-feature-steps.scss';
+    @import 'blocks/block-feature-list.scss';
+    @import 'blocks/block-feature-text-image-columns.scss';
     @import 'blocks/block-features.scss';
     @import 'blocks/block-feature.scss';
     @import 'blocks/block-feature-faq.scss';
+
     @import 'blocks/block-payment-connection.scss';
 }
 
