@@ -1707,6 +1707,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "biConnectionComponent",
         resolve: {
             organization: organizationResolver(),
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
             permission: permissionMiddleware('export-api-connections', 'manage_bi_connection'),
         }
     });

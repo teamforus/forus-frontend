@@ -71,6 +71,7 @@
     @import 'blocks/block-feature.scss';
     @import 'blocks/block-feature-faq.scss';
     @import 'blocks/block-payment-connection.scss';
+    @import 'blocks/block-checkbox-list.scss';
 }
 
 // Select controls
@@ -962,6 +963,10 @@ body {
             color: #282b39;
             cursor: inherit;
             margin: 0 0 10px;
+
+            &.card-title-sm {
+                font-size: 14px;
+            }
 
             &:last-child,
             &:last-of-type {

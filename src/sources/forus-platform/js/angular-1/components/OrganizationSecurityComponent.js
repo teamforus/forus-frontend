@@ -47,6 +47,7 @@ const OrganizationSecurityComponent = function (
             auth_2fa_remember_ip: $ctrl.organization.auth_2fa_remember_ip ? 1 : 0,
             auth_2fa_funds_policy: $ctrl.organization.auth_2fa_funds_policy,
             auth_2fa_funds_remember_ip: $ctrl.organization.auth_2fa_funds_remember_ip ? 1 : 0,
+            auth_2fa_restrict_bi_tools: $ctrl.organization.auth_2fa_restrict_bi_tools,
             auth_2fa_funds_restrict_emails: $ctrl.organization.auth_2fa_funds_restrict_emails,
             auth_2fa_funds_restrict_auth_sessions: $ctrl.organization.auth_2fa_funds_restrict_auth_sessions,
             auth_2fa_funds_restrict_reimbursements: $ctrl.organization.auth_2fa_funds_restrict_reimbursements,

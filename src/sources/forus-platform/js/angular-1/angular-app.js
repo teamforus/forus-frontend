@@ -230,6 +230,7 @@ app.service('ClipboardService', require('./services/ClipboardService'));
 app.service('FeaturesService', require('./services/FeaturesService'));
 app.service('MollieConnectionService', require('./services/MollieConnectionService'));
 app.service('ReservationExtraPaymentService', require('./services/ReservationExtraPaymentService'));
+app.service('BIConnectionService', require('./services/BIConnectionService'));
 
 // Directives
 app.directive('menu', {

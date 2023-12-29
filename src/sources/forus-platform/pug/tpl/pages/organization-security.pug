@@ -91,6 +91,11 @@
                             ng-model="$ctrl.form.values.auth_2fa_funds_restrict_reimbursements" 
                             label="Indienen van declaraties")
 
+                        div: input-checkbox-control(
+                            name="auth_2fa_restrict_bi_tools"
+                            ng-model="$ctrl.form.values.auth_2fa_restrict_bi_tools"
+                            label="BI tools")
+
             //- Submit
             .card-section.card-section-primary: .text-center
                 a(ui-sref="employees({organization_id: $ctrl.organization.id})").button.button-default Annuleer

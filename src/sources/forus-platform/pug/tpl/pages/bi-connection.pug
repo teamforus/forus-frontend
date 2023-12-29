@@ -1,6 +1,15 @@
 .app.app-container
     menu
-    section.app.app-content
+
+    section.app.app-content(ng-if="$ctrl.auth2FAState && $ctrl.auth2FAState.restrictions.bi_connections.restricted")
+        auth-2-f-a-restriction(
+            type="bi_connections"
+            items="$ctrl.auth2FAState.restrictions.bi_connections.funds"
+            item-name="name"
+            item-thumbnail="logo.sizes.thumbnail"
+            default-thumbnail="fund-thumbnail")
+
+    section.app.app-content(ng-if="$ctrl.auth2FAState && !$ctrl.auth2FAState.restrictions.bi_connections.restricted")
         .card: .card-section: .block.block-bi-info
             .bi-info-icon: include ../../../resources/platform-general/assets/img/svg/bi-connection-icon.svg
 
@@ -10,9 +19,23 @@
                     | Stuur een verzoek en de gevraagde gegevens worden verstuurd.
 
         .card: form(ng-submit="$ctrl.form.submit()").form
-            .card-header: .card-title(translate="bi_connection.title")
+            .card-header: .flex-row
+                .flex-col.flex-grow: .card-title: span(translate="bi_connection.title")
 
-            .card-section.card-section-primary
+                .flex-col: .block.block-label-tabs.nowrap: .label-tab-set
+                    //- Settings
+                    .label-tab.label-tab-sm(
+                        ng-class="{'active' : $ctrl.tab == 'settings'}"
+                        ng-click="$ctrl.tab = 'settings'"
+                        translate="bi_connection.tabs.settings")
+
+                    //- Security
+                    .label-tab.label-tab-sm(
+                        ng-class="{'active' : $ctrl.tab == 'security'}"
+                        ng-click="$ctrl.tab = 'security'"
+                        translate="bi_connection.tabs.security")
+
+            .card-section.card-section-primary(ng-if="$ctrl.tab == 'settings'")
                 //- Auth type
                 .form-group.form-group-inline
                     label(translate="bi_connection.labels.auth_type").form-label
@@ -23,7 +46,7 @@
                                 .form-group-info-control: select-control(
                                     prop="key"
                                     search="false"
-                                    ng-model="$ctrl.form.values.bi_connection_auth_type"
+                                    ng-model="$ctrl.form.values.auth_type"
                                     ng-change="$ctrl.updateUrl()"
                                     options="$ctrl.authTypes").form-control
 
@@ -49,19 +72,43 @@
                         .flex-col: .button.button-default.invisible: em.mdi.mdi-content-copy
 
                 //- Details
-                div(
-                    ng-if="($ctrl.organization.bi_connection_auth_type !== 'disabled' || $ctrl.organization.bi_connection_token)"
-                    ng-show="$ctrl.form.values.bi_connection_auth_type !== 'disabled'")
+                div(ng-if="$ctrl.form && $ctrl.form.values.auth_type !== 'disabled'")
 
                     //- Api url
                     .form-group.form-group-inline
                         label(translate="bi_connection.labels.url").form-label
                         .form-offset: .flex-row
-                            .flex-col.flex-grow: input(ng-value="$ctrl.apiUrl" type="text" readonly).form-control.form-control-dashed
-                            .flex-col: .button.button-default(ng-click="$ctrl.copyToClipboard($ctrl.apiUrl)"): em.mdi.mdi-content-copy
+                            .flex-col.flex-grow: input(
+                                ng-disabled="!$ctrl.connection.access_token"
+                                ng-value="$ctrl.apiUrl"
+                                type="text"
+                                readonly).form-control.form-control-dashed
+                            .flex-col: .button.button-default(
+                                ng-disabled="!$ctrl.connection.access_token"
+                                ng-click="$ctrl.copyToClipboard($ctrl.apiUrl)"): em.mdi.mdi-content-copy
+
+                    .form-group.form-group-inline
+                        .form-label
+                        .block.block-checkbox-list
+                            .block-checkbox-list-title
+                                span(translate="bi_connection.labels.data_types")
+                                tooltip(text="'Select data type to export'")
+
+                            .block-checkbox-list-items: .block-checkbox-list-item(ng-repeat="(key, title) in $ctrl.available_data_types")
+                                label(for="data_type_{{ key }}" title="{{ title }}").checkbox.checkbox-narrow
+                                    input(
+                                        type="checkbox"
+                                        id="data_type_{{ key }}"
+                                        name="data_type_{{ key }}"
+                                        ng-model="$ctrl.data_types[key]")
+                                    .checkbox-label
+                                        .checkbox-box: .mdi.mdi-check
+                                        .block-checkbox-list-item-name: .ellipsis(ng-bind="title")
+
+                            .form-error(ng-repeat="error in $ctrl.form.errors.data_types" ng-bind="error")
 
                     //- Header
-                    .form-group.form-group-inline(ng-if="$ctrl.form.values.bi_connection_auth_type === 'header'")
+                    .form-group.form-group-inline(ng-if="$ctrl.form.values.auth_type === 'header'")
                         label(translate="bi_connection.labels.header_name").form-label
                         .form-offset: .flex-row
                             .flex-col.flex-grow: input(ng-value="$ctrl.headerKey" type="text" readonly).form-control.form-control-dashed
@@ -69,39 +116,109 @@
 
                     //- Token
                     .form-group.form-group-inline
-                        label(translate="bi_connection.labels.{{ $ctrl.form.values.bi_connection_auth_type }}_key").form-label
+                        label(translate="bi_connection.labels.{{ $ctrl.form.values.auth_type }}_key").form-label
                         .form-offset: .flex-row
-                            .flex-col.flex-grow: input(ng-value="$ctrl.organization.bi_connection_token" type="text" readonly).form-control.form-control-dashed
-                            .flex-col: .button.button-default(ng-click="$ctrl.copyToClipboard($ctrl.organization.bi_connection_token)"): em.mdi.mdi-content-copy
+                            .flex-col.flex-grow: input(
+                                ng-disabled="!$ctrl.connection.access_token"
+                                ng-value="$ctrl.connection.access_token"
+                                placeholder="{{ 'bi_connection.labels.token_placeholder' | translate }}"
+                                type="text"
+                                readonly).form-control.form-control-dashed
+                            .flex-col: .button.button-default(
+                                ng-disabled="!$ctrl.connection.access_token"
+                                ng-click="$ctrl.copyToClipboard($ctrl.connection.access_token)"
+                                ): em.mdi.mdi-content-copy
 
                     //- Reset token
-                    .form-group.form-group-inline
+                    .form-group.form-group-inline(ng-if="$ctrl.connection.id")
                         label.form-label
-                        .form-offset: button(type="button" ng-click="$ctrl.resetToken()").button.button-default.button-sm
-                            .mdi.mdi-refresh.icon-start
-                            translate(translate="bi_connection.buttons.generate_new_key")
+                        .form-offset.flex
+                            button(type="button" ng-click="$ctrl.resetToken()").button.button-default.button-sm
+                                .mdi.mdi-refresh.icon-start
+                                translate(translate="bi_connection.buttons.generate_new_key")
 
-                    //- Info box (header/parameter)
-                    .form-group.form-group-inline
+                            .expiration-value(ng-if="!$ctrl.connection.expired") Verloopt {{ $ctrl.connection.expire_after_locale }}
+
+                    .form-group.form-group-inline(ng-if="$ctrl.connection.expired")
                         label.form-label &nbsp;
 
-                        .form-offset: .block.block-info-box.block-info-box-default.block-info-box-dashed
-                            .info-box-icon.mdi.mdi-information
+                        .form-offset: .block.block-info-box.block-warning-box.block-info-box-dashed
+                            .info-box-icon.mdi.mdi-alert-outline
 
-                            .info-box-content(ng-if="$ctrl.form.values.bi_connection_auth_type === 'header'"): .block.block-markdown
-                                h4 Hoe het werkt
-                                ul
-                                    li Open de BI-tool  en ga naar instellingen.
-                                    li Voeg een nieuwe gegevensbron of verbinding toe en selecteer de optie om verbinding te maken met een externe URL.
-                                    li Voer de bovenstaande URL in.
-                                    li Vul bij de header bovenstaande naam en sleutelcode in.
+                            .info-box-content: .block.block-markdown
+                                p Token expired. Please generate new one
 
-                            .info-box-content(ng-if="$ctrl.form.values.bi_connection_auth_type === 'parameter'"): .block.block-markdown
-                                h4 Hoe het werkt
-                                ul
-                                    li Open de BI-tool  en ga naar instellingen.
-                                    li Voeg een nieuwe gegevensbron of verbinding toe en selecteer de optie om verbinding te maken met een externe URL.
-                                    li Vul de bovenstaande URL in.
+                    //- Info box (header/parameter)
+                    .block.block-info-box.block-info-box-default.block-info-box-dashed
+                        .info-box-icon.mdi.mdi-information
+
+                        .info-box-content(ng-if="$ctrl.form.values.auth_type === 'header'"): .block.block-markdown
+                            h4 Hoe het werkt
+                            ul
+                                li Open de BI-tool  en ga naar instellingen.
+                                li Voeg een nieuwe gegevensbron of verbinding toe en selecteer de optie om verbinding te maken met een externe URL.
+                                li Voer de bovenstaande URL in.
+                                li Vul bij de header bovenstaande naam en sleutelcode in.
+
+                        .info-box-content(ng-if="$ctrl.form.values.auth_type === 'parameter'"): .block.block-markdown
+                            h4 Hoe het werkt
+                            ul
+                                li Open de BI-tool  en ga naar instellingen.
+                                li Voeg een nieuwe gegevensbron of verbinding toe en selecteer de optie om verbinding te maken met een externe URL.
+                                li Vul de bovenstaande URL in.
+
+            .card-section.card-section-primary(ng-if="$ctrl.tab == 'security'")
+                //- Auth type
+                .form-group.form-group-inline
+                    label(translate="bi_connection.labels.expiration_period").form-label
+
+                    .form-offset
+                        select-control(
+                            prop="key"
+                            search="false"
+                            ng-model="$ctrl.form.values.expiration_period"
+                            options="$ctrl.expirationPeriods").form-control
+
+                .form-group.form-group-inline
+                    label.form-label &nbsp;
+
+                    .form-offset: .block.block-info-box.block-info-box-default.block-info-box-dashed
+                        .info-box-icon.mdi.mdi-information
+
+                        .info-box-content: .block.block-markdown
+                            p Lorem ipsum dolor sit amet consectetur montes ultricies a ac ipsum turpis integer in semper elit aenean pharetra ullamcorper.
+
+            .card-section.card-section-primary(ng-if="$ctrl.tab == 'security'")
+                .card-title.card-title-sm IP's whitelists
+
+                .form-group.form-group-inline(ng-repeat="ip in $ctrl.ips track by $index")
+                    label.form-label {{ "bi_connection.labels.ip" | translate }} {{ $index + 1 }}
+
+                    .form-offset
+                        .flex-row
+                            .flex-col.flex-grow: input(ng-model="ip.value" type="text").form-control
+                            .flex-col: .button.button-default(ng-click="$ctrl.removeIp($index)"): em.mdi.mdi-trash-can-outline
+
+                        .form-error(ng-repeat="error in $ctrl.form.errors['ips.' + $index]" ng-bind="error")
+                        .flex-row(ng-if="$last"): .flex-col: .form-group-divider
+
+                .form-group.form-group-inline
+                    label.form-label {{ "bi_connection.labels.ip" | translate }} {{ $ctrl.ips.length + 1 }}
+
+                    .form-offset
+                        .flex-row
+                            .flex-col.flex-grow: input(ng-model="$ctrl.ip" type="text").form-control
+                            .flex-col: .button.button-default(ng-click="$ctrl.addIp()"): em.mdi.mdi-check
+                        .form-error(ng-bind="$ctrl.ipError")
+                        .form-error(ng-repeat="error in $ctrl.form.errors.ips" ng-bind="error")
+
+                .block.block-info-box.block-info-box-default.block-info-box-dashed
+                    .info-box-icon.mdi.mdi-information
+
+                    .info-box-content: .block.block-markdown
+                        h4 Header for information
+                        p Lorem ipsum dolor sit amet consectetur montes ultricies a ac ipsum turpis integer in semper elit aenean pharetra ullamcorper.
+
 
             .card-section: .button-group.flex-center
                 //- Cancel
@@ -113,6 +230,5 @@
 
                 //- Submit
                 button(
-                    ng-disabled="$ctrl.form.values.bi_connection_auth_type === $ctrl.organization.bi_connection_auth_type"
                     type="submit"
                     i18n="bi_connection.buttons.submit").button.button-primary
