@@ -48,7 +48,7 @@
                         | Accepteer
 
                     .button.button-danger.button-sm(
-                        ng-if="$ctrl.reservation.state === 'waiting' || $ctrl.reservation.state === 'pending'" 
+                        ng-if="($ctrl.reservation.state === 'waiting' && $ctrl.reservation.rejectable) || $ctrl.reservation.state === 'pending'" 
                         ng-click="$ctrl.rejectReservation($ctrl.reservation)")
                         em.mdi.mdi-close.icon-start
                         | Weiger
