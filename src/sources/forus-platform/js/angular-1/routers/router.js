@@ -323,7 +323,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         url: [
             "/organizations/{organization_id}/providers?",
             "{q:string}&{order_by:string}&{fund_id:int}&{allow_budget:string}&",
-            "{allow_products:string}&{has_products:string}",
+            "{allow_products:string}&{has_products:string}&{allow_extra_payments:string}",
         ].join(''),
         params: {
             q: routeParam(''),
@@ -331,6 +331,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             fund_id: routeParam(null),
             allow_budget: routeParam(''),
             allow_products: routeParam(''),
+            allow_extra_payments: routeParam(''),
             has_products: routeParam(''),
         },
         component: "sponsorProviderOrganizationsComponent",
@@ -351,7 +352,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $transition$, OrganizationService,
             ) => repackPagination(OrganizationService.providerOrganizations($transition$.params().organization_id, {
                 ...pick($transition$.params(), [
-                    'q', 'fund_id', 'allow_budget', 'allow_products', 'has_products', 'order_by',
+                    'q', 'fund_id', 'order_by',
+                    'allow_budget', 'allow_products', 'allow_extra_payments', 'has_products', 
                 ]),
             }))],
         }
