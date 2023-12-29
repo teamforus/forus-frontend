@@ -54,4 +54,14 @@
     &:last-child {
         margin-bottom: 0;
     }
+
+    @media screen and (max-width: 1000px) {
+        flex-direction: column;
+        height: auto !important;
+
+        .features-demo-banner-info-wrapper {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
 }

@@ -33,6 +33,8 @@
                 color: #151B26;
                 display: inline-flex;
                 margin-right: 8px;
+                width: fit-content;
+                height: fit-content;
 
                 &.active {
                     border: 1px solid #134478;
@@ -93,6 +95,18 @@
     @media screen and (max-width: 750px) {
         .features-list {
             grid-template-columns: repeat(1, 1fr);
+        }
+    }
+
+
+    @media screen and (max-width: 500px) {
+        .features-list {
+            .features-list-item {
+                .features-list-item-title {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
         }
     }
 }
