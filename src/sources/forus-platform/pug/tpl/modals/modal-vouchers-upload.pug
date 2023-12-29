@@ -41,7 +41,7 @@
                         .mdi.mdi-check(
                             ng-if="$ctrl.csvParser.progress == 3"
                             dusk="successUploadIcon")
-                    progress-bar(progress="$ctrl.progressBar" status="$scope.progressStatus")
+                    progress-bar(progress="$ctrl.progressBar" status="$ctrl.progressStatus")
 
                 .csv-upload-actions
                     .csv-file(ng-if="$ctrl.csvParser.csvFile && $ctrl.csvParser.progress < 2")
@@ -69,7 +69,7 @@
                             .form-error(ng-if="$ctrl.csvParser.errors.invalidPerVoucherAmount")
                                 | Één of meer tegoeden gaan over het maximale bedrag per tegoed. (limiet is: {{ $ctrl.fund.limit_per_voucher | currency_format}}).
                             //- Some `fund_id` from the .csv don't exist or don't belong to current active organization
-                            .form-error(ng-if="$ctrl.csvParser.errors.hasInvalidFundIds.length > 0")
+                            .form-error(ng-if="$ctrl.csvParser.errors.hasInvalidFundIds")
                                 | De kolom `fund_id` in het bulkbestand bevat verkeerde fonds identificatienummers '{{ $ctrl.csvParser.errors.hasInvalidFundIdsList }}'. Deze nummers horen niet bij de door u geselecteerde organisatie.
                         
                         //- Product voucher errors
@@ -90,7 +90,7 @@
                             .form-error(ng-if="$ctrl.csvParser.errors.csvProductsInvalidStockIds.length > 0")
                                 | De kolom `product_id` in het bulkbestand bevat identificatienummers '{{ $ctrl.csvParser.errors.csvProductsInvalidStockIdsList }}' van aanbod dat uitverkocht is.
                             //- Some `fund_id` from the .csv don't exist or don't belong to current active organization
-                            .form-error(ng-if="$ctrl.csvParser.errors.hasInvalidFundIds.length > 0")
+                            .form-error(ng-if="$ctrl.csvParser.errors.hasInvalidFundIds")
                                 | De kolom `fund_id` in het bulkbestand bevat verkeerde fonds identificatienummers '{{ $ctrl.csvParser.errors.hasInvalidFundIdsList }}'. Deze nummers horen niet bij de door u geselecteerde organisatie.
 
                     .text-center(ng-show="$ctrl.csvParser.progress == 1 && $ctrl.csvParser.isValid")

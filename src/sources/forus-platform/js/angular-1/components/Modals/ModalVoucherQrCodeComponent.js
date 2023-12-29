@@ -61,14 +61,13 @@ const ModalVoucherQrCodeComponent = function(
     $ctrl.printQrCode = () => {
         PrintableService.open('voucherQrCode', {
             voucher: $ctrl.voucher,
-            fund: $ctrl.fund,
+            fund: $ctrl.voucher.fund,
             organization: $ctrl.organization,
         });
     };
 
     $ctrl.$onInit = () => {
         $ctrl.voucher = $ctrl.modal.scope.voucher;
-        $ctrl.fund = $ctrl.modal.scope.fund;
         $ctrl.organization = $ctrl.modal.scope.organization;
         $ctrl.onSent = $ctrl.modal.scope.onSent;
         $ctrl.onAssigned = $ctrl.modal.scope.onAssigned;
