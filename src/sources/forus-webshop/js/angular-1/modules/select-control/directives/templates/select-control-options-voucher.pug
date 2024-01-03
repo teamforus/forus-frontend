@@ -14,7 +14,7 @@ div: .select-control-options(scroll-end="$dir.onScrolledOption()")
                     .voucher-name(ng-bind="option.raw.fund.name")
                     .voucher-organization
                         span(ng-if="option.raw.records_title" ng-bind='option.raw.records_title')
-                        .text-separator(ng-if="option.raw.records_title")
+                        span.text-separator(ng-if="option.raw.records_title")
                         span(ng-bind="option.raw.fund.organization.name")
 
                 .flex.flex-vertical.text-right

@@ -12,6 +12,7 @@ const VouchersComponent = function (
     PageLoadingBarService,
 ) {
     const $ctrl = this;
+    const anyFundMedia = { sizes: { thumbnail: './assets/img/menu/icon-my_funds.svg' } };
 
     $ctrl.paginationPerPageKey = "vouchers";
 
@@ -58,6 +59,8 @@ const VouchersComponent = function (
             count_per_identity_max: null,
             type: 'fund_voucher',
             source: 'all',
+            fund_id: null,
+            implementation_id: null,
             sort_by: 'created_at',
             sort_order: 'desc',
             per_page: PaginatorService.getPerPage($ctrl.paginationPerPageKey, 10),
@@ -68,7 +71,8 @@ const VouchersComponent = function (
         }, [
             'q', 'granted', 'amount_min', 'amount_max', 'date_type', 'from', 'to',
             'state', 'in_use', 'count_per_identity_min', 'count_per_identity_max',
-            'type', 'source', 'sort_by', 'sort_order', 'page', 'per_page', 'fund_id', 
+            'type', 'source', 'sort_by', 'sort_order', 'per_page', 'page', 'fund_id',
+            'implementation_id',
         ]),
         reset: function () {
             this.values = { ...this.defaultValues };
@@ -76,10 +80,20 @@ const VouchersComponent = function (
         }
     };
 
+    $ctrl.toggleActions = (e, voucher) => {
+        $ctrl.onClickOutsideMenu(e);
+        voucher.showMenu = true;
+    };
+
+    $ctrl.onClickOutsideMenu = (e) => {
+        e.stopPropagation();
+        $ctrl.vouchers.data.forEach((voucher) => voucher.showMenu = false);
+    };
+
     $ctrl.updateState = (query) => {
         $state.go(
             'vouchers',
-            { ...query, organization_id: $ctrl.organization.id, fund_id: $ctrl.fund.id },
+            { ...query, organization_id: $ctrl.organization.id },
             { location: 'replace' },
         );
     };
@@ -96,9 +110,10 @@ const VouchersComponent = function (
         $event.stopPropagation();
         $event.preventDefault();
 
+        $ctrl.onClickOutsideMenu($event);
+
         ModalService.open('voucherQrCode', {
             voucher: voucher,
-            fund: $ctrl.fund,
             organization: $ctrl.organization,
             onSent: () => $ctrl.onPageChange($ctrl.filters.values),
             onAssigned: () => $ctrl.onPageChange($ctrl.filters.values),
@@ -106,20 +121,38 @@ const VouchersComponent = function (
     };
 
     $ctrl.createVoucher = () => {
-        ModalService.open('voucherCreate', {
-            fund: $ctrl.fund,
-            organization: $ctrl.organization,
-            onCreated: () => $ctrl.onPageChange($ctrl.filters.values),
-        }, { maxLoadTime: 1000 });
+        ModalService.open('fundSelect', {
+            funds: $ctrl.funds.filter((fund) => fund.id),
+            fund_id: $ctrl.filters.values.fund_id,
+            onSelect: (fund) => {
+                ModalService.open('voucherCreate', {
+                    fund,
+                    organization: $ctrl.organization,
+                    onCreated: () => $ctrl.onPageChange($ctrl.filters.values),
+                }, { maxLoadTime: 1000 });
+            },
+        });
     }
 
     $ctrl.uploadVouchersCsv = () => {
-        ModalService.open('vouchersUpload', {
-            fund: $ctrl.fund,
-            type: $ctrl.filters.values.type,
-            organization: $ctrl.organization,
-            organizationFunds: $ctrl.funds,
-            done: () => $state.reload(),
+        ModalService.open('fundSelect', {
+            funds: [
+                // Allow csv with multiple funds
+                { id: null, name: 'Alle fondsen', logo: anyFundMedia },
+                ...$ctrl.funds.filter((fund) => fund.id),
+            ],
+            fund_id: $ctrl.filters.values.fund_id,
+            onSelect: (fund) => {
+                ModalService.open('vouchersUpload', {
+                    fund: fund,
+                    type: $ctrl.filters.values.type,
+                    organization: $ctrl.organization,
+                    organizationFunds: !fund.id ?
+                        $ctrl.funds :
+                        $ctrl.funds.filter((item) => item.id === fund.id),
+                    done: () => $state.reload(),
+                });
+            },
         });
     };
 
@@ -129,13 +162,12 @@ const VouchersComponent = function (
         const to = data.to ? DateService._frontToBack(data.to) : null;
 
         return {
-            ...{ ...data, fund_id: $ctrl.fund.id, date_type: null },
-            ...{
-                from: query.date_type === 'created_at' ? from : null,
-                to: query.date_type === 'created_at' ? to : null,
-                in_use_from: query.date_type === 'used_at' ? from : null,
-                in_use_to: query.date_type === 'used_at' ? to : null,
-            }
+            ...data,
+            date_type: null,
+            from: query.date_type === 'created_at' ? from : null,
+            to: query.date_type === 'created_at' ? to : null,
+            in_use_from: query.date_type === 'used_at' ? from : null,
+            in_use_to: query.date_type === 'used_at' ? to : null,
         };
     };
 
@@ -145,7 +177,12 @@ const VouchersComponent = function (
         const type = 'budget';
         const filters = $ctrl.getQueryParams($ctrl.filters.values);
 
-        VoucherExportService.exportVouchers($ctrl.organization.id, $ctrl.fund.allow_voucher_records, filters, type);
+        VoucherExportService.exportVouchers(
+            $ctrl.organization.id,
+            $ctrl.fundsById[$ctrl.filters.values.fund_id]?.allow_voucher_records,
+            filters,
+            type,
+        );
     };
 
     $ctrl.onPageChange = (query) => {
@@ -173,31 +210,22 @@ const VouchersComponent = function (
         $timeout(() => target.showTooltip = false, 0);
     };
 
-    $ctrl.init = () => {
-        $ctrl.fundClosed = $ctrl.fund.state == 'closed';
-    };
-
-    $ctrl.onFundSelect = (fund) => {
-        $ctrl.fund = fund;
-        $ctrl.init();
-
-        $ctrl.onPageChange($ctrl.filters.values);
-    };
-
     $ctrl.$onInit = () => {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
 
-        if (!$ctrl.fund && $ctrl.funds.length > 0) {
-            return $state.go('vouchers', {
-                organization_id: $state.params.organization_id,
-                fund_id: $ctrl.funds[0].id,
-            });
-        }
+        $ctrl.implementations.unshift({
+            id: null,
+            name: 'Alle implementaties',
+        });
 
-        if ($ctrl.fund) {
-            $ctrl.init();
-            $ctrl.onPageChange($ctrl.filters.values);
-        }
+        $ctrl.funds.unshift({
+            id: null,
+            name: 'Alle fondsen',
+            logo: anyFundMedia,
+        });
+
+        $ctrl.fundsById = $ctrl.funds.reduce((obj, fund) => ({ ...obj, [fund.id]: fund }), {});
+        $ctrl.onPageChange($ctrl.filters.values);
     };
 };
 
@@ -206,6 +234,7 @@ module.exports = {
         fund: '<',
         funds: '<',
         organization: '<',
+        implementations: '<',
     },
     controller: [
         '$state',

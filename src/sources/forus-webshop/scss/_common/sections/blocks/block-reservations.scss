@@ -124,6 +124,11 @@
                         font: 400 14px/22px var(--base-font);
                         color: #282b39;
                         margin-bottom: 10px;
+                        text-wrap: wrap;
+
+                        a {
+                            font: inherit;
+                        }
                     }
 
                     .reservation-value-list {
