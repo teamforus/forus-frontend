@@ -3,18 +3,27 @@ const PaginatorDirective = function (
     $state,
     $attrs,
     $timeout,
-    $stateParams
+    $stateParams,
+    PaginatorService,
 ) {
     let countButtons = $scope.countButtons || 5;
     let filterTimeout;
     let initialized;
+
+    $scope.perPageOptions = PaginatorService.getPerPageOptions();
+
+    $scope.changePerPage = () => {
+        PaginatorService.setPerPage($scope.perPageKey, $scope.meta.per_page);
+        $scope.setPage($scope.meta.current_page);
+    };
 
     $scope.setPage = (page) => {
         const query = {};
 
         if (typeof ($scope.filters) == 'object' && $scope.filters) {
             Object.assign(query, $scope.filters, {
-                page: page
+                page: page,
+                per_page: $scope.meta.per_page,
             });
         }
 
@@ -91,6 +100,7 @@ module.exports = () => {
             filtersFromState: '=',
             countButtons: '=',
             buttonClass: '@',
+            perPageKey: '@',
         },
         restrict: "EA",
         replace: true,
@@ -100,6 +110,7 @@ module.exports = () => {
             '$attrs',
             '$timeout',
             '$stateParams',
+            'PaginatorService',
             PaginatorDirective,
         ],
         templateUrl: 'assets/tpl/directives/paginators/paginator.html',

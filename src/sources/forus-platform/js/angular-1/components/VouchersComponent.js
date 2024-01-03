@@ -7,10 +7,13 @@ const VouchersComponent = function (
     DateService,
     ModalService,
     VoucherService,
+    PaginatorService,
     VoucherExportService,
     PageLoadingBarService,
 ) {
     const $ctrl = this;
+
+    $ctrl.paginationPerPageKey = "vouchers";
 
     $ctrl.states = [
         { value: null, name: 'Selecteer...' },
@@ -57,11 +60,15 @@ const VouchersComponent = function (
             source: 'all',
             sort_by: 'created_at',
             sort_order: 'desc',
+            per_page: PaginatorService.getPerPage($ctrl.paginationPerPageKey, 10),
         },
-        values: pick($stateParams, [
+        values: pick({
+            ...$stateParams,
+            per_page: PaginatorService.getPerPage($ctrl.paginationPerPageKey, 10),
+        }, [
             'q', 'granted', 'amount_min', 'amount_max', 'date_type', 'from', 'to',
             'state', 'in_use', 'count_per_identity_min', 'count_per_identity_max',
-            'type', 'source', 'sort_by', 'sort_order', 'per_page', 'page', 'fund_id',
+            'type', 'source', 'sort_by', 'sort_order', 'page', 'per_page', 'fund_id', 
         ]),
         reset: function () {
             this.values = { ...this.defaultValues };
@@ -207,6 +214,7 @@ module.exports = {
         'DateService',
         'ModalService',
         'VoucherService',
+        'PaginatorService',
         'VoucherExportService',
         'PageLoadingBarService',
         VouchersComponent,

@@ -1,8 +1,18 @@
 .table-pagination
-    .table-pagination-counter(ng-if="meta.from && meta.to") 
-        span(ng-bind="meta.from + '-' + meta.to + ' '")  
-        | {{ "paginator.labels.from" | translate }} 
-        span(ng-bind="meta.total")
+    .form: .table-pagination-counter(ng-if="meta.from && meta.to") 
+        select-control(
+            ng-if="!disablePerPageSelect"
+            prop="key"
+            search="false"
+            options="perPageOptions" 
+            ng-model="meta.per_page"
+            ng-change="changePerPage()").form-control
+
+        .table-pagination-counter-info
+            span.text-strong(ng-bind="meta.from + '-' + meta.to + ' '")  
+            | &nbsp;{{ "paginator.labels.from" | translate }}&nbsp;
+            span.text-strong(ng-bind="meta.total")
+            
     .table-pagination-navigation
         button(
             ng-class="[meta.current_page == 1 ? 'disabled' : '', buttonClass]" 
