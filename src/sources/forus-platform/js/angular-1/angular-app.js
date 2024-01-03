@@ -149,6 +149,7 @@ app.component('modalEditReimbursementCategoryComponent', require('./components/M
 app.component('modalEditReimbursementCategoriesComponent', require('./components/Modals/ModalEditReimbursementCategoriesComponent'));
 app.component('modalEditRequestRecordComponent', require('./components/Modals/ModalEditRequestRecordComponent'));
 app.component('modalFeatureContactComponent', require('./components/Modals/ModalFeatureContactComponent'));
+app.component('modalFundSelectComponent', require('./components/Modals/ModalFundSelectComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
