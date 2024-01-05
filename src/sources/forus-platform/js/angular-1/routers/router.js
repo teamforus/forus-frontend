@@ -221,19 +221,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             }))],
             implementations: ['$transition$', 'ImplementationService', (
                 $transition$, ImplementationService
-            ) => repackPagination(ImplementationService.list(
+            ) => repackResponse(ImplementationService.list(
                 $transition$.params().organization_id,
-                $transition$.params().id
-            ))],
-            preChecks: ['implementations', 'organization' , 'PreCheckService', function (
-                implementations, organization, PreCheckService,
-            ) {
-                if (implementations.data[0]) {
-                    return repackResponse(PreCheckService.list(organization.id, implementations.data[0].id));
+                $transition$.params().id, {
+                    per_page: 100,
                 }
-
-                return null;
-            }],
+            ))],
             permission: permissionMiddleware('fund-requests', ['manage_organization']),
         }
     });
