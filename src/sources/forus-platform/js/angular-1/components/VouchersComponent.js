@@ -6,6 +6,7 @@ const VouchersComponent = function (
     $timeout,
     DateService,
     ModalService,
+    ToastService,
     VoucherService,
     VoucherExportService,
     PageLoadingBarService,
@@ -37,6 +38,23 @@ const VouchersComponent = function (
     ];
 
     $ctrl.voucher_states = VoucherService.getStates();
+
+    $ctrl.tooltips = VoucherService.getTooltips();
+
+    let tableTooltipShown = false;
+
+    $ctrl.showTableTooltip = (key) => {
+        $ctrl.activeTooltipKey = key;
+
+        if (!tableTooltipShown) {
+            ToastService.setToast([
+                'This is the header of the table column, ',
+                'to read more about it please open the Information button from the right corner.'
+            ].join(''));
+            
+            tableTooltipShown = true;
+        }
+    };
 
     $ctrl.filters = {
         show: false,
@@ -235,6 +253,7 @@ module.exports = {
         '$timeout',
         'DateService',
         'ModalService',
+        'ToastService',
         'VoucherService',
         'VoucherExportService',
         'PageLoadingBarService',

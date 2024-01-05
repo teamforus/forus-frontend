@@ -230,6 +230,7 @@ app.service('ClipboardService', require('./services/ClipboardService'));
 app.service('FeaturesService', require('./services/FeaturesService'));
 app.service('MollieConnectionService', require('./services/MollieConnectionService'));
 app.service('ReservationExtraPaymentService', require('./services/ReservationExtraPaymentService'));
+app.service('ToastService', require('./services/ToastService'));
 
 // Directives
 app.directive('menu', {
@@ -332,9 +333,11 @@ app.directive('fundProviderProductEditor', require('./directives/blocks/FundProv
 app.directive('blockProviderOrganizationOffices', require('./directives/blocks/sponsor/BlockProviderOrganizationOfficesDirective'));
 app.directive('blockProviderOrganizationEmployees', require('./directives/blocks/sponsor/BlockProviderOrganizationEmployeesDirective'));
 app.directive('blockProviderOrganizationOverview', require('./directives/blocks/sponsor/BlockProviderOrganizationOverviewDirective'));
+app.directive('toast', require('./directives/ToastDirective'));
 
 // Table
 app.directive('thSortable', require('./directives/table/ThSortable'));
+app.directive('tableConfig', require('./directives/table/TableConfigDirective'));
 
 // System notification editor 
 app.directive('systemNotificationEditor', require('./directives/elements/SystemNotificationEditorDirective'));

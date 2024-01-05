@@ -85,6 +85,13 @@
                     );
                 }
             }
+
+            .button-group {
+                .button {
+                    margin-right: 0;
+                    border-radius: 0;
+                }
+            }
         }
 
         &.table-container-2 {
@@ -129,6 +136,10 @@
                     padding: 10px 10px;
                     padding-left: 15px;
                     padding-right: 0;
+                }
+
+                &:hover {
+                    color: #426993;
                 }
             }
 
