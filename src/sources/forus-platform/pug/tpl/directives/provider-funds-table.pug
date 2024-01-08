@@ -23,8 +23,8 @@
     //- Vouchers list
     .card-section(ng-if="!$dir.loading && $dir.providerFunds.data.length > 0")
         .card-block.card-block-table.card-block-table-fund.form
-            .table-wrapper
-                table.table
+            .table-wrapper: .table-container.table-container-2
+                .table-scroll: table.table
                     tr
                         th.th-narrow(ng-if="$dir.type !== 'archived'"): table-checkbox-control(
                             checked="$dir.selected.length == $dir.providerFunds.data.length"
@@ -45,9 +45,9 @@
                             checked="$dir.selected.includes(providerFund.id)"
                             ng-click="$dir.toggle($event, providerFund)")
 
-                        td.nowrap
+                        td.flex.flex-align-items-center.nowrap
                             .fund-img: img(ng-src="{{ providerFund.fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
-                            .fund-title(ng-bind="providerFund.fund.name")
+                            .fund-title(ng-bind="providerFund.fund.name | str_limit:50")
 
                         td(
                             ng-bind="providerFund.fund.organization.name | str_limit:25"

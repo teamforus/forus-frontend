@@ -95,9 +95,9 @@
                             checked="$dir.selected.includes(unsubscription.id)"
                             ng-click="$dir.toggle($event, unsubscription)")
 
-                        td.nowrap
+                        td.flex.flex-align-items-center.nowrap
                             .fund-img: img(ng-src="{{ unsubscription.fund_provider.fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
-                            .fund-title(ng-bind="unsubscription.fund_provider.fund.name")
+                            .fund-title(ng-bind="unsubscription.fund_provider.fund.name | str_limit:50")
 
                         td(
                             ng-bind="unsubscription.fund_provider.fund.organization.name | str_limit:25"

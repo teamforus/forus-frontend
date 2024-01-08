@@ -71,7 +71,7 @@
                             checked="$dir.selected.includes(fund.id)"
                             ng-click="$dir.toggle($event, fund)")
 
-                        td
+                        td.flex.flex-align-items-center.nowrap
                             .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
                             .fund-title(ng-bind="fund.name | str_limit:25" title="{{ fund.name }}")
 

@@ -42,9 +42,9 @@
                             checked="$dir.selected.includes(invitation.id)"
                             ng-click="$dir.toggle($event, invitation)")
 
-                        td
+                        td.flex.flex-align-items-center.nowrap
                             .fund-img: img(ng-src="{{ invitation.fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
-                            .fund-title(ng-bind="invitation.fund.name")
+                            .fund-title(ng-bind="invitation.fund.name | str_limit:25")
 
                         td(
                             ng-bind="invitation.fund.organization.name | str_limit:25"
