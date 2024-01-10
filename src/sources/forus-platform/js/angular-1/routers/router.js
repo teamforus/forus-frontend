@@ -223,9 +223,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 $transition$, ImplementationService
             ) => repackResponse(ImplementationService.list(
                 $transition$.params().organization_id,
-                $transition$.params().id, {
-                    per_page: 100,
-                }
+                $transition$.params().id, { per_page: 100 },
             ))],
             permission: permissionMiddleware('fund-requests', ['manage_organization']),
         }

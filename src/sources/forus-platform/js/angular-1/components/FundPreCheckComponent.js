@@ -113,10 +113,10 @@ const FundPreCheckComponent = function (
         });
     };
 
-    $ctrl.updateImplementation = () => {
-        $ctrl.implementation = $ctrl.implementations.find((implementation) => {
-            return implementation.id == $ctrl.preCheckForm.values.implementation_id
-        });
+    $ctrl.updateImplementation = (id) => {
+        $ctrl.implementation = $ctrl.implementations.find((implementation) => implementation.id == id);
+        $ctrl.thumbnailMedia = $ctrl.implementation?.pre_check_banner;
+        $ctrl.mediaFile = null;
 
         buildBannerForm();
         buildPreCheckForm();
@@ -124,16 +124,9 @@ const FundPreCheckComponent = function (
     };
 
     $ctrl.$onInit = function () {
-        $ctrl.implementation = $ctrl.implementations[0];
-        $ctrl.thumbnailMedia = $ctrl.implementation?.pre_check_banner;
-
-        if (!$ctrl.implementation) {
-            return;
+        if ($ctrl.implementations.length > 0) {
+            $ctrl.updateImplementation($ctrl.implementations[0]?.id);
         }
-
-        buildBannerForm();
-        buildPreCheckForm();
-        loadPreChecks();
     };
 };
 
