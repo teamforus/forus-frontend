@@ -1,0 +1,232 @@
+block content
+    .header-splash: .splash.splash-c
+    .block.block-showcase(ng-if="$ctrl.enabled")
+        top-navbar(hide-on-scroll="true")
+
+        mixin pre_check_info
+            .pre-check-info
+                .pre-check-info-title(ng-bind="$root.appConfigs.features.pre_check_title")
+                .pre-check-info-description(ng-bind="$root.appConfigs.features.pre_check_description")
+
+        mixin pre_check_progress(ngShow='true')
+            .pre-check-progress(ng-show=(ngShow + ' || $ctrl.totals') ng-class="{'pre-check-progress-complete': $ctrl.totals}")
+                .pre-check-progress-title Uw gegevens
+
+                .pre-check-progress-steps
+                    .pre-check-progress-step(
+                        ng-repeat="preCheck in $ctrl.preChecks"
+                        ng-class="{active: $ctrl.activeStepIndex == $index, completed: $ctrl.activeStepIndex > $index || $ctrl.totals}")
+
+                        .pre-check-progress-step-icon(ng-bind="$index + 1")
+                        .pre-check-progress-questions
+                            .pre-check-progress-question
+                                .pre-check-progress-question-title(ng-bind="preCheck.title")
+                                .pre-check-progress-question-answer(
+                                    ng-if="$parent.$index <= $ctrl.activeStepIndex"
+                                    ng-repeat="preCheckRecord in preCheck.record_types") 
+                                    | {{ preCheckRecord.title_short }}: 
+                                    strong(ng-if="preCheckRecord.input_value || preCheckRecord.input_value == 0") {{ preCheckRecord.input_value }}
+                                    strong(ng-if="!preCheckRecord.input_value && preCheckRecord.input_value !== 0").text-muted ---
+
+                    .pre-check-progress-step(ng-class="{active: $ctrl.totals}")
+                        .pre-check-progress-step-icon
+
+                        .pre-check-progress-questions: .pre-check-progress-question
+                            .pre-check-progress-question-title Advies
+                            .pre-check-progress-question-answer
+                                | Je bent er bijna!
+
+                .pre-check-amounts(ng-if="$ctrl.totals")
+                    .pre-check-amount
+                        .pre-check-amount-title Totaal bedrag
+                        .pre-check-amount-value {{ $ctrl.totals.amount_total_valid_locale  }}
+
+                    .pre-check-amount
+                        .pre-check-amount-title Totaal regelingen
+                        .pre-check-amount-value {{ $ctrl.totals.funds_valid.length }}
+
+                .pre-check-actions(ng-if="$ctrl.totals")
+                    .button.button-light.button-fill.button-sm(ng-click="$ctrl.changeAnswers()") Change answers   
+
+        main(id="main-content")
+            .block.block-fund-pre-check: .showcase-wrapper
+                .block.block-breadcrumbs
+                    a(ui-sref="home").breadcrumb-item Home
+                    .breadcrumb-item.active(aria-current="location") De Potjes check
+
+                .show-sm
+                    +pre_check_info()
+
+                    .block-progress-pie(ng-if="!$ctrl.totals")
+                        .progress-pie
+                            progress-pie(
+                                style-image="width: 70px;"
+                                title="{{ ($ctrl.activeStepIndex + 1) + ' van ' + $ctrl.preChecks.length }}"
+                                size="100"
+                                progress="($ctrl.activeStepIndex + 1) / $ctrl.preChecks.length"
+                                color="#315EFD"
+                                background-color="#D9D9D9"
+                                stroke-width="0")
+                            .progress-pie-text {{ $ctrl.activeStepIndex + 1 }} van {{ $ctrl.preChecks.length }}
+
+                        .progress-pie-info
+                            .progress-pie-info-title(ng-bind="$ctrl.preChecks[$ctrl.activeStepIndex].title_short")
+                            .progress-pie-info-details(ng-repeat="record in $ctrl.preChecks[$ctrl.activeStepIndex].record_types")
+                                .progress-pie-info-details-key
+                                    | {{ record.title_short }}: 
+                                    | &nbsp;
+                                .progress-pie-info-details-value {{ record.input_value || '---' }}
+
+                        .progress-pie-show-details
+                            button.button.button-text.button-xs(
+                                type="button"
+                                ng-if="!$ctrl.showMorePreCheckInfo" 
+                                ng-click="$ctrl.showMorePreCheckInfo = true"
+                                aria-expanded="{{ $ctrl.showMorePreCheckInfo }}"
+                                aria-controls="") 
+                                | Toon meer
+                                em.mdi.mdi-chevron-down.icon-right
+
+                            button.button.button-text.button-xs(
+                                type="button"
+                                ng-if="$ctrl.showMorePreCheckInfo" 
+                                ng-click="$ctrl.showMorePreCheckInfo = false"
+                                aria-expanded="{{ $ctrl.showMorePreCheckInfo }}"
+                                aria-controls="") 
+                                | Toon minder
+                                em.mdi.mdi-chevron-up.icon-right    
+
+                    +pre_check_progress("$ctrl.showMorePreCheckInfo")
+
+                .showcase-layout
+                    .showcase-aside.hide-sm
+                        .showcase-aside-block: +pre_check_progress()
+                        .showcase-aside-block(ng-if="$ctrl.totals"): .form.form-compact
+                            .form-group
+                                ui-control-search-input(
+                                    ng-model="$ctrl.form.values.q"
+                                    placeholder="Zoeken..." 
+                                    aria-label="Zoeken")
+
+                            .form-group
+                                label.form-label(for="select_organization") Organisatie
+                                select-control(
+                                    id="select_organization"
+                                    prop="id"
+                                    ng-model="$ctrl.form.values.organization_id"
+                                    options="$ctrl.organizations"
+                                    placeholder="{{ $ctrl.organizations[0].name }}")
+
+                            .form-group
+                                label.form-label(for="select_category") Categorie
+                                select-control(
+                                    id="select_category"
+                                    prop="id"
+                                    ng-model="$ctrl.form.values.tag_id"
+                                    options="$ctrl.tags"
+                                    placeholder="{{ $ctrl.tags[0].name }}")
+
+                            .hidden: paginator(
+                                meta='{current_page: 1, from: 1, last_page: 1, per_page: 10, to: 100, total: 10000}'
+                                filters="$ctrl.form.values"
+                                count-buttons="5"
+                                on-page-change="$ctrl.fetchPreCheckTotals(query)")
+
+                    .showcase-content: .pre-check-step
+                        .hide-sm: +pre_check_info()
+
+                        form.pre-check-step-section.form(ng-if="!$ctrl.totals" ng-submit="$ctrl.next()")
+                            //- Questions step
+                            .pre-check-step-section-details
+                                .pre-check-step-section-title(ng-bind="$ctrl.preChecks[$ctrl.activeStepIndex].title")
+                                .pre-check-step-section-description(ng-bind="$ctrl.preChecks[$ctrl.activeStepIndex].description")
+
+                            .pre-check-step-section-question(
+                                ng-repeat="preCheckRecord in $ctrl.preChecks[$ctrl.activeStepIndex].record_types")
+
+                                .pre-check-step-section-question-title(ng-bind="preCheckRecord.title")
+                                .pre-check-step-section-question-description(ng-bind="preCheckRecord.description")
+
+                                .form-group
+                                    select-control(
+                                        ng-if="preCheckRecord.control_type == 'select_control'"
+                                        id="pre_check_record_{{ preCheckRecord.record_type_key }}"
+                                        prop="value"
+                                        name="control_{{ preCheckRecord.record_type_key }}"
+                                        ng-model="preCheckRecord.input_value"
+                                        options="$ctrl.recordTypesByKey[preCheckRecord.record_type_key].options"
+                                        placeholder="Uw {{ preCheckRecord.record_type.name }}")
+
+                                    ui-control-checkbox(
+                                        ng-if="preCheckRecord.control_type == 'ui_control_checkbox'"
+                                        ng-model="preCheckRecord.is_checked"
+                                        name="{{ preCheckRecord.record_type_key }}"
+                                        data-id="pre_check_record_{{ preCheckRecord.record_type_key }}"
+                                        data-label="{{ preCheckRecord.label }}"
+                                        ng-change="$ctrl.setRecordValue(preCheckRecord)")
+
+                                    ui-control-step(
+                                        ng-if="preCheckRecord.control_type == 'ui_control_step'"
+                                        ng-model="preCheckRecord.input_value"
+                                        name="{{ preCheckRecord.record_type_key }}"
+                                        role="spinbutton"
+                                        data-min="0"
+                                        data-max="32"
+                                        data-id="pre_check_record_{{ preCheckRecord.id }}")
+
+                                    ui-control-date(
+                                        ng-if="preCheckRecord.control_type == 'ui_control_date'"
+                                        ng-model="preCheckRecord.input_value"
+                                        name="{{ preCheckRecord.record_type_key }}"
+                                        data-id="pre_check_record_{{ preCheckRecord.record_type_key }}")
+
+                                    ui-control-number(
+                                        ng-if="preCheckRecord.control_type == 'ui_control_number'"
+                                        ng-model="preCheckRecord.input_value"
+                                        name="{{ preCheckRecord.record_type_key }}"
+                                        data-id="pre_check_record_{{ preCheckRecord.record_type_key }}"
+                                        data-placeholder="Uw {{ preCheckRecord.record_type.name }}")
+
+                                    ui-control-text(
+                                        ng-if="preCheckRecord.control_type == 'ui_control_text'"
+                                        ng-model="preCheckRecord.input_value"
+                                        name="{{ preCheckRecord.record_type_key }}"
+                                        data-id="pre_check_record_{{ preCheckRecord.record_type_key }}"
+                                        data-placeholder="Uw {{ preCheckRecord.record_type.name }}")
+
+                                    ui-control-currency(
+                                        ng-if="preCheckRecord.control_type == 'ui_control_currency'"
+                                        ng-model="preCheckRecord.input_value"
+                                        name="{{ preCheckRecord.record_type.key }}"
+                                        data-id="preCheckRecord_{{ preCheckRecord.record_type_key }}"
+                                        data-placeholder="Uw {{ preCheckRecord.record_type.name }}")
+
+                                    .form-error(ng-repeat="error in preCheckRecord.errors.value" ng-bind="error")
+
+                            .pre-check-step-section-actions
+                                .flex.flex-grow: button.button.button-light.button-sm(
+                                    type="button"
+                                    ng-click="$ctrl.prev()") Vorige stap
+
+                                .flex.flex-grow.flex-end: button.button.button-primary.button-sm(
+                                    type="submit"
+                                    ng-disabled="!$ctrl.preCheckFilled($ctrl.activeStepIndex)") Volgende
+
+                        //- Answer results
+                        .pre-check-step-section-results(ng-if="$ctrl.totals")
+                            .showcase-content-header.hide-sm
+                                h1.showcase-filters-title
+                                    span Funds
+                                    .showcase-filters-title-count(ng-bind="$ctrl.totals.funds.length")
+
+                            .block.block-fund-pre-check-result(id="fund_list")
+                                fund-item-pre-check(
+                                    ng-repeat="totalsPerFund in $ctrl.totals.funds"
+                                    amounts="$ctrl.totals"
+                                    fund="totalsPerFund")
+
+                                empty-block(
+                                    title= "{{ 'block_funds.labels.title' | translate }}"
+                                    description="{{ 'block_funds.labels.subtitle' | translate }}"
+                                    hide-link="true"
+                                    ng-if="$ctrl.totals.length == 0")    
