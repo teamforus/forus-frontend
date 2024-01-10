@@ -2,6 +2,7 @@ const ProviderFundsInvitationTableDirective = function (
     $q,
     $scope,
     $filter,
+    PaginatorService,
     PageLoadingBarService,
     PushNotificationsService,
     FundProviderInvitationsService,
@@ -11,10 +12,11 @@ const ProviderFundsInvitationTableDirective = function (
 
     $dir.selected = [];
     $dir.selectedMeta = {};
+    $dir.paginationPerPageKey = "provider_funds_invitations";
 
     $dir.filters = {
         q: '',
-        per_page: 10,
+        per_page: PaginatorService.getPerPage($dir.paginationPerPageKey, 10),
     };
 
     $dir.toggleAll = (e, items = []) => {
@@ -107,6 +109,7 @@ module.exports = () => {
             '$q',
             '$scope',
             '$filter',
+            'PaginatorService',
             'PageLoadingBarService',
             'PushNotificationsService',
             'FundProviderInvitationsService',

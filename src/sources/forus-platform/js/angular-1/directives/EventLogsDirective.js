@@ -120,6 +120,7 @@ module.exports = () => {
             hideEntity: '<',
             register: '&',
             blockTitle: '@',
+            paginationPerPageKey: '@',
         },
         controllerAs: '$dir',
         restrict: "EA",

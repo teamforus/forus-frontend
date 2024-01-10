@@ -6,6 +6,7 @@ const ProductsComponent = function (
     appConfigs,
     ModalService,
     ProductService,
+    PaginatorService,
     PageLoadingBarService,
 ) {
     const $ctrl = this;
@@ -53,6 +54,7 @@ const ProductsComponent = function (
 
     $ctrl.$onInit = function () {
         $ctrl.emptyBlockLink = $state.href('products-create', pick($stateParams, 'organization_id'));
+        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey, $ctrl.paginationPerPageDefault);
     };
 };
 
@@ -60,6 +62,8 @@ module.exports = {
     bindings: {
         products: '<',
         organization: '<',
+        paginationPerPageKey: '<',
+        paginationPerPageDefault: '<',
     },
     controller: [
         '$state',
@@ -67,6 +71,7 @@ module.exports = {
         'appConfigs',
         'ModalService',
         'ProductService',
+        'PaginatorService',
         'PageLoadingBarService',
         ProductsComponent
     ],

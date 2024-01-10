@@ -107,5 +107,9 @@
             .card-section(ng-if="!$ctrl.loading && $ctrl.filters.source == 'archive' && $ctrl.products.meta.total == 0")
                 .card-subtitle.text-center Er zijn momenteel geen aanbiedingen.
 
-            .card-section(ng-if="!$ctrl.loading && $ctrl.products" ng-show="$ctrl.products.meta.last_page > 1")
-                paginator(meta="$ctrl.products.meta" filters="$ctrl.filters" on-page-change="$ctrl.onPageChange(query)")
+            .card-section(ng-if="!$ctrl.loading && $ctrl.products" ng-show="$ctrl.products.meta.total")
+                paginator(
+                    meta="$ctrl.products.meta" 
+                    filters="$ctrl.filters" 
+                    on-page-change="$ctrl.onPageChange(query)"
+                    per-page-key="{{ $ctrl.paginationPerPageKey }}")

@@ -63,11 +63,11 @@ const VouchersComponent = function (
             implementation_id: null,
             sort_by: 'created_at',
             sort_order: 'desc',
-            per_page: PaginatorService.getPerPage($ctrl.paginationPerPageKey, 10),
+            per_page: PaginatorService.getPerPage($ctrl.paginationPerPageKey, 25),
         },
         values: pick({
             ...$stateParams,
-            per_page: PaginatorService.getPerPage($ctrl.paginationPerPageKey, 10),
+            per_page: PaginatorService.getPerPage($ctrl.paginationPerPageKey, 25),
         }, [
             'q', 'granted', 'amount_min', 'amount_max', 'date_type', 'from', 'to',
             'state', 'in_use', 'count_per_identity_min', 'count_per_identity_max',

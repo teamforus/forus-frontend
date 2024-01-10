@@ -7,6 +7,7 @@ const TransactionsComponent = function (
     appConfigs,
     $stateParams,
     ModalService,
+    PaginatorService,
     TransactionService,
     TransactionsExportService,
     TransactionBulkService,
@@ -332,6 +333,7 @@ const TransactionsComponent = function (
         $ctrl.isProvider = appConfigs.panel_type == 'provider';
         $ctrl.viewType = $ctrl.viewTypes.filter(type => type.key == $stateParams.type)[0] || $ctrl.viewTypes[0];
         $ctrl.hasDirectPayments = $ctrl.funds.filter((fund) => fund.allow_direct_payments).length > 0;
+        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey, $ctrl.paginationPerPageDefault);
 
         $ctrl.funds.unshift({
             id: null,
@@ -356,6 +358,8 @@ module.exports = {
         organization: '<',
         transactions: '<',
         transactionBulks: '<',
+        paginationPerPageKey: '<',
+        paginationPerPageDefault: '<',
     },
     controller: [
         '$q',
@@ -364,6 +368,7 @@ module.exports = {
         'appConfigs',
         '$stateParams',
         'ModalService',
+        'PaginatorService',
         'TransactionService',
         'TransactionsExportService',
         'TransactionBulkService',

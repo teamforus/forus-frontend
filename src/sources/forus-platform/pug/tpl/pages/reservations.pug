@@ -200,5 +200,9 @@
                             .toggle-input: .toggle-input-dot(role="button")
                 
 
-            .card-section(ng-if="$ctrl.reservations" ng-show="$ctrl.reservations.meta.last_page > 1")
-                paginator(meta="$ctrl.reservations.meta" filters="$ctrl.filters.values" on-page-change="$ctrl.onPageChange(query)")
+            .card-section(ng-if="$ctrl.reservations" ng-show="$ctrl.reservations.meta.total")
+                paginator(
+                    meta="$ctrl.reservations.meta" 
+                    filters="$ctrl.filters.values" 
+                    on-page-change="$ctrl.onPageChange(query)"
+                    per-page-key="{{ $ctrl.paginationPerPageKey }}")

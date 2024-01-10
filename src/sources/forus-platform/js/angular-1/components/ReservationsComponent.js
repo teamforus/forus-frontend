@@ -3,6 +3,7 @@ const ReservationsComponent = function (
     $timeout,
     $stateParams,
     ModalService,
+    PaginatorService,
     OrganizationService,
     PageLoadingBarService,
     PushNotificationsService,
@@ -210,6 +211,7 @@ const ReservationsComponent = function (
         const { reservations_budget_enabled, reservations_subsidy_enabled } = $ctrl.organization;
 
         $ctrl.filters.reset();
+        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey, $ctrl.paginationPerPageDefault);
         $ctrl.reservations = mapReservations($ctrl.shownReservationsType == 'active' ?
             $ctrl.activeReservations :
             $ctrl.archivedReservations,
@@ -239,12 +241,15 @@ module.exports = {
         organization: '<',
         activeReservations: '<',
         archivedReservations: '<',
+        paginationPerPageKey: '<',
+        paginationPerPageDefault: '<',
     },
     controller: [
         '$q',
         '$timeout',
         '$stateParams',
         'ModalService',
+        'PaginatorService',
         'OrganizationService',
         'PageLoadingBarService',
         'PushNotificationsService',

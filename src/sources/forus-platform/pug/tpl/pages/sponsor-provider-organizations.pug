@@ -211,7 +211,8 @@
                     meta="$ctrl.providerOrganizations.meta" 
                     filters="$ctrl.filters.values" 
                     count-buttons="5" 
-                    on-page-change="$ctrl.onPageChange(query)")
+                    on-page-change="$ctrl.onPageChange(query)"
+                    per-page-key="{{ $ctrl.paginationPerPageKey }}")
 
             //- Not found
             .card-section(ng-if="$ctrl.providerOrganizations.meta.total == 0"): .block.block-empty.text-center

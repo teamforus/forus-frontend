@@ -3,6 +3,7 @@ const FundRequestsComponent = function (
     $timeout,
     FileService,
     ModalService,
+    PaginatorService,
     FundRequestValidatorService,
     appConfigs
 ) {
@@ -10,6 +11,7 @@ const FundRequestsComponent = function (
 
     $ctrl.funds = [];
     $ctrl.validatorRequests = null;
+    $ctrl.paginationPerPageKey = "fund_requests";
 
     $ctrl.states = [{
         key: null,
@@ -57,10 +59,12 @@ const FundRequestsComponent = function (
 
     $ctrl.filters = {
         show: false,
-        values: {},
+        values: {
+            per_page: PaginatorService.getPerPage($ctrl.paginationPerPageKey, 10),
+        },
         defaultValues: {
             page: 1,
-            per_page: 10,
+            per_page: PaginatorService.getPerPage($ctrl.paginationPerPageKey, 10),
             q: '',
             state: $ctrl.states[0].key,
             employee_id: null,
@@ -150,6 +154,7 @@ module.exports = {
         '$timeout',
         'FileService',
         'ModalService',
+        'PaginatorService',
         'FundRequestValidatorService',
         'appConfigs',
         FundRequestsComponent,

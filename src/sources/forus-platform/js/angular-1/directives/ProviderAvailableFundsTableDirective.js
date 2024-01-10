@@ -3,21 +3,22 @@ const ProviderAvailableFundsTableDirective = function (
     $scope,
     $filter,
     ModalService,
+    PaginatorService,
     ProviderFundService,
     PageLoadingBarService,
-    PushNotificationsService,
 ) {
     const $dir = $scope.$dir;
     const $translate = $filter('translate');
 
     $dir.selected = [];
     $dir.selectedMeta = {};
+    $dir.paginationPerPageKey = "provider_available_funds";
 
     $dir.filtersDefault = {
         q: "",
         tag: null,
         page: 1,
-        per_page: 10,
+        per_page: PaginatorService.getPerPage($dir.paginationPerPageKey, 10),
         organization_id: null,
         order_by: 'organization_name',
         order_dir: 'asc',
@@ -152,9 +153,9 @@ module.exports = () => {
             '$scope',
             '$filter',
             'ModalService',
+            'PaginatorService',
             'ProviderFundService',
             'PageLoadingBarService',
-            'PushNotificationsService',
             ProviderAvailableFundsTableDirective,
         ],
         templateUrl: 'assets/tpl/directives/provider-available-funds-table.html',

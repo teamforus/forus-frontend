@@ -1,7 +1,7 @@
 .table-pagination
     .form: .table-pagination-counter(ng-if="meta.from && meta.to") 
         select-control(
-            ng-if="!disablePerPageSelect"
+            ng-if="perPageKey"
             prop="key"
             search="false"
             options="perPageOptions" 

@@ -3,6 +3,7 @@ const ProviderFundUnsubscriptionsTableDirective = function (
     $scope,
     $filter,
     ModalService,
+    PaginatorService,
     PageLoadingBarService,
     FundUnsubscribeService,
     PushNotificationsService,
@@ -13,11 +14,12 @@ const ProviderFundUnsubscriptionsTableDirective = function (
 
     $dir.selected = [];
     $dir.selectedMeta = {};
+    $dir.paginationPerPageKey = "provider_fund_unsubscriptions";
 
     $dir.filtersDefault = {
         q: '',
         state: null,
-        per_page: 10,
+        per_page: PaginatorService.getPerPage($dir.paginationPerPageKey, 10),
     };
 
     $dir.filters = {
@@ -139,6 +141,7 @@ module.exports = () => {
             '$scope',
             '$filter',
             'ModalService',
+            'PaginatorService',
             'PageLoadingBarService',
             'FundUnsubscribeService',
             'PushNotificationsService',

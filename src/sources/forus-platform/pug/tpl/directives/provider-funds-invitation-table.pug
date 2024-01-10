@@ -76,8 +76,13 @@
     .card-section(ng-if="$dir.loading"): .card-loading: .mdi.mdi-loading.mdi-spin
 
     //- Pagination
-    .card-section(ng-if="$dir.invitations.meta" ng-show="$dir.invitations.meta.last_page > 1")
-        paginator(meta="$dir.invitations.meta" filters="$dir.filters" count-buttons="5" on-page-change="$dir.onPageChange(query)")
+    .card-section(ng-if="$dir.invitations.meta.total")
+        paginator(
+            meta="$dir.invitations.meta" 
+            filters="$dir.filters" 
+            count-buttons="5" 
+            on-page-change="$dir.onPageChange(query)"
+            per-page-key="{{ $dir.paginationPerPageKey }}")
 
     //- Not found
     .card-section(ng-if="$dir.invitations.data.length == 0"): .block.block-empty.text-center

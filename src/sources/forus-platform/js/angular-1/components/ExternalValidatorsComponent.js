@@ -2,6 +2,7 @@ const ExternalValidatorsComponent = function(
     $q,
     $filter,
     ModalService,
+    PaginatorService,
     OrganizationService,
     PushNotificationsService
 ) {
@@ -13,6 +14,8 @@ const ExternalValidatorsComponent = function(
         q: '',
         order_by: 'name',
         order_dir: 'asc',
+        defaultValues: {},
+        values: {},
     };
 
     $ctrl.prepareValidators = (organizations, approvedOrganizations) => {
@@ -91,6 +94,8 @@ const ExternalValidatorsComponent = function(
     };
 
     $ctrl.$onInit = function() {
+        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey, $ctrl.paginationPerPageDefault);
+
         $ctrl.validatorOrganizations.data = $ctrl.prepareValidators(
             $ctrl.validatorOrganizations.data,
             $ctrl.validatorOrganizationsApproved.data,
@@ -103,11 +108,14 @@ module.exports = {
         organization: '<',
         validatorOrganizations: '<',
         validatorOrganizationsApproved: '<',
+        paginationPerPageKey: '<',
+        paginationPerPageDefault: '<',
     },
     controller: [
         '$q',
         '$filter',
         'ModalService',
+        'PaginatorService',
         'OrganizationService',
         'PushNotificationsService',
         ExternalValidatorsComponent,

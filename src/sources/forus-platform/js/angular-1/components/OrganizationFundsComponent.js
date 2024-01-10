@@ -5,6 +5,7 @@ const OrganizationFundsComponent = function (
     $stateParams,
     FundService,
     ModalService,
+    PaginatorService,
     PageLoadingBarService,
     PushNotificationsService,
 ) {
@@ -108,6 +109,7 @@ const OrganizationFundsComponent = function (
 
     $ctrl.$onInit = function () {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
+        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey, $ctrl.paginationPerPageDefault);
         $ctrl.filters.reset();
     };
 };
@@ -119,6 +121,8 @@ module.exports = {
         recordTypes: '<',
         organization: '<',
         validatorOrganizations: '<',
+        paginationPerPageKey: '<',
+        paginationPerPageDefault: '<',
     },
     controller: [
         '$state',
@@ -127,6 +131,7 @@ module.exports = {
         '$stateParams',
         'FundService',
         'ModalService',
+        'PaginatorService',
         'PageLoadingBarService',
         'PushNotificationsService',
         OrganizationFundsComponent,
