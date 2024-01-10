@@ -21,7 +21,7 @@
 
     //- Vouchers list
     .card-section(ng-if="$dir.invitations.data.length > 0")
-        .card-block.card-block-table.card-block-table-fund.form
+        .card-block.card-block-table.form
             .table-wrapper
                 table.table
                     tr
@@ -42,9 +42,14 @@
                             checked="$dir.selected.includes(invitation.id)"
                             ng-click="$dir.toggle($event, invitation)")
 
-                        td.flex.flex-align-items-center.nowrap
-                            .fund-img: img(ng-src="{{ invitation.fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
-                            .fund-title(ng-bind="invitation.fund.name | str_limit:25")
+                        //- Fund name
+                        td: .td-entity-main
+                            .td-entity-main-media: img.td-media.td-media-sm.td-media-round(
+                                ng-src="{{ invitation.fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+
+                            .td-entity-main-content: .text-strong.text-primary(
+                                ng-bind="invitation.fund.name | str_limit:32" 
+                                title="{{ invitation.fund.name || '-' }}")
 
                         td(
                             ng-bind="invitation.fund.organization.name | str_limit:25"
