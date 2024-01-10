@@ -60,6 +60,7 @@ app.component('bookmarkedProductsComponent', require('./components/BookmarkedPro
 app.component('auth2FAComponent', require('./components/Auth2FAComponent'));
 app.component('fundRequestShowComponent', require('./components/FundRequestShowComponent'));
 app.component('fundRequestsComponent', require('./components/FundRequestsComponent'));
+app.component('fundPreCheckComponent', require('./components/FundPreCheckComponent'));
 app.component('reservationShowComponent', require('./components/ReservationShowComponent'));
 
 // Services
@@ -111,6 +112,7 @@ app.service('HelperService', require('./services/HelperService'));
 app.service('SearchService', require('./services/SearchService'));
 app.service('TagService', require('./services/TagService'));
 app.service('MenuService', require('./services/MenuService'));
+app.service('PreCheckService', require('./services/PreCheckService'));
 app.service('DateService', require('./services/DateService'));
 
 // Directives
@@ -156,6 +158,8 @@ app.directive('inputCheckboxControl', require('./directives/InputCheckboxControl
 app.directive('emailProviderLink', require('./directives/EmailProviderLinkDirective'));
 app.directive('auth2FAInfoBox', require('./directives/Auth2FAInfoBoxDirective'));
 app.directive('fundRequestCard', require('./directives/FundRequestCardDirective'));
+app.directive('fundItemPreCheck', require('./directives/lists/FundItemPreCheckDirective'));
+app.directive('progressPie', require('./directives/ProgressPie'));
 
 app.directive('pdfPreview', require('./directives/file_preview/PdfPreviewDirective'));
 

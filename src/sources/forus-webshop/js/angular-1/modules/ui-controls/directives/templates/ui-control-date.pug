@@ -7,6 +7,6 @@
         ng-change="$dir.onChange()"
         ng-model="ngModel"
         type="text"
-        placeholder="{{ $dir.placeholder || $dir.dateFormat }}"
-        ).form-control
+        autocomplete="off"
+        placeholder="{{ $dir.placeholder || $dir.dateFormat }}").form-control
     .ui-control-clear(ng-click="$dir.clear()" aria-label="cancel"): .mdi.mdi-close-circle
