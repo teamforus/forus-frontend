@@ -59,9 +59,9 @@
                         ng-bind="(!fund.applied ? 'sign_up_provider.buttons.join' : 'fund_card_provider_finances.status.hold') | translate"
                         ng-click="$dir.applyFunds(fund)").button.button-primary.button-sm
 
-            .card-section(ng-if="fund.implementation.has_provider_terms_page"): .card-text
+            .card-section(ng-if="fund.implementation.url_provider_terms_page"): .card-text
                 | Door u aan te melden gaat u akkoord met de&nbsp;
-                a(ng-href="{{ fund.implementation.url_webshop + 'aanbieders/aanmelden' }}" target="_blank").card-text-link algemene voorwaarden
+                a(ng-href="{{ fund.implementation.url_provider_terms_page }}" target="_blank").card-text-link algemene voorwaarden
 
         //- Pagination
         .card-section(ng-if="$dir.funds.meta" ng-show="$dir.funds.meta.last_page > 1")
