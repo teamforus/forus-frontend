@@ -7,5 +7,146 @@
 
         block-feature(feature="$ctrl.feature")
 
-        //- TODO: Replace with the actual template
-        block-empty(title="{{ $ctrl.feature.name }}" text="{{ $ctrl.feature.description }}")
+        .card
+            .card-header: .card-title Beschrijving
+            .card-section: .block.block-content
+                p
+                    | Met de declaratiemodule hebben inwoners de mogelijkheid om bonnen en facturen in te dienen.
+                    | Dit stelt hen in staat om kosten terug te vragen voor uitgaven bij niet-aangesloten
+                    | aanbieders of om facturen in te dienen voor specifieke regelingen, zoals de Regeling
+                    | Reductie Energiegebruik of Internetkosten.
+                p
+                    | Binnen de persoonlijke inwonersomgeving in de webshop kunnen inwoners eenvoudig bonnetjes
+                    | en bewijsstukken indienen. Deze documenten worden direct verwerkt in het systeem en
+                    | komen binnen in de beheeromgeving van de gemeente. Hier worden ze gecontroleerd,
+                    | beoordeeld en uiteindelijk vergoed.
+                p
+                    | Na goedkeuring ontvangen inwoners de kosten terug op hun persoonlijke bankrekening.
+                    | Deze betalingen worden gecrediteerd van het budget of er kan een transactie klaargezet
+                    | worden naar bijvoorbeeld een internetleverancier. De betalingen verlopen via de
+                    | gekoppelde BNG-bankrekening.
+
+                img(src="/assets/img/features/img/reimbursements/banner.jpg")
+
+                h3 Belangrijkste voordelen
+
+                p Het gebruik van Declaraties in het Forus-platform biedt verschillende voordelen:
+
+                .block.block-feature-icons
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/reimbursements/icon-1.svg
+
+                        h4 Efficiënte kostenvergoeding
+                        p
+                            | Het stelt inwoners in staat om bonnen en facturen in te dienen voor kostenvergoeding
+                            | op een efficiënte manier.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/reimbursements/icon-2.svg
+
+                        h4 Gebruiksvriendelijke beheeromgeving
+                        p Medewerkers kunnen gebruik maken van een beheeromgeving om de aanvragen te beoordelen en te verwerken.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/reimbursements/icon-3.svg
+
+                        h4 Volledig overzicht van transacties
+                        p
+                            | Het platform biedt een duidelijk overzicht van alle transacties binnen de beheeromgeving,
+                            | waardoor een transparante administratie mogelijk is.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/reimbursements/icon-4.svg
+
+                        h4 Tijdsbesparing
+                        p
+                            | Het gebruik van Declaraties in het Forus-platform bespaart tijd doordat het proces
+                            | van kostenvergoeding gestroomlijnd wordt en administratieve taken worden geautomatiseerd.
+
+
+                .block.block-feature-list.block-feature-list-secondary
+                    h3 De functionaliteiten van de declaratiemodule worden beschikbaar in:
+                    .block-feature-list-items-wrapper
+                        .block-feature-list-items
+                            .block-feature-list-item
+                                | De webshop voor inwoners om kassabonnen, facturen en andere bewijsmaterialen te uploaden,
+                                | zodat zij kosten kunnen terugvragen.
+                            .block-feature-list-item
+                                | De beheeromgeving voor medewerkers waar zij de ingediende aanvragen
+                                | voor kostenvergoeding kunnen beoordelen en goedkeuren.
+                            .block-feature-list-item De beheeromgeving voor medewerkers met een functionaliteit voor open betalingen.
+                            .block-feature-list-item De beheeromgeving voor medewerkers met een overzicht van alle transacties.
+
+            .card-info
+                .card-info-icon.mdi.mdi-headset
+                .card-info-details: span
+                    | Mocht u nog vragen hebben of wilt u aanvullende informatie dan kunt u ons
+                    | bellen op: #[strong +31 (0) 85 004 33 87] of contact opnemen via e-mail #[strong info@forus.io]
+
+
+        .card
+            .card-header: .card-title Veelgestelde vragen
+
+            .card-section.card-section-padless: .block.block-feature-faq(collapse)
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Is het mogelijk om categorie en aanbieder toe te voegen aan een declaratie?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Het is mogelijk om categorieën en aanbieders te koppelen aan declaraties die worden ingediend
+                            | door de deelnemers. Op deze manier kunt u een export genereren en een duidelijk overzicht krijgen
+                            | van de uitgaven per categorie en aanbieder. U kunt zelf categorieën aanmaken in de beheeromgeving.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Wat is het voordeel van de Declaratiemodule voor de inwoner?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | De inwoner heeft met de Declaratiemodule de mogelijkheid om transacties ‘voor te schieten’.
+                            | Dit maakt het heel makkelijk voor regelingen als bijvoorbeeld een Energie regeling, waar de
+                            | inwoner een abonnement kan afsluiten en achteraf kan declareren bij de gemeente. Zo hoeft er
+                            | geen energieleverancier te worden aangesloten als aanbieder, maar kan er rechtstreeks vanuit
+                            | de bankrekening van de gemeente een betaling worden gedaan naar de inwoner.
+
+
+        .card
+            .card-header(ng-if="$ctrl.additionalFeatures.length")
+                .card-title Andere modules die u misschien interessant vindt
+
+            .card-section(ng-if="$ctrl.additionalFeatures.length")
+                .block.block-features
+                    .features-list
+                        a.features-list-item(
+                            ng-repeat="feature in $ctrl.additionalFeatures"
+                            ui-sref="feature(feature.srefParams)")
+
+                            .features-list-item-icon: img(ng-src="/assets/img/features/icons/{{ feature.key }}.svg")
+                            .features-list-item-content
+                                .features-list-item-title
+                                    span(ng-bind="feature.name")
+                                    .features-label.active(ng-if="feature.enabled") Active
+                                .features-list-item-details(ng-bind="feature.description")
+                                .features-labels
+                                    .features-label(ng-repeat="label in feature.labels" ng-bind="label")
+
+            .card-section
+                .block.block-features-demo-banner(
+                    style="background-image: url(/assets/img/features/img/reimbursements/banner-action-bg.jpg);"
+                )
+                    .features-demo-banner-info-wrapper
+                        .features-demo-banner-info
+                            .features-demo-banner-title Declaratiemodule uitproberen
+                            .features-demo-banner-details
+                                | Wilt u zien hoe de Declaratiemodule werkt? Neem dan contact met ons op
+                                | voor een persoonlijke demonstratie. We laten u graag zien hoe het voor uw kan werken.
+
+                        .features-demo-banner-action
+                            a(ui-sref="features({organization_id: $ctrl.organization.id})").button.button-primary Demo aanvragen
