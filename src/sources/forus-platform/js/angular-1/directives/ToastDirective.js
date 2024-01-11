@@ -1,18 +1,23 @@
-let ToastDirective = function(
+let ToastDirective = function (
     $scope,
     $timeout,
-    $interval,
     ToastService,
 ) {
-    $interval(() => {
-        $scope.toast = ToastService.getToast();
+    $scope.$watch(() => ToastService.getToast(), (toast) => {
+        $scope.toast = toast;
 
-        if ($scope.toast.show) {
-            $timeout(() => {
+        if (toast.show) {
+            $scope.timeout = $timeout(() => {
                 $scope.toast.show = false;
             }, 5000);
+        } else {
+            $scope.toast.show = false;
+
+            if ($scope.timeout) {
+                $timeout.cancel($scope.timeout);
+            }
         }
-    }, 100);
+    });
 };
 
 module.exports = () => {
@@ -25,7 +30,6 @@ module.exports = () => {
         controller: [
             '$scope',
             '$timeout',
-            '$interval',
             'ToastService',
             ToastDirective
         ],

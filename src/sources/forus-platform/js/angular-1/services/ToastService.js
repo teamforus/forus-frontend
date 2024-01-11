@@ -1,12 +1,12 @@
-let ToastService = function() {
+const ToastService = function() {
     return new (function() {
-        this.toast = [{
+        this.toast = {
             show: false,
-        }];
+        };
     
         this.setToast = (description) => {
             this.toast = {
-                show: true,
+                show: !!description,
                 description: description,
             };
         }
@@ -18,5 +18,5 @@ let ToastService = function() {
 };
 
 module.exports = [
-    ToastService
+    ToastService,
 ];

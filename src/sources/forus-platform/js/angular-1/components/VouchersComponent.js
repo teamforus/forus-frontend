@@ -2,6 +2,7 @@ const { pick } = require("lodash");
 
 const VouchersComponent = function (
     $state,
+    $element,
     $stateParams,
     $timeout,
     DateService,
@@ -37,24 +38,12 @@ const VouchersComponent = function (
         { value: 'used_at', name: 'Transactiedatum' },
     ];
 
-    $ctrl.voucher_states = VoucherService.getStates();
-
     $ctrl.tooltips = VoucherService.getTooltips();
+    // $ctrl.columns = VoucherService.getTooltips();
+    // $ctrl.columnsAvailable = VoucherService.getTooltips(tooltip).reduce((val, item) => [{...val, [tooltip.key]: true }], {});
 
-    let tableTooltipShown = false;
-
-    $ctrl.showTableTooltip = (key) => {
-        $ctrl.activeTooltipKey = key;
-
-        if (!tableTooltipShown) {
-            ToastService.setToast([
-                'This is the header of the table column, ',
-                'to read more about it please open the Information button from the right corner.'
-            ].join(''));
-            
-            tableTooltipShown = true;
-        }
-    };
+    $ctrl.voucher_states = VoucherService.getStates();
+    $ctrl.showTableConfig = null;
 
     $ctrl.filters = {
         show: false,
@@ -89,6 +78,33 @@ const VouchersComponent = function (
             this.values = { ...this.defaultValues };
             $ctrl.updateState(this.defaultValues);
         }
+    };
+
+    $ctrl.setShowTableConfig = function (key) {
+        if ($ctrl.showTableConfig && $ctrl.tableConfigCategory == key) {
+            return $ctrl.showTableConfig = false;
+        }
+
+        $ctrl.showTableConfig = true;
+        $ctrl.tableConfigCategory = key;
+    }
+
+
+    $ctrl.showTableTooltip = (column) => {
+        if ($ctrl.showTableConfig && $ctrl.tableConfigCategory == 'tooltips') {
+            // scroll into view
+            const element = $element.find(`[data-table-tooltip="${column.key || 'status'}"]`)[0];
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+            ToastService.setToast([
+                'This is the header of the table column, ',
+                'to read more about it please open the Information button from the right corner.'
+            ].join(''));
+        }
+    };
+
+    $ctrl.hideTableTooltip = () => {
+        ToastService.setToast(null);
     };
 
     $ctrl.toggleActions = (e, voucher) => {
@@ -249,6 +265,7 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$element',
         '$stateParams',
         '$timeout',
         'DateService',

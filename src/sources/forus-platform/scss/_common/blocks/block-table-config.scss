@@ -3,55 +3,99 @@
     border-bottom: 1px solid var(--border-color);
 
     .table-settings-list {
-        background-color: #FAFBFC;
+        display: flex;
+        background-color: #fafbfc;
         border-right: 1px solid var(--border-color);
+        flex: 0 0 200px;
+        min-width: 0;
+        flex-direction: column;
 
         .table-setting {
             padding: 10px 12px;
             border-bottom: 1px solid var(--border-color);
-            font: 600 14px/21px var(--base-font);
-            color: #646F79;
             text-wrap: nowrap;
             cursor: pointer;
-            display: flex;
             align-items: center;
+            display: flex;
+            flex: 0 0 auto;
+            gap: 5px;
 
             .mdi {
-                margin-right: 5px;
+                font-size: 16px;
+            }
+
+            .table-setting-name {
+                @include ellipsis();
+                font: 600 14px/21px var(--base-font);
+                color: #646f79;
             }
 
             &.active {
-                color: #282B39;
-                background-color: #FFF;
+                color: #282b39;
+                background-color: #fff;
                 margin-right: -1px;
+                cursor: default;
+
+                .mdi {
+                    color: var(--color-primary);
+                }
+
+                .table-setting-name {
+                    color: #282b39;
+                }
             }
 
             &.disabled {
                 pointer-events: none;
-                color: #a1a1a1;
+
+                .table-setting-name {
+                    color: #a1a1a1;
+                }
             }
         }
     }
 
     .table-settings-details-block {
-        max-height: 300px;
+        height: 300px;
         overflow: auto;
         z-index: 1;
+        display: flex;
+        flex: 1 1 auto;
         @include webkit_scrollbar_horizontal();
 
         .table-settings-tooltip-list {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+
             .table-settings-tooltip-item {
                 padding: 15px 20px;
                 background-color: #fff;
-                border-bottom: 1px solid var(--border-color);
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                flex: 1 1 auto;
 
                 .table-settings-tooltip-item-title {
                     font: 600 14px/18px var(--base-font);
+                    word-wrap: break-word;
                 }
 
                 .table-settings-tooltip-item-description {
                     font: 500 13px/18px var(--base-font);
-                    color: #646F79;
+                    color: #646f79;
+                    word-wrap: break-word;
+                }
+
+                &:after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    bottom: 0;
+                    right: 20px;
+                    left: 20px;
+                    border-bottom: 1px solid var(--border-color);
                 }
 
                 &.active {
@@ -62,7 +106,9 @@
                 }
 
                 &:last-child {
-                    border-bottom: none;
+                    &:after {
+                        display: none;
+                    }
                 }
             }
         }

@@ -198,19 +198,59 @@
                     .table-wrapper: .table-container.table-container-2
                         .table-scroll: table.table
                             tr
-                                th(translate="vouchers.labels.id" ng-mouseover="$ctrl.showTableTooltip('id')")
-                                th(translate="vouchers.labels.assigned_to" ng-mouseover="$ctrl.showTableTooltip('method')")
-                                th(translate="vouchers.labels.source" ng-mouseover="$ctrl.showTableTooltip('created_by')").nowrap
-                                th(ng-if="$ctrl.fund.type == 'budget'" ng-mouseover="$ctrl.showTableTooltip('amount')" translate="vouchers.labels.amount")
-                                th(translate="vouchers.labels.note" ng-mouseover="$ctrl.showTableTooltip('note')")
-                                th(translate="vouchers.labels.fund")
-                                th(translate="vouchers.labels.created_date" ng-mouseover="$ctrl.showTableTooltip('created_date')").nowrap
+                                th(
+                                    translate="vouchers.labels.id" 
+                                    ng-mouseover="$ctrl.showTableTooltip('id')" 
+                                    ng-mouseleave="$ctrl.hideTableTooltip()")
+
+                                th(
+                                    translate="vouchers.labels.assigned_to" 
+                                    ng-mouseover="$ctrl.showTableTooltip('method')" 
+                                    ng-mouseleave="$ctrl.hideTableTooltip()")
+
+                                th(
+                                    translate="vouchers.labels.source" 
+                                    ng-mouseover="$ctrl.showTableTooltip('created_by')" 
+                                    ng-mouseleave="$ctrl.hideTableTooltip()").nowrap
+
+                                th(
+                                    ng-if="!$ctrl.filters.values.fund_id || $ctrl.fundsById[$ctrl.filters.values.fund_id].type == 'budget'"
+                                    translate="vouchers.labels.amount"
+                                    ng-mouseover="$ctrl.showTableTooltip('amount')" 
+                                    ng-mouseleave="$ctrl.hideTableTooltip()" )
+
+                                th(
+                                    translate="vouchers.labels.note" 
+                                    ng-mouseover="$ctrl.showTableTooltip('note')" 
+                                    ng-mouseleave="$ctrl.hideTableTooltip()")
+
+                                th(
+                                    translate="vouchers.labels.fund" 
+                                    ng-mouseover="$ctrl.showTableTooltip('fund')" 
+                                    ng-mouseleave="$ctrl.hideTableTooltip()")
+
+                                th(
+                                    translate="vouchers.labels.created_date" 
+                                    ng-mouseover="$ctrl.showTableTooltip('created_date')" 
+                                    ng-mouseleave="$ctrl.hideTableTooltip()").nowrap
+
                                 th(
                                     ng-if="!$ctrl.fundClosed" 
                                     translate="vouchers.labels.expire_date" 
-                                    ng-mouseover="$ctrl.showTableTooltip('expire_date')").nowrap
-                                th(ng-if="!$ctrl.fundClosed" translate="vouchers.labels.used" ng-mouseover="$ctrl.showTableTooltip('in_use')").nowrap
-                                th(translate="vouchers.labels.assigned" ng-mouseover="$ctrl.showTableTooltip('status')")
+                                    ng-mouseover="$ctrl.showTableTooltip('expire_date')"
+                                    ng-mouseleave="$ctrl.hideTableTooltip()").nowrap
+
+                                th(
+                                    ng-if="!$ctrl.fundClosed"
+                                    translate="vouchers.labels.used"
+                                    ng-mouseover="$ctrl.showTableTooltip('in_use')" 
+                                    ng-mouseleave="$ctrl.hideTableTooltip()").nowrap
+
+                                th(
+                                    translate="vouchers.labels.assigned" 
+                                    ng-mouseover="$ctrl.showTableTooltip('status')" 
+                                    ng-mouseleave="$ctrl.hideTableTooltip()")
+
                                 th &nbsp;
 
                             tr(
@@ -235,7 +275,7 @@
                                 td: div(ng-bind="voucher.source_locale").text-md.text-muted-dark.text-medium
 
                                 td(
-                                    ng-if="$ctrl.fund.type == 'budget'" 
+                                    ng-if="!$ctrl.filters.values.fund_id || $ctrl.fundsById[$ctrl.filters.values.fund_id].type == 'budget'"
                                     ng-bind="voucher.amount_total | currency_format").nowrap
 
                                 td: em.td-icon.mdi.mdi-information.block.block-tooltip-details.pull-left(
@@ -304,14 +344,16 @@
                                 td
 
                         .table-scroll-actions: table.table
-                            tr: .button-group.flex-end
-                                .button.button-sm.button-primary(
-                                    ng-click="$ctrl.showTableConfig = !$ctrl.showTableConfig; $ctrl.tableConfigCategory = 'tooltips'")
+                            tr: th: .table-th-actions
+                                .table-th-action(
+                                    ng-class="$ctrl.showTableConfig && $ctrl.tableConfigCategory == 'tooltips' ? 'active' : ''"
+                                    ng-click="$ctrl.setShowTableConfig('tooltips')")
                                     em.mdi.mdi-information-variant-circle
 
-                                .button.button-sm.button-default(
-                                    ng-click="$ctrl.showTableConfig = !$ctrl.showTableConfig; $ctrl.tableConfigCategory = 'tooltips'")
-                                    em.mdi.mdi-cog
+                                //- .table-th-action(
+                                    ng-class="$ctrl.showTableConfig && $ctrl.tableConfigCategory == 'columns' ? 'active' : 'columns'"
+                                    ng-click="$ctrl.setShowTableConfig('columns')")
+                                    em.mdi.mdi-cog-outline
 
                             tr(ng-repeat="voucher in $ctrl.vouchers.data" dusk="voucherItem{{ voucher.id }}"): td
                                 .actions(ng-class="voucher.showMenu ? 'active' : ''"): button.button.button-text.button-menu(
