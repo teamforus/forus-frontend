@@ -1,74 +1,90 @@
+const snakeCase = require("lodash/snakeCase");
 const FeaturesService = function () {
     return new (function () {
         this.list = [{
             key: 'bi_tools',
-            name: 'BI-tools',
-            description: 'Make a connection with the BI-tool of your choice. IBM Cognos. Microsoft Power BI.',
-            label: 'Data',
+            name: 'BI-tool API',
+            description: 'API-koppeling met Business Intelligence (BI) tools voor data-export.',
+            labels: ['Koppeling', 'Business Intelligence', 'Management'],
         }, {
             key: 'email_connection',
-            name: 'E-mail Connection',
-            description: 'Send e-mails from your own domain name.',
-            label: 'Koppeling',
+            name: 'E-mailkoppeling',
+            description: 'Mogelijkheid om systeemgerelateerde e-mails te versturen vanuit een gepersonaliseerd adres van uw organisatie.',
+            labels: ['E-mail', 'Communicatie', 'Beveiliging'],
         }, {
             key: 'backoffice_api',
-            name: 'Backoffice-API',
-            description: 'Morbi egestas nisl ac quisque sapien. Magna nulla vestibulum dignissim quis.',
-            label: 'Aanvraag',
+            name: 'Backoffice API',
+            description: 'Koppeling met de gemeente-API voor naadloze gegevensintegratie.',
+            labels: ['Integratie', 'Gegevens', 'Gemeente API'],
         }, {
             key: 'iconnect_api',
-            name: 'Haalcentraal API',
-            description: 'Enim vel tempus lobortis accumsan morbi arcu pulvinar. Nibh mattis amet vitae iaculis arcu.',
-            label: 'Social media',
+            name: 'Haal Centraal API',
+            description: 'Toegang tot BRP-gegevens en weergave in het Forus platform.',
+            labels: ['Integratie', 'Gegevens', 'BRP', 'API'],
         }, {
             key: 'digid',
             name: 'DigiD',
-            description: 'Allow users to login and apply to funds using DigiD.',
-            label: 'Financieel',
+            description: 'Een koppeling met DigiD voor digitale identificatie binnen Forus.',
+            labels: ['Koppeling', 'Beveiliging', 'Identificatie'],
         }, {
             key: 'bng',
             name: 'BNG',
-            description: 'Geautomatiseerde financiële transacties tussen Forus en de rekening van de gemeente bij de Bank Nederlandse Gemeenten (BNG).',
-            label: 'Financieel',
+            description: 'Geautomatiseerde financiële transacties tussen Forus en de rekening van uw organisatie bij de Bank Nederlandse Gemeenten (BNG)..',
+            labels: ['Koppeling', 'Financieel'],
         }, {
             key: 'reimbursements',
-            name: 'Declarations',
-            description: 'Allow users to upload receipts in order to be reimbursed.',
-            label: 'Veiligheid',
+            name: 'Declaraties',
+            description: 'Mogelijkheid voor inwoners om bonnen en facturen in te dienen ter vergoeding van kosten.',
+            labels: ['Declaraties', 'Kostenvergoeding', 'Beoordeling'],
         }, {
             key: 'auth_2_fa',
-            name: 'Two Factor Authentication',
-            description: 'Make the use of two factor authentication mandatory.',
-            label: 'Data',
+            name: 'Tweefactorauthenticatie (2FA)',
+            description: 'Extra beveiligingslaag voor accountbescherming.',
+            labels: ['Beveiliging', 'Accountbescherming', '2FA'],
         }, {
             key: 'voucher_records',
             name: 'Records on vouchers',
             description: 'Show more details on the vouchers.',
-            label: 'Gebruiksvriendelijkheid',
+            labels: ['Gebruiksvriendelijkheid'],
         }, {
             key: 'physical_cards',
             name: 'Physical cards',
             description: 'Give people the option to order a physical card with a QR-code. ',
-            label: 'Aanvraag',
+            labels: ['Aanvraag'],
         }];
 
         this.previewList = [{
             key: 'digid',
             name: 'DigiD',
-            description: 'Allow users to login and apply to funds using DigiD.',
+            description: 'Laat gebruikers inloggen en fondsen aanvragen met DigiD',
         }, {
             key: 'bng',
             name: 'BNG',
-            description: 'Geautomatiseerde financiële transacties tussen Forus en de rekening van de gemeente bij de Bank Nederlandse Gemeenten (BNG).',
+            description: 'Geautomatiseerde financiële transacties ',
         }, {
             key: 'auth_2_fa',
-            name: 'Two Factor Authentication',
-            description: 'Make the use of two factor authentication mandatory.',
+            name: 'Tweefactorauthenticatie',
+            description: 'Een extra beveiligingslaag voor de bescherming van uw account',
         }, {
-            key: 'reimbursements',
-            name: 'Declarations',
-            description: 'Allow users to upload receipts in order to be reimbursed.',
+            key: 'bi_tools',
+            name: 'BI-tool API',
+            description: 'Exporteer gegevens met BI-tool API',
         }];
+
+        this.getAdditionalFeatures = (feature) => {
+            const additionalFeatures = {
+                'bng': ['digid', 'auth_2_fa'],
+                'digid': ['bng', 'auth_2_fa'],
+                'bi_tools': ['bng', 'auth_2_fa'],
+                'auth_2_fa': ['bng', 'digid'],
+                'iconnect_api': ['bi_tools', 'auth_2_fa'],
+                'backoffice_api': ['bi_tools', 'auth_2_fa'],
+                'reimbursements': ['bng', 'auth_2_fa'],
+                'email_connection': ['bi_tools', 'auth_2_fa'],
+            }[feature] || [];
+
+            return this.list.filter((feature) => additionalFeatures.includes(feature.key));
+        };
     });
 };
 
