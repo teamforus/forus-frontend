@@ -239,10 +239,19 @@ const FundService = function (
             });
         };
 
+        this.getCurencyKeys = () => {
+            return ['net_worth', 'base_salary'];
+        };
+
         this.getCriterionControlType = (record_type, operator = null) => {
             const checkboxKeys = ['children', 'kindpakket_eligible', 'kindpakket_2018_eligible'];
-            const stepKeys = ['children_nth', 'waa_kind_0_tm_4_2021_eligible_nth', 'waa_kind_4_tm_18_2021_eligible_nth', 'adults_nth'];
-            const currencyKeys = ['net_worth', 'base_salary'];
+            const stepKeys = [
+                'children_nth', 'waa_kind_0_tm_4_2021_eligible_nth', 'waa_kind_4_tm_18_2021_eligible_nth', 
+                'adults_nth', 'eem_kind_0_tm_4_eligible_nth', 'eem_kind_4_tm_12_eligible_nth', 
+                'eem_kind_12_tm_14_eligible_nth', 'eem_kind_14_tm_18_eligible_nth',
+            ];
+
+            const currencyKeys = this.getCurencyKeys();
             const numberKeys = ['tax_id'];
             const dateKeys = ['birth_date'];
 
