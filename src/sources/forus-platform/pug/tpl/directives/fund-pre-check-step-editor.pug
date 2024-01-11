@@ -95,11 +95,11 @@
                             .row
                                 //- Short title
                                 .form-group.col.col-lg-6.col-xs-12
-                                    label.form-label Short title
+                                    label.form-label.form-label-required Short title
                                     input(type="text" ng-model="record.title_short" placeholder="Title...").form-control
-                                    .form-hint Max. 30 tekens
+                                    .form-hint Max. 40 tekens
                                     .form-error(
-                                        ng-repeat="error in $dir.errors['pre_checks.' + $parent.$index]['record_types.' + $index + '.title_short']" 
+                                        ng-repeat="error in $dir.errors['pre_checks.' + $parent.$index + '.' + 'record_types.' + $index + '.title_short']" 
                                         ng-bind="error")
                                 
                                 //- Title
