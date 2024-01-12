@@ -17,5 +17,6 @@ module.exports = {
         rejected_at: "Geweigerd op:",
         canceled_at: "Geannuleerd op:",
         expired_at: "Verlopen op:",
+        created_at: "Created on:",
     },
 }
