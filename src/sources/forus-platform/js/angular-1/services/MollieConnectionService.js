@@ -29,6 +29,10 @@ const MollieConnectionService = function(ApiRequest) {
         this.updateProfile = function (organization_id, connection_id, id, data) {
             return ApiRequest.patch(`${prefix}/${organization_id}/mollie-connections/${connection_id}/profiles/${id}`, data);
         }
+
+        this.setCurrentProfile = function (organization_id, connection_id, id) {
+            return ApiRequest.post(`${prefix}/${organization_id}/mollie-connections/${connection_id}/profiles/${id}/current`);
+        }
     });
 };
 

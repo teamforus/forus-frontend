@@ -39,6 +39,7 @@ const PaymentMethodsComponent = function (
 
         MollieConnectionService.fetch($ctrl.organization.id).then((res) => {
             $ctrl.mollieConnection = res.data.data;
+            $ctrl.mapProfiles();
             PushNotificationsService.success('Opgeslagen!');
         }, (res) => {
             $ctrl.showError(res);
@@ -106,6 +107,7 @@ const PaymentMethodsComponent = function (
 
             promise.then((res) => {
                 $ctrl.mollieConnection = res.data.data;
+                $ctrl.mapProfiles();
                 PushNotificationsService.success('Opgeslagen!');
             }, (res) => {
                 form.errors = res.data.errors;
@@ -126,10 +128,33 @@ const PaymentMethodsComponent = function (
         $ctrl.showForm = true;
     };
 
+    $ctrl.mapProfiles = () => {
+        if ($ctrl.mollieConnection.id) {
+            $ctrl.currentProfile = $ctrl.mollieConnection.profiles.filter((profile) => profile.current)[0];
+            $ctrl.current_profile_id = $ctrl.currentProfile?.id;
+        }
+    };
+
+    $ctrl.updateCurrentProfile = () => {
+        MollieConnectionService.setCurrentProfile(
+            $ctrl.organization.id,
+            $ctrl.mollieConnection.id,
+            $ctrl.current_profile_id,
+        ).then((res) => {
+            $ctrl.mollieConnection = res.data.data;
+            $ctrl.mapProfiles();
+            PushNotificationsService.success('Opgeslagen!');
+        }, (res) => {
+            PushNotificationsService.danger(res.data?.message || 'Onbekende foutmelding!');
+        });
+    };
+
     $ctrl.$onInit = function () {
         if ($ctrl.mollieConnection.id && !$ctrl.mollieConnection.profile_active) {
             $ctrl.initProfileForm($ctrl.mollieConnection.profile_pending || {});
         }
+
+        $ctrl.mapProfiles();
     };
 };
 
