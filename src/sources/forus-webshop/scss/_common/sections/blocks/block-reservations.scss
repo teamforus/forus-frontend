@@ -66,20 +66,51 @@
                     margin-bottom: 0;
                 }
             }
+
+            &.reservation-overview-dates {
+                flex-direction: row;
+                gap: 20px;
+                justify-content: flex-end;
+
+                .reservation-overview-item {
+                    width: fit-content;
+                    margin-bottom: 0;
+
+                    border-right: 1px solid #E5E5E5;
+                    padding-right: 20px;
+
+                    &:last-of-type,
+                    &:last-child {
+                        margin-bottom: 0;
+                        border-right: none;
+                        padding-right: 0;
+                    }
+                }
+
+                & + .reservation-actions {
+                    .reservation-action {
+                        margin-top: 15px;
+                    }
+                }
+            }
         }
 
         .reservation-actions {
-            justify-content: flex-end;
+            align-items: flex-end;
+
+            &.reservation-actions-mobile {
+                display: none;
+            }
         }
 
         .reservation-item-body {
             display: grid;
-            min-height: 135px;
+            min-height: 90px;
             overflow: hidden;
             position: relative;
             padding: 15px;
             gap: 15px;
-            grid-template-columns: 135px 1fr;
+            grid-template-columns: 90px 1fr;
 
             .reservation-image {
                 display: block;
@@ -307,6 +338,7 @@
                                 .reservation-overview {
                                     .reservation-overview-status {
                                         justify-content: flex-start;
+                                        gap: 5px;
 
                                         .label {
                                             margin: 0;
@@ -319,25 +351,6 @@
                         &:last-child {
                             grid-template-columns: 1fr;
                             gap: 15px;
-
-                            .reservation-actions {
-                                display: flex;
-                                flex-grow: 1;
-
-                                .reservation-action {
-                                    display: flex;
-
-                                    .button {
-                                        flex: 1;
-                                        font-size: 11px;
-                                        justify-content: center;
-
-                                        .mdi {
-                                            float: none;
-                                        }
-                                    }
-                                }
-                            }
 
                             .reservation-overview {
                                 .reservation-overview-item {
@@ -386,7 +399,56 @@
             }
 
             .reservation-details-toggle {
-                display: grid;
+                display: flex;
+                flex-direction: column;
+
+                .reservation-overview-dates {
+                    justify-content: flex-start;
+                    gap: 12px;
+
+                    .reservation-overview-item {
+                        width: 100%;
+                        padding-right: 0;
+                        border: none;
+                    }
+                }
+
+                .reservation-details-toggle-divider {
+                    border-bottom: 1px solid #E5E5E5;
+                    margin-top: 12px;
+                }
+
+                .button {
+                    align-self: flex-start;
+                    margin-top: 10px;
+                    padding: 2px 0;
+                }
+            }
+
+            .reservation-actions {
+                &.reservation-actions-mobile {
+                    display: flex;
+                    width: 100%;
+                    padding: 0 10px 10px;
+
+                    .reservation-action {
+                        display: flex;
+                        margin-top: 0;
+                        width: 100%;
+
+                        .button {
+                            display: flex;
+                            flex: 1;
+                            font-size: 11px;
+                            justify-content: center;
+                            width: 100%;
+
+                            .mdi {
+                                float: none;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
