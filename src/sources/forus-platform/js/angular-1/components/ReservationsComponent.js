@@ -82,6 +82,7 @@ const ReservationsComponent = function (
             data: reservations.data.map((reservation) => ({
                 ...reservation,
                 allowAcceptReservation: ProductReservationService.acceptAllowed(reservation),
+                allowRejectReservation: ProductReservationService.rejectAllowed(reservation),
             })),
         };
     }

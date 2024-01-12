@@ -80,7 +80,7 @@ const FundPreCheckComponent = function (
     }, 250);
 
     $ctrl.$onInit = function () {
-        $ctrl.enabled = $ctrl.configs?.pre_check_enabled && $ctrl.configs?.pre_check_banner_state == 'public';
+        $ctrl.enabled = $ctrl.configs?.pre_check_enabled;
         $ctrl.recordTypesByKey = $ctrl.recordTypes.reduce((acc, type) => ({ ...acc, [type.key]: type }), {});
 
         if (!$ctrl.enabled) {

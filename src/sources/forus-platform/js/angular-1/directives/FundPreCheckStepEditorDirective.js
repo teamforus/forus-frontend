@@ -88,6 +88,20 @@ const FundPreCheckStepEditorDirective = function (
             $dir.preChecks[list[i]].uncollapsed = true;
         }
     };
+
+    $scope.$watch('$dir.errors', () => {
+        Object.keys($dir.errors || {}).forEach((error) => {
+            if (error.indexOf('pre_checks') !== -1) {
+                const preCheckIndex = parseInt(error.split('.')[1]);
+                const preCheckRecordIndex = parseInt(error.split('.')[3]);
+
+                if ($dir.preChecks?.[preCheckIndex]?.record_types?.[preCheckRecordIndex]) {
+                    $dir.preChecks[preCheckIndex].uncollapsed = true;
+                    $dir.preChecks[preCheckIndex].record_types[preCheckRecordIndex].uncollapsed = true;
+                }
+            }
+        });
+    });
 };
 
 module.exports = () => {
