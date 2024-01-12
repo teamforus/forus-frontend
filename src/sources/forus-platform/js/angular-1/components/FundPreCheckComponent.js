@@ -13,18 +13,18 @@ const FundPreCheckComponent = function (
 
     $ctrl.enableOptions = [{
         key: false,
-        name: `Disabled`,
+        name: `Uitgeschakeld`,
     }, {
         key: true,
-        name: `Enabled`,
+        name: `Actief`,
     }];
 
     $ctrl.bannerStates = [{
         value: 'draft',
-        name: 'Draft',
+        name: 'Ja',
     }, {
         value: 'public',
-        name: 'Public',
+        name: 'Nee',
     }];
 
     $ctrl.steps = [];
