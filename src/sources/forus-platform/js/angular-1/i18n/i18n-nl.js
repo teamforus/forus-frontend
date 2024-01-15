@@ -534,6 +534,7 @@ module.exports = {
             label: "Label",
             description: "Description",
             status: "Enabled",
+            implementation: "Implementatie",
         },
         buttons: {
             cancel: "Annuleren",

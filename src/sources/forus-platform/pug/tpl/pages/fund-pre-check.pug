@@ -24,6 +24,18 @@
 
             //- Status (enabled/disabled)
             .card-section.card-section-primary: .row: .col.col-lg-12.col-xs-12
+                .form-group(ng-if="$ctrl.implementations.length > 1")
+                    label(translate="funds_pre_check.labels.implementation").form-label
+
+                    .form-offset: select-control(
+                        prop="id"
+                        search="false"
+                        ng-model="$ctrl.preCheckForm.values.implementation_id"
+                        ng-change="$ctrl.updateImplementation($ctrl.preCheckForm.values.implementation_id)"
+                        options="$ctrl.implementations").form-control
+
+                        .form-error(ng-repeat="error in $ctrl.preCheckForm.errors.implementation_id" ng-bind="error")
+
                 .form-group
                     label(translate="funds_pre_check.labels.status").form-label
 
