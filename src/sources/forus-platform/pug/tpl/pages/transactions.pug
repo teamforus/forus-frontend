@@ -112,7 +112,31 @@
                                             max="14"
                                             type="number" 
                                             ng-model="$ctrl.filters.values.transfer_in_max" 
-                                            placeholder="{{ 'transactions.labels.transfer_in_max' | i18n }}").form-control        
+                                            placeholder="{{ 'transactions.labels.transfer_in_max' | i18n }}").form-control   
+
+                                .form-group
+                                    form-label-toggle(label="{{ 'transactions.labels.from_non_cancelable' | i18n }}")
+                                    datepicker(
+                                        date-format="yyyy-MM-dd" 
+                                        datepicker-mobile=""
+                                        date-week-start-day="1").form-control
+                                        input(ng-model="$ctrl.filters.values.from_non_cancelable" type="text" placeholder="jjjj-MM-dd").form-control
+
+                                .form-group
+                                    form-label-toggle(label="{{ 'transactions.labels.to_non_cancelable' | i18n }}")
+                                    datepicker(
+                                        date-format="yyyy-MM-dd" 
+                                        datepicker-mobile=""
+                                        date-week-start-day="1").form-control
+                                        input(ng-model="$ctrl.filters.values.to_non_cancelable" type="text" placeholder="jjjj-MM-dd").form-control
+                                
+                                .form-group(ng-click="$event.stopPropagation()")
+                                    form-label-toggle(label="{{ 'transactions.labels.bulk_state' | i18n }}")
+                                    .form-offset: select-control(
+                                        prop="key"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.bulk_state"
+                                        options="$ctrl.bulkStates").form-control   
 
                                 .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'transactions.labels.fund_state' | i18n }}")
@@ -212,9 +236,11 @@
 
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.date" value="created_at")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.fund" value="fund_name")
-                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.product_name" value="product_name")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.product_name" value="product_name").nowrap
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.provider" value="provider_name" ng-if="$ctrl.isSponsor")
+                                th.nowrap(th-sortable filters="$ctrl.filters.values" label="transactions.labels.date_non_cancelable" value="date_non_cancelable" ng-if="$ctrl.isSponsor")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.bulk" value="transaction_in" ng-if="$ctrl.isSponsor")
+                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.bulk_state" value="bulk_state" ng-if="$ctrl.isSponsor").nowrap
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.status" value="state")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.action").th-narrow.text-right
 
@@ -253,6 +279,11 @@
                                     title="{{ transaction.organization.name || '' }}"
                                     ng-if="$ctrl.isSponsor")
 
+                                td
+                                    strong(ng-bind="transaction.non_cancelable_at_locale.split(' - ')[0]").text-primary
+                                    br
+                                    strong(ng-bind="transaction.non_cancelable_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
+
                                 td(ng-if="$ctrl.isSponsor && transaction.voucher_transaction_bulk_id"): a(
                                     ui-sref="transaction-bulk(transaction.ui_sref_bulk)" 
                                     ng-bind="'#' + transaction.voucher_transaction_bulk_id").text-primary-light
@@ -266,9 +297,25 @@
 
                                     span(ng-if="!transaction.transaction_in > 0 || transaction.state != 'pending' || transaction.attempts >= 3 ") -
 
+                                td
+                                    //- Rejected
+                                    .label.label-danger(ng-if="transaction.bulk_state == 'rejected'" ng-bind="transaction.bulk_state_locale")
+
+                                    //- Error
+                                    .label.label-danger(ng-if="transaction.bulk_state == 'error'" ng-bind="transaction.bulk_state_locale")
+
+                                    //- Draft
+                                    .label.label-default(ng-if="transaction.bulk_state == 'draft'" ng-bind="transaction.bulk_state_locale")
+
+                                    //- Accepted
+                                    .label.label-success(ng-if="transaction.bulk_state == 'accepted'" ng-bind="transaction.bulk_state_locale")
+
+                                    //- Pending
+                                    .label.label-default(ng-if="transaction.bulk_state == 'pending'" ng-bind="transaction.bulk_state_locale")
+
                                 td(dusk="transactionState")
                                     .label.label-success(ng-if="transaction.state == 'success'" ng-bind="transaction.state_locale")
-                                    .label.label-default(ng-if="transaction.state != 'success'" ng-bind="transaction.state_locale")
+                                    .label.label-default(ng-if="transaction.state != 'success'" ng-bind="transaction.state_locale")  
 
                                 td.td-narrow.text-right: a(ui-sref="transaction(transaction.ui_sref)").button.button-sm.button-primary.button-icon.pull-right
                                     em.mdi.mdi-eye-outline.icon-start

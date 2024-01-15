@@ -79,7 +79,8 @@ const TransactionsComponent = function (
         show: false,
         values: pick($stateParams, $stateParams.type == 'transactions' ? [
             'q', 'state', 'fund_id', 'fund_state', 'from', 'to', 'amount_min', 'amount_max',
-            'order_by', 'order_dir', 'page', 'per_page',
+            'order_by', 'order_dir', 'page', 'per_page', 'bulk_state',
+            'from_non_cancelable', 'to_non_cancelable',
         ] : []),
         valuesDefault: {
             q: '',
@@ -90,6 +91,7 @@ const TransactionsComponent = function (
             to: null,
             amount_min: null,
             amount_max: null,
+            bulk_state: $ctrl.bulkStates[0].key,
             per_page: 20,
             order_by: 'created_at',
             order_dir: 'desc',

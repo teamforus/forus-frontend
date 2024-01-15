@@ -72,6 +72,10 @@
                     .keyvalue-value(ng-bind="$dir.transaction.created_at_locale")
 
                 .keyvalue-item
+                    .keyvalue-key(translate="financial_dashboard_transaction.labels.date_non_cancelable")
+                    .keyvalue-value(ng-bind="$dir.transaction.non_cancelable_at_locale")
+
+                .keyvalue-item
                     .keyvalue-key Status
                     .keyvalue-value
                         | {{ {pending: 'In afwachting', success: 'Succes', canceled: 'Geannuleerd'}[$dir.transaction.state] }}

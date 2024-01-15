@@ -31,6 +31,12 @@ const ProductVouchersComponent = function (
         { value: 0, name: 'Nee' },
     ];
 
+    $ctrl.has_payouts = [
+        { value: null, name: 'Selecteer...' },
+        { value: 1, name: 'Ja' },
+        { value: 0, name: 'Nee' },
+    ];
+
     $ctrl.date_types = [
         { value: 'created_at', name: 'Aanmaakdatum' },
         { value: 'used_at', name: 'Transactiedatum' },
@@ -50,6 +56,7 @@ const ProductVouchersComponent = function (
             to: null,
             state: null,
             in_use: null,
+            has_payouts: null,
             count_per_identity_min: 0,
             count_per_identity_max: null,
             type: 'product_voucher',
@@ -63,7 +70,7 @@ const ProductVouchersComponent = function (
             'q', 'granted', 'amount_min', 'amount_max', 'date_type', 'from', 'to',
             'state', 'in_use', 'count_per_identity_min', 'count_per_identity_max',
             'type', 'source', 'sort_by', 'sort_order', 'per_page', 'page', 'fund_id',
-            'implementation_id',
+            'implementation_id', 'has_payouts',
         ]),
         reset: function () {
             this.values = { ...this.defaultValues };

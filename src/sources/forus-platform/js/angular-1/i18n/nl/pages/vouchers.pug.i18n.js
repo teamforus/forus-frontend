@@ -42,6 +42,7 @@ module.exports = {
         provider_name: "Aanbieder naam",
         product_name: "Aanbod naam",
         implementation: "Implementatie",
+        has_payouts: "Has payouts",
     },
     events: {
         created_budget: 'Aangemaakt',
