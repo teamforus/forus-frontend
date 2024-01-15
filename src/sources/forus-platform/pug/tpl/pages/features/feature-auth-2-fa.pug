@@ -7,5 +7,231 @@
 
         block-feature(feature="$ctrl.feature")
 
-        //- TODO: Replace with the actual template
-        block-empty(title="{{ $ctrl.feature.name }}" text="{{ $ctrl.feature.description }}")
+        .card
+            .card-header: .card-title Beschrijving
+            .card-section: .block.block-content
+                p
+                    | Tweefactorauthenticatie (2FA) is een essentiële beveiligingsmaatregel om
+                    | ongeoorloofde toegang tot accounts te voorkomen. Met 2FA wordt een extra laag van
+                    | beveiliging toegevoegd door het vereisen van twee stappen om toegang te krijgen tot een systeem.
+                    | Dit minimaliseert het risico op ongeoorloofde toegang en beschermt gevoelige gegevens van gebruikers.
+                p
+                    | Het gebruik van 2FA wordt sterk aanbevolen en is zelfs opgenomen in de BIO-normen voor
+                    | informatiebeveiliging van de overheid. Hierdoor kunnen gebruikersaccounts op een
+                    | aanpasbare en robuuste manier worden beveiligd.
+                p
+                    | 2FA kan op twee manieren worden ingesteld: via een Authenticator-app en via sms.
+
+                img(src="/assets/img/features/img/auth-2-fa/banner.jpg")
+
+                h3 Belangrijkste voordelen
+
+                p Het gebruik van 2FA biedt verschillende voordelen:
+
+                .block.block-feature-icons
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/auth-2-fa/icon-1.svg
+
+                        h4 Verminder de kans op ongeoorloofde toegang
+                        p Met 2FA wordt het moeilijker voor aanvallers om toegang te krijgen tot de accounts van uw gebruikers.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/auth-2-fa/icon-2.svg
+
+                        h4 Flexibele oplossing
+                        p Tweefactorauthenticatie kan verplicht of optioneel worden gemaakt voor verschillende doelgroepen en/of functionaliteiten.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/auth-2-fa/icon-3.svg
+
+                        h4 Voldoe aan de eisen
+                        p Veel instanties (bijv. BIO-normen van de overheid) eisen strikte richtlijnen om gegevens te beschermen.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/auth-2-fa/icon-4.svg
+
+                        h4 Verbeter de gebruikerservaring
+                        p
+                            | Hoewel 2FA extra stappen toevoegt aan het inlogproces, verbetert het de gebruikerservaring.
+                            | Het vergroot het gevoel van veiligheid en vertrouwen in Forus-platform.
+
+                hr
+
+                h3 Aanpasbare accountbeveiliging
+
+                p
+                    | Niet alle doelgroepen hebben dezelfde digitale vaardigheden.
+                    | Met de flexibele 2FA-oplossing van Forus kunt u per doelgroep en functionaliteit 2FA instellen.
+                    | U kunt het verplicht stellen voor iedereen of specifieke doelgroepen,
+                    | of het als optionele mogelijkheid aanbieden zodat gebruikers hun eigen accounts beter kunnen beveiligen.
+
+                .block.block-feature-text-image-columns
+                    .block-feature-text-image-columns-description
+                        h4 Over 2FA
+                        p
+                            | Tweefactorauthenticatie, vaak afgekort als 2FA, is een methode van accountbeveiliging waarbij
+                            | de gebruiker twee verschillende authenticatiefactoren moet verstrekken om zijn identiteit te bevestigen.
+                            | Dit betekent dat zelfs als iemand het wachtwoord van een gebruiker kent, hij of zij zonder de tweede
+                            | factor nog steeds geen toegang kan krijgen tot het account. De tweede factor kan iets zijn dat de
+                            | gebruiker kent (zoals een pincode), iets dat de gebruiker heeft (zoals een fysieke sleutel of een smartphone),
+                            | of iets dat de gebruiker is (zoals een vingerafdruk of een ander biometrisch kenmerk).
+                            | Door deze dubbele laag van beveiliging wordt de kans op ongeoorloofde toegang tot het account aanzienlijk verminderd.
+
+                    .block-feature-text-image-columns-img
+                        img(src="/assets/img/features/img/auth-2-fa/image-text-block.jpg")
+
+            .card-info
+                .card-info-icon.mdi.mdi-headset
+                .card-info-details: span
+                    | Mocht u nog vragen hebben of wilt u aanvullende informatie dan kunt u ons
+                    | bellen op: #[strong +31 (0) 85 004 33 87] of contact opnemen via e-mail #[strong info@forus.io]
+
+        .card
+            .card-header: .card-title Veelgestelde vragen
+
+            .card-section.card-section-padless: .block.block-feature-faq(collapse)
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Wat is twee- factor-authenticatie (2FA)?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Twee- factor-authenticatie is een beveiligingsmethode waarbij je naast het reguliere
+                            | inlogproces een tweede verificatiestap moet voltooien om toegang te krijgen tot je account.
+                            | Dit kan bijvoorbeeld een verificatiecode via sms of een Authenticator-app zijn.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Waarom zou ik 2FA gebruiken?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Het gebruik van 2FA verbetert de beveiliging van je accounts aanzienlijk. Zelfs als iemand
+                            | toegang heeft tot een inloglink, voorkomt 2FA dat die persoon toegang krijgt tot je account,
+                            | omdat ze ook de tweede verificatiestap moeten voltooien. Hierdoor wordt de kans op ongeoorloofde
+                            | toegang tot je account sterk verminderd.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Hoe schakel ik 2FA in voor mijn account?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | In het Helpcentrum artikel:
+                            | #[a(href="https://helpcentrum.forus.io/kb/guide/nl/2fa-instellen-K3CCs20vLb/Steps/2587986" target="_blank") 2FA instellen]
+                            | wordt uitgelegd hoe je 2FA kan inschakelen voor je eigen account, voor medewerkers en voor de deelnemers.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Kan de sponsor 2FA verplicht stellen voor aanbieders?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Nee, dit is niet mogelijk. Aanbieders hebben zelf de keuze of ze 2FA willen instellen.
+                            | De eigenaar van het aanbiederaccount kan echter wel 2FA verplicht stellen voor zijn medewerkers.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Welke Authenticator-apps worden ondersteund?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Bijna alle Authenticator-apps worden ondersteund. Werkt een specifieke app niet, neem
+                            | dan contact op met Forus. Voorbeelden van Authenticator-apps zijn:
+                        ul
+                            li Google Authenticator
+                            li Microsoft Authenticator
+                            li LastPass Authenticator
+                            li 1Password Authenticator
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Ik ben mijn telefoon kwijtgeraakt en ik heb geen toegang meer tot mijn SMS codes of Authenticator-app?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Neem contact op met Forus. Indien er een goede verificatie gedaan kan worden,
+                            | wordt 2FA gereset en kun je 2FA opnieuw instellen.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Een deelnemer is zijn telefoon kwijtgeraakt of heeft geen toegang meer tot zijn Authenticator-app?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Een deelnemer dient dit aangeven bij de Sponsor. De sponsor doet een goede verificatie
+                            | en stuurt vervolgens een verzoek per e-mail aan Forus om 2FA te resetten.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Kan ik 2FA uitschakelen nadat ik het heb ingeschakeld?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Ja, dit is mogelijk nadat je bent ingelogd op je account. Je kunt 2FA alleen uitschakelen als
+                            | dit niet verplicht is gesteld. De eigenaar van het account bepaalt of 2FA al dan niet verplicht is.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Is het onveilig als ik 2FA niet activeer?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Het inschakelen van 2FA versterkt de beveiliging van je account door een extra verificatiestap
+                            | toe te voegen. Hoewel het niet inschakelen van 2FA de veiligheid kan verminderen, betekent
+                            | dit niet direct dat het onveilig is.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Ik heb geen mogelijkheid om 2FA in te stellen, hoe kan dat?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p De 2FA functionaliteit is optioneel en staat standaard uit. Neem contact op met Forus voor meer informatie.
+
+        .card
+            .card-header(ng-if="$ctrl.additionalFeatures.length")
+                .card-title Andere modules die u misschien interessant vindt
+
+            .card-section(ng-if="$ctrl.additionalFeatures.length")
+                .block.block-features
+                    .features-list
+                        a.features-list-item(
+                            ng-repeat="feature in $ctrl.additionalFeatures"
+                            ui-sref="feature(feature.srefParams)")
+
+                            .features-list-item-icon: img(ng-src="/assets/img/features/icons/{{ feature.key }}.svg")
+                            .features-list-item-content
+                                .features-list-item-title
+                                    span(ng-bind="feature.name")
+                                    .features-label.active(ng-if="feature.enabled") Active
+                                .features-list-item-details(ng-bind="feature.description")
+                                .features-labels
+                                    .features-label(ng-repeat="label in feature.labels" ng-bind="label")
+
+            .card-section
+                .block.block-features-demo-banner(
+                    style="background-image: url(/assets/img/features/img/auth-2-fa/banner-action-bg.jpg);"
+                )
+                    .features-demo-banner-info-wrapper
+                        .features-demo-banner-info
+                            .features-demo-banner-title 2FA uitproberen
+                            .features-demo-banner-details
+                                | Wilt u zien hoe de Tweefactorauthenticatie werkt? Neem dan contact met ons op
+                                | voor een persoonlijke demonstratie. We laten u graag zien hoe het voor uw kan werken.
+
+                        .features-demo-banner-action
+                            a(ui-sref="features({organization_id: $ctrl.organization.id})").button.button-primary Demo aanvragen
