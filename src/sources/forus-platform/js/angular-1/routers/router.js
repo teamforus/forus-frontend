@@ -206,6 +206,29 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }]
     });
 
+    // Fund pre-check
+    $stateProvider.state({
+        name: "pre-check",
+        url: "/organizations/{organization_id}/pre-check",
+        component: "fundPreCheckComponent",
+        resolve: {
+            organization: organizationResolver(),
+            funds: ['$transition$', 'FundService', 'permission', (
+                $transition$, FundService
+            ) => repackPagination(FundService.list(
+                $transition$.params().organization_id, {
+                implementation_id: $transition$.params().id
+            }))],
+            implementations: ['$transition$', 'ImplementationService', (
+                $transition$, ImplementationService
+            ) => repackResponse(ImplementationService.list(
+                $transition$.params().organization_id,
+                $transition$.params().id, { per_page: 100 },
+            ))],
+            permission: permissionMiddleware('fund-requests', ['manage_organization']),
+        }
+    });
+
     $stateProvider.state({
         name: "organizations-create",
         url: "/organizations/create",

@@ -64,13 +64,21 @@
     @import 'blocks/block-bi-info.scss';
     @import 'blocks/block-pincode.scss';
     @import 'blocks/block-voucher-records-editor.scss';
-    @import 'blocks/block-features-overview.scss';
-    @import 'blocks/block-features-demo-banner.scss';
     @import 'blocks/block-content.scss';
-    @import 'blocks/block-features.scss';
-    @import 'blocks/block-feature.scss';
-    @import 'blocks/block-feature-faq.scss';
+    
+    // Marketplace feature blocks
+    @import 'blocks/marketplace-features/block-features-overview.scss';
+    @import 'blocks/marketplace-features/block-features-demo-banner.scss';
+    @import 'blocks/marketplace-features/block-feature-icons.scss';
+    @import 'blocks/marketplace-features/block-feature-steps.scss';
+    @import 'blocks/marketplace-features/block-feature-list.scss';
+    @import 'blocks/marketplace-features/block-feature-text-image-columns.scss';
+    @import 'blocks/marketplace-features/block-features.scss';
+    @import 'blocks/marketplace-features/block-feature.scss';
+    @import 'blocks/marketplace-features/block-feature-faq.scss';
+
     @import 'blocks/block-payment-connection.scss';
+    @import 'blocks/block-pre-checks-blocks-editor';
 }
 
 // Select controls
