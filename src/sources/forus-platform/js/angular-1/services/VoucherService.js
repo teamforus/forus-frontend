@@ -126,80 +126,75 @@ const VoucherService = function(ApiRequest) {
             }];
         };
 
-        this.getTooltips = () => {
+        this.getColumns = ($translate) => {
             return [{
-                key: 'id',
-                title: 'ID',
-                description: [
-                    'Het unieke ID-nummer van het tegoed binnen het Forus Platform. ',
-                    'Dit nummer wordt automatisch gegenereed bij het aanmaken van het tegoed.',
-                ].join(''),
+                label: $translate('labels.id'),
+                tooltip: {
+                    key: 'id',
+                    title: 'ID / NR',
+                    description: $translate('tooltips.id'),
+                },
             }, {
-                key: 'nr',
-                title: 'NR',
-                description: [
-                    'Een uniek nummer dat kan worden toegevoegd aan het tegoed tijdens het aanmaken. ',
-                    'Kan worden gebruikt om een relatie te leggen met andere systemen.'
-                ].join(''),
+                label: $translate('labels.assigned_to'),
+                tooltip: {
+                    key: 'method',
+                    title: 'Methode',
+                    description: $translate('tooltips.method'),
+                },
             }, {
-                key: 'method',
-                title: 'Methode',
-                description: [
-                    'Deze informatie wordt gebruikt om het tegoed te associeeren met een specifieke deelnemer. ',
-                    'Mogelijkheden: BSN (alleen geautoriseerde organisaties), Activatiecode, E-mailadres of Niet toegewezen.',
-                ].join(''),
+                label: $translate('labels.source'),
+                tooltip: {
+                    key: 'created_by',
+                    title: 'Aangemaakt door',
+                    description: $translate('tooltips.source'),
+                },
             }, {
-                key: 'created_by',
-                title: 'Aangemaakt door',
-                description: [
-                    'Geeft aan welke soort gebruiker het tegoed heeft aangemaakt. ',
-                    'Een tegoed kan worden aangemaakt door een deelnemer zelf of door een medewerker.',
-                ].join(''),
+                label: $translate('labels.amount'),
+                fundType: 'budget',
+                tooltip: {
+                    key: 'amount',
+                    title: 'Bedrag',
+                    description: $translate('tooltips.amount'),
+                },
             }, {
-                key: 'amount',
-                title: 'Bedrag',
-                description: [
-                    'Het totaal toegekende bedrag op dit tegoed. ',
-                    'Dit bedrag bestaat uit het bedrag bij de eerste uitgifte plus eventuele extra latere toevoegingen.',
-                ].join(''),
+                label: $translate('labels.note'),
+                tooltip: {
+                    key: 'note',
+                    title: 'Notitie',
+                    description: $translate('tooltips.note'),
+                },
             }, {
-                key: 'note',
-                title: 'Notitie',
-                description: 'De notitie die door de medewerker is gemaakt bij het aanmaken van het tegoed.',
+                label: $translate('labels.fund'),
             }, {
-                key: 'created_date',
-                title: 'Aangemaakt op',
-                description: 'De tijd en datum waarop het tegoed is aangemaakt.',
+                label: $translate('labels.created_date'),
+                tooltip: {
+                    key: 'created_date',
+                    title: 'Aangemaakt op',
+                    description: $translate('tooltips.created_date'),
+                },
             }, {
-                key: 'expire_date',
-                title: 'Geldig tot en met',
-                description: [
-                    'De laatste geldige gebruiksdatum. ',
-                    'Hierna verloopt het tegoed en kan het niet meer worden gebruikt om transacties te verichten.',
-                ].join(''),
+                label: $translate('labels.expire_date'),
+                tooltip: {
+                    key: 'expire_date',
+                    title: 'Geldig tot en met',
+                    description: $translate('tooltips.expire_date'),
+                },
             }, {
-                key: 'in_use',
-                title: 'In gebruik',
-                description: [
-                    'Geeft aan of het tegoed is gebruikt om een transactie te verichten. ',
-                    'De mogelijke waarden zijn: "Nee" of "De datum van laatste transactie". ',
-                    'Let op: De waarde wordt automatisch teruggezet naar \'Nee\' als de transactie is geannuleerd binnen de bedenktijd van 14 dagen.',
-                ].join(''),
+                label: $translate('labels.used'),
+                tooltip: {
+                    key: 'in_use',
+                    title: 'In gebruik',
+                    description: $translate('tooltips.in_use'),
+                },
             }, {
-                key: 'status',
-                title: 'Status',
-                description: [
-                    'Geeft de huidige toestand van het tegoed aan. ',
-                    'De specifieke betekenissen van elke status: ',
-                    'Inactief: Het tegoed is aangemaakt maar nog niet toegewezen aan een specifieke deelnemer. ',
-                    'Het tegoed heeft nog geen QR-code en kan nog geen transacties initiëren.', 
-                    'Actief: Het tegoed is toegewezen aan een deelnemer en heeft een QR-code. ',
-                    'Het kan nu worden gebruikt om transacties te initiëren. ',
-                    'Gedeactiveerd: Het tegoed is wel toegewezen aan een deelnemer maar is niet meer bruikbaar voor transacties. ',
-                    'Verlopen: Het tegoed is niet meer geldig na het bereiken van de einddatum en kan niet meer worden gebruikt voor transacties.',
-                ].join(''),
+                label: $translate('labels.state'),
+                tooltip: {
+                    key: 'status',
+                    title: 'Status',
+                    description: $translate('tooltips.status'),
+                },
             }];
-        }
+        };
     });
 };
 

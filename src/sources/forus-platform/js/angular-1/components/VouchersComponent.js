@@ -2,6 +2,7 @@ const { pick } = require("lodash");
 
 const VouchersComponent = function (
     $state,
+    $filter,
     $element,
     $stateParams,
     $timeout,
@@ -13,6 +14,7 @@ const VouchersComponent = function (
     PageLoadingBarService,
 ) {
     const $ctrl = this;
+    const $translate = (key) => $filter('translate')(`vouchers.${key}`);
     const anyFundMedia = { sizes: { thumbnail: './assets/img/menu/icon-my_funds.svg' } };
 
     $ctrl.states = [
@@ -37,10 +39,6 @@ const VouchersComponent = function (
         { value: 'created_at', name: 'Aanmaakdatum' },
         { value: 'used_at', name: 'Transactiedatum' },
     ];
-
-    $ctrl.tooltips = VoucherService.getTooltips();
-    // $ctrl.columns = VoucherService.getTooltips();
-    // $ctrl.columnsAvailable = VoucherService.getTooltips(tooltip).reduce((val, item) => [{...val, [tooltip.key]: true }], {});
 
     $ctrl.voucher_states = VoucherService.getStates();
     $ctrl.showTableConfig = null;
@@ -80,6 +78,8 @@ const VouchersComponent = function (
         }
     };
 
+    $ctrl.columns = VoucherService.getColumns($translate);
+
     $ctrl.setShowTableConfig = function (key) {
         if ($ctrl.showTableConfig && $ctrl.tableConfigCategory == key) {
             return $ctrl.showTableConfig = false;
@@ -90,11 +90,19 @@ const VouchersComponent = function (
     }
 
 
-    $ctrl.showTableTooltip = (column) => {
+    $ctrl.showTableTooltip = (tooltipKey) => {
+        $ctrl.activeTooltipKey = null;
+
+        if (!tooltipKey) {
+            return;
+        }
+
         if ($ctrl.showTableConfig && $ctrl.tableConfigCategory == 'tooltips') {
             // scroll into view
-            const element = $element.find(`[data-table-tooltip="${column.key || 'status'}"]`)[0];
+            const element = $element.find(`[data-table-tooltip="${tooltipKey || 'status'}"]`)[0];
             element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            $ctrl.activeTooltipKey = tooltipKey;
         } else {
             ToastService.setToast([
                 'This is the header of the table column, ',
@@ -253,6 +261,15 @@ const VouchersComponent = function (
 
         $ctrl.fundsById = $ctrl.funds.reduce((obj, fund) => ({ ...obj, [fund.id]: fund }), {});
         $ctrl.onPageChange($ctrl.filters.values);
+
+        $ctrl.columns = $ctrl.columns.filter((column) => {
+            if (!$ctrl.filters.values.fund_id || !column.fundType) {
+                return true;
+            }
+    
+            return $ctrl.fundsById[$ctrl.filters.values.fund_id].type == column.fundType;
+        });
+        $ctrl.tooltips = $ctrl.columns.filter((column) => column.tooltip).reduce((val, item) => [...val, item.tooltip], []);
     };
 };
 
@@ -265,6 +282,7 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$filter',
         '$element',
         '$stateParams',
         '$timeout',

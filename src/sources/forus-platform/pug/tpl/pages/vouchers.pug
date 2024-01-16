@@ -199,57 +199,10 @@
                         .table-scroll: table.table
                             tr
                                 th(
-                                    translate="vouchers.labels.id" 
-                                    ng-mouseover="$ctrl.showTableTooltip('id')" 
-                                    ng-mouseleave="$ctrl.hideTableTooltip()")
-
-                                th(
-                                    translate="vouchers.labels.assigned_to" 
-                                    ng-mouseover="$ctrl.showTableTooltip('method')" 
-                                    ng-mouseleave="$ctrl.hideTableTooltip()")
-
-                                th(
-                                    translate="vouchers.labels.source" 
-                                    ng-mouseover="$ctrl.showTableTooltip('created_by')" 
-                                    ng-mouseleave="$ctrl.hideTableTooltip()").nowrap
-
-                                th(
-                                    ng-if="!$ctrl.filters.values.fund_id || $ctrl.fundsById[$ctrl.filters.values.fund_id].type == 'budget'"
-                                    translate="vouchers.labels.amount"
-                                    ng-mouseover="$ctrl.showTableTooltip('amount')" 
-                                    ng-mouseleave="$ctrl.hideTableTooltip()" )
-
-                                th(
-                                    translate="vouchers.labels.note" 
-                                    ng-mouseover="$ctrl.showTableTooltip('note')" 
-                                    ng-mouseleave="$ctrl.hideTableTooltip()")
-
-                                th(
-                                    translate="vouchers.labels.fund" 
-                                    ng-mouseover="$ctrl.showTableTooltip('fund')" 
-                                    ng-mouseleave="$ctrl.hideTableTooltip()")
-
-                                th(
-                                    translate="vouchers.labels.created_date" 
-                                    ng-mouseover="$ctrl.showTableTooltip('created_date')" 
-                                    ng-mouseleave="$ctrl.hideTableTooltip()").nowrap
-
-                                th(
-                                    ng-if="!$ctrl.fundClosed" 
-                                    translate="vouchers.labels.expire_date" 
-                                    ng-mouseover="$ctrl.showTableTooltip('expire_date')"
-                                    ng-mouseleave="$ctrl.hideTableTooltip()").nowrap
-
-                                th(
-                                    ng-if="!$ctrl.fundClosed"
-                                    translate="vouchers.labels.used"
-                                    ng-mouseover="$ctrl.showTableTooltip('in_use')" 
-                                    ng-mouseleave="$ctrl.hideTableTooltip()").nowrap
-
-                                th(
-                                    translate="vouchers.labels.assigned" 
-                                    ng-mouseover="$ctrl.showTableTooltip('status')" 
-                                    ng-mouseleave="$ctrl.hideTableTooltip()")
+                                    ng-repeat="column in $ctrl.columns"
+                                    ng-bind="column.label"
+                                    ng-mouseover="$ctrl.showTableTooltip(column.tooltip.key)"
+                                    ng-mouseleave="$ctrl.hideTableTooltip(column.tooltip.key)")
 
                                 th &nbsp;
 

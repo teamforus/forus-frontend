@@ -33,4 +33,4 @@
                 ng-class="{ active: tooltip.key == activeTooltipKey }")
 
                 .table-settings-tooltip-item-title(ng-bind="tooltip.title") 
-                .table-settings-tooltip-item-description(ng-bind="tooltip.description")
+                .table-settings-tooltip-item-description(ng-bind-html="tooltip.description")

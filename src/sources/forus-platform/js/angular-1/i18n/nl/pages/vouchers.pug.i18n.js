@@ -64,4 +64,46 @@ module.exports = {
         default_note: "Aangemaakt op {{ upload_date }} door {{ uploader_email }}, toegekend aan {{ target_email }}",
         default_note_no_email: "Aangemaakt op {{ upload_date }} door {{ uploader_email }}",
     },
+    tooltips: {
+        id: [
+            'ID: Het unieke ID-nummer van het tegoed binnen het Forus Platform. ',
+            'Dit nummer wordt automatisch gegenereed bij het aanmaken van het tegoed.',
+            '<br/><br/>',
+            'NR: Een uniek nummer dat kan worden toegevoegd aan het tegoed tijdens het aanmaken. ',
+            'Kan worden gebruikt om een relatie te leggen met andere systemen.'
+        ].join(''),
+        method: [
+            'Deze informatie wordt gebruikt om het tegoed te associeeren met een specifieke deelnemer. ',
+            'Mogelijkheden: BSN (alleen geautoriseerde organisaties), Activatiecode, E-mailadres of Niet toegewezen.',
+        ].join(''),
+        source: [
+            'Geeft aan welke soort gebruiker het tegoed heeft aangemaakt. ',
+            'Een tegoed kan worden aangemaakt door een deelnemer zelf of door een medewerker.',
+        ].join(''),
+        amount: [
+            'Het totaal toegekende bedrag op dit tegoed. ',
+            'Dit bedrag bestaat uit het bedrag bij de eerste uitgifte plus eventuele extra latere toevoegingen.',
+        ].join(''),
+        note: 'De notitie die door de medewerker is gemaakt bij het aanmaken van het tegoed.',
+        created_date: 'De tijd en datum waarop het tegoed is aangemaakt.',
+        expire_date: [
+            'De laatste geldige gebruiksdatum. ',
+            'Hierna verloopt het tegoed en kan het niet meer worden gebruikt om transacties te verichten.',
+        ].join(''),
+        in_use: [
+            'Geeft aan of het tegoed is gebruikt om een transactie te verichten. ',
+            'De mogelijke waarden zijn: "Nee" of "De datum van laatste transactie". ',
+            'Let op: De waarde wordt automatisch teruggezet naar \'Nee\' als de transactie is geannuleerd binnen de bedenktijd van 14 dagen.',
+        ].join(''),
+        status: [
+            'Geeft de huidige toestand van het tegoed aan. ',
+            'De specifieke betekenissen van elke status: ',
+            'Inactief: Het tegoed is aangemaakt maar nog niet toegewezen aan een specifieke deelnemer. ',
+            'Het tegoed heeft nog geen QR-code en kan nog geen transacties initiëren.', 
+            'Actief: Het tegoed is toegewezen aan een deelnemer en heeft een QR-code. ',
+            'Het kan nu worden gebruikt om transacties te initiëren. ',
+            'Gedeactiveerd: Het tegoed is wel toegewezen aan een deelnemer maar is niet meer bruikbaar voor transacties. ',
+            'Verlopen: Het tegoed is niet meer geldig na het bereiken van de einddatum en kan niet meer worden gebruikt voor transacties.',
+        ].join(''),
+    },
 };
