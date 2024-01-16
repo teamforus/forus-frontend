@@ -1,4 +1,5 @@
 const OrganizationSecurityComponent = function (
+    $state,
     $rootScope,
     $stateParams,
     FormBuilderService,
@@ -35,7 +36,21 @@ const OrganizationSecurityComponent = function (
         name: '2FA vereisen om in te loggen',
     }];
 
-    $ctrl.viewType = $stateParams.view_type || 'employees';
+    $ctrl.tabs = [{
+        key: 'employees',
+        name: 'Medewerkers',
+    }, {
+        key: 'funds',
+        name: 'Fondsen',
+    }];
+
+    $ctrl.tabKeys = $ctrl.tabs.map((tab) => tab.key);
+    $ctrl.viewType = $ctrl.tabKeys.includes($stateParams.view_type) ? $stateParams.view_type : $ctrl.tabs[0].key;
+
+    $ctrl.setViewType = (view_type) => {
+        $ctrl.viewType = view_type;
+        $state.go($state.$current.name, { ...$stateParams, view_type }, { location: 'replace' });
+    };
 
     $ctrl.$onInit = () => {
         $ctrl.auth2FARequiredOptions = auth2FARequiredOptions;
@@ -47,7 +62,7 @@ const OrganizationSecurityComponent = function (
             auth_2fa_remember_ip: $ctrl.organization.auth_2fa_remember_ip ? 1 : 0,
             auth_2fa_funds_policy: $ctrl.organization.auth_2fa_funds_policy,
             auth_2fa_funds_remember_ip: $ctrl.organization.auth_2fa_funds_remember_ip ? 1 : 0,
-            auth_2fa_restrict_bi_tools: $ctrl.organization.auth_2fa_restrict_bi_tools,
+            auth_2fa_restrict_bi_connections: $ctrl.organization.auth_2fa_restrict_bi_connections,
             auth_2fa_funds_restrict_emails: $ctrl.organization.auth_2fa_funds_restrict_emails,
             auth_2fa_funds_restrict_auth_sessions: $ctrl.organization.auth_2fa_funds_restrict_auth_sessions,
             auth_2fa_funds_restrict_reimbursements: $ctrl.organization.auth_2fa_funds_restrict_reimbursements,
@@ -70,6 +85,7 @@ module.exports = {
         organization: '<',
     },
     controller: [
+        '$state',
         '$rootScope',
         '$stateParams',
         'FormBuilderService',

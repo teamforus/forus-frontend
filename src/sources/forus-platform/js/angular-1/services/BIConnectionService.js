@@ -3,33 +3,24 @@ const BIConnectionService = function(ApiRequest) {
 
     return new (function() {
         this.active = function(organization_id) {
-            return ApiRequest.get(`${prefix}/${organization_id}/bi-connections/active`);
+            return ApiRequest.get(`${prefix}/${organization_id}/bi-connection`);
         };
 
         this.store = function(organization_id, data) {
-            return ApiRequest.post(`${prefix}/${organization_id}/bi-connections`, this.apiFormToResource(data));
+            return ApiRequest.post(`${prefix}/${organization_id}/bi-connection`, data);
         };
 
-        this.update = function (organization_id, id, data) {
-            return ApiRequest.patch(`${prefix}/${organization_id}/bi-connections/${id}`, this.apiFormToResource(data));
+        this.update = function (organization_id, data) {
+            return ApiRequest.patch(`${prefix}/${organization_id}/bi-connection`, data);
         }
 
-        this.resetToken = function(organization_id, id) {
-            return ApiRequest.get(`${prefix}/${organization_id}/bi-connections/${id}/reset`);
+        this.resetToken = function(organization_id) {
+            return ApiRequest.get(`${prefix}/${organization_id}/bi-connection/reset`);
         };
 
         this.availableDataTypes = function(organization_id) {
-            return ApiRequest.get(`${prefix}/${organization_id}/bi-connections/data-types`);
+            return ApiRequest.get(`${prefix}/${organization_id}/bi-connection/data-types`);
         };
-
-        this.apiFormToResource = function (formData) {
-            return JSON.parse(JSON.stringify(formData));
-        };
-
-        this.apiResourceToForm = function (apiResource) {
-            return { ...apiResource };
-        };
-
     });
 };
 

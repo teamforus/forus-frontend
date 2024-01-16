@@ -1,22 +1,31 @@
+import chunk from "lodash/chunk";
+
 const BIConnectionComponent = function (
+    $state,
     $filter,
+    $stateParams,
     ModalService,
     ClipboardService,
     FormBuilderService,
     BIConnectionService,
     PushNotificationsService
 ) {
-
     const $ctrl = this;
     const $translate = $filter('translate');
     const $translateDangerZone = (key) => $translate(`modals.danger_zone.recreate_bi_connection.${key}`);
 
-    $ctrl.tab = 'settings';
+    $ctrl.viewTypes = ['settings', 'security'];
+    $ctrl.viewType = $ctrl.viewTypes.includes($stateParams.view_type) ? $stateParams.view_type : 'settings';
+
+    $ctrl.ip = null;
     $ctrl.apiUrl = '';
+
     $ctrl.showInfoBlock = false;
+    $ctrl.showInfoBlockUrl = false;
+    $ctrl.showInfoBlockToken = false;
+
     $ctrl.headerKey = 'X-API-KEY';
     $ctrl.parameterKey = 'api_key';
-    $ctrl.ip = '';
 
     $ctrl.authTypes = [
         { key: 'disabled', name: $translate('bi_connection.labels.disabled') },
@@ -25,10 +34,15 @@ const BIConnectionComponent = function (
     ];
 
     $ctrl.expirationPeriods = [
-        { key: '24_hour', name: $translate('bi_connection.expiration_periods.24_hour') },
-        { key: '1_week', name: $translate('bi_connection.expiration_periods.1_week') },
-        { key: '1_month', name: $translate('bi_connection.expiration_periods.1_month') },
+        { dasy: 1, name: $translate('bi_connection.expiration_periods.24_hour') },
+        { value: 7, name: $translate('bi_connection.expiration_periods.1_week') },
+        { value: 30, name: $translate('bi_connection.expiration_periods.1_month') },
     ];
+
+    $ctrl.setViewType = (view_type) => {
+        $ctrl.viewType = view_type;
+        $state.go($state.$current.name, { ...$stateParams, view_type }, { location: 'replace' });
+    };
 
     $ctrl.askConfirmation = (onConfirm) => {
         ModalService.open("dangerZone", {
@@ -60,9 +74,8 @@ const BIConnectionComponent = function (
 
     $ctrl.resetToken = () => {
         $ctrl.askConfirmation(() => {
-            BIConnectionService.resetToken($ctrl.organization.id, $ctrl.connection.id).then((res) => {
+            BIConnectionService.resetToken($ctrl.organization.id).then((res) => {
                 $ctrl.connection = res.data.data;
-                $ctrl.initForm();
                 $ctrl.updateUrl();
                 PushNotificationsService.success('Opgeslagen!');
                 $ctrl.updateUrl();
@@ -72,15 +85,14 @@ const BIConnectionComponent = function (
         });
     };
 
-    $ctrl.addIp = (showError = true) => {
-        if ($ctrl.ip !== '' && $ctrl.ip) {
-            $ctrl.ips.push({ value: $ctrl.ip });
-            $ctrl.ip = '';
-            $ctrl.ipError = '';
-        } else if (showError) {
-            $ctrl.ipError = 'Het IP veld is verplicht.';
-            $ctrl.form.errors.ips = []; // remove ip errors from request to prevent duplicate error messages
+    $ctrl.addIp = () => {
+        if (!$ctrl.ip) {
+            return $ctrl.ipError = 'Het IP veld is verplicht.';
         }
+
+        $ctrl.ips.push({ value: $ctrl.ip });
+        $ctrl.ip = null;
+        $ctrl.ipError = null;
     };
 
     $ctrl.removeIp = (index) => {
@@ -91,46 +103,53 @@ const BIConnectionComponent = function (
         const { data_types, ips } = $ctrl.connection;
 
         $ctrl.data_types = (data_types || []).reduce((types, type) => ({ ...types, [type]: true }), {});
-        $ctrl.ips = (ips || []).reduce((items, ip) => ([ ...items, { value: ip } ]), []);
+        $ctrl.ips = (ips || []).reduce((items, ip) => ([...items, { value: ip }]), []);
 
-        const values = $ctrl.connection.id ? BIConnectionService.apiResourceToForm($ctrl.connection) : {
-            ips: [],
+        const values = $ctrl.connection?.id ? {
+            auth_type: $ctrl.connection.auth_type,
+            expiration_period: $ctrl.connection.expiration_period,
+        } : {
             auth_type: 'disabled',
-            data_types: [],
             expiration_period: '1_month',
         };
 
         $ctrl.form = FormBuilderService.build(values, (form) => {
-            $ctrl.addIp(false);
+            const values = {
+                ips: $ctrl.ips.map((ip) => ip.value),
+                data_types: Object.keys($ctrl.data_types).filter((key) => $ctrl.data_types[key]),
+                ...form.values,
+            };
 
-            const data_types = Object.keys($ctrl.data_types).filter((key) => $ctrl.data_types[key]);
-            const ips = $ctrl.ips.map((ip) => ip.value);
-            const values = { ...form.values, data_types: data_types, ips: ips };
-
-            const promise = $ctrl.connection.id ? BIConnectionService.update(
-                $ctrl.organization.id,
-                $ctrl.connection.id,
-                values,
-            ) : BIConnectionService.store(
-                $ctrl.organization.id,
-                values,
-            );
+            const promise = $ctrl.connection.id ?
+                BIConnectionService.update($ctrl.organization.id, values) :
+                BIConnectionService.store($ctrl.organization.id, values);
 
             promise.then((res) => {
                 $ctrl.connection = res.data.data;
-                $ctrl.initForm();
                 $ctrl.updateUrl();
+
+                form.errors = null;
                 PushNotificationsService.success('Opgeslagen!');
             }, (res) => {
                 form.errors = res.data.errors;
-                if (form.errors && ((form.errors.data_types?.length) || (form.errors.auth_type?.length))) {
-                    $ctrl.tab = 'settings';
-                } else {
-                    $ctrl.tab = 'security';
+                const errorKeys = Object.keys(form.errors);
+
+                const hasIpsErrors = errorKeys.filter((key) => key.startsWith('ips')).length > 0;
+                const hasAuthTypeErrors = errorKeys.filter((key) => key.startsWith('auth_type')).length > 0;
+                const hasDataTypesErrors = errorKeys.filter((key) => key.startsWith('data_types')).length > 0;
+                const hasExpirationPeriodErrors = errorKeys.filter((key) => key.startsWith('expiration_period')).length > 0;
+
+                if (hasAuthTypeErrors || hasDataTypesErrors) {
+                    $ctrl.setViewType('settings');
+                } else if (hasIpsErrors || hasExpirationPeriodErrors) {
+                    $ctrl.setViewType('security');
                 }
 
                 PushNotificationsService.danger(res.data?.message || 'Onbekende foutmelding!');
-            }).finally(() => form.unlock());
+            }).finally(() => {
+                $ctrl.ipError = null;
+                form.unlock();
+            });
         }, true);
     };
 
@@ -140,8 +159,7 @@ const BIConnectionComponent = function (
 
     $ctrl.loadTypes = () => {
         return BIConnectionService.availableDataTypes($ctrl.organization.id).then((res) => {
-            $ctrl.available_data_types = res.data.data;
-
+            $ctrl.available_data_types = chunk(res.data.data, 2);
             $ctrl.initForm();
             $ctrl.updateUrl();
         });
@@ -160,7 +178,9 @@ module.exports = {
         auth2FAState: '<',
     },
     controller: [
+        '$state',
         '$filter',
+        '$stateParams',
         'ModalService',
         'ClipboardService',
         'FormBuilderService',

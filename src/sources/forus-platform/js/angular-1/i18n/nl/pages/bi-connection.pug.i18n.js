@@ -7,7 +7,7 @@ module.exports = {
         disabled: "Uitgeschakeld",
         parameter: "URL-parameter",
         auth_type: "Authentificatietype",
-        data_types: "Choose data type for export",
+        data_types: "Select export data",
         header_key: "Hoofdertag",
         header_name: "Naam van de header",
         parameter_key: "API sleutel",

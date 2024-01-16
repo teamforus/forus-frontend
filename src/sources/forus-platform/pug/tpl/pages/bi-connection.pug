@@ -15,61 +15,54 @@
 
             .bi-info-content: .block.block-markdown
                 h4 Verbind uw BI-tools om toegang te krijgen tot uitgebreide statistische gegevens
-                p Configureer onderstaande URL in de BI-tool. Hiermee krijgt u toegang tot de gegevens uit het platform.
+                p 
+                    | Configureer onderstaande URL in de BI-tool. Hiermee krijgt u toegang tot de gegevens uit het platform. 
                     | Stuur een verzoek en de gevraagde gegevens worden verstuurd.
 
         .card: form(ng-submit="$ctrl.form.submit()").form
             .card-header: .flex-row
                 .flex-col.flex-grow: .card-title: span(translate="bi_connection.title")
 
+                //- Tabs
                 .flex-col: .block.block-label-tabs.nowrap: .label-tab-set
-                    //- Settings
                     .label-tab.label-tab-sm(
-                        ng-class="{'active' : $ctrl.tab == 'settings'}"
-                        ng-click="$ctrl.tab = 'settings'"
-                        translate="bi_connection.tabs.settings")
+                        ng-repeat="viewType in $ctrl.viewTypes"
+                        ng-class="{'active' : $ctrl.viewType == viewType}"
+                        ng-click="$ctrl.setViewType(viewType)"
+                        translate="bi_connection.tabs.{{ viewType }}")
 
-                    //- Security
-                    .label-tab.label-tab-sm(
-                        ng-class="{'active' : $ctrl.tab == 'security'}"
-                        ng-click="$ctrl.tab = 'security'"
-                        translate="bi_connection.tabs.security")
-
-            .card-section.card-section-primary(ng-if="$ctrl.tab == 'settings'")
+            .card-section.card-section-primary(ng-if="$ctrl.viewType == 'settings'")
                 //- Auth type
                 .form-group.form-group-inline
                     label(translate="bi_connection.labels.auth_type").form-label
 
-                    .form-offset: .flex-row
-                        .flex-col.flex-grow
-                            .form-group-info
-                                .form-group-info-control: select-control(
-                                    prop="key"
-                                    search="false"
-                                    ng-model="$ctrl.form.values.auth_type"
-                                    ng-change="$ctrl.updateUrl()"
-                                    options="$ctrl.authTypes").form-control
+                    .form-offset
+                        .form-group-info
+                            .form-group-info-control: select-control(
+                                prop="key"
+                                search="false"
+                                ng-model="$ctrl.form.values.auth_type"
+                                ng-change="$ctrl.updateUrl()"
+                                options="$ctrl.authTypes").form-control
 
-                                .form-group-info-button: .button.button-default.button-icon.pull-left(
-                                    ng-click="$ctrl.showInfoBlock = !$ctrl.showInfoBlock"
-                                    ng-class="{active: $ctrl.showInfoBlock}")
-                                    em.mdi.mdi-information
+                            .form-group-info-button: .button.button-default.button-icon.pull-left(
+                                ng-click="$ctrl.showInfoBlock = !$ctrl.showInfoBlock"
+                                ng-class="{active: $ctrl.showInfoBlock}")
+                                em.mdi.mdi-information
 
-                            .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showInfoBlock")
-                                .info-box-icon.mdi.mdi-information
+                        .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showInfoBlock")
+                            .info-box-icon.mdi.mdi-information
 
-                                .info-box-content: .block.block-markdown
-                                    h4 Kies de juiste instelling
-                                    p 
-                                        | Vul bij de header bovenstaande naam en sleutelcode in
-                                        | Voor het instellen van de token  zijn er twee opties:
+                            .info-box-content: .block.block-markdown
+                                h4 Kies de juiste instelling
+                                p 
+                                    | Vul bij de header bovenstaande naam en sleutelcode in
+                                    | Voor het instellen van de token  zijn er twee opties:
 
-                                    ul
-                                    ul
-                                        li URL-parameter: Kies deze optie als uw BI-tool token ondersteunt. Voeg de token toe als een parameter in de URL
-                                        li Header: Kies deze optie als uw BI-tool header ondersteunt. Voeg de token toe in de header
-
-                        .flex-col: .button.button-default.invisible: em.mdi.mdi-content-copy
+                                ul
+                                ul
+                                    li URL-parameter: Kies deze optie als uw BI-tool token ondersteunt. Voeg de token toe als een parameter in de URL
+                                    li Header: Kies deze optie als uw BI-tool header ondersteunt. Voeg de token toe in de header
 
                 //- Details
                 div(ng-if="$ctrl.form && $ctrl.form.values.auth_type !== 'disabled'")
@@ -77,57 +70,109 @@
                     //- Api url
                     .form-group.form-group-inline
                         label(translate="bi_connection.labels.url").form-label
-                        .form-offset: .flex-row
-                            .flex-col.flex-grow: input(
-                                ng-disabled="!$ctrl.connection.access_token"
-                                ng-value="$ctrl.apiUrl"
-                                type="text"
-                                readonly).form-control.form-control-dashed
-                            .flex-col: .button.button-default(
-                                ng-disabled="!$ctrl.connection.access_token"
-                                ng-click="$ctrl.copyToClipboard($ctrl.apiUrl)"): em.mdi.mdi-content-copy
+
+                        .form-offset
+                            .form-group-info
+                                .form-group-info-control: input(
+                                    ng-disabled="!$ctrl.connection.access_token"
+                                    ng-value="$ctrl.apiUrl"
+                                    type="text"
+                                    readonly).form-control.form-control-dashed
+
+                                .form-group-info-button.form-group-info-button-dashed
+                                    .button.button-default.button-dashed.button-icon.pull-left(
+                                        ng-disabled="!$ctrl.connection.access_token"
+                                        ng-click="$ctrl.copyToClipboard($ctrl.apiUrl)"): em.mdi.mdi-content-copy
+
+                                    .button.button-default.button-icon.pull-left(
+                                        ng-click="$ctrl.showInfoBlockUrl = !$ctrl.showInfoBlockUrl"
+                                        ng-class="{active: $ctrl.showInfoBlockUrl}")
+                                        em.mdi.mdi-information
+
+                            .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showInfoBlockUrl")
+                                .info-box-icon.mdi.mdi-information
+
+                                .info-box-content: .block.block-markdown
+                                    h4 TODO
+                                    p 
+                                        | Lorem ipsum dolor sit amet consectetur montes ultricies a ac ipsum 
+                                        | turpis integer in semper elit aenean pharetra ullamcorper.
 
                     .form-group.form-group-inline
-                        .form-label
-                        .block.block-checkbox-list
-                            .block-checkbox-list-title
-                                span(translate="bi_connection.labels.data_types")
-                                tooltip(text="'Select data type to export'")
-
-                            .block-checkbox-list-items: .block-checkbox-list-item(ng-repeat="(key, title) in $ctrl.available_data_types")
-                                label(for="data_type_{{ key }}" title="{{ title }}").checkbox.checkbox-narrow
-                                    input(
-                                        type="checkbox"
-                                        id="data_type_{{ key }}"
-                                        name="data_type_{{ key }}"
-                                        ng-model="$ctrl.data_types[key]")
-                                    .checkbox-label
-                                        .checkbox-box: .mdi.mdi-check
-                                        .block-checkbox-list-item-name: .ellipsis(ng-bind="title")
+                        .form-label(translate="bi_connection.labels.data_types")
+                        .form-offset: .checkbox-container-compact: .row(ng-repeat="data_types in $ctrl.available_data_types")
+                            .col.col-xs-12.col-lg-6(ng-repeat="data_type in data_types")
+                                input-checkbox-control(
+                                    compact="true"
+                                    title="{{ data_type.name }}"
+                                    name="data_type_{{ data_type.key }}" 
+                                    ng-model="$ctrl.data_types[data_type.key]" 
+                                    label="{{ data_type.name }}")
 
                             .form-error(ng-repeat="error in $ctrl.form.errors.data_types" ng-bind="error")
 
                     //- Header
                     .form-group.form-group-inline(ng-if="$ctrl.form.values.auth_type === 'header'")
                         label(translate="bi_connection.labels.header_name").form-label
-                        .form-offset: .flex-row
-                            .flex-col.flex-grow: input(ng-value="$ctrl.headerKey" type="text" readonly).form-control.form-control-dashed
-                            .flex-col: .button.button-default(ng-click="$ctrl.copyToClipboard($ctrl.headerKey)"): em.mdi.mdi-content-copy
+
+                        .form-offset
+                            .form-group-info
+                                .form-group-info-control: input(
+                                    ng-value="$ctrl.headerKey" 
+                                    type="text" 
+                                    readonly
+                                ).form-control.form-control-dashed
+
+                                .form-group-info-button.form-group-info-button-dashed
+                                    .button.button-default.button-dashed.button-icon.pull-left(
+                                        ng-click="$ctrl.copyToClipboard($ctrl.headerKey)"): em.mdi.mdi-content-copy
+
+                                    .button.button-default.button-icon.pull-left(
+                                        ng-click="$ctrl.showInfoBlockHeader = !$ctrl.showInfoBlockHeader"
+                                        ng-class="{active: $ctrl.showInfoBlockHeader}")
+                                        em.mdi.mdi-information
+
+                            .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showInfoBlockHeader")
+                                .info-box-icon.mdi.mdi-information
+
+                                .info-box-content: .block.block-markdown
+                                    h4 TODO
+                                    p 
+                                        | Lorem ipsum dolor sit amet consectetur montes ultricies a ac ipsum 
+                                        | turpis integer in semper elit aenean pharetra ullamcorper.
 
                     //- Token
                     .form-group.form-group-inline
                         label(translate="bi_connection.labels.{{ $ctrl.form.values.auth_type }}_key").form-label
-                        .form-offset: .flex-row
-                            .flex-col.flex-grow: input(
-                                ng-disabled="!$ctrl.connection.access_token"
-                                ng-value="$ctrl.connection.access_token"
-                                placeholder="{{ 'bi_connection.labels.token_placeholder' | translate }}"
-                                type="text"
-                                readonly).form-control.form-control-dashed
-                            .flex-col: .button.button-default(
-                                ng-disabled="!$ctrl.connection.access_token"
-                                ng-click="$ctrl.copyToClipboard($ctrl.connection.access_token)"
-                                ): em.mdi.mdi-content-copy
+
+                        .form-offset
+                            .form-group-info
+                                .form-group-info-control: input(
+                                    ng-disabled="!$ctrl.connection.access_token"
+                                    ng-value="$ctrl.connection.access_token"
+                                    placeholder="{{ 'bi_connection.labels.token_placeholder' | translate }}"
+                                    type="text"
+                                    readonly
+                                ).form-control.form-control-dashed
+
+                                .form-group-info-button.form-group-info-button-dashed
+                                    .button.button-default.button-dashed.button-icon.pull-left(
+                                        ng-disabled="!$ctrl.connection.access_token"
+                                        ng-click="$ctrl.copyToClipboard($ctrl.connection.access_token)"): em.mdi.mdi-content-copy
+
+                                    .button.button-default.button-icon.pull-left(
+                                        ng-click="$ctrl.showInfoBlockToken = !$ctrl.showInfoBlockToken"
+                                        ng-class="{active: $ctrl.showInfoBlockToken}")
+                                        em.mdi.mdi-information
+
+                            .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showInfoBlockToken")
+                                .info-box-icon.mdi.mdi-information
+
+                                .info-box-content: .block.block-markdown
+                                    h4 TODO
+                                    p 
+                                        | Lorem ipsum dolor sit amet consectetur montes ultricies a ac ipsum 
+                                        | turpis integer in semper elit aenean pharetra ullamcorper.
 
                     //- Reset token
                     .form-group.form-group-inline(ng-if="$ctrl.connection.id")
@@ -148,76 +193,93 @@
                             .info-box-content: .block.block-markdown
                                 p Token expired. Please generate new one
 
-                    //- Info box (header/parameter)
-                    .block.block-info-box.block-info-box-default.block-info-box-dashed
-                        .info-box-icon.mdi.mdi-information
+                    .form-group.form-group-inline
+                        label.form-label &nbsp;
 
-                        .info-box-content(ng-if="$ctrl.form.values.auth_type === 'header'"): .block.block-markdown
-                            h4 Hoe het werkt
-                            ul
-                                li Open de BI-tool  en ga naar instellingen.
-                                li Voeg een nieuwe gegevensbron of verbinding toe en selecteer de optie om verbinding te maken met een externe URL.
-                                li Voer de bovenstaande URL in.
-                                li Vul bij de header bovenstaande naam en sleutelcode in.
+                            //- Info box (header/parameter) 
+                        .form-offset: .block.block-info-box.block-info-box-default.block-info-box-dashed
+                            .info-box-icon.mdi.mdi-information
 
-                        .info-box-content(ng-if="$ctrl.form.values.auth_type === 'parameter'"): .block.block-markdown
-                            h4 Hoe het werkt
-                            ul
-                                li Open de BI-tool  en ga naar instellingen.
-                                li Voeg een nieuwe gegevensbron of verbinding toe en selecteer de optie om verbinding te maken met een externe URL.
-                                li Vul de bovenstaande URL in.
+                            .info-box-content(ng-if="$ctrl.form.values.auth_type === 'header'"): .block.block-markdown
+                                h4 Hoe het werkt
+                                ul
+                                    li Open de BI-tool  en ga naar instellingen.
+                                    li Voeg een nieuwe gegevensbron of verbinding toe en selecteer de optie om verbinding te maken met een externe URL.
+                                    li Voer de bovenstaande URL in.
+                                    li Vul bij de header bovenstaande naam en sleutelcode in.
 
-            .card-section.card-section-primary(ng-if="$ctrl.tab == 'security'")
-                //- Auth type
+                            .info-box-content(ng-if="$ctrl.form.values.auth_type === 'parameter'"): .block.block-markdown
+                                h4 Hoe het werkt
+                                ul
+                                    li Open de BI-tool  en ga naar instellingen.
+                                    li Voeg een nieuwe gegevensbron of verbinding toe en selecteer de optie om verbinding te maken met een externe URL.
+                                    li Vul de bovenstaande URL in.
+
+            //- Security tab
+            .card-section.card-section-primary(ng-if="$ctrl.viewType == 'security'")
+                //- Expiration period
                 .form-group.form-group-inline
                     label(translate="bi_connection.labels.expiration_period").form-label
 
                     .form-offset
-                        select-control(
-                            prop="key"
-                            search="false"
-                            ng-model="$ctrl.form.values.expiration_period"
-                            options="$ctrl.expirationPeriods").form-control
+                        .form-group-info
+                            .form-group-info-control: select-control(
+                                prop="value"
+                                search="false"
+                                ng-model="$ctrl.form.values.expiration_period"
+                                options="$ctrl.expirationPeriods").form-control
 
+                            .form-group-info-button: .button.button-default.button-icon.pull-left(
+                                ng-click="$ctrl.showInfoBlockExpiry = !$ctrl.showInfoBlockExpiry"
+                                ng-class="{active: $ctrl.showInfoBlockExpiry}")
+                                em.mdi.mdi-information
+
+                        .form-error(ng-repeat="error in $ctrl.form.errors.expiration_period" ng-bind="error")
+
+                        .block.block-info-box.block-info-box-primary(ng-if="$ctrl.showInfoBlockExpiry")
+                            .info-box-icon.mdi.mdi-information
+
+                            .info-box-content: .block.block-markdown
+                                h4 TODO
+                                p 
+                                    | Lorem ipsum dolor sit amet consectetur montes ultricies a ac ipsum 
+                                    | turpis integer in semper elit aenean pharetra ullamcorper.
+
+                //- IP addresses
                 .form-group.form-group-inline
-                    label.form-label &nbsp;
-
-                    .form-offset: .block.block-info-box.block-info-box-default.block-info-box-dashed
-                        .info-box-icon.mdi.mdi-information
-
-                        .info-box-content: .block.block-markdown
-                            p Lorem ipsum dolor sit amet consectetur montes ultricies a ac ipsum turpis integer in semper elit aenean pharetra ullamcorper.
-
-            .card-section.card-section-primary(ng-if="$ctrl.tab == 'security'")
-                .card-title.card-title-sm IP's whitelists
-
-                .form-group.form-group-inline(ng-repeat="ip in $ctrl.ips track by $index")
-                    label.form-label {{ "bi_connection.labels.ip" | translate }} {{ $index + 1 }}
+                    .form-label IP's whitelists
 
                     .form-offset
-                        .flex-row
-                            .flex-col.flex-grow: input(ng-model="ip.value" type="text").form-control
-                            .flex-col: .button.button-default(ng-click="$ctrl.removeIp($index)"): em.mdi.mdi-trash-can-outline
+                        .form-group(ng-repeat="ip in $ctrl.ips track by $index")
+                            .form-group-info
+                                .form-group-info-control: input(
+                                    placeholder="{{ 'bi_connection.labels.ip' | translate }} {{ $index + 1 }}"
+                                    ng-model="ip.value" 
+                                    type="text").form-control
 
-                        .form-error(ng-repeat="error in $ctrl.form.errors['ips.' + $index]" ng-bind="error")
-                        .flex-row(ng-if="$last"): .flex-col: .form-group-divider
+                                .form-group-info-button: .button.button-default.button-icon.pull-left(
+                                    ng-click="$ctrl.removeIp($index)"): em.mdi.mdi-trash-can-outline
 
-                .form-group.form-group-inline
-                    label.form-label {{ "bi_connection.labels.ip" | translate }} {{ $ctrl.ips.length + 1 }}
+                            .form-error(ng-repeat="error in $ctrl.form.errors['ips.' + $index]" ng-bind="error")
+                            .flex-row(ng-if="$last"): .flex-col: .form-group-divider
 
-                    .form-offset
-                        .flex-row
-                            .flex-col.flex-grow: input(ng-model="$ctrl.ip" type="text").form-control
-                            .flex-col: .button.button-default(ng-click="$ctrl.addIp()"): em.mdi.mdi-check
-                        .form-error(ng-bind="$ctrl.ipError")
-                        .form-error(ng-repeat="error in $ctrl.form.errors.ips" ng-bind="error")
+                        .form-group
+                            .flex-row
+                                .flex-col.flex-grow: input(
+                                    placeholder="{{ 'bi_connection.labels.ip' | translate }} {{ $ctrl.ips.length + 1 }}"
+                                    ng-model="$ctrl.ip" 
+                                    type="text").form-control
+                                .flex-col: .button.button-primary.nowrap(ng-click="$ctrl.addIp()") IP-adres toevoegen
 
-                .block.block-info-box.block-info-box-default.block-info-box-dashed
-                    .info-box-icon.mdi.mdi-information
+                            .form-error(ng-bind="$ctrl.ipError")
+                            .form-error(ng-repeat="error in $ctrl.form.errors.ips" ng-bind="error")
 
-                    .info-box-content: .block.block-markdown
-                        h4 Header for information
-                        p Lorem ipsum dolor sit amet consectetur montes ultricies a ac ipsum turpis integer in semper elit aenean pharetra ullamcorper.
+                        .form-group: .block.block-info-box.block-info-box-default.block-info-box-dashed
+                            .info-box-icon.mdi.mdi-information
+
+                            .info-box-content: .block.block-markdown
+                                h4 Header for information
+                                p Lorem ipsum dolor sit amet consectetur montes ultricies a ac ipsum turpis integer in semper elit aenean pharetra ullamcorper.
 
 
             .card-section: .button-group.flex-center

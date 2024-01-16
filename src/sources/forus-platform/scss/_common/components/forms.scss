@@ -276,17 +276,30 @@
 
         .form-group-info-button {
             .button {
-                border-top-left-radius: 0;
-                border-bottom-left-radius: 0;
                 border-left: none;
                 box-shadow: none;
                 height: 100%;
                 align-items: center;
+                margin: 0;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
 
                 &:hover, &.active {
                     .mdi {
                         color: var(--color-default-light);
                     }
+                }
+
+                &:not(:last-child) {
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+            }
+
+            &.form-group-info-button-dashed {
+                .button {
+                    border-style: dashed;
+                    border-left: none;
                 }
             }
         }
@@ -970,6 +983,10 @@
                 @include fill_parent();
             }
         }
+    }
+
+    .checkbox-container-compact {
+        padding: 4px 0;
     }
 
     .radio {
