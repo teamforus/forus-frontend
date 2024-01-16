@@ -3,35 +3,35 @@ const MollieConnectionService = function(ApiRequest) {
 
     return new (function() {
         this.store = function(organization_id, data) {
-            return ApiRequest.post(`${prefix}/${organization_id}/mollie-connections`, data);
+            return ApiRequest.post(`${prefix}/${organization_id}/mollie-connection`, data);
         };
 
         this.connect = function(organization_id) {
-            return ApiRequest.post(`${prefix}/${organization_id}/mollie-connections/connect`);
+            return ApiRequest.post(`${prefix}/${organization_id}/mollie-connection/connect`);
         };
 
         this.getActive = function(organization_id, query = {}) {
-            return ApiRequest.get(`${prefix}/${organization_id}/mollie-connections/active`, query);
+            return ApiRequest.get(`${prefix}/${organization_id}/mollie-connection`, query);
         };
 
         this.fetch = function(organization_id) {
-            return ApiRequest.get(`${prefix}/${organization_id}/mollie-connections/fetch`);
+            return ApiRequest.get(`${prefix}/${organization_id}/mollie-connection/fetch`);
         };
 
-        this.destroy = function (organization_id, id) {
-            return ApiRequest.delete(`${prefix}/${organization_id}/mollie-connections/${id}`);
+        this.update = function (organization_id, data) {
+            return ApiRequest.patch(`${prefix}/${organization_id}/mollie-connection`, data);
         }
 
-        this.storeProfile = function (organization_id, id, data) {
-            return ApiRequest.post(`${prefix}/${organization_id}/mollie-connections/${id}/profiles`, data);
+        this.destroy = function (organization_id) {
+            return ApiRequest.delete(`${prefix}/${organization_id}/mollie-connection`);
         }
 
-        this.updateProfile = function (organization_id, connection_id, id, data) {
-            return ApiRequest.patch(`${prefix}/${organization_id}/mollie-connections/${connection_id}/profiles/${id}`, data);
+        this.storeProfile = function (organization_id, data) {
+            return ApiRequest.post(`${prefix}/${organization_id}/mollie-connection/profiles`, data);
         }
 
-        this.setCurrentProfile = function (organization_id, connection_id, id) {
-            return ApiRequest.post(`${prefix}/${organization_id}/mollie-connections/${connection_id}/profiles/${id}/current`);
+        this.updateProfile = function (organization_id, id, data) {
+            return ApiRequest.patch(`${prefix}/${organization_id}/mollie-connection/profiles/${id}`, data);
         }
     });
 };

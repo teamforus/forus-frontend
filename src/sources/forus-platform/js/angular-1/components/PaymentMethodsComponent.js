@@ -53,7 +53,7 @@ const PaymentMethodsComponent = function (
 
         $ctrl.fetching = true;
 
-        MollieConnectionService.destroy($ctrl.organization.id, $ctrl.mollieConnection.id).then((res) => {
+        MollieConnectionService.destroy($ctrl.organization.id).then(() => {
             PushNotificationsService.success('Opgeslagen!');
             $state.reload();
         }, (res) => {
@@ -93,14 +93,12 @@ const PaymentMethodsComponent = function (
             if ($ctrl.mollieConnection.profile_pending) {
                 promise = MollieConnectionService.updateProfile(
                     $ctrl.organization.id,
-                    $ctrl.mollieConnection.id,
                     $ctrl.mollieConnection.profile_pending.id,
                     form.values,
                 );
             } else {
                 promise = MollieConnectionService.storeProfile(
                     $ctrl.organization.id,
-                    $ctrl.mollieConnection.id,
                     form.values,
                 );
             }
@@ -130,17 +128,15 @@ const PaymentMethodsComponent = function (
 
     $ctrl.mapProfiles = () => {
         if ($ctrl.mollieConnection.id) {
-            $ctrl.currentProfile = $ctrl.mollieConnection.profiles.filter((profile) => profile.current)[0];
+            $ctrl.currentProfile = $ctrl.mollieConnection.profiles.find((profile) => profile.current);
             $ctrl.current_profile_id = $ctrl.currentProfile?.id;
         }
     };
 
     $ctrl.updateCurrentProfile = () => {
-        MollieConnectionService.setCurrentProfile(
-            $ctrl.organization.id,
-            $ctrl.mollieConnection.id,
-            $ctrl.current_profile_id,
-        ).then((res) => {
+        MollieConnectionService.update($ctrl.organization.id, {
+            mollie_connection_profile_id: $ctrl.current_profile_id
+        }).then((res) => {
             $ctrl.mollieConnection = res.data.data;
             $ctrl.mapProfiles();
             PushNotificationsService.success('Opgeslagen!');
