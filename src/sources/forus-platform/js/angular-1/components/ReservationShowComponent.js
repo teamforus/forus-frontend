@@ -8,9 +8,11 @@ const ReservationShowComponent = function (
     const $ctrl = this;
 
     $ctrl.allowAcceptReservation = false;
+    $ctrl.allowRejectReservation = false;
 
     $ctrl.updateReservationFlags = () => {
         $ctrl.allowAcceptReservation = ProductReservationService.acceptAllowed($ctrl.reservation);
+        $ctrl.allowRejectReservation = ProductReservationService.rejectAllowed($ctrl.reservation);
 
         $ctrl.stateClass = {
             waiting: 'label-default',

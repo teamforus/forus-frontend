@@ -131,7 +131,7 @@ const OrganizationEmployeesComponent = function (
     };
 
     $ctrl.$onInit = function () {
-        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey, $ctrl.paginationPerPageDefault);
+        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey);
         $ctrl.employees = $ctrl.transformEmployees($ctrl.employees);
         $ctrl.fetchAdminEmployees().then((adminEmployees) => $ctrl.adminEmployees = adminEmployees)
     };
@@ -143,7 +143,6 @@ module.exports = {
         employees: '<',
         roles: '<',
         paginationPerPageKey: '<',
-        paginationPerPageDefault: '<',
     },
     controller: [
         '$scope',

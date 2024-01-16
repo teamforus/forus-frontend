@@ -45,8 +45,8 @@ module.exports = [
                 }
             };
 
-            this.syncPageFilters = (filters, storageKey, defaultPerPage) => {
-                let value = this.getPerPage(storageKey, defaultPerPage);
+            this.syncPageFilters = (filters, storageKey) => {
+                let value = this.getPerPage(storageKey);
 
                 return { 
                     ...filters,

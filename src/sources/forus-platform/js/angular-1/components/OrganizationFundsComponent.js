@@ -109,7 +109,7 @@ const OrganizationFundsComponent = function (
 
     $ctrl.$onInit = function () {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
-        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey, $ctrl.paginationPerPageDefault);
+        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey);
         $ctrl.filters.reset();
     };
 };
@@ -122,7 +122,6 @@ module.exports = {
         organization: '<',
         validatorOrganizations: '<',
         paginationPerPageKey: '<',
-        paginationPerPageDefault: '<',
     },
     controller: [
         '$state',

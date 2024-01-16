@@ -94,7 +94,7 @@ const ExternalValidatorsComponent = function(
     };
 
     $ctrl.$onInit = function() {
-        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey, $ctrl.paginationPerPageDefault);
+        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey);
 
         $ctrl.validatorOrganizations.data = $ctrl.prepareValidators(
             $ctrl.validatorOrganizations.data,
@@ -109,7 +109,6 @@ module.exports = {
         validatorOrganizations: '<',
         validatorOrganizationsApproved: '<',
         paginationPerPageKey: '<',
-        paginationPerPageDefault: '<',
     },
     controller: [
         '$q',

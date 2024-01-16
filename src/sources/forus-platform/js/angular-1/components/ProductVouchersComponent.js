@@ -218,7 +218,7 @@ const ProductVouchersComponent = function (
 
         $ctrl.fundsById = $ctrl.funds.reduce((obj, fund) => ({ ...obj, [fund.id]: fund }), {});
         
-        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey, $ctrl.paginationPerPageDefault);
+        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey);
         $ctrl.onPageChange($ctrl.filters.values);
     };
 };
@@ -231,7 +231,6 @@ module.exports = {
         organization: '<',
         implementations: '<',
         paginationPerPageKey: '<',
-        paginationPerPageDefault: '<',
     },
     controller: [
         '$state',

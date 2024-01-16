@@ -206,6 +206,29 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }]
     });
 
+    // Fund pre-check
+    $stateProvider.state({
+        name: "pre-check",
+        url: "/organizations/{organization_id}/pre-check",
+        component: "fundPreCheckComponent",
+        resolve: {
+            organization: organizationResolver(),
+            funds: ['$transition$', 'FundService', 'permission', (
+                $transition$, FundService
+            ) => repackPagination(FundService.list(
+                $transition$.params().organization_id, {
+                implementation_id: $transition$.params().id
+            }))],
+            implementations: ['$transition$', 'ImplementationService', (
+                $transition$, ImplementationService
+            ) => repackResponse(ImplementationService.list(
+                $transition$.params().organization_id,
+                $transition$.params().id, { per_page: 100 },
+            ))],
+            permission: permissionMiddleware('fund-requests', ['manage_organization']),
+        }
+    });
+
     $stateProvider.state({
         name: "organizations-create",
         url: "/organizations/create",
@@ -258,18 +281,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         },
         resolve: {
             paginationPerPageKey: () => 'organization_funds',
-            paginationPerPageDefault: () => 10,
             organization: organizationResolver(),
             permission: permissionMiddleware('organization-funds', ['manage_funds', 'view_finances', 'view_funds'], false),
-            funds: ['$transition$', 'FundService', 'PaginatorService', 'paginationPerPageKey', 'paginationPerPageDefault', (
-                $transition$, FundService, PaginatorService, paginationPerPageKey, paginationPerPageDefault
+            funds: ['$transition$', 'FundService', 'PaginatorService', 'paginationPerPageKey', (
+                $transition$, FundService, PaginatorService, paginationPerPageKey
             ) => {
                 return repackPagination(FundService.list($transition$.params().organization_id, { 
                     with_archived: 1, 
                     with_external: 1, 
                     stats: 'min',
                     archived: $transition$.params().funds_type == 'archived' ? 1 : 0,
-                    per_page: PaginatorService.getPerPage(paginationPerPageKey, paginationPerPageDefault),
+                    per_page: PaginatorService.getPerPage(paginationPerPageKey),
                 }))
             }],
             recordTypes: ['RecordTypeService', 'organization', 'permission', (RecordTypeService, organization) => {
@@ -290,13 +312,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         },
         resolve: {
             paginationPerPageKey: () => 'external_validators',
-            paginationPerPageDefault: () => 10,
             permission: permissionMiddleware('organization-providers', 'manage_organization'),
             organization: organizationResolver(),
-            validatorOrganizations: ['permission', '$transition$', 'OrganizationService', 'PaginatorService', 'paginationPerPageKey', 'paginationPerPageDefault', (
-                permission, $transition$, OrganizationService, PaginatorService, paginationPerPageKey, paginationPerPageDefault
+            validatorOrganizations: ['permission', '$transition$', 'OrganizationService', 'PaginatorService', 'paginationPerPageKey', (
+                permission, $transition$, OrganizationService, PaginatorService, paginationPerPageKey
             ) => repackPagination(OrganizationService.listValidatorsAvailable({
-                per_page: PaginatorService.getPerPage(paginationPerPageKey, paginationPerPageDefault),
+                per_page: PaginatorService.getPerPage(paginationPerPageKey),
             }))],
             validatorOrganizationsApproved: ['permission', '$transition$', 'OrganizationService', (
                 permission, $transition$, OrganizationService
@@ -345,7 +366,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "sponsorProviderOrganizationsComponent",
         resolve: {
             paginationPerPageKey: () => 'provider_organizations',
-            paginationPerPageDefault: () => 10,
             permission: permissionMiddleware('organization-providers', 'manage_providers'),
             organization: organizationResolver(),
             funds: ['$transition$', 'FundService', 'permission', (
@@ -358,12 +378,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => repackResponse(FundUnsubscribeService.listSponsor($transition$.params().organization_id, {
                 per_page: 1000
             }))],
-            providerOrganizations: ['$transition$', 'OrganizationService', 'PaginatorService', 'paginationPerPageKey', 'paginationPerPageDefault', (
-                $transition$, OrganizationService, PaginatorService, paginationPerPageKey, paginationPerPageDefault,
+            providerOrganizations: ['$transition$', 'OrganizationService', 'PaginatorService', 'paginationPerPageKey', (
+                $transition$, OrganizationService, PaginatorService, paginationPerPageKey,
             ) => repackPagination(OrganizationService.providerOrganizations($transition$.params().organization_id, {
                 ...pick($transition$.params(), [
                     'q', 'fund_id', 'allow_budget', 'allow_products', 'has_products', 'order_by',
-                ]), per_page: PaginatorService.getPerPage(paginationPerPageKey, paginationPerPageDefault)
+                ]), per_page: PaginatorService.getPerPage(paginationPerPageKey)
             }))],
         }
     });
@@ -587,14 +607,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "organizationEmployeesComponent",
         resolve: {
             paginationPerPageKey: () => 'employees',
-            paginationPerPageDefault: () => 10,
             organization: organizationResolver(),
             permission: permissionMiddleware('employees-list', 'manage_employees'),
-            employees: ['$transition$', 'OrganizationEmployeesService', 'PaginatorService', 'paginationPerPageKey', 'paginationPerPageDefault', (
-                $transition$, OrganizationEmployeesService, PaginatorService, paginationPerPageKey, paginationPerPageDefault
+            employees: ['$transition$', 'OrganizationEmployeesService', 'PaginatorService', 'paginationPerPageKey', (
+                $transition$, OrganizationEmployeesService, PaginatorService, paginationPerPageKey
             ) => {
                 return repackPagination(OrganizationEmployeesService.list($transition$.params().organization_id, { 
-                    per_page: PaginatorService.getPerPage(paginationPerPageKey, paginationPerPageDefault)
+                    per_page: PaginatorService.getPerPage(paginationPerPageKey)
                 }));
             }],
             roles: ['RoleService', 'permission', (RoleService) => {
@@ -961,7 +980,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             component: "productVouchersComponent",
             resolve: {
                 paginationPerPageKey: () => 'product_vouchers',
-                paginationPerPageDefault: () => 25,
                 organization: organizationResolver(),
                 permission: permissionMiddleware('vouchers-list', 'manage_vouchers'),
                 funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
@@ -978,15 +996,15 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                         )[0] || false : null;
                     }
                 ],
-                vouchers: ['$transition$', 'VoucherService', 'PaginatorService', 'paginationPerPageKey', 'paginationPerPageDefault', (
-                    $transition$, VoucherService, PaginatorService, paginationPerPageKey, paginationPerPageDefault
+                vouchers: ['$transition$', 'VoucherService', 'PaginatorService', 'paginationPerPageKey', (
+                    $transition$, VoucherService, PaginatorService, paginationPerPageKey
                 ) => {
                     return repackPagination(VoucherService.index($transition$.params().organization_id, {
                     ...pick($transition$.params(), [
                         'q', 'granted', 'amount_min', 'amount_max', 'date_type', 'from', 'to',
                         'state', 'in_use', 'count_per_identity_min', 'count_per_identity_max',
                         'type', 'source', 'sort_by', 'sort_order', 'fund_id', 'page',
-                    ]), per_page: PaginatorService.getPerPage(paginationPerPageKey, paginationPerPageDefault), }))
+                    ]), per_page: PaginatorService.getPerPage(paginationPerPageKey), }))
                 }],
                 implementations: ['permission', '$transition$', 'ImplementationService', (
                     permission, $transition$, ImplementationService
@@ -1479,7 +1497,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "transactionsComponent",
         resolve: {
             paginationPerPageKey: () => 'transactions',
-            paginationPerPageDefault: () => 10,
             funds: ['$transition$', 'FundService', 'ProviderFundService', 'appConfigs', 'permission', (
                 $transition$, FundService, ProviderFundService, appConfigs
             ) => {
@@ -1491,24 +1508,24 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
                 return repackResponse(FundService.list($transition$.params().organization_id));
             }],
-            transactions: ['$transition$', 'TransactionService', 'appConfigs', 'PaginatorService', 'paginationPerPageKey', 'paginationPerPageDefault', (
-                $transition$, TransactionService, appConfigs, PaginatorService, paginationPerPageKey, paginationPerPageDefault,
+            transactions: ['$transition$', 'TransactionService', 'appConfigs', 'PaginatorService', 'paginationPerPageKey', (
+                $transition$, TransactionService, appConfigs, PaginatorService, paginationPerPageKey,
             ) => repackPagination(TransactionService.list(appConfigs.panel_type, $transition$.params().organization_id, {
                 ...pick($transition$.params(), $transition$.params().type == 'transactions' ? [
                     'q', 'page', 'state', 'fund_id', 'fund_state', 'from', 'to', 
                     'amount_min', 'amount_max', 'quantity_min', 'quantity_max', 
                     'order_by', 'order_dir',
                 ] : []),
-                per_page: PaginatorService.getPerPage(paginationPerPageKey, paginationPerPageDefault),
+                per_page: PaginatorService.getPerPage(paginationPerPageKey),
             }))],
-            transactionBulks: ['$transition$', 'TransactionBulkService', 'PaginatorService', 'paginationPerPageKey', 'paginationPerPageDefault', (
-                $transition$, TransactionBulkService, PaginatorService, paginationPerPageKey, paginationPerPageDefault,
+            transactionBulks: ['$transition$', 'TransactionBulkService', 'PaginatorService', 'paginationPerPageKey', (
+                $transition$, TransactionBulkService, PaginatorService, paginationPerPageKey,
             ) => repackPagination(TransactionBulkService.list($transition$.params().organization_id, {
                 ...pick($transition$.params(), $transition$.params().type == 'bulks' ? [
                     'page', 'state', 'from', 'to', 'amount_min', 'amount_max', 
                     'quantity_min', 'quantity_max', 'order_by', 'order_dir'
                 ] : []),
-                per_page: PaginatorService.getPerPage(paginationPerPageKey, paginationPerPageDefault),
+                per_page: PaginatorService.getPerPage(paginationPerPageKey),
             }))],
             organization: organizationResolver(),
             permission: permissionMiddleware('transactions-list', 'view_finances')
@@ -1557,17 +1574,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "productsComponent",
         resolve: {
             paginationPerPageKey: () => 'products',
-            paginationPerPageDefault: () => 10,
             organization: organizationResolver(),
             permission: permissionMiddleware('products-list', 'manage_products'),
-            products: ['$transition$', 'ProductService', 'PaginatorService', 'paginationPerPageKey', 'paginationPerPageDefault', (
-                $transition$, ProductService, PaginatorService, paginationPerPageKey, paginationPerPageDefault
+            products: ['$transition$', 'ProductService', 'PaginatorService', 'paginationPerPageKey', (
+                $transition$, ProductService, PaginatorService, paginationPerPageKey
             ) => {
                 return repackPagination(ProductService.list($transition$.params().organization_id, {
                     ...pick($transition$.params(), [
                         'q', 'source', 'per_page',
                     ]),
-                    per_page: PaginatorService.getPerPage(paginationPerPageKey, paginationPerPageDefault),
+                    per_page: PaginatorService.getPerPage(paginationPerPageKey),
                 }));
             }],
         }
@@ -1585,7 +1601,6 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         },
         resolve: {
             paginationPerPageKey: () => 'reservations',
-            paginationPerPageDefault: () => 10,
             organization: organizationResolver(),
             permission: permissionMiddleware('reservations-list', 'scan_vouchers'),
             funds: ['$transition$', 'ProviderFundService', ($transition$, ProviderFundService) => {
@@ -1596,17 +1611,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => repackResponse(ProductService.list($transition$.params().organization_id, {
                 per_page: 100,
             }))],
-            activeReservations: ['$transition$', 'ProductReservationService', 'PaginatorService', 'paginationPerPageKey', 'paginationPerPageDefault', (
-                $transition$, ProductReservationService, PaginatorService, paginationPerPageKey, paginationPerPageDefault
+            activeReservations: ['$transition$', 'ProductReservationService', 'PaginatorService', 'paginationPerPageKey', (
+                $transition$, ProductReservationService, PaginatorService, paginationPerPageKey
             ) => repackPagination(ProductReservationService.list($transition$.params().organization_id, {
                 archived: 0,
-                per_page: PaginatorService.getPerPage(paginationPerPageKey, paginationPerPageDefault),
+                per_page: PaginatorService.getPerPage(paginationPerPageKey),
             }))],
-            archivedReservations: ['$transition$', 'ProductReservationService', 'PaginatorService', 'paginationPerPageKey', 'paginationPerPageDefault', (
-                $transition$, ProductReservationService, PaginatorService, paginationPerPageKey, paginationPerPageDefault
+            archivedReservations: ['$transition$', 'ProductReservationService', 'PaginatorService', 'paginationPerPageKey', (
+                $transition$, ProductReservationService, PaginatorService, paginationPerPageKey
             ) => repackPagination(ProductReservationService.list($transition$.params().organization_id, {
                 archived: 1,
-                per_page: PaginatorService.getPerPage(paginationPerPageKey, paginationPerPageDefault),
+                per_page: PaginatorService.getPerPage(paginationPerPageKey),
             }))]
         }
     });
@@ -1822,18 +1837,17 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         component: "reservationExtraPaymentsComponent",
         resolve: {
             paginationPerPageKey: () => 'reservation-extra-payments',
-            paginationPerPageDefault: () => 10,
             organization: organizationResolver(),
             permission: permissionMiddleware('organization-funds', ['manage_funds', 'view_funds'], false),
             funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
                 return repackResponse(FundService.list($transition$.params().organization_id));
             }],
-            extraPayments: ['$transition$', 'ReservationExtraPaymentService', 'PaginatorService', 'paginationPerPageKey', 'paginationPerPageDefault', (
-                $transition$, ReservationExtraPaymentService, PaginatorService, paginationPerPageKey, paginationPerPageDefault,
+            extraPayments: ['$transition$', 'ReservationExtraPaymentService', 'PaginatorService', 'paginationPerPageKey', (
+                $transition$, ReservationExtraPaymentService, PaginatorService, paginationPerPageKey,
             ) => repackPagination(ReservationExtraPaymentService.list(
                 $transition$.params().organization_id, {
                     ...pick($transition$.params(), ['q', 'fund_id']),
-                    per_page: PaginatorService.getPerPage(paginationPerPageKey, paginationPerPageDefault),
+                    per_page: PaginatorService.getPerPage(paginationPerPageKey),
                 },
             ))],
         }

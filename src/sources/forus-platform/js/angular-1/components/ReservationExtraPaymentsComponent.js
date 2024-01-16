@@ -77,7 +77,7 @@ const ReservationExtraPaymentsComponent = function (
         });
 
         $ctrl.mapExtraPayments($ctrl.extraPayments);
-        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey, $ctrl.paginationPerPageDefault);
+        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey);
     };
 };
 
@@ -87,7 +87,6 @@ module.exports = {
         organization: '<',
         extraPayments: '<',
         paginationPerPageKey: '<',
-        paginationPerPageDefault: '<',
     },
     controller: [
         '$q',

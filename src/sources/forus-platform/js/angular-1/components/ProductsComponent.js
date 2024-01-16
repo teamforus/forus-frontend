@@ -54,7 +54,7 @@ const ProductsComponent = function (
 
     $ctrl.$onInit = function () {
         $ctrl.emptyBlockLink = $state.href('products-create', pick($stateParams, 'organization_id'));
-        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey, $ctrl.paginationPerPageDefault);
+        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey);
     };
 };
 
@@ -63,7 +63,6 @@ module.exports = {
         products: '<',
         organization: '<',
         paginationPerPageKey: '<',
-        paginationPerPageDefault: '<',
     },
     controller: [
         '$state',

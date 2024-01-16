@@ -1,0 +1,134 @@
+- var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
+
+.block.block-pre-checks-blocks-editor
+    //- Blocks list
+    div(ng-sortable="$dir.sortablePreCheck"): .pre-check-item(ng-repeat="preCheck in $dir.preChecks")
+        .pre-check-item-header
+            //- Block title
+            .pre-check-item-header-drag: em.mdi.mdi-drag-vertical
+            .pre-check-item-header-title
+                span(ng-if="preCheck.title")
+                    span(ng-bind="preCheck.title")
+                    span(ng-bind="' (' + preCheck.record_types.length + ' criteria)'").text-muted
+
+                span(ng-if="!preCheck.title" ng-bind="(!preCheck.id ? 'New step' : 'Edit step')")
+                span(ng-if="preCheck.default").text-muted &nbsp;#[span.mdi.mdi-lock-outline]
+
+            //- Block actions
+            .pre-check-item-header-actions
+                //- Expand
+                .button.button-default.button-sm(
+                    ng-if="preCheck.uncollapsed" 
+                    ng-click="preCheck.uncollapsed = false")
+                    em.mdi.mdi-arrow-collapse-vertical.icon-start
+                    translate(translate="Inklappen")
+
+                //- Collapse 
+                .button.button-primary.button-sm(
+                    ng-if="!preCheck.uncollapsed" 
+                    ng-click="preCheck.uncollapsed = true")
+                    em.mdi.mdi-arrow-expand-vertical.icon-start
+                    translate(translate="Uitklappen")
+
+                //- Remove
+                .button.button-danger.button-sm(
+                    ng-if="!preCheck.default"
+                    ng-click="$dir.removePreCheck($index)")
+                    em.mdi.mdi-trash-can-outline.icon-start
+                    translate(translate="Staap verwijderen")
+
+        //- Block form
+        .pre-check-item-body.form(ng-show="preCheck.uncollapsed")
+            .pre-check-item-body-content
+                .row
+                    //- Short title
+                    .form-group.col.col-lg-6.col-xs-12
+                        label.form-label Short title
+                        input(type="text" ng-model="preCheck.title_short" placeholder="Title...").form-control
+                        .form-hint Max. 30 tekens
+                        .form-error(ng-repeat="error in $dir.errors['pre_checks.' + $index + '.title_short']" ng-bind="error")
+                    
+                    //- Title
+                    .form-group.col.col-lg-6.col-xs-12
+                        label.form-label.form-label-required Title
+                        input(type="text" ng-model="preCheck.title" placeholder="Title...").form-control
+                        .form-hint Max. 100 tekens
+                        .form-error(ng-repeat="error in $dir.errors['pre_checks.' + $index + '.title']" ng-bind="error")
+
+                //- Block description
+                .form-group
+                    label.form-label.form-label-required Omschrijving
+                    textarea.form-control(
+                        ng-model="preCheck.description" 
+                        placeholder="Omschrijving...")
+                    .form-hint Max. 1000 tekens
+                    .form-error(ng-repeat="error in $dir.errors['pre_checks.' + $index + '.description']" ng-bind="error")
+
+            .pre-check-item-body-records
+                .block-records-title Criteria ({{ preCheck.record_types.length }})
+
+                .pre-check-item-body-records-items(ng-sortable="$dir.sortablePreCheckRecord")
+                    .pre-check-item.pre-check-item-record(ng-repeat="record in preCheck.record_types")
+                        .pre-check-item-header
+                            .pre-check-item-header-drag: em.mdi.mdi-drag-vertical
+                            .pre-check-item-header-title
+                                span(ng-bind="record.title ? record.title + ':' : 'Geen titel:'")
+                                | &nbsp;#[span(ng-bind="record.record_type.name").text-muted]
+
+                            .pre-check-item-header-actions
+                                //- Expand
+                                .button.button-default.button-sm(
+                                    ng-if="record.uncollapsed" 
+                                    ng-click="record.uncollapsed = false")
+                                    em.mdi.mdi-arrow-collapse-vertical.icon-start
+                                    translate(translate="Inklappen")
+
+                                //- Collapse 
+                                .button.button-primary.button-sm(
+                                    ng-if="!record.uncollapsed" 
+                                    ng-click="record.uncollapsed = true")
+                                    em.mdi.mdi-arrow-expand-vertical.icon-start
+                                    translate(translate="Uitklappen")
+
+                        //- Block form
+                        .pre-check-item-body(ng-show="record.uncollapsed"): .pre-check-item-body-content
+                            .row
+                                //- Short title
+                                .form-group.col.col-lg-6.col-xs-12
+                                    label.form-label.form-label-required Short title
+                                    input(type="text" ng-model="record.title_short" placeholder="Title...").form-control
+                                    .form-hint Max. 40 tekens
+                                    .form-error(
+                                        ng-repeat="error in $dir.errors['pre_checks.' + $parent.$index + '.' + 'record_types.' + $index + '.title_short']" 
+                                        ng-bind="error")
+                                
+                                //- Title
+                                .form-group.col.col-lg-6.col-xs-12
+                                    label.form-label.form-label-required Title
+                                    input(type="text" ng-model="record.title" placeholder="Title...").form-control
+                                    .form-hint Max. 100 tekens
+                                    .form-error(
+                                        ng-repeat="error in $dir.errors['pre_checks.' + $parent.$index + '.' + 'record_types.' + $index + '.title']" 
+                                        ng-bind="error")
+
+                            .row: .col.col-lg-12
+                                //- Block description
+                                .form-group
+                                    label.form-label.form-label-required Omschrijving
+                                    textarea.form-control(
+                                        ng-model="record.description" 
+                                        placeholder="Omschrijving...")
+                                    .form-hint Max. 1000 tekens
+                                    .form-error(
+                                        ng-repeat="error in $dir.errors['pre_checks.' + $parent.$index]['record_types.' + $index + '.description']" 
+                                        ng-bind="error")
+
+                    .pre-check-item-body-records-empty(ng-if="!preCheck.record_types.length")
+                        .pre-check-item-body-records-empty-img: img(src=src_prefix + "./assets/img/icon-drag.svg")
+                        .pre-check-item-body-records-empty-title Drag and drop criteria here
+
+    //- Actions
+    .pre-check-actions
+        .button.button-primary(ng-click="$dir.addPreCheck()")
+            em.mdi.mdi-plus-circle.icon-start
+            translate(translate="Add step")

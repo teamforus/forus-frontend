@@ -83,6 +83,7 @@ const ReservationsComponent = function (
             data: reservations.data.map((reservation) => ({
                 ...reservation,
                 allowAcceptReservation: ProductReservationService.acceptAllowed(reservation),
+                allowRejectReservation: ProductReservationService.rejectAllowed(reservation),
             })),
         };
     }
@@ -211,7 +212,7 @@ const ReservationsComponent = function (
         const { reservations_budget_enabled, reservations_subsidy_enabled } = $ctrl.organization;
 
         $ctrl.filters.reset();
-        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey, $ctrl.paginationPerPageDefault);
+        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey);
         $ctrl.reservations = mapReservations($ctrl.shownReservationsType == 'active' ?
             $ctrl.activeReservations :
             $ctrl.archivedReservations,
@@ -242,7 +243,6 @@ module.exports = {
         activeReservations: '<',
         archivedReservations: '<',
         paginationPerPageKey: '<',
-        paginationPerPageDefault: '<',
     },
     controller: [
         '$q',
