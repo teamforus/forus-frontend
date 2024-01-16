@@ -34,7 +34,7 @@ const BIConnectionComponent = function (
     ];
 
     $ctrl.expirationPeriods = [
-        { dasy: 1, name: $translate('bi_connection.expiration_periods.24_hour') },
+        { value: 1, name: $translate('bi_connection.expiration_periods.24_hour') },
         { value: 7, name: $translate('bi_connection.expiration_periods.1_week') },
         { value: 30, name: $translate('bi_connection.expiration_periods.1_month') },
     ];
