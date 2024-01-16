@@ -529,12 +529,12 @@ module.exports = {
             title: "Fund pre-check",
         },
         labels: {
-            description_title: "Main description",
-            title: "Title",
+            description_title: "Algemeen",
+            title: "Titel",
             label: "Label",
-            description: "Description",
-            status: "Enabled",
-            implementation: "Implementatie",
+            description: "Omschrijving",
+            status: "Status",
+            implementation: "Implementatie"
         },
         buttons: {
             cancel: "Annuleren",

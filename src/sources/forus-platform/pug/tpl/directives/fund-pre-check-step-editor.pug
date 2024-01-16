@@ -43,14 +43,14 @@
                 .row
                     //- Short title
                     .form-group.col.col-lg-6.col-xs-12
-                        label.form-label Short title
+                        label.form-label Korte titel
                         input(type="text" ng-model="preCheck.title_short" placeholder="Title...").form-control
                         .form-hint Max. 30 tekens
                         .form-error(ng-repeat="error in $dir.errors['pre_checks.' + $index + '.title_short']" ng-bind="error")
                     
                     //- Title
                     .form-group.col.col-lg-6.col-xs-12
-                        label.form-label.form-label-required Title
+                        label.form-label.form-label-required Titel
                         input(type="text" ng-model="preCheck.title" placeholder="Title...").form-control
                         .form-hint Max. 100 tekens
                         .form-error(ng-repeat="error in $dir.errors['pre_checks.' + $index + '.title']" ng-bind="error")
@@ -95,16 +95,16 @@
                             .row
                                 //- Short title
                                 .form-group.col.col-lg-6.col-xs-12
-                                    label.form-label.form-label-required Short title
+                                    label.form-label.form-label-required Korte titel
                                     input(type="text" ng-model="record.title_short" placeholder="Title...").form-control
                                     .form-hint Max. 40 tekens
                                     .form-error(
-                                        ng-repeat="error in $dir.errors['pre_checks.' + $parent.$index + '.' + 'record_types.' + $index + '.title_short']" 
+                                        ng-repeat="error in $dir.errors['pre_checks.' + $parent.$index + '.' + 'record_types.' + $index + '.title_short']"
                                         ng-bind="error")
                                 
                                 //- Title
                                 .form-group.col.col-lg-6.col-xs-12
-                                    label.form-label.form-label-required Title
+                                    label.form-label.form-label-required Titel
                                     input(type="text" ng-model="record.title" placeholder="Title...").form-control
                                     .form-hint Max. 100 tekens
                                     .form-error(
@@ -125,10 +125,10 @@
 
                     .pre-check-item-body-records-empty(ng-if="!preCheck.record_types.length")
                         .pre-check-item-body-records-empty-img: img(src=src_prefix + "./assets/img/icon-drag.svg")
-                        .pre-check-item-body-records-empty-title Drag and drop criteria here
+                        .pre-check-item-body-records-empty-title Criteria hier slepen en neerzetten
 
     //- Actions
     .pre-check-actions
         .button.button-primary(ng-click="$dir.addPreCheck()")
             em.mdi.mdi-plus-circle.icon-start
-            translate(translate="Add step")
+            translate(translate="Stap toevoegen")
