@@ -135,6 +135,11 @@
                         color: #282b39;
                         margin-bottom: 10px;
                         word-break: break-word;
+                        text-wrap: wrap;
+
+                        a {
+                            font: inherit;
+                        }
                     }
 
                     .reservation-value-list {

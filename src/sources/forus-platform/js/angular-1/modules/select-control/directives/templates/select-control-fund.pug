@@ -1,0 +1,42 @@
+.select-control.select-control-funds
+    .select-control-input(
+        ng-class="{options : $dir.showOptions}"
+        ng-disabled="$dir.disabled || $dir.ngDisabled"
+        click-outside="$dir.onClickOutside()"
+        aria-haspopup="listbox"
+        aria-expanded="{{ $dir.showOptions }}"
+        aria-labelledby="{{ $dir.id }}")
+
+        label.select-control-search.form-control(
+            for="{{ $dir.controlId }}"
+            title="{{ $dir.value.raw[$dir.as] || $dir.placeholder }}"
+            ng-show="($dir.mode == 'strict' && !$dir.showOptions) || !$dir.searchEnabled" 
+            ng-click="$dir.searchOption()"
+            ng-disabled="$dir.disabled || $dir.ngDisabled")
+            .select-control-search-placeholder
+                .select-control-search-placeholder-media: img(ng-src="{{ $dir.value.raw.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+                span(ng-bind="$dir.value.raw[$dir.as] || $dir.placeholder").ellipsis
+            .select-control-icon: .mdi(ng-class="$dir.showOptions ? 'mdi-chevron-up' : 'mdi-chevron-down'")
+
+        .select-control-search-container
+            input(
+                id="{{ $dir.controlId }}"
+                autocomplete='off'
+                placeholder="{{ $dir.placeholder }}"
+                ng-click="$dir.onInputClick()"
+                ng-keydown="$dir.searchKeydown($event)"
+                ng-show="$dir.searchEnabled && ($dir.mode == 'search' || ($dir.mode == 'strict' && $dir.showOptions))"
+                ng-change="$dir.searchInputChanged()"
+                ng-model="$dir.filter.q").select-control-search.form-control
+
+            .select-control-search-clear(
+                ng-if="$dir.filter.q && $dir.showOptions" 
+                ng-click="$dir.clear()" 
+                aria-label="cancel"): .mdi.mdi-close-circle 
+        
+        select-control-options(
+            ng-if="$dir.showOptions" 
+            change="$dir.selectOption(option)" 
+            options="$dir.optionsFiltered"
+            template="select-control-options-fund"
+            options-preload-size="{{ optionsPreloadSize }}")

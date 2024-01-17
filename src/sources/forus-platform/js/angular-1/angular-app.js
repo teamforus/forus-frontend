@@ -89,6 +89,7 @@ app.component('featureComponent', require('./components/FeatureComponent'));
 app.component('featuresComponent', require('./components/FeaturesComponent'));
 app.component('paymentMethodsComponent', require('./components/PaymentMethodsComponent'));
 app.component('molliePrivacyComponent', require('./components/MolliePrivacyComponent'));
+app.component('fundPreCheckComponent', require('./components/FundPreCheckComponent'));
 app.component('reservationExtraPaymentsComponent', require('./components/ReservationExtraPaymentsComponent'));
 app.component('reservationExtraPaymentShowComponent', require('./components/ReservationExtraPaymentShowComponent'));
 
@@ -148,6 +149,7 @@ app.component('modalEditReimbursementCategoryComponent', require('./components/M
 app.component('modalEditReimbursementCategoriesComponent', require('./components/Modals/ModalEditReimbursementCategoriesComponent'));
 app.component('modalEditRequestRecordComponent', require('./components/Modals/ModalEditRequestRecordComponent'));
 app.component('modalFeatureContactComponent', require('./components/Modals/ModalFeatureContactComponent'));
+app.component('modalFundSelectComponent', require('./components/Modals/ModalFundSelectComponent'));
 
 // Modal Components
 app.component('printableVoucherQrCodeComponent', require('./components/Printables/PrintableVoucherQrCodeComponent'));
@@ -228,6 +230,7 @@ app.service('ReimbursementsExportService', require('./services/ReimbursementsExp
 app.service('ClipboardService', require('./services/ClipboardService'));
 app.service('FeaturesService', require('./services/FeaturesService'));
 app.service('MollieConnectionService', require('./services/MollieConnectionService'));
+app.service('PreCheckService', require('./services/PreCheckService'));
 app.service('ReservationExtraPaymentService', require('./services/ReservationExtraPaymentService'));
 
 // Directives
@@ -308,6 +311,7 @@ app.directive('fundRequestRecordHistory', require('./directives/FundRequestRecor
 app.directive('reservationFieldsEditor', require('./directives/ReservationFieldsEditorDirective'));
 
 app.directive('implementationBlocksEditor', require('./directives/ImplementationBlocksEditorDirective'));
+app.directive('fundPreCheckStepEditor', require('./directives/FundPreCheckStepEditorDirective'));
 
 app.directive('paginator', require('./directives/paginators/PaginatorDirective'));
 app.directive('paginatorLoader', require('./directives/paginators/PaginatorLoaderDirective'));

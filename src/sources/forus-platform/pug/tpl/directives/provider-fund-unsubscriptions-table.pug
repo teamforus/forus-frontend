@@ -74,7 +74,7 @@
 
     //- Unsubscriptions list
     .card-section(ng-if="!$dir.loading && $dir.items.meta.total > 0")
-        .card-block.card-block-table.card-block-table-fund.form
+        .card-block.card-block-table.form
             .table-wrapper
                 table.table
                     tr
@@ -95,9 +95,14 @@
                             checked="$dir.selected.includes(unsubscription.id)"
                             ng-click="$dir.toggle($event, unsubscription)")
 
-                        td.nowrap
-                            .fund-img: img(ng-src="{{ unsubscription.fund_provider.fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
-                            .fund-title(ng-bind="unsubscription.fund_provider.fund.name")
+                        //- Fund name
+                        td: .td-entity-main
+                            .td-entity-main-media: img.td-media.td-media-sm.td-media-round(
+                                ng-src="{{ unsubscription.fund_provider.fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+
+                            .td-entity-main-content: .text-strong.text-primary(
+                                ng-bind="unsubscription.fund_provider.fund.name | str_limit:32" 
+                                title="{{ unsubscription.fund_provider.fund.name || '-' }}")
 
                         td(
                             ng-bind="unsubscription.fund_provider.fund.organization.name | str_limit:25"
