@@ -18,7 +18,7 @@
 
             .reservation-section
                 .reservation-section-column
-                    div(role="heading" aria-level="2"): a.reservation-name(
+                    .reservation-name(role="heading" aria-level="2"): a(
                         ng-click="$dir.goToProduct($event)"
                         dusk="reservationProduct"
                         role="link"
@@ -29,7 +29,7 @@
                         span(ng-if="$dir.reservation.records_title" ng-bind="$dir.reservation.records_title")
                         span.text-separator(ng-if="$dir.reservation.records_title")
                         a(
-                            ng-click="$dir.goToProvider($event)" 
+                            ng-click="$dir.goToProvider($event)"
                             ng-bind="$dir.product.organization.name"
                             role="link"
                             tabindex="0")
