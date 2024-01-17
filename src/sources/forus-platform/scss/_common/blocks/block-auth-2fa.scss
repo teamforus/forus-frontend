@@ -9,6 +9,7 @@
         border-radius: calc(var(--border-radius));
         margin-bottom: 20px;
         display: flex;
+        align-items: center;
 
         .auth-2fa-item-icon {
             margin-right: 20px;
@@ -30,26 +31,32 @@
             }
         }
 
-        .auth-2fa-item-title {
-            font: 600 16px/30px var(--base-font);
-            padding: 10px 0;
-            margin-right: 10px;
-            display: inline-flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .auth-2fa-item-label {
-            display: inline-flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .auth-2fa-item-space {
-            display: inline-flex;
+        .auth-2fa-item-details {
+            display: flex;
             flex-grow: 1;
-        }
+            flex-wrap: wrap;
 
+            .auth-2fa-item-title {
+                font: 600 16px/30px var(--base-font);
+                margin-right: 10px;
+                display: inline-flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+    
+            .auth-2fa-item-label {
+                display: inline-flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .auth-2fa-item-description {
+                width: 100%;
+                font: 500 14px/22px var(--base-font);
+                color: #282B39;
+            }
+        }
+    
         .auth-2fa-item-actions {
             display: inline-flex;
             flex-direction: column;
@@ -69,9 +76,7 @@
         .auth-2fa-item {
             flex-direction: column;
 
-            .auth-2fa-item-icon, 
-            .auth-2fa-item-title,
-            .auth-2fa-item-label,
+            .auth-2fa-item-icon,
             .auth-2fa-item-actions {
                 flex-direction: row;
                 justify-content: center;
@@ -88,8 +93,19 @@
                 }
             }
 
-            .auth-2fa-item-label {
-                margin-bottom: 15px;
+            .auth-2fa-item-details {
+                flex-direction: column;
+
+                .auth-2fa-item-title,
+                .auth-2fa-item-label {
+                    flex-direction: row;
+                    justify-content: center;
+                    margin: 0;
+                }
+
+                .auth-2fa-item-title, .auth-2fa-item-label, .auth-2fa-item-description {
+                    margin-bottom: 10px;
+                }
             }
         }
     }
