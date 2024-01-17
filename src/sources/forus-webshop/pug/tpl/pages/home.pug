@@ -78,6 +78,24 @@ main(id="main-content")
                     li: a(href="https://www.leergeldnijmegen.nl/hulp-voor-uw-kind") Hulp voor uw kind
                 a(href="https://www.leergeldnijmegen.nl/homepagina") Meer informatie over Stichting Leergeld Nijmegen
 
+    //- Pre-check banner
+    .wrapper(ng-if="$root.appConfigs.features.pre_check_enabled && $root.appConfigs.features.pre_check_banner_state == 'public'")
+        .block.block-pre-check-banner
+            .pre-check-banner-media(ng-if="$root.appConfigs.features.pre_check_banner.sizes.large"): img(
+                ng-src="{{ $root.appConfigs.features.pre_check_banner.sizes.large }}" 
+                alt="")
+
+            .pre-check-banner-content
+                h2.pre-check-banner-label(ng-if="$root.appConfigs.features.pre_check_banner_label")
+                    span.label.label-primary(ng-bind="$root.appConfigs.features.pre_check_banner_label")
+
+                h2.pre-check-banner-title(ng-bind="$root.appConfigs.features.pre_check_banner_title")
+                .pre-check-banner-description(ng-bind="$root.appConfigs.features.pre_check_banner_description")
+                
+                .pre-check-banner-actions: button(ui-sref="fund-pre-check()").button.button-primary
+                    | Doe de check
+                    em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
+
     //- Home CMS blocks
     cms-blocks(
         ng-if="$root.appConfigs.features.pages.home"
@@ -85,8 +103,17 @@ main(id="main-content")
 
     .page.page-home(ng-if="$root.appConfigs.features.show_home_products || $root.appConfigs.features.show_home_map")
         div(ng-if="$root.appConfigs.features.show_home_products")
-            .wrapper(ng-if="$ctrl.products.data.length > 0"): block-products(products="$ctrl.products.data" type="budget" display="grid")
-            .wrapper(ng-if="$ctrl.subsidies.data.length > 0"): block-products(products="$ctrl.subsidies.data" type="subsidies" display="grid")
+            .wrapper(ng-if="$ctrl.products.data.length > 0"): block-products(
+                products="$ctrl.products.data" 
+                type="budget" 
+                large="true"
+                display="grid")
+
+            .wrapper(ng-if="$ctrl.subsidies.data.length > 0"): block-products(
+                products="$ctrl.subsidies.data" 
+                type="subsidies" 
+                large="true"
+                display="grid")
 
         section.section.section-map(ng-if="$root.appConfigs.features.show_home_map" id="map_block"): .wrapper
             .block.block-map

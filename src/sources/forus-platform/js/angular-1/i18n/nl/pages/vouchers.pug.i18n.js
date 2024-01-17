@@ -41,6 +41,7 @@ module.exports = {
         date_type: 'Pas toe op',
         provider_name: "Aanbieder naam",
         product_name: "Aanbod naam",
+        implementation: "Implementatie",
     },
     events: {
         created_budget: 'Aangemaakt',

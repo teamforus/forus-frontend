@@ -18,7 +18,6 @@ const FundRequestComponent = function (
 ) {
     const $ctrl = this;
     const $i18n = $filter('i18n');
-    const $trans = $filter('translate');
     const $currency_format = $filter('currency_format');
 
     $ctrl.step = 1;
@@ -30,24 +29,9 @@ const FundRequestComponent = function (
     $ctrl.bsnIsKnown = true;
     $ctrl.emailSubmitted = false;
 
-
-    $ctrl.dateKeys = ['birth_date'];
-    $ctrl.stepKeys = ['children_nth', 'waa_kind_0_tm_4_2021_eligible_nth', 'waa_kind_4_tm_18_2021_eligible_nth', 'adults_nth'];
-    $ctrl.numberKeys = ['tax_id'];
-    $ctrl.currencyKeys = ['net_worth', 'base_salary'];
-    $ctrl.checkboxKeys = ['children', 'kindpakket_eligible', 'kindpakket_2018_eligible'];
-
     $ctrl.contactInformation = '';
     $ctrl.contactInformationError = null;
     $ctrl.steps = [];
-
-    const $transRecordCheckbox = (criteria_record_key, value) => {
-        const trans_key = 'fund_request.sign_up.record_checkbox.' + criteria_record_key;
-        const translated = $trans(trans_key, { value });
-        const trans_fallback_key = 'fund_request.sign_up.record_checkbox.default';
-
-        return translated === trans_key ? $trans(trans_fallback_key, { value: value }) : translated;
-    };
 
     const formDataBuild = (criteria) => {
         return {
@@ -153,8 +137,8 @@ const FundRequestComponent = function (
                 '=': 'same',
                 '*': 'any'
             }[criterion.operator] || '';
-
-            const isCurrency = $ctrl.currencyKeys.includes(record_type?.key);
+            
+            const isCurrency = FundService.getCurencyKeys().includes(record_type?.key);
 
             const value = record_type.type == 'select' ?
                 (record_type.options.find((option) => option.value == criterion.value)?.name || '') :
@@ -212,53 +196,16 @@ const FundRequestComponent = function (
         for (let i = 0; i < criteria.length; i++) {
             const criterion = criteria[i];
 
-            const control_type_default = 'ui_control_text';
-            const control_type_base = {
-                'bool': 'ui_control_checkbox',
-                'date': 'ui_control_date',
-                'string': 'ui_control_text',
-                'email': 'ui_control_text',
-                'bsn': 'ui_control_number',
-                'iban': 'ui_control_text',
-                'number': 'ui_control_number',
-                'select': 'select_control',
-            }[criterion.record_type.type];
-
-            const control_type_key = {
-                // checkboxes
-                ...$ctrl.checkboxKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_checkbox' }), {}),
-                // stepper
-                ...$ctrl.stepKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_step' }), {}),
-                // currency
-                ...$ctrl.currencyKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_currency' }), {}),
-                // numbers
-                ...$ctrl.numberKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_number' }), {}),
-                // dates
-                ...$ctrl.dateKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_date' }), {}),
-            }[criterion.record_type.key] || null;
-
-            const control_type = ((criterion.record_type.type == 'string') && (criterion.operator == '=')) ?
-                'ui_control_checkbox' :
-                control_type_key || control_type_base || control_type_default;
-
-            const control_type_default_value = {
-                ui_control_checkbox: null,
-                ui_control_date: format(new Date(), 'dd-MM-yyyy'),
-                ui_control_step: criterion?.record_type?.key == 'adults_nth' ? 1 : 0,
-                ui_control_number: undefined,
-                ui_control_currency: undefined,
-                ui_control_text: '',
-            }[control_type];
-
             criterion.record_type.options_by_value = criterion?.record_type?.options.reduce((list, option) => {
                 return { ...list, [option.value]: option };
             }, {});
 
             criterion.title_default = $ctrl.criterionTitle(criterion);
             criterion.files = [];
-            criterion.label = $transRecordCheckbox(criterion.record_type.key, criterion.value);
-            criterion.input_value = control_type_default_value;
-            criterion.control_type = control_type;
+
+            criterion.label = FundService.getCriterionLabelValue(criterion.record_type, criterion.value);
+            criterion.input_value = FundService.getCriterionControlDefaultValue(criterion.record_type, criterion.operator);
+            criterion.control_type = FundService.getCriterionControlType(criterion.record_type, criterion.operator);
             criterion.description_html = $sce.trustAsHtml(criterion.description_html);
         }
 
