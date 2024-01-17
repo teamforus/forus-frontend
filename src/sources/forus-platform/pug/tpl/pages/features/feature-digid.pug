@@ -7,5 +7,170 @@
 
         block-feature(feature="$ctrl.feature")
 
-        //- TODO: Replace with the actual template
-        block-empty(title="{{ $ctrl.feature.name }}" text="{{ $ctrl.feature.description }}")
+        .card
+            .card-header: .card-title Beschrijving
+            .card-section: .block.block-content
+                p
+                    | Forus faciliteert de uitgifte van sociale regelingen en maakt gebruik van integratie met DigiD.
+                    | Gebruikers kunnen via DigiD inloggen om regelingen aan te vragen of te activeren.
+                p
+                    | DigiD, als een veilig en betrouwbaar middel voor digitale identificatie,
+                    | verleent inwoners toegang tot de online dienstverlening. Het biedt gebruikers een
+                    | handige en veilige manier om in te loggen op het platform en dient tevens als digitale
+                    | identificatiemethode voor reeds toegewezen tegemoetkomingen.
+                p
+                    | De DigiD-integratie is gekoppeld aan het SAML-koppelvlak en wordt geleverd met een Third Party Memorandum (TPM) verklaring.
+
+                img(src="/assets/img/features/img/digid/banner.jpg")
+
+                h3 Belangrijkste voordelen
+
+                p De koppeling van DigiD met Forus biedt verschillende voordelen:
+
+                .block.block-feature-icons
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/digid/icon-1.svg
+
+                        h4 Makkelijk en veilig inloggen
+                        p
+                            | Gebruikers kunnen gemakkelijk en veilig inloggen, waardoor ze veilige toegang
+                            | hebben tot de webshop en diensten met behulp van DigiD.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/digid/icon-2.svg
+
+                        h4 Digitale identificatie
+                        p Met DigiD kunnen gebruikers aanvragen indienen, wat zorgt voor een naadloze identificatie bij het proces.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/digid/icon-3.svg
+
+                        h4 Efficiënte verwerking van aanvragen
+                        p
+                            | De integratie met DigiD zorgt voor een efficiënte verwerking van aanvragen door toegang
+                            | te verlenen tot de BRP-gegevens van de aanvrager via BSN.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/digid/icon-4.svg
+
+                        h4 Gebruiksvriendelijkheid voor inwoners
+                        p
+                            | Voor inwoners wordt de gebruiksvriendelijkheid vergroot doordat ze na het inloggen
+                            | direct toegang hebben tot hun reeds toegewezen tegoeden.
+
+
+                .block.block-feature-steps
+                    .block-feature-steps-title Het aansluitingsproces van DigiD op het Forus-platform
+                    .block-feature-steps-items
+                        .block-feature-steps-item
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/digid/icon-step-1.svg
+
+                            .block-feature-steps-content
+                                h4
+                                    span Stap #1
+                                    span.block-feature-steps-item-dot
+                                    span Aansluiting
+                                p
+                                    | De noodzakelijke stappen worden uiteengezet in een handleiding. De initiële DigiD-test
+                                    | wordt in een 'oefenomgeving' uitgevoerd, waarna de daadwerkelijke koppeling kan worden aangevraagd.
+
+                        .block-feature-steps-item
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/digid/icon-step-2.svg
+
+                            .block-feature-steps-content
+                                h4
+                                    span Stap #2
+                                    span.block-feature-steps-item-dot
+                                    span Testomgeving
+                                p
+                                    | Het testen wordt uitgevoerd in een speciale testomgeving met DigiD.
+                                    | Dit heeft als voordeel dat het kan worden gebruikt voor diverse toepassingen.
+                                    | Implementatie kan gebruik maken van een beperkt aantal test-DigiD-accounts.
+
+                        .block-feature-steps-item
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/digid/icon-step-3.svg
+
+                            .block-feature-steps-content
+                                h4
+                                    span Stap #3
+                                    span.block-feature-steps-item-dot
+                                    span Testen
+                                p
+                                    | Voor testen kunnen DigiD-testaccounts worden aangevraagd via Forus.
+                                    | Regels gelden voor gebruik en e-mailadres moet nieuw zijn. Na testen blijft DigiD bruikbaar.
+
+                        .block-feature-steps-item
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/digid/icon-step-4.svg
+
+                            .block-feature-steps-content
+                                h4
+                                    span Stap #4
+                                    span.block-feature-steps-item-dot
+                                    span Productie
+                                p
+                                    | Na succesvolle testfase kan een koppeling worden aangevraagd.
+                                    | Logius verwerkt deze aanvraag en zorgt voor correcte werking.
+                                    | Binnen 2 maanden na activering vindt veiligheidsonderzoek plaats.
+
+
+                .block.block-feature-text-image-columns
+                    .block-feature-text-image-columns-description
+                        h4 Over DigiD
+                        p
+                            | DigiD is een digitale identificatiemethode die als standaard wordt gebruikt bij de Nederlandse overheidsorganisaties.
+                            | Het stelt gebruikers in staat om zich online te identificeren bij verschillende overheidsinstanties
+                            | en andere organisaties. DigiD verifieert de identiteit van gebruikers en biedt toegang tot persoonlijke
+                            | online diensten, zoals het aanvragen van toeslagen, inloggen op overheidswebsites, en meer.
+                            | Alleen instellingen die wettelijk gemachtigd zijn om burgerservicenummers te verifiëren, maken gebruik van DigiD.
+                            | Dit betreft overheidsinstanties of entiteiten met een publieke rol, zoals: ministeries en gemeenten, pensioenfondsen.
+
+                    .block-feature-text-image-columns-img
+                        img(src="/assets/img/features/img/digid/image-text-block.jpg")
+
+            .card-info
+                .card-info-icon.mdi.mdi-headset
+                .card-info-details: span
+                    | Mocht u nog vragen hebben of wilt u aanvullende informatie dan kunt u ons
+                    | bellen op: #[strong +31 (0) 85 004 33 87] of contact opnemen via e-mail #[strong info@forus.io]
+
+        .card
+            .card-header(ng-if="$ctrl.additionalFeatures.length")
+                .card-title Andere modules die u misschien interessant vindt
+
+            .card-section(ng-if="$ctrl.additionalFeatures.length")
+                .block.block-features
+                    .features-list
+                        a.features-list-item(
+                            ng-repeat="feature in $ctrl.additionalFeatures"
+                            ui-sref="feature(feature.srefParams)")
+
+                            .features-list-item-icon: img(ng-src="/assets/img/features/icons/{{ feature.key }}.svg")
+                            .features-list-item-content
+                                .features-list-item-title
+                                    span(ng-bind="feature.name")
+                                    .features-label.active(ng-if="feature.enabled") Actief
+                                .features-list-item-details(ng-bind="feature.description")
+                                .features-labels
+                                    .features-label(ng-repeat="label in feature.labels" ng-bind="label")
+
+            .card-section
+                .block.block-features-demo-banner(
+                    style="background-image: url(/assets/img/features/img/digid/banner-action-bg.jpg);"
+                )
+                    .features-demo-banner-info-wrapper
+                        .features-demo-banner-info
+                            .features-demo-banner-title De DigiD-integratie uitproberen
+                            .features-demo-banner-details
+                                | Wilt u zien hoe de DigiD-koppeling werkt? Neem dan contact met ons op
+                                | voor een persoonlijke demonstratie. We laten u graag zien hoe het voor u kan werken.
+
+                        .features-demo-banner-action
+                            a(ui-sref="features({organization_id: $ctrl.organization.id})").button.button-primary Demo aanvragen

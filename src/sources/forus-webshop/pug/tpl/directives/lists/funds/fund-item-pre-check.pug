@@ -1,0 +1,117 @@
+.fund-item(ng-class="{'fund-item-child' : $dir.fund.parent, 'fund-item-parent' : $dir.fund.children.length > 0}")
+    .fund-content(ng-class="{'fund-content-expanded' : $dir.showMoreRequestInfo}")
+        .fund-photo: img(
+            ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || './assets/img/placeholders/fund-thumbnail.png' }}"
+            alt="Dit is de afbeelding van {{ $dir.fund.name }}")
+
+        .fund-details
+            h2.fund-name: a(ui-sref="fund($dir.fund)" ng-bind="$dir.fund.name")
+
+            .fund-description(ng-if="$dir.fund.description_short")
+                span(ng-if="!$dir.showMore" ng-bind="$dir.fund.description_short | str_limit:190")
+                span(id="fund_description_short" ng-if="$dir.showMore" ng-bind="$dir.fund.description_short")
+                br
+
+                button.button.button-text.button-xs(
+                    ng-if="!$dir.showMore && $dir.fund.description_short.length > 190" 
+                    ng-click="$dir.showMore = true"
+                    aria-expanded="{{ $dir.showMore && $dir.fund.description_short.length > 190 }}"
+                    aria-controls="fund_description_short").fund-description-more
+                    | Toon meer
+                    em.mdi.mdi-chevron-down.icon-right
+
+                button.button.button-text.button-xs(
+                    ng-if="$dir.showMore && $dir.fund.description_short.length > 190" 
+                    ng-click="$dir.showMore = false"
+                    aria-expanded="{{ $dir.showMore && $dir.fund.description_short.length > 190 }}"
+                    aria-controls="fund_description_short").fund-description-more 
+                    | Toon minder
+                    em.mdi.mdi-chevron-up.icon-right
+
+        .fund-related-funds-block(ng-if="$dir.fund.children.length > 0")
+            .fund-related-funds-description 
+                | Voordat u dit budget kunt aanvragen dient u een aanvraag te doen voor de volgende budgetten, 
+                | moet u een ander fonds aanvragen uit de onderstaande lijst:
+            ul.fund-related-funds-list(ng-repeat="children in $dir.fund.children")
+                li.fund-related-funds-list-item(ng-bind="children.name")
+
+        .fund-related-funds-block.fund-related-funds-block-parent(ng-if="$dir.fund.parent")
+            .fund-related-funds-description 
+                | Diam viverra diam at neque mollis eros sapien nibh pellentesque ut eget odio viverra 
+                | ut morbi gravida elementum mauris pretium amet, a sagittis
+            ul.fund-related-funds-list
+                li.fund-related-funds-list-item(ng-bind="$dir.fund.parent.name")
+
+    .fund-actions(ng-class="{expanded : $dir.showMoreRequestInfo}")
+        .fund-request-block
+            .fund-request-block-progress
+                .fund-request-block-progress-title(ng-bind="$dir.progressStatusTitle")
+                .fund-request-block-progress-bar
+                    .fund-request-block-progress-bar-completed(style="width: {{ $dir.criteriaValidPercentage }}%")
+
+            .fund-request-block-button: button.button.button-primary.button-sm(
+                type="button"
+                ng-disabled="!$dir.fund.allow_direct_requests"
+                ng-click="$dir.applyFund($event, $dir.fund)")
+                translate Direct aanvragen 
+                em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
+
+        .fund-totals-block
+            .fund-totals-block-amount
+                .fund-totals-block-amount-description Totaal
+                .fund-totals-block-amount-value {{ $dir.fund.amount_total_locale }}
+
+            .fund-totals-block-show-details
+                button.button.button-text.button-xs(
+                    ng-if="!$dir.showMoreRequestInfo" 
+                    ng-click="$dir.showMoreRequestInfo = true"
+                    aria-expanded="{{ $dir.showMoreRequestInfo }}"
+                    aria-controls="fund_request_details") 
+                    | Toon meer
+                    em.mdi.mdi-chevron-down.icon-right
+
+                button.button.button-text.button-xs(
+                    ng-if="$dir.showMoreRequestInfo" 
+                    ng-click="$dir.showMoreRequestInfo = false"
+                    aria-expanded="{{ $dir.showMoreRequestInfo }}"
+                    aria-controls="fund_request_details") 
+                    | Toon minder
+                    em.mdi.mdi-chevron-up.icon-right
+
+    .fund-pre-check-info-block(ng-if="$dir.showMoreRequestInfo"): .fund-pre-check-info-wrapper
+        .fund-pre-check-info-col
+            .fund-pre-check-info-col-title Voorwaarden
+            .fund-pre-check-info-col-list
+                .fund-pre-check-info-col-list-item(
+                    ng-repeat="criterion in $dir.fund.criteria" 
+                    ng-class="{valid: criterion.is_valid}") 
+
+                    em.mdi.mdi-check-circle 
+                    span(ng-bind="criterion.name")
+                    | &nbsp;
+                    span(ng-bind="criterion.value")
+
+        .fund-pre-check-info-col
+            .fund-pre-check-info-col-title Berekening
+            table.fund-pre-check-info-col-table
+                tr
+                    td.description Per gezin
+                    td.value 1x {{ $dir.fund.amount_for_identity_locale }}
+
+                //- todo: find out what this is
+                //- tr
+                    td 
+                    td.value 1x 1 Voucher
+
+                tr: td(colspan="2"): br    
+
+                tr
+                    td.description Per kind
+                    td.value {{ $dir.fund.identity_multiplier + '' }}x {{ $dir.fund.amount_for_identity_locale }}
+
+                tr: td(colspan="2"): br   
+
+            .fund-pre-check-info-col-amount 
+                .fund-pre-check-info-col-amount-title Totaal
+                .fund-pre-check-info-col-amount-description {{ $dir.fund.amount_total_locale  }}
+
