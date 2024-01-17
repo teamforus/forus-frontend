@@ -1,8 +1,9 @@
-const SearchResultComponent = function(
-    $rootScope,
+const SearchResultComponent = function (
     $state,
+    $timeout,
+    $rootScope,
     $stateParams,
-    SearchService
+    SearchService,
 ) {
     const $ctrl = this;
 
@@ -98,7 +99,7 @@ const SearchResultComponent = function(
         $ctrl.updateState({ ...$ctrl.buildQuery($ctrl.filters), ...{ page: values.page } });
     };
 
-    $ctrl.transformItems = function(items, stateParams) {
+    $ctrl.transformItems = function (items, stateParams) {
         return {
             ...items,
             ...{ data: items.data.map((item) => ({ ...item, ...{ searchData: stateParams } })) }
@@ -110,10 +111,20 @@ const SearchResultComponent = function(
     };
 
     $ctrl.updateState = (query) => {
+        const searchInput = document.querySelector('#genericSearch');
         const stateParams = $ctrl.getStateParams(query);
+        const searchInputFocused = searchInput?.contains(document.activeElement);
 
         $ctrl.doSearch(query, stateParams).then(() => {
-            $state.transitionTo($state.$current.name, stateParams, { notify: false, location: 'replace', reload: false });
+            $state.transitionTo($state.$current.name, stateParams, {
+                notify: false,
+                reload: false,
+                location: 'replace',
+            });
+
+            if (searchInputFocused) {
+                $timeout(() => searchInput?.focus(), 10);
+            }
         });
     };
 
@@ -178,11 +189,12 @@ module.exports = {
         productCategories: '<',
     },
     controller: [
-        '$rootScope',
         '$state',
+        '$timeout',
+        '$rootScope',
         '$stateParams',
         'SearchService',
-        SearchResultComponent
+        SearchResultComponent,
     ],
-    templateUrl: 'assets/tpl/pages/search-result.html'
+    templateUrl: 'assets/tpl/pages/search-result.html',
 };

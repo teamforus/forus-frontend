@@ -49,6 +49,7 @@
     @import 'blocks/block-banner-picker.scss';
     @import 'blocks/block-markdownable.scss';
     @import 'blocks/block-markdown.scss';
+    @import 'blocks/block-switch-table.scss';
     @import 'blocks/block-system-notification-editor.scss';
     @import 'blocks/block-mail_preview.scss';
     @import 'blocks/block-photo-selector-notifications.scss';
@@ -63,17 +64,26 @@
     @import 'blocks/block-bi-info.scss';
     @import 'blocks/block-pincode.scss';
     @import 'blocks/block-voucher-records-editor.scss';
-    @import 'blocks/block-features-overview.scss';
-    @import 'blocks/block-features-demo-banner.scss';
     @import 'blocks/block-content.scss';
-    @import 'blocks/block-features.scss';
-    @import 'blocks/block-feature.scss';
-    @import 'blocks/block-feature-faq.scss';
+    
+    // Marketplace feature blocks
+    @import 'blocks/marketplace-features/block-features-overview.scss';
+    @import 'blocks/marketplace-features/block-features-demo-banner.scss';
+    @import 'blocks/marketplace-features/block-feature-icons.scss';
+    @import 'blocks/marketplace-features/block-feature-steps.scss';
+    @import 'blocks/marketplace-features/block-feature-list.scss';
+    @import 'blocks/marketplace-features/block-feature-text-image-columns.scss';
+    @import 'blocks/marketplace-features/block-features.scss';
+    @import 'blocks/marketplace-features/block-feature.scss';
+    @import 'blocks/marketplace-features/block-feature-faq.scss';
+
     @import 'blocks/block-payment-connection.scss';
+    @import 'blocks/block-pre-checks-blocks-editor';
 }
 
 // Select controls
 .select-control {
+    @import 'select-controls/select-control-funds';
     @import 'select-controls/select-control-organizations';
 }
 
@@ -1433,28 +1443,6 @@ body {
 
         &:last-child {
             margin-bottom: 0;
-        }
-    }
-
-    &.card-block-table-fund {
-        .fund-img {
-            float: left;
-            display: block;
-            width: 24px;
-            height: 24px;
-            border: 1px solid #e7e7e7;
-            border-radius: 24px;
-            overflow: hidden;
-            margin-right: 15px;
-
-            img {
-                width: 100%;
-                display: block;
-            }
-        }
-
-        .fund-title {
-            color: #004195;
         }
     }
 
@@ -3311,7 +3299,7 @@ body {
         .tooltip-content {
             font: 500 13px/20px var(--base-font);
             display: none;
-            padding: 15px;
+            padding: 8px 15px;
             background: #fff;
             box-shadow: 2.5px 5px 10px rgba($color: #000000, $alpha: .1);
             border: 1px solid var(--border-color);
@@ -4654,6 +4642,32 @@ body {
             }
         }
 
+        .inline-filter-control {
+            width: 180px !important;
+
+            .select-control-input {
+                label.form-control:not([type=radio]):not([type=checkbox]) {
+                    padding-left: 7.5px;
+                    font-size: 12px;
+                    line-height: 28px;
+    
+                    .select-control-search-placeholder-media {
+                        margin: 4px 0;
+                    }
+                }
+
+                .select-control-search-container .select-control-search-clear {
+                    line-height: 18px;
+                }
+            } 
+
+            .select-control-options {
+                .select-control-option {
+                    padding-left: 7.5px;
+                }
+            }
+        }
+
         .form {
             display: flex;
             margin-right: 10px;
@@ -4694,7 +4708,7 @@ body {
 
                         .select-control-options {
                             .select-control-option {
-                                height: 30px;
+                                --option-height: 35px;
                                 color: #353535;
                                 font: 500 12px/20px var(--base-font);
                             }
@@ -4820,8 +4834,9 @@ body {
                                 }
 
                                 .select-control-options {
+                                    --option-height: 35px;
+
                                     .select-control-option {
-                                        height: 30px;
                                         color: #353535;
                                         font: 500 12px/20px var(--base-font);
                                     }
@@ -6210,68 +6225,6 @@ body {
                     color: var(--text-color);
                     font: 500 13px/20px var(--base-font);
                 }
-            }
-        }
-    }
-
-    &.block-switch-table {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        background: #fff;
-        cursor: default;
-        max-height: 300px;
-        overflow: auto;
-        @include webkit_scrollbar();
-
-        .switch-row {
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            cursor: pointer;
-            
-            .switch-label {
-                font: 600 13px/20px var(--base-font);
-                color: var(--text-color);
-                padding: 12.5px 20px 11.5px;
-                flex-grow: 1;
-                display: flex;
-                flex-direction: row;
-                
-                .switch-key-icon {
-                    font-size: 1.2em;
-                    margin-right: 5px;
-                    line-height: 20px;
-                }
-            }
-            
-            .switch-input {
-                font: 600 13px/20px var(--base-font);
-                color: var(--text-color);
-                padding: 12.5px 20px 11.5px;
-                display: flex;
-                flex-direction: row;
-                white-space: nowrap;
-                overflow: hidden;
-
-                .switch-input-label {
-                    opacity: 1;
-                    transition: opacity .4s;
-                    cursor: pointer;
-
-                    &.switch-input-label-blink {
-                        opacity: 0;
-                    }
-                }
-            }
-
-            &:last-child {
-                border-bottom: none;
-            }
-
-            &.switch-row-disabled {
-                cursor: default;
             }
         }
     }
