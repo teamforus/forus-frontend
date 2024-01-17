@@ -103,8 +103,17 @@ main(id="main-content")
 
     .page.page-home(ng-if="$root.appConfigs.features.show_home_products || $root.appConfigs.features.show_home_map")
         div(ng-if="$root.appConfigs.features.show_home_products")
-            .wrapper(ng-if="$ctrl.products.data.length > 0"): block-products(products="$ctrl.products.data" type="budget" display="grid")
-            .wrapper(ng-if="$ctrl.subsidies.data.length > 0"): block-products(products="$ctrl.subsidies.data" type="subsidies" display="grid")
+            .wrapper(ng-if="$ctrl.products.data.length > 0"): block-products(
+                products="$ctrl.products.data" 
+                type="budget" 
+                large="true"
+                display="grid")
+
+            .wrapper(ng-if="$ctrl.subsidies.data.length > 0"): block-products(
+                products="$ctrl.subsidies.data" 
+                type="subsidies" 
+                large="true"
+                display="grid")
 
         section.section.section-map(ng-if="$root.appConfigs.features.show_home_map" id="map_block"): .wrapper
             .block.block-map
