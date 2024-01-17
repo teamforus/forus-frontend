@@ -9,7 +9,7 @@
         .reservation-content
             mixin cancelButton()
                 button.button.button-light.button-xs(
-                    ng-if="$dir.reservation.cancelable"
+                    ng-if="$dir.reservation.cancelable || ['accepted','pending','waiting'].includes($dir.reservation.state)"
                     dusk="btnCancelReservation"
                     type="button"
                     ng-click="$dir.cancelReservation($event, $dir.reservation)")
