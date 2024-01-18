@@ -64,12 +64,19 @@
     @import 'blocks/block-bi-info.scss';
     @import 'blocks/block-pincode.scss';
     @import 'blocks/block-voucher-records-editor.scss';
-    @import 'blocks/block-features-overview.scss';
-    @import 'blocks/block-features-demo-banner.scss';
     @import 'blocks/block-content.scss';
-    @import 'blocks/block-features.scss';
-    @import 'blocks/block-feature.scss';
-    @import 'blocks/block-feature-faq.scss';
+    
+    // Marketplace feature blocks
+    @import 'blocks/marketplace-features/block-features-overview.scss';
+    @import 'blocks/marketplace-features/block-features-demo-banner.scss';
+    @import 'blocks/marketplace-features/block-feature-icons.scss';
+    @import 'blocks/marketplace-features/block-feature-steps.scss';
+    @import 'blocks/marketplace-features/block-feature-list.scss';
+    @import 'blocks/marketplace-features/block-feature-text-image-columns.scss';
+    @import 'blocks/marketplace-features/block-features.scss';
+    @import 'blocks/marketplace-features/block-feature.scss';
+    @import 'blocks/marketplace-features/block-feature-faq.scss';
+
     @import 'blocks/block-payment-connection.scss';
     @import 'blocks/block-pre-checks-blocks-editor';
 }
@@ -90,6 +97,7 @@
     @import 'modals/modal-photo-upload.scss';
     @import 'modals/modal-physical-cards.scss';
     @import 'modals/modal-voucher-transaction.scss';
+    @import 'modals/modal-pin-code.scss';
 }
 
 html, body {
@@ -1435,28 +1443,6 @@ body {
 
         &:last-child {
             margin-bottom: 0;
-        }
-    }
-
-    &.card-block-table-fund {
-        .fund-img {
-            float: left;
-            display: block;
-            width: 24px;
-            height: 24px;
-            border: 1px solid #e7e7e7;
-            border-radius: 24px;
-            overflow: hidden;
-            margin-right: 15px;
-
-            img {
-                width: 100%;
-                display: block;
-            }
-        }
-
-        .fund-title {
-            color: #004195;
         }
     }
 
