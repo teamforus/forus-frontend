@@ -1,6 +1,27 @@
 .app.app-container
     menu
     section.app.app-content
+        .card: .card-block.card-block-requests(
+            ng-class="'card-block-requests' + ($ctrl.requestsExpired > 0 ? '-danger' : ($ctrl.requestsPending > 0 ? '-warning' : ''))" 
+            ng-if="$ctrl.requests > 0")
+
+            a.card-section.flex(ui-sref="sponsor-fund-unsubscriptions({ organization_id: $ctrl.organization.id})")
+                .card-heading(ng-if="$ctrl.requestsExpired > 0")
+                    em.mdi.mdi-alert
+                    | Urgente afmeldingen ({{ $ctrl.requestsExpired }})
+
+                .card-heading(ng-if="($ctrl.requestsExpired == 0) && ($ctrl.requestsPending > 0)")
+                    em.mdi.mdi-alert-circle
+                    | Afmeldingen ({{ $ctrl.requestsPending }})
+
+                .card-heading(ng-if="($ctrl.requestsExpired == 0) && ($ctrl.requestsPending == 0)")
+                    em.mdi.mdi-alert-circle
+                    | Geen nieuwe afmeldingen
+
+                .button.button-text.pull-right(ui-sref="sponsor-fund-unsubscriptions({ organization_id: $ctrl.organization.id})")
+                    | Bekijken
+                    em.mdi.mdi-arrow-right.icon-end
+
         .card
             .card-header: .flex
                 .flex.flex-grow: .card-title
