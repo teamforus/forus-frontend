@@ -1,42 +1,30 @@
+//- Product item
 a.product-item(dusk="productItem")
+    //- Product photo
     .product-photo: img(
-        ng-src="{{ $dir.productImgSrc }}" 
+        ng-src="{{ $dir.product.photo.sizes.thumbnail || './assets/img/placeholders/product-thumbnail.png' }}" 
         alt="{{ $dir.product.alternative_text }}")
 
-    mixin bookmark_toggle()
-        .block.block-bookmark-toggle(
-            ng-if="$root.auth_user"
-            ng-click="$dir.toggleBookmark($event)"
-            ng-class="$dir.product.bookmarked ? 'active' : ''"
-            aria-label="toevoegen aan verlanglijstje"
-            aria-pressed="{{ $dir.product.bookmarked }}")
-                .mdi.mdi-cards-heart
-
-    //- Products
-    .product-content(ng-if="$dir.productType == 'budget'")
+    //- Product content
+    .product-content
+        //- Product details
         .product-details
-            h2.product-name(ng-bind="$dir.product.name" dusk="productName")
-            .product-organization(ng-bind="$dir.product.organization.name")
+            //- Title
+            h2.product-title(ng-bind="$dir.product.name" dusk="productName")
 
+            //- Subtitle
+            .product-subtitle(ng-bind="$dir.product.organization.name")
+
+            //- Price
+            .product-price(ng-bind="$dir.productPrice")
+
+        //- Actions
         .product-actions
-            .product-price(ng-bind="$dir.product.price_locale")
-
-        +bookmark_toggle()
-
-    //- Subsidies
-    .product-content(ng-if="$dir.productType == 'subsidies'")
-        .product-details
-            h2.product-name(ng-bind="$dir.product.name" dusk="productName")
-            .product-provider(ng-bind="$dir.product.organization.name")
-
-        .product-actions
-            .product-price(
-                ng-if="$dir.product.price_type === 'regular' && $dir.product.price_min == 0") Gratis
-
-            .product-price(
-                ng-if="$dir.product.price_type === 'regular' && $dir.product.price_min != 0" 
-                ng-bind="$dir.product.price_min_locale")
-            
-            .product-price(ng-if="$dir.product.price_type !== 'regular'" ng-bind="$dir.product.price_locale")
-
-        +bookmark_toggle()
+            //- Product bookmark toggle
+            .block.block-bookmark-toggle(
+                ng-if="$root.auth_user"
+                ng-click="$dir.toggleBookmark($event)"
+                ng-class="$dir.product.bookmarked ? 'active' : ''"
+                aria-label="toevoegen aan verlanglijstje"
+                aria-pressed="{{ $dir.product.bookmarked }}")
+                    .mdi.mdi-cards-heart

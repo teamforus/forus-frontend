@@ -113,10 +113,19 @@
                         flex-direction: column;
                     }
 
+                    .reservation-name,
+                    .reservation-organization {
+                        padding-right: 20px;
+
+                        a {
+                            font: inherit;
+                        }
+                    }
+
                     .reservation-name {
                         font: 700 18px/27px var(--hf);
                         display: block;
-                        margin: 0 0 5px;
+                        margin: 0 0 5px 0;
                         color: #00122a;
                         width: fit-content;
                         transition: color .4s;
@@ -278,6 +287,11 @@
                     gap: 0;
 
                     .reservation-section {
+                        .reservation-name,
+                        .reservation-organization {
+                            padding-right: 0;
+                        }
+
                         .reservation-name {
                             font: 600 14px/20px var(--base-font);
                         }

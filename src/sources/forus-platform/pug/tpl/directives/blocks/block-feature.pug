@@ -3,11 +3,12 @@
     .block-feature-info
         .block-feature-title
             span(ng-bind="$dir.feature.name")
-            .block-feature-label.active(ng-if="$dir.feature.enabled") Active
+            .block-feature-label.active(ng-if="$dir.feature.enabled") Actief
 
         .block-feature-details(ng-bind="$dir.feature.description")
-        .block-feature-label(ng-bind="$dir.feature.label")
+        .block-feature-labels
+            .block-feature-label(ng-repeat="label in $dir.feature.labels" ng-bind="label")
 
         .button-group
-            .button.button-primary.button-sm(ng-click="$dir.openContactModal()") Contact Sales
-            .button.button-default.button-sm Check Helpcenter Articles
+            .button.button-primary.button-sm(ng-click="$dir.openContactModal()") Contact opnemen
+            .button.button-default.button-sm Helpcenter-artikelen bekijken
