@@ -127,18 +127,26 @@
                         display: block;
                         margin: 0 0 5px 0;
                         color: #00122a;
-                        word-break: break-word;
+                        width: fit-content;
+                        transition: color .4s;
+
+                        &:hover {
+                            color: #535561;
+                            text-decoration: underline;
+                        }
                     }
 
                     .reservation-organization {
-                        font: 400 14px/22px var(--base-font);
+                        font: 600 14px/22px var(--base-font);
                         color: #282b39;
                         margin-bottom: 10px;
-                        word-break: break-word;
-                        text-wrap: wrap;
+                        width: fit-content;
+                        transition: color .4s;
+                        text-decoration: underline;
 
-                        a {
-                            font: inherit;
+                        &:hover {
+                            color: #535561;
+                            text-decoration: none;
                         }
                     }
 
