@@ -164,7 +164,7 @@
                                 em.mdi.mdi-check
 
                             button.button.button-sm.button-danger.button-icon(
-                                ng-if="reservation.state === 'pending'"
+                                ng-if="reservation.allowRejectReservation"
                                 ng-click="$ctrl.rejectReservation(reservation)")
                                 em.mdi.mdi-close
 

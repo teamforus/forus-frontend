@@ -146,6 +146,10 @@ const ProductReservationService = function (
                 (!reservation.extra_payment || reservation.extra_payment.state == 'paid') &&
                 (!reservation.extra_payment || !reservation.extra_payment.is_fully_refunded);
         };
+
+        this.rejectAllowed = (reservation) => {
+            return reservation && !reservation.expired && reservation.state === 'pending';
+        };
     });
 };
 

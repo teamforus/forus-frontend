@@ -25,6 +25,10 @@ const ImplementationService = function(ApiRequest) {
         this.updateEmailBranding = (organization_id, id, data) => {
             return ApiRequest.patch(`${uriPrefix}${organization_id}/implementations/${id}/email-branding`, data);
         };
+
+        this.updatePreCheckBanner = (organization_id, id, data) => {
+            return ApiRequest.patch(`${uriPrefix}${organization_id}/implementations/${id}/pre-check-banner`, data);
+        };
     });
 };
 

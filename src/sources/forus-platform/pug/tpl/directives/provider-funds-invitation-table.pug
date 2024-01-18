@@ -21,7 +21,7 @@
 
     //- Vouchers list
     .card-section(ng-if="$dir.invitations.data.length > 0")
-        .card-block.card-block-table.card-block-table-fund.form
+        .card-block.card-block-table.form
             .table-wrapper
                 table.table
                     tr
@@ -49,7 +49,7 @@
                             .collapsable-content
                                 .text-primary.text-medium(ng-bind="invitation.fund.name | str_limit:40")
                                 a.text-strong.text-md.text-muted-dark.text-inherit(
-                                    href="{{ invitation.fund.implementation.url_webshop }}" 
+                                    href="{{ invitation.fund.implementation.url_webshop }}"
                                     target="_blank"
                                     ng-bind="invitation.fund.implementation.name | str_limit:40")
 

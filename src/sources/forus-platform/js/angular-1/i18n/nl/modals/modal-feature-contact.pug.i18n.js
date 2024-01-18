@@ -1,8 +1,8 @@
 module.exports = {
-    title: "Contact sales",
+    title: "Contact opnemen",
     modal_section: {
-        title: "Are you interested in our features?",
-        description: "Contact our sales and get all the necessary information about our products!",
+        title: "Wilt u graag ontdekken hoe onze Modules werken?",
+        description: "Neem gerust contact met ons op en ontvang alle benodigde informatie over onze producten.",
         phone: {
             title: "Telefoon",
         },
