@@ -34,6 +34,13 @@
                                 placeholder="{{ 'provider_funds.filters.labels.search' | translate }}").form-control
 
                         .form-group(ng-click="$event.stopPropagation()")
+                            form-label-toggle(label="{{ 'provider_funds.filters.labels.implementations' | translate }}")
+                            .form-offset: select-control(
+                                prop="id"
+                                ng-model="$dir.filters.values.implementation_id"
+                                options="$dir.implementations").form-control
+
+                        .form-group(ng-click="$event.stopPropagation()")
                             form-label-toggle(label="{{ 'provider_funds.filters.labels.organizations' | translate }}")
                             .form-offset: select-control(
                                 prop="id"
@@ -71,14 +78,16 @@
                             checked="$dir.selected.includes(fund.id)"
                             ng-click="$dir.toggle($event, fund)")
 
-                        //- Fund name
-                        td: .td-entity-main
-                            .td-entity-main-media: img.td-media.td-media-sm.td-media-round(
+                        td: .td-collapsable
+                            .collapsable-media: img.td-media.td-media-sm(
                                 ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
 
-                            .td-entity-main-content: .text-strong.text-primary(
-                                ng-bind="fund.name | str_limit:32" 
-                                title="{{ fund.name || '-' }}")
+                            .collapsable-content
+                                .text-primary.text-medium(ng-bind="fund.name | str_limit:32")
+                                a.text-strong.text-md.text-muted-dark.text-inherit(
+                                    href="{{ fund.implementation.url_webshop }}"
+                                    target="_blank"
+                                    ng-bind="fund.implementation.name | str_limit:32")
 
                         td(
                             ng-bind="fund.organization.name | str_limit:25"

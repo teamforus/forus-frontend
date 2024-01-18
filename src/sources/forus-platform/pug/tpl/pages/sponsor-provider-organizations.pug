@@ -49,14 +49,7 @@
                         .inline-filters-dropdown-content(ng-show="$ctrl.filters.show")
                             .arrow-box.bg-dim: .arrow
                             .form
-                                .form-group(ng-click="$event.stopPropagation()")
-                                    form-label-toggle(label="Fondsen")
-                                    .form-offset: select-control(
-                                        prop="id"
-                                        search="false"
-                                        ng-model="$ctrl.filters.values.fund_id"
-                                        options="$ctrl.funds").form-control
-
+                                //- Allow budget filter
                                 .form-group
                                     form-label-toggle(label="Accepteer budget")
                                     .inline-filters-pane
@@ -85,6 +78,7 @@
                                                 .radio-circle
                                                 | Alles
 
+                                //- Allow products filter
                                 .form-group
                                     form-label-toggle(label="Accepteer aanbiedingen")
                                     .inline-filters-pane
@@ -121,6 +115,7 @@
                                                 .radio-circle
                                                 | Alles
 
+                                //- Has products filter
                                 .form-group
                                     form-label-toggle(label="Levert producten")
                                     .inline-filters-pane
@@ -151,6 +146,24 @@
                                                 .radio-circle
                                                 | Alles
 
+                                //- Funds filter
+                                .form-group(ng-click="$event.stopPropagation()")
+                                    form-label-toggle(label="Fondsen")
+                                    .form-offset: select-control(
+                                        prop="id"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.fund_id"
+                                        options="$ctrl.funds").form-control
+
+                                //- Implementation filter 
+                                .form-group(ng-click="$event.stopPropagation()")
+                                    form-label-toggle(label="Implementatie")
+                                    .form-offset: select-control(
+                                        prop="id"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.implementation_id"
+                                        options="$ctrl.implementations").form-control
+                                        
                                 .form-actions
                                     button.button.button-primary.button-wide(
                                         ng-click="$ctrl.exportList()"
@@ -173,13 +186,12 @@
                         td(ng-click="$ctrl.showProviderOrganizationFunds($event, providerOrganization)"): .td-collapsable
                             .collapsable-icon: .mdi.icon-collapse(
                                 ng-class="providerOrganization.fundProviders ? 'mdi-menu-down' : 'mdi-menu-right'")
+                            
+                            .collapsable-media: img.td-media.td-media-sm(
+                                ng-src="{{ providerOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
 
-                            .collapsable-content
-                                img.td-media.td-media-sm(
-                                    ng-src="{{ providerOrganization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
-
-                                .text-primary.text-strong(
-                                    ng-bind="providerOrganization.name | str_limit:40")
+                            .collapsable-content: .text-primary.text-medium(
+                                ng-bind="providerOrganization.name | str_limit:40")
 
                         td(ng-bind="providerOrganization.last_activity_locale")
                         td(ng-bind="providerOrganization.products_count")
@@ -203,13 +215,14 @@
                                 ui-sref="fund-provider(fundProvider.uiViewParams)")
 
                                 td: .td-collapsable
-                                    .collapsable-icon: .mdi
-                                    .collapsable-content
-                                        img.td-media.td-media-sm(
+                                    .collapsable-icon: .mdi &nbsp;
+                                    .collapsable-media: img.td-media.td-media-sm(
                                             ng-src="{{ fundProvider.fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
 
-                                        .text-primary.text-strong(
-                                            ng-bind="fundProvider.fund.name | str_limit:40")
+                                    .collapsable-content
+                                        .text-primary.text-medium(ng-bind="fundProvider.fund.name | str_limit:40")
+                                        .text-strong.text-md.text-muted-dark(ng-bind="fundProvider.fund.implementation.name | str_limit:40")
+
                                 td
                                     .label.label-success(ng-if="fundProvider.state == 'accepted'" ng-bind="fundProvider.state_locale")
                                     .label.label-default(ng-if="fundProvider.state == 'pending'" ng-bind="fundProvider.state_locale")
