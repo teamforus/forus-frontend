@@ -247,16 +247,6 @@
 
                             .form-error(ng-repeat="error in $ctrl.form.errors.reservation_policy" ng-bind="error")
 
-                    //- Allow extra payments
-                    .form-group.form-group-inline(ng-if="$ctrl.organization.allow_extra_payments_by_sponsor")
-                        label(for="reservation_extra_payments" translate="product_edit.labels.extra_payments").form-label
-                        .form-offset
-                            select(
-                                id="reservation_extra_payments"
-                                ng-model="$ctrl.form.values.reservation_extra_payments"
-                                ng-options="option.value as option.label for option in $ctrl.extraPaymentsOptions").form-control
-                            .form-error(ng-repeat="error in $ctrl.form.errors.reservation_extra_payments" ng-bind="error")
-
                     //- Reservation fields enable
                     .form-group.form-group-inline.tooltipped
                         label.form-label Klantgegevens
