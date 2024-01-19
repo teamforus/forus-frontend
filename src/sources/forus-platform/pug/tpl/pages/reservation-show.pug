@@ -48,7 +48,7 @@
                         | Accepteer
 
                     .button.button-danger.button-sm(
-                        ng-if="$ctrl.allowRejectReservation"
+                        ng-if="$ctrl.reservation.rejectable"
                         ng-click="$ctrl.rejectReservation($ctrl.reservation)")
                         em.mdi.mdi-close.icon-start
                         | Weiger
