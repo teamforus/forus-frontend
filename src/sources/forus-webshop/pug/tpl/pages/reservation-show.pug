@@ -68,7 +68,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
 
                                 .reservation-actions
                                     button.button.button-light.button-sm(
-                                        ng-if="$ctrl.reservation.cancelable && !$ctrl.showLoadingBtn"
+                                        ng-if="($ctrl.reservation.cancelable || ['accepted','pending','waiting'].includes($ctrl.reservation.state)) && !$ctrl.showLoadingBtn"
                                         ng-click="$ctrl.cancelReservation()")
                                         em.mdi.mdi-trash-can-outline.icon-start
                                         | {{ "reservation.labels.cancel" | translate }}

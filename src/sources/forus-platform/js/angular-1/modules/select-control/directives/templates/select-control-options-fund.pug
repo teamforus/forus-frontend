@@ -1,0 +1,9 @@
+div: .select-control-options(scroll-end="$dir.onScrolledOption()")
+    .select-control-option(
+        ng-repeat="option in $dir.options track by $index"
+        ng-click="$dir.select(option)"
+        role="option")
+            .select-control-option-media: img(ng-src="{{ option.raw.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+            .ellipsis: span(ng-repeat="str in option.nameFormat track by $index")
+                span(ng-if="$index != 1" ng-bind="str")
+                strong(ng-if="$index == 1" ng-bind="str")

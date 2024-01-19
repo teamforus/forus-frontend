@@ -523,6 +523,25 @@ module.exports = {
         }
     },
 
+    // PRE CHECK FUNDS = funds-pre-check.pug
+    funds_pre_check: {
+        header: {
+            title: "Fund pre-check",
+        },
+        labels: {
+            description_title: "Algemeen",
+            title: "Titel",
+            label: "Label",
+            description: "Omschrijving",
+            status: "Status",
+            implementation: "Implementatie"
+        },
+        buttons: {
+            cancel: "Annuleren",
+            confirm: "Bevestigen",
+        }
+    },
+
     // SHOW FUNDS = funds-show.pug
     funds_show: {
         titles: {

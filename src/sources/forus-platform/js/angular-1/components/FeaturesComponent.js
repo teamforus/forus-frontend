@@ -29,7 +29,7 @@ const FeaturesComponent = function (
 
         $ctrl.active_options = [{
             value: 'all',
-            name: 'All',
+            name: 'Alle',
         }, {
             value: 'active',
             name: `Actief (${active})`,
