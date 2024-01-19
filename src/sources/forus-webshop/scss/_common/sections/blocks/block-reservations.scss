@@ -113,21 +113,40 @@
                         flex-direction: column;
                     }
 
-                    .reservation-name {
-                        font: 700 18px/27px var(--hf);
-                        display: block;
-                        margin: 0 0 5px;
-                        color: #00122a;
-                    }
-
+                    .reservation-name,
                     .reservation-organization {
-                        font: 400 14px/22px var(--base-font);
-                        color: #282b39;
-                        margin-bottom: 10px;
-                        text-wrap: wrap;
+                        padding-right: 20px;
 
                         a {
                             font: inherit;
+                        }
+                    }
+
+                    .reservation-name {
+                        font: 700 18px/27px var(--hf);
+                        display: block;
+                        margin: 0 0 5px 0;
+                        color: #00122a;
+                        width: fit-content;
+                        transition: color .4s;
+
+                        &:hover {
+                            color: #535561;
+                            text-decoration: underline;
+                        }
+                    }
+
+                    .reservation-organization {
+                        font: 600 14px/22px var(--base-font);
+                        color: #282b39;
+                        margin-bottom: 10px;
+                        width: fit-content;
+                        transition: color .4s;
+                        text-decoration: underline;
+
+                        &:hover {
+                            color: #535561;
+                            text-decoration: none;
                         }
                     }
 
@@ -268,6 +287,11 @@
                     gap: 0;
 
                     .reservation-section {
+                        .reservation-name,
+                        .reservation-organization {
+                            padding-right: 0;
+                        }
+
                         .reservation-name {
                             font: 600 14px/20px var(--base-font);
                         }

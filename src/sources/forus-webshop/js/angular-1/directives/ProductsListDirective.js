@@ -1,19 +1,21 @@
 const ProductsListDirective = function($scope) {
     const $dir = $scope.$dir = {};
 
-    const blockClasses = {
-        'budget.grid': 'block-products',
-        'subsidies.grid': 'block-subsidies',
+    const blockClasses = () => ({
+        'budget.grid': `block-products${$dir.large ? ' block-products-lg' : ''}`,
+        'subsidies.grid': `block-products${$dir.large ? ' block-products-lg' : ''}`,
+
         'budget.list': 'block-products-list',
-        'subsidies.list': 'block-subsidies-list',
-    };
+        'subsidies.list': 'block-products-list',
+    });
 
     const init = () => {
         $dir.onToggleBookmark = $scope.onToggleBookmark;
         $dir.type = $scope.type || 'budget';
+        $dir.large = $scope.large || false;
         $dir.display = $scope.display || 'grid';
         $dir.products = $scope.products || [];
-        $dir.blockClass = blockClasses[[$dir.type, $dir.display].join('.')];
+        $dir.blockClass = blockClasses()[[$dir.type, $dir.display].join('.')];
     };
 
     $scope.$watch('products', (value, old) => (old && value != old) && init());
@@ -29,6 +31,7 @@ module.exports = () => {
             onToggleBookmark: '&',
             type: '=',
             display: '=',
+            large: '=',
             products: '=',
         },
         restrict: "EA",

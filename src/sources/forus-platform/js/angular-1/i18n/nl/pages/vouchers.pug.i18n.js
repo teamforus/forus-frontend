@@ -20,7 +20,7 @@ module.exports = {
         voucher_count_per_identity: "Aantal tegoeden",
         expired: "Verlopen",
         email: "E-mailadres",
-        fund: "Fond",
+        fund: "Fonds",
         granted: "Toegewezen",
         used: "In gebruik",
         used_date: 'In gebruik date',

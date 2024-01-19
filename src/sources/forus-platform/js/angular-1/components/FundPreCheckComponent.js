@@ -13,18 +13,18 @@ const FundPreCheckComponent = function (
 
     $ctrl.enableOptions = [{
         key: false,
-        name: `Disabled`,
+        name: `Uitgeschakeld`,
     }, {
         key: true,
-        name: `Enabled`,
+        name: `Actief`,
     }];
 
     $ctrl.bannerStates = [{
         value: 'draft',
-        name: 'Draft',
+        name: 'Ja',
     }, {
         value: 'public',
-        name: 'Public',
+        name: 'Nee',
     }];
 
     $ctrl.steps = [];
@@ -61,14 +61,7 @@ const FundPreCheckComponent = function (
         }).finally(() => PageLoadingBarService.setProgress(100));
     }
 
-    $ctrl.$onInit = function () {
-        $ctrl.implementation = $ctrl.implementations.data[0];
-        $ctrl.thumbnailMedia = $ctrl.implementation?.pre_check_banner;
-
-        if (!$ctrl.implementation) {
-            return;
-        }
-
+    const buildBannerForm = () => {
         $ctrl.bannerForm = FormBuilderService.build({
             pre_check_banner_state: $ctrl.implementation.pre_check_banner_state,
             pre_check_banner_label: $ctrl.implementation.pre_check_banner_label,
@@ -87,12 +80,15 @@ const FundPreCheckComponent = function (
                     PushNotificationsService.danger(res.data?.message || 'Onbekende foutmelding!');
                 }).finally(() => form.unlock());
             });
-        }, true);
+        }, true)
+    };
 
+    const buildPreCheckForm = () => {
         $ctrl.preCheckForm = FormBuilderService.build({
             pre_check_enabled: $ctrl.implementation.pre_check_enabled,
             pre_check_title: $ctrl.implementation.pre_check_title,
             pre_check_description: $ctrl.implementation.pre_check_description,
+            implementation_id: $ctrl.implementation.id,
         }, (form) => {
             PreCheckService.sync($ctrl.organization.id, $ctrl.implementation.id, {
                 ...form.values,
@@ -110,12 +106,33 @@ const FundPreCheckComponent = function (
             }).finally(() => form.unlock());
         }, true);
     };
+
+    const loadPreChecks = () => {
+        PreCheckService.list($ctrl.organization.id, $ctrl.implementation.id).then((res) => {
+            $ctrl.preChecks = res.data.data;
+        });
+    };
+
+    $ctrl.updateImplementation = (id) => {
+        $ctrl.implementation = $ctrl.implementations.find((implementation) => implementation.id == id);
+        $ctrl.thumbnailMedia = $ctrl.implementation?.pre_check_banner;
+        $ctrl.mediaFile = null;
+
+        buildBannerForm();
+        buildPreCheckForm();
+        loadPreChecks();
+    };
+
+    $ctrl.$onInit = function () {
+        if ($ctrl.implementations.length > 0) {
+            $ctrl.updateImplementation($ctrl.implementations[0]?.id);
+        }
+    };
 };
 
 module.exports = {
     bindings: {
         funds: '<',
-        preChecks: '<',
         organization: '<',
         implementations: '<',
     },

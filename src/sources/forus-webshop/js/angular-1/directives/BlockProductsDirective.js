@@ -2,6 +2,7 @@ let BlockProductsDirective = function($scope) {
     $scope.$dir = {
         display: $scope.display || 'grid',
         type: $scope.type || 'budget',
+        large: $scope.large || false,
         filters: $scope.filters || 'budget',
         products: $scope.products || [],
         showLoadMore: $scope.showLoadMore || true,
@@ -11,6 +12,7 @@ let BlockProductsDirective = function($scope) {
 module.exports = () => {
     return {
         scope: {
+            large: '=?',
             filters: '=?',
             display: '@',
             type: '@',

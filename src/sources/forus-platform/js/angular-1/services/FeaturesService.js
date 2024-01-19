@@ -43,13 +43,13 @@ const FeaturesService = function () {
             labels: ['Beveiliging', 'Accountbescherming', '2FA'],
         }, {
             key: 'voucher_records',
-            name: 'Records on vouchers',
-            description: 'Show more details on the vouchers.',
+            name: 'Eigenschappen op voucher',
+            description: 'Voeg persoonlijke eigenschappen toe en exporteer ze bij vouchers.',
             labels: ['Gebruiksvriendelijkheid'],
         }, {
-            key: 'physical_cards',
+            key: 'Fysieke pas',
             name: 'Physical cards',
-            description: 'Give people the option to order a physical card with a QR-code. ',
+            description: 'Geef minder digitaal vaardige inwoners een alternatief voor digitale toegang.',
             labels: ['Aanvraag'],
         }];
 

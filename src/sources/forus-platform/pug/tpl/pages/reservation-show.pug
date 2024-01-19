@@ -42,13 +42,13 @@
 
                 .flex.flex-self-start: .flex-row: .button-group
                     .button.button-primary.button-sm(
-                        ng-if="$ctrl.allowAcceptReservation"
+                        ng-if="$ctrl.reservation.acceptable"
                         ng-click="$ctrl.acceptReservation($ctrl.reservation)")
                         em.mdi.mdi-check.icon-start
                         | Accepteer
 
                     .button.button-danger.button-sm(
-                        ng-if="$ctrl.reservation.state === 'pending'" 
+                        ng-if="$ctrl.reservation.rejectable"
                         ng-click="$ctrl.rejectReservation($ctrl.reservation)")
                         em.mdi.mdi-close.icon-start
                         | Weiger

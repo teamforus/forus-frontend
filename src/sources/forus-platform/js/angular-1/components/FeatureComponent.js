@@ -12,11 +12,11 @@ const FeatureComponent = function (
             ...feature, enabled: $ctrl.features.statuses[feature.key] || false
         })).filter((feature) => feature.key === snakeCase($stateParams.feature_key))[0];
 
-        $ctrl.additionalFeatures = FeaturesService.getAdditionalFeatures($ctrl.feature.key).map((feature) => ({
+        $ctrl.additionalFeatures = $ctrl.feature ? FeaturesService.getAdditionalFeatures($ctrl.feature.key).map((feature) => ({
             ...feature,
             enabled: $ctrl.features.statuses[feature.key] || false,
             srefParams: { feature_key: kebabCase(feature.key), organization_id: $ctrl.organization.id },
-        }));
+        })) : [];
     }
 };
 
@@ -30,11 +30,11 @@ module.exports = {
         'FeaturesService',
         FeatureComponent,
     ],
-    templateUrl: function ($stateParams, FeaturesService) {
+    templateUrl: ['$stateParams', 'FeaturesService', ($stateParams, FeaturesService) => {
         const feature = FeaturesService.list.find(
             (feature) => feature.key === snakeCase($stateParams.feature_key),
         );
 
         return `assets/tpl/pages/features/${feature ? `feature-${$stateParams.feature_key}` : 'not-found'}.html`;
-    }
+    }]
 };
