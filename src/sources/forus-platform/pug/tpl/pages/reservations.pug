@@ -109,7 +109,7 @@
                         th(translate='reservations.labels.number')
                         th(translate='reservations.labels.product')
                         th(translate='reservations.labels.price')
-                        th(translate='reservations.labels.amount_extra')
+                        th(ng-if="$ctrl.showExtraPayments" translate='reservations.labels.amount_extra')
                         th(translate='reservations.labels.customer')
                         th(translate='reservations.labels.reserved_at')
                         th(translate='reservations.labels.status')
@@ -139,7 +139,7 @@
 
                         td(ng-bind="reservation.amount | currency_format")
 
-                        td
+                        td(ng-if="$ctrl.showExtraPayments")
                             div(ng-if="reservation.amount_extra" ng-bind="reservation.amount_extra | currency_format")
                             div(ng-if="!reservation.amount_extra" ng-bind="'-'").text-muted
 
