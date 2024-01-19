@@ -19,23 +19,24 @@ const ProductsEditComponent = function (
     $ctrl.nonExpiring = false;
 
     $ctrl.reservationPolicies = [{
-        value: 'global',
-        // Use global settings
-        label: 'Gebruik standaard instelling',
-    }, {
         // Auto accept
         value: 'accept',
         label: 'Automatisch accepteren'
     }, {
-        value: 'review',
         // Review all reservations
+        value: 'review',
         label: 'Handmatig controleren',
     }];
 
-    $ctrl.reservationFieldOptions = [{
-        value: 'global',
-        label: 'Gebruik standaard instelling',
+    $ctrl.extraPaymentsOptions = [{
+        value: "no",
+        label: "Nee"
     }, {
+        value: "yes",
+        label: "Ja"
+    }];
+
+    $ctrl.reservationFieldOptions = [{
         value: "no",
         label: "Nee"
     }, {
@@ -46,16 +47,51 @@ const ProductsEditComponent = function (
         label: "Verplicht"
     }];
 
-    $ctrl.extraPaymentsOptions = [{
-        value: 'global',
-        label: 'Gebruik standaard instelling',
-    }, {
-        value: "no",
-        label: "Nee"
-    }, {
-        value: "yes",
-        label: "Ja"
-    }];
+    $ctrl.reservationPoliciesText = {
+        accept: "Automatisch accepteren",
+        review: "Handmatig controleren",
+    };
+
+    $ctrl.reservationExtraPaymentText = {
+        no: "Nee",
+        yes: "Ja",
+    };
+
+    $ctrl.reservationFieldText = {
+        no: "Nee",
+        optional: "Optioneel",
+        required: "Verplicht",
+    };
+
+    $ctrl.buildFiledOptions = () => {
+        const defaultPolicy = $ctrl.organization.reservations_auto_accept ? 'accept' : 'review';
+        const defaultExtraPayments = $ctrl.organization.reservation_allow_extra_payments ? 'yes' : 'no';
+
+        $ctrl.reservationPolicies = [{
+            value: 'global',
+            label: `Gebruik standaard instelling (${$ctrl.reservationPoliciesText[defaultPolicy]})`,
+        }, ...$ctrl.reservationPolicies];
+
+        $ctrl.extraPaymentsOptions = [{
+            value: 'global',
+            label: `Gebruik standaard instelling (${$ctrl.reservationExtraPaymentText[defaultExtraPayments]})`,
+        }, ...$ctrl.extraPaymentsOptions];
+
+        $ctrl.reservationPhoneOptions = [{
+            value: 'global',
+            label: `Gebruik standaard instelling (${$ctrl.reservationFieldText[$ctrl.organization.reservation_phone]})`,
+        }, ...$ctrl.reservationFieldOptions];
+
+        $ctrl.reservationAddressOptions = [{
+            value: 'global',
+            label: `Gebruik standaard instelling (${$ctrl.reservationFieldText[$ctrl.organization.reservation_address]})`,
+        }, ...$ctrl.reservationFieldOptions];
+
+        $ctrl.reservationBirthDateOptions = [{
+            value: 'global',
+            label: `Gebruik standaard instelling (${$ctrl.reservationFieldText[$ctrl.organization.reservation_birth_date]})`,
+        }, ...$ctrl.reservationFieldOptions];
+    };
 
     $ctrl.goToFundProvider = (provider) => {
         $state.go('fund-provider', {
@@ -92,10 +128,12 @@ const ProductsEditComponent = function (
             $ctrl.product ? $ctrl.product : $ctrl.sourceProduct
         ) : {
             reservation_enabled: true,
+            reservation_fields: false,
             reservation_policy: 'global',
             reservation_phone: 'global',
             reservation_address: 'global',
             reservation_birth_date: 'global',
+            reservation_extra_payments: 'global',
             product_category_id: null,
             price_type: 'regular',
         };
@@ -270,6 +308,7 @@ const ProductsEditComponent = function (
         $ctrl.maxProductCount = parseInt(appConfigs.features.products_hard_limit);
         $ctrl.allowsReservations = reservations_budget_enabled || reservations_subsidy_enabled;
 
+        $ctrl.buildFiledOptions();
         $ctrl.buildForm();
         $ctrl.isEditable = !$ctrl.product || !$ctrl.product.sponsor_organization_id || (
             $ctrl.product.sponsor_organization_id === $ctrl.organization.id
