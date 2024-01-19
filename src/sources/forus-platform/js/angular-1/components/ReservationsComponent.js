@@ -79,17 +79,6 @@ const ReservationsComponent = function (
         );
     };
 
-    const mapReservations = (reservations) => {
-        return {
-            ...reservations,
-            data: reservations.data.map((reservation) => ({
-                ...reservation,
-                allowAcceptReservation: ProductReservationService.acceptAllowed(reservation),
-                allowRejectReservation: ProductReservationService.rejectAllowed(reservation),
-            })),
-        };
-    }
-
     const showExtraPaymentDetails = (reservations) => {
         const hasExtraPaymentsOnPage = reservations.filter((reservation) => {
             return reservation.extra_payment !== null;
@@ -105,10 +94,9 @@ const ReservationsComponent = function (
             fetchReservations(query).then((res) => $ctrl.activeReservations = res.data),
             fetchReservations(query, true).then((res) => $ctrl.archivedReservations = res.data),
         ]).then(() => {
-            $ctrl.reservations = mapReservations($ctrl.shownReservationsType == 'active' ?
+            $ctrl.reservations = $ctrl.shownReservationsType == 'active' ?
                 $ctrl.activeReservations :
-                $ctrl.archivedReservations,
-            );
+                $ctrl.archivedReservations
 
             $ctrl.showExtraPayments = showExtraPaymentDetails($ctrl.reservations.data);
 
@@ -224,10 +212,10 @@ const ReservationsComponent = function (
         const { reservations_budget_enabled, reservations_subsidy_enabled } = $ctrl.organization;
 
         $ctrl.filters.reset();
-        $ctrl.reservations = mapReservations($ctrl.shownReservationsType == 'active' ?
+
+        $ctrl.reservations = $ctrl.shownReservationsType == 'active' ?
             $ctrl.activeReservations :
-            $ctrl.archivedReservations,
-        );
+            $ctrl.archivedReservations
 
         $ctrl.showExtraPayments = showExtraPaymentDetails($ctrl.reservations.data);
         $ctrl.acceptedByDefault = $ctrl.organization.reservations_auto_accept;
