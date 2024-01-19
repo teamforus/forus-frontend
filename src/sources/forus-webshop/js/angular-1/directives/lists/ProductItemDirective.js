@@ -2,27 +2,37 @@ const ProductItemDirective = function (
     $scope,
     ProductService,
 ) {
-    const $dir = $scope.$dir = {};
+    const $dir = $scope.$dir;
 
-    $dir.hasBudgetFunds = $scope.product.funds.filter((fund) => fund.type === 'budget').length > 0;
-    $dir.hasActionFunds = $scope.product.funds.filter((fund) => fund.type === 'subsidies').length > 0;
-    $dir.hasBothFundTypes = $dir.hasBudgetFunds && $dir.hasActionFunds;
+    const getProductPrice = (product, productType) => {
+        if (productType == 'subsidies') {
+            if (product.price_type === 'regular' && product.price_min == 0) {
+                return 'Gratis';
+            }
 
-    $dir.media = $scope.product.photo || $scope.product.logo || null;
-    $dir.product = $scope.product;
-    $dir.productType = $scope.productType;
-    $dir.productImgSrc = $dir.media?.sizes?.small || $dir.media?.sizes?.thumbnail || './assets/img/placeholders/product-small.png';
+            if (product.price_type === 'regular' && product.price_min != 0) {
+                return product.price_min_locale;
+            }
+
+            if (product.price_type !== 'regular') {
+                return product.price_locale;
+            }
+        }
+
+        return product.price_locale;
+    }
 
     $dir.toggleBookmark = ($event) => {
         $event.preventDefault();
         $event.stopPropagation();
 
         ProductService.toggleBookmark($dir.product);
-
-        if (typeof $scope.onToggleBookmark == 'function') {
-            $scope.onToggleBookmark({ product: $dir.product });
-        }
+        $dir?.onToggleBookmark({ product: $dir.product });
     };
+
+    $dir.$onInit = () => {
+        $dir.productPrice = getProductPrice($dir.product, $dir.productType);
+    }
 };
 
 module.exports = () => {
@@ -32,6 +42,8 @@ module.exports = () => {
             product: '=',
             productType: '=',
         },
+        bindToController: true,
+        controllerAs: '$dir',
         restrict: "EA",
         replace: true,
         controller: [

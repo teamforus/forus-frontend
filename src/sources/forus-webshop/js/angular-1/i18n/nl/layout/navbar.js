@@ -44,6 +44,9 @@ module.exports = {
         eemsdelta: {
             funds: "Regelingen"
         },
+        noordoostpolder: {
+            funds: "Regelingen"
+        },
         groningen: {
             explanation: "Hoe werkt het?",
         }
@@ -72,6 +75,9 @@ module.exports = {
             activate: "Vergoedingen"
         },
         ede: {
+            activate: "Regelingen",
+        },
+        noordoostpolder: {
             activate: "Regelingen",
         },
         login:"Inloggen",
@@ -148,6 +154,9 @@ module.exports = {
                     funds: "Regelingen",
                 },
                 ede: {
+                    funds: "Regelingen",
+                },
+                noordoostpolder: {
                     funds: "Regelingen",
                 },
             }

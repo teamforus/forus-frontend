@@ -1,4 +1,4 @@
-const ProductReservationService = function ($filter, ApiRequest) {
+const ProductReservationService = function ($filter, ApiRequest, DateService) {
     const uriPrefix = '/platform/product-reservations';
 
     return new (function () {
@@ -10,8 +10,12 @@ const ProductReservationService = function ($filter, ApiRequest) {
             return ApiRequest.get(`${uriPrefix}/${id}`);
         }
 
+        this.validate = function (data) {
+            return ApiRequest.post(uriPrefix + '/validate', this.apiFormToResource(data));
+        }
+
         this.validateFields = function (data) {
-            return ApiRequest.post(uriPrefix + '/validate-fields', data);
+            return ApiRequest.post(uriPrefix + '/validate-fields', this.apiFormToResource(data));
         }
 
         this.validateAddress = function (data) {
@@ -19,7 +23,11 @@ const ProductReservationService = function ($filter, ApiRequest) {
         }
 
         this.reserve = function (data) {
-            return ApiRequest.post(uriPrefix, data);
+            return ApiRequest.post(uriPrefix, this.apiFormToResource(data));
+        }
+
+        this.update = function (id, values = {}) {
+            return ApiRequest.patch(`${uriPrefix}/${id}`, this.apiFormToResource(values));
         }
 
         this.cancel = function (id, values = {}) {
@@ -54,11 +62,20 @@ const ProductReservationService = function ($filter, ApiRequest) {
 
             return data;
         }
+
+        this.apiFormToResource = function (formData) {
+            if (formData.birth_date) {
+                return { ...formData, birth_date: DateService._frontToBack(formData.birth_date) };
+            }
+
+            return formData;
+        };
     });
 };
 
 module.exports = [
     '$filter',
     'ApiRequest',
+    'DateService',
     ProductReservationService,
 ];

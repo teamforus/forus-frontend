@@ -206,6 +206,29 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }]
     });
 
+    // Fund pre-check
+    $stateProvider.state({
+        name: "pre-check",
+        url: "/organizations/{organization_id}/pre-check",
+        component: "fundPreCheckComponent",
+        resolve: {
+            organization: organizationResolver(),
+            funds: ['$transition$', 'FundService', 'permission', (
+                $transition$, FundService
+            ) => repackPagination(FundService.list(
+                $transition$.params().organization_id, {
+                implementation_id: $transition$.params().id
+            }))],
+            implementations: ['$transition$', 'ImplementationService', (
+                $transition$, ImplementationService
+            ) => repackResponse(ImplementationService.list(
+                $transition$.params().organization_id,
+                $transition$.params().id, { per_page: 100 },
+            ))],
+            permission: permissionMiddleware('fund-requests', ['manage_organization']),
+        }
+    });
+
     $stateProvider.state({
         name: "organizations-create",
         url: "/organizations/create",
@@ -248,13 +271,14 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "organization-funds",
-        url: "/organizations/{organization_id}/funds?funds_type",
+        url: "/organizations/{organization_id}/funds?funds_type&implementation_id",
         component: "organizationFundsComponent",
         params: {
             funds_type: {
                 squash: true,
                 value: null
             },
+            implementation_id: null,
         },
         resolve: {
             organization: organizationResolver(),
@@ -273,6 +297,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             validatorOrganizations: ['$transition$', 'OrganizationService', 'permission', ($transition$, OrganizationService) => {
                 return repackPagination(OrganizationService.readListValidators($transition$.params().organization_id, { per_page: 100 }));
             }],
+            implementations: ['$transition$', 'ImplementationService', (
+                $transition$, ImplementationService
+            ) => repackResponse(ImplementationService.list($transition$.params().organization_id, {
+                per_page: 100,
+            }))],
         }
     });
 
@@ -323,7 +352,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         url: [
             "/organizations/{organization_id}/providers?",
             "{q:string}&{order_by:string}&{fund_id:int}&{allow_budget:string}&",
-            "{allow_products:string}&{has_products:string}",
+            "{allow_products:string}&{has_products:string}&{implementation_id:int}",
         ].join(''),
         params: {
             q: routeParam(''),
@@ -332,6 +361,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             allow_budget: routeParam(''),
             allow_products: routeParam(''),
             has_products: routeParam(''),
+            implementation_id: routeParam(null),
         },
         component: "sponsorProviderOrganizationsComponent",
         resolve: {
@@ -353,6 +383,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 ...pick($transition$.params(), [
                     'q', 'fund_id', 'allow_budget', 'allow_products', 'has_products', 'order_by',
                 ]),
+            }))],
+            implementations: ['$transition$', 'ImplementationService', (
+                $transition$, ImplementationService,
+            ) => repackResponse(ImplementationService.list($transition$.params().organization_id, { 
+                per_page: 100,
             }))],
         }
     });
@@ -845,11 +880,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 "/organizations/{organization_id}/vouchers?",
                 "{fund_id:int}&{q:string}&{granted:int}&{amount_min:int}&{amount_max:int}&{date_type:string}&",
                 "{from:string}&{to:string}&{in_use:int}&{count_per_identity_min:int}&{count_per_identity_max:int}&",
-                "{type:string}&{source:string}&{sort_by:string}&{sort_order:string}&{state:string}&{page:int}",
+                "{type:string}&{source:string}&{sort_by:string}&{sort_order:string}&{state:string}&{page:int}&",
+                "{implementation_id:int}",
             ].join(''),
             params: {
                 q: routeParam(''),
                 fund_id: routeParam(null),
+                implementation_id: routeParam(null),
                 granted: routeParam(),
                 amount_min: routeParam(),
                 amount_max: routeParam(),
@@ -876,6 +913,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 funds: ['$transition$', 'FundService', 'permission', ($transition$, FundService) => {
                     return repackResponse(FundService.list($transition$.params().organization_id, { per_page: 100, configured: 1 }));
                 }],
+                implementations: ['permission', '$transition$', 'ImplementationService', (
+                    permission, $transition$, ImplementationService
+                ) => repackResponse(ImplementationService.list(
+                    $transition$.params().organization_id, {
+                        per_page: 100,
+                    }
+                ))],
             }
         });
 
@@ -910,10 +954,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 "{fund_id:int}&{q:string}&{granted:int}&{amount_min:int}&{amount_max:int}&{date_type:string}&",
                 "{from:string}&{to:string}&{in_use:int}&{count_per_identity_min:int}&{count_per_identity_max:int}&",
                 "{type:string}&{source:string}&{sort_by:string}&{sort_order:string}&{state:string}&{page:int}",
+                "{implementation_id:int}",
             ].join(''),
             params: {
                 q: routeParam(''),
                 fund_id: routeParam(null),
+                implementation_id: routeParam(null),
                 granted: routeParam(),
                 amount_min: routeParam(),
                 amount_max: routeParam(),
@@ -956,6 +1002,13 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                         'type', 'source', 'sort_by', 'sort_order', 'fund_id', 'page',
                     ]), per_page: 20 }))
                 }],
+                implementations: ['permission', '$transition$', 'ImplementationService', (
+                    permission, $transition$, ImplementationService
+                ) => repackResponse(ImplementationService.list(
+                    $transition$.params().organization_id, {
+                        per_page: 100,
+                    }
+                ))],
             }
         });
     }
@@ -965,10 +1018,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
      */
     $stateProvider.state({
         name: "reimbursements",
-        url: "/organizations/{organization_id}/reimbursements?fund_id",
+        url: "/organizations/{organization_id}/reimbursements?fund_id&implementation_id",
         component: "reimbursementsComponent",
         params: {
             fund_id: null,
+            implementation_id: null,
         },
         resolve: {
             organization: organizationResolver(),
@@ -983,6 +1037,11 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
                 return FundService.getLastSelectedFund(funds) || funds[0];
             }],
+            implementations: ['$transition$', 'ImplementationService', (
+                $transition$, ImplementationService,
+            ) => repackResponse(ImplementationService.list($transition$.params().organization_id, { 
+                per_page: 100,
+            }))],
         }
     });
 

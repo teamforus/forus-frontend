@@ -5,7 +5,7 @@ const sortBy = require('lodash/sortBy');
 const uniq = require('lodash/uniq');
 const map = require('lodash/map');
 
-const ModalVouchersUploadComponent = function(
+const ModalVouchersUploadComponent = function (
     $q,
     $rootScope,
     $timeout,
@@ -16,7 +16,8 @@ const ModalVouchersUploadComponent = function(
     HelperService,
     VoucherService,
     ProductService,
-    PushNotificationsService
+    PageLoadingBarService,
+    PushNotificationsService,
 ) {
     const $ctrl = this;
 
@@ -32,17 +33,7 @@ const ModalVouchersUploadComponent = function(
     let input;
     let dataChunkSize = 100;
 
-    let setProgress = function(progress) {
-        $ctrl.progressBar = progress;
-
-        if (progress < 100) {
-            $ctrl.progressStatus = "Aan het uploaden...";
-        } else {
-            $ctrl.progressStatus = "Klaar!";
-        }
-    };
-
-    let chunk = function(arr, len) {
+    let chunk = function (arr, len) {
         var chunks = [],
             i = 0,
             n = arr.length;
@@ -55,11 +46,11 @@ const ModalVouchersUploadComponent = function(
     }
 
     let makeCsvParser = () => {
-        let csvParser = function() {
+        let csvParser = function () {
             this.progress = 0;
             this.errors = {};
 
-            this.selectFile = function(e) {
+            this.selectFile = function (e) {
                 e && (e.preventDefault() & e.stopPropagation());
 
                 if (input && input.remove) {
@@ -79,7 +70,7 @@ const ModalVouchersUploadComponent = function(
                 input.click();
             };
 
-            this.defaultNote = function(row) {
+            this.defaultNote = function (row) {
                 return $translate('vouchers.csv.default_note' + (row.email ? '' : '_no_email'), {
                     upload_date: moment().format('YYYY-MM-DD'),
                     uploader_email: $rootScope.auth_user?.email || $rootScope.auth_user?.address,
@@ -87,16 +78,18 @@ const ModalVouchersUploadComponent = function(
                 });
             }
 
-            this.validateCsvData = function(data) {
-                this.errors.hasInvalidFundIds = data.filter(row => {
-                    return row.fund_id && $ctrl.availableFundsIds.indexOf(
-                        row.fund_id ? parseInt(row.fund_id) : null
-                    ) === -1
-                }).map(row => row.fund_id);
+            this.validateCsvData = function (data) {
+                const invalidFundIds = data.filter((row) => {
+                    const validFormat = row.fund_id && /^\d+$/.test(row.fund_id);
+                    const validFund = $ctrl.availableFundsIds.includes(parseInt(row.fund_id));
 
-                this.errors.hasInvalidFundIdsList = uniq(this.errors.hasInvalidFundIds).join(', ');
+                    return !validFormat || !validFund;
+                }).map((row) => row.fund_id);
 
-                if (this.errors.hasInvalidFundIds.length > 0) {
+                this.errors.hasInvalidFundIds = invalidFundIds.length > 0;
+                this.errors.hasInvalidFundIdsList = uniq(invalidFundIds).join(', ');
+
+                if (invalidFundIds.length > 0) {
                     return false;
                 }
 
@@ -114,7 +107,7 @@ const ModalVouchersUploadComponent = function(
                 return false;
             };
 
-            this.validateCsvDataBudget = function(data) {
+            this.validateCsvDataBudget = function (data) {
                 const fundBudget = $ctrl.fund.limit_sum_vouchers;
                 const csvTotalAmount = data.reduce((sum, row) => sum + parseFloat(row.amount || 0), 0);
 
@@ -141,7 +134,7 @@ const ModalVouchersUploadComponent = function(
                     !this.errors.invalidPerVoucherAmount;
             }
 
-            this.validateCsvDataProduct = function(data) {
+            this.validateCsvDataProduct = function (data) {
                 let validation = this.validateProductId(data);
 
                 this.errors.csvHasMissingProductId = validation.hasMissingProductId;
@@ -162,7 +155,7 @@ const ModalVouchersUploadComponent = function(
                 return (!this.errors.hasAmountField && !this.errors.csvHasMissingProductId) && validation.isValid;
             }
 
-            this.uploadFile = function(file) {
+            this.uploadFile = function (file) {
                 if (!file.name.endsWith('.csv')) {
                     return;
                 }
@@ -184,6 +177,7 @@ const ModalVouchersUploadComponent = function(
                         });
 
                         row.note = row.note || this.defaultNote(row);
+                        row.fund_id = row.fund_id || $ctrl.fund.id;
                         row.client_uid = row.client_uid || row.activation_code_uid || null;
                         delete row.activation_code_uid;
 
@@ -221,7 +215,7 @@ const ModalVouchersUploadComponent = function(
                 return [[...header.filter((value, index) => value && !recordIndexes.includes(index)), 'records'], ...body];
             };
 
-            this.validateProductId = function(data = []) {
+            this.validateProductId = function (data = []) {
                 let allProductIds = countBy(data, 'product_id')
 
                 let hasMissingProductId = data.filter(row => row.product_id === undefined).length > 0;
@@ -240,71 +234,70 @@ const ModalVouchersUploadComponent = function(
                 };
             };
 
-            this.confirmEmailSkip = function(existingEmails, onConfirm) {
-                let items = existingEmails.map(email => ({ value: email }));
+            this.confirmEmailSkip = function (existingEmails, fund, list) {
+                const items = existingEmails.map((email) => ({ value: email, columns: { fund: fund.name } }));
 
-                if (items.length === 0) {
-                    return onConfirm();
-                }
+                return $q((resolve, reject) => {
+                    if (items.length === 0) {
+                        return resolve(list);
+                    }
 
-                ModalService.open('duplicatesPicker', {
-                    hero_title: "Dubbele e-mailadressen gedetecteerd.",
-                    hero_subtitle: [
-                        `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra voucher wilt aanmaken?`,
-                        "Deze e-mailadressen bezitten al een voucher van dit fonds."
-                    ],
-                    button_none: "Alle overslaan",
-                    button_all: "Alle aanmaken",
-                    label_on: "Aanmaken",
-                    label_off: "Overslaan",
-                    items: items,
-                    onConfirm: (items) => {
-                        let allowedEmails = items.filter(item => item.model).map(item => item.value);
+                    ModalService.open('duplicatesPicker', {
+                        hero_title: `Dubbele e-mailadressen gedetecteerd voor fond "${fund.name}".`,
+                        hero_subtitle: [
+                            `Weet u zeker dat u voor ${items.length} e-mailadres(sen) een extra voucher wilt aanmaken?`,
+                            "Deze e-mailadressen bezitten al een voucher van dit fonds."
+                        ],
+                        button_none: "Alle overslaan",
+                        button_all: "Alle aanmaken",
+                        label_on: "Aanmaken",
+                        label_off: "Overslaan",
+                        items: items,
+                        onConfirm: (items) => {
+                            const allowedEmails = items.filter(item => item.model).map(item => item.value);
 
-                        this.data = this.data.filter(csvRow => {
-                            return existingEmails.indexOf(csvRow.email) === -1 ||
-                                allowedEmails.indexOf(csvRow.email) !== -1;
-                        });
+                            resolve(list.filter((row) => {
+                                return !existingEmails.includes(row.email) || allowedEmails.includes(row.email);
+                            }));
+                        },
+                        onCancel: () => reject(`CSV upload is geannuleerd voor ${fund.name}.`),
+                    });
 
-                        onConfirm();
-                    },
-                    onCancel: () => $ctrl.close(),
                 });
             };
 
-            this.confirmBsnSkip = function(existingBsn, onConfirm) {
-                let items = existingBsn.map(bsn => ({ value: bsn }));
+            this.confirmBsnSkip = function (existingBsn, fund, list) {
+                const items = existingBsn.map((bsn) => ({ value: bsn, columns: { fund: fund.name } }));
 
-                if (items.length === 0) {
-                    return onConfirm();
-                }
+                return $q((resolve, reject) => {
+                    if (items.length === 0) {
+                        return resolve(list);
+                    }
 
-                ModalService.open('duplicatesPicker', {
-                    hero_title: "Dubbele bsn(s) gedetecteerd.",
-                    hero_subtitle: [
-                        `Weet u zeker dat u voor ${items.length} bsn(s) een extra voucher wilt aanmaken?`,
-                        "Deze bsn(s) bezitten al een voucher van dit fonds."
-                    ],
-                    button_none: "Alle overslaan",
-                    button_all: "Alle aanmaken",
-                    label_on: "Aanmaken",
-                    label_off: "Overslaan",
-                    items: items,
-                    onConfirm: (items) => {
-                        let allowedBsn = items.filter(item => item.model).map(item => item.value);
+                    ModalService.open('duplicatesPicker', {
+                        hero_title: `Dubbele bsn(s) gedetecteerd voor fond "${fund.name}".`,
+                        hero_subtitle: [
+                            `Weet u zeker dat u voor ${items.length} bsn(s) een extra voucher wilt aanmaken?`,
+                            "Deze bsn(s) bezitten al een voucher van dit fonds."
+                        ],
+                        button_none: "Alle overslaan",
+                        button_all: "Alle aanmaken",
+                        label_on: "Aanmaken",
+                        label_off: "Overslaan",
+                        items: items,
+                        onConfirm: (items) => {
+                            const allowedBsn = items.filter(item => item.model).map(item => item.value);
 
-                        this.data = this.data.filter(csvRow => {
-                            return allowedBsn.indexOf(csvRow.bsn) === -1 ||
-                                allowedBsn.indexOf(csvRow.bsn) !== -1;
-                        });
-
-                        onConfirm();
-                    },
-                    onCancel: () => $ctrl.close(),
+                            resolve(list.filter((row) => {
+                                return !allowedBsn.includes(row.bsn) || allowedBsn.includes(row.bsn);
+                            }));
+                        },
+                        onCancel: () => reject(`CSV upload is geannuleerd voor ${fund.name}.`),
+                    });
                 });
             };
 
-            this.uploadToServer = function(e) {
+            this.uploadToServer = function (e) {
                 e && (e.preventDefault() & e.stopPropagation());
 
                 if (!this.isValid) {
@@ -313,129 +306,194 @@ const ModalVouchersUploadComponent = function(
 
                 $ctrl.loading = true;
 
-                PushNotificationsService.success(
-                    'Wordt verwerkt...',
-                    'Bestaande tegoeden worden verwerkt om te controleren op dubbelingen.',
-                    'download-outline'
-                );
+                const listByFundId = groupBy(this.data, 'fund_id');
+                const listSelected = [];
 
-                HelperService.recursiveLeacher((page) => {
-                    return VoucherService.index($ctrl.organization.id, {
-                        fund_id: $ctrl.fund.id,
-                        type: $ctrl.type,
-                        per_page: 100,
-                        page: page,
-                        source: 'employee',
-                        expired: 0,
+                const list = Object.keys(listByFundId).map((fund_id) => ({
+                    list: listByFundId[fund_id],
+                    fund: $ctrl.availableFundsById[fund_id],
+                }));
+
+                const promise = list.reduce((chain, { fund, list }) => {
+                    $ctrl.hideModal = true;
+
+                    return chain.then(() => this
+                        .findDuplicates(fund, list)
+                        .then((list) => listSelected.push(...list)));
+                }, $q.resolve());
+
+                promise
+                    .then(() => {
+                        $ctrl.hideModal = false;
+
+                        if (listSelected.length > 0) {
+                            return this.startUploading(listSelected, true).then(() => {
+                                return this.startUploading(listSelected);
+                            });
+                        }
+
+                        PushNotificationsService.success('CSV upload is geannuleerd', "Er zijn geen gegevens geselecteerd.");
+                    })
+                    .catch(() => {
+                        PushNotificationsService.danger('CSV upload is geannuleerd', "Er zijn geen gegevens geselecteerd.");
+                    })
+                    .finally(() => {
+                        $ctrl.setLoadingBarProgress(0);
+                        $ctrl.hideModal = false;
+                        $ctrl.loading = false;
                     });
-                }, 4).then(data => {
-                    PushNotificationsService.success(
-                        'Aan het vergelijken...',
-                        'De tegoeden zijn ingeladen en worden vergeleken met het .csv bestand...',
-                        'timer-sand'
-                    );
-
-                    const emails = data.map(voucher => voucher.identity_email);
-                    const bsnList = [
-                        ...data.map(voucher => voucher.relation_bsn),
-                        ...data.map(voucher => voucher.identity_bsn)
-                    ];
-
-                    const existingEmails = this.data.filter((csvRow) => {
-                        return emails.indexOf(csvRow.email) != -1;
-                    }).map((csvRow) => csvRow.email);
-
-                    const existingBsn = this.data.filter((csvRow) => {
-                        return bsnList.indexOf(csvRow.bsn) != -1;
-                    }).map((csvRow) => csvRow.bsn);
-
-                    $ctrl.loading = false;
-
-                    if (existingEmails.length === 0 && existingBsn.length === 0) {
-                        return this.startUploading(true).then(() => this.startUploading());
-                    }
-
-                    this.confirmEmailSkip(existingEmails, () => {
-                        this.confirmBsnSkip(existingBsn, () => {
-                            if (this.data.length > 0) {
-                                return this.startUploading(true).then(() => this.startUploading());
-                            }
-
-                            $ctrl.close();
-                        });
-                    });
-                }, () => $ctrl.loading = false);
             }
 
-            this.startUploading = function(validation = false) {
-                return $q(async (resolve) => {
-                    let totalRows = this.data.length;
-                    let uploadedRows = 0;
-                    let data = JSON.parse(JSON.stringify(this.data)).map(row => {
-                        return { ...row, ...{ fund_id: row.fund_id || $ctrl.fund.id } };
+            this.findDuplicates = (fund, list) => {
+                PushNotificationsService.success(
+                    'Wordt verwerkt...',
+                    `Bestaande tegoeden voor "${fund.name}" worden verwerkt om te controleren op dubbelingen.`,
+                    'download-outline',
+                );
+
+                return $q((resolve, reject) => {
+                    const fetchVouchers = (page) => {
+                        return VoucherService.index($ctrl.organization.id, {
+                            fund_id: fund.id,
+                            type: $ctrl.type,
+                            per_page: 100,
+                            page: page,
+                            source: 'employee',
+                            expired: 0,
+                        });
+                    };
+
+                    PageLoadingBarService.setProgress(0);
+
+                    HelperService.recursiveLeacher(fetchVouchers, 4).then(async (data) => {
+                        PageLoadingBarService.setProgress(100);
+
+                        PushNotificationsService.success(
+                            'Aan het vergelijken...',
+                            `De tegoeden voor "${fund.name}" zijn ingeladen en worden vergeleken met het .csv bestand...`,
+                            'timer-sand',
+                        );
+
+                        const emails = data.map((voucher) => voucher.identity_email);
+                        const bsnList = [
+                            ...data.map((voucher) => voucher.relation_bsn),
+                            ...data.map((voucher) => voucher.identity_bsn)
+                        ];
+
+                        const existingEmails = list
+                            .filter((csvRow) => emails.includes(csvRow.email))
+                            .map((csvRow) => csvRow.email);
+
+                        const existingBsn = list
+                            .filter((csvRow) => bsnList.includes(csvRow.bsn))
+                            .map((csvRow) => csvRow.bsn);
+
+                        if (existingEmails.length === 0 && existingBsn.length === 0) {
+                            return resolve(list);
+                        }
+
+                        $q.resolve(list)
+                            .then((list) => this.confirmEmailSkip(existingEmails, fund, list))
+                            .then((list) => this.confirmBsnSkip(existingBsn, fund, list))
+                            .then(resolve)
+                            .catch(reject);
+                    }, () => {
+                        PushNotificationsService.danger('Error', 'Er is iets misgegaan bij het ophalen van de tegoeden.');
+                        reject();
+                        $ctrl.close();
                     });
+                });
+            }
 
-                    let dataGrouped = groupBy(data, 'fund_id');
-                    this.progress = 2;
+            this.getStatus = function (fund, validation = false) {
+                return validation ? `Gegevens valideren voor ${fund.name}...` : `Gegevens uploaden voor ${fund.name}...`;
+            };
 
-                    setProgress(0);
+            this.startUploading = function (data, validation = false) {
+                this.progress = 2;
 
-                    let funds = Object.keys(dataGrouped);
+                return $q((resolve) => {
+                    const dataGrouped = groupBy(JSON.parse(JSON.stringify(data)).map((row) => ({
+                        ...row, fund_id: row.fund_id ? row.fund_id : $ctrl.fund.id,
+                    })), 'fund_id');
 
-                    for (let i = 0; i < funds.length; i++) {
-                        const fund_id = funds[i];
-
-                        dataGrouped[fund_id] = dataGrouped[fund_id].map((row) => {
-                            delete row.fund_id;
-                            return row;
+                    const promise = Object.keys(dataGrouped).reduce((chain, fundId) => {
+                        const fund = $ctrl.availableFundsById[fundId];
+                        const items = dataGrouped[fund.id].map((item) => {
+                            delete item.fund_id;
+                            return item;
                         });
 
-                        if (validation) {
-                            await this.startValidationUploadingData(fund_id, dataGrouped[fund_id], (chunkData) => {
+                        let totalRows = items.length;
+                        let uploadedRows = 0;
+
+                        $ctrl.setLoadingBarProgress(0, this.getStatus(fund, validation));
+
+                        return chain.then(() => {
+                            if (validation) {
+                                return this
+                                    .startValidationUploadingData(fund, items, (chunkData) => {
+                                        uploadedRows += chunkData.length;
+                                        $ctrl.setLoadingBarProgress((uploadedRows / totalRows) * 100, this.getStatus(fund, true));
+                                    })
+                                    .then(() => {
+                                        $ctrl.setLoadingBarProgress(100, this.getStatus(fund, true));
+                                    })
+                                    .catch((errors) => {
+                                        this.progress = 1;
+                                        this.showInvalidRows(errors, items);
+                                    });
+                            }
+
+                            return this.startUploadingData(fund, items, (chunkData) => {
                                 uploadedRows += chunkData.length;
-                                setProgress((uploadedRows / totalRows) * 100);
-                            }).then(() => {
-                                $timeout(() => setProgress(100));
-                                resolve();
-                            }, (errors) => {
-                                this.progress = 1;
-                                this.showInvalidRows(errors, dataGrouped[fund_id]);
-                            });
-                        } else {
-                            await this.startUploadingData(fund_id, dataGrouped[fund_id], (chunkData) => {
-                                uploadedRows += chunkData.length;
-                                setProgress((uploadedRows / totalRows) * 100);
+                                $ctrl.setLoadingBarProgress((uploadedRows / totalRows) * 100, this.getStatus(fund, false));
 
                                 if (uploadedRows === totalRows) {
                                     $timeout(() => {
-                                        setProgress(100);
+                                        $ctrl.setLoadingBarProgress(100, this.getStatus(fund, false));
                                         this.progress = 3;
                                         $rootScope.$broadcast('vouchers_csv:uploaded', true);
                                     }, 0);
-                                    resolve();
                                 }
                             });
-                        }
-                    }
+                        });
+                    }, $q.resolve());
+
+                    promise.then(() => {
+                        resolve();
+                    });
                 });
             };
 
-            this.startValidationUploadingData = function(fund_id, groupData, onChunk = () => { }) {
+            this.startValidationUploadingData = function (fund, groupData, onChunk = () => { }) {
                 return new Promise((resolve, reject) => {
                     const submitData = chunk(groupData, dataChunkSize);
                     const chunksCount = submitData.length;
+                    const errors = {};
 
-                    let errors = {};
                     let currentChunkNth = 0;
 
+                    const resolveIfFinished = () => {
+                        if (currentChunkNth == chunksCount) {
+                            if (Object.keys(errors).length) {
+                                return reject(errors);
+                            }
+
+                            resolve(true);
+                        } else if (currentChunkNth < chunksCount) {
+                            uploadChunk(submitData[currentChunkNth]);
+                        }
+                    }
+
                     const uploadChunk = (data) => {
-                        VoucherService.storeCollectionValidate($ctrl.organization.id, fund_id, data).then(() => {
+                        VoucherService.storeCollectionValidate($ctrl.organization.id, fund.id, data).then(() => {
                             currentChunkNth++;
                             onChunk(data);
                             resolveIfFinished();
                         }, (res) => {
                             if (res.status == 422 && res.data.errors) {
-                                Object.keys(res.data.errors).forEach(function(key) {
+                                Object.keys(res.data.errors).forEach(function (key) {
                                     const keyData = key.split('.');
                                     keyData[1] = parseInt(keyData[1], 10) + currentChunkNth * dataChunkSize;
                                     errors[keyData.join('.')] = res.data.errors[key];
@@ -451,24 +509,12 @@ const ModalVouchersUploadComponent = function(
                         });
                     };
 
-                    const resolveIfFinished = () => {
-                        if (currentChunkNth == chunksCount) {
-                            if (Object.keys(errors).length) {
-                                return reject(errors);
-                            }
-
-                            resolve(true);
-                        } else if (currentChunkNth < chunksCount) {
-                            uploadChunk(submitData[currentChunkNth]);
-                        }
-                    }
-
                     uploadChunk(submitData[currentChunkNth]);
                 });
             };
 
-            this.showInvalidRows = function(errors = {}, vouchers = []) {
-                const items = Object.keys(errors).map(function(key) {
+            this.showInvalidRows = function (errors = {}, vouchers = []) {
+                const items = Object.keys(errors).map(function (key) {
                     const keyData = key.split('.');
                     const keyDataId = keyData[1];
                     const index = parseInt(keyDataId, 10) + 1;
@@ -502,7 +548,7 @@ const ModalVouchersUploadComponent = function(
                 });
             };
 
-            this.startUploadingData = function(fund_id, groupData, onChunk = () => { }) {
+            this.startUploadingData = function (fund, groupData, onChunk = () => { }) {
                 return new Promise((resolve) => {
                     var submitData = chunk(groupData, dataChunkSize);
                     var chunksCount = submitData.length;
@@ -511,7 +557,7 @@ const ModalVouchersUploadComponent = function(
                     const uploadChunk = (data) => {
                         $ctrl.changed = true;
 
-                        VoucherService.storeCollection($ctrl.organization.id, fund_id, data).then(() => {
+                        VoucherService.storeCollection($ctrl.organization.id, fund.id, data).then(() => {
                             currentChunkNth++;
                             onChunk(data);
 
@@ -540,8 +586,17 @@ const ModalVouchersUploadComponent = function(
         return new csvParser();
     };
 
-    $ctrl.reset = function() {
+    $ctrl.reset = function () {
         $ctrl.init();
+    };
+
+
+    $ctrl.setLoadingBarProgress = function (progress, status = null) {
+        // fixes progress bar being updated to late due to digest cycle
+        $timeout(() => {
+            $ctrl.progressBar = progress;
+            $ctrl.progressStatus = status;
+        }, 0);
     };
 
     $ctrl.downloadExampleCsv = () => {
@@ -566,17 +621,17 @@ const ModalVouchersUploadComponent = function(
     $ctrl.init = () => {
         $ctrl.csvParser = makeCsvParser();
 
-        $element.unbind('dragleave').bind('dragleave', function(e) {
+        $element.unbind('dragleave').bind('dragleave', function (e) {
             e.preventDefault()
             $element.removeClass('on-dragover');
         });
 
-        $element.unbind('dragenter dragover').bind('dragenter dragover', function(e) {
+        $element.unbind('dragenter dragover').bind('dragenter dragover', function (e) {
             e.preventDefault()
             $element.addClass('on-dragover');
         });
 
-        $element.unbind('drop dragdrop').bind('drop dragdrop', function(e) {
+        $element.unbind('drop dragdrop').bind('drop dragdrop', function (e) {
             e.preventDefault();
             $element.removeClass('on-dragover');
 
@@ -589,7 +644,8 @@ const ModalVouchersUploadComponent = function(
         $ctrl.fund = $ctrl.modal.scope.fund || null;
         $ctrl.type = $ctrl.modal.scope.type || 'fund_voucher';
         $ctrl.availableFunds = $ctrl.modal.scope.organizationFunds;
-        $ctrl.availableFundsIds = $ctrl.availableFunds.map(fund => fund.id);
+        $ctrl.availableFundsIds = $ctrl.availableFunds.map((fund) => fund.id);
+        $ctrl.availableFundsById = $ctrl.availableFunds.reduce((obj, fund) => ({ ...obj, [fund.id]: fund }), {})
 
         if ($ctrl.type == 'product_voucher') {
             HelperService.recursiveLeacher((page) => {
@@ -638,6 +694,7 @@ module.exports = {
         'HelperService',
         'VoucherService',
         'ProductService',
+        'PageLoadingBarService',
         'PushNotificationsService',
         ModalVouchersUploadComponent,
     ],

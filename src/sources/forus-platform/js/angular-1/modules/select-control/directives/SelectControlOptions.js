@@ -54,6 +54,7 @@ module.exports = () => {
 
             return $el ? {
                 'select-control-options': require('./templates/select-control-options.pug')(),
+                'select-control-options-fund': require('./templates/select-control-options-fund.pug')(),
                 'select-control-options-organization': require('./templates/select-control-options-organization.pug')(),
             }[templateName] || `<div>Template: ${templateName} not found</div>` : '<div></div>';
         }

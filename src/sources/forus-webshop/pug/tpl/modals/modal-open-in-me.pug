@@ -5,7 +5,7 @@
     
     .modal-backdrop(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
-    .modal-content(ng-if="!$ctrl.sentSms"): .modal-section
+    .modal-content: .modal-section
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
         .me-logo: include ../../../resources/_webshop-common/assets/img/me-logo.svg
@@ -27,33 +27,3 @@
                 button.button.button-primary(type="submit" translate='open_in_me.sms.button.send')
 
         .text-center.show-sm: app-links
-
-    .modal-content(ng-if="$ctrl.sentSms"): .modal-section
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
-
-        h2.modal-title(id="openInMeDialogTitle" translate="open_in_me.app_instruction.title")
-        .modal-subtitle.hide-sm(id="openInMeDialogSubtitle")
-            span(translate="open_in_me.app_instruction.description")
-            a(ui-sref="me-app" target="_blank" class="text-primary"): u Me-app
-
-        .app-instruction
-            .step-item
-                img(src="./assets/img/screen1.png" alt="Me-app aanmeldscherm schermafbeelding")
-                .app-title(translate="open_in_me.app_instruction.step_1")
-                img.line-item(src="./assets/img/line1.png" alt="")
-            .step-item
-                img(src="./assets/img/screen2.png" alt="Me-app aanmeldscherm schermafbeelding, kies koppelen")
-                .app-title(translate="open_in_me.app_instruction.step_2")
-
-            .divider-img: img(src="./assets/img/Base7.png" alt ="")
-
-        h2.modal-title {{ "open_in_me.app_header.title" | translate }}
-        .modal-subtitle(translate="open_in_me.app_header.subtitle_{{ $root.appConfigs.features.communication_type }}")
-        
-        form.form.f-w.with-instructions(ng-submit="$ctrl.authorizePincodeForm.submit()")
-            .form-group
-                div(ng-if="$ctrl.authorizePincodeForm" pincode-control ng-model="$ctrl.authorizePincodeForm.values.auth_code")
-                .text-center.form-error(ng-repeat="error in $ctrl.authorizePincodeForm.errors.auth_code track by $index" ng-bind="error")
-            .modal-footer
-                .form-group.text-center: button.button.button-dark(ng-click="$ctrl.close()" i18n="open_in_me.authorize.close")
-                    button(type="submit" i18n="open_in_me.authorize.submit").button.button-primary
