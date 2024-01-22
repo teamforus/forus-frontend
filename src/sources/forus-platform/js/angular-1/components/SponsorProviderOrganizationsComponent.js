@@ -24,10 +24,12 @@ const SponsorProviderOrganizationsComponent = function (
         values: pick($stateParams, [
             'q', 'order_by', 'fund_id', 'has_products',
             'allow_budget', 'allow_products', 'allow_extra_payments', 
+            'implementation_id',
         ]),
         defaultValues: {
             q: '',
             order_by: $ctrl.orderByOptions[0].value,
+            implementation_id: null,
             fund_id: null,
             allow_budget: '',
             allow_products: '',
@@ -139,8 +141,15 @@ const SponsorProviderOrganizationsComponent = function (
     };
 
     $ctrl.$onInit = function () {
-        $ctrl.funds = [...[{ id: null, name: 'Alle' }], ...$ctrl.funds];
-        $ctrl.providerOrganizations.data = transformProviders($ctrl.providerOrganizations.data);
+        $ctrl.funds.unshift({
+            id: null, 
+            name: 'Alle fondsen',
+        });
+
+        $ctrl.implementations.unshift({
+            id: null, 
+            name: 'Alle implementaties',
+        });
 
         $ctrl.requests = $ctrl.fundUnsubscribes.length;
         $ctrl.requestsExpired = $ctrl.fundUnsubscribes.filter((item) => item.state == 'overdue').length;
@@ -152,6 +161,7 @@ module.exports = {
     bindings: {
         funds: '<',
         organization: '<',
+        implementations: '<',
         fundUnsubscribes: '<',
         providerOrganizations: '<',
     },

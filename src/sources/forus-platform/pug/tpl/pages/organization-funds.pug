@@ -4,7 +4,7 @@
         .card
             .card-header: .flex-row
                 //- Organization funds title
-                .flex-col.flex-grow: .card-title
+                .flex-col.flex-grow: .card-title(dusk="fundsTitle")
                     span(i18n="components.organization_funds.title")
                     span(ng-bind="$ctrl.funds.meta.total").span-count
 
@@ -64,6 +64,15 @@
                                             search="false"
                                             ng-model="$ctrl.filters.values.state"
                                             options="$ctrl.states").form-control
+                                    
+                                    .form-group(ng-click="$event.stopPropagation()")
+                                        form-label-toggle(label="{{ 'components.organization_funds.filters.implementation' | translate }}")
+                                        
+                                        .form-offset: select-control(
+                                            prop="id"
+                                            search="false"
+                                            ng-model="$ctrl.filters.values.implementation_id"
+                                            options="$ctrl.implementations").form-control
 
                             .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
@@ -74,6 +83,8 @@
                         table.table
                             tr
                                 th(translate="components.organization_funds.labels.name" value="name")
+
+                                th(translate="components.organization_funds.labels.implementation" value="implementation_id")
 
                                 th(
                                     value="remaining_amount"
@@ -98,6 +109,8 @@
                                     .td-entity-main-content
                                         .text-strong.text-primary(ng-bind="fund.name | str_limit:50" title="{{ fund.name || '-' }}")
                                         .text-muted-dark(ng-bind="fund.type_locale")
+
+                                td(ng-bind="fund.implementation.name").text-strong.text-muted-dark
 
                                 //- Fund amount left
                                 td(

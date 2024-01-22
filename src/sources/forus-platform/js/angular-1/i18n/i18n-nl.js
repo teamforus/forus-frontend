@@ -523,6 +523,25 @@ module.exports = {
         }
     },
 
+    // PRE CHECK FUNDS = funds-pre-check.pug
+    funds_pre_check: {
+        header: {
+            title: "Fund pre-check",
+        },
+        labels: {
+            description_title: "Algemeen",
+            title: "Titel",
+            label: "Label",
+            description: "Omschrijving",
+            status: "Status",
+            implementation: "Implementatie"
+        },
+        buttons: {
+            cancel: "Annuleren",
+            confirm: "Bevestigen",
+        }
+    },
+
     // SHOW FUNDS = funds-show.pug
     funds_show: {
         titles: {
@@ -785,7 +804,17 @@ module.exports = {
                 "2. Korting €: € 20,- korting op een fiets.",
                 "3. Korting %: 20% korting op een fiets.",
                 "4. Gratis: gratis toegang voor een film."
-            ].join('\n')
+            ].join('\n'),
+            reservation_fields: [
+                "Vraag de klant om aanvullende informatie op te geven bij het maken van een reservering.",
+                "Let op: Er zijn ook algemene instellingen voor alle reserveringen.",
+                "Kijk hiervoor bij: Reserveringen > Instellingen.",
+            ].join(' '),
+            reservation_enabled: [
+                "Deze instelling zorgt ervoor dat de klant het aanbod via de webshop kan reserveren.",
+                "In dit geval hoeft u geen QR-code te scannen.",
+                "De betaling verloopt automatische na acceptatie van de reservering."
+            ].join(' ')
         },
         buttons: {
             cancel: "Annuleren",

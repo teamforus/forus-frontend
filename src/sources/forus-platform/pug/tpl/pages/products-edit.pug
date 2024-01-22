@@ -216,11 +216,11 @@
 
                             .form-error(ng-repeat="error in $ctrl.form.errors.reservation_enabled" ng-bind="error")
 
-                        tooltip(text="'Deze instelling zorgt ervoor dat de klant het aanbod via de webshop kan reseveren.'")
+                        tooltip(text="'product_edit.tooltips.reservation_enabled' | translate")
 
                 //- Auto accept product reservations
                 .row: .col.col-lg-9(ng-if="$ctrl.form.values.reservation_enabled")
-                    .form-group.form-group-inline.tooltipped
+                    .form-group.form-group-inline
                         label(for="reservation_policy").form-label Reserveringen accepteren
 
                         .form-offset
@@ -230,8 +230,8 @@
                                         as="label"
                                         prop="value"
                                         search="false"
-                                        ng-model="$ctrl.form.values.reservation_policy" 
-                                        options="$ctrl.reservationPolicies").form-control
+                                        options="$ctrl.reservationPolicies"
+                                        ng-model="$ctrl.form.values.reservation_policy").form-control
 
                                 .form-group-info-button: .button.button-default.button-icon.pull-left(
                                     ng-click="$ctrl.showInfoBlockStockReservationPolicy = !$ctrl.showInfoBlockStockReservationPolicy"
@@ -244,43 +244,65 @@
                                 .info-box-content: .block.block-markdown
                                     | Standaard instelling kunt u bij uw reserveringen aanpassen. 
                                     | Geef hier optioneel aan of u de reservering handmatig of automatisch wilt accepteren.
-                            
+
                             .form-error(ng-repeat="error in $ctrl.form.errors.reservation_policy" ng-bind="error")
 
+                    //- Reservation fields enable
+                    .form-group.form-group-inline.tooltipped
+                        label.form-label Klantgegevens
+                        .form-offset
+                            .checkbox
+                                input(
+                                    type="checkbox"
+                                    id="reservation_fields"
+                                    ng-model="$ctrl.form.values.reservation_fields")
+
+                                label(for="reservation_fields").checkbox-label
+                                    .checkbox-box: em.mdi.mdi-check
+                                    | De klant vragen om aanvullende informatie op te geven
+
+                            .form-error(ng-repeat="error in $ctrl.form.errors.reservation_enabled" ng-bind="error")
+
+                        tooltip(text="'product_edit.tooltips.reservation_fields' | translate")
+
                     //- Product reservation phone
-                    .form-group.form-group-inline
+                    .form-group.form-group-inline(ng-if="$ctrl.form.values.reservation_fields")
                         label(for="reservation_phone").form-label Telefoonnummer klant
-                        select(
-                            ng-model="$ctrl.form.values.reservation_phone" 
-                            ng-options="option.value as option.label for option in $ctrl.reservationFieldOptions").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.reservation_phone" ng-bind="error")
+                        .form-offset
+                            select(
+                                ng-model="$ctrl.form.values.reservation_phone" 
+                                ng-options="option.value as option.label for option in $ctrl.reservationPhoneOptions").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.reservation_phone" ng-bind="error")
 
                     //- Product reservation address
-                    .form-group.form-group-inline
+                    .form-group.form-group-inline(ng-if="$ctrl.form.values.reservation_fields")
                         label(for="reservation_address").form-label Adres klant
-                        select(
-                            ng-model="$ctrl.form.values.reservation_address" 
-                            ng-options="option.value as option.label for option in $ctrl.reservationFieldOptions").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.reservation_address" ng-bind="error")
+                        .form-offset
+                            select(
+                                ng-model="$ctrl.form.values.reservation_address" 
+                                ng-options="option.value as option.label for option in $ctrl.reservationAddressOptions").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.reservation_address" ng-bind="error")
                             
                     //- Product reservation birth date
-                    .form-group.form-group-inline
+                    .form-group.form-group-inline(ng-if="$ctrl.form.values.reservation_fields")
                         label(for="reservation_birth_date").form-label Geboortedatum klant
-                        select(
-                            ng-model="$ctrl.form.values.reservation_birth_date" 
-                            ng-options="option.value as option.label for option in $ctrl.reservationFieldOptions").form-control
-                        .form-error(ng-repeat="error in $ctrl.form.errors.reservation_birth_date" ng-bind="error")
+                        .form-offset
+                            select(
+                                ng-model="$ctrl.form.values.reservation_birth_date" 
+                                ng-options="option.value as option.label for option in $ctrl.reservationBirthDateOptions").form-control
+                            .form-error(ng-repeat="error in $ctrl.form.errors.reservation_birth_date" ng-bind="error")
 
             .card-section.card-section-primary(
-                ng-if="$ctrl.organization.allow_extra_payments_by_sponsor"
+                ng-if="$ctrl.organization.can_receive_extra_payments && ($ctrl.organization | hasPerm:'manage_payment_methods')"
             ): .row: .col-lg-9
                 .form-group.form-group-inline
                     label(for="reservation_extra_payments" translate="product_edit.labels.extra_payments").form-label
-                    select(
-                        id="reservation_extra_payments"
-                        ng-model="$ctrl.form.values.reservation_extra_payments"
-                        ng-options="option.value as option.label for option in $ctrl.extraPaymentsOptions").form-control
-                    .form-error(ng-repeat="error in $ctrl.form.errors.reservation_extra_payments" ng-bind="error")
+                    .form-offset
+                        select(
+                            id="reservation_extra_payments"
+                            ng-model="$ctrl.form.values.reservation_extra_payments"
+                            ng-options="option.value as option.label for option in $ctrl.extraPaymentsOptions").form-control
+                        .form-error(ng-repeat="error in $ctrl.form.errors.reservation_extra_payments" ng-bind="error")
 
             //- Product category
             .card-section.card-section-primary: .row

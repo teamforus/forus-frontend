@@ -6,6 +6,164 @@
             .breadcrumb-item.active(ng-bind="$ctrl.feature.name")
 
         block-feature(feature="$ctrl.feature")
-        
-        //- TODO: Replace with the actual template
-        block-empty(title="{{ $ctrl.feature.name }}" text="{{ $ctrl.feature.description }}")
+
+        .card
+            .card-header: .card-title Beschrijving
+            .card-section: .block.block-content
+                p
+                    | Met de Backoffice wordt een koppeling tot stand gebracht met de API van de gemeente.
+                    | Deze koppeling maakt het mogelijk om gegevens uit platform Forus te combineren met
+                    | gegevens uit de systemen, zoals de DataWarehouse, van de gemeente.
+                p
+                    | Een van de belangrijkste functies van deze koppeling is de automatische verificatie
+                    | van aanvragen voor regelingen door inwoners. Het systeem voert automatisch controles
+                    | uit op basis van de gegevens die bij de gemeente bekend zijn. Dit verzekert dat alleen
+                    | inwoners die daadwerkelijk recht hebben op een regeling, worden goedgekeurd.
+                p
+                    | Daarnaast stroomlijnt deze koppeling het proces van informatie-uitwisseling tussen de
+                    | gemeente en het Forus-platform. Zodra een regeling wordt toegekend en een inwoner
+                    | gebruikmaakt van het ontvangen tegoed, wordt deze informatie teruggestuurd naar de gemeente.
+                    | Dit biedt een real-time overzicht van toekenningen en het gebruik van tegoeden.
+
+                img(src="/assets/img/features/img/backoffice-api/banner.jpg")
+
+                h3 Belangrijkste voordelen
+
+                p De koppeling van Beckoffice API met Forus biedt verschillende voordelen:
+
+                .block.block-feature-icons
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/backoffice-api/icon-1.svg
+
+                        h4 Procesoptimalisatie
+                        p
+                            | De backoffice-integratie met de Gemeente-API stroomlijnt organisatorische processen.
+                            | Het automatiseren van verificatie voor regelingsaanvragen bespaart veel tijd en moeite.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/backoffice-api/icon-2.svg
+
+                        h4 Real-time informatie-uitwisseling
+                        p
+                            | De integratie zorgt voor een directe en continue uitwisseling van informatie over
+                            | toekenningen en tegoedgebruik, waardoor er altijd actuele gegevens beschikbaar zijn.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/backoffice-api/icon-3.svg
+
+                        h4 Gegevenscombinatie
+                        p
+                            | De koppeling maakt het mogelijk om gegevens vanuit Forus te combineren met gegevens
+                            | uit de systemen van uw organisatie, waardoor een compleet en geïntegreerd overzicht ontstaat.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/backoffice-api/icon-4.svg
+
+                        h4 Automatische controle
+                        p
+                            | Met de integratie kan automatisch worden gecontroleerd of een inwoner recht heeft op een regeling,
+                            | op basis van gemeentegegevens. Dit verhoogt de nauwkeurigheid en efficiëntie van het proces.
+
+
+                .block.block-feature-steps.block-feature-steps-lg
+                    .block-feature-steps-title Doel van de koppeling
+                    .block-feature-steps-items
+                        .block-feature-steps-item
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/backoffice-api/icon-step-1.svg
+
+                            .block-feature-steps-content
+                                h4
+                                    | Bij de aanvraag van een regeling door een inwoner wordt automatisch gecontroleerd
+                                    | of deze inwoner recht heeft op de regeling.
+
+                        .block-feature-steps-item
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/backoffice-api/icon-step-1.svg
+
+                            .block-feature-steps-content
+                                h4
+                                    | De status van "regeling toegekend of niet" kan worden opgevraagd via het
+                                    | Forus-platform en zal zichtbaar zijn in bijv. het zaaksysteem van de gemeente.
+
+                        .block-feature-steps-item
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/backoffice-api/icon-step-1.svg
+
+                            .block-feature-steps-content
+                                h4
+                                    | De status van "tegoed gebruikt of niet" (of er een transactie is gedaan)
+                                    | kan worden opgevraagd via het Forus-platform.
+
+            .card-info
+                .card-info-icon.mdi.mdi-headset
+                .card-info-details: span
+                    | Mocht u nog vragen hebben of wilt u aanvullende informatie dan kunt u ons
+                    | bellen op: #[strong +31 (0) 85 004 33 87] of contact opnemen via e-mail #[strong info@forus.io]
+
+
+        .card
+            .card-header: .card-title Veelgestelde vragen
+
+            .card-section.card-section-padless: .block.block-feature-faq(collapse)
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Voor welke organisaties is de Backoffice API geschikt?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Op basis van een BSN worden gegevens opgehaald middels de API. De Backoffice API is daarom uitsluitend
+                            | in te zetten voor organisaties die de aanvraagprocedure voor een regeling via het platform laten
+                            | verlopen middels het inloggen met DigiD.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Welke gegevens heeft Fous nodig vanuit de organisatie?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Om de Backoffice API in te zetten, is het van belang dat de organisatie beschikt over een dataset van
+                            | informatie over de inwoner. Met de Backoffice API wordt namelijk middels een koppeling deze data
+                            | gecontroleerd wanneer de inwoner inlogt met DigiD een aanvraag voor een regeling doet. Op basis
+                            | van het BSN wordt gecheckt of de inwoner recht heeft op de desbetreffende regeling.
+
+
+        .card
+            .card-header(ng-if="$ctrl.additionalFeatures.length")
+                .card-title Andere modules die u misschien interessant vindt
+
+            .card-section(ng-if="$ctrl.additionalFeatures.length")
+                .block.block-features
+                    .features-list
+                        a.features-list-item(
+                            ng-repeat="feature in $ctrl.additionalFeatures"
+                            ui-sref="feature(feature.srefParams)")
+
+                            .features-list-item-icon: img(ng-src="/assets/img/features/icons/{{ feature.key }}.svg")
+                            .features-list-item-content
+                                .features-list-item-title
+                                    span(ng-bind="feature.name")
+                                    .features-label.active(ng-if="feature.enabled") Actief
+                                .features-list-item-details(ng-bind="feature.description")
+                                .features-labels
+                                    .features-label(ng-repeat="label in feature.labels" ng-bind="label")
+
+            .card-section
+                .block.block-features-demo-banner(
+                    style="background-image: url(/assets/img/features/img/backoffice-api/banner-action-bg.jpg);"
+                )
+                    .features-demo-banner-info-wrapper
+                        .features-demo-banner-info
+                            .features-demo-banner-title Backoffice API uitproberen
+                            .features-demo-banner-details
+                                | Wilt u zien hoe de Backoffice API werkt? Neem dan contact met ons op
+                                | voor een persoonlijke demonstratie. We laten u graag zien hoe het voor uw kan werken.
+
+                        .features-demo-banner-action
+                            a(ui-sref="features({organization_id: $ctrl.organization.id})").button.button-primary Demo aanvragen

@@ -143,7 +143,7 @@ const SelectControlDirective = function ($scope, $timeout) {
                 return;
             }
     
-            if (Array.isArray($dir.optionsPrepared) && (ngModel != undefined)) {
+            if (Array.isArray($dir.optionsPrepared) && (ngModel !== undefined)) {
                 $dir.value = $dir.findValue(ngModel);
             }
         });
@@ -196,6 +196,7 @@ module.exports = () => {
 
             return $el ? {
                 'select-control': require('./templates/select-control.pug')(),
+                'select-control-fund': require('./templates/select-control-fund.pug')(),
                 'select-control-organization': require('./templates/select-control-organization.pug')(),
                 'select-control-country-codes': require('./templates/select-control-country-codes.pug')(),
             }[templateName] || `<div>Template: ${templateName} not found</div>` : '<div></div>';

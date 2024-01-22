@@ -1,4 +1,4 @@
-const BlockEmptyDirective = function($scope) {
+const BlockEmptyDirective = function($scope, $state) {
     const { $dir } = $scope;
 
     $dir.buttonHandler = ($event) => {
@@ -20,6 +20,7 @@ module.exports = () => {
             text: '@',
             button: '=',
             align: '@',
+            imageSrc: '@',
             buttonSref: '@',
             buttonSrefParams: '=',
             buttonCallback: '&',
@@ -34,6 +35,7 @@ module.exports = () => {
         replace: true,
         controller: [
             '$scope',
+            '$state',
             BlockEmptyDirective,
         ],
         templateUrl: 'assets/tpl/directives/blocks/block-empty.html',
