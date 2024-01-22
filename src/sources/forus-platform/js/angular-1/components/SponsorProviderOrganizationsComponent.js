@@ -22,8 +22,9 @@ const SponsorProviderOrganizationsComponent = function (
     $ctrl.filters = {
         show: false,
         values: pick($stateParams, [
-            'q', 'order_by', 'fund_id', 'allow_budget', 'allow_products', 
-            'has_products', 'implementation_id',
+            'q', 'order_by', 'fund_id', 'has_products',
+            'allow_budget', 'allow_products', 'allow_extra_payments', 
+            'implementation_id',
         ]),
         defaultValues: {
             q: '',
@@ -32,6 +33,7 @@ const SponsorProviderOrganizationsComponent = function (
             fund_id: null,
             allow_budget: '',
             allow_products: '',
+            allow_extra_payments: '',
             has_products: '',
         },
         reset: function () {
