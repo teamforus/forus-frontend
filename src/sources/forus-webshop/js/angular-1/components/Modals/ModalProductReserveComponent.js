@@ -129,7 +129,11 @@ const ModalProductReserveComponent = function (
 
     $ctrl.selectVoucher = (voucher) => {
         $ctrl.voucher = voucher;
-        $ctrl.setSteps();
+
+        if ($ctrl.voucher && $ctrl.voucher.amount_extra > 0) {
+            $ctrl.steps.push($ctrl.STEP_EXTRA_PAYMENT);
+        }
+
         $ctrl.next();
     };
 
@@ -216,7 +220,9 @@ const ModalProductReserveComponent = function (
             key: field.id,
             dusk: `customField${field.id}`,
             type: field.type,
-        })) || [])
+        })) || []);
+
+        $ctrl.setSteps();
     };
 };
 

@@ -15,6 +15,6 @@
             .modal-warning Controleer de gegevens voordat u de declaratie verstuurd.
             reimbursement-details(reimbursement="$ctrl.reimbursement" edit="false" compact="true")
 
-        .modal-footer: .button-group
+        .modal-footer
             .button.button-primary-outline.button-sm(ng-click="$ctrl.close()" dusk="modalReimbursementConfirmationCancel") Cancel
             .button.button-primary.button-sm(ng-click="$ctrl.confirm()" dusk="modalReimbursementConfirmationSubmit") Bevestigen

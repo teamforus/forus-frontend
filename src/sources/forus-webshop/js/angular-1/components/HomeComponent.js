@@ -58,7 +58,10 @@ const HomeComponent = function (
         if (session_expired) {
             ModalService.open('modalNotification', {
                 type: 'confirm',
+                title: 'Sessie verlopen',
                 description: 'modal.logout.description',
+                mdiIconType: 'primary',
+                mdiIconClass: 'information-outline',
                 confirmBtnText: 'Inloggen',
                 confirm: () => $state.go('start', {}, { reload: true }),
             });

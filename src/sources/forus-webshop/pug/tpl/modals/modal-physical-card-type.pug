@@ -40,12 +40,12 @@
                     span Geen oude pas? 
                     .physical-card-order(ng-click="$ctrl.requestPhysicalCard()") Bestel een pas
 
-                
-                .button-group.flex-center: button.button.button-primary(
-                    ng-class="{disabled: $ctrl.activateCodeForm.values.code.length != 12}"
-                    type="button" 
-                    i18n="physical_card.buttons.link_card.submit_code" 
-                    ng-click="$ctrl.submitActivationCode()")
+        .modal-footer   
+            button.button.button-sm.button-primary(
+                ng-class="{disabled: $ctrl.activateCodeForm.values.code.length != 12}"
+                type="button" 
+                i18n="physical_card.buttons.link_card.submit_code" 
+                ng-click="$ctrl.submitActivationCode()")
     
     //- Digital password
     .modal-window(ng-if="$ctrl.state == 'select_type'")

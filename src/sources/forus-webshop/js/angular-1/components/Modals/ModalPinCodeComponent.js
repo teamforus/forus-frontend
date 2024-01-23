@@ -22,6 +22,8 @@ let ModalPinCodeComponent = function(
                 ModalService.open('modalNotification', {
                     type: 'confirm',
                     title: 'popup_auth.pin_code.confirmation.title_' + appConfigs.features.communication_type,
+                    mdiIconType: 'warning',
+                    mdiIconClass: 'alert-outline',
                     description: 'popup_auth.pin_code.confirmation.description',
                     notice: 'popup_auth.pin_code.confirmation.notice_' + appConfigs.features.communication_type,
                     confirmBtnText: 'popup_auth.pin_code.confirmation.buttons.confirm',

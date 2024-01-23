@@ -18,6 +18,7 @@ let ModalNotificationComponent = function(
 
         $ctrl.modalClass = $ctrl.modal.scope.modalClass || '';
 
+        $ctrl.headerTitle = $ctrl.modal.scope.headerTitle;
         $ctrl.title = $ctrl.modal.scope.title;
         $ctrl.notice = $ctrl.modal.scope.notice;
         $ctrl.email = $ctrl.modal.scope.email
@@ -26,6 +27,8 @@ let ModalNotificationComponent = function(
         $ctrl.subdescription = $ctrl.modal.scope.subdescription;
         $ctrl.icon_filetype = $ctrl.modal.scope.icon_filetype ? $ctrl.modal.scope.icon_filetype : '.png';
         $ctrl.icon = $ctrl.modal.scope.icon ? getIcon($ctrl.modal.scope.icon, $ctrl.icon_filetype) : null;
+        $ctrl.mdiIconClass = $ctrl.modal.scope.mdiIconClass || null;
+        $ctrl.mdiIconType = $ctrl.modal.scope.mdiIconType || '';
 
         $ctrl.confirmBtnText = $ctrl.modal.scope.confirmBtnText ? $ctrl.modal.scope.confirmBtnText : $ctrl.confirmBtnText;
         $ctrl.closeBtnText = $ctrl.modal.scope.closeBtnText ? $ctrl.modal.scope.closeBtnText : $ctrl.closeBtnText;

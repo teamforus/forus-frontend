@@ -16,58 +16,6 @@
     }
 
     .modal-content {
-        .physical-card-title {
-            font: 700 18px/24px var(--base-font);
-            text-align: center;
-            margin-bottom: 15px;
-            color: var(--tc);
-        }
-
-        .physical-card-description {
-            font: 700 14px/21px var(--base-font);
-            text-align: center;
-            margin-bottom: 15px;
-            color: #646f79;
-
-            .physical-card-order {
-                display: inline-block;
-                text-decoration: underline;
-            }
-
-            & > .label {
-                font: inherit;
-                padding-left: 5px;
-                padding-right: 5px;
-            }
-        }
-
-        .physical-card-media {
-            img,
-            svg {
-                display: block;
-                height: 200px;
-                margin: 0 auto 20px;
-            }
-
-            svg {
-                height: auto;
-            }
-
-            .mdi {
-                font-size: 100px;
-                display: flex;
-                justify-content: center;
-            }
-
-            &.physical-card-media-sm {
-                img {
-                    height: 130px;
-                    padding: 20px;
-                    margin: 0 auto;
-                }
-            }
-        }
-
         .physical-card-icon {
             background: #134478;
             text-align: center;

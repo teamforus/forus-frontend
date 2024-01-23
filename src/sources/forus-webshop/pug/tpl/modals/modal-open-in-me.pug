@@ -1,29 +1,32 @@
-.modal.modal-auth.modal-animated(
+.modal.modal-auth.modal-sm.modal-animated(
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']"
     role="dialog")
     
     .modal-backdrop(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
-    .modal-content: .modal-section
+    .modal-window: form.form.f-w(ng-submit="$ctrl.phoneForm.submit()")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
-        .me-logo: include ../../../resources/_webshop-common/assets/img/me-logo.svg
+        .modal-header
+            h2.modal-title(translate="open_in_me.header.title")
+        
+        .modal-body: .modal-content: .modal-section.text-center
+            .modal-icon-mdi: .mdi.mdi-account-circle
 
-        h2.modal-title(translate="open_in_me.sms.title_{{ $root.appConfigs.features.communication_type }}")
-        .modal-subtitle.hide-sm(translate="open_in_me.sms.description_{{ $root.appConfigs.features.communication_type }}")
-        .modal-subtitle.show-sm De app kan gebruikt worden om tegoeden te beheren en makkelijk in te loggen.
+            .title(translate="open_in_me.sms.title_{{ $root.appConfigs.features.communication_type }}")
+            .description-small.hide-sm(translate="open_in_me.sms.description_{{ $root.appConfigs.features.communication_type }}")
+            .description-small.show-sm De app kan gebruikt worden om tegoeden te beheren en makkelijk in te loggen.
 
-        div: app-links(dl-id="me_download_button_lg" show-ios="false" show-android='false').flex.flex-center.hide-sm
+            div: app-links(dl-id="me_download_button_lg" show-ios="false" show-android='false').flex.flex-center.hide-sm
 
-        .row: .col.col-sm-10.col-sm-offset-1.col-xs-12.col-xs-offset-0: form.hide-sm.form.f-w(ng-submit="$ctrl.phoneForm.submit()")
-            phone-control(ng-model="$ctrl.phoneForm.values.phone")
-            .pincode-errors.text-center: .form-error(ng-repeat="error in $ctrl.phoneForm.errors.phone" ng-bind="error")
-            .text-center
-                .description-small(translate="open_in_me.sms.subdescription_{{ $root.appConfigs.features.communication_type }}")
+            .phone-block: .row: .col.col-sm-10.col-sm-offset-1.col-xs-12.col-xs-offset-0
+                phone-control(ng-model="$ctrl.phoneForm.values.phone")
+                .pincode-errors.text-center: .form-error(ng-repeat="error in $ctrl.phoneForm.errors.phone" ng-bind="error")
 
-            .modal-footer.text-center.no-border
-                button.button.button-dark(type="button" ng-click="$ctrl.skip()" translate='open_in_me.sms.button.skip')
-                button.button.button-primary(type="submit" translate='open_in_me.sms.button.send')
+            .notice-block: .description-small(translate="open_in_me.sms.subdescription_{{ $root.appConfigs.features.communication_type }}")
+            .text-center.show-sm: app-links
 
-        .text-center.show-sm: app-links
+        .modal-footer
+            button.button.button-sm.button-light(type="button" ng-click="$ctrl.skip()" translate='open_in_me.sms.button.skip')
+            button.button.button-sm.button-primary(type="submit" translate='open_in_me.sms.button.send')

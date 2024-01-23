@@ -25,6 +25,8 @@ const ModalShareVoucherComponent = function(
                     type: 'action-result',
                     class: 'modal-description-pad',
                     title: 'voucher.share_voucher.popup_sent.title',
+                    mdiIconType: "success",
+                    mdiIconClass: 'check-circle-outline',
                     description: 'voucher.share_voucher.popup_sent.description',
                     confirmBtnText: 'voucher.share_voucher.buttons.confirm',
                 });

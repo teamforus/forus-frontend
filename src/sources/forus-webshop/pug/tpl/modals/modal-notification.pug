@@ -4,13 +4,22 @@
     role="dialog")
     
     .modal-backdrop(ng-click="$ctrl.cancel()" aria-label="Sluiten" role="button")
-    .modal-content
+    
+    .modal-window
         .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" aria-label="Sluiten" role="button")
-        .modal-section
+                
+        .modal-header    
+            h2.modal-title(role="heading" id="notificationDialogTitle" translate="{{ $ctrl.headerTitle || $ctrl.title }}")
+        
+        .modal-body: .modal-content: .modal-section
             .text-center
+                .modal-icon-mdi(
+                    ng-if="$ctrl.mdiIconType && $ctrl.mdiIconClass" 
+                    ng-class="'modal-icon-mdi-' + $ctrl.mdiIconType"): .mdi(ng-class="'mdi-' + $ctrl.mdiIconClass")
                 .modal-icon(ng-if="$ctrl.icon"): img(ng-src="{{ $ctrl.icon }}" alt="")
                 
-                h2.title(role="heading" id="notificationDialogTitle" translate="{{ $ctrl.title }}")
+                .title(ng-if="$ctrl.title" translate="{{ $ctrl.title }}")
+
                 .description(
                     id="notificationDialogSubtitle" 
                     ng-if="$ctrl.description && !$ctrl.descriptionIsArray" 
@@ -20,11 +29,9 @@
                 .description(id="notificationDialogSubtitle" ng-if="$ctrl.description && $ctrl.descriptionIsArray")
                     div(ng-repeat="description in $ctrl.description  track by $index" translate="{{ description }}")
                 
-                .description-small(ng-if="$ctrl.notice" translate="{{ $ctrl.notice }}")
                 .text-center(ng-if="$ctrl.subdescription"): .subdescription(translate="{{ $ctrl.subdescription }}")
-            br
 
-            .button-group.flex-center
-                button.button.button-dark(ng-if="$ctrl.showCloseBtn" data-close ng-click="$ctrl.close()" translate="{{ $ctrl.closeBtnText }}")
-                button.button.button-dark(ng-if="$ctrl.showCancelBtn" data-cancel ng-click="$ctrl.cancel()" translate="{{ $ctrl.cancelBtnText }}")
-                button.button.button-primary(ng-if="$ctrl.showConfirmBtn" data-confirm ng-click="$ctrl.confirm()" translate="{{ $ctrl.confirmBtnText }}")
+        .modal-footer
+            button.button.button-sm.button-light(ng-if="$ctrl.showCloseBtn" data-close ng-click="$ctrl.close()" translate="{{ $ctrl.closeBtnText }}")
+            button.button.button-sm.button-light(ng-if="$ctrl.showCancelBtn" data-cancel ng-click="$ctrl.cancel()" translate="{{ $ctrl.cancelBtnText }}")
+            button.button.button-sm.button-primary(ng-if="$ctrl.showConfirmBtn" data-confirm ng-click="$ctrl.confirm()" translate="{{ $ctrl.confirmBtnText }}")
