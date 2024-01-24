@@ -36,6 +36,7 @@ const FundPreCheckComponent = function (
                 pre_check_record.input_value === 0 ||
                 pre_check_record.control_type === 'ui_control_checkbox';
         });
+        $ctrl.filledRecordTypeKeys = filledRecordTypes.map((recordType) => recordType.record_type_key);
 
         return filledRecordTypes.length === activePreCheck.record_types.length;
     };
@@ -72,6 +73,9 @@ const FundPreCheckComponent = function (
 
         if ($ctrl.preCheckFilled($ctrl.activeStepIndex)) {
             $ctrl.activeStepIndex = Math.min($ctrl.activeStepIndex + 1, $ctrl.preChecks.length - 1);
+            $ctrl.formErrors = false;
+        } else {
+            $ctrl.formErrors = true;
         }
     };
 

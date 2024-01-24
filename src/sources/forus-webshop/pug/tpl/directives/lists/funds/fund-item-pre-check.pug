@@ -53,11 +53,11 @@
                 type="button"
                 ng-disabled="!$dir.fund.allow_direct_requests"
                 ng-click="$dir.applyFund($event, $dir.fund)")
-                translate Direct aanvragen 
+                translate {{ $dir.fund.allow_direct_requests ? 'Direct aanvragen' : 'Niet beschikbaar' }} 
                 em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
         .fund-totals-block
-            .fund-totals-block-amount
+            .fund-totals-block-amount(ng-if="$dir.fund.amount")
                 .fund-totals-block-amount-description Totaal
                 .fund-totals-block-amount-value {{ $dir.fund.amount_total_locale }}
 
@@ -91,7 +91,7 @@
                     | &nbsp;
                     span(ng-bind="criterion.value")
 
-        .fund-pre-check-info-col
+        .fund-pre-check-info-col(ng-if="$dir.fund.amount")
             .fund-pre-check-info-col-title Berekening
             table.fund-pre-check-info-col-table
                 tr
