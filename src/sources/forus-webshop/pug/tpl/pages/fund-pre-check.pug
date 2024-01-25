@@ -202,7 +202,7 @@ block content
                                         data-placeholder="Uw {{ preCheckRecord.record_type.name }}")
 
                                     .form-error(
-                                        ng-if="$ctrl.formErrors && $ctrl.filledRecordTypeKeys.indexOf(preCheckRecord.record_type.key) == -1") 
+                                        ng-if="$ctrl.emptyRecordTypeKeys.includes(preCheckRecord.record_type.key)") 
                                         | Het {{ preCheckRecord.title }} veld is verplicht. 
 
                             .pre-check-step-section-actions
