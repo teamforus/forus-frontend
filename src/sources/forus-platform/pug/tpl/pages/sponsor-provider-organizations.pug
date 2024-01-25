@@ -146,6 +146,34 @@
                                                 .radio-circle
                                                 | Alles
 
+                                .form-group
+                                    form-label-toggle(label="Betaalmethode toestaan")
+                                    .inline-filters-pane
+                                        .radio
+                                            input#allow_extra_payments_yes(
+                                                type="radio"
+                                                name="allow_extra_payments"
+                                                ng-model="$ctrl.filters.values.allow_extra_payments" value="1")
+                                            label(for="allow_extra_payments_yes").radio-label
+                                                .radio-circle
+                                                | Ja
+                                        .radio
+                                            input#allow_extra_payments_no(
+                                                type="radio"
+                                                name="allow_extra_payments"
+                                                ng-model="$ctrl.filters.values.allow_extra_payments" value="0")
+                                            label(for="allow_extra_payments_no").radio-label
+                                                .radio-circle
+                                                | Nee
+                                        .radio
+                                            input#allow_extra_payments_all(
+                                                type="radio"
+                                                name="allow_extra_payments"
+                                                ng-model="$ctrl.filters.values.allow_extra_payments" value="")
+                                            label(for="allow_extra_payments_all").radio-label
+                                                .radio-circle
+                                                | Alles
+
                                 //- Funds filter
                                 .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="Fondsen")
@@ -164,6 +192,7 @@
                                         ng-model="$ctrl.filters.values.implementation_id"
                                         options="$ctrl.implementations").form-control
                                         
+
                                 .form-actions
                                     button.button.button-primary.button-wide(
                                         ng-click="$ctrl.exportList()"
