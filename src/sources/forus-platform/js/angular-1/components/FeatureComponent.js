@@ -3,9 +3,14 @@ const kebabCase = require("lodash/kebabCase");
 
 const FeatureComponent = function (
     $stateParams,
+    ModalService,
     FeaturesService,
 ) {
     const $ctrl = this;
+
+    $ctrl.openContactModal = () => {
+        ModalService.open('featureContact');
+    };
 
     $ctrl.$onInit = () => {
         $ctrl.feature = FeaturesService.list.map((feature) => ({
@@ -27,6 +32,7 @@ module.exports = {
     },
     controller: [
         '$stateParams',
+        'ModalService',
         'FeaturesService',
         FeatureComponent,
     ],

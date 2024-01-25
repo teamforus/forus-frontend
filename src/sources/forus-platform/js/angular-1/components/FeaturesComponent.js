@@ -3,6 +3,7 @@ const kebabCase = require("lodash/kebabCase");
 const FeaturesComponent = function (
     $state,
     $scope,
+    ModalService,
     FeaturesService,
 ) {
     const $ctrl = this;
@@ -12,12 +13,18 @@ const FeaturesComponent = function (
         state: 'all',
     };
 
+    const filterByName = (item, q) => item.name.toLowerCase().includes(q);
+    const filterByDescription = (item, q) => item.description.toLowerCase().includes(q);
+
+    const filterByLabel = (item, q) => item.labels.filter((label) => label.toLowerCase().includes(q)).length;
+    const filterByState = (item, state) => state === 'all' || (state === 'active' ? item.enabled : !item.enabled);
+
     const filterFeatures = (value) => {
         const q = value.q.toLowerCase();
 
         const list = $ctrl.allFeatures
-            .filter((item) => item.name.toLowerCase().includes(q) || item.description.toLowerCase().includes(q))
-            .filter((item) => (value.state === 'all' || (value.state === 'active' ? item.enabled : !item.enabled)));
+            .filter((item) => filterByName(item, q) || filterByDescription(item, q) || filterByLabel(item, q))
+            .filter((item) => filterByState(item, value.state));
 
         $ctrl.features = list.slice(0, 4);
         $ctrl.featuresAfter = list.slice(4);
@@ -38,6 +45,10 @@ const FeaturesComponent = function (
             name: `Niet Actief (${notActive})`,
         }];
     }
+
+    $ctrl.openContactModal = () => {
+        ModalService.open('featureContact');
+    };
 
     $ctrl.$onInit = () => {
         $ctrl.previewList = FeaturesService.previewList;
@@ -62,6 +73,7 @@ module.exports = {
     controller: [
         '$state',
         '$scope',
+        'ModalService',
         'FeaturesService',
         FeaturesComponent,
     ],
