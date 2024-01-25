@@ -5,7 +5,6 @@ const ProviderAvailableFundsTableDirective = function (
     ModalService,
     ProviderFundService,
     PageLoadingBarService,
-    PushNotificationsService,
 ) {
     const $dir = $scope.$dir;
     const $translate = $filter('translate');
@@ -19,6 +18,7 @@ const ProviderAvailableFundsTableDirective = function (
         page: 1,
         per_page: 10,
         organization_id: null,
+        implementation_id: null,
         order_by: 'organization_name',
         order_dir: 'asc',
     };
@@ -26,10 +26,7 @@ const ProviderAvailableFundsTableDirective = function (
     $dir.filters = {
         visible: false,
         values: angular.copy($dir.filtersDefault),
-        hide: (e) => {
-            e?.preventDefault();
-            e?.stopPropagation();
-
+        hide: () => {
             $dir.filters.visible = false;
         },
         show: (e) => {
@@ -89,6 +86,11 @@ const ProviderAvailableFundsTableDirective = function (
                 id: null,
                 name: $translate('provider_funds.filters.options.all_organizations'),
             }, ...$dir.funds.meta.organizations];
+
+            $dir.implementations = $dir.implementations ? $dir.implementations : [{
+                id: null,
+                name: $translate('provider_funds.filters.options.all_implementations'),
+            }, ...$dir.funds.meta.implementations];
         }).finally(() => PageLoadingBarService.setProgress(100));
     };
 
@@ -154,7 +156,6 @@ module.exports = () => {
             'ModalService',
             'ProviderFundService',
             'PageLoadingBarService',
-            'PushNotificationsService',
             ProviderAvailableFundsTableDirective,
         ],
         templateUrl: 'assets/tpl/directives/provider-available-funds-table.html',

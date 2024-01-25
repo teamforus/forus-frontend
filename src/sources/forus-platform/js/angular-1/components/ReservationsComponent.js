@@ -13,6 +13,7 @@ const ReservationsComponent = function (
 
     $ctrl.empty = null;
     $ctrl.acceptedByDefault = false;
+    $ctrl.showExtraPayments = false;
 
     $ctrl.shownReservationsType = $stateParams.reservations_type || 'active';
 
@@ -37,7 +38,9 @@ const ReservationsComponent = function (
     }, {
         key: 'canceled_by_client',
         name: 'Geannuleerd door aanvrager' // Canceled by client
-    }, {
+    }];
+
+    $ctrl.extraPaymentStates = [{
         key: 'canceled_payment_expired',
         name: 'Geannuleerd door verlopen bijbetaling' // Canceled payment expired
     }, {
@@ -76,15 +79,12 @@ const ReservationsComponent = function (
         );
     };
 
-    const mapReservations = (reservations) => {
-        return {
-            ...reservations,
-            data: reservations.data.map((reservation) => ({
-                ...reservation,
-                allowAcceptReservation: ProductReservationService.acceptAllowed(reservation),
-                allowRejectReservation: ProductReservationService.rejectAllowed(reservation),
-            })),
-        };
+    const showExtraPaymentDetails = (reservations) => {
+        const hasExtraPaymentsOnPage = reservations.filter((reservation) => {
+            return reservation.extra_payment !== null;
+        }).length > 0;
+
+        return $ctrl.organization.can_view_provider_extra_payments || hasExtraPaymentsOnPage;
     }
 
     $ctrl.onPageChange = (query = {}) => {
@@ -94,10 +94,11 @@ const ReservationsComponent = function (
             fetchReservations(query).then((res) => $ctrl.activeReservations = res.data),
             fetchReservations(query, true).then((res) => $ctrl.archivedReservations = res.data),
         ]).then(() => {
-            $ctrl.reservations = mapReservations($ctrl.shownReservationsType == 'active' ?
+            $ctrl.reservations = $ctrl.shownReservationsType == 'active' ?
                 $ctrl.activeReservations :
-                $ctrl.archivedReservations,
-            );
+                $ctrl.archivedReservations
+
+            $ctrl.showExtraPayments = showExtraPaymentDetails($ctrl.reservations.data);
 
             PageLoadingBarService.setProgress(100);
         });
@@ -211,13 +212,19 @@ const ReservationsComponent = function (
         const { reservations_budget_enabled, reservations_subsidy_enabled } = $ctrl.organization;
 
         $ctrl.filters.reset();
-        $ctrl.reservations = mapReservations($ctrl.shownReservationsType == 'active' ?
-            $ctrl.activeReservations :
-            $ctrl.archivedReservations,
-        );
 
+        $ctrl.reservations = $ctrl.shownReservationsType == 'active' ?
+            $ctrl.activeReservations :
+            $ctrl.archivedReservations
+
+        $ctrl.showExtraPayments = showExtraPaymentDetails($ctrl.reservations.data);
         $ctrl.acceptedByDefault = $ctrl.organization.reservations_auto_accept;
         $ctrl.reservationEnabled = reservations_budget_enabled || reservations_subsidy_enabled;
+
+        $ctrl.states = [
+            ...$ctrl.states,
+            ...($ctrl.organization.can_view_provider_extra_payments ? $ctrl.extraPaymentStates : [])
+        ];
 
         $ctrl.funds.unshift({
             fund: {
