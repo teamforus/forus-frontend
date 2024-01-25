@@ -13,20 +13,22 @@ const FeaturesComponent = function (
         state: 'all',
     };
 
+    const filterByName = (item, q) => item.name.toLowerCase().includes(q);
+    const filterByDescription = (item, q) => item.description.toLowerCase().includes(q);
+
+    const filterByLabel = (item, q) => item.labels.filter((label) => label.toLowerCase().includes(q)).length;
+    const filterByState = (item, state) => state === 'all' || (state === 'active' ? item.enabled : !item.enabled);
+
     const filterFeatures = (value) => {
         const q = value.q.toLowerCase();
 
         const list = $ctrl.allFeatures
-            .filter((item) => filterByName(item, q) || filterByLabel(item, q))
+            .filter((item) => filterByName(item, q) || filterByDescription(item, q) || filterByLabel(item, q))
             .filter((item) => filterByState(item, value.state));
 
         $ctrl.features = list.slice(0, 4);
         $ctrl.featuresAfter = list.slice(4);
     }
-
-    const filterByName = (item, q) => item.name.toLowerCase().includes(q) || item.description.toLowerCase().includes(q)
-    const filterByLabel = (item, q) => item.labels.filter((label) => label.toLowerCase().includes(q)).length
-    const filterByState = (item, state) => state === 'all' || (state === 'active' ? item.enabled : !item.enabled)
 
     const setActiveCounts = () => {
         const active = $ctrl.allFeatures.filter(feature => feature.enabled).length;

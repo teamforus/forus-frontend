@@ -1,22 +1,22 @@
 &.block-features-overview {
-    display: grid;
+    display: flex;
     flex-direction: row;
-    grid-template-columns: repeat(2, 1fr);
 
     .overview-details {
         display: flex;
+        flex: 0 0 50%;
         flex-direction: column;
         padding: 45px 90px 45px 60px;
         justify-content: center;
 
         .overview-details-title {
-            color: #151B26;
+            color: #151b26;
             font: 600 32px/44px var(--base-font);
             margin: 0 0 8px;
         }
 
         .overview-details-description {
-            color: #282B39;
+            color: #282b39;
             font: 400 13px/20px var(--base-font);
 
             p {
@@ -36,6 +36,7 @@
 
     .overview-list {
         display: flex;
+        flex: 0 0 50%;
         min-height: 400px;
         background-image: url(../img/features/features-watermark.svg);
         background-repeat: no-repeat;
@@ -65,19 +66,20 @@
                         display: flex;
                         margin-bottom: 10px;
 
-                        svg, img {
+                        svg,
+                        img {
                             width: 32px;
                             height: 32px;
                         }
                     }
 
                     .overview-list-item-title {
-                        color: #151B26;
+                        color: #151b26;
                         font: 600 13px/20px var(--base-font);
                     }
 
                     .overview-list-item-description {
-                        color: #282B39;
+                        color: #282b39;
                         font: 400 11px/16px var(--base-font);
                     }
                 }
@@ -106,7 +108,7 @@
                     .overview-list-item {
                         &:first-child {
                             width: 160px;
-                            background: #009FDA;
+                            background: #009fda;
 
                             .overview-list-item-title,
                             .overview-list-item-description {
@@ -138,6 +140,16 @@
     }
 
     @media screen and (max-width: 650px) {
-        grid-template-columns: repeat(1, 1fr);
+        flex-direction: column;
+
+        .overview-details {
+            flex: 0 1 auto;
+        }
+
+        .overview-list {
+            flex: 0 1 auto;
+            min-height: 0;
+            padding: 0 0 10px;
+        }
     }
 }
