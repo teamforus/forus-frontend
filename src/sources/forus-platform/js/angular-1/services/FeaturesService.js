@@ -28,7 +28,7 @@ const FeaturesService = function () {
             key: 'digid',
             name: 'DigiD',
             description: 'Een koppeling met DigiD voor digitale identificatie binnen Forus.',
-            overview_description: 'Faciliteer het proces voor gebruikers: laat gebruikers inloggen en fondsen aanvragen met DigiD.',
+            overview_description: 'Faciliteer het proces voor deelnemers: laat deelnemers inloggen en fondsen aanvragen met DigiD.',
             labels: ['Koppeling', 'Beveiliging', 'Identificatie'],
         }, {
             key: 'bng',
@@ -40,8 +40,8 @@ const FeaturesService = function () {
         }, {
             key: 'reimbursements',
             name: 'Declaraties',
-            description: 'Mogelijkheid voor inwoners om bonnen en facturen in te dienen ter vergoeding van kosten.',
-            overview_description: 'Faciliteer inwoners bij het indienen van bonnen en facturen ter vergoeding van kosten.',
+            description: 'Mogelijkheid voor deelnemers om bonnen en facturen in te dienen ter vergoeding van kosten.',
+            overview_description: 'Faciliteer deelnemers bij het indienen van bonnen en facturen ter vergoeding van kosten.',
             labels: ['Declaraties', 'Kostenvergoeding', 'Beoordeling'],
         }, {
             key: 'auth_2_fa',
@@ -53,7 +53,7 @@ const FeaturesService = function () {
             key: 'physical_cards',
             name: 'Fysieke pas',
             description: 'Aanvragen en uitgifte van een fysieke pas met persoonlijke QR.',
-            overview_description: 'Geef minder digitaal vaardige inwoners een alternatief voor digitale toegang.',
+            overview_description: 'Geef minder digitaal vaardige deelnemers een alternatief voor digitale toegang.',
             labels: ['Fysieke pas', 'Stadspas', 'Minder digitaal vaardigen'],
         }];
 
@@ -68,7 +68,7 @@ const FeaturesService = function () {
         this.previewList = [[{
             key: 'digid',
             name: 'DigiD',
-            description: 'Laat gebruikers inloggen en fondsen aanvragen met DigiD',
+            description: 'Laat deelnemers inloggen en fondsen aanvragen met DigiD',
         }, {
             key: 'auth_2_fa',
             name: 'Tweefactorauthenticatie',
