@@ -37,15 +37,14 @@
 
         .fund-related-funds-block(ng-if="$dir.fund.children.length > 0")
             .fund-related-funds-description 
-                | Voordat u dit budget kunt aanvragen dient u een aanvraag te doen voor de volgende budgetten, 
-                | moet u een ander fonds aanvragen uit de onderstaande lijst:
+                | Als u deze regeling aanvraagt, kunt u ook direct andere regelingen aanvragen. 
+                | Dit geldt voor de volgende lijst met regelingen:
             ul.fund-related-funds-list(ng-repeat="children in $dir.fund.children")
                 li.fund-related-funds-list-item(ng-bind="children.name")
 
         .fund-related-funds-block.fund-related-funds-block-parent(ng-if="$dir.fund.parent")
             .fund-related-funds-description 
-                | Diam viverra diam at neque mollis eros sapien nibh pellentesque ut eget odio viverra 
-                | ut morbi gravida elementum mauris pretium amet, a sagittis
+                | Deze regeling kunt u aanvragen door een aanvraag te doen voor de volgende regeling: 
             ul.fund-related-funds-list
                 li.fund-related-funds-list-item(ng-bind="$dir.fund.parent.name")
 
@@ -60,11 +59,11 @@
                 type="button"
                 ng-disabled="!$dir.fund.allow_direct_requests"
                 ng-click="$dir.applyFund($event, $dir.fund)")
-                translate Direct aanvragen 
+                translate {{ $dir.fund.allow_direct_requests ? 'Direct aanvragen' : 'Niet beschikbaar' }} 
                 em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
         .fund-totals-block
-            .fund-totals-block-amount
+            .fund-totals-block-amount(ng-if="$dir.positiveAmount")
                 .fund-totals-block-amount-description Totaal
                 .fund-totals-block-amount-value {{ $dir.fund.amount_total_locale }}
 
@@ -98,7 +97,7 @@
                     | &nbsp;
                     span(ng-bind="criterion.value")
 
-        .fund-pre-check-info-col
+        .fund-pre-check-info-col(ng-if="$dir.positiveAmount")
             .fund-pre-check-info-col-title Berekening
             table.fund-pre-check-info-col-table
                 tr

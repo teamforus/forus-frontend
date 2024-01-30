@@ -210,6 +210,8 @@
                 }
 
                 .fund-totals-block-show-details {
+                    min-height: 35px;
+                    
                     .button {
                         font: 600 13px/15px var(--base-font);
                         color: var(--tc);

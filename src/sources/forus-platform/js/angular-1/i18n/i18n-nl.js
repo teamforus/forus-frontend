@@ -526,7 +526,7 @@ module.exports = {
     // PRE CHECK FUNDS = funds-pre-check.pug
     funds_pre_check: {
         header: {
-            title: "Fund pre-check",
+            title: "Pre-check",
         },
         labels: {
             description_title: "Algemeen",
