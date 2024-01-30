@@ -30,15 +30,14 @@
 
         .fund-related-funds-block(ng-if="$dir.fund.children.length > 0")
             .fund-related-funds-description 
-                | Voordat u dit budget kunt aanvragen dient u een aanvraag te doen voor de volgende budgetten, 
-                | moet u een ander fonds aanvragen uit de onderstaande lijst:
+                | Als u deze regeling aanvraagt, kunt u ook direct andere regelingen aanvragen. 
+                | Dit geldt voor de volgende lijst met regelingen:
             ul.fund-related-funds-list(ng-repeat="children in $dir.fund.children")
                 li.fund-related-funds-list-item(ng-bind="children.name")
 
         .fund-related-funds-block.fund-related-funds-block-parent(ng-if="$dir.fund.parent")
             .fund-related-funds-description 
-                | Diam viverra diam at neque mollis eros sapien nibh pellentesque ut eget odio viverra 
-                | ut morbi gravida elementum mauris pretium amet, a sagittis
+                | Deze regeling kunt u aanvragen door een aanvraag te doen voor de volgende regeling: 
             ul.fund-related-funds-list
                 li.fund-related-funds-list-item(ng-bind="$dir.fund.parent.name")
 
