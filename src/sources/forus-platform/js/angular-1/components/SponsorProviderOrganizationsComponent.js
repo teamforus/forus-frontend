@@ -150,6 +150,7 @@ const SponsorProviderOrganizationsComponent = function (
             id: null, 
             name: 'Alle implementaties',
         });
+        $ctrl.providerOrganizations.data = transformProviders($ctrl.providerOrganizations.data);
 
         $ctrl.requests = $ctrl.fundUnsubscribes.length;
         $ctrl.requestsExpired = $ctrl.fundUnsubscribes.filter((item) => item.state == 'overdue').length;
