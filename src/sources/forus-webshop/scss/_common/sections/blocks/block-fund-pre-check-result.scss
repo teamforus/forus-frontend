@@ -34,10 +34,11 @@
                 flex-direction: column;
                 position: relative;
                 word-wrap: break-word;
+                gap: 5px;
 
                 .fund-name {
                     font: 700 22px/32px var(--hf);
-                    margin: 0 0 10px;
+                    margin: 0 0;
                     color: var(--tc);
 
                     a {
@@ -68,6 +69,10 @@
                             font-size: 16px;
                         }
                     }
+                }
+
+                .button {
+                    width: fit-content;
                 }
             }
 
@@ -342,6 +347,16 @@
 
                     .fund-description {
                         font: 400 12px/20px var(--hf);
+
+                        .button {
+                            margin-left: 0;
+                        }
+                    }
+
+                    .button {
+                        width: auto;
+                        margin-left: -85px;
+                        font: 600 11px/15px var(--hf); 
                     }
                 }
 

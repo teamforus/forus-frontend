@@ -28,6 +28,13 @@
                     | Toon minder
                     em.mdi.mdi-chevron-up.icon-right
 
+            a.button.button-primary-outline.button-sm(
+                target="_blank"
+                ng-if="$dir.fund.external_link_url"
+                ng-href="{{ $dir.fund.external_link_url }}")
+                | {{ $dir.fund.external_link_text || 'Externe website bekijken' }}
+                em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
+
         .fund-related-funds-block(ng-if="$dir.fund.children.length > 0")
             .fund-related-funds-description 
                 | Als u deze regeling aanvraagt, kunt u ook direct andere regelingen aanvragen. 
@@ -48,7 +55,7 @@
                 .fund-request-block-progress-bar
                     .fund-request-block-progress-bar-completed(style="width: {{ $dir.criteriaValidPercentage }}%")
 
-            .fund-request-block-button: button.button.button-primary.button-sm(
+            .fund-request-block-button(ng-if="!$dir.fund.is_external"): button.button.button-primary.button-sm(
                 type="button"
                 ng-disabled="!$dir.fund.allow_direct_requests"
                 ng-click="$dir.applyFund($event, $dir.fund)")
