@@ -2,8 +2,10 @@ const FundPreCheckComponent = function (
     $state,
     $timeout,
     FundService,
+    FileService,
     PreCheckService,
     FormBuilderService,
+    PageLoadingBarService,
     PushNotificationsService,
 ) {
     const $ctrl = this;
@@ -29,6 +31,16 @@ const FundPreCheckComponent = function (
         };
     };
 
+    const mapRecords = () => {
+        return $ctrl.preChecks.reduce((recordsData, preCheck) => [
+            ...recordsData,
+            ...preCheck.record_types.reduce((recordData, record) => [
+                ...recordData,
+                { key: record.record_type_key, value: record.input_value?.toString() || '' },
+            ], [])
+        ], []);
+    };
+
     $ctrl.preCheckFilled = (index) => {
         const activePreCheck = $ctrl.preChecks[index];
         const filledRecordTypes = activePreCheck.record_types.filter((pre_check_record) => {
@@ -47,13 +59,7 @@ const FundPreCheckComponent = function (
     };
 
     $ctrl.fetchPreCheckTotals = (query) => {
-        const records = $ctrl.preChecks.reduce((recordsData, preCheck) => [
-            ...recordsData,
-            ...preCheck.record_types.reduce((recordData, record) => [
-                ...recordData,
-                { key: record.record_type_key, value: record.input_value?.toString() || '' },
-            ], [])
-        ], []);
+        const records = mapRecords();
 
         PreCheckService.calculateTotals({ ...query, records })
             .then((res) => $ctrl.totals = res.data)
@@ -63,6 +69,26 @@ const FundPreCheckComponent = function (
     $ctrl.changeAnswers = () => {
         $ctrl.totals = null;
         $ctrl.activeStepIndex = 0;
+    };
+
+    $ctrl.downloadPDF = () => {
+        const records = mapRecords();
+
+        PreCheckService.downloadPDF({ ...$ctrl.form.values, records })
+            .then((res) => {
+                PushNotificationsService.success('Success!', 'The downloading should start shortly.');
+
+                const fileName = [
+                    'pre-check',
+                    moment().format('YYYY-MM-DD HH:mm:ss') + '.pdf'
+                ].join('_');
+
+                FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
+                PageLoadingBarService.setProgress(100);
+            }).catch((res) => {
+                console.log('res: ', res);
+                PushNotificationsService.danger(res.data.message);
+            });
     };
 
     $ctrl.prev = () => {
@@ -128,8 +154,10 @@ module.exports = {
         '$state',
         '$timeout',
         'FundService',
+        'FileService',
         'PreCheckService',
         'FormBuilderService',
+        'PageLoadingBarService',
         'PushNotificationsService',
         FundPreCheckComponent,
     ],
