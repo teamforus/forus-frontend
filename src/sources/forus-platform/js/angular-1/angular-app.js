@@ -300,6 +300,7 @@ app.directive('blockCardNote', require('./directives/blocks/BlockCardNoteDirecti
 app.directive('auth2FAInfoBox', require('./directives/Auth2FAInfoBoxDirective'));
 app.directive('reimbursementCategories', require('./directives/ReimbursementCategoriesDirective'));
 app.directive('blockFeature', require('./directives/blocks/BlockFeatureDirective'));
+app.directive('blockAdditionalFeatures', require('./directives/blocks/BlockAdditionalFeaturesDirective'));
 app.directive('reservationExtraPaymentDetails', require('./directives/ReservationExtraPaymentDetailsDirective'));
 app.directive('reservationExtraPaymentRefunds', require('./directives/ReservationExtraPaymentRefundsDirective'));
 

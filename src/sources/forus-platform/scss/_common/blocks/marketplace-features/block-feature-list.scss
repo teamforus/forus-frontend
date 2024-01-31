@@ -38,6 +38,13 @@
                 }
             }
         }
+
+        .block-feature-list-items-footer {
+            font: 400 14px/22px var(--base-font);
+            border-top: 1px solid #e8eced;
+            margin-top: 12px;
+            padding-top: 12px;
+        }
     }
 
     &.block-feature-list-secondary {

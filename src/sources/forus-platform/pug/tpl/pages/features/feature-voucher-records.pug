@@ -7,5 +7,204 @@
 
         block-feature(feature="$ctrl.feature")
 
-        //- TODO: Replace with the actual template
-        block-empty(title="{{ $ctrl.feature.name }}" text="{{ $ctrl.feature.description }}")
+        .card
+            .card-header: .card-title Beschrijving
+            .card-section: .block.block-content
+                p
+                    | Met de Persoonsgegeves op een tegoed functionaliteit kunnen persoonsgegevens worden
+                    | toegevoegd en weergegeven bij een tegoed, zowel in de website als in de beheeromgeving.
+                    | Dit biedt de mogelijkheid om specifieke informatie, zoals naam en/of geboortedatum,
+                    | weer te geven in verband met een tegoed.
+
+                img(src="/assets/img/features/img/voucher-records/banner.jpg")
+
+                h3 Belangrijkste voordelen
+
+                p Het gebruik van Persoonsgegevens op een tegoed in het Forus-platform biedt verschillende voordelen:
+
+                .block.block-feature-icons
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/voucher-records/icon-1.svg
+
+                        h4 Veiligheid
+                        p
+                            | Met Persoonsgegevens op een tegoed kunnen sponsors, aanbieders en deelnemers eenvoudig specifieke
+                            | persoonsgegevens bekijken. Dit verhoogt de veiligheid omdat het tegoed alleen kan worden gebruikt
+                            | door de persoon wiens gegevens erop staan.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/voucher-records/icon-2.svg
+
+                        h4 Efficiënt beheer
+                        p
+                            | De toevoeging van persoonsgegevens aan toeged maakt het beheer efficiënter.
+                            | Het is eenvoudiger om tegoeden te zoeken op basis van specifieke gegevens.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/voucher-records/icon-3.svg
+
+                        h4 Persoonsgegevens toegoeven via uploadbestand
+                        p
+                            | Het is mogelijk om bijv. het aantal kinderen toe te voegen middels het uploadbestand.
+                            | Sla het bestand op als csv en upload het in de beheeromgeving.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/voucher-records/icon-4.svg
+
+                        h4 Bulkexport van tegoeden met gegevens
+                        p
+                            | Na het toevoegen van persoonsgegevens, zoals het aantal kinderen, aan tegoed,
+                            | kunt u deze gegevens eenvoudig exporteren in bulk.
+
+                hr
+
+                .block.block-feature-list
+                    h3 Soorten informatie die op een tegoed kunnen staan
+                    .block-feature-list-items-wrapper
+                        .block-feature-list-items-title Met de Persoonsgegeves op een tegoed kunt u de volgende gegevens op het tegoed vermelden:
+                        .block-feature-list-items
+                            .block-feature-list-item Voornaam
+                            .block-feature-list-item Achternaam
+                            .block-feature-list-item Kinderen
+                            .block-feature-list-item Aantal kinderen
+                        .block-feature-list-items-footer Er kunnen extra gegevens worden toegevoegd, afhankelijk van uw behoeften.
+
+                .block.block-feature-steps
+                    .block-feature-steps-title Implementatiestappen voor Persoonsgegevens op een tegoed
+                    .block-feature-steps-items
+                        .block-feature-steps-item
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/voucher-records/icon-step-1.svg
+
+                            .block-feature-steps-content
+                                h4
+                                    span Stap #1
+                                    span.block-feature-steps-item-dot
+                                    span Voorbereiden
+                                p
+                                    | In deze fase wordt gekeken naar de huidige uitdagingen van de organisatie en hoe het toevoegen
+                                    | van persoonsgegevens aan het tegoed kan helpen. Ook wordt afgestemd welke eigenschappen de
+                                    | organisatie graag aan het tegoed wil toevoegen.
+
+                        .block-feature-steps-item
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/voucher-records/icon-step-2.svg
+
+                            .block-feature-steps-content
+                                h4
+                                    span Stap #2
+                                    span.block-feature-steps-item-dot
+                                    span Testomgeving
+                                p
+                                    | Forus biedt de organisatie toegang tot een testomgeving die gelijk staat aan de productieomgeving.
+                                    | Op de testomgeving wordt de gewenste functionaliteit aangezet, om zo de geschikte situatie te kunnen testen.
+
+                        .block-feature-steps-item
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/voucher-records/icon-step-3.svg
+
+                            .block-feature-steps-content
+                                h4
+                                    span Stap #3
+                                    span.block-feature-steps-item-dot
+                                    span Training
+                                p
+                                    | Forus legt tijdens een testsessie uit hoe de organisatie de functionaliteit kan toepassen.
+                                    | De werkwijze wordt uitgelegd aan de hand van een korte demonstratie. Ook wordt er een handleiding
+                                    | gedeeld voor gebruik in de productieomgeving.
+
+                        .block-feature-steps-item
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/voucher-records/icon-step-4.svg
+
+                            .block-feature-steps-content
+                                h4
+                                    span Stap #4
+                                    span.block-feature-steps-item-dot
+                                    span Productie
+                                p
+                                    | Na een succesvolle afronding van de testfase en wanneer de organisatie bevestigt dat de
+                                    | functionaliteit naar behoren werkt in de testomgeving, kan de functionaliteit geactiveerd
+                                    | worden in de productieomgeving.
+
+            .card-info
+                .card-info-icon.mdi.mdi-headset
+                .card-info-details: span
+                    | Mocht u nog vragen hebben of wilt u aanvullende informatie dan kunt u ons
+                    | bellen op: #[strong +31 (0) 85 004 33 87] of contact opnemen via e-mail #[strong info@forus.io]
+
+        .card
+            .card-header: .card-title Veelgestelde vragen
+
+            .card-section.card-section-padless: .block.block-feature-faq(collapse)
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Wat is de verwachte duur van het implementatietraject voor het toevoegen van persoonsgegevens aan een tegoed?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Het implementatietraject is inbegrepen met een korte training op de testomgeving om de organisatie
+                            | uit te leggen hoe de functionaliteit werkt. We schatten dat het implementatietraject het toevoegen
+                            | van persoonsgegevens aan een tegoed ongeveer #[strong twee weken] in beslag neemt.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Welke gegevens heeft Forus nodig vanuit de organisatie?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | De organisatie heeft de vrijheid om zelf te bepalen welke persoonsgegevens zij graag ziet toegevoegd
+                            | worden aan de tegoeden. Echter staat standaard alles uit. Forus zal daarom op voorhand willen weten
+                            | welke persoonsgegevens de organisatie wenst te gebruiken.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Voor welke organisaties is het toevoegen van persoonsgegevens aan tegoeden geschikt?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | In principe kan elke organisatie ervoor kiezen om persoonsgegevens toe te voegen aan het tegoed.
+                            | De functionaliteit is met name geschikt voor organisaties die gebruik maken van de situatie waar er
+                            | meerdere tegoeden zijn toegekend aan één account. Zo creëert de organisatie zowel overzicht voor
+                            | de eigen managementinformatie, als een overzicht voor de deelnemer om bij te houden welk tegoed is
+                            | toegekend aan welk individu binnen het gezin.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Wie is betrokken bij het implementatietraject van het toevoegen van persoonsgegevens aan tegoeden?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p Bij de implementatie van het toevoegen van persoonsgegevens aan een tegoed zijn de volgende partijen betrokken:
+                        ul
+                            li De organisatie die de functionaliteit gaat gebruiken.
+                            li Forus, de ontwikkelaar en beheerder van de functionaliteit.
+
+        .card
+            .card-header(ng-if="$ctrl.additionalFeatures.length")
+                .card-title Andere functionaliteiten die u misschien interessant vindt
+
+            .card-section(ng-if="$ctrl.additionalFeatures.length")
+                block-additional-features(features="$ctrl.additionalFeatures")
+
+            .card-section
+                .block.block-features-demo-banner(
+                    style="background-image: url(/assets/img/features/img/voucher-records/banner-action-bg.jpg);"
+                )
+                    .features-demo-banner-info-wrapper
+                        .features-demo-banner-info
+                            .features-demo-banner-title Persoonsgegevens op een tegoed uitproberen
+                            .features-demo-banner-details
+                                | Wilt u zien hoe de Persoonsgegevens op een tegoed functionaliteit werkt?
+                                | Neem dan contact met ons op voor een persoonlijke demonstratie.
+                                | We laten u graag zien hoe het voor uw kan werken.
+
+                        .features-demo-banner-action
+                            .button.button-primary(ng-click="$ctrl.openContactModal()") Demo aanvragen

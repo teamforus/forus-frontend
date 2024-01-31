@@ -150,20 +150,7 @@
                 .card-title Andere functionaliteiten die u misschien interessant vindt
 
             .card-section(ng-if="$ctrl.additionalFeatures.length")
-                .block.block-features
-                    .features-list
-                        a.features-list-item(
-                            ng-repeat="feature in $ctrl.additionalFeatures"
-                            ui-sref="feature(feature.srefParams)")
-
-                            .features-list-item-icon: img(ng-src="/assets/img/features/icons/{{ feature.key }}.svg")
-                            .features-list-item-content
-                                .features-list-item-title
-                                    span(ng-bind="feature.name")
-                                    .features-label.active(ng-if="feature.enabled") Actief
-                                .features-list-item-details(ng-bind="feature.description")
-                                .features-labels
-                                    .features-label(ng-repeat="label in feature.labels" ng-bind="label")
+                block-additional-features(features="$ctrl.additionalFeatures")
 
             .card-section
                 .block.block-features-demo-banner(

@@ -55,14 +55,24 @@ const FeaturesService = function () {
             description: 'Aanvragen en uitgifte van een fysieke pas met persoonlijke QR.',
             overview_description: 'Geef minder digitaal vaardige deelnemers een alternatief voor digitale toegang.',
             labels: ['Toegankelijkheid'],
-        }];
-
-        this.disabled = [{
+        }, {
             key: 'voucher_records',
             name: 'Persoonsgegevens op een tegoed',
             description: 'Het toevoegen en tonen van persoonsgegevens op een tegoed.',
-            overview_description: ' Voeg persoonsgegevens toe en toon ze op een tegoed.',
-            labels: ['Beveiliging', 'Persoonsgegevens', 'Identificatie'],
+            overview_description: 'Voeg persoonsgegevens toe en toon ze op een tegoed.',
+            labels: ['Identificatie', 'Persoonsgegevens', 'Beveiliging'],
+        }, {
+            key: 'extra_payments',
+            name: 'Bijbetalen met iDEAL',
+            description: 'De mogelijkheid om met iDEAL bij te betalen bij kosten hoger dan het resterende tegoed.',
+            overview_description: 'Geef deelnemers de optie om met iDEAL bij te betalen bij kosten hoger dan het resterende tegoed.',
+            labels: ['Integratie', 'Financieel'],
+        }, {
+            key: 'fund_requests',
+            name: 'Open aanvragen',
+            description: 'Geïntegreerde intake & aanvraagprocedures voor (gemeentelijke) regelingen.',
+            overview_description: 'Begin met geïntegreerde intake- en aanvraagprocedures voor (gemeentelijke) regelingen.',
+            labels: ['Aanvragen', 'Integratie'],
         }];
 
         this.previewList = [[{
@@ -91,9 +101,12 @@ const FeaturesService = function () {
                 'auth_2_fa': ['bng', 'digid'],
                 'iconnect_api': ['bi_tools', 'auth_2_fa'],
                 'backoffice_api': ['bi_tools', 'auth_2_fa'],
+                'fund_requests': ['digid', 'bi_tools'],
                 'reimbursements': ['bng', 'auth_2_fa'],
-                'email_connection': ['bi_tools', 'auth_2_fa'],
+                'extra_payments': ['reimbursements', 'bng'],
                 'physical_cards': ['bi_tools', 'auth_2_fa'],
+                'voucher_records': ['auth_2_fa', 'digid'],
+                'email_connection': ['bi_tools', 'auth_2_fa'],
             }[feature] || [];
 
             return this.list.filter((feature) => additionalFeatures.includes(feature.key));
