@@ -1,75 +1,87 @@
-const snakeCase = require("lodash/snakeCase");
 const FeaturesService = function () {
     return new (function () {
         this.list = [{
             key: 'bi_tools',
             name: 'BI-tool API',
             description: 'API-koppeling met Business Intelligence (BI) tools voor data-export.',
-            labels: ['Koppeling', 'Business Intelligence', 'Management'],
+            overview_description: 'Maak gebruik van de API-koppeling met Business Intelligence (BI) tools om gegevens te exporteren.',
+            labels: ['Integratie', 'Managementinformatie', 'API'],
         }, {
             key: 'email_connection',
             name: 'E-mailkoppeling',
             description: 'Mogelijkheid om systeemgerelateerde e-mails te versturen vanuit een gepersonaliseerd adres van uw organisatie.',
-            labels: ['E-mail', 'Communicatie', 'Beveiliging'],
+            overview_description: 'Verstuur systeemgerelateerde e-mails vanuit een gepersonaliseerd adres van uw organisatie.',
+            labels: ['Integratie', 'Communicatie', 'Beveiliging'],
         }, {
             key: 'backoffice_api',
             name: 'Backoffice API',
             description: 'Koppeling met de gemeente-API voor naadloze gegevensintegratie.',
-            labels: ['Integratie', 'Gegevens', 'Gemeente API'],
+            overview_description: 'Integreer gegevens met de gemeente-API.',
+            labels: ['Integratie', 'Managementinformatie', 'Aanvragen', 'API'],
         }, {
             key: 'iconnect_api',
             name: 'Haal Centraal API',
             description: 'Toegang tot BRP-gegevens en weergave in het Forus platform.',
-            labels: ['Integratie', 'Gegevens', 'BRP', 'API'],
+            overview_description: 'Verkrijg toegang tot BRP-gegevens en bekijk ze in het Forus-platform.',
+            labels: ['Integratie', 'Persoonsgegevens', 'Aanvragen', 'API'],
         }, {
             key: 'digid',
             name: 'DigiD',
             description: 'Een koppeling met DigiD voor digitale identificatie binnen Forus.',
-            labels: ['Koppeling', 'Beveiliging', 'Identificatie'],
+            overview_description: 'Faciliteer het proces voor deelnemers: laat deelnemers inloggen en fondsen aanvragen met DigiD.',
+            labels: ['Integratie', 'Beveiliging', 'Aanvragen', 'Identificatie'],
         }, {
             key: 'bng',
             name: 'BNG',
-            description: 'Geautomatiseerde financiële transacties tussen Forus en de rekening van uw organisatie bij de Bank Nederlandse Gemeenten (BNG)..',
-            labels: ['Koppeling', 'Financieel'],
+            description: 'Geautomatiseerde financiële transacties tussen Forus en de rekening van uw organisatie bij de Bank Nederlandse Gemeenten (BNG).',
+            overview_description: 'Maak gebruik van geautomatiseerde financiële transacties tussen Forus en uw ' +
+                'organisatierekening bij de Bank Nederlandse Gemeenten (BNG).',
+            labels: ['Integratie', 'Financieel'],
         }, {
             key: 'reimbursements',
             name: 'Declaraties',
-            description: 'Mogelijkheid voor inwoners om bonnen en facturen in te dienen ter vergoeding van kosten.',
-            labels: ['Declaraties', 'Kostenvergoeding', 'Beoordeling'],
+            description: 'Mogelijkheid voor deelnemers om bonnen en facturen in te dienen ter vergoeding van kosten.',
+            overview_description: 'Faciliteer deelnemers bij het indienen van bonnen en facturen ter vergoeding van kosten.',
+            labels: ['Toegankelijkheid', 'Financieel'],
         }, {
             key: 'auth_2_fa',
             name: 'Tweefactorauthenticatie (2FA)',
             description: 'Extra beveiligingslaag voor accountbescherming.',
-            labels: ['Beveiliging', 'Accountbescherming', '2FA'],
+            overview_description: 'Voeg een extra beveiligingslaag toe voor de bescherming van uw account.',
+            labels: ['Beveiliging', 'Identificatie'],
         }, {
-            key: 'voucher_records',
-            name: 'Eigenschappen op voucher',
-            description: 'Voeg persoonlijke eigenschappen toe en exporteer ze bij vouchers.',
-            labels: ['Gebruiksvriendelijkheid'],
-        }, {
-            key: 'Fysieke pas',
-            name: 'Physical cards',
-            description: 'Geef minder digitaal vaardige inwoners een alternatief voor digitale toegang.',
-            labels: ['Aanvraag'],
+            key: 'physical_cards',
+            name: 'Fysieke pas',
+            description: 'Aanvragen en uitgifte van een fysieke pas met persoonlijke QR.',
+            overview_description: 'Geef minder digitaal vaardige deelnemers een alternatief voor digitale toegang.',
+            labels: ['Toegankelijkheid'],
         }];
 
-        this.previewList = [{
+        this.disabled = [{
+            key: 'voucher_records',
+            name: 'Persoonsgegevens op een tegoed',
+            description: 'Het toevoegen en tonen van persoonsgegevens op een tegoed.',
+            overview_description: ' Voeg persoonsgegevens toe en toon ze op een tegoed.',
+            labels: ['Beveiliging', 'Persoonsgegevens', 'Identificatie'],
+        }];
+
+        this.previewList = [[{
             key: 'digid',
             name: 'DigiD',
-            description: 'Laat gebruikers inloggen en fondsen aanvragen met DigiD',
-        }, {
-            key: 'bng',
-            name: 'BNG',
-            description: 'Geautomatiseerde financiële transacties ',
+            description: 'Laat deelnemers inloggen en fondsen aanvragen met DigiD',
         }, {
             key: 'auth_2_fa',
             name: 'Tweefactorauthenticatie',
             description: 'Een extra beveiligingslaag voor de bescherming van uw account',
+        }], [{
+            key: 'bng',
+            name: 'BNG',
+            description: 'Geautomatiseerde financiële transacties ',
         }, {
             key: 'bi_tools',
             name: 'BI-tool API',
             description: 'Exporteer gegevens met BI-tool API',
-        }];
+        }]];
 
         this.getAdditionalFeatures = (feature) => {
             const additionalFeatures = {
@@ -81,6 +93,7 @@ const FeaturesService = function () {
                 'backoffice_api': ['bi_tools', 'auth_2_fa'],
                 'reimbursements': ['bng', 'auth_2_fa'],
                 'email_connection': ['bi_tools', 'auth_2_fa'],
+                'physical_cards': ['bi_tools', 'auth_2_fa'],
             }[feature] || [];
 
             return this.list.filter((feature) => additionalFeatures.includes(feature.key));
