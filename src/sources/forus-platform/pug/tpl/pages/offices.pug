@@ -47,12 +47,17 @@
         .card(ng-if="$ctrl.offices" ng-repeat="office in $ctrl.offices")
             .card-section
                 .card-section-actions
-                    a(ui-sref="offices-edit(office)").button.button-default
+                    a(
+                        ui-sref="offices-edit(office)").button.button-default
                         em.mdi.mdi-pen.icon-start  
                         span(translate="offices.buttons.adjust")
-                    a(ng-click="$ctrl.delete(office)" ng-if="$ctrl.offices.length > 1").button.button-default
-                        em.mdi.mdi-delete
+
+                    a(
+                        ng-click="$ctrl.delete(office)" 
+                        ng-if="$ctrl.offices.length > 1").button.button-default
+                        em.mdi.mdi-delete.icon-start 
                         span(translate="offices.buttons.delete")
+
                     a(
                         ng-if="office.lat && office.lon"
                         href="https://www.google.com/maps/place/{{ office.lat }},{{ office.lon }}" 
