@@ -1,4 +1,5 @@
-.product-item
+//- Product item
+a.product-item(dusk="productItem")
     mixin bookmark_toggle()
         .block.block-bookmark-toggle(
             ng-if="$root.auth_user"
@@ -9,37 +10,30 @@
                 .mdi.mdi-cards-heart(ng-if="$dir.product.bookmarked")
                 .mdi.mdi-cards-heart-outline(ng-if="!$dir.product.bookmarked")
 
-    //- Products
-    a(ui-sref="product(product)" ng-if="$dir.productType == 'budget'" dusk="productItem").product-item-inner
-        +bookmark_toggle()
-        
-        .product-image: img(
-            ng-src="{{ $dir.productImgSrc }}" 
+    //- Product content
+    .product-content
+        //- Product bookmark toggle
+        .block.block-bookmark-toggle(
+            ng-if="$root.auth_user"
+            ng-click="$dir.toggleBookmark($event)"
+            ng-class="$dir.product.bookmarked ? 'active' : ''"
+            aria-label="toevoegen aan verlanglijstje"
+            aria-pressed="{{ $dir.product.bookmarked }}")
+                .mdi.mdi-cards-heart(ng-if="$dir.product.bookmarked")
+                .mdi.mdi-cards-heart-outline(ng-if="!$dir.product.bookmarked")
+
+        //- Product photo
+        .product-photo: img(
+            ng-src="{{ $dir.product.photo.sizes.small || './assets/img/placeholders/product-small.png' }}" 
             alt="{{ $dir.product.alternative_text }}")
 
+        //- Product details
         .product-details
-            h2.product-name.product-name-ellipsis(ng-bind="$dir.product.name" dusk="productName")
-            .product-organization(ng-bind="$dir.product.organization.name")
-            .product-price.text-right(ng-bind="$dir.product.price_locale")
+            //- Title
+            h2.product-title(ng-bind="$dir.product.name" dusk="productName")
 
-    //- Subsidies
-    a(ui-sref="product(product)" ng-if="$dir.productType == 'subsidies'" dusk="productItem").product-item-inner
-        +bookmark_toggle()
-        
-        .product-image
-            img(
-                ng-src="{{ $dir.productImgSrc }}" 
-                alt="{{ $dir.product.alternative_text }}")
+            //- Subtitle
+            .product-subtitle(ng-bind="$dir.product.organization.name")
 
-            .product-price(ng-if="$dir.product.price_type === 'regular' && $dir.product.price_min == 0") Gratis
-            .product-price(
-                ng-if="$dir.product.price_type === 'regular' && $dir.product.price_min != 0" 
-                ng-bind="$dir.product.price_min_locale")
-            
-            .product-price(
-                ng-if="$dir.product.price_type !== 'regular'"
-                ng-bind="$dir.product.price_locale")
-
-        .product-details
-            h2.product-name(ng-bind="$dir.product.name" dusk="productName")
-            .product-provider(ng-bind="$dir.product.organization.name")
+            //- Price
+            .product-price(ng-bind="$dir.productPrice")

@@ -15,9 +15,6 @@
 @import "components/_labels.scss";
 @import "components/_buttons.scss";
 
-// BLOCKS
-@import "sections/blocks/products.scss";
-
 body {
     @media screen and (max-width: 1000px) {
         padding-bottom: 0;
@@ -36,9 +33,7 @@ body {
     &.block-vouchers .voucher-item,
     &.block-reservations .reservation-item,
     &.block-reimbursements .reimbursement-item,
-    &.block-profile .profile-aside .profile-menu .profile-menu-item,
-    &.block-products .product-item .product-item-inner,
-    &.block-subsidies .product-item .product-item-inner {
+    &.block-profile .profile-aside .profile-menu .profile-menu-item {
         border-radius: var(--border-radius);
         border: 1px solid var(--border-color);
     }
@@ -49,8 +44,7 @@ body {
     }
 
     &.block-funds-list .fund-item,
-    &.block-search-results .search-item,
-    &.block-products .product-item .product-item-inner {
+    &.block-search-results .search-item {
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.06);
         transition: 0.4s;
 
