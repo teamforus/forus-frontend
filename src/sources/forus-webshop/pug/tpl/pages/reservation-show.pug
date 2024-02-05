@@ -130,6 +130,11 @@ main(id="main-content"): section.section.section-profile: .wrapper
                     h2.card-heading.card-heading-lg Extra payment details
 
                 .card-section(ng-if="$ctrl.showReservationRefunds")
+                    mixin refundStatus()
+                        .label.label-success(ng-if="refund.state == 'refunded'" ng-bind="refund.state_locale")
+                        .label.label-danger(ng-if="['canceled', 'failed'].includes(refund.state)" ng-bind="refund.state_locale")
+                        .label.label-warning(ng-if="!['refunded', 'canceled', 'failed'].includes(refund.state)" ng-bind="refund.state_locale")
+
                     .block.block-card-table
                         table 
                             tr.hide-sm 
@@ -143,11 +148,9 @@ main(id="main-content"): section.section.section-profile: .wrapper
                                         .block-card-table-label.show-sm Datum
                                         .block-card-table-value(ng-bind="refund.created_at_locale")
 
-                                    .block-card-table-item
-                                        .block-card-table-label.show-sm Status
-                                        .label.label-success.show-sm(ng-if="refund.state == 'refunded'" ng-bind="refund.state_locale")
-                                        .label.label-danger.show-sm(ng-if="['canceled', 'failed'].includes(refund.state)" ng-bind="refund.state_locale")
-                                        .label.label-warning.show-sm(ng-if="!['refunded', 'canceled', 'failed'].includes(refund.state)" ng-bind="refund.state_locale")  
+                                    .block-card-table-item.show-sm
+                                        .block-card-table-label Status
+                                        +refundStatus()
 
                                 td
                                     .block-card-table-item
@@ -156,6 +159,4 @@ main(id="main-content"): section.section.section-profile: .wrapper
                                 
                                 td.hide-sm
                                     .block-card-table-item
-                                        .label.label-success(ng-if="refund.state == 'refunded'" ng-bind="refund.state_locale")
-                                        .label.label-danger(ng-if="['canceled', 'failed'].includes(refund.state)" ng-bind="refund.state_locale")
-                                        .label.label-warning(ng-if="!['refunded', 'canceled', 'failed'].includes(refund.state)" ng-bind="refund.state_locale")  
+                                        +refundStatus() 
