@@ -9,10 +9,11 @@
         border-radius: calc(var(--border-radius));
         margin-bottom: 20px;
         display: flex;
+        flex-direction: row;
         align-items: center;
+        gap: 20px;
 
         .auth-2fa-item-icon {
-            margin-right: 20px;
             display: inline-flex;
             flex-direction: column;
             justify-content: center;
@@ -33,24 +34,28 @@
 
         .auth-2fa-item-details {
             display: flex;
-            flex-grow: 1;
-            flex-wrap: wrap;
+            flex-direction: column;
+            flex: 1 1 auto;
 
             .auth-2fa-item-title {
-                font: 600 16px/30px var(--base-font);
-                margin-right: 10px;
-                display: inline-flex;
-                flex-direction: column;
-                justify-content: center;
-            }
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                font: 600 16px/28px var(--base-font);
     
-            .auth-2fa-item-label {
-                display: inline-flex;
-                flex-direction: column;
-                justify-content: center;
+                .auth-2fa-item-label {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    .label {
+                        width: fit-content;
+                    }
+                }
             }
 
             .auth-2fa-item-description {
+                display: flex;
                 width: 100%;
                 font: 500 14px/22px var(--base-font);
                 color: #282B39;
@@ -95,16 +100,19 @@
 
             .auth-2fa-item-details {
                 flex-direction: column;
+                gap: 10px;
+                text-align: center;
 
-                .auth-2fa-item-title,
-                .auth-2fa-item-label {
-                    flex-direction: row;
-                    justify-content: center;
-                    margin: 0;
+                .auth-2fa-item-title {
+                    flex-direction: column;
+
+                    .auth-2fa-item-label {
+                        flex-direction: row;
+                    }
                 }
 
-                .auth-2fa-item-title, .auth-2fa-item-label, .auth-2fa-item-description {
-                    margin-bottom: 10px;
+                .auth-2fa-item-description {
+                    justify-content: center;
                 }
             }
         }

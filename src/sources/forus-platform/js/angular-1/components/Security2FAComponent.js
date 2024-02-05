@@ -49,9 +49,9 @@ const Security2FAComponent = function (
         $ctrl.provider_types = provider_types;
         $ctrl.active_provider_types = active_providers.map((auth_2fa) => auth_2fa.provider_type.type);
 
-        $ctrl.active_providers = $ctrl.provider_types.reduce((list, item) => ({ 
+        $ctrl.active_providers_by_key = $ctrl.active_providers.reduce((list, item) => ({ 
             ...list, 
-            [item.type]: active_providers.find((auth_2fa) => auth_2fa.provider_type.type == item.type),
+            [item.provider_type.type]: active_providers.find((auth_2fa) => auth_2fa.provider_type.type == item.provider_type.type),
         }), {});
 
         $ctrl.auth2FARememberIpOptions = auth2FARememberIpOptions;
