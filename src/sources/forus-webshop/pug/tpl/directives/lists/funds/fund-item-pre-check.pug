@@ -95,29 +95,9 @@
                     em.mdi.mdi-check-circle 
                     span(ng-bind="criterion.name")
                     | &nbsp;
-                    span(ng-bind="criterion.value")
+                    span(ng-bind="criterion.value")  
 
-        .fund-pre-check-info-col(ng-if="$dir.positiveAmount")
-            .fund-pre-check-info-col-title Berekening
-            table.fund-pre-check-info-col-table
-                tr
-                    td.description Per gezin
-                    td.value 1x {{ $dir.fund.amount_for_identity_locale }}
-
-                //- todo: find out what this is
-                //- tr
-                    td 
-                    td.value 1x 1 Voucher
-
-                tr: td(colspan="2"): br    
-
-                tr
-                    td.description Per kind
-                    td.value {{ $dir.fund.identity_multiplier + '' }}x {{ $dir.fund.amount_for_identity_locale }}
-
-                tr: td(colspan="2"): br   
-
-            .fund-pre-check-info-col-amount 
-                .fund-pre-check-info-col-amount-title Totaal
-                .fund-pre-check-info-col-amount-description {{ $dir.fund.amount_total_locale  }}
+            .fund-pre-check-info-col-totals
+                .fund-pre-check-info-col-totals-title Totaal
+                .fund-pre-check-info-col-totals-amount {{ $dir.fund.amount_total_locale  }}
 

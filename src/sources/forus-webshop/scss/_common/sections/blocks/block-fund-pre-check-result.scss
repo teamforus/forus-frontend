@@ -242,7 +242,7 @@
             .fund-pre-check-info-wrapper {
                 display: grid;
                 border-radius: var(--border-radius);
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr;
                 border: 1px solid var(--border-color);
                 background: #fff;
 
@@ -260,7 +260,8 @@
                             display: flex;
                             align-items: center;
                             font: 600 11px/15px var(--base-font);
-                            margin-bottom: 5px;
+                            padding: 10px 0;
+                            border-bottom: 1px solid var(--border-color);
 
                             .mdi {
                                 margin-right: 5px;
@@ -272,6 +273,10 @@
                                 .mdi {
                                     color: #315efd;
                                 }
+                            }
+
+                            &:last-child {
+                                border-bottom: none;
                             }
                         }
                     }
@@ -297,17 +302,18 @@
                         }
                     }
 
-                    .fund-pre-check-info-col-amount {
+                    .fund-pre-check-info-col-totals {
                         display: flex;
                         align-items: center;
-                        padding-top: 15px;
+                        padding-top: 10px;
+                        border-top: 1px solid var(--border-color);
 
-                        .fund-pre-check-info-col-amount-title {
-                            font: 600 14px/21px var(--base-font);
+                        .fund-pre-check-info-col-totals-title {
+                            font: 600 16px/24px var(--base-font);
                             flex-grow: 1;
                         }
 
-                        .fund-pre-check-info-col-amount-description {
+                        .fund-pre-check-info-col-totals-amount {
                             font: 700 18px/27px var(--base-font);
                         }
                     }
