@@ -11,14 +11,10 @@ const PreCheckService = function (ApiRequest) {
         };
 
         this.downloadPDF = function (data) {
-            const callback = (_cfg) => {
-                _cfg.responseType = 'arraybuffer';
-                _cfg.cache = false;
-
-                return _cfg;
-            };
-
-            return ApiRequest.post(`${uriPrefix}/download-pdf`, data, {}, true, callback);
+            return ApiRequest.post(`${uriPrefix}/download-pdf`, data, {}, true, {
+                cache: false,
+                responseType: 'arraybuffer'
+            });
         };
     });
 };

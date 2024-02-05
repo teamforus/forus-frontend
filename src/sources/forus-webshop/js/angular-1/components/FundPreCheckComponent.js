@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 const FundPreCheckComponent = function (
     $state,
     $timeout,
@@ -31,8 +33,8 @@ const FundPreCheckComponent = function (
         };
     };
 
-    const mapRecords = () => {
-        return $ctrl.preChecks.reduce((recordsData, preCheck) => [
+    const mapRecords = (preChecks) => {
+        return preChecks.reduce((recordsData, preCheck) => [
             ...recordsData,
             ...preCheck.record_types.reduce((recordData, record) => [
                 ...recordData,
@@ -50,7 +52,7 @@ const FundPreCheckComponent = function (
         });
         const recordTypeKeys = activePreCheck.record_types.map((recordType) => recordType.record_type_key);
         const filledRecordTypeKeys = filledRecordTypes.map((recordType) => recordType.record_type_key);
-        
+
         $ctrl.emptyRecordTypeKeys = recordTypeKeys.filter((recordTypeKey) => {
             return !filledRecordTypeKeys.includes(recordTypeKey);
         });
@@ -59,7 +61,7 @@ const FundPreCheckComponent = function (
     };
 
     $ctrl.fetchPreCheckTotals = (query) => {
-        const records = mapRecords();
+        const records = mapRecords($ctrl.preChecks);
 
         PreCheckService.calculateTotals({ ...query, records })
             .then((res) => $ctrl.totals = res.data)
@@ -72,18 +74,18 @@ const FundPreCheckComponent = function (
     };
 
     $ctrl.downloadPDF = () => {
-        const records = mapRecords();
+        const records = mapRecords($ctrl.preChecks);
 
         PreCheckService.downloadPDF({ ...$ctrl.form.values, records })
             .then((res) => {
                 PushNotificationsService.success('Success!', 'The downloading should start shortly.');
 
-                const fileName = [
-                    'pre-check',
-                    moment().format('YYYY-MM-DD HH:mm:ss') + '.pdf'
-                ].join('_');
+                FileService.downloadFile(
+                    `pre-check_${format(new Date(), 'yyyy-MM-dd HH:mm:ss')}.pdf`,
+                    res.data,
+                    res.headers('Content-Type') + ';charset=utf-8;'
+                );
 
-                FileService.downloadFile(fileName, res.data, res.headers('Content-Type') + ';charset=utf-8;');
                 PageLoadingBarService.setProgress(100);
             }).catch((res) => {
                 console.log('res: ', res);

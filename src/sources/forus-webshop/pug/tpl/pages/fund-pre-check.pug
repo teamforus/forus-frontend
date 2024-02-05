@@ -46,8 +46,13 @@ block content
                         .pre-check-amount-value {{ $ctrl.totals.funds_valid.length }}
 
                 .pre-check-actions(ng-if="$ctrl.totals")
-                    .button.button-download.button-fill.button-sm(type="button" ng-click="$ctrl.downloadPDF()") Download als PDF
-                    .button.button-light.button-fill.button-sm(type="button" ng-click="$ctrl.changeAnswers()") Wijzig antwoorden
+                    .button.button-download.button-fill.button-sm(
+                        type="button" 
+                        ng-click="$ctrl.downloadPDF()") Download als PDF
+                    
+                    .button.button-light.button-fill.button-sm(
+                        type="button" 
+                        ng-click="$ctrl.changeAnswers()") Wijzig antwoorden
 
         main(id="main-content")
             .block.block-fund-pre-check: .showcase-wrapper
