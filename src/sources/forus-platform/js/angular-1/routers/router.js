@@ -189,7 +189,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 appConfigs.panel_type,
                 $transition$.params().organization_id,
                 { per_page: 1 }
-            ).then(res => resolve(res.data.meta.total_amount)))]
+            ).then(res => resolve(res.data.meta.total_amount_locale)))]
         }
     });
 
