@@ -1,20 +1,16 @@
 &.block-reservations {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
     margin-bottom: 30px;
 
-    .block-title {
-        font: 700 40px var(--base-font);
-        margin-bottom: 20px;
-        cursor: default;
-    }
-
     .reservation-item {
-        background-color: #fff;
-        border-radius: var(--border-radius);
-        margin-bottom: 15px;
-        box-shadow: var(--box-shadow);
+        background: var(--showcase-item-background);
+        box-shadow: var(--showcase-item-shadow);
+        border: var(--showcase-item-border);
+        border-radius: var(--showcase-item-border-radius);
         transition: 0.4s;
         cursor: default;
-        border: 1px solid var(--border-color);
 
         .reservation-actions,
         .reservation-overview {
@@ -105,12 +101,12 @@
 
         .reservation-item-body {
             display: grid;
-            min-height: 90px;
+            min-height: 135px;
             overflow: hidden;
             position: relative;
             padding: 15px;
             gap: 15px;
-            grid-template-columns: 90px 1fr;
+            grid-template-columns: 135px 1fr;
 
             .reservation-image {
                 display: block;
@@ -214,6 +210,11 @@
                     justify-content: initial;
                     align-items: initial;
                 }
+            }
+
+            &:last-child {
+                border-bottom-left-radius: var(--showcase-item-border-radius);
+                border-bottom-right-radius: var(--showcase-item-border-radius);
             }
         }
 
@@ -405,6 +406,7 @@
 
             .reservation-details {
                 padding: 0 15px;
+                background: #fbfbfb;
 
                 .reservation-details-pane {
                     border-radius: 0;
