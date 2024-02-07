@@ -12,7 +12,7 @@ module.exports = {
         bunq: "Transactiekosten",
         fee: "€ 0.10",
         date: "Datum",
-        date_non_cancelable: "Vastgestelde transactie",
+        date_non_cancelable: "Vastgestelde datum",
         target: "Target",
     },
     tooltips: {

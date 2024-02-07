@@ -80,7 +80,7 @@ const TransactionsComponent = function (
         values: pick($stateParams, $stateParams.type == 'transactions' ? [
             'q', 'state', 'fund_id', 'fund_state', 'from', 'to', 'amount_min', 'amount_max',
             'order_by', 'order_dir', 'page', 'per_page', 'bulk_state',
-            'from_non_cancelable', 'to_non_cancelable',
+            'non_cancelable_from', 'non_cancelable_to',
         ] : []),
         valuesDefault: {
             q: '',

@@ -115,20 +115,20 @@
                                             placeholder="{{ 'transactions.labels.transfer_in_max' | i18n }}").form-control   
 
                                 .form-group
-                                    form-label-toggle(label="{{ 'transactions.labels.from_non_cancelable' | i18n }}")
+                                    form-label-toggle(label="{{ 'transactions.labels.non_cancelable_from' | i18n }}")
                                     datepicker(
                                         date-format="yyyy-MM-dd" 
                                         datepicker-mobile=""
                                         date-week-start-day="1").form-control
-                                        input(ng-model="$ctrl.filters.values.from_non_cancelable" type="text" placeholder="jjjj-MM-dd").form-control
+                                        input(ng-model="$ctrl.filters.values.non_cancelable_from" type="text" placeholder="jjjj-MM-dd").form-control
 
                                 .form-group
-                                    form-label-toggle(label="{{ 'transactions.labels.to_non_cancelable' | i18n }}")
+                                    form-label-toggle(label="{{ 'transactions.labels.non_cancelable_to' | i18n }}")
                                     datepicker(
                                         date-format="yyyy-MM-dd" 
                                         datepicker-mobile=""
                                         date-week-start-day="1").form-control
-                                        input(ng-model="$ctrl.filters.values.to_non_cancelable" type="text" placeholder="jjjj-MM-dd").form-control
+                                        input(ng-model="$ctrl.filters.values.non_cancelable_to" type="text" placeholder="jjjj-MM-dd").form-control
                                 
                                 .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'transactions.labels.bulk_state' | i18n }}")
@@ -279,10 +279,13 @@
                                     title="{{ transaction.organization.name || '' }}"
                                     ng-if="$ctrl.isSponsor")
 
-                                td
+                                td(ng-if='transaction.non_cancelable_at_locale')
                                     strong(ng-bind="transaction.non_cancelable_at_locale.split(' - ')[0]").text-primary
                                     br
                                     strong(ng-bind="transaction.non_cancelable_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
+
+                                td(ng-if='!transaction.non_cancelable_at_locale')
+                                    | - 
 
                                 td(ng-if="$ctrl.isSponsor && transaction.voucher_transaction_bulk_id"): a(
                                     ui-sref="transaction-bulk(transaction.ui_sref_bulk)" 
