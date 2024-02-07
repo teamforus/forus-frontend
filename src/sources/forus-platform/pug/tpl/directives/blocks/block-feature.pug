@@ -4,6 +4,7 @@
         .block-feature-title
             span(ng-bind="$dir.feature.name")
             .block-feature-label.active(ng-if="$dir.feature.enabled") Actief
+            .block-feature-label.inactive(ng-if="!$dir.feature.enabled") Uitproberen
 
         .block-feature-details(ng-bind="$dir.feature.description")
         .block-feature-labels

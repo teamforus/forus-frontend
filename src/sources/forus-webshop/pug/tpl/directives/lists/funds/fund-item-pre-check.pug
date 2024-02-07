@@ -85,39 +85,20 @@
                     em.mdi.mdi-chevron-up.icon-right
 
     .fund-pre-check-info-block(ng-if="$dir.showMoreRequestInfo"): .fund-pre-check-info-wrapper
-        .fund-pre-check-info-col
-            .fund-pre-check-info-col-title Voorwaarden
-            .fund-pre-check-info-col-list
-                .fund-pre-check-info-col-list-item(
-                    ng-repeat="criterion in $dir.fund.criteria" 
-                    ng-class="{valid: criterion.is_valid}") 
+        .fund-pre-check-info-title Voorwaarden
+        .fund-pre-check-info-list
+            .fund-pre-check-info-list-item(
+                ng-repeat="criterion in $dir.fund.criteria" 
+                ng-class="{valid: criterion.is_valid}") 
 
-                    em.mdi.mdi-check-circle 
-                    span(ng-bind="criterion.name")
-                    | &nbsp;
-                    span(ng-bind="criterion.value")
+                em.mdi.mdi-check-circle(ng-if='criterion.is_valid' aria-hidden="true")
+                em.mdi.mdi-close-circle(ng-if='!criterion.is_valid' aria-hidden="true")
 
-        .fund-pre-check-info-col(ng-if="$dir.positiveAmount")
-            .fund-pre-check-info-col-title Berekening
-            table.fund-pre-check-info-col-table
-                tr
-                    td.description Per gezin
-                    td.value 1x {{ $dir.fund.amount_for_identity_locale }}
+                span(ng-bind="criterion.name")
+                | &nbsp;
+                span(ng-bind="criterion.value")  
 
-                //- todo: find out what this is
-                //- tr
-                    td 
-                    td.value 1x 1 Voucher
-
-                tr: td(colspan="2"): br    
-
-                tr
-                    td.description Per kind
-                    td.value {{ $dir.fund.identity_multiplier + '' }}x {{ $dir.fund.amount_for_identity_locale }}
-
-                tr: td(colspan="2"): br   
-
-            .fund-pre-check-info-col-amount 
-                .fund-pre-check-info-col-amount-title Totaal
-                .fund-pre-check-info-col-amount-description {{ $dir.fund.amount_total_locale  }}
+        .fund-pre-check-info-totals
+            .fund-pre-check-info-totals-title Totaal
+            .fund-pre-check-info-totals-amount(ng-bind='$dir.fund.amount_total_locale')
 

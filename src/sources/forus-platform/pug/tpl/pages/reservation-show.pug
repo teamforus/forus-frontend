@@ -5,7 +5,7 @@
         .block.block-breadcrumbs(ng-if="$root.activeOrganization")
             a.breadcrumb-item(
                 ui-sref="reservations({organization_id: $root.activeOrganization.id})" 
-                ng-bind="'Reservations'")
+                ng-bind="'Reserveringen'")
 
             .breadcrumb-item.active(ng-bind="'#' + $ctrl.reservation.code")
 
@@ -19,7 +19,7 @@
                     .card-title: .flex
                         //- Product name
                         .flex.flex-vertical: .flex
-                            span.text-muted Product name:&nbsp;
+                            span.text-muted Aanbod naam:&nbsp;
                             | {{ $ctrl.reservation.product.name }} &nbsp;
 
                         //- Label
@@ -51,7 +51,7 @@
                         ng-if="$ctrl.reservation.rejectable"
                         ng-click="$ctrl.rejectReservation($ctrl.reservation)")
                         em.mdi.mdi-close.icon-start
-                        | Weiger
+                        | Annuleren
 
             //- Base overview
             .card-section: .card-block.card-block-table: .table-wrapper
