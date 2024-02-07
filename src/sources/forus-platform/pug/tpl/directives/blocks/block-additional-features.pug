@@ -1,0 +1,17 @@
+.block.block-features
+    .features-list
+        a.features-list-item(
+            ng-repeat="feature in $dir.features"
+            ui-sref="feature(feature.srefParams)")
+
+            .features-list-item-icon
+                img(ng-src="/assets/img/features/icons/{{ feature.key }}.svg")
+                .features-icon-label(ng-if="feature.enabled"): .mdi.mdi-check
+
+            .features-list-item-content
+                .features-list-item-title
+                    span(ng-bind="feature.name")
+                    .features-label.inactive(ng-if="!feature.enabled") Uitproberen
+                .features-list-item-details(ng-bind="feature.description")
+                .features-labels
+                    .features-label(ng-repeat="label in feature.labels" ng-bind="label")

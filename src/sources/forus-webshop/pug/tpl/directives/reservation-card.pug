@@ -9,7 +9,7 @@
         .reservation-content
             mixin cancelButton()
                 button.button.button-light.button-xs(
-                    ng-if="$dir.reservation.cancelable"
+                    ng-if="$dir.reservation.cancelable || ['accepted','pending','waiting'].includes($dir.reservation.state)"
                     dusk="btnCancelReservation"
                     type="button"
                     ng-click="$dir.cancelReservation($event, $dir.reservation)")
@@ -55,7 +55,7 @@
 
             .reservation-section
                 .reservation-section-column
-                    div(role="heading" aria-level="2"): a.reservation-name(
+                    .reservation-name(role="heading" aria-level="2"): a(
                         ng-click="$dir.goToProduct($event)"
                         dusk="reservationProduct"
                         role="link"
@@ -66,7 +66,7 @@
                         span(ng-if="$dir.reservation.records_title" ng-bind="$dir.reservation.records_title")
                         span.text-separator(ng-if="$dir.reservation.records_title")
                         a(
-                            ng-click="$dir.goToProvider($event)" 
+                            ng-click="$dir.goToProvider($event)"
                             ng-bind="$dir.product.organization.name"
                             role="link"
                             tabindex="0")

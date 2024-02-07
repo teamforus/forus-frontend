@@ -118,9 +118,26 @@
                         +keyvalue_item('first_name', 'first_name')
                         +keyvalue_item('last_name', 'last_name')
 
+
+            mixin select_profile()
+                .flex(ng-if="$ctrl.mollieConnection.profiles.length"): .block.block-inline-filters
+                    .form: .form-group: select-control(
+                        prop="id"
+                        search="false"
+                        placeholder="{{ 'mollie_connection.labels.current_profile' | translate }}"
+                        ng-model="$ctrl.current_profile_id"
+                        options="$ctrl.mollieConnection.profiles").form-control.inline-filter-control
+
+                    .button.button-primary(
+                        ng-disabled="!$ctrl.current_profile_id || ($ctrl.currentProfile && $ctrl.current_profile_id == $ctrl.currentProfile.id)"
+                        ng-click="$ctrl.updateCurrentProfile()"
+                        translate="mollie_connection.buttons.change_profile")
+
             //- Profile details
             .card(ng-if="$ctrl.mollieConnection.profile_active")
-                .card-header: .card-title(translate="mollie_connection.titles.current_profile_information")
+                .card-header: .flex
+                    .flex.flex-grow: .card-title(translate="mollie_connection.titles.current_profile_information")
+                    +select_profile
 
                 .card-section: .card-block.card-block-keyvalue
                     +keyvalue_item('name', 'profile_active.name')
@@ -130,7 +147,9 @@
 
             //- Profile form
             .card(ng-if="!$ctrl.mollieConnection.profile_active"): .form
-                .card-header: .card-title(translate="mollie_connection.header_update_profile.title")
+                .card-header: .flex
+                    .flex.flex-grow: .card-title(translate="mollie_connection.header_update_profile.title")
+                    +select_profile
 
                 .card-section.card-section-primary
                     .form-group: .row: .col.col-lg-9.col-lg-12

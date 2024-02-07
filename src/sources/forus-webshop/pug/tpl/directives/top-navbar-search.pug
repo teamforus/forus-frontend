@@ -19,7 +19,8 @@
                 aria-label="Zoeken"
                 ng-class="{'focused': $dir.searchFocused || $dir.dropdown}"
                 ng-focus="$dir.searchFocused=true"
-                ng-blur="$dir.searchFocused=false")
+                ng-blur="$dir.searchFocused=false"
+                id="genericSearch")
 
             .search-reset(ng-class="{'show-sm': !$dir.appConfigs.flags.genericSearchUseToggle}")
                 .mdi.mdi-close(ng-click="$dir.hideSearchBox()")

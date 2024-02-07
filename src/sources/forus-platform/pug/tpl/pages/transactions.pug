@@ -235,9 +235,8 @@
                                     ng-bind="(transaction.reservation && transaction.reservation.amount_extra > 0) ? transaction.reservation.amount_extra_locale : '-'")
 
                                 td
-                                    strong(ng-bind="transaction.created_at_locale.split(' - ')[0]").text-primary
-                                    br
-                                    strong(ng-bind="transaction.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
+                                    div(ng-bind="transaction.created_at_locale.split(' - ')[0]").text-medium.text-primary
+                                    div(ng-bind="transaction.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
 
                                 td(
                                     ng-bind="transaction.fund.name | str_limit:25"
@@ -326,9 +325,8 @@
                         td(ng-bind="transactionBulk.id")
                         td.text-primary-light(ng-bind="transactionBulk.voucher_transactions_amount | currency_format")
                         td
-                            strong(ng-bind="transactionBulk.created_at_locale.split(' - ')[0]").text-primary
-                            br
-                            strong(ng-bind="transactionBulk.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
+                            div(ng-bind="transactionBulk.created_at_locale.split(' - ')[0]").text-medium.text-primary
+                            div(ng-bind="transactionBulk.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
                         td(ng-bind="transactionBulk.voucher_transactions_count")
 
                         td
