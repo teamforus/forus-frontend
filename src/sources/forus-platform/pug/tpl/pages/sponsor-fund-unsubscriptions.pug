@@ -22,7 +22,7 @@
                         ng-bind="state.label")
 
             .card-section(ng-if="!$ctrl.loading && $ctrl.fundUnsubscribes.meta.total > 0")
-                .card-block.card-block-table.card-block-table-fund.form
+                .card-block.card-block-table.form
                     .table-wrapper
                         table.table
                             tr
@@ -36,9 +36,15 @@
                             tr(
                                 ng-repeat="unsubscription in $ctrl.fundUnsubscribes.data"
                                 ui-sref="sponsor-provider-organization({ organization_id: $ctrl.organization.id, provider_organization_id: unsubscription.fund_provider.organization.id })")
-                                td.nowrap
-                                    .fund-img: img(ng-src="{{ unsubscription.fund_provider.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
-                                    .fund-title(ng-bind="unsubscription.fund_provider.organization.name")
+
+                                //- Provider
+                                td: .td-entity-main
+                                    .td-entity-main-media: img.td-media.td-media-sm.td-media-round(
+                                        ng-src="{{ unsubscription.fund_provider.organization.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
+
+                                    .td-entity-main-content: .text-strong.text-primary(
+                                        ng-bind="unsubscription.fund_provider.organization.name | str_limit:32" 
+                                        title="{{ unsubscription.fund_provider.organization.name || '-' }}")
 
                                 td(
                                     ng-bind="unsubscription.fund_provider.fund.name | str_limit:25"

@@ -36,10 +36,8 @@
                 width: fit-content;
                 height: fit-content;
 
-                &.active {
-                    border: 1px solid #134478;
-                    background: #134478;
-                    color: #fff;
+                &.inactive {
+                    background: #fff;
                 }
 
                 &:last-child {
@@ -48,8 +46,27 @@
             }
 
             .features-list-item-icon {
+                position: relative;
+                height: fit-content;
+
                 svg, img {
                     width: 100%;
+                }
+
+                .features-icon-label {
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    border: 4px solid #fff;
+                    border-radius: 12px;
+                    background: #134478;
+                    line-height: 12px;
+                    height: 20px;
+                    width: 20px;
+                    color: #fff;
+                    font-size: 10px;
+                    text-align: center;
+                    transition: background-color 0.3s;
                 }
             }
 
@@ -81,6 +98,12 @@
             }
 
             &:hover {
+                .features-list-item-icon {
+                    .features-icon-label {
+                        background: #39B924;
+                    }
+                }
+
                 &:before {
                     background-color: #F3F4F5;
                 }

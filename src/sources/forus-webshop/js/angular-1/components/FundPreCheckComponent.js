@@ -36,8 +36,14 @@ const FundPreCheckComponent = function (
                 pre_check_record.input_value === 0 ||
                 pre_check_record.control_type === 'ui_control_checkbox';
         });
+        const recordTypeKeys = activePreCheck.record_types.map((recordType) => recordType.record_type_key);
+        const filledRecordTypeKeys = filledRecordTypes.map((recordType) => recordType.record_type_key);
+        
+        $ctrl.emptyRecordTypeKeys = recordTypeKeys.filter((recordTypeKey) => {
+            return !filledRecordTypeKeys.includes(recordTypeKey);
+        });
 
-        return filledRecordTypes.length === activePreCheck.record_types.length;
+        return !$ctrl.emptyRecordTypeKeys.length;
     };
 
     $ctrl.fetchPreCheckTotals = (query) => {
@@ -66,11 +72,11 @@ const FundPreCheckComponent = function (
     $ctrl.next = () => {
         const isLastPreCheck = $ctrl.activeStepIndex == $ctrl.preChecks.length - 1;
 
-        if (isLastPreCheck) {
-            return $ctrl.fetchPreCheckTotals($ctrl.form.values);
-        }
-
         if ($ctrl.preCheckFilled($ctrl.activeStepIndex)) {
+            if (isLastPreCheck) {
+                return $ctrl.fetchPreCheckTotals($ctrl.form.values);
+            }
+
             $ctrl.activeStepIndex = Math.min($ctrl.activeStepIndex + 1, $ctrl.preChecks.length - 1);
         }
     };

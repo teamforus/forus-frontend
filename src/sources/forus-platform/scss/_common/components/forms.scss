@@ -944,7 +944,7 @@
             margin: -6px 0;
         }
 
-        &[disabled] {
+        &[disabled], &.disabled, &.checkbox-disabled {
             position: relative;
             opacity: .4;
             filter: grayscale(1);
