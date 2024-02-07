@@ -33,6 +33,9 @@ const ReservationsComponent = function (
         key: 'rejected',
         name: 'Geweigerd' // Rejected
     }, {
+        key: 'expired',
+        name: 'Verlopen' // Expired
+    }, {
         key: 'canceled',
         name: 'Geannuleerd door aanbieder' // Canceled by provider
     }, {

@@ -64,14 +64,14 @@
                                         ng-options="fund.fund.id as fund.fund.name for fund in $ctrl.funds" 
                                         ng-model="$ctrl.filters.values.fund_id").form-control
 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'reservations.filters.product' | i18n }}")
                                     .form-offset: select-control(
                                         prop="id"
                                         ng-model="$ctrl.filters.values.product_id"
                                         options="$ctrl.products").form-control
 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'reservations.filters.from' | i18n }}")
                                     datepicker(
                                         date-format="yyyy-MM-dd" 
@@ -79,7 +79,7 @@
                                         date-week-start-day="1").form-control
                                         input(ng-model="$ctrl.filters.values.from" type="text" placeholder="jjjj-MM-dd").form-control
 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'reservations.filters.to' | i18n }}")
                                     datepicker(
                                         date-format="yyyy-MM-dd" 
@@ -87,7 +87,7 @@
                                         date-week-start-day="1").form-control
                                         input(ng-model="$ctrl.filters.values.to" type="text" placeholder="jjjj-MM-dd").form-control
                                 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'reservations.filters.state' | i18n }}")
                                     .form-offset: select-control(
                                         prop="key"
@@ -99,7 +99,9 @@
                                         ng-click="$ctrl.exportReservations()" 
                                         ng-disabled="$ctrl.reservations.meta.total == 0")
                                         em.mdi.mdi-download.icon-start  
-                                        span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.reservations.meta.total }")
+                                        span.ng-scope(
+                                            translate="components.dropdown.export" 
+                                            translate-values="{ total: $ctrl.reservations.meta.total }")
 
                         .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
