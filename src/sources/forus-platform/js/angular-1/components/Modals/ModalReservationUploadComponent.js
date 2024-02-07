@@ -137,7 +137,9 @@ const ModalReservationUploadComponent = function(
                     enableToggles: false,
                     label_on: "Aanmaken",
                     label_off: "Overslaan",
-                    items: items.map((item) => ({ value: item[2]['number'] + ' - ' + item[1] })),
+                    items: items.map((item) => ({
+                        value: item[2]?.['number'] ? item[2]['number'] + ' - ' + item[1] : item[1]
+                    })),
                     onConfirm: () => $timeout(() => $ctrl.hideModel = false, 300),
                     onCancel: () => $timeout(() => $ctrl.hideModel = false, 300),
                 });

@@ -600,7 +600,11 @@ const ProviderSignUpComponent = function(
         authTokenSubscriber.stopCheckAccessTokenStatus();
     };
 
-    $ctrl.finish = () => $state.go('organizations-view', { id: $ctrl.organization.id });
+    $ctrl.finish = () => {
+        progressStorage.clear();
+        $state.go('organizations-view', { id: $ctrl.organization.id });
+    };
+
     $ctrl.openAuthPopup = () => $state.go('home');
 };
 
