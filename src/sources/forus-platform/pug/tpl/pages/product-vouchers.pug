@@ -171,13 +171,13 @@
                             tr
                                 th(translate="vouchers.labels.id")
                                 th(translate="vouchers.labels.assigned_to")
-                                th(translate="vouchers.labels.source").nowrap
+                                th(translate="vouchers.labels.source")
                                 th(translate="product_vouchers.labels.product")
                                 th(translate="product_vouchers.labels.note")
                                 th(translate="product_vouchers.labels.fund")
-                                th(translate="product_vouchers.labels.created_date").nowrap
-                                th(ng-if="!$ctrl.fundClosed" translate="product_vouchers.labels.expire_date").nowrap
-                                th(ng-if="!$ctrl.fundClosed" translate="product_vouchers.labels.used").nowrap
+                                th(translate="product_vouchers.labels.created_date")
+                                th(ng-if="!$ctrl.fundClosed" translate="product_vouchers.labels.expire_date")
+                                th(ng-if="!$ctrl.fundClosed" translate="product_vouchers.labels.used")
                                 th(translate="vouchers.labels.assigned")
                                 th &nbsp;
 
@@ -187,7 +187,7 @@
                                 
                                 td(ng-bind="voucher.id")
                                 
-                                td.nowrap
+                                td
                                     div: strong(ng-bind="(voucher.identity_email | str_limit:32) || voucher.activation_code || 'Niet toegewezen'").text-primary
                                     div.text-strong.text-md.text-muted
                                         span(ng-if="voucher.identity_bsn || voucher.relation_bsn")
@@ -201,7 +201,7 @@
 
                                 td: div(ng-bind="voucher.source_locale").text-md.text-muted-dark.text-medium
 
-                                td.nowrap
+                                td
                                     div(ng-bind="voucher.product.organization.name | str_limit:32").text-primary.text-medium
                                     div(ng-bind="voucher.product.name | str_limit:32").text-strong.text-md.text-muted-dark
 
@@ -212,7 +212,7 @@
                                     .tooltip-content(ng-if="voucher.showTooltip" click-outside="$ctrl.hideTooltip($event, voucher)")
                                         .tooltip-text(ng-bind="(voucher.note || '-') | str_limit:128" title="{{ voucher.note }}")
 
-                                td.nowrap
+                                td
                                     div(ng-bind="voucher.fund.name | str_limit:32").text-primary.text-medium
                                     div(ng-bind="voucher.fund.implementation.name | str_limit:32").text-strong.text-md.text-muted-dark
 
@@ -220,11 +220,11 @@
                                     div(ng-bind="voucher.created_at_locale.split(' - ')[0]").text-primary.text-medium
                                     div(ng-bind="voucher.created_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
 
-                                td(ng-if="!$ctrl.fundClosed").nowrap
+                                td(ng-if="!$ctrl.fundClosed")
                                     div(ng-bind="voucher.expire_at_locale.split(',')[0]").text-primary.text-medium
                                     div(ng-bind="voucher.expire_at_locale.split(',')[1]").text-strong.text-md.text-muted-dark
 
-                                td(ng-if="!$ctrl.fundClosed").nowrap: .td-boolean.flex-vertical
+                                td(ng-if="!$ctrl.fundClosed"): .td-boolean.flex-vertical
                                     .text-primary
                                         em.mdi.mdi-check-circle(ng-if="voucher.in_use")
                                         em.mdi.mdi-close(ng-if="!voucher.in_use")
@@ -233,7 +233,7 @@
                                         div(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale.split(',')[1]").text-strong.text-md.text-muted-dark
 
                                 //- voucher state
-                                td.nowrap
+                                td
                                     .td-boolean(ng-if="voucher.expired")
                                         em.mdi.mdi-close
                                         span.text-md.text-muted-dark Verlopen               
@@ -273,7 +273,9 @@
                                 td
 
                         .table-scroll-actions: table.table
-                            tr: th(translate="vouchers.labels.actions")
+                            tr: th
+                                span(translate="vouchers.labels.actions")
+                                | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                             tr(ng-repeat="voucher in $ctrl.vouchers.data" dusk="voucherItem{{ voucher.id }}"): td
                                 .actions(ng-class="voucher.showMenu ? 'active' : ''"): button.button.button-text.button-menu(

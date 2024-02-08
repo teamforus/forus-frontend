@@ -1,4 +1,4 @@
-let TableConfigDirective = function() {};
+const TableConfigDirective = function () { };
 
 module.exports = () => {
     return {

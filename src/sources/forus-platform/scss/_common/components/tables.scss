@@ -11,6 +11,7 @@
             tr {
                 th {
                     height: 29px;
+                    white-space: nowrap;
                 }
 
                 td {
@@ -18,6 +19,7 @@
                     padding-top: 10px;
                     padding-bottom: 10px;
                     line-height: 20px;
+                    white-space: nowrap;
                 }
             }
         }

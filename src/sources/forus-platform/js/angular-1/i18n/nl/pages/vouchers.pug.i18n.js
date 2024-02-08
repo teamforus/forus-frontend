@@ -15,14 +15,14 @@ module.exports = {
         assigned: "Status",
         actions: "Acties",
         source: "Aangemaakt door",
-        created_date: "Aangemaakt op",
-        expire_date: "Geldig tot en met",
+        created_at: "Aangemaakt op",
+        expire_at: "Geldig tot en met",
         voucher_count_per_identity: "Aantal tegoeden",
         expired: "Verlopen",
         email: "E-mailadres",
         fund: "Fonds",
         granted: "Toegewezen",
-        used: "In gebruik",
+        in_use: "In gebruik",
         used_date: 'In gebruik date',
         note: "Notitie",
         search: "Zoeken",
@@ -72,7 +72,7 @@ module.exports = {
             'NR: Een uniek nummer dat kan worden toegevoegd aan het tegoed tijdens het aanmaken. ',
             'Kan worden gebruikt om een relatie te leggen met andere systemen.'
         ].join(''),
-        method: [
+        assigned_to: [
             'Deze informatie wordt gebruikt om het tegoed te associeeren met een specifieke deelnemer. ',
             'Mogelijkheden: BSN (alleen geautoriseerde organisaties), Activatiecode, E-mailadres of Niet toegewezen.',
         ].join(''),
@@ -85,8 +85,8 @@ module.exports = {
             'Dit bedrag bestaat uit het bedrag bij de eerste uitgifte plus eventuele extra latere toevoegingen.',
         ].join(''),
         note: 'De notitie die door de medewerker is gemaakt bij het aanmaken van het tegoed.',
-        created_date: 'De tijd en datum waarop het tegoed is aangemaakt.',
-        expire_date: [
+        created_at: 'De tijd en datum waarop het tegoed is aangemaakt.',
+        expire_at: [
             'De laatste geldige gebruiksdatum. ',
             'Hierna verloopt het tegoed en kan het niet meer worden gebruikt om transacties te verichten.',
         ].join(''),
@@ -95,7 +95,7 @@ module.exports = {
             'De mogelijke waarden zijn: "Nee" of "De datum van laatste transactie". ',
             'Let op: De waarde wordt automatisch teruggezet naar \'Nee\' als de transactie is geannuleerd binnen de bedenktijd van 14 dagen.',
         ].join(''),
-        status: [
+        state: [
             'Geeft de huidige toestand van het tegoed aan. ',
             'De specifieke betekenissen van elke status: ',
             'Inactief: Het tegoed is aangemaakt maar nog niet toegewezen aan een specifieke deelnemer. ',

@@ -1,4 +1,4 @@
-const VoucherService = function(ApiRequest) {
+const VoucherService = function($filter, ApiRequest) {
     return new (function() {
         this.index = (organization_id, query) => {
             return ApiRequest.get([
@@ -126,8 +126,11 @@ const VoucherService = function(ApiRequest) {
             }];
         };
 
-        this.getColumns = ($translate) => {
+        this.getColumns = () => {
+            const $translate = (key) => $filter('translate')(`vouchers.${key}`);
+
             return [{
+                key: 'id',
                 label: $translate('labels.id'),
                 tooltip: {
                     key: 'id',
@@ -135,20 +138,23 @@ const VoucherService = function(ApiRequest) {
                     description: $translate('tooltips.id'),
                 },
             }, {
+                key: 'assigned_to',
                 label: $translate('labels.assigned_to'),
                 tooltip: {
-                    key: 'method',
+                    key: 'assigned_to',
                     title: 'Methode',
-                    description: $translate('tooltips.method'),
+                    description: $translate('tooltips.assigned_to'),
                 },
             }, {
+                key: 'source',
                 label: $translate('labels.source'),
                 tooltip: {
-                    key: 'created_by',
+                    key: 'source',
                     title: 'Aangemaakt door',
                     description: $translate('tooltips.source'),
                 },
             }, {
+                key: 'amount',
                 label: $translate('labels.amount'),
                 fundType: 'budget',
                 tooltip: {
@@ -157,6 +163,7 @@ const VoucherService = function(ApiRequest) {
                     description: $translate('tooltips.amount'),
                 },
             }, {
+                key: 'note',
                 label: $translate('labels.note'),
                 tooltip: {
                     key: 'note',
@@ -164,34 +171,39 @@ const VoucherService = function(ApiRequest) {
                     description: $translate('tooltips.note'),
                 },
             }, {
+                key: 'fund',
                 label: $translate('labels.fund'),
             }, {
-                label: $translate('labels.created_date'),
+                key: 'created_at',
+                label: $translate('labels.created_at'),
                 tooltip: {
-                    key: 'created_date',
+                    key: 'created_at',
                     title: 'Aangemaakt op',
-                    description: $translate('tooltips.created_date'),
+                    description: $translate('tooltips.created_at'),
                 },
             }, {
-                label: $translate('labels.expire_date'),
+                key: 'expire_at',
+                label: $translate('labels.expire_at'),
                 tooltip: {
-                    key: 'expire_date',
+                    key: 'expire_at',
                     title: 'Geldig tot en met',
-                    description: $translate('tooltips.expire_date'),
+                    description: $translate('tooltips.expire_at'),
                 },
             }, {
-                label: $translate('labels.used'),
+                key: 'in_use',
+                label: $translate('labels.in_use'),
                 tooltip: {
                     key: 'in_use',
                     title: 'In gebruik',
                     description: $translate('tooltips.in_use'),
                 },
             }, {
+                key: 'state',
                 label: $translate('labels.state'),
                 tooltip: {
-                    key: 'status',
+                    key: 'state',
                     title: 'Status',
-                    description: $translate('tooltips.status'),
+                    description: $translate('tooltips.state'),
                 },
             }];
         };
@@ -199,6 +211,7 @@ const VoucherService = function(ApiRequest) {
 };
 
 module.exports = [
+    '$filter',
     'ApiRequest',
-    VoucherService
+    VoucherService,
 ];

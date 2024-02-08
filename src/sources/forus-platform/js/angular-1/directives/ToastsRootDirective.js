@@ -1,4 +1,4 @@
-let ToastDirective = function (
+const ToastsRootDirective = function (
     $scope,
     $timeout,
     ToastService,
@@ -31,8 +31,8 @@ module.exports = () => {
             '$scope',
             '$timeout',
             'ToastService',
-            ToastDirective
+            ToastsRootDirective,
         ],
-        templateUrl: 'assets/tpl/directives/toast.html'
+        templateUrl: 'assets/tpl/directives/toast.html',
     };
 };

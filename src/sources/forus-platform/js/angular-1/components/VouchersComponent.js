@@ -2,7 +2,7 @@ const { pick } = require("lodash");
 
 const VouchersComponent = function (
     $state,
-    $filter,
+    $scope,
     $element,
     $stateParams,
     $timeout,
@@ -14,7 +14,6 @@ const VouchersComponent = function (
     PageLoadingBarService,
 ) {
     const $ctrl = this;
-    const $translate = (key) => $filter('translate')(`vouchers.${key}`);
     const anyFundMedia = { sizes: { thumbnail: './assets/img/menu/icon-my_funds.svg' } };
 
     $ctrl.states = [
@@ -41,7 +40,7 @@ const VouchersComponent = function (
     ];
 
     $ctrl.voucher_states = VoucherService.getStates();
-    $ctrl.showTableConfig = null;
+    $ctrl.showTableConfig = false;
 
     $ctrl.filters = {
         show: false,
@@ -78,8 +77,6 @@ const VouchersComponent = function (
         }
     };
 
-    $ctrl.columns = VoucherService.getColumns($translate);
-
     $ctrl.setShowTableConfig = function (key) {
         if ($ctrl.showTableConfig && $ctrl.tableConfigCategory == key) {
             return $ctrl.showTableConfig = false;
@@ -98,11 +95,12 @@ const VouchersComponent = function (
         }
 
         if ($ctrl.showTableConfig && $ctrl.tableConfigCategory == 'tooltips') {
-            // scroll into view
-            const element = $element.find(`[data-table-tooltip="${tooltipKey || 'status'}"]`)[0];
-            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
             $ctrl.activeTooltipKey = tooltipKey;
+
+            // scroll into view
+            $element
+                ?.find(`[data-table-tooltip="${tooltipKey || 'status'}"]`)[0]
+                ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } else {
             ToastService.setToast([
                 'This is the header of the table column, ',
@@ -262,14 +260,21 @@ const VouchersComponent = function (
         $ctrl.fundsById = $ctrl.funds.reduce((obj, fund) => ({ ...obj, [fund.id]: fund }), {});
         $ctrl.onPageChange($ctrl.filters.values);
 
-        $ctrl.columns = $ctrl.columns.filter((column) => {
-            if (!$ctrl.filters.values.fund_id || !column.fundType) {
-                return true;
-            }
-    
-            return $ctrl.fundsById[$ctrl.filters.values.fund_id].type == column.fundType;
-        });
-        $ctrl.tooltips = $ctrl.columns.filter((column) => column.tooltip).reduce((val, item) => [...val, item.tooltip], []);
+        $scope.$watch('$ctrl.filters.values.fund_id', () => {
+            $ctrl.columns = VoucherService.getColumns().filter((column) => {
+                if (!$ctrl.filters.values.fund_id || !column.fundType) {
+                    return true;
+                }
+
+                return $ctrl.fundsById[$ctrl.filters.values.fund_id].type == column.fundType;
+            });
+
+            $ctrl.columns_keys = $ctrl.columns.map((column) => column.key);
+
+            $ctrl.tooltips = $ctrl.columns
+                .filter((column) => column.tooltip)
+                .reduce((val, item) => [...val, item.tooltip], []);
+        }, true);
     };
 };
 
@@ -282,7 +287,7 @@ module.exports = {
     },
     controller: [
         '$state',
-        '$filter',
+        '$scope',
         '$element',
         '$stateParams',
         '$timeout',

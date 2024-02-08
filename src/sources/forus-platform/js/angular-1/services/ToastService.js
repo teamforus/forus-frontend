@@ -1,9 +1,9 @@
-const ToastService = function() {
-    return new (function() {
+const ToastService = function () {
+    return new (function () {
         this.toast = {
             show: false,
         };
-    
+
         this.setToast = (description) => {
             this.toast = {
                 show: !!description,
