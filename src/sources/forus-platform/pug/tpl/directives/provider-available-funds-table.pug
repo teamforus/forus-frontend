@@ -34,6 +34,13 @@
                                 placeholder="{{ 'provider_funds.filters.labels.search' | translate }}").form-control
 
                         .form-group(ng-click="$event.stopPropagation()")
+                            form-label-toggle(label="{{ 'provider_funds.filters.labels.implementations' | translate }}")
+                            .form-offset: select-control(
+                                prop="id"
+                                ng-model="$dir.filters.values.implementation_id"
+                                options="$dir.implementations").form-control
+
+                        .form-group(ng-click="$event.stopPropagation()")
                             form-label-toggle(label="{{ 'provider_funds.filters.labels.organizations' | translate }}")
                             .form-offset: select-control(
                                 prop="id"
@@ -51,7 +58,7 @@
 
     //- Vouchers list
     .card-section(ng-if="$dir.funds.data.length > 0")
-        .card-block.card-block-table.card-block-table-fund.form
+        .card-block.card-block-table.form
             .table-wrapper
                 table.table
                     tr
@@ -71,9 +78,16 @@
                             checked="$dir.selected.includes(fund.id)"
                             ng-click="$dir.toggle($event, fund)")
 
-                        td
-                            .fund-img: img(ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}" alt="")
-                            .fund-title(ng-bind="fund.name | str_limit:25" title="{{ fund.name }}")
+                        td: .td-collapsable
+                            .collapsable-media: img.td-media.td-media-sm(
+                                ng-src="{{ fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+
+                            .collapsable-content
+                                .text-primary.text-medium(ng-bind="fund.name | str_limit:32")
+                                a.text-strong.text-md.text-muted-dark.text-inherit(
+                                    href="{{ fund.implementation.url_webshop }}"
+                                    target="_blank"
+                                    ng-bind="fund.implementation.name | str_limit:32")
 
                         td(
                             ng-bind="fund.organization.name | str_limit:25"

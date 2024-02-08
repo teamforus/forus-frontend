@@ -9,6 +9,9 @@ const ReservationShowComponent = function (
 ) {
     const $ctrl = this;
 
+    $ctrl.showReservationExtraAmount = true;
+    $ctrl.showReservationRefunds = true;
+
     const prepareStateAndProduct = () => {
         $ctrl.product = $ctrl.reservation.product;
         $ctrl.media = $ctrl.product.photo || $ctrl.product.logo || null;

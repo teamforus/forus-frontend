@@ -3,7 +3,7 @@
     section.app.app-content(ng-if="$ctrl.products.meta")
         .card
             .card-header: .flex-row
-                .flex.flex-grow: .card-title
+                .flex.flex-grow: .flex-col: .card-title
                     span(translate="products.offers") 
                     | &nbsp;
                     span(ng-bind="$ctrl.products.meta.total").span-count

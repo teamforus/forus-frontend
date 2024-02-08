@@ -17,6 +17,7 @@ const ReimbursementsComponent = function (
         show: false,
         defaultValues: {
             q: '',
+            implementation_id: null,
             state: null,
             amount_min: null,
             amount_max: null,
@@ -75,6 +76,11 @@ const ReimbursementsComponent = function (
     $ctrl.onPageChange = (query) => {
         PageLoadingBarService.setProgress(0);
 
+        $ctrl.implementations.unshift({
+            id: null,
+            name: "Alle implementaties",
+        });
+
         ReimbursementService.index($ctrl.organization.id, $ctrl.getQueryParams(query))
             .then((res) => $ctrl.reimbursements = res.data)
             .finally(() => PageLoadingBarService.setProgress(100));
@@ -90,6 +96,7 @@ module.exports = {
         fund: '<',
         funds: '<',
         organization: '<',
+        implementations: '<',
     },
     controller: [
         'ReimbursementsExportService',

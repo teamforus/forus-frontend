@@ -4,6 +4,7 @@
         .block-feature-title
             span(ng-bind="$dir.feature.name")
             .block-feature-label.active(ng-if="$dir.feature.enabled") Actief
+            .block-feature-label.inactive(ng-if="!$dir.feature.enabled") Uitproberen
 
         .block-feature-details(ng-bind="$dir.feature.description")
         .block-feature-labels
@@ -11,4 +12,5 @@
 
         .button-group
             .button.button-primary.button-sm(ng-click="$dir.openContactModal()") Contact opnemen
-            .button.button-default.button-sm Helpcenter-artikelen bekijken
+            a.button.button-default.button-sm(href="https://helpcentrum.forus.io/kb/nl" target="_blank")
+                | Helpcenter-artikelen bekijken

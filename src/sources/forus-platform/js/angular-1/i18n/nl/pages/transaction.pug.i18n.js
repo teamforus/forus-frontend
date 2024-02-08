@@ -1,6 +1,6 @@
 module.exports = {
     labels: {
-        amount: "Amount",
+        amount: "Bedrag",
         payment: "Transactie",
         details: "Transactie details",
         id: "ID",

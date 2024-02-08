@@ -9,16 +9,53 @@
         .reservation-content
             mixin cancelButton()
                 button.button.button-light.button-xs(
-                    ng-if="$dir.reservation.cancelable"
+                    ng-if="$dir.reservation.cancelable || ['accepted','pending','waiting'].includes($dir.reservation.state)"
                     dusk="btnCancelReservation"
                     type="button"
                     ng-click="$dir.cancelReservation($event, $dir.reservation)")
                     em.mdi.mdi-trash-can-outline
                     | {{ "reservation.labels.cancel" | translate }}
 
+            mixin reservation_dates()
+                .reservation-overview-item
+                    .reservation-overview-label(translate="reservation.labels.created_at")
+                    .reservation-overview-value(ng-bind="$dir.reservation.created_at_locale")
+
+                .reservation-overview-item(ng-if="!$dir.reservation.expired && $dir.reservation.state === 'rejected'")
+                    .reservation-overview-label(translate="reservation.labels.rejected_at")
+                    .reservation-overview-value(ng-bind="$dir.reservation.rejected_at_locale")
+
+                .reservation-overview-item(ng-if="!$dir.reservation.expired && $dir.reservation.canceled")
+                    .reservation-overview-label(translate="reservation.labels.canceled_at")
+                    .reservation-overview-value(ng-bind="$dir.reservation.canceled_at_locale")
+
+                .reservation-overview-item(ng-if="$dir.reservation.expired")
+                    .reservation-overview-label(translate="reservation.labels.expired_at")
+                    .reservation-overview-value(ng-bind="$dir.reservation.expire_at_locale")
+
+            mixin reservation_buttons()
+                .reservation-action(ng-if="$dir.reservation.amount_extra > 0 && !$dir.reservation.canceled")
+                    button.button.button-text.button-xs.hidden-xs.hidden-sm(
+                        type="button"
+                        ng-click="$dir.showExtraPaymentDetails($event)")
+                        | {{ $dir.showExtraDetails ? 'Verberg alle details' : 'Toon alle details' }}
+                        em.mdi.icon-right(ng-class="$dir.showExtraDetails ? 'mdi-chevron-up' : 'mdi-chevron-down'")
+
+                    +cancelButton()
+
+                    button.button.button-dark.button-xs(
+                        ng-if="$dir.reservation.state === 'waiting' && $dir.reservation.extra_payment_expires_in > 0"
+                        type="button"
+                        ng-click="$dir.payExtraReservation($event)")
+                        em.mdi.mdi-credit-card-outline.icon-start
+                        | Ga door naar betalen
+
+                .reservation-action(ng-if="$dir.reservation.amount_extra == 0 && $dir.reservation.cancelable")
+                    +cancelButton()
+
             .reservation-section
                 .reservation-section-column
-                    div(role="heading" aria-level="2"): a.reservation-name(
+                    .reservation-name(role="heading" aria-level="2"): a(
                         ng-click="$dir.goToProduct($event)"
                         dusk="reservationProduct"
                         role="link"
@@ -29,7 +66,7 @@
                         span(ng-if="$dir.reservation.records_title" ng-bind="$dir.reservation.records_title")
                         span.text-separator(ng-if="$dir.reservation.records_title")
                         a(
-                            ng-click="$dir.goToProvider($event)" 
+                            ng-click="$dir.goToProvider($event)"
                             ng-bind="$dir.product.organization.name"
                             role="link"
                             tabindex="0")
@@ -66,49 +103,28 @@
                             .reservation-value-title Zelf betaald
                             .reservation-value(ng-bind="$dir.reservation.amount_extra_locale")
 
-                .reservation-section-row
+                .reservation-section-row.hidden-xs.hidden-sm: .reservation-section-column
+                    .reservation-overview.reservation-overview-dates
+                        +reservation_dates()
                     .reservation-actions
-                        .reservation-action(ng-if="$dir.reservation.amount_extra > 0 && !$dir.reservation.canceled")
-                            button.button.button-text.button-xs.hidden-xs.hidden-sm(
-                                type="button"
-                                ng-click="$dir.showExtraPaymentDetails($event)")
-                                | {{ $dir.showExtraDetails ? 'Verberg alle details' : 'Toon alle details' }}
-                                em.mdi.icon-right(ng-class="$dir.showExtraDetails ? 'mdi-chevron-up' : 'mdi-chevron-down'")
+                        +reservation_buttons()
 
-                            +cancelButton()
-
-                            button.button.button-dark.button-xs(
-                                ng-if="$dir.reservation.state === 'waiting' && $dir.reservation.extra_payment_expires_in > 0"
-                                type="button"
-                                ng-click="$dir.payExtraReservation($event)")
-                                em.mdi.mdi-credit-card-outline.icon-start
-                                | Ga door naar betalen
-
-                        .reservation-action(ng-if="$dir.reservation.amount_extra == 0")
-                            +cancelButton()
-
-                    .reservation-overview(ng-if="!$dir.reservation.expired && $dir.reservation.state === 'rejected'")
-                        .reservation-overview-item
-                            .reservation-overview-label(translate="reservation.labels.rejected_at")
-                            .reservation-overview-value(ng-bind="$dir.reservation.rejected_at_locale")
-
-                    .reservation-overview(ng-if="!$dir.reservation.expired && $dir.reservation.canceled")
-                        .reservation-overview-item
-                            .reservation-overview-label(translate="reservation.labels.canceled_at")
-                            .reservation-overview-value(ng-bind="$dir.reservation.canceled_at_locale")
-
-                    .reservation-overview(ng-if="$dir.reservation.expired")
-                        .reservation-overview-item
-                            .reservation-overview-label(translate="reservation.labels.expired_at")
-                            .reservation-overview-value(ng-bind="$dir.reservation.expire_at_locale")
+    .reservation-actions.reservation-actions-mobile
+        +reservation_buttons()
 
     .reservation-details-toggle
-        .reservation-overview: .reservation-overview-item
-            .reservation-overview-label(translate="reservation.labels.code")
-            .reservation-overview-value(ng-bind="'#' + $dir.reservation.code" dusk="reservationCode")
+        .reservation-overview.reservation-overview-dates
+            .reservation-overview-item
+                .reservation-overview-label(translate="reservation.labels.code")
+                .reservation-overview-value(ng-bind="'#' + $dir.reservation.code" dusk="reservationCode")
+
+            +reservation_dates()
+
+        .reservation-details-toggle-divider(ng-if="$dir.reservation.amount_extra > 0 && !$dir.reservation.canceled")
 
         button.button.button-text.button-xs(
             type="button"
+            ng-if="$dir.reservation.amount_extra > 0 && !$dir.reservation.canceled"
             ng-click="$dir.showExtraPaymentDetails($event)")
             | {{ $dir.showExtraDetails ? 'Verberg alle details' : 'Toon alle details' }}
             em.mdi.icon-right(ng-class="$dir.showExtraDetails ? 'mdi-chevron-up' : 'mdi-chevron-down'")

@@ -16,12 +16,12 @@
                     | gegevens uit de systemen, zoals de DataWarehouse, van de gemeente.
                 p
                     | Een van de belangrijkste functies van deze koppeling is de automatische verificatie
-                    | van aanvragen voor regelingen door inwoners. Het systeem voert automatisch controles
+                    | van aanvragen voor regelingen door aanvragers. Het systeem voert automatisch controles
                     | uit op basis van de gegevens die bij de gemeente bekend zijn. Dit verzekert dat alleen
-                    | inwoners die daadwerkelijk recht hebben op een regeling, worden goedgekeurd.
+                    | aanvragers die daadwerkelijk recht hebben op een regeling, worden goedgekeurd.
                 p
                     | Daarnaast stroomlijnt deze koppeling het proces van informatie-uitwisseling tussen de
-                    | gemeente en het Forus-platform. Zodra een regeling wordt toegekend en een inwoner
+                    | gemeente en het Forus-platform. Zodra een regeling wordt toegekend en een deelnemer
                     | gebruikmaakt van het ontvangen tegoed, wordt deze informatie teruggestuurd naar de gemeente.
                     | Dit biedt een real-time overzicht van toekenningen en het gebruik van tegoeden.
 
@@ -65,7 +65,7 @@
 
                         h4 Automatische controle
                         p
-                            | Met de integratie kan automatisch worden gecontroleerd of een inwoner recht heeft op een regeling,
+                            | Met de integratie kan automatisch worden gecontroleerd of een aanvrager recht heeft op een regeling,
                             | op basis van gemeentegegevens. Dit verhoogt de nauwkeurigheid en efficiëntie van het proces.
 
 
@@ -78,8 +78,8 @@
 
                             .block-feature-steps-content
                                 h4
-                                    | Bij de aanvraag van een regeling door een inwoner wordt automatisch gecontroleerd
-                                    | of deze inwoner recht heeft op de regeling.
+                                    | Bij de aanvraag van een regeling door een aanvrager wordt automatisch gecontroleerd
+                                    | of deze aanvrager recht heeft op de regeling.
 
                         .block-feature-steps-item
                             .block-feature-steps-icon
@@ -129,30 +129,17 @@
                     .feature-faq-item-description
                         p
                             | Om de Backoffice API in te zetten, is het van belang dat de organisatie beschikt over een dataset van
-                            | informatie over de inwoner. Met de Backoffice API wordt namelijk middels een koppeling deze data
-                            | gecontroleerd wanneer de inwoner inlogt met DigiD een aanvraag voor een regeling doet. Op basis
-                            | van het BSN wordt gecheckt of de inwoner recht heeft op de desbetreffende regeling.
+                            | informatie over de aanvrager. Met de Backoffice API wordt namelijk middels een koppeling deze data
+                            | gecontroleerd wanneer de aanvrager inlogt met DigiD een aanvraag voor een regeling doet. Op basis
+                            | van het BSN wordt gecheckt of de aanvrager recht heeft op de desbetreffende regeling.
 
 
         .card
             .card-header(ng-if="$ctrl.additionalFeatures.length")
-                .card-title Andere modules die u misschien interessant vindt
+                .card-title Andere functionaliteiten die u misschien interessant vindt
 
             .card-section(ng-if="$ctrl.additionalFeatures.length")
-                .block.block-features
-                    .features-list
-                        a.features-list-item(
-                            ng-repeat="feature in $ctrl.additionalFeatures"
-                            ui-sref="feature(feature.srefParams)")
-
-                            .features-list-item-icon: img(ng-src="/assets/img/features/icons/{{ feature.key }}.svg")
-                            .features-list-item-content
-                                .features-list-item-title
-                                    span(ng-bind="feature.name")
-                                    .features-label.active(ng-if="feature.enabled") Actief
-                                .features-list-item-details(ng-bind="feature.description")
-                                .features-labels
-                                    .features-label(ng-repeat="label in feature.labels" ng-bind="label")
+                block-additional-features(features="$ctrl.additionalFeatures")
 
             .card-section
                 .block.block-features-demo-banner(
@@ -166,4 +153,4 @@
                                 | voor een persoonlijke demonstratie. We laten u graag zien hoe het voor uw kan werken.
 
                         .features-demo-banner-action
-                            a(ui-sref="features({organization_id: $ctrl.organization.id})").button.button-primary Demo aanvragen
+                            .button.button-primary(ng-click="$ctrl.openContactModal()") Demo aanvragen

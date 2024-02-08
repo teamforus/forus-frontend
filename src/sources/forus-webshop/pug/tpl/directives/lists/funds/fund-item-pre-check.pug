@@ -28,17 +28,23 @@
                     | Toon minder
                     em.mdi.mdi-chevron-up.icon-right
 
+            a.button.button-primary-outline.button-sm(
+                target="_blank"
+                ng-if="$dir.fund.external_link_url"
+                ng-href="{{ $dir.fund.external_link_url }}")
+                | {{ $dir.fund.external_link_text || 'Externe website bekijken' }}
+                em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
+
         .fund-related-funds-block(ng-if="$dir.fund.children.length > 0")
             .fund-related-funds-description 
-                | Voordat u dit budget kunt aanvragen dient u een aanvraag te doen voor de volgende budgetten, 
-                | moet u een ander fonds aanvragen uit de onderstaande lijst:
+                | Als u deze regeling aanvraagt, kunt u ook direct andere regelingen aanvragen. 
+                | Dit geldt voor de volgende lijst met regelingen:
             ul.fund-related-funds-list(ng-repeat="children in $dir.fund.children")
                 li.fund-related-funds-list-item(ng-bind="children.name")
 
         .fund-related-funds-block.fund-related-funds-block-parent(ng-if="$dir.fund.parent")
             .fund-related-funds-description 
-                | Diam viverra diam at neque mollis eros sapien nibh pellentesque ut eget odio viverra 
-                | ut morbi gravida elementum mauris pretium amet, a sagittis
+                | Deze regeling kunt u aanvragen door een aanvraag te doen voor de volgende regeling: 
             ul.fund-related-funds-list
                 li.fund-related-funds-list-item(ng-bind="$dir.fund.parent.name")
 
@@ -49,15 +55,15 @@
                 .fund-request-block-progress-bar
                     .fund-request-block-progress-bar-completed(style="width: {{ $dir.criteriaValidPercentage }}%")
 
-            .fund-request-block-button: button.button.button-primary.button-sm(
+            .fund-request-block-button(ng-if="!$dir.fund.is_external"): button.button.button-primary.button-sm(
                 type="button"
                 ng-disabled="!$dir.fund.allow_direct_requests"
                 ng-click="$dir.applyFund($event, $dir.fund)")
-                translate Direct aanvragen 
+                translate {{ $dir.fund.allow_direct_requests ? 'Direct aanvragen' : 'Niet beschikbaar' }} 
                 em.mdi.mdi-arrow-right.icon-right(aria-hidden="true")
 
         .fund-totals-block
-            .fund-totals-block-amount
+            .fund-totals-block-amount(ng-if="$dir.positiveAmount")
                 .fund-totals-block-amount-description Totaal
                 .fund-totals-block-amount-value {{ $dir.fund.amount_total_locale }}
 
@@ -79,39 +85,20 @@
                     em.mdi.mdi-chevron-up.icon-right
 
     .fund-pre-check-info-block(ng-if="$dir.showMoreRequestInfo"): .fund-pre-check-info-wrapper
-        .fund-pre-check-info-col
-            .fund-pre-check-info-col-title Voorwaarden
-            .fund-pre-check-info-col-list
-                .fund-pre-check-info-col-list-item(
-                    ng-repeat="criterion in $dir.fund.criteria" 
-                    ng-class="{valid: criterion.is_valid}") 
+        .fund-pre-check-info-title Voorwaarden
+        .fund-pre-check-info-list
+            .fund-pre-check-info-list-item(
+                ng-repeat="criterion in $dir.fund.criteria" 
+                ng-class="{valid: criterion.is_valid}") 
 
-                    em.mdi.mdi-check-circle 
-                    span(ng-bind="criterion.name")
-                    | &nbsp;
-                    span(ng-bind="criterion.value")
+                em.mdi.mdi-check-circle(ng-if='criterion.is_valid' aria-hidden="true")
+                em.mdi.mdi-close-circle(ng-if='!criterion.is_valid' aria-hidden="true")
 
-        .fund-pre-check-info-col
-            .fund-pre-check-info-col-title Berekening
-            table.fund-pre-check-info-col-table
-                tr
-                    td.description Per gezin
-                    td.value 1x {{ $dir.fund.amount_for_identity_locale }}
+                span(ng-bind="criterion.name")
+                | &nbsp;
+                span(ng-bind="criterion.value")  
 
-                //- todo: find out what this is
-                //- tr
-                    td 
-                    td.value 1x 1 Voucher
-
-                tr: td(colspan="2"): br    
-
-                tr
-                    td.description Per kind
-                    td.value {{ $dir.fund.identity_multiplier + '' }}x {{ $dir.fund.amount_for_identity_locale }}
-
-                tr: td(colspan="2"): br   
-
-            .fund-pre-check-info-col-amount 
-                .fund-pre-check-info-col-amount-title Totaal
-                .fund-pre-check-info-col-amount-description {{ $dir.fund.amount_total_locale  }}
+        .fund-pre-check-info-totals
+            .fund-pre-check-info-totals-title Totaal
+            .fund-pre-check-info-totals-amount(ng-bind='$dir.fund.amount_total_locale')
 

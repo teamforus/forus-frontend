@@ -301,9 +301,11 @@ app.directive('blockCardVouchers', require('./directives/BlockCardVouchersDirect
 app.directive('blockCardNote', require('./directives/blocks/BlockCardNoteDirective'));
 app.directive('auth2FAInfoBox', require('./directives/Auth2FAInfoBoxDirective'));
 app.directive('reimbursementCategories', require('./directives/ReimbursementCategoriesDirective'));
-app.directive('blockFeature', require('./directives/blocks/BlockFeatureDirective'));
 app.directive('reservationExtraPaymentDetails', require('./directives/ReservationExtraPaymentDetailsDirective'));
 app.directive('reservationExtraPaymentRefunds', require('./directives/ReservationExtraPaymentRefundsDirective'));
+
+app.directive('blockFeature', require('./directives/blocks/BlockFeatureDirective'));
+app.directive('blockAdditionalFeatures', require('./directives/blocks/BlockAdditionalFeaturesDirective'));
 
 app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));
 app.directive('fundRequestRecord', require('./directives/FundRequestRecordDirective'));

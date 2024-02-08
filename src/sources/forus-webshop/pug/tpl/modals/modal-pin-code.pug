@@ -1,32 +1,71 @@
-.modal.modal-auth.modal-animated(
+.modal.modal-pin-code.modal-animated(
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']"
     aria-describedby="pinCodeDialogSubtitle"
     aria-labelledby="pinCodeDialogTitle" 
     role="dialog")
 
-    .modal-backdrop(ng-click="$ctrl.close()" aria-label="Sluiten")
-    .modal-content: .modal-section
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="Sluiten" role="button")
-        .app-instruction
-            .step-item
-                h2.step-title Stap 1
-                .step-description 
-                    a(ng-click="$ctrl.openInMeModal()") Download
-                    |  en open de me app
-                img(src="./assets/img/screen1.png" alt="Me-app aanmeldscherm schermafbeelding")
-            .step-item
-                h2.step-title Stap 2
-                .step-description Kies “Koppelen”
-                img(src="./assets/img/screen2.png"  alt="Me-app aanmeldscherm schermafbeelding, kies koppelen")
+    //- Modal backdrop
+    .modal-backdrop(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
-            .divider-img: img(src="./assets/img/Base7.png" alt="")
+    form.modal-window.form
+        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
-        h2.modal-title(id="pinCodeDialogTitle") Stap 3: {{ "open_in_me.app_header.title" | translate }}
-        .modal-subtitle(id="pinCodeDialogSubtitle" translate="open_in_me.app_header.subtitle_{{ $root.appConfigs.features.communication_type }}")
+        .modal-header: h2.modal-title Log in op de app
 
-        form.form.f-w.with-instructions(ng-submit="$ctrl.authorizePincodeForm.submit()")
-            .form-group
-                div(ng-if="$ctrl.authorizePincodeForm" pincode-control ng-model="$ctrl.authorizePincodeForm.values.auth_code")
-                .text-center.form-error(ng-repeat="error in $ctrl.authorizePincodeForm.errors.auth_code track by $index" ng-bind="error")
-            .form-group.text-center
-                button(type="submit").button.button-primary {{ "open_in_me.authorize.submit" | translate }}
+        .modal-body
+            .app-instructions
+                .app-instructions-container
+                    .app-instructions-step
+                        .step-item-img(alt="Me-app aanmeldscherm schermafbeelding")
+                            img(src="./assets/img/icon-auth/download-me-app.svg")
+                        h2.step-title Stap 1
+                        .step-description 
+                            strong: a(ng-click="$ctrl.openInMeModal()").text-link Download
+                            |  en open de me app
+
+                    .app-instructions-separator
+                        img(src="./assets/img/icon-auth/icon-app-step-separator.svg").hide-sm
+                        img(src="./assets/img/icon-auth/icon-app-step-separator-mobile.svg").show-sm
+
+                    .app-instructions-step
+                        .step-item-img(alt="Me-app aanmeldscherm schermafbeelding, kies koppelen")
+                            img(src="./assets/img/icon-auth/pair-me-app.svg")
+                        h2.step-title Stap 2
+                        .step-description Kies “#[strong Koppelen]”
+
+                .app-instructions-devider
+                    .divider-line
+                    .divider-arrow
+
+                .app-instructions-form
+                    .app-instructions-icon: img(src="./assets/img/icon-auth/me-app-fill-pin-code.svg")
+
+                    h2.app-instructions-title(
+                        id="pinCodeDialogTitle"
+                        ng-bind="'Stap 3: ' + ('open_in_me.app_header.title' | translate)")
+
+                    .app-instructions-subtitle(
+                        id="pinCodeDialogSubtitle" 
+                        translate="open_in_me.app_header.subtitle_{{ $root.appConfigs.features.communication_type }}")
+
+                    .form-group
+                        pincode-control(
+                            ng-if="$ctrl.authorizePincodeForm" 
+                            ng-model="$ctrl.authorizePincodeForm.values.auth_code")
+
+                        .text-center.form-error(
+                            ng-repeat="error in $ctrl.authorizePincodeForm.errors.auth_code track by $index" 
+                            ng-bind="error")
+
+        //- Actions
+        .modal-footer.text-center
+            button.button.button-light.button-sm(
+                type="button"
+                ng-click="$ctrl.close()" 
+                translate="modal.buttons.cancel")
+
+            button.button.button-primary.button-sm(
+                type="submit"
+                ng-disabled="!$ctrl.authorizePincodeForm || !$ctrl.authorizePincodeForm.values.auth_code"
+                ng-click="$ctrl.authorizePincodeForm.submit()"
+                translate="open_in_me.authorize.submit")

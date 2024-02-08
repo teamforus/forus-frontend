@@ -11,17 +11,17 @@
             .card-header: .card-title Beschrijving
             .card-section: .block.block-content
                 p
-                    | Met de declaratiemodule hebben inwoners de mogelijkheid om bonnen en facturen in te dienen.
+                    | Met de declaratiefunctionaliteit hebben deelnemers de mogelijkheid om bonnen en facturen in te dienen.
                     | Dit stelt hen in staat om kosten terug te vragen voor uitgaven bij niet-aangesloten
                     | aanbieders of om facturen in te dienen voor specifieke regelingen, zoals de Regeling
                     | Reductie Energiegebruik of Internetkosten.
                 p
-                    | Binnen de persoonlijke inwonersomgeving in de webshop kunnen inwoners eenvoudig bonnetjes
+                    | Binnen de persoonlijke deelnemersomgeving in de website kunnen deelnemers eenvoudig bonnetjes
                     | en bewijsstukken indienen. Deze documenten worden direct verwerkt in het systeem en
                     | komen binnen in de beheeromgeving van de gemeente. Hier worden ze gecontroleerd,
                     | beoordeeld en uiteindelijk vergoed.
                 p
-                    | Na goedkeuring ontvangen inwoners de kosten terug op hun persoonlijke bankrekening.
+                    | Na goedkeuring ontvangen deelnemers de kosten terug op hun persoonlijke bankrekening.
                     | Deze betalingen worden gecrediteerd van het budget of er kan een transactie klaargezet
                     | worden naar bijvoorbeeld een internetleverancier. De betalingen verlopen via de
                     | gekoppelde BNG-bankrekening.
@@ -39,7 +39,7 @@
 
                         h4 Efficiënte kostenvergoeding
                         p
-                            | Het stelt inwoners in staat om bonnen en facturen in te dienen voor kostenvergoeding
+                            | Het stelt deelnemers in staat om bonnen en facturen in te dienen voor kostenvergoeding
                             | op een efficiënte manier.
 
                     .block-feature-icons-item
@@ -69,11 +69,11 @@
 
 
                 .block.block-feature-list.block-feature-list-secondary
-                    h3 De functionaliteiten van de declaratiemodule worden beschikbaar in:
+                    h3 De functionaliteiten van de declaratiefunctionaliteit worden beschikbaar in:
                     .block-feature-list-items-wrapper
                         .block-feature-list-items
                             .block-feature-list-item
-                                | De webshop voor inwoners om kassabonnen, facturen en andere bewijsmaterialen te uploaden,
+                                | De website voor deelnemers om kassabonnen, facturen en andere bewijsmaterialen te uploaden,
                                 | zodat zij kosten kunnen terugvragen.
                             .block-feature-list-item
                                 | De beheeromgeving voor medewerkers waar zij de ingediende aanvragen
@@ -105,37 +105,24 @@
 
                 .feature-faq-item(collapse-item)
                     .feature-faq-item-title(collapse-header)
-                        | Wat is het voordeel van de Declaratiemodule voor de inwoner?
+                        | Wat is het voordeel van de Declaratiefunctionaliteit voor de deelnemer?
                         .feature-faq-item-icon.mdi.mdi-menu-down
 
                     .feature-faq-item-description
                         p
-                            | De inwoner heeft met de Declaratiemodule de mogelijkheid om transacties ‘voor te schieten’.
+                            | De deelnemer heeft met de Declaratiefonctionaliteit de mogelijkheid om transacties ‘voor te schieten’.
                             | Dit maakt het heel makkelijk voor regelingen als bijvoorbeeld een Energie regeling, waar de
-                            | inwoner een abonnement kan afsluiten en achteraf kan declareren bij de gemeente. Zo hoeft er
+                            | deelnemer een abonnement kan afsluiten en achteraf kan declareren bij de gemeente. Zo hoeft er
                             | geen energieleverancier te worden aangesloten als aanbieder, maar kan er rechtstreeks vanuit
-                            | de bankrekening van de gemeente een betaling worden gedaan naar de inwoner.
+                            | de bankrekening van de gemeente een betaling worden gedaan naar de deelnemer.
 
 
         .card
             .card-header(ng-if="$ctrl.additionalFeatures.length")
-                .card-title Andere modules die u misschien interessant vindt
+                .card-title Andere functionaliteiten die u misschien interessant vindt
 
             .card-section(ng-if="$ctrl.additionalFeatures.length")
-                .block.block-features
-                    .features-list
-                        a.features-list-item(
-                            ng-repeat="feature in $ctrl.additionalFeatures"
-                            ui-sref="feature(feature.srefParams)")
-
-                            .features-list-item-icon: img(ng-src="/assets/img/features/icons/{{ feature.key }}.svg")
-                            .features-list-item-content
-                                .features-list-item-title
-                                    span(ng-bind="feature.name")
-                                    .features-label.active(ng-if="feature.enabled") Actief
-                                .features-list-item-details(ng-bind="feature.description")
-                                .features-labels
-                                    .features-label(ng-repeat="label in feature.labels" ng-bind="label")
+                block-additional-features(features="$ctrl.additionalFeatures")
 
             .card-section
                 .block.block-features-demo-banner(
@@ -143,10 +130,10 @@
                 )
                     .features-demo-banner-info-wrapper
                         .features-demo-banner-info
-                            .features-demo-banner-title Declaratiemodule uitproberen
+                            .features-demo-banner-title Declaratiefunctionaliteit uitproberen
                             .features-demo-banner-details
-                                | Wilt u zien hoe de Declaratiemodule werkt? Neem dan contact met ons op
+                                | Wilt u zien hoe de Declaratiefunctionaliteit werkt? Neem dan contact met ons op
                                 | voor een persoonlijke demonstratie. We laten u graag zien hoe het voor uw kan werken.
 
                         .features-demo-banner-action
-                            a(ui-sref="features({organization_id: $ctrl.organization.id})").button.button-primary Demo aanvragen
+                            .button.button-primary(ng-click="$ctrl.openContactModal()") Demo aanvragen
