@@ -306,12 +306,13 @@
                                                 | #[em.mdi.mdi-qrcode.icon-start] QR-code
 
             //- Pagination
-            .card-section(ng-if="!$ctrl.loading && $ctrl.vouchers.meta" ng-show="$ctrl.vouchers.meta.last_page > 1")
+            .card-section(ng-if="!$ctrl.loading && $ctrl.vouchers.meta")
                 paginator(
                     meta="$ctrl.vouchers.meta" 
                     filters="$ctrl.filters.values" 
                     delayed-filters="['q', 'amount_min', 'amount_max', 'count_per_identity_min', 'count_per_identity_max']" 
-                    on-page-change="$ctrl.onPageChange(query)")
+                    on-page-change="$ctrl.onPageChange(query)"
+                    per-page-key="{{ $ctrl.paginationPerPageKey }}")
 
             //- Not found
             .card-section(ng-if="!$ctrl.loading && $ctrl.vouchers.meta.total == 0"): .block.block-empty.text-center

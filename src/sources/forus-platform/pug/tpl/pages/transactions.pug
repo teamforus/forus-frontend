@@ -299,12 +299,13 @@
                     | Maak nu een bulktransactie
 
             //- Transactions pagination
-            .card-section(ng-if="$ctrl.transactions" ng-show="($ctrl.viewType.key == 'transactions') && ($ctrl.transactions.meta.last_page > 1)")
+            .card-section(ng-if="$ctrl.transactions.meta.total" ng-show="$ctrl.viewType.key == 'transactions'")
                 paginator(
                     meta="$ctrl.transactions.meta" 
                     filters="$ctrl.filters.values"
                     delayed-filters="['q', 'amount_min', 'amount_max', 'transfer_in_min', 'transfer_in_max']" 
-                    on-page-change="$ctrl.onPageChange(query)")
+                    on-page-change="$ctrl.onPageChange(query)"
+                    per-page-key="{{ $ctrl.paginationPerPageKey }}")
 
             //- Empty transactions block
             .card-section(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.transactions.meta.total == 0"): .block.block-empty.text-center
@@ -349,12 +350,13 @@
                             em.mdi.mdi-eye-outline.icon-start
 
             //- Bulk transactions pagination
-            .card-section(ng-if="$ctrl.transactionBulks" ng-show="($ctrl.viewType.key == 'bulks') && ($ctrl.transactionBulks.meta.last_page > 1)")
+            .card-section(ng-if="$ctrl.transactionBulks.meta.total > 0" ng-show="$ctrl.viewType.key == 'bulks'")
                 paginator(
                     meta="$ctrl.transactionBulks.meta" 
                     filters="$ctrl.bulkFilters.values" 
                     delayed-filters="['amount_min', 'amount_max', 'quantity_min', 'quantity_max']" 
-                    on-page-change="$ctrl.onBulkPageChange(query)")
+                    on-page-change="$ctrl.onBulkPageChange(query)"
+                    per-page-key="{{ $ctrl.paginationPerPageKey }}")
             
             //- Empty bulk transactions block
             .card-section(ng-if="$ctrl.viewType.key == 'bulks' && $ctrl.transactionBulks.meta.total == 0"): .block.block-empty.text-center

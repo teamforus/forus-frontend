@@ -187,11 +187,12 @@
                                         translate(translate="components.organization_funds.buttons.restore")
 
             //- Funds pagination
-            .card-section(ng-if="$ctrl.funds" ng-show="$ctrl.funds.meta.last_page > 1")
+            .card-section(ng-if="$ctrl.funds")
                 paginator(
                     meta="$ctrl.funds.meta"
                     filters="$ctrl.filters.values"
-                    on-page-change="$ctrl.onPageChange(query)")
+                    on-page-change="$ctrl.onPageChange(query)"
+                    per-page-key="{{ $ctrl.paginationPerPageKey }}")
 
             //- Empty transactions block
             .card-section(ng-if="$ctrl.funds.meta.total == 0"): .block.block-empty.text-center

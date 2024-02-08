@@ -81,12 +81,13 @@
                                     em.mdi.mdi-eye-outline.icon-start
 
             //- Extra payments pagination
-            .card-section(ng-if="$ctrl.extraPayments" ng-show="$ctrl.extraPayments.meta.last_page > 1")
+            .card-section(ng-if="$ctrl.extraPayments")
                 paginator(
                     meta="$ctrl.extraPayments.meta"
                     filters="$ctrl.filters.values"
                     delayed-filters="['q']"
-                    on-page-change="$ctrl.onPageChange(query)")
+                    on-page-change="$ctrl.onPageChange(query)"
+                    per-page-key="{{ $ctrl.paginationPerPageKey }}")
 
             //- Empty extra_payments block
             .card-section(ng-if="$ctrl.extraPayments.meta.total == 0"): .block.block-empty.text-center
