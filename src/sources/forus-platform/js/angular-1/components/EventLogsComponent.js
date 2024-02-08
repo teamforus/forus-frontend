@@ -6,7 +6,7 @@ const EventLogsComponent = function (PaginatorService) {
     $ctrl.$onInit = function () {
         $ctrl.filters = {
             q: "",
-            per_page: PaginatorService.getPerPage($ctrl.paginationPerPageKey, 25),
+            per_page: PaginatorService.getPerPage($ctrl.paginationPerPageKey),
             loggable: ['fund', 'bank_connection', 'employee'],
         };
     };
