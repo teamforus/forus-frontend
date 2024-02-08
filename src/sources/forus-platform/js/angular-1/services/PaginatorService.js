@@ -1,7 +1,7 @@
 module.exports = [
     'LocalStorageService',
     function (
-        LocalStorageService
+        LocalStorageService,
     ) {
         return new (function () {
             const collectionKey = 'pagination';

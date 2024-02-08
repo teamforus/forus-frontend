@@ -1,39 +1,44 @@
-let LocalStorageService = function() {
-    return new (function() {
-        let isPlainObject = (obj) => {
+const LocalStorageService = function () {
+    return new (function () {
+        const isPlainObject = (obj) => {
             return (typeof obj == 'object') && !Array.isArray(obj) && !!obj;
         };
 
         this.setCollectionItem = (collection_name, key, value) => {
-            let collection = JSON.parse(localStorage.getItem(collection_name));
-
-            if (!isPlainObject(collection)) {
-                collection = {};
-            }
-
-            collection[key] = value;
+            const collection = {
+                ...this.getCollectionItem(collection_name, key, {}),
+                [key]: value,
+            };
 
             localStorage.setItem(collection_name, JSON.stringify(collection));
         };
 
         this.getCollectionItem = (collection_name, key, _default = null) => {
-            let collection = JSON.parse(localStorage.getItem(collection_name));
+            try {
+                let collection = JSON.parse(localStorage.getItem(collection_name));
 
-            if (!isPlainObject(collection)) {
-                collection = {};
+                if (!isPlainObject(collection)) {
+                    collection = {};
+                }
+
+                return collection[key] || _default;
+            } catch (e) {
+                return _default;
             }
-
-            return collection[key] || _default;
         };
 
         this.getCollectionAll = (collection_name) => {
-            let collection = JSON.parse(localStorage.getItem(collection_name));
+            try {
+                let collection = JSON.parse(localStorage.getItem(collection_name));
 
-            if (!isPlainObject(collection)) {
-                collection = {};
+                if (!isPlainObject(collection)) {
+                    collection = {};
+                }
+
+                return collection;
+            } catch (e) {
+                return {};
             }
-
-            return collection;
         };
 
         this.setCollectionAll = (collection_name, values) => {
@@ -51,5 +56,5 @@ let LocalStorageService = function() {
 };
 
 module.exports = [
-    LocalStorageService
+    LocalStorageService,
 ];
