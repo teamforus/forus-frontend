@@ -239,10 +239,19 @@ const FundService = function (
             });
         };
 
+        this.getCurencyKeys = () => {
+            return ['net_worth', 'base_salary'];
+        };
+
         this.getCriterionControlType = (record_type, operator = null) => {
             const checkboxKeys = ['children', 'kindpakket_eligible', 'kindpakket_2018_eligible'];
-            const stepKeys = ['children_nth', 'waa_kind_0_tm_4_2021_eligible_nth', 'waa_kind_4_tm_18_2021_eligible_nth', 'adults_nth'];
-            const currencyKeys = ['net_worth', 'base_salary'];
+            const stepKeys = [
+                'children_nth', 'waa_kind_0_tm_4_2021_eligible_nth', 'waa_kind_4_tm_18_2021_eligible_nth', 
+                'adults_nth', 'eem_kind_0_tm_4_eligible_nth', 'eem_kind_4_tm_12_eligible_nth', 
+                'eem_kind_12_tm_14_eligible_nth', 'eem_kind_14_tm_18_eligible_nth',
+            ];
+
+            const currencyKeys = this.getCurencyKeys();
             const numberKeys = ['tax_id'];
             const dateKeys = ['birth_date'];
 
@@ -271,7 +280,15 @@ const FundService = function (
                 ...dateKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_date' }), {}),
             }[record_type.key] || null;
 
-            return ((record_type.type == 'string') && ((operator == '=') || (record_type.operators.find((operator) => operator.key == '=')))) ?
+            // for pre-check
+            if (operator === null) {
+                return (record_type.type == 'string' && record_type.operators.find((operator) => operator.key == '=')) ?
+                    'ui_control_checkbox' :
+                    control_type_key || control_type_base || control_type_default;
+            }
+
+            // for fund request
+            return (record_type.type == 'string' && operator == '=') ?
                 'ui_control_checkbox' :
                 control_type_key || control_type_base || control_type_default;
         }

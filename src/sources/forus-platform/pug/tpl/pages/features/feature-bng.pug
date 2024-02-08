@@ -7,5 +7,219 @@
 
         block-feature(feature="$ctrl.feature")
 
-        //- TODO: Replace with the actual template
-        block-empty(title="{{ $ctrl.feature.name }}" text="{{ $ctrl.feature.description }}")
+        .card
+            .card-header: .card-title Beschrijving
+            .card-section: .block.block-content
+                p
+                    | Uw organisatie maakt gebruik van het Forus-platform voor de uitvoering van sociale regelingen.
+                    | Dankzij de integratie met de Bank Nederlandse Gemeenten (BNG) worden betalingen aan betrokken
+                    | aanbieders moeiteloos uitgevoerd. Deze geautomatiseerde koppeling minimaliseert handmatige taken
+                    | en vermindert de kans op fouten aanzienlijk.
+
+                img(src="/assets/img/features/img/bng/banner.jpg")
+
+                h3 Belangrijkste voordelen
+
+                p De koppeling van BNG aan het Forus platform biedt verschillende voordelen:
+
+                .block.block-feature-icons
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/bng/icon-1.svg
+
+                        h4 Efficiënte financiële verwerking
+                        p
+                            | Dankzij de geautomatiseerde verbinding worden handmatige taken geminimaliseerd,
+                            | waardoor processen aanzienlijk efficiënter verlopen.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/bng/icon-2.svg
+
+                        h4 Snelle financiële transacties:
+                        p
+                            | De naadloze koppeling zorgt voor een vlotte overdracht van financiële transacties,
+                            | wat bijdraagt aan een snelle verwerking van betalingen aan aanbieders.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/bng/icon-3.svg
+
+                        h4 Foutreductie
+                        p
+                            | De kans op fouten wordt aanzienlijk verlaagd doordat transacties direct
+                            | en nauwkeurig worden doorgezet vanuit Forus naar BNG.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/bng/icon-4.svg
+
+                        h4 Tijdsbesparing en automatisering
+                        p
+                            | Dagelijks om 09:00 uur wordt automatisch een overzichtsbestand met alle
+                            | huidige transacties gegenereerd. Hierbij bestaat de mogelijkheid tot handmatige verwerking indien gewenst.
+
+                .block.block-feature-steps.block-feature-steps-secondary
+                    .block-feature-steps-title Het aansluitingsproces van DigiD op het Forus-platform
+                    .block-feature-steps-items
+                        .block-feature-steps-item
+                            .block-feature-steps-content
+                                h4.step-name Stap #1
+
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/bng/icon-step-1.svg
+
+                            .block-feature-steps-content
+                                h4 Voorbereiding
+                                p
+                                    | Het implementatieproces begint met voorbereidende stappen, zoals het openen
+                                    | van een nieuwe BNG-bankrekening en het storten van een initiële geldsom.
+
+                        .block-feature-steps-item
+                            .block-feature-steps-content
+                                h4.step-name Stap #2
+
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/bng/icon-step-2.svg
+
+                            .block-feature-steps-content
+                                h4 Procesafstemming en testen
+                                p
+                                    | Vervolgens wordt het werkproces zorgvuldig afgestemd en getest. Dit omvat het plannen
+                                    | van een demonstratie met Forus, het koppelen met de testomgeving, het toevoegen van
+                                    | benodigde medewerkers en het verkrijgen van toestemming van BNG.
+
+                        .block-feature-steps-item
+                            .block-feature-steps-content
+                                h4.step-name Stap #3
+
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/bng/icon-step-3.svg
+
+                            .block-feature-steps-content
+                                h4 Livegang
+                                p
+                                    | Bij livegang: koppeling met actieve omgeving, toevoegen relevante medewerkers, check
+                                    | rekeningnummer, seintje aan Forus na succesvolle koppeling, voortdurend monitoren transacties gemeente.
+
+                    .block-feature-steps-info
+                        p
+                            | Deze gestructureerde aanpak zorgt voor een soepele integratie van BNG met Forus,
+                            | met aandacht voor zowel de technische aspecten als de operationele uitvoering binnen de organisatie.
+
+                .block.block-feature-list.block-feature-list-secondary
+                    h3 De functionaliteiten van de declaratiemodule worden beschikbaar in:
+                    .block-feature-list-items-wrapper
+                        .block-feature-list-items
+                            .block-feature-list-item
+                                | De webshop voor deelnemers om kassabonnen, facturen en andere bewijsmaterialen te uploaden,
+                                | zodat zij kosten kunnen terugvragen.
+                            .block-feature-list-item
+                                | De beheeromgeving voor medewerkers waar zij de ingediende aanvragen
+                                | voor kostenvergoeding kunnen beoordelen en goedkeuren.
+                            .block-feature-list-item De beheeromgeving voor medewerkers met een functionaliteit voor open betalingen.
+                            .block-feature-list-item De beheeromgeving voor medewerkers met een overzicht van alle transacties.
+
+                .block.block-feature-text-image-columns
+                    .block-feature-text-image-columns-description
+                        h4 Over BNG
+                        p
+                            | BNG Bank, voluit Bank Nederlandse Gemeenten, is een Nederlandse bank die zich richt op de publieke sector.
+                            | Het is een financiële instelling die diensten verleent aan overheden, zoals gemeenten, provincies,
+                            | en andere publieke organisaties. BNG Bank speelt een cruciale rol in het financieren van maatschappelijke
+                            | projecten en het verstrekken van leningen aan de publieke sector in Nederland. Als gespecialiseerde
+                            | instelling draagt BNG bij aan de ondersteuning en ontwikkeling van de Nederlandse publieke sector.
+
+                    .block-feature-text-image-columns-img
+                        img(src="/assets/img/features/img/bng/image-text-block.jpg")
+
+            .card-info
+                .card-info-icon.mdi.mdi-headset
+                .card-info-details: span
+                    | Mocht u nog vragen hebben of wilt u aanvullende informatie dan kunt u ons
+                    | bellen op: #[strong +31 (0) 85 004 33 87] of contact opnemen via e-mail #[strong info@forus.io]
+
+
+        .card
+            .card-header: .card-title Veelgestelde vragen
+
+            .card-section.card-section-padless: .block.block-feature-faq(collapse)
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Hoe werkt het koppelen?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | De standaard werkwijze is dat hiervoor een nieuw bankrekeningnummer wordt gebruikt. Bekijk het artikel
+                            | #[a(href="https://helpcentrum.forus.io/kb/guide/nl/bankrekening-koppelen-hbW8QZc0LN/Steps/1235073" target="_blank") Bankrekening koppelen]
+                            | voor meer informatie.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Kan er een bestaand bankrekeningnummer worden gekoppeld?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Het is mogelijk om een bestaand bankrekeningnummer aan het platform te koppelen.
+                            | Echter zullen de geldstromen voor verschillende doeleinden door elkaar gaan lopen.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Is er een nieuw bankrekeningnummer nodig?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p Om financieel alles overzichtelijk te houden adviseren wij om een aparte bankrekeningnummer aan te vragen.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Wie beheert de bankrekening waarmee een koppeling wordt gemaakt?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p De bankrekening is van de gemeente.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Ik heb een e-mail ontvangen dat de bank connectie binnenkort verloopt, wat moet ik doen?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Een bankkoppeling is 90 dagen geldig, daarna moet er opnieuw toestemming gegeven worden.
+                            | Je ontvangt 14 dagen voordat de bankkoppeling verloopt, een herinneringsmail en er
+                            | wordt een banner geplaatst in de beheeromgeving.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Met welke bank kan er gekoppeld worden?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Dit kan alleen met een #[u BNG] of #[u Bunq] bankrekening. Bekijk het artikel
+                            | #[a(href="https://helpcentrum.forus.io/kb/guide/nl/bankrekening-koppelen-hbW8QZc0LN/Steps/1235073" target="_blank") Bankrekening koppelen]
+                            | voor meer informatie.
+
+        .card
+            .card-header(ng-if="$ctrl.additionalFeatures.length")
+                .card-title Andere functionaliteiten die u misschien interessant vindt
+
+            .card-section(ng-if="$ctrl.additionalFeatures.length")
+                block-additional-features(features="$ctrl.additionalFeatures")
+
+            .card-section
+                .block.block-features-demo-banner(
+                    style="background-image: url(/assets/img/features/img/bng/banner-action-bg.jpg);"
+                )
+                    .features-demo-banner-info-wrapper
+                        .features-demo-banner-info
+                            .features-demo-banner-title De BNG-integratie uitproberen
+                            .features-demo-banner-details
+                                | Wilt u zien hoe de BNG-integratie werkt? Neem dan contact met ons op
+                                | voor een persoonlijke demonstratie. We laten u graag zien hoe het voor uw kan werken.
+
+                        .features-demo-banner-action
+                            .button.button-primary(ng-click="$ctrl.openContactModal()") Demo aanvragen

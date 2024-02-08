@@ -31,44 +31,44 @@ main(id="main-content"): section.section.section-profile: .wrapper
                                         ng-class="'label-' + $ctrl.stateData.stateClass"
                                         ng-bind="$ctrl.stateData.stateText")
 
-                                .reservation-props
-                                    .reservation-prop
-                                        .reservation-prop-label Titel
-                                        .reservation-prop-value(dusk="reservationOverviewTitle")
+                                .block.block-key-value-list.block-key-value-list-pane
+                                    .block-key-value-list-item
+                                        .key-value-list-item-label Titel
+                                        .key-value-list-item-value(dusk="reservationOverviewTitle")
                                             a(ui-sref="product($ctrl.reservation.product)" ng-bind="$ctrl.reservation.product.name")
 
-                                    .reservation-prop
-                                        .reservation-prop-label ID
-                                        .reservation-prop-value(dusk="reservationOverviewCode")
+                                    .block-key-value-list-item
+                                        .key-value-list-item-label ID
+                                        .key-value-list-item-value(dusk="reservationOverviewCode")
                                             | {{ '#' + $ctrl.reservation.code }}
 
-                                    .reservation-prop
-                                        .reservation-prop-label Fonds naam
-                                        .reservation-prop-value(
+                                    .block-key-value-list-item
+                                        .key-value-list-item-label Fonds naam
+                                        .key-value-list-item-value(
                                             dusk="reservationOverviewFundName"
                                             ng-bind="$ctrl.reservation.fund.name")
 
-                                    .reservation-prop(ng-if="$ctrl.reservation.amount_extra > 0")
-                                        .reservation-prop-label Betaald van tegoed
-                                        .reservation-prop-value(
+                                    .block-key-value-list-item(ng-if="$ctrl.reservation.amount_extra > 0")
+                                        .key-value-list-item-label Betaald van tegoed
+                                        .key-value-list-item-value(
                                             dusk="reservationOverviewCode"
                                             ng-bind="$ctrl.reservation.amount_locale")
 
-                                    .reservation-prop(ng-if="$ctrl.reservation.amount_extra > 0")
-                                        .reservation-prop-label Zelf bijbetaald
-                                        .reservation-prop-value(
+                                    .block-key-value-list-item(ng-if="$ctrl.reservation.amount_extra > 0")
+                                        .key-value-list-item-label Zelf bijbetaald
+                                        .key-value-list-item-value(
                                             dusk="reservationOverviewExtraAmount"
                                             ng-bind="$ctrl.reservation.amount_extra_locale")
 
-                                    .reservation-prop
-                                        .reservation-prop-label Bedrag
-                                        .reservation-prop-value(
+                                    .block-key-value-list-item
+                                        .key-value-list-item-label Bedrag
+                                        .key-value-list-item-value(
                                             dusk="reservationOverviewAmount"
                                             ng-bind="$ctrl.reservation.price_locale")
 
                                 .reservation-actions
                                     button.button.button-light.button-sm(
-                                        ng-if="$ctrl.reservation.cancelable && !$ctrl.showLoadingBtn"
+                                        ng-if="($ctrl.reservation.cancelable || ['accepted','pending','waiting'].includes($ctrl.reservation.state)) && !$ctrl.showLoadingBtn"
                                         ng-click="$ctrl.cancelReservation()")
                                         em.mdi.mdi-trash-can-outline.icon-start
                                         | {{ "reservation.labels.cancel" | translate }}
@@ -90,3 +90,79 @@ main(id="main-content"): section.section.section-profile: .wrapper
 
                 .card-footer.card-footer-warning.card-footer-sm(ng-if="$ctrl.reservation.state === 'canceled_payment_expired'")
                     | Sorry, uw reservering is tijdens het afrekenproces geannuleerd omdat het geselecteerde product uitverkocht is.
+
+            .card.card-collapsable(
+                ng-if="$ctrl.reservation.extra_payment" 
+                ng-class="{open: $ctrl.showReservationExtraAmount}")
+                
+                .card-header(ng-click="$ctrl.showReservationExtraAmount = !$ctrl.showReservationExtraAmount"): .card-header-wrapper
+                    em.mdi.mdi-menu-down.card-header-arrow
+                    h2.card-heading.card-heading-lg Extra payment details
+
+                .card-section(ng-if="$ctrl.showReservationExtraAmount")
+                    .block.block-key-value-list.block-key-value-list-pane
+                        .block-key-value-list-item
+                            .key-value-list-item-label Status:
+                            .key-value-list-item-value
+                                .label.label-success(
+                                    ng-if="!$ctrl.reservation.extra_payment.is_fully_refunded && $ctrl.reservation.extra_payment.is_paid"
+                                    ng-bind="$ctrl.reservation.extra_payment.state_locale")
+                                .label.label-default(
+                                    ng-if="!$ctrl.reservation.extra_payment.is_fully_refunded && $ctrl.reservation.extra_payment.is_pending"
+                                    ng-bind="$ctrl.reservation.extra_payment.state_locale")
+                                .label.label-danger(
+                                    ng-if="['failed', 'canceled', 'expired'].includes($dir.payment.state)"
+                                    ng-bind="$ctrl.reservation.extra_payment.state_locale")
+                                .label.label-danger(ng-if="$dir.payment.is_fully_refunded") Terugbetaald
+
+                        .block-key-value-list-item
+                            .key-value-list-item-label Datum:
+                            .key-value-list-item-value(ng-bind="$ctrl.reservation.extra_payment.paid_at_locale || '-'")
+
+                        .block-key-value-list-item
+                            .key-value-list-item-label Zelf bijbetaal:
+                            .key-value-list-item-value(ng-bind="$ctrl.reservation.extra_payment.amount_locale")
+
+                        .block-key-value-list-item
+                            .key-value-list-item-label Methode:
+                            .key-value-list-item-value(ng-bind="$ctrl.reservation.extra_payment.method")
+
+            .card.card-collapsable(
+                ng-if="$ctrl.reservation.extra_payment.refunds" 
+                ng-class="{open: $ctrl.showReservationRefunds}")
+
+                .card-header(ng-click="$ctrl.showReservationRefunds = !$ctrl.showReservationRefunds"): .card-header-wrapper
+                    em.mdi.mdi-menu-down.card-header-arrow
+                    h2.card-heading.card-heading-lg Extra payment details
+
+                .card-section(ng-if="$ctrl.showReservationRefunds")
+                    mixin refundStatus()
+                        .label.label-success(ng-if="refund.state == 'refunded'" ng-bind="refund.state_locale")
+                        .label.label-danger(ng-if="['canceled', 'failed'].includes(refund.state)" ng-bind="refund.state_locale")
+                        .label.label-warning(ng-if="!['refunded', 'canceled', 'failed'].includes(refund.state)" ng-bind="refund.state_locale")
+
+                    .block.block-card-table.block-card-table-insert-top
+                        table 
+                            tr.hide-sm 
+                                th Datum
+                                th Bedrag
+                                th Status
+
+                            tr(ng-repeat="refund in $ctrl.reservation.extra_payment.refunds")  
+                                td
+                                    .block-card-table-item
+                                        .block-card-table-label.show-sm Datum
+                                        .block-card-table-value(ng-bind="refund.created_at_locale")
+
+                                    .block-card-table-item.show-sm
+                                        .block-card-table-label Status
+                                        +refundStatus()
+
+                                td
+                                    .block-card-table-item
+                                        .block-card-table-label.show-sm Bedrag
+                                        .block-card-table-value(ng-bind="refund.amount_locale")
+                                
+                                td.hide-sm
+                                    .block-card-table-item
+                                        +refundStatus() 

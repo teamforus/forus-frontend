@@ -13,6 +13,7 @@ main(id="main-content"): section.section.section-voucher-details: .wrapper
                 div.pull-left
                     .profile-content-title-count(ng-bind="$ctrl.provider_types.length")
                     h1.profile-content-header Tweefactorauthenticatie
+
             .profile-content-header.clearfix: h2.profile-content-title
                 .profile-content-subtitle
                     | Voeg een extra beveiligingslaag toe aan uw account door tweefactorauthenticatie in te schakelen.
@@ -23,39 +24,39 @@ main(id="main-content"): section.section.section-voucher-details: .wrapper
                     .auth-2fa-item-icon
                         .mdi.mdi-cellphone-key(ng-if="provider_type.type == 'authenticator'")
                         .mdi.mdi-cellphone-message(ng-if="provider_type.type == 'phone'")
-                    
-                    .auth-2fa-item-title(ng-bind="provider_type.title")
-                    
-                    .auth-2fa-item-label
-                        .label-group: .label.label-light(ng-if="!$ctrl.active_providers[provider_type.type]") Uitgeschakeld
-                        .flex(ng-if="$ctrl.active_providers[provider_type.type]")
-                            .mdi.mdi-check-circle 
-                            | Ingeschakeld: {{ $ctrl.active_providers[provider_type.type].created_at_locale }}
-                    
-                    .auth-2fa-item-space
 
-                    //- .auth-phone-details.show-sm(ng-if="provider_type.type == 'phone' && $ctrl.active_providers[provider_type.type]"): .flex
-                    //-     .auth-item-icon 
-                    //-         em.mdi.mdi-message-processing
-                    //-     .flex.flex-vertical.flex-grow
-                    //-         .auth-phone-details-title SMS Bericht
-                    //-         .auth-phone-details-subtitle.flex
-                    //-             .auth-phone-details-phone(ng-bind="$ctrl.active_providers[provider_type.type].phone")
-                    //-             .label-group.pull-right: .label.label-success Nummer bevestigd
-                    //-         .auth-phone-details-description Verificatie codes zijn verzonden via SMS
+                    .auth-2fa-item-details
+                        .auth-2fa-item-title
+                            | {{ provider_type.title }}
 
-                    .auth-2fa-item-actions: .button-group
-                        .button.button-primary.button-sm(
-                            ng-if="!$ctrl.active_providers[provider_type.type]"
-                            ng-click="$ctrl.setupAuth2FA(provider_type.type)") 
-                            em.mdi.mdi-shield-check-outline.icon-start
-                            | Inschakelen
+                            .auth-2fa-item-label(ng-if="!$ctrl.active_providers_by_key[provider_type.type]")
+                                .label.label-light Uitgeschakeld
 
-                        .button.button-light.button-sm(
-                            ng-if="$ctrl.active_providers[provider_type.type]"
-                            ng-click="$ctrl.deactivateAuth2FA(provider_type.type)") 
-                            em.mdi.mdi-lock-open-outline.icon-start
-                            | Uitschakelen
+                            .auth-2fa-item-date(ng-if="$ctrl.active_providers_by_key[provider_type.type]")
+                                .mdi.mdi-check-circle 
+                                | Ingeschakeld: {{ $ctrl.active_providers_by_key[provider_type.type].created_at_locale }}
+
+                        .auth-phone-details(ng-if="provider_type.type == 'phone' && $ctrl.active_providers_by_key[provider_type.type]")
+                            .auth-phone-details-icon: em.mdi.mdi-message-processing
+                            .auth-phone-details-content
+                                .auth-phone-details-title SMS Bericht
+                                .auth-phone-details-subtitle.flex
+                                    .auth-phone-details-phone(ng-bind="$ctrl.active_providers_by_key[provider_type.type].phone")
+                                    .label-group.pull-right: .label.label-success Nummer bevestigd
+                                .auth-phone-details-description Verificatie codes zijn verzonden via SMS
+
+                        .auth-2fa-item-actions: .button-group
+                            .button.button-primary.button-sm(
+                                ng-if="!$ctrl.active_providers_by_key[provider_type.type]"
+                                ng-click="$ctrl.setupAuth2FA(provider_type.type)") 
+                                em.mdi.mdi-shield-check-outline.icon-start
+                                | Inschakelen
+
+                            .button.button-light.button-sm(
+                                ng-if="$ctrl.active_providers_by_key[provider_type.type]"
+                                ng-click="$ctrl.deactivateAuth2FA(provider_type.type)") 
+                                em.mdi.mdi-lock-open-outline.icon-start
+                                | Uitschakelen
 
             .profile-content-header.clearfix
                 h3.profile-content-title Instellingen

@@ -2,8 +2,8 @@ const FundItemPreCheckDirective = function ($scope, $state, FundService) {
     const $dir = $scope.$dir;
 
     const getProgressStatusTitle = () => {
-        if ($dir.fund.criteria_valid_percentage < 33) return 'Lage kans';
-        if ($dir.fund.criteria_valid_percentage < 66) return 'Gemiddelde kans';
+        if ($dir.criteriaValidPercentage < 33) return 'Lage kans';
+        if ($dir.criteriaValidPercentage < 66) return 'Gemiddelde kans';
 
         return 'Goede kans';
     }
@@ -23,10 +23,11 @@ const FundItemPreCheckDirective = function ($scope, $state, FundService) {
 
         $dir.showMore = false;
         $dir.showMoreRequestInfo = false;
-        $dir.progressStatusTitle = getProgressStatusTitle();
+        $dir.positiveAmount = parseFloat($dir.fund.amount_for_identity) > 0;
 
         $dir.criteriaValid = criteria.filter((criteria) => criteria.is_valid).length;
         $dir.criteriaValidPercentage = Math.round($dir.criteriaValid / criteria.length * 100);
+        $dir.progressStatusTitle = getProgressStatusTitle();
     };
 };
 

@@ -170,9 +170,15 @@
                             | Cras metus urna sollicitudin pharetra elementum morbi. Vitae vulputate et a cras faucibus tellus amet id.
                             | Viverra tortor eu euismod sed vitae viverra. Mauris felis integer pharetra eu massa.
 
-        .block.block-features-demo-banner.block-features-demo-bannerlg
-            .features-demo-banner-title Request a demo
-            .features-demo-banner-details
-                | See a module you like? Please contact us for a personal demonstration. 
-                | We are most exited to show you how it could work for you.
-            a(ui-sref="features({organization_id: $ctrl.organization.id})").button.button-primary Call to action
+        .block.block-features-demo-banner(
+            style="background-image: url(/assets/img/features/img/banner-list-action-bg.jpg);"
+        )
+            .features-demo-banner-info-wrapper
+                .features-demo-banner-info
+                    .features-demo-banner-title Backoffice API uitproberen
+                    .features-demo-banner-details
+                        | Wilt u zien hoe de Backoffice API werkt? Neem dan contact met ons op
+                        | voor een persoonlijke demonstratie. We laten u graag zien hoe het voor uw kan werken.
+
+                .features-demo-banner-action
+                    .button.button-primary(ng-click="$ctrl.openContactModal()") Demo aanvragen

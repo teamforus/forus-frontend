@@ -2,73 +2,115 @@ const FeaturesService = function () {
     return new (function () {
         this.list = [{
             key: 'bi_tools',
-            name: 'BI-tools',
-            description: 'Make a connection with the BI-tool of your choice. IBM Cognos. Microsoft Power BI.',
-            label: 'Data',
+            name: 'BI-tool API',
+            description: 'API-koppeling met Business Intelligence (BI) tools voor data-export.',
+            overview_description: 'Maak gebruik van de API-koppeling met Business Intelligence (BI) tools om gegevens te exporteren.',
+            labels: ['Integratie', 'Managementinformatie', 'API'],
         }, {
             key: 'email_connection',
-            name: 'E-mail Connection',
-            description: 'Send e-mails from your own domain name.',
-            label: 'Koppeling',
+            name: 'E-mailkoppeling',
+            description: 'Mogelijkheid om systeemgerelateerde e-mails te versturen vanuit een gepersonaliseerd adres van uw organisatie.',
+            overview_description: 'Verstuur systeemgerelateerde e-mails vanuit een gepersonaliseerd adres van uw organisatie.',
+            labels: ['Integratie', 'Communicatie', 'Beveiliging'],
         }, {
             key: 'backoffice_api',
-            name: 'Backoffice-API',
-            description: 'Morbi egestas nisl ac quisque sapien. Magna nulla vestibulum dignissim quis.',
-            label: 'Aanvraag',
+            name: 'Backoffice API',
+            description: 'Koppeling met de gemeente-API voor naadloze gegevensintegratie.',
+            overview_description: 'Integreer gegevens met de gemeente-API.',
+            labels: ['Integratie', 'Managementinformatie', 'Aanvragen', 'API'],
         }, {
             key: 'iconnect_api',
-            name: 'Haalcentraal API',
-            description: 'Enim vel tempus lobortis accumsan morbi arcu pulvinar. Nibh mattis amet vitae iaculis arcu.',
-            label: 'Social media',
+            name: 'Haal Centraal API',
+            description: 'Toegang tot BRP-gegevens en weergave in het Forus platform.',
+            overview_description: 'Verkrijg toegang tot BRP-gegevens en bekijk ze in het Forus-platform.',
+            labels: ['Integratie', 'Persoonsgegevens', 'Aanvragen', 'API'],
         }, {
             key: 'digid',
             name: 'DigiD',
-            description: 'Allow users to login and apply to funds using DigiD.',
-            label: 'Financieel',
+            description: 'Een koppeling met DigiD voor digitale identificatie binnen Forus.',
+            overview_description: 'Faciliteer het proces voor deelnemers: laat deelnemers inloggen en fondsen aanvragen met DigiD.',
+            labels: ['Integratie', 'Beveiliging', 'Aanvragen', 'Identificatie'],
         }, {
             key: 'bng',
             name: 'BNG',
-            description: 'Geautomatiseerde financiële transacties tussen Forus en de rekening van de gemeente bij de Bank Nederlandse Gemeenten (BNG).',
-            label: 'Financieel',
+            description: 'Geautomatiseerde financiële transacties tussen Forus en de rekening van uw organisatie bij de Bank Nederlandse Gemeenten (BNG).',
+            overview_description: 'Maak gebruik van geautomatiseerde financiële transacties tussen Forus en uw ' +
+                'organisatierekening bij de Bank Nederlandse Gemeenten (BNG).',
+            labels: ['Integratie', 'Financieel'],
         }, {
             key: 'reimbursements',
-            name: 'Declarations',
-            description: 'Allow users to upload receipts in order to be reimbursed.',
-            label: 'Veiligheid',
+            name: 'Declaraties',
+            description: 'Mogelijkheid voor deelnemers om bonnen en facturen in te dienen ter vergoeding van kosten.',
+            overview_description: 'Faciliteer deelnemers bij het indienen van bonnen en facturen ter vergoeding van kosten.',
+            labels: ['Toegankelijkheid', 'Financieel'],
         }, {
             key: 'auth_2_fa',
-            name: 'Two Factor Authentication',
-            description: 'Make the use of two factor authentication mandatory.',
-            label: 'Data',
-        }, {
-            key: 'voucher_records',
-            name: 'Records on vouchers',
-            description: 'Show more details on the vouchers.',
-            label: 'Gebruiksvriendelijkheid',
+            name: 'Tweefactorauthenticatie (2FA)',
+            description: 'Extra beveiligingslaag voor accountbescherming.',
+            overview_description: 'Voeg een extra beveiligingslaag toe voor de bescherming van uw account.',
+            labels: ['Beveiliging', 'Identificatie'],
         }, {
             key: 'physical_cards',
-            name: 'Physical cards',
-            description: 'Give people the option to order a physical card with a QR-code. ',
-            label: 'Aanvraag',
+            name: 'Fysieke pas',
+            description: 'Aanvragen en uitgifte van een fysieke pas met persoonlijke QR.',
+            overview_description: 'Geef minder digitaal vaardige deelnemers een alternatief voor digitale toegang.',
+            labels: ['Toegankelijkheid'],
+        }, {
+            key: 'voucher_records',
+            name: 'Persoonsgegevens op een tegoed',
+            description: 'Het toevoegen en tonen van persoonsgegevens op een tegoed.',
+            overview_description: 'Voeg persoonsgegevens toe en toon ze op een tegoed.',
+            labels: ['Identificatie', 'Persoonsgegevens', 'Beveiliging'],
+        }, {
+            key: 'extra_payments',
+            name: 'Bijbetalen met iDEAL',
+            description: 'De mogelijkheid om met iDEAL bij te betalen bij kosten hoger dan het resterende tegoed.',
+            overview_description: 'Geef deelnemers de optie om met iDEAL bij te betalen bij kosten hoger dan het resterende tegoed.',
+            labels: ['Integratie', 'Financieel'],
+        }, {
+            key: 'fund_requests',
+            name: 'Open aanvragen',
+            description: 'Geïntegreerde intake & aanvraagprocedures voor (gemeentelijke) regelingen.',
+            overview_description: 'Begin met geïntegreerde intake- en aanvraagprocedures voor (gemeentelijke) regelingen.',
+            labels: ['Aanvragen', 'Integratie'],
         }];
 
-        this.previewList = [{
+        this.previewList = [[{
             key: 'digid',
             name: 'DigiD',
-            description: 'Allow users to login and apply to funds using DigiD.',
-        }, {
-            key: 'bng',
-            name: 'BNG',
-            description: 'Geautomatiseerde financiële transacties tussen Forus en de rekening van de gemeente bij de Bank Nederlandse Gemeenten (BNG).',
+            description: 'Laat deelnemers inloggen en fondsen aanvragen met DigiD',
         }, {
             key: 'auth_2_fa',
-            name: 'Two Factor Authentication',
-            description: 'Make the use of two factor authentication mandatory.',
+            name: 'Tweefactorauthenticatie',
+            description: 'Een extra beveiligingslaag voor de bescherming van uw account',
+        }], [{
+            key: 'bng',
+            name: 'BNG',
+            description: 'Geautomatiseerde financiële transacties ',
         }, {
-            key: 'reimbursements',
-            name: 'Declarations',
-            description: 'Allow users to upload receipts in order to be reimbursed.',
-        }];
+            key: 'bi_tools',
+            name: 'BI-tool API',
+            description: 'Exporteer gegevens met BI-tool API',
+        }]];
+
+        this.getAdditionalFeatures = (feature) => {
+            const additionalFeatures = {
+                'bng': ['digid', 'auth_2_fa'],
+                'digid': ['bng', 'auth_2_fa'],
+                'bi_tools': ['bng', 'auth_2_fa'],
+                'auth_2_fa': ['bng', 'digid'],
+                'iconnect_api': ['bi_tools', 'auth_2_fa'],
+                'backoffice_api': ['bi_tools', 'auth_2_fa'],
+                'fund_requests': ['digid', 'bi_tools'],
+                'reimbursements': ['bng', 'auth_2_fa'],
+                'extra_payments': ['reimbursements', 'bng'],
+                'physical_cards': ['bi_tools', 'auth_2_fa'],
+                'voucher_records': ['auth_2_fa', 'digid'],
+                'email_connection': ['bi_tools', 'auth_2_fa'],
+            }[feature] || [];
+
+            return this.list.filter((feature) => additionalFeatures.includes(feature.key));
+        };
     });
 };
 

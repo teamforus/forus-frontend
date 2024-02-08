@@ -4,52 +4,47 @@
         //- Features overview
         .card: .card-section.card-section-padless: .block.block-features-overview
             .overview-details
-                .overview-details-title 
-                    | Use our modules to 
-                    br
-                    | create the best 
-                    br
-                    | experience
+                .overview-details-title Veelzijdige functionaliteiten voor een optimale gebruikerservaring
 
                 .overview-details-description
-                    p Our modules will allow you to create a the best user experience for requestors, providers and employees.
+                    p Met onze functionaliteiten kunt u een optimale gebruikerservaring creëren voor aanvragers, aanbieders en medewerkers.
                     p
-                        | Forus provides featrues from social media connections to attract attention to your funds till
-                        | the export of data using our BI-tooling. Need help choosing?
+                        | Forus biedt een breed scala aan functies, van bankkoppeling voor efficiënte financiële verwerking
+                        | tot het exporteren van gegevens met behulp van onze BI-tooling. Heeft u hulp nodig bij het maken van een keuze?
 
                     if (qdt_c.platform.env_data.features_contact_email)
                         .overview-details-contacts
                             | Contact:
                             span !{qdt_c.platform.env_data.features_contact_email}
 
-            .overview-list: .overview-list-item(
-                ng-repeat="feature in $ctrl.previewList track by $index"
-                ng-class="'overview-list-item-' + $index")
-                .overview-list-item-icon: img(ng-src="/assets/img/features/icons/sm/{{ feature.key }}.svg")
-                .overview-list-item-title(ng-bind="feature.name")
-                .overview-list-item-description(ng-bind="feature.description | str_limit:40")
+            .overview-list: .overview-list-wrapper
+                .overview-list-col(ng-repeat="column in $ctrl.previewList")
+                    .overview-list-item(ng-repeat="feature in column")
+                        .overview-list-item-icon: img(ng-src="/assets/img/features/icons/sm/{{ feature.key }}.svg")
+                        .overview-list-item-title(ng-bind="feature.name")
+                        .overview-list-item-description(ng-bind="feature.description")
 
         .card
             .card-header: .flex
-                .flex.flex-grow: .card-title Our modules
+                .flex.flex-grow: .card-title Onze functionaliteiten
                 .flex: .flex-row: .block.block-inline-filters
-                    //- Search box
-                    .form: .form-group: input(
-                        type="text" 
-                        ng-model="$ctrl.filters.q" 
-                        placeholder="{{ 'features.labels.search' | translate }}").form-control
-
-                    div: .block.block-label-tabs: .label-tab-set: .label-tab.label-tab-sm(
+                    .form: .block.block-label-tabs: .label-tab-set: .label-tab.label-tab-sm(
                         ng-if="$ctrl.active_options"
                         ng-repeat="viewType in $ctrl.active_options"
                         ng-class="{active: $ctrl.filters.state == viewType.value}"
                         ng-click="$ctrl.filters.state = viewType.value"
                         ng-bind="viewType.name")
 
+                    //- Search box
+                    .form: .form-group: input(
+                        type="text"
+                        ng-model="$ctrl.filters.q"
+                        placeholder="{{ 'features.labels.search' | translate }}").form-control
+
             .card-section: .block.block-features
                 .features-description
-                    | These modules can be turned on or off. Each module shows if it is active for your organisation and users.
-                    | There are probably a lot of features you never knew that existed.
+                    | Deze functionaliteiten kunnen aan- of uitgezet worden. Elke module laat zien of deze actief
+                    | is voor uw organisatie en gebruikers. Er zijn waarschijnlijk veel functies die u nog niet kende.
 
                 .features-separator
 
@@ -58,35 +53,49 @@
                         ng-repeat="feature in $ctrl.features"
                         ui-sref="feature(feature.srefParams)")
 
-                        .features-list-item-icon: img(ng-src="/assets/img/features/icons/{{ feature.key }}.svg")
+                        .features-list-item-icon
+                            img(ng-src="/assets/img/features/icons/{{ feature.key }}.svg")
+                            .features-icon-label(ng-if="feature.enabled"): .mdi.mdi-check
+
                         .features-list-item-content
                             .features-list-item-title
                                 span(ng-bind="feature.name")
-                                .features-label.active(ng-if="feature.enabled") Active
-                            .features-list-item-details(ng-bind="feature.description")
-                            .features-label(ng-bind="feature.label")
+                                .features-label.inactive(ng-if="!feature.enabled") Uitproberen
+                            .features-list-item-details(ng-bind="feature.overview_description")
+                            .features-labels
+                                .features-label(ng-repeat="label in feature.labels" ng-bind="label")
 
-                .block.block-features-demo-banner
-                    .features-demo-banner-title Request a demo
-                    .features-demo-banner-details 
-                        | See a module you like? Please contact us for a personal demonstration. 
-                        | We are most exited to show you how it could work for you.
-                    a(ui-sref="features({organization_id: $ctrl.organization.id})").button.button-primary Call to action
+                .block.block-features-demo-banner.block-features-demo-banner-sm(
+                    style="background-image: url(/assets/img/features/img/banner-list-action-bg.jpg);"
+                )
+                    .features-demo-banner-info-wrapper
+                        .features-demo-banner-info
+                            .features-demo-banner-title Nieuwe functionaliteiten uitproberen
+                            .features-demo-banner-details
+                                | Wilt u zien hoe de nieuwe functionaliteiten werken? Neem dan contact met ons op
+                                | voor een persoonlijke demonstratie. We laten u graag zien hoe het voor uw kan werken.
+
+                        .features-demo-banner-action
+                            .button.button-primary(ng-click="$ctrl.openContactModal()") Demo aanvragen
 
                 .features-list(ng-if="$ctrl.featuresAfter.length > 0")
                     a.features-list-item(
                         ng-repeat="feature in $ctrl.featuresAfter"
                         ui-sref="feature(feature.srefParams)")
 
-                        .features-list-item-icon: img(ng-src="/assets/img/features/icons/{{ feature.key }}.svg")
+                        .features-list-item-icon
+                            img(ng-src="/assets/img/features/icons/{{ feature.key }}.svg")
+                            .features-icon-label(ng-if="feature.enabled"): .mdi.mdi-check
+
                         .features-list-item-content
                             .features-list-item-title
                                 span(ng-bind="feature.name")
-                                .features-label.active(ng-if="feature.enabled") Active
-                            .features-list-item-details(ng-bind="feature.description")
-                            .features-label(ng-bind="feature.label")
+                                .features-label.inactive(ng-if="!feature.enabled") Uitproberen
+                            .features-list-item-details(ng-bind="feature.overview_description")
+                            .features-labels
+                                .features-label(ng-repeat="label in feature.labels" ng-bind="label")
 
-            .card-info.card-info-dim
+            //-.card-info.card-info-dim
                 .card-info-icon.mdi.mdi-alert-circle-outline
                 .card-info-details
                     | Lorem ipsum dolor sit amet consectetur tempus nullam scelerisque amet hendrerit risus adipiscing lacinia at lorem.
@@ -95,7 +104,5 @@
             .card-info
                 .card-info-icon.mdi.mdi-headset
                 .card-info-details: span
-                    | Mocht u nog vragen hebben of is er nog iets onduidelijk dan kunt u ons 
-                    | bellen op: #[strong 0640997170] of via e-mail #[strong info@websitename.com]
-
-
+                    | Mocht u nog vragen hebben of wilt u aanvullende informatie dan kunt u ons
+                    | bellen op: #[strong +31 (0) 85 004 33 87] of contact opnemen via e-mail #[strong info@forus.io]

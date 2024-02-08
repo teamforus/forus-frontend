@@ -7,5 +7,205 @@
 
         block-feature(feature="$ctrl.feature")
 
-        //- TODO: Replace with the actual template
-        block-empty(title="{{ $ctrl.feature.name }}" text="{{ $ctrl.feature.description }}")
+        .card
+            .card-header: .card-title Beschrijving
+            .card-section: .block.block-content
+                p
+                    | Standaard worden e-mails verstuurd vanaf #[strong noreply@forus.io] met de afzender Forus.
+                p
+                    | Met deze oplossing heeft u de mogelijkheid om systeemgerelateerde e-mails te
+                    | versturen vanuit een gepersonaliseerd adres van uw organisatie, zoals #[strong webshop@naamorganisatie.nl].
+                p
+                    | Op deze manier zullen de e-mails door de deelnemers herkend worden als afkomstig van uw organisatie zelf.
+
+                img(src="/assets/img/features/img/email-connection/banner.jpg")
+
+                h3 Belangrijkste voordelen
+
+                p De e-mailkoppeling biedt verschillende voordelen:
+
+                .block.block-feature-icons
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/email-connection/icon-1.svg
+
+                        h4 Betrouwbare afzenderherkenning
+                        p E-mails worden herkend als afkomstig van uw organisatie, waardoor de betrouwbaarheid wordt vergroot.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/email-connection/icon-2.svg
+
+                        h4 Standaard conformiteit
+                        p
+                            | De koppeling ondersteunt DKIM, DMARC en SPF volgens de open standaardenlijst van het Forum Standaardisatie.
+                            | Deze beveiligingsprotocollen vallen onder het 'Pas toe of leg uit'-beleid, wat betekent dat ze verplicht zijn.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/email-connection/icon-3.svg
+
+                        h4 Direct contactpunt voor de deelnemers
+                        p
+                            | Als deelnemers direct een e-mail terugsturen, komen eventuele vragen meteen op
+                            | de juiste plek terecht, met het juiste e-mailadres.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/email-connection/icon-4.svg
+
+                        h4 Verbeterde efficiëntie en effectiviteit
+                        p Door e-mailintegratie wordt de communicatie gestroomlijnd en kunnen processen efficiënter worden uitgevoerd.
+
+
+                .block.block-feature-steps
+                    .block-feature-steps-title De implementatie van e-mailkoppeling
+                    .block-feature-steps-items
+                        .block-feature-steps-item
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/email-connection/icon-step-1.svg
+
+                            .block-feature-steps-content
+                                h4
+                                    span Stap #1
+                                    span.block-feature-steps-item-dot
+                                    span Voorbereiding
+
+                                p Delen van het plan van aanpak en afstemmen gewenste domeinnaam, e-mailadres en afzendernaam.
+
+                        .block-feature-steps-item
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/email-connection/icon-step-2.svg
+
+                            .block-feature-steps-content
+                                h4
+                                    span Stap #2
+                                    span.block-feature-steps-item-dot
+                                    span Configuratie
+
+                                p Gegevens configureren en verificatie.
+
+                        .block-feature-steps-item
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/email-connection/icon-step-3.svg
+
+                            .block-feature-steps-content
+                                h4
+                                    span Stap #3
+                                    span.block-feature-steps-item-dot
+                                    span Testen preproductieomgeving
+
+                                p Een test e-mail sturen vanaf de testomgeving.
+
+                        .block-feature-steps-item
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/email-connection/icon-step-4.svg
+
+                            .block-feature-steps-content
+                                h4
+                                    span Stap #4
+                                    span.block-feature-steps-item-dot
+                                    span Configuratie productieomgeving
+
+                                p Na een succesvolle test kan de e-mailkoppeling worden geconfigureerd op de productie omgeving.
+
+                        .block-feature-steps-item
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/email-connection/icon-step-5.svg
+
+                            .block-feature-steps-content
+                                h4
+                                    span Stap #5
+                                    span.block-feature-steps-item-dot
+                                    span Testen aansluiting op productieomgeving
+
+                                p Controleren of de koppeling is geactiveerd.
+
+                        .block-feature-steps-item
+                            .block-feature-steps-icon
+                                include ../../../../resources/_platform-common/assets/img/features/icons/email-connection/icon-step-6.svg
+
+                            .block-feature-steps-content
+                                h4
+                                    span Stap #6
+                                    span.block-feature-steps-item-dot
+                                    span Livegang
+
+                                p E-mailkoppeling live zetten op de productieomgeving.
+
+            .card-info
+                .card-info-icon.mdi.mdi-headset
+                .card-info-details: span
+                    | Mocht u nog vragen hebben of wilt u aanvullende informatie dan kunt u ons
+                    | bellen op: #[strong +31 (0) 85 004 33 87] of contact opnemen via e-mail #[strong info@forus.io]
+
+        .card
+            .card-header: .card-title Veelgestelde vragen
+
+            .card-section.card-section-padless: .block.block-feature-faq(collapse)
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Wat is de verwachte duur van het implementatietraject voor de e-mailintegratie?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p We schatten dat de implementatie van een e-mailintegratie ongeveer 4 weken in beslag neemt.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Wat is de verwachte inzet vanuit de organisatie?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | De werkzaamheden hebben voornamelijk een organisatorische en technische aard.
+                            | Een applicatiebeheerder kan deze taken uitvoeren.
+                        ul
+                            li Organisatorisch: Communicatie met Forus over de voortgang.
+                            li Technisch: Configuratie van domeinnamen voor uw organisatie.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Wie is betrokken bij het implementatietraject van de e-mail integratie?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Bij de implementatie van de e-mailintegratie zijn de volgende partijen betrokken:
+                        ul
+                            li De organisatie die de koppeling gaat gebruiken.
+                            li Stichting Forus, de ontwikkelaar van het systeem en de koppeling.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Welke gegevens heeft Fous nodig vanuit de organisatie?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Voor het mogelijk maken van een e-mailintegratie, heeft Forus de volgende gegevens nodig:
+                        ul
+                            li Het e-mailadres waaruit de organisatie wenst de systeemmails te versturen.
+                            li Het domein waar de technische instellingen moeten worden doorgevoerd door de organisatie, bijvoorbeeld organisatie.nl.
+
+
+        .card
+            .card-header(ng-if="$ctrl.additionalFeatures.length")
+                .card-title Andere functionaliteiten die u misschien interessant vindt
+
+            .card-section(ng-if="$ctrl.additionalFeatures.length")
+                block-additional-features(features="$ctrl.additionalFeatures")
+
+            .card-section
+                .block.block-features-demo-banner(
+                    style="background-image: url(/assets/img/features/img/email-connection/banner-action-bg.jpg);"
+                )
+                    .features-demo-banner-info-wrapper
+                        .features-demo-banner-info
+                            .features-demo-banner-title E-mailkoppeling uitproberen
+                            .features-demo-banner-details
+                                | Wilt u zien hoe de e-mailkoppeling werkt? Neem dan contact met ons
+                                | op voor een persoonlijke demonstratie. We laten u graag zien hoe het voor uw kan werken.
+
+                        .features-demo-banner-action
+                            .button.button-primary(ng-click="$ctrl.openContactModal()") Demo aanvragen

@@ -8,13 +8,16 @@
                     .mdi.mdi-cellphone-key(ng-if="provider_type.type == 'authenticator'")
                     .mdi.mdi-cellphone-message(ng-if="provider_type.type == 'phone'")
                 
-                .auth-2fa-item-title(ng-bind="provider_type.title")
-                
-                .auth-2fa-item-label: .label-group
-                    .label.label-default(ng-if="!$ctrl.active_provider_types.includes(provider_type.type)") Uitgeschakeld
-                    .label.label-success(ng-if="$ctrl.active_provider_types.includes(provider_type.type)") Ingeschakeld
-                
-                .auth-2fa-item-space
+                .auth-2fa-item-details
+                    .auth-2fa-item-title
+                        | {{ provider_type.title }}
+                        .auth-2fa-item-label
+                            .label.label-default(ng-if="!$ctrl.active_provider_types.includes(provider_type.type)") Uitgeschakeld
+                            .label.label-success(ng-if="$ctrl.active_provider_types.includes(provider_type.type)") Ingeschakeld
+                    
+                    .auth-2fa-item-description(
+                        ng-if="provider_type.type == 'phone' && $ctrl.active_provider_types.includes(provider_type.type)")
+                        | {{ $ctrl.active_providers_by_key[provider_type.type].phone }}
 
                 .auth-2fa-item-actions: .button-group
                     .button.button-primary(

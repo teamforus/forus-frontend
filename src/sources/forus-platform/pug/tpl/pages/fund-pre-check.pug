@@ -24,6 +24,18 @@
 
             //- Status (enabled/disabled)
             .card-section.card-section-primary: .row: .col.col-lg-12.col-xs-12
+                .form-group(ng-if="$ctrl.implementations.length > 1")
+                    label(translate="funds_pre_check.labels.implementation").form-label
+
+                    .form-offset: select-control(
+                        prop="id"
+                        search="false"
+                        ng-model="$ctrl.preCheckForm.values.implementation_id"
+                        ng-change="$ctrl.updateImplementation($ctrl.preCheckForm.values.implementation_id)"
+                        options="$ctrl.implementations").form-control
+
+                        .form-error(ng-repeat="error in $ctrl.preCheckForm.errors.implementation_id" ng-bind="error")
+
                 .form-group
                     label(translate="funds_pre_check.labels.status").form-label
 
@@ -46,18 +58,20 @@
                             placeholder="Title"
                             ng-model="$ctrl.preCheckForm.values.pre_check_title").form-control.r-n
                         .form-error(ng-repeat="error in $ctrl.preCheckForm.errors.pre_check_title" ng-bind="error")
+                        .form-hint Max. 50 tekens
 
                 //- Description
                 .form-group
                     label(translate="funds_pre_check.labels.description").form-label
                     .form-offset
                         textarea(
-                            placeholder="Add description"
+                            placeholder="Voeg omschrijving toe"
                             ng-model="$ctrl.preCheckForm.values.pre_check_description").form-control.r-n
                         .form-error(ng-repeat="error in $ctrl.preCheckForm.errors.pre_check_description" ng-bind="error")
+                        .form-hint Max. 1000 tekens
 
             .card-section.card-section-primary(ng-if="$ctrl.funds.meta.total > 0"): .row: .col.col-lg-12.col-xs-12
-                .card-heading Steps ({{ $ctrl.preChecks.length }})
+                .card-heading Stappen ({{ $ctrl.preChecks.length }})
 
                 fund-pre-check-step-editor(
                     errors="$ctrl.preCheckForm.errors"
@@ -68,10 +82,10 @@
                 //- Fund type
                 block-empty(
                     ng-if="$ctrl.funds.meta.total == 0"
-                    title="You don't have any fund"
-                    text="Lorem ipsum dolor sit amet consectetur. Malesuada enim faucibus pellentesque natoque odio id pulvinar bibendum nisi."
+                    title="Geen fondsen gevonden"
+                    text="Op dit moment lijkt u geen actieve fondsen te hebben. Voordat u verder gaat, moet u eerst een fonds aanmaken."
                     image-src="./assets/img/no-funds-icon.svg"
-                    button-text="Go to funds page"
+                    button-text="Ga naar de fondsenpagina"
                     button-sref="funds-create"
                     button-sref-params="{organization_id: $ctrl.organization.id}"
                     button-type="primary"
@@ -80,8 +94,7 @@
                 .block.block-info-box.block-info-box-default.block-info-box-dashed
                     .info-box-icon.mdi.mdi-information.flex-center.flex-vertical
                     .info-box-content: .block.block-markdown: p
-                        | Lorem ipsum dolor sit amet consectetur. Rhoncus egestas interdum senectus bibendum a turpis gravida viverra et. 
-                        | Sit adipiscing euismod metus varius dignissim mattis sed. Sed elementum id euismod sagittis.
+                        | U heeft de mogelijkheid om extra stappen toe te voegen die zichtbaar zullen zijn in de Pre-Check voor de aanvrager.
                             
             //- Submit
             .card-section: .text-right
@@ -92,7 +105,7 @@
         .card(ng-if="$ctrl.implementation"): form(ng-submit="$ctrl.bannerForm.submit()").form
             //- Header
             .card-header
-                .card-title Homepage banner
+                .card-title Homepagina banner
    
             //- Fund pre-check banner
             .card-section.card-section-primary
@@ -105,7 +118,7 @@
 
                 //- State
                 .form-group
-                    label.form-label Status
+                    label.form-label Actieve banner
                     .form-offset
                         select-control(
                             prop="value"
@@ -144,8 +157,7 @@
                 .block.block-info-box.block-info-box-default.block-info-box-dashed
                     .info-box-icon.mdi.mdi-information.flex-center.flex-vertical.text-primary-light
                     .info-box-content: .block.block-markdown: p
-                        | Lorem ipsum dolor sit amet consectetur. Rhoncus egestas interdum senectus bibendum a turpis gravida viverra et. 
-                        | Sit adipiscing euismod metus varius dignissim mattis sed. Sed elementum id euismod sagittis.
+                        | U heeft de mogelijkheid om een banner toe te voegen en aan te passen die op de startpagina van de webshop wordt weergegeven.
 
             //- Submit
             .card-section: .text-right

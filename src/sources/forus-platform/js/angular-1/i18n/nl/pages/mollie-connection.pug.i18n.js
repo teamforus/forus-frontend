@@ -2,7 +2,7 @@ module.exports = {
     header: {
         title: 'Instellingen voor bijbetaalmethoden ',
         unknown_competed_at: 'Onbekend',
-        warning: 'Wij gebruiken uitsluitend Ideal. Per transactie betaalt u 0,29 cent.',
+        warning: 'Wij gebruiken uitsluitend Ideal. Per transactie betaalt u 0,29 cent (excl. btw).',
     },
     header_create: {
         title: 'Organisatiegegevens indienen',
@@ -26,8 +26,9 @@ module.exports = {
         completed_at: "Actief sinds",
         profile_name: "Profile name",
         business_type: "Bedrijfstype",
+        current_profile: "Select current profile",
         organization_name: "Organisatienaam",
-        registration_number: "Registratienummer"
+        registration_number: "Registratienummer",
     },
     titles: {
         address: 'Adres',
@@ -40,7 +41,8 @@ module.exports = {
         fetch: "Haal gegevens op",
         cancel: "Annuleren",
         submit: "Bevestig",
-        delete: "Deactiveer"
+        delete: "Deactiveer",
+        change_profile: "Save"
     },
     create_form: {
         info_content: "Vul de vereiste velden in om uw bedrijfsaccount in te stellen. " +
