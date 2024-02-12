@@ -1,5 +1,5 @@
 //- Product item
-a.product-item(dusk="productItem")
+a.product-item(data-dusk="productItem")
     mixin bookmark_toggle()
         .block.block-bookmark-toggle(
             ng-if="$root.auth_user"
@@ -30,7 +30,7 @@ a.product-item(dusk="productItem")
         //- Product details
         .product-details
             //- Title
-            h2.product-title(ng-bind="$dir.product.name" dusk="productName")
+            h2.product-title(ng-bind="$dir.product.name" data-dusk="productName")
 
             //- Subtitle
             .product-subtitle(ng-bind="$dir.product.organization.name")
