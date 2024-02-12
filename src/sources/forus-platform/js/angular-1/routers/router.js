@@ -1780,6 +1780,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
         }
     });
 
+    // Organization features redirect (sharable link)
+    $stateProvider.state({
+        name: "features-redirect",
+        url: "/features",
+        component: "featuresRedirectComponent",
+        resolve: {
+            authUser: authUserResolver(),
+        }
+    });
+
     // Organization feature
     $stateProvider.state({
         name: "feature",
@@ -1792,6 +1802,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             ) => repackResponse(OrganizationService.getFeatures(
                 $transition$.params().organization_id,
             ))],
+        }
+    });
+
+    // Organization feature redirect (sharable link)
+    $stateProvider.state({
+        name: "feature-redirect",
+        url: "/features/{feature_key}",
+        component: "featureRedirectComponent",
+        resolve: {
+            authUser: authUserResolver(),
         }
     });
 
