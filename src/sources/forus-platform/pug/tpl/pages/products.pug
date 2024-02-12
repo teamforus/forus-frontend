@@ -40,7 +40,7 @@
                     .form
                         .form-group: input(
                             ng-model="$ctrl.filters.q"
-                            dusk="searchTransaction"
+                            data-dusk="searchTransaction"
                             placeholder="{{ 'transactions.labels.search' | translate }}").form-control
 
             .card-section(ng-show="$ctrl.loading"): .card-loading: .mdi.mdi-loading.mdi-spin

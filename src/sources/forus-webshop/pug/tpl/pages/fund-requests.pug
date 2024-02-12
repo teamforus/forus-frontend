@@ -33,27 +33,27 @@ main(id="main-content"): section.section.section-profile: .wrapper
                     .label-tab-set
                         .label-tab.label-tab-sm(
                             role="button"
-                            dusk="fundRequestsFilterActive"
+                            data-dusk="fundRequestsFilterActive"
                             ng-click="$ctrl.filters.archived = 0"
                             ng-class="!$ctrl.filters.archived ? 'active' : ''")
                             | Actief
 
                         .label-tab.label-tab-sm(
                             role="button"
-                            dusk="fundRequestsFilterArchived"
+                            data-dusk="fundRequestsFilterArchived"
                             ng-click="$ctrl.filters.archived = 1"
                             ng-class="$ctrl.filters.archived ? 'active' : ''")
                             | Archief
 
             //- At least one fund request
-            .block.block-fund-requests(ng-if="$ctrl.fundRequests.data.length > 0" dusk="fundRequestsList")
+            .block.block-fund-requests(ng-if="$ctrl.fundRequests.data.length > 0" data-dusk="fundRequestsList")
                 fund-request-card(
                     ng-repeat="fundRequest in $ctrl.fundRequests.data"
                     fund-request="fundRequest")
 
             //- No reimbursement requests
             empty-block(
-                dusk="fundRequestsEmptyBlock"
+                data-dusk="fundRequestsEmptyBlock"
                 ng-if="$ctrl.fundRequests.data.length == 0"
                 title="{{ 'fund_requests.empty_block.title' | translate }}"
                 description="{{ 'fund_requests.empty_block.subtitle' | translate }}"

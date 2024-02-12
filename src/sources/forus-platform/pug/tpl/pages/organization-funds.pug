@@ -4,7 +4,7 @@
         .card
             .card-header: .flex-row
                 //- Organization funds title
-                .flex-col.flex-grow: .card-title(dusk="fundsTitle")
+                .flex-col.flex-grow: .card-title(data-dusk="fundsTitle")
                     span(i18n="components.organization_funds.title")
                     span(ng-bind="$ctrl.funds.meta.total").span-count
 

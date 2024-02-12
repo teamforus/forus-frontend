@@ -3,7 +3,7 @@
         ng-repeat="notification in notifications" 
         ng-class="[notification.shown ? 'shown' : '', 'notification-' + notification.type]"
         role="status"
-        dusk="{{ notification.type }}Notification")
+        data-dusk="{{ notification.type }}Notification")
         
         .notification-close.mdi.mdi-close(ng-click="deleteNotification(notification)")
         .notification-icon(ng-if="notification.icon" ng-class="'mdi mdi-' + notification.icon")
