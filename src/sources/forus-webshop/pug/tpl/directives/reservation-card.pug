@@ -1,5 +1,5 @@
 .reservation-item(
-    dusk="reservationItem{{ $dir.reservation.id }}"
+    data-dusk="reservationItem{{ $dir.reservation.id }}"
     ui-sref="reservation-show({id: $dir.reservation.id})")
     .reservation-item-body
         .reservation-image: img(
@@ -10,7 +10,7 @@
             mixin cancelButton()
                 button.button.button-light.button-xs(
                     ng-if="$dir.reservation.cancelable || ['accepted','pending','waiting'].includes($dir.reservation.state)"
-                    dusk="btnCancelReservation"
+                    data-dusk="btnCancelReservation"
                     type="button"
                     ng-click="$dir.cancelReservation($event, $dir.reservation)")
                     em.mdi.mdi-trash-can-outline
@@ -57,7 +57,7 @@
                 .reservation-section-column
                     .reservation-name(role="heading" aria-level="2"): a(
                         ng-click="$dir.goToProduct($event)"
-                        dusk="reservationProduct"
+                        data-dusk="reservationProduct"
                         role="link"
                         ng-bind="$dir.product.name"
                         tabindex="0")
@@ -81,12 +81,12 @@
 
                             .label(
                                 ng-class="'label-' + $dir.stateData.stateClass"
-                                dusk="{{ $dir.stateData.stateDusk }}"
+                                data-dusk="{{ $dir.stateData.stateDusk }}"
                                 ng-bind="$dir.stateData.stateText")
 
                         .reservation-overview-item.hidden-xs.hidden-sm
                             .reservation-overview-label(translate="reservation.labels.code")
-                            .reservation-overview-value(ng-bind="'#' + $dir.reservation.code" dusk="reservationCode")
+                            .reservation-overview-value(ng-bind="'#' + $dir.reservation.code" data-dusk="reservationCode")
 
             .reservation-section
                 .reservation-section-row
@@ -116,7 +116,7 @@
         .reservation-overview.reservation-overview-dates
             .reservation-overview-item
                 .reservation-overview-label(translate="reservation.labels.code")
-                .reservation-overview-value(ng-bind="'#' + $dir.reservation.code" dusk="reservationCode")
+                .reservation-overview-value(ng-bind="'#' + $dir.reservation.code" data-dusk="reservationCode")
 
             +reservation_dates()
 

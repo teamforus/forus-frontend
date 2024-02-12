@@ -14,14 +14,14 @@ main(id="main-content"): section.section.section-profile: .wrapper
 
         mixin delete_button()
             .button.button-dark.button-sm.pull-right(
-                dusk="reimbursementDetailsPageDeleteBtn"
+                data-dusk="reimbursementDetailsPageDeleteBtn"
                 ng-if="$ctrl.reimbursement.state === 'draft'"
                 ng-click="$ctrl.cancelReimbursement($event)")
                 em.mdi.mdi-trash-can-outline.icon-start
                 | Annuleren
 
         //- Page content
-        .profile-content(dusk="reimbursementDetailsPage")
+        .profile-content(data-dusk="reimbursementDetailsPage")
             //- Header
             .profile-content-header
                 .flex

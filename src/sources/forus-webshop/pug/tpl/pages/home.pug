@@ -15,14 +15,14 @@ main(id="main-content")
             translate-default="{{'home.header.header_note' | translate }}")
         
         .wrapper
-            .header-content(dusk="header")
+            .header-content(data-dusk="header")
                 h1.header-title(
-                    dusk="headerTitle"
+                    data-dusk="headerTitle"
                     ng-if="$ctrl.appConfigs.features.settings.title"
                     ng-bind="$ctrl.appConfigs.features.settings.title")
 
                 h1.header-title(
-                    dusk="headerTitle"
+                    data-dusk="headerTitle"
                     ng-if="!$ctrl.appConfigs.features.settings.title"
                     translate="home.header.{{ $root.client_key }}.title"
                     translate-default="{{ 'home.header.title' | translate:{ implementation: $ctrl.implementation_name } }}")

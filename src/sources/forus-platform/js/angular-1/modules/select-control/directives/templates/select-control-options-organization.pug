@@ -6,7 +6,7 @@
         .select-control-option(
             ng-repeat="option in $dir.options track by $index"
             ng-click="$dir.select(option)" ng-class="{selected: $root.activeOrganization.id == option.raw.id}"
-            dusk="{{ 'headerOrganizationItem' + option.raw.id }}")
+            data-dusk="{{ 'headerOrganizationItem' + option.raw.id }}")
 
             .select-control-logo: img(ng-src="{{ option.raw.logo.sizes.thumbnail || './assets/img/placeholders/organization-thumbnail.png' }}")
 

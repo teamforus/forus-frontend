@@ -1,5 +1,5 @@
 .modal.modal-reimbursement-confirm.modal-animated(
-    dusk="modalReimbursementConfirmation"
+    data-dusk="modalReimbursementConfirmation"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']"
     aria-describedby="pinCodeDialogSubtitle"
     aria-labelledby="pinCodeDialogTitle" 
@@ -16,5 +16,5 @@
             reimbursement-details(reimbursement="$ctrl.reimbursement" edit="false" compact="true")
 
         .modal-footer: .button-group
-            .button.button-primary-outline.button-sm(ng-click="$ctrl.close()" dusk="modalReimbursementConfirmationCancel") Cancel
-            .button.button-primary.button-sm(ng-click="$ctrl.confirm()" dusk="modalReimbursementConfirmationSubmit") Bevestigen
+            .button.button-primary-outline.button-sm(ng-click="$ctrl.close()" data-dusk="modalReimbursementConfirmationCancel") Cancel
+            .button.button-primary.button-sm(ng-click="$ctrl.confirm()" data-dusk="modalReimbursementConfirmationSubmit") Bevestigen
