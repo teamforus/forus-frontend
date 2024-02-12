@@ -2,7 +2,7 @@
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']"
     role="dialog"
-    dusk="modalProductReserve")
+    data-dusk="modalProductReserve")
 
     mixin progress()
         .reservation-progress
@@ -40,7 +40,7 @@
 
             //- Submit 
             .flex: button.button.button-primary-outline.button-sm(
-                dusk="reserveSkipEmailStep"
+                data-dusk="reserveSkipEmailStep"
                 type="button"
                 ng-click="$ctrl.step = $ctrl.STEP_SELECT_VOUCHER") Overslaan
 
@@ -112,11 +112,11 @@
                 translate="modal.buttons.cancel")
                
             .flex(ng-if="$ctrl.vouchers.length === 1"): button.button.button-primary.button-sm(
-                dusk="btnSelectVoucher"
+                data-dusk="btnSelectVoucher"
                 ng-click="$ctrl.selectVoucher($ctrl.vouchers[0])") Bevestig
 
     //- Fill reservation fields except notes
-    form.modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_FILL_DATA" ng-submit="$ctrl.validateFields()" dusk="productReserveForm")
+    form.modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_FILL_DATA" ng-submit="$ctrl.validateFields()" data-dusk="productReserveForm")
         //- Modal close
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="Sluiten" role="button")
 
@@ -140,7 +140,7 @@
                             type="text"
                             ng-model="$ctrl.form.values.first_name"
                             placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.first_name' | translate }}"
-                            dusk="productReserveFormFirstName").form-control
+                            data-dusk="productReserveFormFirstName").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.first_name" ng-bind="error")
 
                     //- Last name
@@ -151,7 +151,7 @@
                             type="text"
                             ng-model="$ctrl.form.values.last_name"
                             placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.last_name' | translate }}"
-                            dusk="productReserveFormLastName").form-control
+                            data-dusk="productReserveFormLastName").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.last_name" ng-bind="error")
                     .form-error(ng-repeat="error in $ctrl.form.errors.notes" ng-bind="error")
 
@@ -169,7 +169,7 @@
                                     type="{{ field.type }}"
                                     ng-model="$ctrl.form.values.custom_fields[field.key]"
                                     placeholder="{{ field.placeholder }}"
-                                    dusk="{{ field.dusk }}")
+                                    data-dusk="{{ field.dusk }}")
 
                                 input.form-control(
                                     ng-if="field.type === 'number'"
@@ -178,7 +178,7 @@
                                     max="9999999999999999"
                                     ng-model="$ctrl.form.values.custom_fields[field.key]"
                                     placeholder="{{ field.placeholder }}"
-                                    dusk="{{ field.dusk }}")
+                                    data-dusk="{{ field.dusk }}")
 
                             .form-group-info-button(
                                 ng-click="field.showInfo = !field.showInfo; $event.stopPropagation()"
@@ -197,7 +197,7 @@
                             type="{{ field.type }}"
                             ng-model="$ctrl.form.values[field.key]"
                             placeholder="{{ field.placeholder }}"
-                            dusk="{{ field.dusk }}")
+                            data-dusk="{{ field.dusk }}")
 
                         //- default field (datepicker)
                         datepicker(
@@ -237,11 +237,11 @@
 
                 button(
                     type="submit" 
-                    dusk="btnSubmit"
+                    data-dusk="btnSubmit"
                     translate="popup_auth.buttons.submit").button.button-primary.button-sm Proceed     
 
     //- Address
-    form.modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_FILL_ADDRESS" ng-submit="$ctrl.validateAddress()" dusk="productReserveAddress")
+    form.modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_FILL_ADDRESS" ng-submit="$ctrl.validateAddress()" data-dusk="productReserveAddress")
         //- Modal close
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="Sluiten" role="button")
 
@@ -268,7 +268,7 @@
                             type="text"
                             ng-model="$ctrl.form.values.street"
                             placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.street' | translate }}"
-                            dusk="productReserveFormStreet").form-control
+                            data-dusk="productReserveFormStreet").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.street" ng-bind="error")
 
                     //- House number
@@ -282,7 +282,7 @@
                             type="text"
                             ng-model="$ctrl.form.values.house_nr"
                             placeholder="70, 1234, 2"
-                            dusk="productReserveFormHouseNumber").form-control
+                            data-dusk="productReserveFormHouseNumber").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.house_nr" ng-bind="error")
 
                     //- House number addition
@@ -296,7 +296,7 @@
                             type="text"
                             ng-model="$ctrl.form.values.house_nr_addition"
                             placeholder="C, -2, -12, AB"
-                            dusk="productReserveFormHouseNumberAddition").form-control
+                            data-dusk="productReserveFormHouseNumberAddition").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.house_nr_addition" ng-bind="error")
 
                 .flex-row
@@ -311,7 +311,7 @@
                             type="text"
                             ng-model="$ctrl.form.values.postal_code"
                             placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.postal_code' | translate }}"
-                            dusk="productReserveFormPostalCode").form-control
+                            data-dusk="productReserveFormPostalCode").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.postal_code" ng-bind="error")
 
                     //- City
@@ -325,7 +325,7 @@
                             type="text"
                             ng-model="$ctrl.form.values.city"
                             placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.city' | translate }}"
-                            dusk="productReserveFormCity").form-control
+                            data-dusk="productReserveFormCity").form-control
                         .form-error(ng-repeat="error in $ctrl.form.errors.city" ng-bind="error")
 
         //- Actions
@@ -343,11 +343,11 @@
 
                 button(
                     type="submit" 
-                    dusk="btnSubmit"
+                    data-dusk="btnSubmit"
                     translate="popup_auth.buttons.submit").button.button-primary.button-sm Proceed     
 
     //- Fill reservation notes
-    form.modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_FILL_NOTES" ng-submit="$ctrl.validateFields()" dusk="productReserveNotes")
+    form.modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_FILL_NOTES" ng-submit="$ctrl.validateFields()" data-dusk="productReserveNotes")
         //- Modal close
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="Sluiten" role="button")
 
@@ -373,7 +373,7 @@
                             id="reservation_modal_user_note"
                             ng-model="$ctrl.form.values.user_note" 
                             placeholder="{{ 'modal_product_reserve_notes.fill_notes.placeholders.notes' | i18n }}"
-                            dusk="productReserveFormNote")
+                            data-dusk="productReserveFormNote")
                         .form-hint Max. 400 tekens
                         .form-error(ng-repeat="error in $ctrl.form.errors.user_note" ng-bind="error")
 
@@ -392,7 +392,7 @@
 
                 button(
                     type="submit" 
-                    dusk="btnSubmit"
+                    data-dusk="btnSubmit"
                     translate="popup_auth.buttons.submit").button.button-primary.button-sm Bevestig
 
     //- Reservation confirmation
@@ -405,7 +405,7 @@
             +progress()
         
         .modal-body: .modal-content
-            .modal-section: .description.text-center: .reservation-overview(dusk="productReserveConfirmDetails")
+            .modal-section: .description.text-center: .reservation-overview(data-dusk="productReserveConfirmDetails")
                 //- First name
                 .overview-item
                     .overview-item-label(translate="modal_product_reserve_notes.confirm_notes.labels.first_name")
@@ -491,10 +491,10 @@
                     type="button" 
                     translate="modal_product_reserve_notes.confirm_notes.buttons.submit" 
                     ng-click="$ctrl.goToFinishStep()"
-                    dusk="btnConfirmSubmit").button.button-primary.button-sm 
+                    data-dusk="btnConfirmSubmit").button.button-primary.button-sm 
 
     //- Setup identity email (if it doesn't exist)
-    .modal-window(ng-if="$ctrl.step == $ctrl.STEP_RESERVATION_FINISHED" dusk="productReserveSuccess")
+    .modal-window(ng-if="$ctrl.step == $ctrl.STEP_RESERVATION_FINISHED" data-dusk="productReserveSuccess")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
         .modal-body: .modal-section.flex.flex-center.flex-grow.flex-vertical.text-center
@@ -506,11 +506,11 @@
                 .button-group.flex-center: button(
                     ng-click="$ctrl.finish()" 
                     role="button" 
-                    dusk="btnReservationFinish").button.button-light
+                    data-dusk="btnReservationFinish").button.button-light
                     | Sluiten
     
     //- Extra payment
-    .modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_EXTRA_PAYMENT" dusk="productReserveExtraPayment")
+    .modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_EXTRA_PAYMENT" data-dusk="productReserveExtraPayment")
         //- Modal close
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="Sluiten" role="button")
 
@@ -575,4 +575,4 @@
                     type="button"
                     translate="modal_product_reserve_notes.confirm_notes.buttons.submit"
                     ng-click="$ctrl.confirmSubmit()"
-                    dusk="btnConfirmSubmit").button.button-primary.button-sm
+                    data-dusk="btnConfirmSubmit").button.button-primary.button-sm

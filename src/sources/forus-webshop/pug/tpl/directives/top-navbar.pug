@@ -6,7 +6,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
     mixin auth_dropdown()
         .auth-in(ng-if="$root.auth_user").hide-sm
             .auth-user(
-                dusk="userProfile"
+                data-dusk="userProfile"
                 ng-click="$dir.openUserMenu($event)" 
                 aria-haspopup="true" 
                 id="user_menu" 
@@ -85,7 +85,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                             id="fund-requests"
                             ng-click="$dir.goToState('fund-requests')"
                             role="link"
-                            dusk="btnFundRequests"
+                            data-dusk="btnFundRequests"
                             tabindex="0")
                             em.mdi.mdi-card-account-details-outline
                             | Aanvragen
@@ -123,7 +123,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                             ui-sref-active="active"
                             id="identity_emails"
                             ng-click="$dir.goToState('identity-emails')"
-                            dusk="btnUserEmails"
+                            data-dusk="btnUserEmails"
                             role="link"
                             tabindex="0")
                             em.mdi.mdi-at 
@@ -186,7 +186,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                             id="sign_out"
                             ng-click="$root.signOut()"
                             role="link"
-                            dusk="btnUserLogout"
+                            data-dusk="btnUserLogout"
                             tabindex="0")
                             em.mdi.mdi-logout
                             span(translate="topnavbar.buttons.logout")
@@ -236,7 +236,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                     +subnav_search_button()
                     
                     span.navbar-user(
-                        dusk="identityEmail"
+                        data-dusk="identityEmail"
                         ng-if="$root.auth_user.email"
                         ng-bind="$root.auth_user.email | str_limit:27")
 
@@ -325,7 +325,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                         ng-if="!$root.auth_user"
                         ng-click="$dir.startFundRequest()"
                         role="button"
-                        dusk="btnStart")
+                        data-dusk="btnStart")
 
                         em.mdi.mdi-account.icon-start
                         span(
@@ -333,7 +333,7 @@ nav.block.block-navbar#navigation-menu(ng-class='{"scrolled" : $dir.hideOnScroll
                             translate-default="{{ 'home.header.button' | translate }}" 
                             id="start_modal")
 
-                    a(ng-if="$root.auth_user" ui-sref="vouchers" id="vouchers" dusk="userVouchers").button.button-primary
+                    a(ng-if="$root.auth_user" ui-sref="vouchers" id="vouchers" data-dusk="userVouchers").button.button-primary
                         em.mdi.mdi-ticket-confirmation
                         span(translate="topnavbar.buttons.{{ $root.client_key }}.voucher" translate-default="{{ 'topnavbar.buttons.voucher' | translate }}")
 

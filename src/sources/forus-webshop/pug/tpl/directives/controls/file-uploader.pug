@@ -1,7 +1,7 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
 //- File uploader
-.block.block-file-uploader(dusk="fileUploader" ng-class="{'block-file-uploader-compact': $dir.compact}")
+.block.block-file-uploader(data-dusk="fileUploader" ng-class="{'block-file-uploader-compact': $dir.compact}")
     //- Drop zone
     .uploader-droparea(ng-if="!$dir.readOnly")
         //- Drop zone icon
@@ -16,7 +16,7 @@
         //- Select file button
         .droparea-button: button.button(
             ng-class="$dir.compact ? 'button-light button-xs' : 'button-primary'"
-            dusk="fileUploaderBtn"
+            data-dusk="fileUploaderBtn"
             type="button"
             role="button"
             ng-disabled="$dir.multipleSize && $dir.multipleSize <= $dir.files.length"

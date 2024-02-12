@@ -1,7 +1,7 @@
 .modal.modal-animated(
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, ($ctrl.modal.loaded && !$ctrl.hideModal) ? '' : 'modal-loading']"
-    dusk="modalVoucherUpload")
+    data-dusk="modalVoucherUpload")
     .modal-backdrop(ng-click="$ctrl.closeModal()")
     .modal-window
         a(ng-click="$ctrl.closeModal()" role="button").mdi.mdi-close.modal-close
@@ -28,7 +28,7 @@
                     button(
                         ng-show="$ctrl.csvParser.progress <= 1" 
                         ng-click="$ctrl.csvParser.selectFile()"
-                        dusk="selectFileButton").button.button-primary
+                        data-dusk="selectFileButton").button.button-primary
                         
                         em.mdi.mdi-upload.icon-start 
                         span(i18n="vouchers.buttons.upload_csv") 
@@ -40,7 +40,7 @@
                         .mdi.mdi-loading(ng-if="$ctrl.csvParser.progress == 2")
                         .mdi.mdi-check(
                             ng-if="$ctrl.csvParser.progress == 3"
-                            dusk="successUploadIcon")
+                            data-dusk="successUploadIcon")
                     progress-bar(progress="$ctrl.progressBar" status="$ctrl.progressStatus")
 
                 .csv-upload-actions
@@ -98,11 +98,11 @@
                             ng-if="!$ctrl.loading"
                             ng-click="$ctrl.csvParser.uploadToServer()"
                             translate="csv_upload.buttons.upload"
-                            dusk="uploadFileButton").button.button-primary
+                            data-dusk="uploadFileButton").button.button-primary
         
         .modal-footer.text-center
             button.button.button-primary(
                 ng-click="$ctrl.closeModal()"
                 translate="modal_funds_add.buttons.close"
                 id="close"
-                dusk="closeModalButton")
+                data-dusk="closeModalButton")

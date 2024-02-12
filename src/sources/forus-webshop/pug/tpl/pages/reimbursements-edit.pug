@@ -15,7 +15,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
         //- Page content
         .profile-content(
             ng-if="$ctrl.auth2FAState && !$ctrl.auth2FAState.restrictions.reimbursements.restricted"
-            dusk="reimbursementEditContent")
+            data-dusk="reimbursementEditContent")
 
             //- Header
             .profile-content-header
@@ -23,7 +23,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
                 h2.profile-content-title(ng-if="$ctrl.reimbursement") Declaratienummer: {{ '#' + $ctrl.reimbursement.code  }}
 
             //- No email warning
-            .card(ng-if="!$ctrl.reimbursement && !$ctrl.identity.email && !$ctrl.identity.skipEmail" dusk="reimbursementNoEmail")
+            .card(ng-if="!$ctrl.reimbursement && !$ctrl.identity.email && !$ctrl.identity.skipEmail" data-dusk="reimbursementNoEmail")
                 .card-section
                     .card-title: strong Er is geen e-mailadres bekend.
                     .card-text 
@@ -36,18 +36,18 @@ main(id="main-content"): section.section.section-profile: .wrapper
                     .card-text
                         //- Add identity email
                         .button.button-primary.button-sm(
-                            dusk="reimbursementNoEmailAddBtn"
+                            data-dusk="reimbursementNoEmailAddBtn"
                             ui-sref="identity-emails") 
                             | E-mailadres toevoegen
 
                         //- Skip adding email
                         .button.button-text.button-sm(
-                            dusk="reimbursementNoEmailSkipBtn"
+                            data-dusk="reimbursementNoEmailSkipBtn"
                             ng-click="$ctrl.identity.skipEmail = true") 
                             | Doorgaan zonder e-mailadres
 
             //- Form
-            .card(ng-if="$ctrl.reimbursement || $ctrl.identity.email || $ctrl.identity.skipEmail" dusk="reimbursementForm"): form(
+            .card(ng-if="$ctrl.reimbursement || $ctrl.identity.email || $ctrl.identity.skipEmail" data-dusk="reimbursementForm"): form(
                 ng-submit="$ctrl.submit()").form.form-compact.form-compact-flat
 
                 .card-section
@@ -85,7 +85,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
                                 as="address"
                                 prop="id"
                                 search="false"
-                                dusk="voucherSelector"
+                                data-dusk="voucherSelector"
                                 ng-model="$ctrl.form.values.voucher_id"
                                 ng-change="$ctrl.updateSelectedVoucher()"
                                 options="$ctrl.vouchers"
@@ -167,7 +167,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
                     .flex.hide-sm
                         button(
                             type="button" 
-                            dusk="reimbursementFormCancel"
+                            data-dusk="reimbursementFormCancel"
                             ng-disabled="$ctrl.form.locked" 
                             ui-sref="reimbursements").button.button-light.button-sm Annuleren
 
@@ -176,7 +176,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
                         //- Save for later
                         button(
                             type="submit" 
-                            dusk="reimbursementFormSave"
+                            data-dusk="reimbursementFormSave"
                             ng-disabled="$ctrl.form.locked").button.button-primary-outline.button-sm Opslaan voor later
 
                         //- Submit now
@@ -184,4 +184,4 @@ main(id="main-content"): section.section.section-profile: .wrapper
                             type="button" 
                             ng-click="$ctrl.submit(true)"
                             ng-disabled="$ctrl.submitAvailable($ctrl.form.values, $ctrl.files)"
-                            dusk="reimbursementFormSubmit").button.button-primary.button-sm Indienen
+                            data-dusk="reimbursementFormSubmit").button.button-primary.button-sm Indienen

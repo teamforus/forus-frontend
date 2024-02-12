@@ -2,7 +2,7 @@
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.close()")
-    form(ng-submit="$ctrl.form.submit()" dusk="formEmployeeEdit").modal-window.form
+    form(ng-submit="$ctrl.form.submit()" data-dusk="formEmployeeEdit").modal-window.form
         a(ng-click="$ctrl.close()" role="button").mdi.mdi-close.modal-close
         .modal-header(ng-if="$ctrl.modal.scope.employee" translate="Medewerker aanpassen")
         .modal-header(ng-if="!$ctrl.modal.scope.employee" translate="Medewerker toevoegen")
@@ -11,7 +11,7 @@
             .modal-section
                 .form-group(ng-if="!$ctrl.modal.scope.employee")
                     label.form-label.form-label-required E-mailadres
-                    input(type="text" ng-model="$ctrl.form.values.email" placeholder="E-mailadres..." id="email_value" dusk="formEmployeeEmail").form-control
+                    input(type="text" ng-model="$ctrl.form.values.email" placeholder="E-mailadres..." id="email_value" data-dusk="formEmployeeEmail").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.email" ng-bind="error")
 
                 .form-group(ng-if="!$ctrl.employee")
@@ -28,4 +28,4 @@
 
         .modal-footer.text-center
             button.button.button-default(type="button" translate="modal_funds_add.buttons.close" ng-click="$ctrl.close()" id="close")
-            button.button.button-primary(type="submit" translate="Bevestig" id="confirm" dusk="formEmployeeSubmit")
+            button.button.button-primary(type="submit" translate="Bevestig" id="confirm" data-dusk="formEmployeeSubmit")
