@@ -141,4 +141,7 @@ aside.app.app-sidebar(ng-if="$root.activeOrganization")
         +nav_item('Feedback', 'feedback', 'feedback')
 
         if (!qdt_c.platform.env_data.features_hide)
-            +nav_item('Marketplace', 'features', 'features', '{organization_id: $root.activeOrganization.id}')
+            +nav_item(
+                'Marketplace', 'features', 'features', 
+                '{organization_id: $root.activeOrganization.id}',
+                '$root.activeOrganization.is_sponsor')
