@@ -1,4 +1,4 @@
-const FeaturesRedirectComponent = function($state, $rootScope) {
+const FeaturesRedirectComponent = function ($state, $rootScope) {
     const $ctrl = this;
 
     $ctrl.$onInit = () => {
@@ -6,7 +6,7 @@ const FeaturesRedirectComponent = function($state, $rootScope) {
 
         organizationId
             ? $state.go('features', { organization_id: organizationId })
-            : $state.go('organizations-create');
+            : $state.go('organizations');
     };
 }
 
