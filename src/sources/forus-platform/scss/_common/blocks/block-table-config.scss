@@ -113,4 +113,12 @@
             }
         }
     }
+
+    .table-settings-close {
+        position: absolute;
+        top: 5px;
+        right: 30px;
+        font-size: 15px;
+        z-index: 2;
+    }
 }

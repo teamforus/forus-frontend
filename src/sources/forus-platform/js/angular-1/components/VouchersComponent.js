@@ -98,9 +98,11 @@ const VouchersComponent = function (
             $ctrl.activeTooltipKey = tooltipKey;
 
             // scroll into view
-            $element
-                ?.find(`[data-table-tooltip="${tooltipKey || 'status'}"]`)[0]
-                ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            $timeout(() => {
+                $element
+                    ?.find(`[data-table-tooltip="${tooltipKey || 'status'}"]`)[0]
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 200);
         } else {
             ToastService.setToast([
                 'This is the header of the table column, ',

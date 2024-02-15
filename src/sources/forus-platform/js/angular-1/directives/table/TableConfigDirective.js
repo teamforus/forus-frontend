@@ -4,6 +4,7 @@ module.exports = () => {
     return {
         scope: {
             'tooltips': '<',
+            'onSettingsToggle': '&',
             'activeTooltipKey': '=',
             'selectedCategory': '@',
         },

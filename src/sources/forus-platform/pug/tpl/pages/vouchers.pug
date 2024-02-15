@@ -192,6 +192,7 @@
                 .card-block.card-block-table
                     table-config(
                         ng-if="$ctrl.showTableConfig" 
+                        on-settings-toggle="$ctrl.setShowTableConfig('tooltips')"
                         selected-category="{{ $ctrl.tableConfigCategory }}" 
                         tooltips="$ctrl.tooltips"
                         active-tooltip-key="$ctrl.activeTooltipKey")

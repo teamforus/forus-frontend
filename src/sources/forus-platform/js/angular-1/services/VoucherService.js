@@ -173,6 +173,11 @@ const VoucherService = function($filter, ApiRequest) {
             }, {
                 key: 'fund',
                 label: $translate('labels.fund'),
+                tooltip: {
+                    key: 'fund',
+                    title: 'Fonds',
+                    description: $translate('tooltips.fund'),
+                },
             }, {
                 key: 'created_at',
                 label: $translate('labels.created_at'),
