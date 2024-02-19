@@ -45,7 +45,7 @@ const TransactionsComponent = function (
         name: 'Alle'
     }, {
         key: 'draft',
-        name: 'Draft'
+        name: 'In afwachting'
     }, {
         key: 'error',
         name: 'Mislukt'
