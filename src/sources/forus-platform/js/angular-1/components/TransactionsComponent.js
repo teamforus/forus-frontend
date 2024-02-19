@@ -48,7 +48,7 @@ const TransactionsComponent = function (
         name: 'Draft'
     }, {
         key: 'error',
-        name: 'Fout'
+        name: 'Mislukt'
     }, {
         key: 'pending',
         name: 'In behandeling'
