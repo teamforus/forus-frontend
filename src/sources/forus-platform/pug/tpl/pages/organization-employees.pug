@@ -84,8 +84,13 @@
                             translate="organization_employees.labels.owner").text-muted
 
             //- Pagination
-            .card-section(ng-if="$ctrl.employees.meta" ng-show="$ctrl.employees.meta.last_page > 1")
-                paginator(meta="$ctrl.employees.meta" filters="$ctrl.filters.values" count-buttons="5" on-page-change="onPageChange(query)")
+            .card-section(ng-if="$ctrl.employees.meta")
+                paginator(
+                    meta="$ctrl.employees.meta" 
+                    filters="$ctrl.filters.values" 
+                    count-buttons="5" 
+                    on-page-change="onPageChange(query)"
+                    per-page-key="{{ $ctrl.paginationPerPageKey }}")
 
             //- Not found
             .card-section(ng-if="$ctrl.employees.meta.total == 0"): .block.block-empty.text-center

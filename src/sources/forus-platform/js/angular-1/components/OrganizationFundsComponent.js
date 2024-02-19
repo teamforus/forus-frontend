@@ -5,6 +5,7 @@ const OrganizationFundsComponent = function (
     $stateParams,
     FundService,
     ModalService,
+    PaginatorService,
     PageLoadingBarService,
     PushNotificationsService,
 ) {
@@ -109,6 +110,7 @@ const OrganizationFundsComponent = function (
 
     $ctrl.$onInit = function () {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
+        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey);
         $ctrl.filters.reset();
 
         $ctrl.implementations.unshift({
@@ -126,6 +128,7 @@ module.exports = {
         organization: '<',
         implementations: '<',
         validatorOrganizations: '<',
+        paginationPerPageKey: '<',
     },
     controller: [
         '$state',
@@ -134,6 +137,7 @@ module.exports = {
         '$stateParams',
         'FundService',
         'ModalService',
+        'PaginatorService',
         'PageLoadingBarService',
         'PushNotificationsService',
         OrganizationFundsComponent,
