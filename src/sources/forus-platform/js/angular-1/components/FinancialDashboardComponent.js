@@ -26,7 +26,7 @@ const FinancialDashboardComponent = function(
     };
 
     $ctrl.fetchData = () => {
-        $ctrl.fetchProviders({ page: 1 });
+        $ctrl.fetchProviders($ctrl.providerFilters);
         $ctrl.updateChartData();
     };
 

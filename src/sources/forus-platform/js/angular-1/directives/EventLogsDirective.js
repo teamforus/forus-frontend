@@ -3,6 +3,7 @@ const EventLogsDirective = function (
     $filter,
     appConfigs,
     EventLogService,
+    PaginatorService,
     PermissionsService,
     PushNotificationsService
 ) {
@@ -89,6 +90,7 @@ const EventLogsDirective = function (
         $dir.filters.initialValues = angular.copy($dir.filterValues);
         $dir.filters.reset();
 
+        $dir.filters = PaginatorService.syncPageFilters($dir.filters, $dir.paginationPerPageKey);
         $dir.onPageChange($dir.filters.values);
     };
 
@@ -103,6 +105,7 @@ const EventLogsDirective = function (
 
         $dir.loggables = loggables;
         $dir.permissionsMap = appConfigs.features.event_permissions;
+        $dir.filters = PaginatorService.syncPageFilters($dir.filters, $dir.paginationPerPageKey);
 
         $scope.$watch('$dir.filterValues', $dir.onExternalFilterUpdated, true);
         $scope.$watch('$root.auth_user', $dir.onAuthUserUpdated);
@@ -130,6 +133,7 @@ module.exports = () => {
             '$filter',
             'appConfigs',
             'EventLogService',
+            'PaginatorService',
             'PermissionsService',
             'PushNotificationsService',
             EventLogsDirective

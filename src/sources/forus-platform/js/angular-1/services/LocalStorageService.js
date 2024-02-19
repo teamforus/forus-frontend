@@ -6,7 +6,7 @@ const LocalStorageService = function () {
 
         this.setCollectionItem = (collection_name, key, value) => {
             const collection = {
-                ...this.getCollectionItem(collection_name, key, {}),
+                ...this.getCollectionAll(collection_name),
                 [key]: value,
             };
 
