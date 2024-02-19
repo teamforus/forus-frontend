@@ -2,7 +2,7 @@
 
 .block.block-pre-checks-blocks-editor
     //- Blocks list
-    div(ng-sortable="$dir.sortablePreCheck"): .pre-check-item(ng-repeat="preCheck in $dir.preChecks")
+    div(ng-sortable="$dir.sortablePreCheck"): .pre-check-item(ng-repeat="(preCheckKey, preCheck) in $dir.preChecks")
         .pre-check-item-header
             //- Block title
             .pre-check-item-header-drag: em.mdi.mdi-drag-vertical
@@ -68,7 +68,7 @@
                 .block-records-title Criteria ({{ preCheck.record_types.length }})
 
                 .pre-check-item-body-records-items(ng-sortable="$dir.sortablePreCheckRecord")
-                    .pre-check-item.pre-check-item-record(ng-repeat="record in preCheck.record_types")
+                    .pre-check-item.pre-check-item-record(ng-repeat="(recordKey, record) in preCheck.record_types")
                         .pre-check-item-header
                             .pre-check-item-header-drag: em.mdi.mdi-drag-vertical
                             .pre-check-item-header-title
@@ -122,6 +122,85 @@
                                     .form-error(
                                         ng-repeat="error in $dir.errors['pre_checks.' + $parent.$index]['record_types.' + $index + '.description']" 
                                         ng-bind="error")
+                                
+                                .pre-check-knock-out-settings: .form-group
+                                    .pre-check-knock-out-settings-header(
+                                        ng-class="{ collapsed: !record.record_settings_uncollapsed }"
+                                        ng-click="record.record_settings_uncollapsed = !record.record_settings_uncollapsed")
+                                        .pre-check-knock-out-settings-collapse
+                                            em.mdi.mdi-menu-right(
+                                                ng-class="{'mdi-menu-down': record.record_settings_uncollapsed, 'mdi-menu-right': !record.record_settings_uncollapsed}")
+                                        .pre-check-knock-out-settings-title Impact settings
+
+                                    .pre-check-knock-out-settings-list(ng-if="record.record_settings_uncollapsed")
+                                        //- Block form
+                                        .pre-check-item-body: .pre-check-item-body-content
+                                            .pre-check-knock-out-settings-list-header: .row
+                                                //- Fund
+                                                .col.col-lg-4.col-xs-12
+                                                    label.form-label Fund name
+                                                        
+                                                //- Impact level weight
+                                                .col.col-lg-4.col-xs-12
+                                                    label.form-label Impact level weight (%)
+                                                
+                                                //- Knock-out
+                                                .col.col-lg-4.col-xs-12
+                                                    label.form-label
+
+                                            //- Records
+                                            .pre-check-knock-out-settings-list-item(ng-repeat="(settingsKey, record_setting) in record.record_settings")
+                                                .row
+                                                    //- Fund
+                                                    .col.col-lg-4.col-xs-12
+                                                        .pre-check-knock-out-fund-block
+                                                            .pre-check-knock-out-fund-block-media
+                                                                img(ng-src="{{ record_setting.fund_logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
+                                                            
+                                                            .pre-check-knock-out-fund-block-description
+                                                                .fund-name(ng-bind="record_setting.fund_name | str_limit:40")
+                                                                a.implementation-name(
+                                                                    target="_blank"
+                                                                    href="{{ record_setting.implementation_url_webshop }}"
+                                                                    ng-bind="record_setting.implementation_name | str_limit:40")
+                                                    
+                                                    //- Impact level weight
+                                                    .col.col-lg-4.col-xs-12
+                                                        input(
+                                                            type="number"
+                                                            ng-disabled="record_setting.is_knock_out"
+                                                            ng-model="record_setting.impact_level"
+                                                            placeholder="Impact level weight (%)"
+                                                            step="1"
+                                                            min="0"
+                                                            max="100").form-control
+                                                        .form-error(
+                                                            ng-repeat="error in $dir.errors['pre_checks.' + preCheckKey + '.record_types.' + recordKey + '.record_settings.' + settingsKey + '.impact_level']" 
+                                                            ng-bind="error")
+                                                    
+                                                    //- Knock-out enabled
+                                                    .col.col-lg-4.col-xs-12
+                                                        input-checkbox-control(
+                                                            name="record_settings_{{ $parent.$index }}_{{ record_setting.fund_id }}_is_knock_out"
+                                                            ng-model="record_setting.is_knock_out" 
+                                                            label="Knock-out")
+                                                        .form-error(
+                                                            ng-repeat="error in $dir.errors['pre_checks.' + preCheckKey + '.record_types.' + recordKey + '.record_settings.' + settingsKey + '.is_knock_out']" 
+                                                            ng-bind="error")
+                                                
+                                                    //- Knock-out description
+                                                    .col.col-lg-12.col-xs-12(ng-if="record_setting.is_knock_out"): .pre-check-knock-out-notice-block
+                                                        .form-group
+                                                            label.form-label Beschrijving van de knock-outcriteria
+                                                            input.form-control(
+                                                                type="text"
+                                                                name="record_settings_{{ $parent.$index }}_{{ record_setting.fund_id }}_description"
+                                                                ng-model="record_setting.description"
+                                                                placeholder="Add description")
+                                                            .form-hint De informatieve beschrijving kan maximaal 1000 tekens bevatten.
+                                                            .form-error(
+                                                                ng-repeat="error in $dir.errors['pre_checks.' + preCheckKey + '.record_types.' + recordKey + '.record_settings.' + settingsKey + '.description']" 
+                                                                ng-bind="error")
 
                     .pre-check-item-body-records-empty(ng-if="!preCheck.record_types.length")
                         .pre-check-item-body-records-empty-img: img(src=src_prefix + "./assets/img/icon-drag.svg")

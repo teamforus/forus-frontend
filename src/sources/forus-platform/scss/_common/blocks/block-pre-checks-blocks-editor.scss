@@ -89,6 +89,108 @@
                     }
                 }
             }
+
+            .pre-check-knock-out-settings {
+                .pre-check-knock-out-settings-header {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 10px;
+
+                    .pre-check-knock-out-settings-collapse {
+                        .mdi {
+                            font: 700 24px/28px var(--base-font);
+
+                            &:before {
+                                margin-left: -5px;
+                            }
+                        }
+                    }
+
+                    .pre-check-knock-out-settings-title {
+                        font: 700 14px/24px var(--base-font);
+                    }
+
+                    &.collapsed {
+                        margin-bottom: 0;
+                    }
+                }
+
+                .pre-check-knock-out-settings-list {
+                    border: 1px dashed var(--border-color);
+                    border-radius: 12px;
+
+                    .pre-check-knock-out-settings-list-header {
+                        label {
+                            font: 600 11px/13px var(--base-font);
+                        }
+                    }
+
+                    .pre-check-knock-out-settings-list-item {
+                        border-bottom: 1px solid var(--border-color);
+                        padding: 15px 0;
+
+                        .pre-check-knock-out-fund-block {
+                            display: flex;
+                            align-items: center;
+
+                            .pre-check-knock-out-fund-block-media {
+                                width: 25px;
+                                margin-right: 10px;
+
+                                img {
+                                    width: 100%;
+                                    border-radius: 4px;
+                                    border: 1px solid var(--border-color);
+                                }
+                            }
+
+                            .pre-check-knock-out-fund-block-description {
+                                display: flex;
+                                flex-direction: column;
+
+                                .fund-name {
+                                    font: 500 13px/16px var(--base-font);
+                                    color: #151B26;
+                                    margin-bottom: 5px;
+                                }
+
+                                .implementation-name {
+                                    font: 500 11px/13px var(--base-font);
+                                    color: #646F79;
+                                }
+                            }
+                        }
+
+                        .pre-check-knock-out-notice-block {
+                            display: flex;
+                            border: 1px solid var(--border-color);
+                            border-radius: 5px;
+                            padding: 12px;
+                            margin-top: 20px;
+
+                            .form-group {
+                                width: 100%;
+                            
+                                label {
+                                    font: 600 11px/13px var(--base-font);
+                                }
+                            }
+                        }
+
+                        .checkbox {
+                            .checkbox-label {
+                                font: 500 11px/20px var(--base-font);
+                                color: #404040;
+                            }
+                        }
+
+                        &:last-child {
+                            border-bottom: 0;
+                            padding-bottom: 0;
+                        }
+                    }
+                }
+            }
         }
 
         &:last-child {

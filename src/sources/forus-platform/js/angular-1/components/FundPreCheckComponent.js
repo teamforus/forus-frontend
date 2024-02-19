@@ -107,9 +107,43 @@ const FundPreCheckComponent = function (
         }, true);
     };
 
+    const makeRecordSettingsData = (record_settings) => {
+        $ctrl.funds.data.forEach(fund => {
+            let record_setting = record_settings.find(record_setting => record_setting.fund_id == fund.id);
+
+            if (!record_setting) {
+                record_settings.push({
+                    implementation_name: fund.implementation.name,
+                    implementation_url_webshop: fund.implementation.url_webshop,
+                    fund_id: fund.id,
+                    fund_name: fund.name,
+                    fund_logo: fund.logo,
+                    description: '',
+                    impact_level: 0,
+                    is_knock_out: false,
+                });
+            }
+        });
+
+        return record_settings;
+    };
+
+    const transformPreChecks = (preChecks) => {
+        return preChecks.map((preCheck) => ({
+            ...preCheck,
+            record_types: preCheck.record_types.map((recordType) => {
+                return { 
+                    ...recordType,
+                    record_settings: makeRecordSettingsData(recordType.record_settings || [])
+                };
+            }),
+        }));
+    };
+
     const loadPreChecks = () => {
         PreCheckService.list($ctrl.organization.id, $ctrl.implementation.id).then((res) => {
             $ctrl.preChecks = res.data.data;
+            $ctrl.preChecks = transformPreChecks($ctrl.preChecks);
         });
     };
 

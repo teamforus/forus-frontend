@@ -89,14 +89,24 @@
         .fund-pre-check-info-list
             .fund-pre-check-info-list-item(
                 ng-repeat="criterion in $dir.fund.criteria" 
-                ng-class="{valid: criterion.is_valid}") 
+                ng-class="{valid: criterion.is_valid, knock_out: criterion.is_knockout}") 
 
-                em.mdi.mdi-check-circle(ng-if='criterion.is_valid' aria-hidden="true")
-                em.mdi.mdi-close-circle(ng-if='!criterion.is_valid' aria-hidden="true")
+                .flex.flex-grow
+                    em.mdi.mdi-check-circle(ng-if='criterion.is_valid' aria-hidden="true")
+                    em.mdi.mdi-close-circle(ng-if='!criterion.is_valid' aria-hidden="true")
 
-                span(ng-bind="criterion.name")
-                | &nbsp;
-                span(ng-bind="criterion.value")  
+                    span(ng-bind="criterion.name")
+                    | &nbsp;
+                    span(ng-bind="criterion.value")
+
+                .knock-out-more.pull-right(
+                    ng-if="criterion.is_knockout && criterion.knockout_description" 
+                    ng-click="criterion.show_knockout_description = !criterion.show_knockout_description")
+                    
+                    span Toon informatie
+                    em.mdi(ng-class="'mdi-' + (!criterion.show_knockout_description ? 'chevron-down' : 'chevron-up')")
+
+                .fund-knock-out-description(ng-if="criterion.show_knockout_description" ng-bind="criterion.knockout_description")        
 
         .fund-pre-check-info-totals
             .fund-pre-check-info-totals-title Totaal

@@ -258,9 +258,11 @@
                     flex-direction: column;
 
                     .fund-pre-check-info-list-item {
+                        width: 100%;
                         align-items: center;
                         display: flex;
                         flex-direction: row;
+                        flex-wrap: wrap;
                         font: 600 11px/15px var(--base-font);
                         padding: 10px 0;
                         border-bottom: 1px solid var(--border-color);
@@ -275,9 +277,39 @@
                             font-size: 15px;
                         }
 
+                        .fund-knock-out-description {
+                            width: 100%;
+                            padding: 15px;
+                            background-color: #fffceb;
+                            margin-top: 10px;
+                            border: 1px solid var(--border-color);
+                            border-radius: var(--border-radius);
+                        }
+
+                        .knock-out-more {
+                            display: flex;
+                            font: 400 11px/13px var(--base-font);
+
+                            .mdi {
+                                color: #315efd;
+                            }
+                        }
+
                         &.valid {
                             .mdi {
                                 color: #315efd;
+                            }
+                        }
+
+                        &.knock_out {
+                            .mdi {
+                                color: #FBA31A;
+                            }
+
+                            .knock-out-more {
+                                .mdi {
+                                    color: #282B39;
+                                }
                             }
                         }
 
@@ -402,6 +434,10 @@
 
                         .fund-pre-check-info-list .fund-pre-check-info-list-item {
                             font: 500 12px/18px var(--base-font);
+
+                            .knock-out-more {
+                                font: 400 10px/12px var(--base-font);
+                            }
                         }
 
                         .fund-pre-check-info-amount {
