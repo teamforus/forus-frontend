@@ -53,7 +53,9 @@
             .fund-request-block-progress
                 .fund-request-block-progress-title(ng-bind="$dir.progressStatusTitle")
                 .fund-request-block-progress-bar
-                    .fund-request-block-progress-bar-completed(style="width: {{ $dir.criteriaValidPercentage }}%")
+                    .fund-request-block-progress-bar-value(
+                        ng-class="{'fund-request-block-progress-bar-value-low' : $dir.criteriaValidPercentage <= 49}"
+                        style="width: {{ $dir.criteriaValidPercentage }}%")
 
             .fund-request-block-button(ng-if="!$dir.fund.is_external"): button.button.button-primary.button-sm(
                 type="button"
@@ -89,24 +91,26 @@
         .fund-pre-check-info-list
             .fund-pre-check-info-list-item(
                 ng-repeat="criterion in $dir.fund.criteria" 
-                ng-class="{valid: criterion.is_valid, knock_out: criterion.is_knockout}") 
+                ng-class="{'fund-pre-check-info-list-item-valid': criterion.is_valid, 'fund-pre-check-info-list-item-knock-out': criterion.is_knock_out}") 
 
-                .flex.flex-grow
-                    em.mdi.mdi-check-circle(ng-if='criterion.is_valid' aria-hidden="true")
-                    em.mdi.mdi-close-circle(ng-if='!criterion.is_valid' aria-hidden="true")
+                .fund-pre-check-info-list-item-content 
+                    .fund-pre-check-info-list-item-icon
+                        .mdi.mdi-check-circle(ng-if='criterion.is_valid' aria-hidden="true")
+                        .mdi.mdi-close-circle(ng-if='!criterion.is_valid' aria-hidden="true")
 
-                    span(ng-bind="criterion.name")
-                    | &nbsp;
-                    span(ng-bind="criterion.value")
+                    .fund-pre-check-info-list-item-title(
+                        ng-bind="criterion.name + ' ' + (criterion.value || '---')")
 
-                .knock-out-more.pull-right(
-                    ng-if="criterion.is_knockout && criterion.knockout_description" 
-                    ng-click="criterion.show_knockout_description = !criterion.show_knockout_description")
-                    
-                    span Toon informatie
-                    em.mdi(ng-class="'mdi-' + (!criterion.show_knockout_description ? 'chevron-down' : 'chevron-up')")
+                    .fund-pre-check-info-list-item-more(
+                        ng-if="criterion.is_knock_out && criterion.knock_out_description" 
+                        ng-click="criterion.show_knock_out_description = !criterion.show_knock_out_description")
 
-                .fund-knock-out-description(ng-if="criterion.show_knockout_description" ng-bind="criterion.knockout_description")        
+                        | Toon informatie
+                        em.mdi(ng-class="'mdi-' + (!criterion.show_knock_out_description ? 'chevron-down' : 'chevron-up')")
+
+                .fund-pre-check-info-list-item-description(
+                    ng-if="criterion.show_knock_out_description" 
+                    ng-bind="criterion.knock_out_description")        
 
         .fund-pre-check-info-totals
             .fund-pre-check-info-totals-title Totaal

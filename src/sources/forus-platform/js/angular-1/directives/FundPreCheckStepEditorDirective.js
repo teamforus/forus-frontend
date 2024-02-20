@@ -110,7 +110,6 @@ module.exports = () => {
             preChecks: '=',
             errors: '=',
             implementation: '=',
-            funds: '=',
         },
         restrict: "EA",
         replace: true,
