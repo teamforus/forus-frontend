@@ -4,6 +4,7 @@ const FinancialDashboardComponent = function(
     $stateParams,
     FundService,
     FileService,
+    PaginatorService,
     TransactionService,
     OrganizationService,
     PageLoadingBarService,
@@ -17,13 +18,15 @@ const FinancialDashboardComponent = function(
     $ctrl.providersFinances = null;
     $ctrl.optionsList = {};
 
+    $ctrl.paginationPerPageKey = "financial_dashboard_providers";
+
     $ctrl.providerFilters = {
         page: 1,
-        per_page: 10,
+        per_page: PaginatorService.getPerPage($ctrl.paginationPerPageKey, 10),
     };
 
     $ctrl.fetchData = () => {
-        $ctrl.fetchProviders({ page: 1 });
+        $ctrl.fetchProviders($ctrl.providerFilters);
         $ctrl.updateChartData();
     };
 
@@ -395,6 +398,7 @@ module.exports = {
         '$stateParams',
         'FundService',
         'FileService',
+        'PaginatorService',
         'TransactionService',
         'OrganizationService',
         'PageLoadingBarService',

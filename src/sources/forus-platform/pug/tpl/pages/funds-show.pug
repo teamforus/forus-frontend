@@ -305,7 +305,8 @@
                     meta="$ctrl.top_up_transactions.meta"
                     delayed-filters="['q', 'amount_min', 'amount_max']"
                     filters="$ctrl.topUpTransactionFilters.values"
-                    on-page-change="$ctrl.topUpTransactionsOnPageChange(query)")
+                    on-page-change="$ctrl.topUpTransactionsOnPageChange(query)"
+                    per-page-key="{{ $ctrl.topUpPaginationPerPageKey }}")
 
             //- Fund top-ups empty
             block-empty(
@@ -362,7 +363,8 @@
                 paginator(
                     meta="$ctrl.implementations.meta" 
                     filters="$ctrl.implementationsFilters.values" 
-                    on-page-change="$ctrl.implementationsOnPageChange(query)")
+                    on-page-change="$ctrl.implementationsOnPageChange(query)"
+                    per-page-key="{{ $ctrl.implementationPaginationPerPageKey }}")
 
             //- Fund ideitnties
             .card-section(ng-if="$ctrl.viewType == 'identities' && $ctrl.identities && $ctrl.identities.meta.total > 0")
@@ -402,7 +404,8 @@
                 paginator(
                     meta="$ctrl.identities.meta" 
                     filters="$ctrl.identitiesFilters.values" 
-                    on-page-change="$ctrl.identitiesOnPageChange(query)")
+                    on-page-change="$ctrl.identitiesOnPageChange(query)"
+                    per-page-key="{{ $ctrl.identitiesPaginationPerPageKey }}")
 
             //- Fund ideitnties stats
             .card-section.card-section-primary(

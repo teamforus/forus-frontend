@@ -11,7 +11,7 @@
             .card-header: .card-title Beschrijving
             .card-section: .block.block-content
                 p
-                    | De Fysieke Pas module biedt deelnemers die minder digitaal vaardig zijn een alternatieve
+                    | De Fysieke Pas functionaliteit biedt deelnemers die minder digitaal vaardig zijn een alternatieve
                     | toegangsmogelijkheid tot verschillende diensten en voorzieningen.
                     | Hierbij wordt de QR-code op een fysieke pas gedrukt.
                     | De pas kan ook als stadspas dienen voor verschillende doeleinden.
@@ -20,7 +20,7 @@
 
                 h3 Belangrijkste voordelen
 
-                p De Fysieke Pas module biedt verschillende voordelen bij het gebruik ervan:
+                p De Fysieke Pas functionaliteit biedt verschillende voordelen bij het gebruik ervan:
 
                 .block.block-feature-icons
                     .block-feature-icons-item
@@ -28,7 +28,7 @@
                             include ../../../../resources/_platform-common/assets/img/features/icons/physical-cards/icon-1.svg
 
                         h4 Toegankelijkheid
-                        p Deze module biedt mensen met beperkte digitale vaardigheden toegang tot specifieke diensten en voorzieningen.
+                        p Deze functionaliteit biedt mensen met beperkte digitale vaardigheden toegang tot specifieke diensten en voorzieningen.
 
                     .block-feature-icons-item
                         .block-feature-icon
@@ -45,7 +45,7 @@
 
                         h4 Gebruiksgemak
                         p
-                            | De Fysieke Pas module maakt het proces van aanvragen en ontvangen van de pas eenvoudig en efficiënt,
+                            | De Fysieke Pas functionaliteit maakt het proces van aanvragen en ontvangen van de pas eenvoudig en efficiënt,
                             | waardoor deelnemers snel kunnen profiteren van de voordelen die de pas biedt.
 
                     .block-feature-icons-item
@@ -135,20 +135,7 @@
                 .card-title Andere functionaliteiten die u misschien interessant vindt
 
             .card-section(ng-if="$ctrl.additionalFeatures.length")
-                .block.block-features
-                    .features-list
-                        a.features-list-item(
-                            ng-repeat="feature in $ctrl.additionalFeatures"
-                            ui-sref="feature(feature.srefParams)")
-
-                            .features-list-item-icon: img(ng-src="/assets/img/features/icons/{{ feature.key }}.svg")
-                            .features-list-item-content
-                                .features-list-item-title
-                                    span(ng-bind="feature.name")
-                                    .features-label.active(ng-if="feature.enabled") Actief
-                                .features-list-item-details(ng-bind="feature.description")
-                                .features-labels
-                                    .features-label(ng-repeat="label in feature.labels" ng-bind="label")
+                block-additional-features(features="$ctrl.additionalFeatures")
 
             .card-section
                 .block.block-features-demo-banner(

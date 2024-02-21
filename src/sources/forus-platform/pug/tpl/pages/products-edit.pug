@@ -24,7 +24,7 @@
                 .card-title(ng-if="$ctrl.product" i18n="product_edit.header.title_edit")
 
             //- Product media
-            .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-12
+            .card-section.card-section-primary: .row: .col.col-lg-9.col-xs-11
                 .form-group.form-group-inline
                     label.form-label &nbsp;
                     .form-offset
@@ -48,7 +48,7 @@
 
             //- Product name/description
             .card-section.card-section-primary
-                .row: .col.col-lg-9
+                .row: .col.col-lg-9.col-xs-11
                     .form-group.form-group-inline
                         label.form-label.form-label-required(translate="product_edit.labels.name")
                         input(ng-disabled="!$ctrl.isEditable" ng-model="$ctrl.form.values.name" type="text" placeholder="Naam").form-control
@@ -65,7 +65,7 @@
 
             //- Product price
             .card-section.card-section-primary
-                .row: .col.col.col-lg-9
+                .row: .col.col-lg-9.col-xs-11
                     .form-group.form-group-inline.tooltipped
                         label.form-label Aanbod type
                         .form-offset: .block.block-label-tabs
@@ -173,7 +173,7 @@
 
             //- Product type
             .card-section.card-section-primary
-                .row: .col.col-lg-9
+                .row: .col.col-lg-9.col-xs-11
                     .form-group.form-group-inline.tooltipped
                         label.form-label(translate="product_edit.labels.expire")
                         .form-offset: .row
@@ -199,7 +199,7 @@
             //- Product reservations
             .card-section.card-section-primary(ng-if="$ctrl.allowsReservations")
                 //- Enable product reservations
-                .row: .col.col-lg-9
+                .row: .col.col-lg-9.col-xs-11
                     .form-group.form-group-inline.tooltipped
                         label.form-label Reserveringen
                         .form-offset
@@ -219,8 +219,8 @@
                         tooltip(text="'product_edit.tooltips.reservation_enabled' | translate")
 
                 //- Auto accept product reservations
-                .row: .col.col-lg-9(ng-if="$ctrl.form.values.reservation_enabled")
-                    .form-group.form-group-inline
+                .row: .col.col-lg-9.col-xs-11(ng-if="$ctrl.form.values.reservation_enabled")
+                    .form-group.form-group-inline.tooltipped
                         label(for="reservation_policy").form-label Reserveringen accepteren
 
                         .form-offset
