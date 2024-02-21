@@ -1,6 +1,7 @@
 const VoucherTransactionsDirective = function (
     $scope,
     appConfigs,
+    PaginatorService,
     TransactionService,
     PushNotificationsService
 ) {
@@ -51,6 +52,7 @@ const VoucherTransactionsDirective = function (
         $dir.filters.initialValues = angular.copy($dir.filterValues);
         $dir.filters.reset();
 
+        $dir.filters = PaginatorService.syncPageFilters($dir.filters, $dir.paginationPerPageKey);
         $dir.onPageChange($dir.filters.values);
     };
 
@@ -60,6 +62,7 @@ const VoucherTransactionsDirective = function (
             $dir.register({ directive: $dir });
         }
 
+        $dir.filters = PaginatorService.syncPageFilters($dir.filters, $dir.paginationPerPageKey);
         $scope.$watch('$dir.filterValues', $dir.onExternalFilterUpdated, true);
     };
 };
@@ -73,6 +76,7 @@ module.exports = () => {
             filterValues: '=',
             register: '&',
             blockTitle: '@',
+            paginationPerPageKey: '@',
         },
         controllerAs: '$dir',
         restrict: "EA",
@@ -80,6 +84,7 @@ module.exports = () => {
         controller: [
             '$scope',
             'appConfigs',
+            'PaginatorService',
             'TransactionService',
             'PushNotificationsService',
             VoucherTransactionsDirective

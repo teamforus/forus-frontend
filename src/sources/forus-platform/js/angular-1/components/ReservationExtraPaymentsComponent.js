@@ -2,6 +2,7 @@ const ReservationExtraPaymentsComponent = function (
     $q,
     $state,
     $stateParams,
+    PaginatorService,
     PageLoadingBarService,
     ReservationExtraPaymentService,
 ) {
@@ -76,6 +77,7 @@ const ReservationExtraPaymentsComponent = function (
         });
 
         $ctrl.mapExtraPayments($ctrl.extraPayments);
+        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey);
     };
 };
 
@@ -84,11 +86,13 @@ module.exports = {
         funds: '<',
         organization: '<',
         extraPayments: '<',
+        paginationPerPageKey: '<',
     },
     controller: [
         '$q',
         '$state',
         '$stateParams',
+        'PaginatorService',
         'PageLoadingBarService',
         'ReservationExtraPaymentService',
         ReservationExtraPaymentsComponent,

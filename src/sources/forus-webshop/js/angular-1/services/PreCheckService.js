@@ -9,6 +9,13 @@ const PreCheckService = function (ApiRequest) {
         this.calculateTotals = function (data) {
             return ApiRequest.post(`${uriPrefix}/calculate`, data);
         };
+
+        this.downloadPDF = function (data) {
+            return ApiRequest.post(`${uriPrefix}/download-pdf`, data, {}, true, {
+                cache: false,
+                responseType: 'arraybuffer'
+            });
+        };
     });
 };
 

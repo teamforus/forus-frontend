@@ -54,7 +54,7 @@ const ModalVoucherTransactionsUploadComponent = function (
                 $ctrl.input?.remove();
                 $ctrl.input = document.createElement('input');
 
-                $ctrl.input.setAttribute("dusk", "inputUpload");
+                $ctrl.input.setAttribute("data-dusk", "inputUpload");
                 $ctrl.input.setAttribute("type", "file");
                 $ctrl.input.setAttribute("accept", ".csv");
                 $ctrl.input.style.display = 'none';

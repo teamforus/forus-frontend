@@ -1,9 +1,13 @@
+import { format } from 'date-fns';
+
 const FundPreCheckComponent = function (
     $state,
     $timeout,
     FundService,
+    FileService,
     PreCheckService,
     FormBuilderService,
+    PageLoadingBarService,
     PushNotificationsService,
 ) {
     const $ctrl = this;
@@ -29,6 +33,16 @@ const FundPreCheckComponent = function (
         };
     };
 
+    const mapRecords = (preChecks) => {
+        return preChecks.reduce((recordsData, preCheck) => [
+            ...recordsData,
+            ...preCheck.record_types.reduce((recordData, record) => [
+                ...recordData,
+                { key: record.record_type_key, value: record.input_value?.toString() || '' },
+            ], [])
+        ], []);
+    };
+
     $ctrl.preCheckFilled = (index) => {
         const activePreCheck = $ctrl.preChecks[index];
         const filledRecordTypes = activePreCheck.record_types.filter((pre_check_record) => {
@@ -38,7 +52,7 @@ const FundPreCheckComponent = function (
         });
         const recordTypeKeys = activePreCheck.record_types.map((recordType) => recordType.record_type_key);
         const filledRecordTypeKeys = filledRecordTypes.map((recordType) => recordType.record_type_key);
-        
+
         $ctrl.emptyRecordTypeKeys = recordTypeKeys.filter((recordTypeKey) => {
             return !filledRecordTypeKeys.includes(recordTypeKey);
         });
@@ -47,13 +61,7 @@ const FundPreCheckComponent = function (
     };
 
     $ctrl.fetchPreCheckTotals = (query) => {
-        const records = $ctrl.preChecks.reduce((recordsData, preCheck) => [
-            ...recordsData,
-            ...preCheck.record_types.reduce((recordData, record) => [
-                ...recordData,
-                { key: record.record_type_key, value: record.input_value?.toString() || '' },
-            ], [])
-        ], []);
+        const records = mapRecords($ctrl.preChecks);
 
         PreCheckService.calculateTotals({ ...query, records })
             .then((res) => $ctrl.totals = res.data)
@@ -63,6 +71,26 @@ const FundPreCheckComponent = function (
     $ctrl.changeAnswers = () => {
         $ctrl.totals = null;
         $ctrl.activeStepIndex = 0;
+    };
+
+    $ctrl.downloadPDF = () => {
+        const records = mapRecords($ctrl.preChecks);
+
+        PreCheckService.downloadPDF({ ...$ctrl.form.values, records })
+            .then((res) => {
+                PushNotificationsService.success('Succes!', 'De download begint over enkele ogenblikken.');
+
+                FileService.downloadFile(
+                    `pre-check_${format(new Date(), 'yyyy-MM-dd HH:mm:ss')}.pdf`,
+                    res.data,
+                    res.headers('Content-Type') + ';charset=utf-8;'
+                );
+
+                PageLoadingBarService.setProgress(100);
+            }).catch((res) => {
+                console.log('res: ', res);
+                PushNotificationsService.danger(res.data.message);
+            });
     };
 
     $ctrl.prev = () => {
@@ -128,8 +156,10 @@ module.exports = {
         '$state',
         '$timeout',
         'FundService',
+        'FileService',
         'PreCheckService',
         'FormBuilderService',
+        'PageLoadingBarService',
         'PushNotificationsService',
         FundPreCheckComponent,
     ],

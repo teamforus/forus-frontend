@@ -92,6 +92,8 @@ app.component('molliePrivacyComponent', require('./components/MolliePrivacyCompo
 app.component('fundPreCheckComponent', require('./components/FundPreCheckComponent'));
 app.component('reservationExtraPaymentsComponent', require('./components/ReservationExtraPaymentsComponent'));
 app.component('reservationExtraPaymentShowComponent', require('./components/ReservationExtraPaymentShowComponent'));
+app.component('featuresRedirectComponent', require('./components/FeaturesRedirectComponent'));
+app.component('featureRedirectComponent', require('./components/FeatureRedirectComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -232,6 +234,8 @@ app.service('FeaturesService', require('./services/FeaturesService'));
 app.service('MollieConnectionService', require('./services/MollieConnectionService'));
 app.service('PreCheckService', require('./services/PreCheckService'));
 app.service('ReservationExtraPaymentService', require('./services/ReservationExtraPaymentService'));
+app.service('LocalStorageService', require('./services/LocalStorageService'));
+app.service('PaginatorService', require('./services/PaginatorService'));
 
 // Directives
 app.directive('menu', {

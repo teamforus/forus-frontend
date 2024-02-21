@@ -5,6 +5,7 @@ const SponsorProviderOrganizationsComponent = function (
     $stateParams,
     FileService,
     ModalService,
+    PaginatorService,
     OrganizationService,
     PageLoadingBarService,
     PushNotificationsService,
@@ -23,7 +24,7 @@ const SponsorProviderOrganizationsComponent = function (
         show: false,
         values: pick($stateParams, [
             'q', 'order_by', 'fund_id', 'has_products',
-            'allow_budget', 'allow_products', 'allow_extra_payments', 
+            'allow_budget', 'allow_products', 'allow_extra_payments',
             'implementation_id',
         ]),
         defaultValues: {
@@ -141,13 +142,14 @@ const SponsorProviderOrganizationsComponent = function (
     };
 
     $ctrl.$onInit = function () {
+        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey);
         $ctrl.funds.unshift({
-            id: null, 
+            id: null,
             name: 'Alle fondsen',
         });
 
         $ctrl.implementations.unshift({
-            id: null, 
+            id: null,
             name: 'Alle implementaties',
         });
         $ctrl.providerOrganizations.data = transformProviders($ctrl.providerOrganizations.data);
@@ -165,12 +167,14 @@ module.exports = {
         implementations: '<',
         fundUnsubscribes: '<',
         providerOrganizations: '<',
+        paginationPerPageKey: '<',
     },
     controller: [
         '$state',
         '$stateParams',
         'FileService',
         'ModalService',
+        'PaginatorService',
         'OrganizationService',
         'PageLoadingBarService',
         'PushNotificationsService',

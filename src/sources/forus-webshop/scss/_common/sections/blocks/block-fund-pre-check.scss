@@ -145,6 +145,22 @@
                 margin-bottom: 0;
             }
         }
+
+        .pre-check-actions {
+            .button {
+                margin-bottom: 10px;
+
+                &.button-download {
+                    color: #fff;
+                    background: var(--color-primary);
+                    border: 1px solid var(--color-primary);
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
     }
 
     .pre-check-step {
