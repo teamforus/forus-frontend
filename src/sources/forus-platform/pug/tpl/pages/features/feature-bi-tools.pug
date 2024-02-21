@@ -38,7 +38,7 @@
                             include ../../../../resources/_platform-common/assets/img/features/icons/bi-tools/icon-2.svg
 
                         h4 Extra visualisatiemogelijkheden
-                        p U krijgt de vrijheid om inzichten te creëren op basis van webshopgegevens of deze te integreren met andere datasets in uw BI-tool.
+                        p U krijgt de vrijheid om inzichten te creëren op basis van websitegegevens of deze te integreren met andere datasets in uw BI-tool.
 
                     .block-feature-icons-item
                         .block-feature-icon
@@ -131,23 +131,11 @@
                             | worden in uw BI-tool. Hiermee krijgt u toegang tot de gegevens uit het Forus platform.
 
         .card
-            .card-header: .card-title Andere modules die u misschien interessant vindt
+            .card-header(ng-if="$ctrl.additionalFeatures.length")
+                .card-title Andere functionaliteiten die u misschien interessant vindt
 
-            .card-section
-                .block.block-features
-                    .features-list
-                        a.features-list-item(
-                            ng-repeat="feature in $ctrl.additionalFeatures"
-                            ui-sref="feature(feature.srefParams)")
-
-                            .features-list-item-icon: img(ng-src="/assets/img/features/icons/{{ feature.key }}.svg")
-                            .features-list-item-content
-                                .features-list-item-title
-                                    span(ng-bind="feature.name")
-                                    .features-label.active(ng-if="feature.enabled") Actief
-                                .features-list-item-details(ng-bind="feature.description")
-                                .features-labels
-                                    .features-label(ng-repeat="label in feature.labels" ng-bind="label")
+            .card-section(ng-if="$ctrl.additionalFeatures.length")
+                block-additional-features(features="$ctrl.additionalFeatures")
 
             .card-section
                 .block.block-features-demo-banner(
@@ -161,4 +149,4 @@
                                 | persoonlijke demonstratie. We laten u graag zien hoe het voor uw kan werken.
 
                         .features-demo-banner-action
-                            a(ui-sref="features({organization_id: $ctrl.organization.id})").button.button-primary Demo aanvragen
+                            .button.button-primary(ng-click="$ctrl.openContactModal()") Demo aanvragen

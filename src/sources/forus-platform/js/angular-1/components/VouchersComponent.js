@@ -7,11 +7,14 @@ const VouchersComponent = function (
     DateService,
     ModalService,
     VoucherService,
+    PaginatorService,
     VoucherExportService,
     PageLoadingBarService,
 ) {
     const $ctrl = this;
     const anyFundMedia = { sizes: { thumbnail: './assets/img/menu/icon-my_funds.svg' } };
+
+    $ctrl.paginationPerPageKey = "vouchers";
 
     $ctrl.states = [
         { value: null, name: 'Selecteer...' },
@@ -60,8 +63,12 @@ const VouchersComponent = function (
             implementation_id: null,
             sort_by: 'created_at',
             sort_order: 'desc',
+            per_page: PaginatorService.getPerPage($ctrl.paginationPerPageKey),
         },
-        values: pick($stateParams, [
+        values: pick({
+            ...$stateParams,
+            per_page: PaginatorService.getPerPage($ctrl.paginationPerPageKey),
+        }, [
             'q', 'granted', 'amount_min', 'amount_max', 'date_type', 'from', 'to',
             'state', 'in_use', 'count_per_identity_min', 'count_per_identity_max',
             'type', 'source', 'sort_by', 'sort_order', 'per_page', 'page', 'fund_id',
@@ -236,6 +243,7 @@ module.exports = {
         'DateService',
         'ModalService',
         'VoucherService',
+        'PaginatorService',
         'VoucherExportService',
         'PageLoadingBarService',
         VouchersComponent,

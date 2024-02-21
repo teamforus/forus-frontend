@@ -1,7 +1,7 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
 .modal.modal-md.modal-animated(
-    dusk="modalDangerZone"
+    data-dusk="modalDangerZone"
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
     .modal-backdrop(ng-click="$ctrl.cancel()")
@@ -35,5 +35,13 @@
                     span(ng-bind="$ctrl.confirmation")
 
         .modal-footer
-            .button.button-default(ng-click="$ctrl.cancel()" ng-bind="$ctrl.cancelButton" dusk="btnDangerZoneCancel")
-            .button.button-danger(ng-disabled="!$ctrl.confirmed" ng-click="$ctrl.confirm()" ng-bind="$ctrl.confirmButton" dusk="btnDangerZoneSubmit")
+            .button.button-default(
+                ng-click="$ctrl.cancel()" 
+                ng-bind="$ctrl.cancelButton" 
+                data-dusk="btnDangerZoneCancel")
+            
+            .button.button-danger(
+                ng-disabled="!$ctrl.confirmed" 
+                ng-click="$ctrl.confirm()" 
+                ng-bind="$ctrl.confirmButton" 
+                data-dusk="btnDangerZoneSubmit")

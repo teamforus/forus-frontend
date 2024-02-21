@@ -283,7 +283,15 @@ const FundService = function (
                 ...dateKeys.reduce((list, key) => ({ ...list, [key]: 'ui_control_date' }), {}),
             }[record_type.key] || null;
 
-            return ((record_type.type == 'string') && ((operator == '=') || (record_type.operators.find((operator) => operator.key == '=')))) ?
+            // for pre-check
+            if (operator === null) {
+                return (record_type.type == 'string' && record_type.operators.find((operator) => operator.key == '=')) ?
+                    'ui_control_checkbox' :
+                    control_type_key || control_type_base || control_type_default;
+            }
+
+            // for fund request
+            return (record_type.type == 'string' && operator == '=') ?
                 'ui_control_checkbox' :
                 control_type_key || control_type_base || control_type_default;
         }

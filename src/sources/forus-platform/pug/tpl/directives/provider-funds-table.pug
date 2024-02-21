@@ -45,14 +45,16 @@
                             checked="$dir.selected.includes(providerFund.id)"
                             ng-click="$dir.toggle($event, providerFund)")
 
-                        //- Fund name
-                        td.nowrap: .td-entity-main
-                            .td-entity-main-media: img.td-media.td-media-sm.td-media-round(
+                        td: .td-collapsable
+                            .collapsable-media: img.td-media.td-media-sm(
                                 ng-src="{{ providerFund.fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
 
-                            .td-entity-main-content: .text-strong.text-primary(
-                                ng-bind="providerFund.fund.name | str_limit:32" 
-                                title="{{ providerFund.fund.name.name || '-' }}")
+                            .collapsable-content
+                                .text-primary.text-medium(ng-bind="providerFund.fund.name | str_limit:40")
+                                a.text-strong.text-md.text-muted-dark.text-inherit(
+                                    href="{{ providerFund.fund.implementation.url_webshop }}"
+                                    target="_blank"
+                                    ng-bind="providerFund.fund.implementation.name | str_limit:40")
 
                         td(
                             ng-bind="providerFund.fund.organization.name | str_limit:25"

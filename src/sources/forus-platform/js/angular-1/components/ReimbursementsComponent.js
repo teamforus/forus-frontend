@@ -2,8 +2,11 @@ const ReimbursementsComponent = function (
     ReimbursementsExportService,
     ReimbursementService,
     PageLoadingBarService,
+    PaginatorService,
 ) {
     const $ctrl = this;
+
+    $ctrl.paginationPerPageKey = "reimbursements";
 
     $ctrl.states_options = ReimbursementService.getStateOptions();
     $ctrl.expired_options = ReimbursementService.getExpiredOptions();
@@ -14,6 +17,7 @@ const ReimbursementsComponent = function (
         show: false,
         defaultValues: {
             q: '',
+            implementation_id: null,
             state: null,
             amount_min: null,
             amount_max: null,
@@ -23,8 +27,11 @@ const ReimbursementsComponent = function (
             from: null,
             to: null,
             page: 1,
+            per_page: PaginatorService.getPerPage($ctrl.paginationPerPageKey, 10),
         },
-        values: {},
+        values: {
+            per_page: PaginatorService.getPerPage($ctrl.paginationPerPageKey, 10),
+        },
         reset: function () {
             this.values = { ...this.defaultValues };
         }
@@ -69,6 +76,11 @@ const ReimbursementsComponent = function (
     $ctrl.onPageChange = (query) => {
         PageLoadingBarService.setProgress(0);
 
+        $ctrl.implementations.unshift({
+            id: null,
+            name: "Alle implementaties",
+        });
+
         ReimbursementService.index($ctrl.organization.id, $ctrl.getQueryParams(query))
             .then((res) => $ctrl.reimbursements = res.data)
             .finally(() => PageLoadingBarService.setProgress(100));
@@ -84,11 +96,13 @@ module.exports = {
         fund: '<',
         funds: '<',
         organization: '<',
+        implementations: '<',
     },
     controller: [
         'ReimbursementsExportService',
         'ReimbursementService',
         'PageLoadingBarService',
+        'PaginatorService',
         ReimbursementsComponent,
     ],
     templateUrl: 'assets/tpl/pages/reimbursements.html',

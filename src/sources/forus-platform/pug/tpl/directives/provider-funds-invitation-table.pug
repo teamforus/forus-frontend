@@ -42,14 +42,16 @@
                             checked="$dir.selected.includes(invitation.id)"
                             ng-click="$dir.toggle($event, invitation)")
 
-                        //- Fund name
-                        td: .td-entity-main
-                            .td-entity-main-media: img.td-media.td-media-sm.td-media-round(
+                        td: .td-collapsable
+                            .collapsable-media: img.td-media.td-media-sm(
                                 ng-src="{{ invitation.fund.logo.sizes.thumbnail || './assets/img/placeholders/fund-thumbnail.png' }}")
 
-                            .td-entity-main-content: .text-strong.text-primary(
-                                ng-bind="invitation.fund.name | str_limit:32" 
-                                title="{{ invitation.fund.name || '-' }}")
+                            .collapsable-content
+                                .text-primary.text-medium(ng-bind="invitation.fund.name | str_limit:40")
+                                a.text-strong.text-md.text-muted-dark.text-inherit(
+                                    href="{{ invitation.fund.implementation.url_webshop }}"
+                                    target="_blank"
+                                    ng-bind="invitation.fund.implementation.name | str_limit:40")
 
                         td(
                             ng-bind="invitation.fund.organization.name | str_limit:25"

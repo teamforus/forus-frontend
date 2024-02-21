@@ -28,7 +28,7 @@
                             ng-class="{active: $ctrl.filters.values.archived == viewType.value}"
                             ng-click="$ctrl.setArchivedOption(viewType.value)"
                             ng-bind="viewType.name"
-                            dusk="{{ 'reimbursementsFilter' + (viewType.value ? 'Archived' : 'Active') }}")
+                            data-dusk="{{ 'reimbursementsFilter' + (viewType.value ? 'Archived' : 'Active') }}")
                     
                     //- Reset filters
                     .button.button-text(ng-if="$ctrl.filters.show" ng-click="$ctrl.filters.reset()")
@@ -40,7 +40,7 @@
                         type="text"
                         ng-model="$ctrl.filters.values.q"
                         placeholder="{{ 'reimbursements.labels.search' | translate }}"
-                        dusk="searchReimbursement").form-control
+                        data-dusk="searchReimbursement").form-control
 
                     //- Filters dropdown
                     .form: .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
@@ -53,7 +53,7 @@
                                     input(
                                         ng-model="$ctrl.filters.values.q" 
                                         placeholder="{{ 'reimbursements.labels.search' | translate }}"
-                                        dusk="searchReimbursement").form-control
+                                        data-dusk="searchReimbursement").form-control
 
                                 //- State filter
                                 .form-group(ng-click="$event.stopPropagation()")
@@ -116,6 +116,16 @@
                                         date-week-start-day="1").form-control
                                         input(ng-model="$ctrl.filters.values.to" type="text" placeholder="dd-MM-yyyy").form-control
 
+                                //- Implementation filter    
+                                .form-group(ng-click="$event.stopPropagation()")
+                                    form-label-toggle(label="{{ 'reimbursements.labels.implementation' | translate }}")
+                                    
+                                    .form-offset: select-control(
+                                        prop="id"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.implementation_id"
+                                        options="$ctrl.implementations").form-control
+
                                 .form-actions
                                     button.button.button-primary.button-wide(
                                         ng-click="$ctrl.exportReimbursements()"
@@ -126,13 +136,16 @@
                         .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
             //- Vouchers list
-            .card-section(ng-if="$ctrl.reimbursements.data.length > 0" dusk="reimbursementsList")
+            .card-section(ng-if="$ctrl.reimbursements.data.length > 0" data-dusk="reimbursementsList")
                 .card-block.card-block-table
                     .table-wrapper
                         table.table
                             tr
                                 //- Identity
                                 th(translate="reimbursements.labels.identity")
+
+                                //- Implementation
+                                th(translate="reimbursements.labels.fund")
                                 
                                 //- Amount
                                 th(translate="reimbursements.labels.amount")
@@ -162,22 +175,27 @@
                                 ng-repeat="reimbursement in $ctrl.reimbursements.data" 
                                 ui-sref="reimbursements-show({organization_id: $ctrl.organization.id, id: reimbursement.id})"
                                 ng-class="reimbursement.expired ? 'tr-warning' : ''"
-                                dusk="{{ 'reimbursement' + reimbursement.id }}")
+                                data-dusk="{{ 'reimbursement' + reimbursement.id }}")
 
                                 //- Identity
                                 td
                                     //- Email
                                     strong(
                                         ng-bind="(reimbursement.identity_email | str_limit:25) || 'Geen E-mail'" 
-                                        dusk="{{ 'reimbursementIdentityEmail' + reimbursement.id }}").text-primary
+                                        data-dusk="{{ 'reimbursementIdentityEmail' + reimbursement.id }}").text-primary
 
                                     //- BSN
                                     span(ng-if="$ctrl.organization.bsn_enabled").text-strong.text-md.text-muted-dark
                                         br
                                         | {{ reimbursement.identity_bsn ? ('BSN: ' + reimbursement.identity_bsn) : 'Geen BSN' }}
+                                
+                                td 
+                                    strong(ng-bind="reimbursement.fund.name | str_limit:25").text-primary
+                                    br
+                                    span(ng-bind="reimbursement.implementation_name | str_limit:25").text-strong.text-md.text-muted-dark
 
                                 //- Amount
-                                td(ng-bind="reimbursement.amount | currency_format" dusk="{{ 'reimbursementAmount' + reimbursement.id }}").nowrap
+                                td(ng-bind="reimbursement.amount | currency_format" data-dusk="{{ 'reimbursementAmount' + reimbursement.id }}").nowrap
 
                                 //- Creation date
                                 td
@@ -202,7 +220,7 @@
                                 td: .label(
                                     ng-bind="reimbursement.state_locale"
                                     ng-class="{pending: 'label-default', approved: 'label-success', declined: 'label-danger'}[reimbursement.state]"
-                                    dusk="{{ 'reimbursementState' + reimbursement.id }}")
+                                    data-dusk="{{ 'reimbursementState' + reimbursement.id }}")
 
                                 //- Transaction
                                 td(ng-if="reimbursement.voucher_transaction"): .label(
@@ -220,8 +238,13 @@
                                         em.mdi.mdi-eye-outline.icon-start
 
             //- Pagination
-            .card-section(ng-if="$ctrl.reimbursements.meta" ng-show="$ctrl.reimbursements.meta.last_page > 1")
-                paginator(meta="$ctrl.reimbursements.meta" filters="$ctrl.filters.values" delayed-filters="['q', 'amount_min', 'amount_max']" on-page-change="$ctrl.onPageChange(query)")
+            .card-section(ng-if="$ctrl.reimbursements.meta")
+                paginator(
+                    meta="$ctrl.reimbursements.meta" 
+                    filters="$ctrl.filters.values" 
+                    delayed-filters="['q', 'amount_min', 'amount_max']" 
+                    on-page-change="$ctrl.onPageChange(query)"
+                    per-page-key="{{ $ctrl.paginationPerPageKey }}")
 
             //- Not found
             .card-section(ng-if="$ctrl.reimbursements.meta.total == 0"): .block.block-empty.text-center

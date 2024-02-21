@@ -46,7 +46,7 @@ block content
                         .pre-check-amount-value {{ $ctrl.totals.funds_valid.length }}
 
                 .pre-check-actions(ng-if="$ctrl.totals")
-                    .button.button-light.button-fill.button-sm(ng-click="$ctrl.changeAnswers()") Change answers   
+                    .button.button-light.button-fill.button-sm(ng-click="$ctrl.changeAnswers()") Wijzig antwoorden   
 
         main(id="main-content")
             .block.block-fund-pre-check: .showcase-wrapper
@@ -201,16 +201,18 @@ block content
                                         data-id="preCheckRecord_{{ preCheckRecord.record_type_key }}"
                                         data-placeholder="Uw {{ preCheckRecord.record_type.name }}")
 
-                                    .form-error(ng-repeat="error in preCheckRecord.errors.value" ng-bind="error")
+                                    .form-error(
+                                        ng-if="$ctrl.emptyRecordTypeKeys.includes(preCheckRecord.record_type.key)") 
+                                        | Het {{ preCheckRecord.title }} veld is verplicht. 
 
                             .pre-check-step-section-actions
                                 .flex.flex-grow: button.button.button-light.button-sm(
                                     type="button"
-                                    ng-click="$ctrl.prev()") Vorige stap
+                                    ng-click="$ctrl.prev()"
+                                    ng-disabled="$ctrl.activeStepIndex == 0") Vorige stap
 
                                 .flex.flex-grow.flex-end: button.button.button-primary.button-sm(
-                                    type="submit"
-                                    ng-disabled="!$ctrl.preCheckFilled($ctrl.activeStepIndex)") Volgende
+                                    type="submit") Volgende
 
                         //- Answer results
                         .pre-check-step-section-results(ng-if="$ctrl.totals")

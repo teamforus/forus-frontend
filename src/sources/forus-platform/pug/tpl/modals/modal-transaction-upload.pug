@@ -1,7 +1,7 @@
 .modal.modal-animated.modal-loading(
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, ($ctrl.modal.loaded && !$ctrl.hideModal) ? '' : 'modal-loading']"
-    dusk="modalTransactionUpload")
+    data-dusk="modalTransactionUpload")
 
     .modal-backdrop(ng-click="$ctrl.closeModal()")
     .modal-window
@@ -26,7 +26,7 @@
 
                     button(
                         ng-click="$ctrl.csvParser.selectFile()"
-                        dusk="selectFileButton").button.button-primary
+                        data-dusk="selectFileButton").button.button-primary
                         em.mdi.mdi-upload.icon-start 
                         | Upload bulkbestand
 
@@ -47,7 +47,7 @@
                             ng-if="!$ctrl.loading"
                             ng-click="$ctrl.csvParser.uploadToServer()"
                             translate="csv_upload.buttons.upload"
-                            dusk="uploadFileButton").button.button-primary
+                            data-dusk="uploadFileButton").button.button-primary
             
             //- Step 2 and 3: Uploading
             .block.block-csv.condensed(ng-show="$ctrl.csvParser.step >= 2"): .csv-inner
@@ -57,7 +57,7 @@
                         .mdi.mdi-loading(ng-if="$ctrl.csvParser.step == 2")
                         .mdi.mdi-check(
                             ng-if="$ctrl.csvParser.step == 3 && !$ctrl.uploadedPartly"
-                            dusk="successUploadIcon")
+                            data-dusk="successUploadIcon")
                         .mdi.mdi-alert-outline(ng-if="$ctrl.csvParser.step == 3 && $ctrl.uploadedPartly")
 
                     progress-bar(progress="$ctrl.progressBar" status="$ctrl.progressStatus")
@@ -68,4 +68,4 @@
                 ng-click="$ctrl.closeModal()" 
                 translate="modal_funds_add.buttons.close" 
                 id="close"
-                dusk="closeModalButton")
+                data-dusk="closeModalButton")

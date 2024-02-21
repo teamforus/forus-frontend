@@ -6,7 +6,7 @@
                 .flex.flex-grow.card-title(
                     translate="reservations.header.title" 
                     translate-values="$ctrl.reservations.meta"
-                    dusk="reservationsTitle")
+                    data-dusk="reservationsTitle")
 
                 .flex.block.block-inline-filters
                     .button.button-primary.button-sm(
@@ -64,14 +64,14 @@
                                         ng-options="fund.fund.id as fund.fund.name for fund in $ctrl.funds" 
                                         ng-model="$ctrl.filters.values.fund_id").form-control
 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'reservations.filters.product' | i18n }}")
                                     .form-offset: select-control(
                                         prop="id"
                                         ng-model="$ctrl.filters.values.product_id"
                                         options="$ctrl.products").form-control
 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'reservations.filters.from' | i18n }}")
                                     datepicker(
                                         date-format="yyyy-MM-dd" 
@@ -79,7 +79,7 @@
                                         date-week-start-day="1").form-control
                                         input(ng-model="$ctrl.filters.values.from" type="text" placeholder="jjjj-MM-dd").form-control
 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'reservations.filters.to' | i18n }}")
                                     datepicker(
                                         date-format="yyyy-MM-dd" 
@@ -87,7 +87,7 @@
                                         date-week-start-day="1").form-control
                                         input(ng-model="$ctrl.filters.values.to" type="text" placeholder="jjjj-MM-dd").form-control
                                 
-                                .form-group
+                                .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'reservations.filters.state' | i18n }}")
                                     .form-offset: select-control(
                                         prop="key"
@@ -99,7 +99,9 @@
                                         ng-click="$ctrl.exportReservations()" 
                                         ng-disabled="$ctrl.reservations.meta.total == 0")
                                         em.mdi.mdi-download.icon-start  
-                                        span.ng-scope(translate="components.dropdown.export" translate-values="{ total: $ctrl.reservations.meta.total }")
+                                        span.ng-scope(
+                                            translate="components.dropdown.export" 
+                                            translate-values="{ total: $ctrl.reservations.meta.total }")
 
                         .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
 
@@ -109,13 +111,13 @@
                         th(translate='reservations.labels.number')
                         th(translate='reservations.labels.product')
                         th(translate='reservations.labels.price')
-                        th(translate='reservations.labels.amount_extra')
+                        th(ng-if="$ctrl.showExtraPayments" translate='reservations.labels.amount_extra')
                         th(translate='reservations.labels.customer')
                         th(translate='reservations.labels.reserved_at')
                         th(translate='reservations.labels.status')
                         th.text-right(translate='reservations.labels.actions')
 
-                    tr(ng-repeat="reservation in $ctrl.reservations.data" dusk="{{ 'reservationRow' + reservation.id }}")
+                    tr(ng-repeat="reservation in $ctrl.reservations.data" data-dusk="{{ 'reservationRow' + reservation.id }}")
                         td: a.text-strong(
                             ng-bind="'#' + reservation.code" 
                             ui-sref="reservations-show({organization_id: $ctrl.organization.id, id: reservation.id})")
@@ -139,7 +141,7 @@
 
                         td(ng-bind="reservation.amount | currency_format")
 
-                        td
+                        td(ng-if="$ctrl.showExtraPayments")
                             div(ng-if="reservation.amount_extra" ng-bind="reservation.amount_extra | currency_format")
                             div(ng-if="!reservation.amount_extra" ng-bind="'-'").text-muted
 
@@ -155,16 +157,16 @@
                                 .text-strong.text-primary(ng-bind="reservation.identity_email")
 
                         td: strong(ng-bind="reservation.created_at_locale").text-primary
-                        td(dusk="reservationState"): strong(ng-bind="!reservation.expired ? reservation.state_locale : 'Verlopen'")
+                        td(data-dusk="reservationState"): strong(ng-bind="!reservation.expired ? reservation.state_locale : 'Verlopen'")
 
                         td: .flex-group.flex.flex-end
                             button.button.button-sm.button-primary-light.button-icon(
-                                ng-if="reservation.allowAcceptReservation"
+                                ng-if="reservation.acceptable"
                                 ng-click="$ctrl.acceptReservation(reservation)")
                                 em.mdi.mdi-check
 
                             button.button.button-sm.button-danger.button-icon(
-                                ng-if="reservation.allowRejectReservation"
+                                ng-if="reservation.rejectable"
                                 ng-click="$ctrl.rejectReservation(reservation)")
                                 em.mdi.mdi-close
 

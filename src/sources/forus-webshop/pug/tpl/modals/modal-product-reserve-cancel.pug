@@ -2,7 +2,7 @@
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']"
     role="dialog"
-    dusk="modalProductReserveCancel")
+    data-dusk="modalProductReserveCancel")
 
     .modal-backdrop(ng-click="$ctrl.close()" aria-label="Sluiten")
 
@@ -41,5 +41,10 @@
 
         //- Actions
         .modal-footer
-            button.button.button-sm.button-light(ng-click="$ctrl.close()") Annuleren
-            button.button.button-sm.button-primary(ng-if="$ctrl.reservation.cancelable" ng-click="$ctrl.onConfirm()" dusk="btnSubmit") Bevestigen
+            button.button.button-sm.button-light(
+                ng-click="$ctrl.close()") Annuleren
+
+            button.button.button-sm.button-primary(
+                ng-if="$ctrl.reservation.cancelable" 
+                ng-click="$ctrl.onConfirm()" 
+                data-dusk="btnSubmit") Bevestigen

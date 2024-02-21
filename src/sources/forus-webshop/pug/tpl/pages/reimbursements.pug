@@ -79,7 +79,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
                     .label-tab-set
                         .label-tab.label-tab-sm(
                             role="button" 
-                            dusk="reimbursementsFilterActive"
+                            data-dusk="reimbursementsFilterActive"
                             ng-click="$ctrl.filters.archived = 0"
                             aria-pressed="{{ !$ctrl.filters.archived }}" 
                             ng-class="!$ctrl.filters.archived ? 'active' : ''")
@@ -87,14 +87,14 @@ main(id="main-content"): section.section.section-profile: .wrapper
 
                         .label-tab.label-tab-sm(
                             role="button" 
-                            dusk="reimbursementsFilterArchived"
+                            data-dusk="reimbursementsFilterArchived"
                             ng-click="$ctrl.filters.archived = 1"
                             aria-pressed="{{ $ctrl.filters.archived ? true : false }}" 
                             ng-class="$ctrl.filters.archived ? 'active' : ''")
                             | Archief
 
             //- At least on reimbursement request
-            .block.block-reimbursements(ng-if="$ctrl.reimbursements.data.length > 0" dusk="reimbursementsList")
+            .block.block-reimbursements(ng-if="$ctrl.reimbursements.data.length > 0" data-dusk="reimbursementsList")
                 reimbursement-card(
                     ng-repeat="reimbursement in $ctrl.reimbursements.data"
                     on-delete="$ctrl.onDelete()"
@@ -108,7 +108,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
 
             //- No reimbursement requests 
             empty-block(
-                dusk="reimbursementsEmptyBlock"
+                data-dusk="reimbursementsEmptyBlock"
                 ng-if="$ctrl.reimbursements.data.length == 0"
                 title="{{ 'reimbursements.empty_block.title' | translate }}"
                 description="{{ 'reimbursements.empty_block.subtitle' | translate }}"

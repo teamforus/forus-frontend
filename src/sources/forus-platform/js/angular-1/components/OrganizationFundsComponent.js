@@ -5,6 +5,7 @@ const OrganizationFundsComponent = function (
     $stateParams,
     FundService,
     ModalService,
+    PaginatorService,
     PageLoadingBarService,
     PushNotificationsService,
 ) {
@@ -32,6 +33,7 @@ const OrganizationFundsComponent = function (
         defaultValues: {
             q: '',
             state: $ctrl.states[0].key,
+            implementation_id: null,
         },
         reset: function () {
             this.values = { ...this.values, ...this.defaultValues };
@@ -108,7 +110,13 @@ const OrganizationFundsComponent = function (
 
     $ctrl.$onInit = function () {
         $ctrl.emptyBlockLink = $state.href('funds-create', $stateParams);
+        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey);
         $ctrl.filters.reset();
+
+        $ctrl.implementations.unshift({
+            id: null,
+            name: "Alle implementaties",
+        });
     };
 };
 
@@ -118,7 +126,9 @@ module.exports = {
         archivedFunds: '<',
         recordTypes: '<',
         organization: '<',
+        implementations: '<',
         validatorOrganizations: '<',
+        paginationPerPageKey: '<',
     },
     controller: [
         '$state',
@@ -127,6 +137,7 @@ module.exports = {
         '$stateParams',
         'FundService',
         'ModalService',
+        'PaginatorService',
         'PageLoadingBarService',
         'PushNotificationsService',
         OrganizationFundsComponent,

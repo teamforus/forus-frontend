@@ -28,7 +28,7 @@ main(id="main-content")
                 
                 .product-details
                     h1.product-name
-                        span(ng-bind="$ctrl.product.name" dusk="productName")
+                        span(ng-bind="$ctrl.product.name" data-dusk="productName")
                         span.label.label-danger(
                             ng-if="!$ctrl.product.deleted && $ctrl.product.sold_out" 
                             i18n="product.status.out_of_stock")
@@ -56,14 +56,14 @@ main(id="main-content")
                     .product-funds-list: .fund-item(
                         ng-if="!$ctrl.onlyAvailableFunds || fund.meta.isReservationAvailable" 
                         ng-repeat="fund in $ctrl.productMeta.funds" 
-                        dusk="fundItem")
+                        data-dusk="fundItem")
                         .fund-item-section.fund-item-section-details.text-left
                             .fund-item-media: img.fund-item-media-img(
                                 ng-src="{{ fund.logo.sizes.thumbnail || '/assets/img/placeholders/fund-thumbnail.png' }}" alt="")
 
                             .fund-item-content
                                 .fund-item-section-label.flex-start Tegoed:
-                                .fund-item-section-value.fund-item-section-value-sm(ng-bind="fund.name" dusk="fundName")
+                                .fund-item-section-value.fund-item-section-value-sm(ng-bind="fund.name" data-dusk="fundName")
                         
                         .fund-item-section
                             .fund-item-section-label(i18n="product.labels.expire")
@@ -115,7 +115,7 @@ main(id="main-content")
                             .button.button-dark.button-flat(
                                 i18n="product.buttons.buy" 
                                 ng-click="$ctrl.reserveProduct(fund)"
-                                dusk="reserveProduct")
+                                data-dusk="reserveProduct")
 
                         .fund-item-section(ng-if="fund.external_link_text && fund.external_link_url")
                             .button.button(

@@ -1,0 +1,124 @@
+.app.app-container
+    menu
+    section.app.app-content
+        .block.block-breadcrumbs
+            .breadcrumb-item(ui-sref="features({organization_id: $ctrl.organization.id})") Marketplace
+            .breadcrumb-item.active(ng-bind="$ctrl.feature.name")
+
+        block-feature(feature="$ctrl.feature")
+
+        .card
+            .card-header: .card-title Beschrijving
+            .card-section: .block.block-content
+                p
+                    | Forus biedt geïntegreerde intake & aanvraagprocedures voor (gemeentelijke) regelingen.
+                    | De aanvraagfunctionaliteit wordt geïntegreerd in de website, waardoor deelnemers regelingen
+                    | kunnen aanvragen volgens vooraf ingestelde voorwaarden, aan de hand van het beleid van de gemeente.
+                    | Binnen deze functionaliteit hebben aanvragers ook de mogelijkheid om bewijsmaterialen te uploaden.
+                    | De aanvragen en bijbehorende bewijsstukken worden direct verwerkt in het systeem en komen terecht
+                    | in de beoordelaarsomgeving.
+
+                img(src="/assets/img/features/img/fund-requests/banner.jpg")
+
+                h3 Belangrijkste voordelen
+
+                p Het gebruik van Open aanvragen in het Forus-platform biedt verschillende voordelen:
+
+                .block.block-feature-icons
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/fund-requests/icon-1.svg
+
+                        h4 Efficiënte aanvraagprocedures
+                        p
+                            | Het is mogelijk om aanvragen en bewijsmaterialen direct in het systeem te
+                            | verwerken, waardoor processen sneller en effectiever verlopen.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/fund-requests/icon-2.svg
+
+                        h4 Verbeterde gebruikerservaring
+                        p
+                            | Het geoptimaliseerde aanvraagproces bevordert de gebruikerservaring voor aanvragers en
+                            | bespaart zowel de gemeente als de aanvragers tijd.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/fund-requests/icon-3.svg
+
+                        h4 Regelingenkoppelen en gegevenshergebruik
+                        p Het is mogelijk om regelingen te koppelen op basis van overeenkomende voorwaarden en om gegevens te hergebruiken.
+
+                    .block-feature-icons-item
+                        .block-feature-icon
+                            include ../../../../resources/_platform-common/assets/img/features/icons/fund-requests/icon-4.svg
+
+                        h4 Snelle toewijzing met één druk op de knop
+                        p Dankzij de integratie van het aanvraagproces kan er met één druk op de knop snel toewijzing plaatsvinden.
+
+            .card-info
+                .card-info-icon.mdi.mdi-headset
+                .card-info-details: span
+                    | Mocht u nog vragen hebben of wilt u aanvullende informatie dan kunt u ons
+                    | bellen op: #[strong +31 (0) 85 004 33 87] of contact opnemen via e-mail #[strong info@forus.io]
+
+        .card
+            .card-header: .card-title Veelgestelde vragen
+
+            .card-section.card-section-padless: .block.block-feature-faq(collapse)
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Voor welke organisaties is de Open aanvragen functionaliteit geschikt?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Op basis van een BSN worden gegevens opgehaald middels de DigiD koppeling. De Open
+                            | aanvragen functionaliteit is daarom uitsluitend in te zetten voor organisaties die
+                            | de aanvraagprocedure voor een regeling via het platform laten verlopen middels het inloggen met DigiD.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Welke gegevens heeft Forus nodig vanuit de organisatie?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Voor de uitgifte van een sociale regeling is het van belang om te weten aan welke voorwaarden
+                            | de aanvrager moet voldoen voor de aanvraag van een regeling. Ook is het nodig vanuit Forus om
+                            | te weten welk bedrag er per deelnemer wordt verstrekt.
+
+                .feature-faq-item(collapse-item)
+                    .feature-faq-item-title(collapse-header)
+                        | Wat is nog een ander voordeel van de Open aanvragen functionaliteit?
+                        .feature-faq-item-icon.mdi.mdi-menu-down
+
+                    .feature-faq-item-description
+                        p
+                            | Bij de organisatie is meestal een grote groep deelnemers bekend die in aanmerking komen voor een
+                            | sociale regeling. Echter blijft er altijd nog een groep die niet in beeld is. De Open aanvragen
+                            | functionaliteit maakt het mogelijk voor elke aanvrager een aanvraag te doen voor een sociale regeling.
+                            | Zo heeft ook de aanvrager, die op voorhand niet bekend is bij de organisatie, de mogelijkheid om een
+                            | aanvraag te doen voor een sociale regeling.
+
+        .card
+            .card-header(ng-if="$ctrl.additionalFeatures.length")
+                .card-title Andere functionaliteiten die u misschien interessant vindt
+
+            .card-section(ng-if="$ctrl.additionalFeatures.length")
+                block-additional-features(features="$ctrl.additionalFeatures")
+
+            .card-section
+                .block.block-features-demo-banner(
+                    style="background-image: url(/assets/img/features/img/fund-requests/banner-action-bg.jpg);"
+                )
+                    .features-demo-banner-info-wrapper
+                        .features-demo-banner-info
+                            .features-demo-banner-title Open aanvragen uitproberen
+                            .features-demo-banner-details
+                                | Wilt u zien hoe de Open aanvragen werken? Neem dan contact met ons op voor een
+                                | persoonlijke demonstratie. We laten u graag zien hoe het voor uw kan werken.
+
+                        .features-demo-banner-action
+                            .button.button-primary(ng-click="$ctrl.openContactModal()") Demo aanvragen
