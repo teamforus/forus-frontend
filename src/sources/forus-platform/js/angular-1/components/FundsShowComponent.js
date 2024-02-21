@@ -3,6 +3,7 @@ const FundsShowComponent = function (
     $filter,
     FundService,
     ModalService,
+    PaginatorService,
     PermissionsService,
     PageLoadingBarService,
     PushNotificationsService,
@@ -16,19 +17,29 @@ const FundsShowComponent = function (
     $ctrl.viewType = 'top_ups';
     $ctrl.hasManagerPermission = false;
 
+    $ctrl.implementationPaginationPerPageKey = "fund_implementation_per_page";
+    $ctrl.topUpPaginationPerPageKey = "fund_top_up_per_page";
+    $ctrl.identitiesPaginationPerPageKey = "fund_identities_per_page";
+
     $ctrl.topUpTransactionFilters = {
         show: false,
-        values: {},
+        values: {
+            per_page: PaginatorService.getPerPage($ctrl.topUpPaginationPerPageKey),
+        },
     };
 
     $ctrl.implementationsFilters = {
         show: false,
-        values: {},
+        values: {
+            per_page: PaginatorService.getPerPage($ctrl.implementationPaginationPerPageKey),
+        },
     };
 
     $ctrl.identitiesFilters = {
         show: false,
-        values: {},
+        values: {
+            per_page: PaginatorService.getPerPage($ctrl.identitiesPaginationPerPageKey),
+        },
     };
 
     $ctrl.hideTopUpTransactionFilters = () => {
@@ -87,12 +98,12 @@ const FundsShowComponent = function (
         if (!query.q || $ctrl.fund.implementation.name?.toLowerCase().includes(query.q?.toLowerCase())) {
             $ctrl.implementations = {
                 data: [$ctrl.fund.implementation],
-                meta: { total: 1, current_page: 1, per_page: 10, from: 1, to: 1, last_page: 1 },
+                meta: { total: 1, current_page: 1, per_page: query.per_page, from: 1, to: 1, last_page: 1 },
             };
         } else {
             $ctrl.implementations = {
                 data: [],
-                meta: { total: 0, current_page: 1, per_page: 10, from: 0, to: 0, last_page: 1 },
+                meta: { total: 0, current_page: 1, per_page: query.per_page, from: 0, to: 0, last_page: 1 },
             };
         }
     };
@@ -158,11 +169,11 @@ const FundsShowComponent = function (
         $ctrl.hasManagerPermission = $hasPerm($ctrl.organization, 'manage_funds');
         $ctrl.fund = $ctrl.fundTransform($ctrl.fund);
 
-        $ctrl.implementationsOnPageChange();
-        $ctrl.topUpTransactionsOnPageChange();
+        $ctrl.implementationsOnPageChange($ctrl.implementationsFilters.values);
+        $ctrl.topUpTransactionsOnPageChange($ctrl.topUpTransactionFilters.values);
 
         if (PermissionsService.hasPermission($ctrl.fund.organization, 'manage_funds')) {
-            $ctrl.identitiesOnPageChange($ctrl.identitiesFilters);
+            $ctrl.identitiesOnPageChange($ctrl.identitiesFilters.values);
         }
     }
 };
@@ -179,6 +190,7 @@ module.exports = {
         '$filter',
         'FundService',
         'ModalService',
+        'PaginatorService',
         'PermissionsService',
         'PageLoadingBarService',
         'PushNotificationsService',

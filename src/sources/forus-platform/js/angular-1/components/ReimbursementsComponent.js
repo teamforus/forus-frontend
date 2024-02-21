@@ -2,8 +2,11 @@ const ReimbursementsComponent = function (
     ReimbursementsExportService,
     ReimbursementService,
     PageLoadingBarService,
+    PaginatorService,
 ) {
     const $ctrl = this;
+
+    $ctrl.paginationPerPageKey = "reimbursements";
 
     $ctrl.states_options = ReimbursementService.getStateOptions();
     $ctrl.expired_options = ReimbursementService.getExpiredOptions();
@@ -24,8 +27,11 @@ const ReimbursementsComponent = function (
             from: null,
             to: null,
             page: 1,
+            per_page: PaginatorService.getPerPage($ctrl.paginationPerPageKey, 10),
         },
-        values: {},
+        values: {
+            per_page: PaginatorService.getPerPage($ctrl.paginationPerPageKey, 10),
+        },
         reset: function () {
             this.values = { ...this.defaultValues };
         }
@@ -96,6 +102,7 @@ module.exports = {
         'ReimbursementsExportService',
         'ReimbursementService',
         'PageLoadingBarService',
+        'PaginatorService',
         ReimbursementsComponent,
     ],
     templateUrl: 'assets/tpl/pages/reimbursements.html',

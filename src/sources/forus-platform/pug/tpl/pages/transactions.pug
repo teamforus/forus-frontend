@@ -18,7 +18,7 @@
                     .button.button-primary.button-sm(
                         ng-if="$ctrl.hasDirectPayments"
                         ng-click="$ctrl.uploadTransactions()"
-                        dusk="uploadTransactionsBatchButton")
+                        data-dusk="uploadTransactionsBatchButton")
                         em.mdi.mdi-upload.icon-start
                         | Upload bulkbestand
 
@@ -39,7 +39,7 @@
 
                     .form(ng-if="!$ctrl.filters.show && $ctrl.viewType.key == 'transactions'"): .form-group: input(
                         ng-model="$ctrl.filters.values.q"
-                        dusk="searchTransaction"
+                        data-dusk="searchTransaction"
                         placeholder="{{ 'transactions.labels.search' | i18n }}").form-control
 
                     .form(ng-if="$ctrl.viewType.key == 'transactions'"): .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
@@ -218,7 +218,7 @@
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.status" value="state")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.action").th-narrow.text-right
 
-                            tr(ng-repeat="transaction in $ctrl.transactions.data" dusk="transactionItem")
+                            tr(ng-repeat="transaction in $ctrl.transactions.data" data-dusk="transactionItem")
                                 td(ng-bind="transaction.id")
                                 td(ng-bind="(transaction.uid || '-') | str_limit:25" title="{{ transaction.uid || '-' }}" ng-if="$ctrl.isSponsor")
 
@@ -265,7 +265,7 @@
 
                                     span(ng-if="!transaction.transaction_in > 0 || transaction.state != 'pending' || transaction.attempts >= 3 ") -
 
-                                td(dusk="transactionState")
+                                td(data-dusk="transactionState")
                                     .label.label-success(ng-if="transaction.state == 'success'" ng-bind="transaction.state_locale")
                                     .label.label-default(ng-if="transaction.state != 'success'" ng-bind="transaction.state_locale")
 
@@ -299,12 +299,13 @@
                     | Maak nu een bulktransactie
 
             //- Transactions pagination
-            .card-section(ng-if="$ctrl.transactions" ng-show="($ctrl.viewType.key == 'transactions') && ($ctrl.transactions.meta.last_page > 1)")
+            .card-section(ng-if="$ctrl.transactions.meta.total" ng-show="$ctrl.viewType.key == 'transactions'")
                 paginator(
                     meta="$ctrl.transactions.meta" 
                     filters="$ctrl.filters.values"
                     delayed-filters="['q', 'amount_min', 'amount_max', 'transfer_in_min', 'transfer_in_max']" 
-                    on-page-change="$ctrl.onPageChange(query)")
+                    on-page-change="$ctrl.onPageChange(query)"
+                    per-page-key="{{ $ctrl.paginationPerPageKey }}")
 
             //- Empty transactions block
             .card-section(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.transactions.meta.total == 0"): .block.block-empty.text-center
@@ -349,12 +350,13 @@
                             em.mdi.mdi-eye-outline.icon-start
 
             //- Bulk transactions pagination
-            .card-section(ng-if="$ctrl.transactionBulks" ng-show="($ctrl.viewType.key == 'bulks') && ($ctrl.transactionBulks.meta.last_page > 1)")
+            .card-section(ng-if="$ctrl.transactionBulks.meta.total > 0" ng-show="$ctrl.viewType.key == 'bulks'")
                 paginator(
                     meta="$ctrl.transactionBulks.meta" 
                     filters="$ctrl.bulkFilters.values" 
                     delayed-filters="['amount_min', 'amount_max', 'quantity_min', 'quantity_max']" 
-                    on-page-change="$ctrl.onBulkPageChange(query)")
+                    on-page-change="$ctrl.onBulkPageChange(query)"
+                    per-page-key="{{ $ctrl.paginationPerPageKey }}")
             
             //- Empty bulk transactions block
             .card-section(ng-if="$ctrl.viewType.key == 'bulks' && $ctrl.transactionBulks.meta.total == 0"): .block.block-empty.text-center

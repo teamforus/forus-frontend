@@ -3,11 +3,11 @@
     section.app.app-content
         .card(
             ng-if="$ctrl.vouchers && $ctrl.funds.length > 0"
-            dusk="vouchersCard{{ $ctrl.vouchers.data[0].fund_id }}")
+            data-dusk="vouchersCard{{ $ctrl.vouchers.data[0].fund_id }}")
 
             //- Header
             .card-header(ng-class="$ctrl.loading ? 'card-header-inactive' : ''"): .flex
-                .flex.flex-grow: .card-title(dusk="vouchersTitle")
+                .flex.flex-grow: .card-title(data-dusk="vouchersTitle")
                     span(translate="vouchers.header.title") 
                     | &nbsp;
                     span(ng-bind="$ctrl.vouchers.meta.total").span-count
@@ -22,7 +22,7 @@
                     .button.button-primary(
                         ng-click="$ctrl.uploadVouchersCsv()"
                         id="voucher_upload_csv"
-                        dusk="uploadVouchersBatchButton")
+                        data-dusk="uploadVouchersBatchButton")
                         em.mdi.mdi-upload.icon-start 
                         span(translate="vouchers.buttons.upload_csv")
 
@@ -43,7 +43,7 @@
                             ng-model="$ctrl.filters.values.q"
                             type="text"
                             placeholder="{{ 'vouchers.labels.search' | translate }}"
-                            dusk="searchVoucher").form-control
+                            data-dusk="searchVoucher").form-control
 
                     .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
                         .inline-filters-dropdown-content(ng-show="$ctrl.filters.show")
@@ -211,7 +211,7 @@
                             tr(
                                 ng-repeat="voucher in $ctrl.vouchers.data" 
                                 ui-sref="vouchers-show({organization_id: $ctrl.organization.id, voucher_id: voucher.id, fund_id: voucher.fund.id})"
-                                dusk="voucherItem{{ voucher.id }}").tr-actions
+                                data-dusk="voucherItem{{ voucher.id }}").tr-actions
 
                                 td(ng-if="$ctrl.columns_keys.includes('id')" ng-bind="voucher.id")
 
@@ -314,7 +314,7 @@
                                     ng-click="$ctrl.setShowTableConfig('columns')")
                                     em.mdi.mdi-cog-outline
 
-                            tr(ng-repeat="voucher in $ctrl.vouchers.data" dusk="voucherItem{{ voucher.id }}"): td
+                            tr(ng-repeat="voucher in $ctrl.vouchers.data" data-dusk="voucherItem{{ voucher.id }}"): td
                                 .actions(ng-class="voucher.showMenu ? 'active' : ''"): button.button.button-text.button-menu(
                                     type="button"
                                     voucher="{{ voucher.id }}"
@@ -345,12 +345,13 @@
                                                 | #[em.mdi.mdi-qrcode.icon-start] QR-code
 
             //- Pagination
-            .card-section(ng-if="!$ctrl.loading && $ctrl.vouchers.meta" ng-show="$ctrl.vouchers.meta.last_page > 1")
+            .card-section(ng-if="!$ctrl.loading && $ctrl.vouchers.meta")
                 paginator(
                     meta="$ctrl.vouchers.meta" 
                     filters="$ctrl.filters.values" 
                     delayed-filters="['q', 'amount_min', 'amount_max', 'count_per_identity_min', 'count_per_identity_max']" 
-                    on-page-change="$ctrl.onPageChange(query)")
+                    on-page-change="$ctrl.onPageChange(query)"
+                    per-page-key="{{ $ctrl.paginationPerPageKey }}")
 
             //- Not found
             .card-section(ng-if="!$ctrl.loading && $ctrl.vouchers.meta.total == 0"): .block.block-empty.text-center
