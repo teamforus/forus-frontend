@@ -3,8 +3,8 @@ const TableConfigDirective = function () { };
 module.exports = () => {
     return {
         scope: {
+            'onClose': '&',
             'tooltips': '<',
-            'onSettingsToggle': '&',
             'activeTooltipKey': '=',
             'selectedCategory': '@',
         },

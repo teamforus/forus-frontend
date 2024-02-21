@@ -17,6 +17,7 @@ const VouchersComponent = function (
     const $ctrl = this;
     const anyFundMedia = { sizes: { thumbnail: './assets/img/menu/icon-my_funds.svg' } };
 
+    $ctrl.tooltipTimeout = null;
     $ctrl.paginationPerPageKey = "vouchers";
 
     $ctrl.states = [
@@ -85,7 +86,7 @@ const VouchersComponent = function (
     };
 
     $ctrl.setShowTableConfig = function (key) {
-        if ($ctrl.showTableConfig && $ctrl.tableConfigCategory == key) {
+        if (($ctrl.showTableConfig && $ctrl.tableConfigCategory == key) || !key) {
             return $ctrl.showTableConfig = false;
         }
 
@@ -102,10 +103,10 @@ const VouchersComponent = function (
         }
 
         if ($ctrl.showTableConfig && $ctrl.tableConfigCategory == 'tooltips') {
-            $ctrl.activeTooltipKey = tooltipKey;
-
             // scroll into view
-            $timeout(() => {
+            $ctrl.tooltipTimeout = $timeout(() => {
+                $ctrl.activeTooltipKey = tooltipKey;
+
                 $element
                     ?.find(`[data-table-tooltip="${tooltipKey || 'status'}"]`)[0]
                     ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -119,6 +120,10 @@ const VouchersComponent = function (
     };
 
     $ctrl.hideTableTooltip = () => {
+        if ($ctrl.tooltipTimeout) {
+            $timeout.cancel($ctrl.tooltipTimeout);
+        }
+
         ToastService.setToast(null);
     };
 
