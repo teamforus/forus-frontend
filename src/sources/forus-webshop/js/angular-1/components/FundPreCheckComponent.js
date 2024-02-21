@@ -78,7 +78,7 @@ const FundPreCheckComponent = function (
 
         PreCheckService.downloadPDF({ ...$ctrl.form.values, records })
             .then((res) => {
-                PushNotificationsService.success('Success!', 'The downloading should start shortly.');
+                PushNotificationsService.success('Succes!', 'De download begint over enkele ogenblikken.');
 
                 FileService.downloadFile(
                     `pre-check_${format(new Date(), 'yyyy-MM-dd HH:mm:ss')}.pdf`,
