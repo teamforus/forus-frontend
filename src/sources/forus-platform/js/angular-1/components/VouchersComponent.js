@@ -2,10 +2,13 @@ const { pick } = require("lodash");
 
 const VouchersComponent = function (
     $state,
+    $scope,
+    $element,
     $stateParams,
     $timeout,
     DateService,
     ModalService,
+    ToastService,
     VoucherService,
     PaginatorService,
     VoucherExportService,
@@ -14,6 +17,7 @@ const VouchersComponent = function (
     const $ctrl = this;
     const anyFundMedia = { sizes: { thumbnail: './assets/img/menu/icon-my_funds.svg' } };
 
+    $ctrl.tooltipTimeout = null;
     $ctrl.paginationPerPageKey = "vouchers";
 
     $ctrl.states = [
@@ -40,6 +44,7 @@ const VouchersComponent = function (
     ];
 
     $ctrl.voucher_states = VoucherService.getStates();
+    $ctrl.showTableConfig = false;
 
     $ctrl.filters = {
         show: false,
@@ -78,6 +83,48 @@ const VouchersComponent = function (
             this.values = { ...this.defaultValues };
             $ctrl.updateState(this.defaultValues);
         }
+    };
+
+    $ctrl.setShowTableConfig = function (key) {
+        if (($ctrl.showTableConfig && $ctrl.tableConfigCategory == key) || !key) {
+            return $ctrl.showTableConfig = false;
+        }
+
+        $ctrl.showTableConfig = true;
+        $ctrl.tableConfigCategory = key;
+    }
+
+
+    $ctrl.showTableTooltip = (tooltipKey) => {
+        $ctrl.activeTooltipKey = null;
+
+        if (!tooltipKey) {
+            return;
+        }
+
+        if ($ctrl.showTableConfig && $ctrl.tableConfigCategory == 'tooltips') {
+            // scroll into view
+            $ctrl.tooltipTimeout = $timeout(() => {
+                $ctrl.activeTooltipKey = tooltipKey;
+
+                $element
+                    ?.find(`[data-table-tooltip="${tooltipKey || 'status'}"]`)[0]
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 200);
+        } else {
+            ToastService.setToast([
+                'This is the header of the table column, ',
+                'to read more about it please open the Information button from the right corner.'
+            ].join(''));
+        }
+    };
+
+    $ctrl.hideTableTooltip = () => {
+        if ($ctrl.tooltipTimeout) {
+            $timeout.cancel($ctrl.tooltipTimeout);
+        }
+
+        ToastService.setToast(null);
     };
 
     $ctrl.toggleActions = (e, voucher) => {
@@ -226,6 +273,22 @@ const VouchersComponent = function (
 
         $ctrl.fundsById = $ctrl.funds.reduce((obj, fund) => ({ ...obj, [fund.id]: fund }), {});
         $ctrl.onPageChange($ctrl.filters.values);
+
+        $scope.$watch('$ctrl.filters.values.fund_id', () => {
+            $ctrl.columns = VoucherService.getColumns().filter((column) => {
+                if (!$ctrl.filters.values.fund_id || !column.fundType) {
+                    return true;
+                }
+
+                return $ctrl.fundsById[$ctrl.filters.values.fund_id].type == column.fundType;
+            });
+
+            $ctrl.columns_keys = $ctrl.columns.map((column) => column.key);
+
+            $ctrl.tooltips = $ctrl.columns
+                .filter((column) => column.tooltip)
+                .reduce((val, item) => [...val, item.tooltip], []);
+        }, true);
     };
 };
 
@@ -238,10 +301,13 @@ module.exports = {
     },
     controller: [
         '$state',
+        '$scope',
+        '$element',
         '$stateParams',
         '$timeout',
         'DateService',
         'ModalService',
+        'ToastService',
         'VoucherService',
         'PaginatorService',
         'VoucherExportService',

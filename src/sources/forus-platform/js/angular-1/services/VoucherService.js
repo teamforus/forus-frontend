@@ -1,4 +1,4 @@
-const VoucherService = function(ApiRequest) {
+const VoucherService = function($filter, ApiRequest) {
     return new (function() {
         this.index = (organization_id, query) => {
             return ApiRequest.get([
@@ -125,10 +125,98 @@ const VoucherService = function(ApiRequest) {
                 name: 'Verlopen'
             }];
         };
+
+        this.getColumns = () => {
+            const $translate = (key) => $filter('translate')(`vouchers.${key}`);
+
+            return [{
+                key: 'id',
+                label: $translate('labels.id'),
+                tooltip: {
+                    key: 'id',
+                    title: 'ID / NR',
+                    description: $translate('tooltips.id'),
+                },
+            }, {
+                key: 'assigned_to',
+                label: $translate('labels.assigned_to'),
+                tooltip: {
+                    key: 'assigned_to',
+                    title: 'Methode',
+                    description: $translate('tooltips.assigned_to'),
+                },
+            }, {
+                key: 'source',
+                label: $translate('labels.source'),
+                tooltip: {
+                    key: 'source',
+                    title: 'Aangemaakt door',
+                    description: $translate('tooltips.source'),
+                },
+            }, {
+                key: 'amount',
+                label: $translate('labels.amount'),
+                fundType: 'budget',
+                tooltip: {
+                    key: 'amount',
+                    title: 'Bedrag',
+                    description: $translate('tooltips.amount'),
+                },
+            }, {
+                key: 'note',
+                label: $translate('labels.note'),
+                tooltip: {
+                    key: 'note',
+                    title: 'Notitie',
+                    description: $translate('tooltips.note'),
+                },
+            }, {
+                key: 'fund',
+                label: $translate('labels.fund'),
+                tooltip: {
+                    key: 'fund',
+                    title: 'Fonds',
+                    description: $translate('tooltips.fund'),
+                },
+            }, {
+                key: 'created_at',
+                label: $translate('labels.created_at'),
+                tooltip: {
+                    key: 'created_at',
+                    title: 'Aangemaakt op',
+                    description: $translate('tooltips.created_at'),
+                },
+            }, {
+                key: 'expire_at',
+                label: $translate('labels.expire_at'),
+                tooltip: {
+                    key: 'expire_at',
+                    title: 'Geldig tot en met',
+                    description: $translate('tooltips.expire_at'),
+                },
+            }, {
+                key: 'in_use',
+                label: $translate('labels.in_use'),
+                tooltip: {
+                    key: 'in_use',
+                    title: 'In gebruik',
+                    description: $translate('tooltips.in_use'),
+                },
+            }, {
+                key: 'state',
+                label: $translate('labels.state'),
+                tooltip: {
+                    key: 'state',
+                    title: 'Status',
+                    description: $translate('tooltips.state'),
+                },
+            }];
+        };
     });
 };
 
 module.exports = [
+    '$filter',
     'ApiRequest',
-    VoucherService
+    VoucherService,
 ];
