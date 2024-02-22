@@ -85,7 +85,7 @@ module.exports = {
             'Dit bedrag bestaat uit het bedrag bij de eerste uitgifte plus eventuele extra latere toevoegingen.',
         ].join(''),
         note: 'De notitie die door de medewerker is gemaakt bij het aanmaken van het tegoed.',
-        fund: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+        fund: 'De naam van de fonds die gekoppeld is aan het tegoed in kwestie.',
         created_at: 'De tijd en datum waarop het tegoed is aangemaakt.',
         expire_at: [
             'De laatste geldige gebruiksdatum. ',
