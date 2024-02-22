@@ -1,0 +1,38 @@
+.block.block-table-settings
+    .table-settings-close(ng-click="onClose()"): em.mdi.mdi-close
+
+    .table-settings-list
+        //- Filters
+        //- .table-setting(
+            ng-class="{ active: selectedCategory == 'filters', disabled: !filters.length }" 
+            ng-click="selectedCategory = 'filters'") 
+
+            em.mdi.mdi-filter-outline
+            .table-setting-name Filters 
+
+        //- Columns
+        //- .table-setting(
+            ng-class="{ active: selectedCategory == 'columns', disabled: !columns.length }" 
+            ng-click="selectedCategory = 'columns'") 
+
+            em.mdi.mdi-filter-outline
+            .table-setting-name Table colums
+
+        //- Tooltips
+        .table-setting(
+            ng-class="{ active: selectedCategory == 'tooltips', disabled: !tooltips.length }" 
+            ng-click="selectedCategory = 'tooltips'") 
+
+            em.mdi.mdi-information-variant-circle
+            .table-setting-name Kolombeschrijvingen
+
+    .table-settings-details-block
+        //- Tooltips
+        .table-settings-tooltip-list(ng-if="selectedCategory == 'tooltips'")
+            .table-settings-tooltip-item(
+                data-table-tooltip="{{ tooltip.key }}"
+                ng-repeat="tooltip in tooltips" 
+                ng-class="{ active: tooltip.key == activeTooltipKey }")
+
+                .table-settings-tooltip-item-title(ng-bind="tooltip.title") 
+                .table-settings-tooltip-item-description(ng-bind-html="tooltip.description")
