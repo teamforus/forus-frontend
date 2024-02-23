@@ -292,7 +292,10 @@
                     translate="popup_auth.buttons.submit").button.button-primary.button-sm Proceed     
 
     //- Address
-    form.modal-window.form(ng-if="$ctrl.step == $ctrl.STEP_FILL_ADDRESS" ng-submit="$ctrl.validateAddress()" data-dusk="productReserveAddress")
+    form.modal-window.form.form-compact(
+        ng-if="$ctrl.step == $ctrl.STEP_FILL_ADDRESS" 
+        ng-submit="$ctrl.validateAddress()" 
+        data-dusk="productReserveAddress")
         //- Modal close
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" id="close" aria-label="Sluiten" role="button")
 
@@ -610,6 +613,7 @@
 
                 +progress()
 
+            .modal-section
                 .block.block-vouchers.block-vouchers-sm
                     .voucher-item.voucher-item-compact.voucher-item-static
                         .voucher-image

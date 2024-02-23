@@ -1122,6 +1122,10 @@
             margin: 0 0 0;
         }
 
+        datepicker, .datepicker {
+            height: 42px;
+        }
+
         .form-control:not([type="radio"]):not([type="checkbox"]),
         .form-control:not([type="radio"]):not([type="checkbox"]).form-control-fancy {
             /* height: 50px; */
