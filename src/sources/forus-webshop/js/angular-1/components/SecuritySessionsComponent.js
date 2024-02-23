@@ -35,8 +35,8 @@ const SecuritySessionsComponent = function (
     $ctrl.terminateSession = (session) => {
         ModalService.open('modalNotification', {
             type: 'confirm',
-            headerTitle: 'Einde sessie',
-            title: 'Beëindig sessie',
+            title: 'Einde sessie',
+            header: 'Beëindig sessie',
             description: 'De sessie beëindigen kan er voor zorgen dat u uitgelogd raakt, wilt u doorgaan?',
             mdiIconType: 'primary',
             mdiIconClass: 'information-outline',

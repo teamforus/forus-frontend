@@ -3,14 +3,14 @@ module.exports = {
         title: 'Open de in Me app',
     },
     sms: {
-        title_formal: 'Download <i>Me</i> op uw mobiele telefoon',
-        title_informal: 'Download <i>Me</i> op je mobiele telefoon',
+        title_formal: 'Download Me op uw mobiele telefoon',
+        title_informal: 'Download Me op je mobiele telefoon',
         description_formal: 'Vul uw telefoonnummer in het onderstaande invoerveld om een sms te ontvangen met de download link.',
         description_informal: 'Vul je telefoonnummer in en ontvang een SMS met de downloadlink.',
-        subdescription_formal: 'Krijgt u geen sms dan kunt u <i>Me</i> downloaden via de link <b>www.forus.io/DL</b> op uw mobiele telefoon.',
-        subdescription_informal: 'Krijg je geen sms dan kun je <i>Me</i> downloaden via de link <b>www.forus.io/DL</b> op je mobiele telefoon.',
+        subdescription_formal: 'Krijgt u geen sms dan kunt u <i>Me</i> downloaden via de link <strong class="text-strong">www.forus.io/DL</strong> op uw mobiele telefoon.',
+        subdescription_informal: 'Krijg je geen sms dan kun je <i>Me</i> downloaden via de link <strong class="text-strong text-primary">www.forus.io/DL</strong> op je mobiele telefoon.',
         sent: 'Een sms-bericht is verstuurd.',
-        sent_description: 'Heeft u geen bericht ontvangen? Download <i>Me</i> via de link <b>www.forus.io/DL</b> op uw mobiele telefoon.',
+        sent_description: 'Heeft u geen bericht ontvangen? Download <i>Me</i> via de link <strong class="text-strong text-primary">www.forus.io/DL</strong> op uw mobiele telefoon.',
         button: {
             send: 'Versturen',
             skip: 'Overslaan'

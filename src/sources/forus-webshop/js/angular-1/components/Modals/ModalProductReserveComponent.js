@@ -139,6 +139,7 @@ const ModalProductReserveComponent = function (
 
     $ctrl.setSteps = () => {
         $ctrl.steps = [
+            $ctrl.STEP_EMAIL_SETUP,
             $ctrl.STEP_SELECT_VOUCHER,
             $ctrl.STEP_FILL_DATA,
             $ctrl.product.reservation.address !== 'no' ? $ctrl.STEP_FILL_ADDRESS : null,
@@ -205,7 +206,9 @@ const ModalProductReserveComponent = function (
 
         if ($ctrl.step <= $ctrl.STEP_SELECT_VOUCHER) {
             AuthService.identity().then((res) => {
-                if (!res.data.email) {
+                $ctrl.hasEmail = !!res.data.email;
+
+                if (!$ctrl.hasEmail) {
                     $ctrl.step = $ctrl.STEP_EMAIL_SETUP;
                 }
             });

@@ -59,7 +59,7 @@ const HomeComponent = function (
             ModalService.open('modalNotification', {
                 type: 'confirm',
                 title: 'Sessie verlopen',
-                description: 'modal.logout.description',
+                header: 'modal.logout.description',
                 mdiIconType: 'primary',
                 mdiIconClass: 'information-outline',
                 confirmBtnText: 'Inloggen',

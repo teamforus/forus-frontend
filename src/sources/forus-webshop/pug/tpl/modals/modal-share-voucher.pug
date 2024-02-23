@@ -1,4 +1,4 @@
-.modal.modal-notification.modal-sm.modal-animated(
+.modal.modal-animated(
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']" 
     aria-describedby="shareVoucherDialogSubtitle"
@@ -8,18 +8,31 @@
     .modal-backdrop(ng-click="$ctrl.close()")
 
     .modal-window: form.form(ng-submit="$ctrl.shareVoucherForm.submit()")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" role="button" aria-label="Sluiten")
+        .modal-close
+            .mdi.mdi-close(
+                ng-click="$ctrl.close()"
+                aria-label="Sluiten"
+                role="button")
 
         .modal-header
-            h2.modal-title Een bericht delen met de aanbieder
+            h2.modal-header-title Delen
 
-        .modal-body: .modal-content: .modal-section: .text-center
-            .modal-icon-mdi.modal-icon-mdi-primary: .mdi.mdi-share-variant-outline
+        .modal-body: .modal-section
+            .modal-section-icon.modal-section-icon-primary
+                .mdi.mdi-share-variant-outline
 
-            h2.title(id="shareVoucherDialogTitle" i18n="voucher.share_voucher.popup_form.title")
-            .description(id="shareVoucherDialogSubtitle" i18n="voucher.share_voucher.popup_form.description")
+            h2.modal-section-title(
+                id="shareVoucherDialogTitle" 
+                i18n="voucher.share_voucher.popup_form.title")
 
-            .form-block.text-left
+            .modal-section-description(
+                id="shareVoucherDialogSubtitle" 
+                i18n="voucher.share_voucher.popup_form.description")
+
+            .modal-section-space
+            .modal-section-space
+
+            .modal-section-notice-pane
                 .form-group
                     label.form-label(
                         for="share_note" 
@@ -29,8 +42,10 @@
                         id="share_note" 
                         ng-model="$ctrl.shareVoucherForm.values.reason" 
                         placeholder="{{ 'voucher.share_voucher.reason_placeholder' | i18n }}").form-control
-                    .text-center.form-error(ng-repeat="error in $ctrl.shareVoucherForm.errors.reason track by $index" ng-bind="error")
-                    br
+                    
+                    .form-error(
+                        ng-repeat="error in $ctrl.shareVoucherForm.errors.reason track by $index"
+                        ng-bind="error")
 
                 .form-group
                     label(
@@ -40,7 +55,12 @@
                         aria-checked="{{ $ctrl.shareVoucherForm.values.send_copy ? true : false }}" 
                         ng-click="$ctrl.toggleSendCopy($event, $ctrl.shareVoucherForm.values.send_copy)").checkbox
 
-                        input#send_copy(type="checkbox" checked ng-model="$ctrl.shareVoucherForm.values.send_copy" tabindex="-1" aria-hidden="true")
+                        input#send_copy(
+                            type="checkbox"
+                            ng-model="$ctrl.shareVoucherForm.values.send_copy" 
+                            tabindex="-1" 
+                            aria-hidden="true")
+
                         .checkbox-label
                             .checkbox-box: .mdi.mdi-check
                             span(i18n="voucher.share_voucher.labels.send_copy")

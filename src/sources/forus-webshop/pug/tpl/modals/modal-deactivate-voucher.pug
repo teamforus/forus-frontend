@@ -1,6 +1,6 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
-.modal.modal-physical-cards.modal-animated.modal-sm(
+.modal.modal-physical-cards.modal-animated(
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']"
     role="dialog")
@@ -8,19 +8,26 @@
     .modal-backdrop(ng-click="$ctrl.closeModal()" aria-label="Sluiten" role="button")
     
     //- Deactivation reason
-    .modal-window(ng-if="$ctrl.state == 'reason'"): form(ng-if="$ctrl.form" ng-submit="$ctrl.showConfirmation()").form
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.closeModal()" aria-label="Sluiten" role="button")
+    form.modal-window(ng-if="($ctrl.state == 'reason') && $ctrl.form" ng-submit="$ctrl.showConfirmation()").form
+        .modal-close
+            .mdi.mdi-close(
+                ng-click="$ctrl.closeModal()"
+                aria-label="Sluiten"
+                role="button")
 
-        .modal-header(ng-if="!$ctrl.preffersPlasticCard")
-            h2.modal-title Deelname stoppen
+        .modal-header
+            h2.modal-header-title Deelname stoppen
 
-        .modal-body: .modal-content 
+        .modal-body
             .modal-section
-                .modal-icon-mdi.modal-icon-mdi-warning: em.mdi.mdi-alert-outline
-                .title Je {{ $ctrl.voucher.fund.name }} deelname stoppen.
+                .modal-section-icon.modal-section-icon-warning: em.mdi.mdi-alert-outline
+                h2.modal-section-title Je {{ $ctrl.voucher.fund.name }} deelname stoppen.
                 
-                .form-block: .modal-radio-group
-                    .modal-radio-group-title Reden van stoppen:
+                .modal-section-space
+                .modal-section-space
+
+                .modal-section-notice-pane
+                    .form-label Reden van stoppen:
 
                     .form-group.form-group-inline
                         input-radio-control(
@@ -43,40 +50,59 @@
                         .form-error(ng-repeat="error in $ctrl.form.errors.note" ng-bind="error")
 
         .modal-footer
-            button.button.button-sm.button-light(type="button" ng-click="$ctrl.closeModal()") Annuleer
-            button.button.button-sm.button-dark(type="submit" ng-if="$ctrl.reason != null") Volgende
+            button.button.button-sm.button-light(
+                type="button"
+                ng-click="$ctrl.closeModal()") Annuleer
+
+            button.button.button-sm.button-primary(
+                type="submit"
+                ng-if="$ctrl.reason != null") Volgende
     
     //- Deactivation confirmation
     .modal-window(ng-if="$ctrl.state == 'confirmation'")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.closeModal()" aria-label="Sluiten" role="button")
 
-        .modal-header(ng-if="!$ctrl.preffersPlasticCard")
-            h2.modal-title Deelname stoppen
+        .modal-header
+            h2.modal-header-title Deelname stoppen
 
-        .modal-body: .modal-content
-            .modal-section: .text-center
-                .modal-icon-mdi.modal-icon-mdi-warning: em.mdi.mdi-alert-outline
+        .modal-body
+            .modal-section
+                .modal-section-icon.modal-section-icon-warning: em.mdi.mdi-alert-outline
 
-                .title Weet u zeker dat u uw deelname wilt stoppen?
-                .description Let op: Je kunt hierna geen gebruik meer maken van je tegoed. Je {{ $ctrl.voucher.fund.name }} tegoed wordt gedeactiveerd.
+                h2.modal-section-title
+                    | Weet u zeker dat u uw deelname wilt stoppen?
+                
+                .modal-section-description
+                    | Let op: Je kunt hierna geen gebruik meer maken van je tegoed. 
+                    | Je {{ $ctrl.voucher.fund.name }} tegoed wordt gedeactiveerd.
 
         .modal-footer
             button.button.button-sm.button-light(type="button" ng-click="$ctrl.showReasonForm()") Terug
-            button.button.button-sm.button-dark(type="button" ng-click="$ctrl.form.submit()") Bevestig
+            button.button.button-sm.button-primary(type="button" ng-click="$ctrl.form.submit()") Bevestig
     
     //- Deactivation succcess
     .modal-window(ng-if="$ctrl.state == 'success'")
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.closeModal()" aria-label="Sluiten" role="button")
+        .modal-close
+            .mdi.mdi-close(
+                ng-click="$ctrl.closeModal()"
+                aria-label="Sluiten"
+                role="button")
 
-        .modal-header(ng-if="!$ctrl.preffersPlasticCard")
-            h2.modal-title Deelname stoppen
+        .modal-header
+            h2.modal-header-title Deelname stoppen
 
-        .modal-body: .modal-content
-            .modal-section(ng-if="$ctrl.state == 'success'"): .text-center
-                .modal-icon-mdi.modal-icon-mdi-success: em.mdi.mdi-check-circle-outline
+        .modal-body
+            .modal-section
+                .modal-section-icon.modal-section-icon-success
+                    em.mdi.mdi-check-circle-outline
                 
-                .title Deelname gestopt
-                .description Je {{ $ctrl.voucher.fund.name }} deelname is gestopt.
+                h2.modal-section-title
+                    | Deelname gestopt
+
+                .modal-section-description
+                    | Je {{ $ctrl.voucher.fund.name }} deelname is gestopt.
 
         .modal-footer
-            button.button.button-sm.button-dark(type="button" ng-click="$ctrl.closeModal()") Sluiten          
+            button.button.button-sm.button-light(
+                type="button"
+                ng-click="$ctrl.closeModal()") Sluiten          

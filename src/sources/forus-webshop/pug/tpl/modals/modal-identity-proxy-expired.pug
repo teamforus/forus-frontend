@@ -9,12 +9,20 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" aria-label="Sluiten" role="button")
 
         .modal-header
-            h2.modal-title(translate="expired_identity.header.title")
+            h2.modal-header-title(translate="expired_identity.header.title")
 
-        .modal-body: .modal-content: .modal-section.text-center
-            .modal-icon-mdi: .mdi.mdi-cancel
-            h2.title(role="heading" id="expiredIdentityDialogTitle" translate="expired_identity.title")
-            .description(id="expiredIdentityDialogDescription" translate="expired_identity.description")
+        .modal-body: .modal-section
+            .modal-section-icon
+                .mdi.mdi-cancel
+
+            h2.modal-section-title(
+                role="heading" 
+                id="expiredIdentityDialogTitle" 
+                translate="expired_identity.title")
+
+            .description(
+                id="expiredIdentityDialogDescription"
+                translate="expired_identity.description")
 
         .modal-footer
             button.button.button-sm.button-primary(ng-click="$ctrl.openLoginModal()" translate="Bevestig")

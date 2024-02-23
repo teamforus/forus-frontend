@@ -66,7 +66,8 @@ const VoucherComponent = function(
                     ModalService.open('modalNotification', {
                         type: 'action-result',
                         class: 'modal-description-pad',
-                        title: 'popup_auth.labels.voucher_email',
+                        title: 'E-mail naar mij',
+                        header: 'popup_auth.notifications.confirmation',
                         mdiIconType: "success",
                         mdiIconClass: 'check-circle-outline',
                         description: 'popup_auth.notifications.voucher_email',

@@ -10,23 +10,24 @@
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
         .modal-header
-            h2.modal-title Reservering annuleren
+            h2.modal-header-title Reservering annuleren
 
-        .modal-body: .modal-content: .modal-section
-            .modal-icon-mdi.modal-icon-mdi-warning(ng-if="$ctrl.reservation.cancelable"): em.mdi.mdi-alert-outline
+        .modal-body: .modal-section
+            .modal-section-icon.modal-section-icon-warning(ng-if="$ctrl.reservation.cancelable"): em.mdi.mdi-alert-outline
 
-            h2.title(
+            h2.modal-section-title(
                 ng-if="!$ctrl.reservation.cancelable"
                 translate="modal_product_reserve_cancel.header_not_cancelable.title"
                 translate-values="{organizationname: $ctrl.reservation.product.organization.name}")
 
-            h2.title(
+            h2.modal-section-title(
                 ng-if="$ctrl.reservation.cancelable"
                 translate="{{ 'modal_product_reserve_cancel.header_pending.title_' + $ctrl.appConfigs.features.communication_type }}")
 
-            .description(ng-if="!$ctrl.reservation.cancelable")
-                p.text-center(translate="modal_product_reserve_cancel.description_not_cancelable")
-                p.text-center
+            .modal-section-description(ng-if="!$ctrl.reservation.cancelable")
+                div(translate="modal_product_reserve_cancel.description_not_cancelable")
+
+                div
                     strong
                         | Neem contact op met de 
                         a(
@@ -36,8 +37,8 @@
                         | !
                     br
 
-            .description(ng-if="$ctrl.reservation.cancelable")
-                p.text-center(translate="{{ 'modal_product_reserve_cancel.description_pending.' + $ctrl.appConfigs.features.communication_type }}")
+            .modal-section-description(ng-if="$ctrl.reservation.cancelable")
+                div(translate="{{ 'modal_product_reserve_cancel.description_pending.' + $ctrl.appConfigs.features.communication_type }}")
 
         //- Actions
         .modal-footer
