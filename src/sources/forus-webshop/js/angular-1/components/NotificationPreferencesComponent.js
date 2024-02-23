@@ -69,6 +69,10 @@ const NotificationPreferencesComponent = function(
         ModalService.open('modalNotification', {
             type: 'action-result',
             title: "U bent niet ingelogd.",
+            header: "U bent niet ingelogd.",
+            description: `De inloglink is al gebruikt of niet meer geldig`,
+            mdiIconType: 'default',
+            mdiIconClass: 'cancel',
             description: `U zal moeten inloggen om uw notificatie instellingen te kunnen aanpassen.`,
         });
 
