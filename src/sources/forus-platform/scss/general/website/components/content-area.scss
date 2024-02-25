@@ -6,6 +6,7 @@
         background-color: rgba(255, 255, 255, 0.94);
         box-shadow: 12px 8px 30px rgba(0, 0, 0, 0.19);
     }
+
     .tl-list {
         @media screen and (max-width: 766px) {
             margin-top: 20px;
@@ -25,6 +26,7 @@
                 }
             }
         }
+
         @media screen and (min-width: 768px) {
             justify-content: space-evenly;
             display: inline-flex;
@@ -41,40 +43,51 @@
                 }
             }
         }
+
         ul {
             @media screen and (min-width:992px) {
                 float: left;
             }
+            
             p {
                 font-style: cursive;
             }
         }
     }
 }
+
 .wrap_cs {
     &__1 {
         padding: 50px 20px;
+
         @media screen and (min-width:768px) {
-            padding: 80px 40px;
+            padding: 30px 40px;
         }
+
         @media screen and (min-width:992px) {
-            padding: 150px 100px 100px;
+            padding: 50px 100px 100px;
         }
+
         @media screen and (min-width:1280px) {
-            padding: 150px 200px 100px;
+            padding: 60px 200px 100px;
         }
     }
+
     &__1a {
         padding: 50px 50px;
+
         @media screen and (min-width:768px) {
             padding: 100px 100px;
         }
+
         @media screen and (min-width:992px) {
             padding: 130px 100px;
         }
     }
+
     &__2 {
         padding: 40px 20px 40px;
+
         @media screen and (max-width: 991px) {
             &.no-pad-t {padding-top: 0px}
             .holder {
@@ -86,12 +99,15 @@
                 margin-top: 20px;
             }
         }
+
         @media screen and (min-width:768px) {
             padding: 60px 20px 95px;
         }
+
         @media screen and (min-width:992px) {
             padding: 60px 20px 75px;
         }
+
         .work-st {
             li {
                 display: block;
