@@ -54,25 +54,25 @@ section {
                     border-radius: 10px;
                     align-self: self-end;
                     padding: 80px 60px 40px;
-                    background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.75) 63.5%, #000 100%);
-    
+                    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 63.5%, #000 100%);
+
                     .header__banner-info-tag {
                         width: fit-content;
                         padding: 10px 15px;
                         margin: 0 auto 15px;
-                        color: #1069FF;
+                        color: #1069ff;
                         border-radius: 5px;
-                        font: 600 14px/21px Montserrat, sans-serif;
-                        background: var(--general-colors-white-sample, #FFF);
+                        font: 600 14px/21px var(--base-font);
+                        background: var(--general-colors-white-sample, #fff);
                     }
-    
+
                     .header__banner-info-title {
-                        font: 600 36px/46px Montserrat, sans-serif;
+                        font: 600 36px/46px var(--base-font);
                         margin-bottom: 15px;
                     }
-    
+
                     .header__banner-info-description {
-                        font: 500 18px/28px Montserrat, sans-serif;
+                        font: 500 18px/28px var(--base-font);
                         margin-bottom: 15px;
                     }
 
@@ -85,7 +85,7 @@ section {
 
         &__home {
             background: none;
-            color: #333;   
+            color: #333;
 
             &:after {
                 background-size: contain;
@@ -95,7 +95,7 @@ section {
                 background-image: url("../img/header-home2.png");
             }
 
-            @media screen and (min-width:992px) { 
+            @media screen and (min-width: 992px) {
                 &:after {
                     background-image: url("../img/header-home2.png");
                 }
@@ -157,7 +157,11 @@ section {
         }
 
         &__stats-a {
-            background: linear-gradient(to top left, rgba(53, 120, 255, 0.9215686274509803) 0%, rgba(53, 215, 255, 0.92) 100%);
+            background: linear-gradient(
+                to top left,
+                rgba(53, 120, 255, 0.9215686274509803) 0%,
+                rgba(53, 215, 255, 0.92) 100%
+            );
             &:after {
                 background-image: url("../img/header-stats.jpg");
             }
@@ -169,36 +173,38 @@ section {
     }
 
     @media screen and (max-width: 992px) {
-        &.header {
-            &__banner {
-                padding: 15px;
+        &.header__banner {
+            padding: 15px;
 
-                .header__banner-wrapper {
-                    height: auto;
+            .header__banner-wrapper {
+                height: auto;
 
-                    .header__banner-info {
-                        padding: 80px 20px 30px;
+                .header__banner-info {
+                    padding: 80px 20px 40px;
 
-                        .header__banner-info-tag {
-                            padding: 8px 10px;
-                            font: 600 14px/21px Montserrat, sans-serif;
-                        }
+                    .header__banner-info-tag {
+                        padding: 8px 10px;
+                        font: 600 14px/21px var(--base-font);
+                    }
 
-                        .header__banner-info-title {
-                            font: 600 26px/26px Montserrat, sans-serif;
-                        }
+                    .header__banner-info-title {
+                        font: 600 26px/36px var(--base-font);
+                    }
 
-                        .header__banner-info-description {
-                            font: 500 13px/21px Montserrat, sans-serif;
-                        }
+                    .header__banner-info-description {
+                        font: 500 13px/21px var(--base-font);
+                    }
 
-                        .button {
-                            padding: 10px;
-                            font: 600 15px/21px Montserrat, sans-serif;
-                        }
+                    .header__banner-info-tag {
+                        margin: 0 auto;
+                    }
+
+                    .button {
+                        padding: 10px;
+                        font: 600 15px/21px var(--base-font);
                     }
                 }
             }
         }
     }
-} 
+}
