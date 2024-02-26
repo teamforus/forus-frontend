@@ -162,6 +162,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
         component: "privacyComponent"
     });
 
+    $stateProvider.state({
+        name: "news",
+        url: "/news",
+        component: "newsComponent"
+    });
+
     if (appConfigs.html5ModeEnabled) {
         $locationProvider.html5Mode({
             enabled: true,

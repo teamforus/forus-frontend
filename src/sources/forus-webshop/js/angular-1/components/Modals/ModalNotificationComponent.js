@@ -1,31 +1,31 @@
-let ModalNotificationComponent = function(
+const ModalNotificationComponent = function(
     $filter,
-    $element,
-    $timeout
+    $timeout,
 ) {
-    let $ctrl = this;
+    const $ctrl = this;
+    const $translate = $filter('translate');
 
     $ctrl.showCloseBtn = false;
     $ctrl.showCancelBtn = false;
     $ctrl.showConfirmBtn = false;
 
-    $ctrl.confirmBtnText = $filter('translate')('modal.buttons.confirm');
-    $ctrl.closeBtnText = $filter('translate')('modal.buttons.close');
-    $ctrl.cancelBtnText = $filter('translate')('modal.buttons.cancel');
+    $ctrl.confirmBtnText = $translate('modal.buttons.confirm');
+    $ctrl.closeBtnText = $translate('modal.buttons.close');
+    $ctrl.cancelBtnText = $translate('modal.buttons.cancel');
 
     $ctrl.$onInit = () => {
-        let type = $ctrl.modal.scope.type;
+        const type = $ctrl.modal.scope.type;
 
         $ctrl.modalClass = $ctrl.modal.scope.modalClass || '';
 
-        $ctrl.title = $ctrl.modal.scope.title;
+        $ctrl.title = $ctrl.modal.scope.title || $ctrl.modal.scope.header;
+        $ctrl.header = $ctrl.modal.scope.header;
         $ctrl.notice = $ctrl.modal.scope.notice;
         $ctrl.email = $ctrl.modal.scope.email
         $ctrl.description = $ctrl.modal.scope.description;
         $ctrl.descriptionIsArray = Array.isArray($ctrl.description);
-        $ctrl.subdescription = $ctrl.modal.scope.subdescription;
-        $ctrl.icon_filetype = $ctrl.modal.scope.icon_filetype ? $ctrl.modal.scope.icon_filetype : '.png';
-        $ctrl.icon = $ctrl.modal.scope.icon ? getIcon($ctrl.modal.scope.icon, $ctrl.icon_filetype) : null;
+        $ctrl.mdiIconClass = $ctrl.modal.scope.mdiIconClass || null;
+        $ctrl.mdiIconType = $ctrl.modal.scope.mdiIconType || '';
 
         $ctrl.confirmBtnText = $ctrl.modal.scope.confirmBtnText ? $ctrl.modal.scope.confirmBtnText : $ctrl.confirmBtnText;
         $ctrl.closeBtnText = $ctrl.modal.scope.closeBtnText ? $ctrl.modal.scope.closeBtnText : $ctrl.closeBtnText;
@@ -69,10 +69,6 @@ let ModalNotificationComponent = function(
         }, 1000);
     };
 
-    let getIcon = (icon, filetype) => {
-        return './assets/img/modal/' + icon + filetype;
-    };
-
     $ctrl.cancel = () => {
         if (typeof ($ctrl.modal.scope.cancel) === 'function') {
             $ctrl.modal.scope.cancel();
@@ -97,11 +93,8 @@ module.exports = {
     },
     controller: [
         '$filter',
-        '$element',
         '$timeout',
-        ModalNotificationComponent
+        ModalNotificationComponent,
     ],
-    templateUrl: () => {
-        return 'assets/tpl/modals/modal-notification.html';
-    }
+    templateUrl: 'assets/tpl/modals/modal-notification.html',
 };

@@ -4,13 +4,27 @@
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']")
 
     .modal-backdrop(ng-click="$ctrl.close()")
-    .modal-content
-        .modal-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button"): .mdi.mdi-close
-        .modal-section
-            .cropper-title Verplaats en wijzig grootte
-            .cropper-description 
+
+    .modal-window
+        .modal-close
+            .mdi.mdi-close(
+                ng-click="$ctrl.close()" 
+                aria-label="Sluiten" 
+                role="button")
+        
+        .modal-header
+            h2.modal-header-title Upload een document
+        
+        .modal-body: .modal-section
+            h2.modal-section-title
+                | Verplaats en wijzig grootte
+
+            .modal-section-description
                 | Links ziet u de originele afbeelding en rechts de voorbeelden. 
                 | Gebruik het vakje in de linker afbeelding om de foto te positioneren.
+
+            .modal-section-space
+            .modal-section-space
 
             .cropper-media
                 .cropper-preview: .cropper-preview-container(

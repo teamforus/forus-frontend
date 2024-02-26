@@ -74,7 +74,7 @@ const FundActivateComponent = function (
             } else {
                 ModalService.open('modalNotification', {
                     type: 'info',
-                    title: 'Error',
+                    header: 'Error',
                     description: res.data.message.split("\n"),
                 });
             }
@@ -177,7 +177,7 @@ const FundActivateComponent = function (
                 if (res.data.meta || res.status == 429) {
                     ModalService.open('modalNotification', {
                         type: 'info',
-                        title: res.data.meta.title,
+                        header: res.data.meta.title,
                         description: res.data.meta.message.split("\n"),
                     });
                 }

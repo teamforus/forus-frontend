@@ -6,15 +6,25 @@
     role="dialog")
 
     .modal-backdrop(ng-click="$ctrl.close()" aria-label="Sluiten")
-    .modal-content
-        .modal-header
-            .modal-close(ng-click="$ctrl.close()").mdi.mdi-close
-            h1.modal-title Declaratie indienen
+    .modal-window
+        .modal-close
+            .mdi.mdi-close(
+                ng-click="$ctrl.close()"
+                aria-label="Sluiten"
+                role="button")
 
-        .modal-section
+        .modal-header
+            h2.modal-header-title Declaratie indienen
+
+        .modal-body: .modal-section
             .modal-warning Controleer de gegevens voordat u de declaratie verstuurd.
             reimbursement-details(reimbursement="$ctrl.reimbursement" edit="false" compact="true")
 
-        .modal-footer: .button-group
-            .button.button-primary-outline.button-sm(ng-click="$ctrl.close()" data-dusk="modalReimbursementConfirmationCancel") Cancel
-            .button.button-primary.button-sm(ng-click="$ctrl.confirm()" data-dusk="modalReimbursementConfirmationSubmit") Bevestigen
+        .modal-footer
+            .button.button-primary-outline.button-sm(
+                ng-click="$ctrl.close()" 
+                data-dusk="modalReimbursementConfirmationCancel") Cancel
+
+            .button.button-primary.button-sm(
+                ng-click="$ctrl.confirm()" 
+                data-dusk="modalReimbursementConfirmationSubmit") Bevestigen

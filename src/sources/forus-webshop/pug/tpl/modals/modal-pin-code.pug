@@ -8,9 +8,14 @@
     .modal-backdrop(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
     form.modal-window.form
-        .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
+        .modal-close
+            .mdi.mdi-close(
+                ng-click="$ctrl.close()"
+                aria-label="Sluiten"
+                role="button")
 
-        .modal-header: h2.modal-title Log in op de app
+        .modal-header
+            h2.modal-header-title Log in op de app
 
         .modal-body
             .app-instructions
@@ -58,7 +63,7 @@
                             ng-bind="error")
 
         //- Actions
-        .modal-footer.text-center
+        .modal-footer
             button.button.button-light.button-sm(
                 type="button"
                 ng-click="$ctrl.close()" 
