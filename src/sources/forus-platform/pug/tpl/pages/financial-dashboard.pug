@@ -245,11 +245,12 @@
                                     ng-if="provider.transactions.meta.total == 0"
                                     text="Geen transacties.")
 
-                .card-section(ng-if="$ctrl.providersFinances" ng-show="$ctrl.providersFinances.meta.last_page > 1")
+                .card-section(ng-if="$ctrl.providersFinances")
                     paginator(
                         meta="$ctrl.providersFinances.meta"
                         filters="$ctrl.providerFilters" 
-                        on-page-change="$ctrl.fetchProviders(query)")
+                        on-page-change="$ctrl.fetchProviders(query)"
+                        per-page-key="{{ $ctrl.paginationPerPageKey }}")
 
             block-empty(
                 ng-if='$ctrl.providersFinances && $ctrl.providersFinances.meta.total == 0'

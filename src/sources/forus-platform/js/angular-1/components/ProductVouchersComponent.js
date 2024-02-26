@@ -7,6 +7,7 @@ const ProductVouchersComponent = function (
     DateService,
     ModalService,
     VoucherService,
+    PaginatorService,
     VoucherExportService,
     PageLoadingBarService,
 ) {
@@ -223,6 +224,8 @@ const ProductVouchersComponent = function (
         });
 
         $ctrl.fundsById = $ctrl.funds.reduce((obj, fund) => ({ ...obj, [fund.id]: fund }), {});
+        
+        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey);
         $ctrl.onPageChange($ctrl.filters.values);
     };
 };
@@ -234,6 +237,7 @@ module.exports = {
         vouchers: '<',
         organization: '<',
         implementations: '<',
+        paginationPerPageKey: '<',
     },
     controller: [
         '$state',
@@ -242,6 +246,7 @@ module.exports = {
         'DateService',
         'ModalService',
         'VoucherService',
+        'PaginatorService',
         'VoucherExportService',
         'PageLoadingBarService',
         ProductVouchersComponent,

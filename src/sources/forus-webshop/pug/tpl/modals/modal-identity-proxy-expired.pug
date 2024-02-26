@@ -4,12 +4,25 @@
     role="dialog" aria-labelledby="authDialogTitle" aria-describedby="authDialogSubtitle")
 
     .modal-backdrop(ng-click="$ctrl.cancel()")
-    .modal-content
+    
+    .modal-window
         .modal-close.mdi.mdi-close(ng-click="$ctrl.cancel()" aria-label="Sluiten" role="button")
-        .modal-section
-            .text-center
-                h2.title(role="heading" id="expiredIdentityDialogTitle" translate="expired_identity.title")
-                .description(id="expiredIdentityDialogDescription" translate="expired_identity.description")
 
-        .modal-footer.text-center.no-border
-            button.button.button-primary(ng-click="$ctrl.openLoginModal()" translate="Bevestig")
+        .modal-header
+            h2.modal-header-title(translate="expired_identity.header.title")
+
+        .modal-body: .modal-section
+            .modal-section-icon
+                .mdi.mdi-cancel
+
+            h2.modal-section-title(
+                role="heading" 
+                id="expiredIdentityDialogTitle" 
+                translate="expired_identity.title")
+
+            .description(
+                id="expiredIdentityDialogDescription"
+                translate="expired_identity.description")
+
+        .modal-footer
+            button.button.button-sm.button-primary(ng-click="$ctrl.openLoginModal()" translate="Bevestig")

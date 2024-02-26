@@ -53,7 +53,7 @@
         select-control-options(
             id="{{ $dir.id + '_options' }}"
             role="listbox"
-            dusk="voucherSelectorOptions"
+            data-dusk="voucherSelectorOptions"
             ng-if="$dir.showOptions" 
             change="$dir.selectOption(option)" 
             options="$dir.optionsFiltered"

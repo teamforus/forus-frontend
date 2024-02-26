@@ -3,15 +3,20 @@ let PrevalidatedTableDirective = async function (
     $timeout,
     FileService,
     ModalService,
+    PaginatorService,
     PrevalidationService,
     PushNotificationsService,
     OrganizationEmployeesService,
 ) {
     $scope.headers = [];
 
+    $scope.prevalidationsPerPageKey = "prevalidations_per_page";
+
     $scope.filters = {
         show: false,
-        values: {},
+        values: {
+            per_page: PaginatorService.getPerPage($scope.prevalidationsPerPageKey),
+        },
     };
 
     $scope.states = [{
@@ -191,6 +196,7 @@ module.exports = () => {
             '$timeout',
             'FileService',
             'ModalService',
+            'PaginatorService',
             'PrevalidationService',
             'PushNotificationsService',
             'OrganizationEmployeesService',

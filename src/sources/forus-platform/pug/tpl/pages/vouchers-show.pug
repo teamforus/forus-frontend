@@ -105,13 +105,13 @@
                         span(translate="vouchers.buttons.physical_card_delete")
 
                     .button.button-primary.button-sm(
-                        ng-if="!$ctrl.fundClosed && !$ctrl.voucher.expired && !$ctrl.voucher.is_granted  && $ctrl.voucher.state === 'pending' && !$ctrl.voucher.is_external"
+                        ng-if="!$ctrl.voucher.expired && !$ctrl.voucher.is_granted  && $ctrl.voucher.state === 'pending' && !$ctrl.voucher.is_external"
                         ng-click="$ctrl.showQrCode()")
                         em.mdi.mdi-clipboard-account.icon-start 
                         span(translate="vouchers.buttons.activate")
 
                     .button.button-primary.button-sm(
-                        ng-if="!$ctrl.fundClosed && !$ctrl.voucher.is_granted && !$ctrl.voucher.expired && $ctrl.voucher.state === 'active' && !$ctrl.voucher.is_external"
+                        ng-if="!$ctrl.voucher.is_granted && !$ctrl.voucher.expired && $ctrl.voucher.state === 'active' && !$ctrl.voucher.is_external"
                         ng-click="$ctrl.showQrCode()")
                         em.mdi.mdi-qrcode.icon-start 
                         string(translate="vouchers.labels.qr_code")
@@ -179,12 +179,12 @@
                     .table-wrapper
                         table.table.table-fixed.table-align-top
                             tr
-                                td(ng-if="!$ctrl.fundClosed")
+                                td
                                     strong(translate="vouchers.labels.expire_date").text-strong.text-md.text-primary
                                     br
                                     strong(ng-bind="$ctrl.voucher.expire_at_locale").text-black
 
-                                td(ng-if="!$ctrl.fundClosed")
+                                td
                                     strong(translate="vouchers.labels.created_date").text-strong.text-md.text-primary
                                     br
                                     strong(ng-bind="$ctrl.voucher.created_at_locale.split(' - ')[1]").text-black    
@@ -194,7 +194,7 @@
                                     br
                                     strong(ng-bind="$ctrl.voucher.source_locale").text-black
 
-                                td(ng-if="!$ctrl.fundClosed")
+                                td
                                     strong(translate="vouchers.labels.used").text-strong.text-md.text-primary
                                     br
                                     em.mdi.mdi-close.text-black
@@ -257,7 +257,8 @@
             hide-filter-form="true"
             hide-entity="true"
             register="$ctrl.registerLogsDirective(directive)"
-            block-title="Geschiedenis")
+            block-title="Geschiedenis"
+            pagination-per-page-key="voucher_logs_per_page")
 
         //- Voucher sponsor note set upon creation
         .card(ng-if="$ctrl.voucher.note")
@@ -270,7 +271,8 @@
             organization="$ctrl.organization"
             filter-values="$ctrl.transactionsFilters"
             register="$ctrl.registerTransactionsDirective(directive)"
-            block-title="Transacties")
+            block-title="Transacties"
+            pagination-per-page-key="voucher_transactions_per_page")
 
         //- Reservation voucher transactions
         voucher-transactions(
@@ -278,4 +280,5 @@
             organization="$ctrl.organization"
             filter-values="$ctrl.reservationTransactionsFilters"
             register="$ctrl.registerReservationTransactionsDirective(directive)"
-            block-title="Reserveringen")
+            block-title="Reserveringen"
+            pagination-per-page-key="voucher_reservations_per_page")

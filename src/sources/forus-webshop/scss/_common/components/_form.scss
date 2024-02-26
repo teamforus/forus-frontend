@@ -776,7 +776,7 @@
 
             &:after {
                 content: "";
-                background: var(--bc);
+                background: var(--color-primary);
                 position: absolute;
                 display: block;
                 left: 50%;
@@ -1120,6 +1120,10 @@
         .form-label {
             font: 700 11px/26px var(--base-font);
             margin: 0 0 0;
+        }
+
+        datepicker, .datepicker {
+            height: 42px;
         }
 
         .form-control:not([type="radio"]):not([type="checkbox"]),

@@ -18,7 +18,7 @@
                     .button.button-primary.button-sm(
                         ng-if="$ctrl.hasDirectPayments"
                         ng-click="$ctrl.uploadTransactions()"
-                        dusk="uploadTransactionsBatchButton")
+                        data-dusk="uploadTransactionsBatchButton")
                         em.mdi.mdi-upload.icon-start
                         | Upload bulkbestand
 
@@ -39,7 +39,7 @@
 
                     .form(ng-if="!$ctrl.filters.show && $ctrl.viewType.key == 'transactions'"): .form-group: input(
                         ng-model="$ctrl.filters.values.q"
-                        dusk="searchTransaction"
+                        data-dusk="searchTransaction"
                         placeholder="{{ 'transactions.labels.search' | i18n }}").form-control
 
                     .form(ng-if="$ctrl.viewType.key == 'transactions'"): .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
@@ -112,12 +112,12 @@
                                             max="14"
                                             type="number" 
                                             ng-model="$ctrl.filters.values.transfer_in_max" 
-                                            placeholder="{{ 'transactions.labels.transfer_in_max' | i18n }}").form-control   
+                                            placeholder="{{ 'transactions.labels.transfer_in_max' | i18n }}").form-control
 
                                 .form-group
                                     form-label-toggle(label="{{ 'transactions.labels.non_cancelable_from' | i18n }}")
                                     datepicker(
-                                        date-format="yyyy-MM-dd" 
+                                        date-format="yyyy-MM-dd"
                                         datepicker-mobile=""
                                         date-week-start-day="1").form-control
                                         input(ng-model="$ctrl.filters.values.non_cancelable_from" type="text" placeholder="jjjj-MM-dd").form-control
@@ -125,18 +125,18 @@
                                 .form-group
                                     form-label-toggle(label="{{ 'transactions.labels.non_cancelable_to' | i18n }}")
                                     datepicker(
-                                        date-format="yyyy-MM-dd" 
+                                        date-format="yyyy-MM-dd"
                                         datepicker-mobile=""
                                         date-week-start-day="1").form-control
                                         input(ng-model="$ctrl.filters.values.non_cancelable_to" type="text" placeholder="jjjj-MM-dd").form-control
-                                
+
                                 .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'transactions.labels.bulk_state' | i18n }}")
                                     .form-offset: select-control(
                                         prop="key"
                                         search="false"
                                         ng-model="$ctrl.filters.values.bulk_state"
-                                        options="$ctrl.bulkStates").form-control   
+                                        options="$ctrl.bulkStates").form-control
 
                                 .form-group(ng-click="$event.stopPropagation()")
                                     form-label-toggle(label="{{ 'transactions.labels.fund_state' | i18n }}")
@@ -244,7 +244,7 @@
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.status" value="state")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.action").th-narrow.text-right
 
-                            tr(ng-repeat="transaction in $ctrl.transactions.data" dusk="transactionItem")
+                            tr(ng-repeat="transaction in $ctrl.transactions.data" data-dusk="transactionItem")
                                 td(ng-bind="transaction.id")
                                 td(ng-bind="(transaction.uid || '-') | str_limit:25" title="{{ transaction.uid || '-' }}" ng-if="$ctrl.isSponsor")
 
@@ -284,7 +284,7 @@
                                     strong(ng-bind="transaction.non_cancelable_at_locale.split(' - ')[1]").text-strong.text-md.text-muted-dark
 
                                 td(ng-if='!transaction.non_cancelable_at_locale')
-                                    | - 
+                                    | -
 
                                 td(ng-if="$ctrl.isSponsor && transaction.voucher_transaction_bulk_id"): a(
                                     ui-sref="transaction-bulk(transaction.ui_sref_bulk)" 
@@ -317,7 +317,7 @@
 
                                 td(dusk="transactionState")
                                     .label.label-success(ng-if="transaction.state == 'success'" ng-bind="transaction.state_locale")
-                                    .label.label-default(ng-if="transaction.state != 'success'" ng-bind="transaction.state_locale")  
+                                    .label.label-default(ng-if="transaction.state != 'success'" ng-bind="transaction.state_locale")
 
                                 td.td-narrow.text-right: a(ui-sref="transaction(transaction.ui_sref)").button.button-sm.button-primary.button-icon.pull-right
                                     em.mdi.mdi-eye-outline.icon-start
@@ -349,12 +349,13 @@
                     | Maak nu een bulktransactie
 
             //- Transactions pagination
-            .card-section(ng-if="$ctrl.transactions" ng-show="($ctrl.viewType.key == 'transactions') && ($ctrl.transactions.meta.last_page > 1)")
+            .card-section(ng-if="$ctrl.transactions.meta.total" ng-show="$ctrl.viewType.key == 'transactions'")
                 paginator(
                     meta="$ctrl.transactions.meta" 
                     filters="$ctrl.filters.values"
                     delayed-filters="['q', 'amount_min', 'amount_max', 'transfer_in_min', 'transfer_in_max']" 
-                    on-page-change="$ctrl.onPageChange(query)")
+                    on-page-change="$ctrl.onPageChange(query)"
+                    per-page-key="{{ $ctrl.paginationPerPageKey }}")
 
             //- Empty transactions block
             .card-section(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.transactions.meta.total == 0"): .block.block-empty.text-center
@@ -399,12 +400,13 @@
                             em.mdi.mdi-eye-outline.icon-start
 
             //- Bulk transactions pagination
-            .card-section(ng-if="$ctrl.transactionBulks" ng-show="($ctrl.viewType.key == 'bulks') && ($ctrl.transactionBulks.meta.last_page > 1)")
+            .card-section(ng-if="$ctrl.transactionBulks.meta.total > 0" ng-show="$ctrl.viewType.key == 'bulks'")
                 paginator(
                     meta="$ctrl.transactionBulks.meta" 
                     filters="$ctrl.bulkFilters.values" 
                     delayed-filters="['amount_min', 'amount_max', 'quantity_min', 'quantity_max']" 
-                    on-page-change="$ctrl.onBulkPageChange(query)")
+                    on-page-change="$ctrl.onBulkPageChange(query)"
+                    per-page-key="{{ $ctrl.paginationPerPageKey }}")
             
             //- Empty bulk transactions block
             .card-section(ng-if="$ctrl.viewType.key == 'bulks' && $ctrl.transactionBulks.meta.total == 0"): .block.block-empty.text-center

@@ -32,7 +32,8 @@ const VoucherComponent = function(
         ModalService.open('modalNotification', {
             type: 'confirm',
             title: 'Annuleer reservering',
-            icon: 'voucher-apply',
+            mdiIconType: 'warning',
+            mdiIconClass: 'alert-outline',
             description: 'voucher.delete_voucher.popup_form.description',
             confirmBtnText: 'voucher.delete_voucher.buttons.submit',
             cancelBtnText: 'voucher.delete_voucher.buttons.close',
@@ -55,6 +56,8 @@ const VoucherComponent = function(
         return ModalService.open('modalNotification', {
             type: 'confirm',
             title: "E-mail naar mij",
+            mdiIconType: "primary",
+            mdiIconClass: 'email-open-outline',
             description: "Stuur de QR-code naar mijn e-mailadres",
             confirm: () => {
                 VoucherService.sendToEmail(voucher.address).then(res => {
@@ -63,7 +66,10 @@ const VoucherComponent = function(
                     ModalService.open('modalNotification', {
                         type: 'action-result',
                         class: 'modal-description-pad',
-                        title: 'popup_auth.labels.voucher_email',
+                        title: 'E-mail naar mij',
+                        header: 'popup_auth.notifications.confirmation',
+                        mdiIconType: "success",
+                        mdiIconClass: 'check-circle-outline',
                         description: 'popup_auth.notifications.voucher_email',
                         confirmBtnText: emailServiceUrl ? 'email_service_switch.confirm' : 'buttons.close',
                         confirm: () => HelperService.openInNewTab(emailServiceUrl)

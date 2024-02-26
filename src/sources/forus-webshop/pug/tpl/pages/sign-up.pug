@@ -20,7 +20,7 @@ mixin digid_option(ngIf, title, description)
             .sign_up-option-description=description
 
 mixin email_option(ngIf, dusk, title, description)
-    .sign_up-option(ng-click="$ctrl.setState('email')" ng-if=ngIf role="button" dusk=dusk)
+    .sign_up-option(ng-click="$ctrl.setState('email')" ng-if=ngIf role="button" data-dusk=dusk)
         .sign_up-option-media: img(src="./assets/img/icon-auth/icon-auth-mail.svg" alt="").sign_up-option-media-img
         .sign_up-option-details
             .sign_up-option-title=title
@@ -33,12 +33,12 @@ mixin restore_link(ngIf, label="Kun je niet meer inloggen?", link="Account herst
             ng-click="$ctrl.setState('restore')"
             role="button"
             tabindex="0"
-            ng-show=ngShow dusk=dusk)
+            ng-show=ngShow data-dusk=dusk)
             span=link
             .sign_up-restore-chevron: .mdi.mdi-chevron-right
 
 mixin inline_email_form(showPolicy=true)
-    form(ng-submit="$ctrl.authForm.submit()" dusk="authEmailForm").form
+    form(ng-submit="$ctrl.authForm.submit()" data-dusk="authEmailForm").form
         .row
             .form-group.col.col-lg-9
                 label.form-label(for="email"): strong(i18n="popup_auth.input.mail" )
@@ -59,7 +59,7 @@ mixin inline_email_form(showPolicy=true)
                     ng-class=(showPolicy ? "{'button-disabled': (!$ctrl.authForm.values.privacy && $root.appConfigs.flags.privacyPage)}" : "")
                     translate="popup_auth.buttons.submit"
                     type="submit"
-                    dusk="authEmailFormSubmit"
+                    data-dusk="authEmailFormSubmit"
                     tabindex="3").button.button-primary.button-fill
 
         if (showPolicy)
@@ -186,7 +186,7 @@ main(id="main-content")
                 h1.sr-only Start aanmelden
                 h2.sign_up-pane-header(i18n="popup_auth.header.title") 
 
-                .sign_up-pane-body(dusk="authEmailSentConfirmation")
+                .sign_up-pane-body(data-dusk="authEmailSentConfirmation")
                     .sign_up-email_sent
                         .sign_up-email_sent-icon: img(src=src_prefix + "./assets/img/modal/email_signup.svg" alt="").sign_up-email_sent-icon-img
                         .sign_up-email_sent-title(translate="{{ 'popup_auth.header.title_succes_' + $root.appConfigs.features.communication_type }}")
@@ -199,7 +199,7 @@ main(id="main-content")
                 h1.sr-only(role="heading") Start aanmelden
                 h2.sign_up-pane-header(role="heading") E-mail verstuurd
 
-                .sign_up-pane-body(dusk="authEmailSentConfirmation")
+                .sign_up-pane-body(data-dusk="authEmailSentConfirmation")
                     .sign_up-email_sent
                         .sign_up-email_sent-icon: img(src=src_prefix + "./assets/img/modal/email_signup.svg" alt="").sign_up-email_sent-icon-img
                         h3.sign_up-email_sent-title(translate="{{ 'popup_auth.header.title_existing_user_succes_' + $root.appConfigs.features.communication_type }}" role="heading")

@@ -57,7 +57,11 @@
 
     //- Pagination
     .card-section(ng-if="$dir.transactions.meta" ng-show="$dir.transactions.meta.last_page > 1")
-        paginator(meta="$dir.transactions.meta" filters="$dir.filters.values" on-page-change="$dir.onPageChange(query)")
+        paginator(
+            meta="$dir.transactions.meta" 
+            filters="$dir.filters.values" 
+            on-page-change="$dir.onPageChange(query)"
+            per-page-key="{{ $dir.paginationPerPageKey }}")
 
     //- Not found
     .card-section(ng-if="$dir.transactions.meta.total == 0"): .block.block-empty.text-center

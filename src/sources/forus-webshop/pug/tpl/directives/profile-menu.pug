@@ -15,7 +15,7 @@
         ui-sref="reimbursements" 
         ui-sref-active="active"
         ng-if="$dir.appConfigs.features.has_reimbursements" 
-        dusk="menuBtnReimbursements"
+        data-dusk="menuBtnReimbursements"
         aria-current="{{ $dir.$state.current.name == 'reimbursements' ? 'page': '' }}").profile-menu-item
 
         translate(translate="profile_menu.buttons.reimbursements")
