@@ -92,6 +92,8 @@ app.component('molliePrivacyComponent', require('./components/MolliePrivacyCompo
 app.component('fundPreCheckComponent', require('./components/FundPreCheckComponent'));
 app.component('reservationExtraPaymentsComponent', require('./components/ReservationExtraPaymentsComponent'));
 app.component('reservationExtraPaymentShowComponent', require('./components/ReservationExtraPaymentShowComponent'));
+app.component('featuresRedirectComponent', require('./components/FeaturesRedirectComponent'));
+app.component('featureRedirectComponent', require('./components/FeatureRedirectComponent'));
 
 // Modal Components
 app.component('modalAuthComponent', require('./components/Modals/ModalAuthComponent'));
@@ -233,6 +235,9 @@ app.service('MollieConnectionService', require('./services/MollieConnectionServi
 app.service('PreCheckService', require('./services/PreCheckService'));
 app.service('ReservationExtraPaymentService', require('./services/ReservationExtraPaymentService'));
 app.service('BIConnectionService', require('./services/BIConnectionService'));
+app.service('ToastService', require('./services/ToastService'));
+app.service('LocalStorageService', require('./services/LocalStorageService'));
+app.service('PaginatorService', require('./services/PaginatorService'));
 
 // Directives
 app.directive('menu', {
@@ -300,9 +305,11 @@ app.directive('blockCardVouchers', require('./directives/BlockCardVouchersDirect
 app.directive('blockCardNote', require('./directives/blocks/BlockCardNoteDirective'));
 app.directive('auth2FAInfoBox', require('./directives/Auth2FAInfoBoxDirective'));
 app.directive('reimbursementCategories', require('./directives/ReimbursementCategoriesDirective'));
-app.directive('blockFeature', require('./directives/blocks/BlockFeatureDirective'));
 app.directive('reservationExtraPaymentDetails', require('./directives/ReservationExtraPaymentDetailsDirective'));
 app.directive('reservationExtraPaymentRefunds', require('./directives/ReservationExtraPaymentRefundsDirective'));
+
+app.directive('blockFeature', require('./directives/blocks/BlockFeatureDirective'));
+app.directive('blockAdditionalFeatures', require('./directives/blocks/BlockAdditionalFeaturesDirective'));
 
 app.directive('fundRequestPerson', require('./directives/FundRequestPersonDirective'));
 app.directive('fundRequestRecord', require('./directives/FundRequestRecordDirective'));
@@ -336,9 +343,11 @@ app.directive('fundProviderProductEditor', require('./directives/blocks/FundProv
 app.directive('blockProviderOrganizationOffices', require('./directives/blocks/sponsor/BlockProviderOrganizationOfficesDirective'));
 app.directive('blockProviderOrganizationEmployees', require('./directives/blocks/sponsor/BlockProviderOrganizationEmployeesDirective'));
 app.directive('blockProviderOrganizationOverview', require('./directives/blocks/sponsor/BlockProviderOrganizationOverviewDirective'));
+app.directive('toastsRoot', require('./directives/ToastsRootDirective'));
 
 // Table
 app.directive('thSortable', require('./directives/table/ThSortable'));
+app.directive('tableConfig', require('./directives/table/TableConfigDirective'));
 
 // System notification editor 
 app.directive('systemNotificationEditor', require('./directives/elements/SystemNotificationEditorDirective'));

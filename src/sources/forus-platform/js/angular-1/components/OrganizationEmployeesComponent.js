@@ -3,6 +3,7 @@ const OrganizationEmployeesComponent = function (
     $filter,
     FileService,
     ModalService,
+    PaginatorService,
     PushNotificationsService,
     OrganizationEmployeesService,
     appConfigs,
@@ -130,6 +131,7 @@ const OrganizationEmployeesComponent = function (
     };
 
     $ctrl.$onInit = function () {
+        $ctrl.filters = PaginatorService.syncPageFilters($ctrl.filters, $ctrl.paginationPerPageKey);
         $ctrl.employees = $ctrl.transformEmployees($ctrl.employees);
         $ctrl.fetchAdminEmployees().then((adminEmployees) => $ctrl.adminEmployees = adminEmployees)
     };
@@ -140,12 +142,14 @@ module.exports = {
         organization: '<',
         employees: '<',
         roles: '<',
+        paginationPerPageKey: '<',
     },
     controller: [
         '$scope',
         '$filter',
         'FileService',
         'ModalService',
+        'PaginatorService',
         'PushNotificationsService',
         'OrganizationEmployeesService',
         'appConfigs',

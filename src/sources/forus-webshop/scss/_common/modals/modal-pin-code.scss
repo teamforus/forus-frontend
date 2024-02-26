@@ -1,19 +1,5 @@
-&.modal-pin-code {
+.modal.modal-pin-code {
     .modal-window {
-        width: 820px;
-        overflow: auto;
-
-        .modal-title {
-            font: 700 16px/24px var(--base-font);
-            margin: 0 0;
-        }
-
-        .modal-body {
-            background-color: #fff;
-            overflow: auto;
-            @include webkit_scrollbar();
-        }
-
         .app-instructions {
             .app-instructions-container {
                 display: grid;
@@ -124,17 +110,7 @@
 
     @media screen and (max-width: 1000px) {
         .modal-window {
-            height: 100%;
-            flex-direction: column;
-            display: flex;
-
-            .modal-close {
-                top: 15px;
-            }
-
             .modal-body {
-                flex: 1 0 auto;
-
                 .app-instructions {
                     .app-instructions-container {
                         padding: 20px 0;
@@ -168,7 +144,7 @@
                     .app-instructions-title {
                         font: 700 16px/24px var(--base-font);
                     }
-    
+
                     .app-instructions-subtitle {
                         font: 400 13px/18px var(--base-font);
                     }

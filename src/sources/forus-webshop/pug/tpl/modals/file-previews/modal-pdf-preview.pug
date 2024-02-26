@@ -3,7 +3,16 @@
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']")
 
     .modal-backdrop(ng-click="$ctrl.close()")
+
     .modal-window
-        .modal-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button"): .mdi.mdi-close
-        .modal-header: h2.modal-title(translate="pdf_preview.header.title")
-        .modal-content: pdf-preview(raw-pdf-file="$ctrl.rawPdfFile")
+        .modal-close
+            .mdi.mdi-close(
+                ng-click="$ctrl.close()"
+                aria-label="Sluiten"
+                role="button")
+
+        .modal-header
+            h2.modal-header-title(translate="pdf_preview.header.title")
+
+        .modal-body
+            pdf-preview(raw-pdf-file="$ctrl.rawPdfFile")

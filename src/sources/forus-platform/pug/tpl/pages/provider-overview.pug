@@ -1,6 +1,6 @@
 .app.app-container
     menu
-    section.app.app-content.provider-overview(dusk="providerOverview")
+    section.app.app-content.provider-overview(data-dusk="providerOverview")
         .block.block-charts
             .chart-row
                 .card(ng-if="$ctrl.organization | hasPerm:['manage_products']"): .card-section: .chart-control.chart-control-provider_overview
@@ -26,7 +26,7 @@
                 .card(ng-if="$ctrl.organization | hasPerm:['view_finances']"): .card-section: .chart-control.chart-control-provider_overview
                     .chart-label Transacties
                     .chart-value.chart-value
-                        .chart-value_value €{{ $ctrl.transactionsTotal }}
+                        .chart-value_value(ng-bind="$ctrl.transactionsTotal")
                         .chart-value_label Totaal aan inkomsten
                     .chart-action
                         a(ui-sref="transactions($ctrl.routeData)").button.button-primary

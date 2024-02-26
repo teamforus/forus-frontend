@@ -1,10 +1,10 @@
-a(ui-sref="voucher(voucher)" dusk="voucherItem").voucher-item
+a(ui-sref="voucher(voucher)" data-dusk="voucherItem").voucher-item
     .voucher-image: img(
         ng-src='{{ voucherCard.thumbnail }}' 
         alt="Dit is de afbeelding van {{ voucherCard.type == 'product' ? 'product ' + voucherCard.product.name : 'fund ' + voucherCard.fund.name }}")
 
     .voucher-details
-        h2.voucher-name(ng-bind="voucherCard.title" dusk="voucherName")
+        h2.voucher-name(ng-bind="voucherCard.title" data-dusk="voucherName")
         .voucher-organization
             span(ng-if="voucherCard.records_title")
                 span(ng-bind="voucherCard.records_title")

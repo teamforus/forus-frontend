@@ -58,7 +58,7 @@ const ModalVouchersUploadComponent = function (
                 }
 
                 input = document.createElement('input');
-                input.setAttribute("dusk", "inputUpload");
+                input.setAttribute("data-dusk", "inputUpload");
                 input.setAttribute("type", "file");
                 input.setAttribute("accept", ".csv");
                 input.style.display = 'none';

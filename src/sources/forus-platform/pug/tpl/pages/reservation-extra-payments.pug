@@ -15,7 +15,7 @@
 
                     .form(ng-if="!$ctrl.filters.show"): .form-group: input(
                         ng-model="$ctrl.filters.values.q"
-                        dusk="searchTransaction"
+                        data-dusk="searchTransaction"
                         placeholder="{{ 'extra_payments.labels.search' | i18n }}").form-control
 
                     .form: .inline-filters-dropdown.pull-right(click-outside="$ctrl.hideFilters()")
@@ -54,7 +54,7 @@
                                 th(th-sortable filters="$ctrl.filters.values" label="extra_payments.labels.provider" value="provider_name")
                                 th(th-sortable filters="$ctrl.filters.values" label="extra_payments.labels.actions").th-narrow.text-right
 
-                            tr(ng-repeat="extraPayment in $ctrl.extraPayments.data" dusk="extraPaymentItem")
+                            tr(ng-repeat="extraPayment in $ctrl.extraPayments.data" data-dusk="extraPaymentItem")
                                 td(ng-bind="extraPayment.id")
                                 td(ng-bind="extraPayment.reservation.price_locale")
                                 td(ng-bind="extraPayment.amount_locale")
@@ -81,12 +81,13 @@
                                     em.mdi.mdi-eye-outline.icon-start
 
             //- Extra payments pagination
-            .card-section(ng-if="$ctrl.extraPayments" ng-show="$ctrl.extraPayments.meta.last_page > 1")
+            .card-section(ng-if="$ctrl.extraPayments")
                 paginator(
                     meta="$ctrl.extraPayments.meta"
                     filters="$ctrl.filters.values"
                     delayed-filters="['q']"
-                    on-page-change="$ctrl.onPageChange(query)")
+                    on-page-change="$ctrl.onPageChange(query)"
+                    per-page-key="{{ $ctrl.paginationPerPageKey }}")
 
             //- Empty extra_payments block
             .card-section(ng-if="$ctrl.extraPayments.meta.total == 0"): .block.block-empty.text-center

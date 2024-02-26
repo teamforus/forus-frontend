@@ -23,6 +23,7 @@ const FundItemPreCheckDirective = function ($scope, $state, FundService) {
 
         $dir.showMore = false;
         $dir.showMoreRequestInfo = false;
+        $dir.positiveAmount = parseFloat($dir.fund.amount_for_identity) > 0;
 
         $dir.criteriaValid = criteria.filter((criteria) => criteria.is_valid).length;
         $dir.criteriaValidPercentage = Math.round($dir.criteriaValid / criteria.length * 100);

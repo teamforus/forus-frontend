@@ -32,6 +32,8 @@ const ReimbursementService = function (
                 return ModalService.open('modalNotification', {
                     type: 'confirm',
                     title: 'Declaratie annuleren?',
+                    mdiIconType: 'warning',
+                    mdiIconClass: 'alert-outline',
                     description: 'Weet je zeker dat je het declaratie verzoek wilt annuleren?',
                     confirmBtnText: 'Bevestigen',
                     confirm: () => {

@@ -78,6 +78,8 @@
     @import 'blocks/marketplace-features/block-feature-faq.scss';
 
     @import 'blocks/block-payment-connection.scss';
+    @import 'blocks/block-table-config.scss';
+    @import 'blocks/block-toast.scss';
     @import 'blocks/block-pre-checks-blocks-editor';
 }
 
@@ -335,6 +337,7 @@ body {
                             cursor: default;
                             display: flex;
                             flex-direction: row;
+                            word-break: break-word;
 
                             .notifications-menu-item-icon {
                                 margin-right: 10px;
@@ -6198,6 +6201,7 @@ body {
                 height: 100px;
                 margin: 0 auto 10px;
                 float: none;
+                display: block;
             }
 
             .photo-label {

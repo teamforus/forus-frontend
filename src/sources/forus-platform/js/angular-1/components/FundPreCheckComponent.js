@@ -21,10 +21,10 @@ const FundPreCheckComponent = function (
 
     $ctrl.bannerStates = [{
         value: 'draft',
-        name: 'Ja',
+        name: 'Nee',
     }, {
         value: 'public',
-        name: 'Nee',
+        name: 'Ja',
     }];
 
     $ctrl.steps = [];
