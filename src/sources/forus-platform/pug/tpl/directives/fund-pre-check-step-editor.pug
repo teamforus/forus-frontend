@@ -129,14 +129,14 @@
 
                                         em.mdi.mdi-menu-right(ng-if="!record.record_settings_uncollapsed")
                                         em.mdi.mdi-menu-down(ng-if="record.record_settings_uncollapsed")
-                                        .pre-check-knock-out-settings-title Impact settings
+                                        .pre-check-knock-out-settings-title Impact instellingen
 
                                     .pre-check-item-settings-list(ng-if="record.record_settings_uncollapsed")
                                         .pre-check-item-settings-labels
                                             //- Fund
-                                            .pre-check-item-settings-label.form-label Fund name
+                                            .pre-check-item-settings-label.form-label Naam fonds
                                             //- Impact level weight
-                                            .pre-check-item-settings-label.form-label Impact level weight (%)
+                                            .pre-check-item-settings-label.form-label Impact niveau (%)
                                             //- Knock-out
                                             .pre-check-item-settings-label.form-label
 
@@ -163,7 +163,7 @@
                                                         type="number"
                                                         ng-disabled="record_setting.is_knock_out"
                                                         ng-model="record_setting.impact_level"
-                                                        placeholder="Impact level weight (%)"
+                                                        placeholder="Impact niveau (%)"
                                                         step="1"
                                                         min="0"
                                                         max="100").form-control
@@ -185,12 +185,12 @@
                                         
                                             //- Knock-out description
                                             .pre-check-item-settings-item-note(ng-if="record_setting.is_knock_out")
-                                                label.form-label Beschrijving van de knock-outcriteria
+                                                label.form-label Beschrijving van de knock-out voorwaarde
                                                 input.form-control(
                                                     type="text"
                                                     name="record_settings_{{ $parent.$index }}_{{ record_setting.fund_id }}_description"
                                                     ng-model="record_setting.description"
-                                                    placeholder="Add description")
+                                                    placeholder="Voeg een beschrijving toe")
                                                 .form-hint De informatieve beschrijving kan maximaal 1000 tekens bevatten.
                                                 .form-error(
                                                     ng-repeat="error in $dir.errors['pre_checks.' + preCheckKey + '.record_types.' + recordKey + '.record_settings.' + settingsKey + '.description']" 
