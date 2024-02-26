@@ -12,7 +12,7 @@ const EventLogsDirective = function (
 
     const loggables = [
         { key: 'fund', title: 'Fonds' },
-        { key: 'employee', title: 'Medewerker' },
+        { key: 'employees', title: 'Medewerker' },
         { key: 'bank_connection', title: 'Bank integratie' },
         { key: 'voucher', title: 'Vouchers' },
     ];
