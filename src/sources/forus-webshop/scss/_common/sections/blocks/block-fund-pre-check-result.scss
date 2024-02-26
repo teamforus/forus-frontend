@@ -319,13 +319,13 @@
                             font: 400 12px/20px var(--base-font);
                         }
 
-                        &.fund-pre-check-info-list-item-valid {
+                        &.criteria-valid {
                             .fund-pre-check-info-list-item-icon {
                                 color: #315efd;
                             }
                         }
 
-                        &.fund-pre-check-info-list-item-knock-out {
+                        &.criteria-invalid-knock-out {
                             .fund-pre-check-info-list-item-icon {
                                 color: #fba31a;
                             }

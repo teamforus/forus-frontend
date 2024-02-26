@@ -91,7 +91,7 @@
         .fund-pre-check-info-list
             .fund-pre-check-info-list-item(
                 ng-repeat="criterion in $dir.fund.criteria" 
-                ng-class="{'fund-pre-check-info-list-item-valid': criterion.is_valid, 'fund-pre-check-info-list-item-knock-out': criterion.is_knock_out}") 
+                ng-class="{'criteria-valid': criterion.is_valid, 'criteria-invalid-knock-out': criterion.is_knock_out && !criterion.is_valid}") 
 
                 .fund-pre-check-info-list-item-content 
                     .fund-pre-check-info-list-item-icon
@@ -102,7 +102,7 @@
                         ng-bind="criterion.name + ' ' + (criterion.value || '---')")
 
                     .fund-pre-check-info-list-item-more(
-                        ng-if="criterion.is_knock_out && criterion.knock_out_description" 
+                        ng-if="criterion.is_knock_out && criterion.knock_out_description && !criterion.is_valid" 
                         ng-click="criterion.show_knock_out_description = !criterion.show_knock_out_description")
 
                         | Toon informatie
