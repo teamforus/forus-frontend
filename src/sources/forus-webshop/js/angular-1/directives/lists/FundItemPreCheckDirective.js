@@ -8,6 +8,23 @@ const FundItemPreCheckDirective = function ($scope, $state, FundService) {
         return 'Goede kans';
     }
 
+    const getCriteriaValidPercentage = (criteria) => {
+        if (criteria.find((criterion) => !criterion.is_valid && criterion.is_knock_out)) {
+            return 0;
+        }
+
+        const totalImpactPoints = criteria
+            .reduce((total, criterion) => total += criterion.impact_level, 0);
+
+        const validImpactPoints = criteria
+            .filter(criterion => criterion.is_valid)
+            .reduce((total, criterion) => total += criterion.impact_level, 0);
+
+        const validPercentage = Math.round((validImpactPoints / totalImpactPoints) * 100);
+
+        return validPercentage < 0 ? 0 : (validPercentage > 100 ? 100 : validPercentage);
+    };
+
     $dir.applyFund = function ($e, fund) {
         $e.preventDefault();
 
@@ -19,14 +36,11 @@ const FundItemPreCheckDirective = function ($scope, $state, FundService) {
     };
 
     $dir.$onInit = () => {
-        const criteria = $dir.fund.criteria;
-
         $dir.showMore = false;
         $dir.showMoreRequestInfo = false;
         $dir.positiveAmount = parseFloat($dir.fund.amount_for_identity) > 0;
 
-        $dir.criteriaValid = criteria.filter((criteria) => criteria.is_valid).length;
-        $dir.criteriaValidPercentage = Math.round($dir.criteriaValid / criteria.length * 100);
+        $dir.criteriaValidPercentage = Math.max(5, getCriteriaValidPercentage($dir.fund.criteria));
         $dir.progressStatusTitle = getProgressStatusTitle();
     };
 };

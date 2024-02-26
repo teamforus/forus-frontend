@@ -1,29 +1,47 @@
-.modal.modal-auth.modal-animated(
+.modal.modal-open-in-me.modal-animated(
     ng-if="$ctrl.modal.ready"
     ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? 'modal-loaded' : '']"
     role="dialog")
     
     .modal-backdrop(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
-    .modal-content: .modal-section
+    .modal-window: form.form.f-w(ng-submit="$ctrl.phoneForm.submit()")
         .modal-close.mdi.mdi-close(ng-click="$ctrl.close()" aria-label="Sluiten" role="button")
 
-        .me-logo: include ../../../resources/_webshop-common/assets/img/me-logo.svg
+        .modal-header
+            h2.modal-header-title(translate="open_in_me.header.title")
+        
+        .modal-body: .modal-section
+            .modal-section-icon: include ../../../resources/_webshop-common/assets/img/me-logo.svg
 
-        h2.modal-title(translate="open_in_me.sms.title_{{ $root.appConfigs.features.communication_type }}")
-        .modal-subtitle.hide-sm(translate="open_in_me.sms.description_{{ $root.appConfigs.features.communication_type }}")
-        .modal-subtitle.show-sm De app kan gebruikt worden om tegoeden te beheren en makkelijk in te loggen.
+            h2.modal-section-title(
+                translate="open_in_me.sms.title_{{ $root.appConfigs.features.communication_type }}")
 
-        div: app-links(dl-id="me_download_button_lg" show-ios="false" show-android='false').flex.flex-center.hide-sm
+            .modal-section-description(
+                translate="open_in_me.sms.description_{{ $root.appConfigs.features.communication_type }}")
 
-        .row: .col.col-sm-10.col-sm-offset-1.col-xs-12.col-xs-offset-0: form.hide-sm.form.f-w(ng-submit="$ctrl.phoneForm.submit()")
-            phone-control(ng-model="$ctrl.phoneForm.values.phone")
-            .pincode-errors.text-center: .form-error(ng-repeat="error in $ctrl.phoneForm.errors.phone" ng-bind="error")
-            .text-center
-                .description-small(translate="open_in_me.sms.subdescription_{{ $root.appConfigs.features.communication_type }}")
+            .modal-section-description.show-sm
+                | De app kan gebruikt worden om tegoeden te beheren en makkelijk in te loggen.
 
-            .modal-footer.text-center.no-border
-                button.button.button-dark(type="button" ng-click="$ctrl.skip()" translate='open_in_me.sms.button.skip')
-                button.button.button-primary(type="submit" translate='open_in_me.sms.button.send')
+            .modal-open-in-me-phone-control
+                phone-control(ng-model="$ctrl.phoneForm.values.phone")
+                
+                .form-error.text-center(
+                    ng-repeat="error in $ctrl.phoneForm.errors.phone" ng-bind="error")
 
-        .text-center.show-sm: app-links
+            .modal-section-notice-block
+                .modal-section-description(
+                    translate="open_in_me.sms.subdescription_{{ $root.appConfigs.features.communication_type }}")
+
+            .text-center.show-sm: app-links
+            .modal-section-space.show-sm
+
+        .modal-footer
+            button.button.button-sm.button-light(
+                type="button" 
+                ng-click="$ctrl.skip()"
+                translate='open_in_me.sms.button.skip')
+
+            button.button.button-sm.button-primary(
+                type="submit"
+                translate='open_in_me.sms.button.send')

@@ -1,0 +1,64 @@
+.section-news
+    section.header.header__banner
+        .header__banner-wrapper
+            .header__banner-info
+                .header__banner-info-title
+                    | Naar een merkbaar en meetbaar verschil!
+                
+                h2.header__banner-info-tag Nieuws
+
+    section.section-general-info
+        .section-title 
+            | Project gefinancierd door het Innovatiebudget 2023 in samenwerking met Gemeente Eemsdelta en Gemeente Westerkwartier.
+        
+        .section-description
+            p Het bestrijden van armoede is een complexe uitdaging. In Nederland zijn er diverse nationale en lokale regelingen en voorzieningen die worden aangeboden door fondsen en stichtingen. Door de vele regelingen raken veel mensen het overzicht kwijt, wat leidt tot stress en onnodig niet-gebruik van deze voorzieningen. 
+
+            p Bij Forus streven we ernaar om individuen in staat te stellen om actief deel te nemen aan initiatieven, terwijl we de drempels verlagen voor het verkrijgen van financiële ondersteuning en de sociale impact maximaliseren. In nauwe samenwerking met de gemeenten Westerkwartier en Eemsdelta, streven we naar voortzetting van ons reeds bestaande partnerschap, met als gemeenschappelijk doel de verbetering van het systeem. Door onze gedeelde visie, dat er ruimte is voor optimalisatie, zetten we onze expertise voor een krachtige samenwerking.
+
+            p We zijn begonnen met de ontwikkeling van een geavanceerd digitaal platform waarin alle beschikbare voorzieningen overzichtelijk, gebruiksvriendelijk en toegankelijk zijn ondergebracht. De toepassing is ontwikkeld om praktische uitdagingen op een innovatieve manier op te lossen voor het systeem dat wordt gebruikt door de Kansshop (gemeente Eemsdelta) en de Potjeswijzer (gemeente Westerkwartier).         
+    
+    section.section-news-goals
+        .section-news-goals-title Onze doelen: wat we willen bereiken
+
+        .section-news-goals-main
+            .section-news-goals-image
+                img(src="assets/img/website/news-our-goals.jpg", alt="Onze doelen")
+            
+            .section-news-goals-description
+                .section-news-goals-description-title Fase 1:
+                .section-news-goals-description-subtitle Regelingen check
+                .section-news-goals-description-info
+                    p Aanvragers hebben de mogelijkheid om via het platform diverse regelingen aan te vragen. 
+                        | Echter, vaak blijkt rechtstreeks aanvragen een drempel te vormen. 
+                        | Aanvragers willen een snelle en overzichtelijke weergave van mogelijke regelingen waarvoor ze in aanmerking kunnen komen. 
+                        | Hoewel er al enkele systemen zijn die deze controle uitvoeren, verloopt het daadwerkelijke aanvraagproces via afzonderlijke systemen en procedures, wat resulteert in herhaalde invulling van formulieren.
+
+                    p Binnen dit onderdeel hebben we eraan gewerkt om alles onder te brengen binnen één systeem. 
+                        | Aanvragers kunnen dankzij de Regelingen Check snel en eenvoudig zien waar ze voor in aanmerking komen. 
+                        | Binnen dit geïntegreerde systeem worden de controle, aanvraag, toekenning en afhandeling gecoördineerd, wat leidt tot een verbeterd overzicht en een efficiënter proces.
+
+    section.section-news-application
+        .section-news-application-description
+            .section-news-application-description-title Vervolg fasen
+            .section-news-application-description-info
+                | De komende delen richten zich op het benutten van een breder scala aan regelingen, inclusief die van ketenpartners. 
+                | We streven ernaar om het aanvraagproces te versnellen en de uitbetaling efficiënter te maken.
+
+        .section-news-application-image
+            img(src="assets/img/website/news-planning.jpg", alt="Vervolg fasen")
+    
+    section.section-news-contact-us
+        .section-news-contact-us-main
+            .section-news-contact-us-title Heeft u vragen of wilt u aanvullende informatie over het Innovatiebudget project?
+            .section-news-contact-us-description 
+                | Neem gerust contact met ons op via 
+                strong(ng-bind="email")
+                | . We staan klaar om uw vragen te beantwoorden.
+
+        .section-news-contact-us-contact-us
+            .section-news-contact-us-button(ng-click="copyToClipboard()" ng-class="{'copied': showCopiedMsg}")
+                .mdi.mdi-content-copy(ng-class="'mdi-' + (showCopiedMsg ? 'check' : 'content-copy')")
+                | {{ !showCopiedMsg ? email : 'Gekopieerd!' }}
+            .section-news-contact-us-description Klik om te kopiëren
+        

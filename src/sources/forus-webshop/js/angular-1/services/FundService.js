@@ -229,7 +229,10 @@ const FundService = function (
         this.showTakenByPartnerModal = () => {
             ModalService.open('modalNotification', {
                 type: 'info',
-                title: 'Dit tegoed is al geactiveerd',
+                title: 'Tegoed activeren',
+                header: 'Dit tegoed is al geactiveerd',
+                mdiIconType: 'warning',
+                mdiIconClass: 'alert-outline',
                 closeBtnText: 'Bevestig',
                 description: [
                     "U krijgt deze melding omdat het tegoed is geactiveerd door een ",
