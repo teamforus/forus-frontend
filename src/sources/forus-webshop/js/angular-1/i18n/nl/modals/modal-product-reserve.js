@@ -1,8 +1,7 @@
 module.exports = {
     // PRODUCT RESERVE POPUP = popup-product-reserve.pug
     header: {
-        title_formal: 'Weet u zeker dat u een reservering wilt plaatsen?',
-        title_informal: 'Weet je zeker dat je een reservering wilt plaatsen?',
+        title: 'Maak een reservering',
     },
     description_formal: [
         'U gebruikt uw <strong>{{fund}}</strong> tegoed voor deze reservering.', 

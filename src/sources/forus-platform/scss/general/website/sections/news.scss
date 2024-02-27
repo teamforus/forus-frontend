@@ -6,7 +6,7 @@
     section {
         max-width: 100%;
         padding: 40px 0;
-        border-bottom: 1px solid #E5E5E5;
+        border-bottom: 1px solid #e5e5e5;
     }
 
     .header__banner {
@@ -22,15 +22,16 @@
             min-width: 440px;
             margin-right: 40px;
             color: #131313;
-            font: 500 30px/46px Montserrat, sans-serif;
+            font: 500 30px/46px var(--base-font);
         }
 
         .section-description {
-            font: 400 16px/24px Montserrat, sans-serif;
+            font: 400 16px/24px var(--base-font);
             color: #333;
 
             p {
-                margin-bottom: 20px;
+                font: inherit;
+                margin: 0 0 15px;
 
                 &:last-child {
                     margin-bottom: 0;
@@ -41,8 +42,8 @@
 
     .section-news-goals {
         .section-news-goals-title {
-            color:  #131313;
-            font: 500 30px/30px Montserrat, sans-serif;
+            color: #131313;
+            font: 500 30px/30px var(--base-font);
             margin-bottom: 40px;
         }
 
@@ -56,21 +57,22 @@
             .section-news-goals-description {
                 .section-news-goals-description-title {
                     color: #131313;
-                    font: 700 20px/30px Montserrat, sans-serif;
+                    font: 700 20px/30px var(--base-font);
                 }
 
                 .section-news-goals-description-subtitle {
-                    color: #315EFD;
-                    font: 500 20px/30px Montserrat, sans-serif;
-                    margin-bottom: 30px;
+                    color: #315efd;
+                    font: 500 20px/30px var(--base-font);
+                    margin: 0 0 20px;
                 }
 
                 .section-news-goals-description-info {
                     color: #333;
-                    font: 400 16px/24px Montserrat, sans-serif;
+                    font: 400 16px/24px var(--base-font);
 
                     p {
-                        margin-bottom: 20px;
+                        font: inherit;
+                        margin: 0 0 15px;
 
                         &:last-child {
                             margin-bottom: 0;
@@ -83,7 +85,7 @@
 
     .section-news-application {
         display: flex;
-        border: 1px solid #E5E5E5;
+        border: 1px solid #e5e5e5;
         border-radius: 10px;
         padding: 0;
         margin: 40px 0;
@@ -91,15 +93,15 @@
         .section-news-application-description {
             padding: 40px;
             color: #333;
-            font: 400 18px/28px Montserrat, sans-serif;
+            font: 400 18px/28px var(--base-font);
 
             .section-news-application-description-title {
-                font: 500 30px/46px Montserrat, sans-serif;
-                margin-bottom: 30px;
+                font: 500 30px/46px var(--base-font);
+                margin-bottom: 20px;
             }
 
             .section-news-application-description-info {
-                font: 400 18px/28px Montserrat, sans-serif;
+                font: 400 18px/28px var(--base-font);
             }
         }
 
@@ -112,7 +114,7 @@
     }
 
     .section-news-contact-us {
-        background-color: #E9F1FD;
+        background-color: #e9f1fd;
         padding: 60px;
         border-radius: 16px;
         display: flex;
@@ -121,12 +123,12 @@
             color: #004195;
 
             .section-news-contact-us-title {
-                font: 600 24px/38px Montserrat, sans-serif;
+                font: 600 24px/38px var(--base-font);
                 margin-bottom: 40px;
             }
 
             .section-news-contact-us-description {
-                font: 400 16px/30px Montserrat, sans-serif;
+                font: 400 16px/30px var(--base-font);
             }
         }
 
@@ -140,19 +142,21 @@
                 display: flex;
                 min-width: 185px;
                 border-radius: 5px;
-                border: 1px solid #1069FF;
-                padding: 15px 24px;
-                font: 600 16px/24px Montserrat, sans-serif;
-                color: #1069FF;
+                border: 1px solid #1069ff;
+                padding: 14px 24px;
+                font: 600 16px/20px var(--base-font);
+                color: #1069ff;
 
                 .mdi {
                     margin-right: 5px;
+                    height: 20px;
+                    line-height: 20px;
                 }
 
                 &.copied {
                     border: 1px solid #1f8b78;
                     color: #1f8b78;
-                    
+
                     .mdi {
                         color: #1f8b78;
                     }
@@ -161,14 +165,14 @@
 
             .section-news-contact-us-description {
                 color: #004195;
-                font: 400 12px/30px Montserrat, sans-serif;
+                font: 400 12px/30px var(--base-font);
             }
         }
     }
 
     @media screen and (max-width: 992px) {
         .header__banner {
-            margin: 15px;
+            margin: 15px 15px 30px;
             padding: 0;
 
             .header__banner-wrapper {
@@ -183,24 +187,28 @@
                 }
             }
         }
-        
+
         .section-general-info {
             flex-direction: column;
 
             .section-title {
                 min-width: auto;
-                font: 500 26px/36px Montserrat, sans-serif;
-                margin-bottom: 25px;
+                font: 500 26px/36px var(--base-font);
+                margin: 0 0 15px;
             }
 
             .section-description {
-                font: 400 14px/21px Montserrat, sans-serif;
+                font: 400 14px/21px var(--base-font);
             }
         }
 
         .section-news-goals {
+            padding: 0 0 15px;
+            margin: 0 30px 20px;
+
             .section-news-goals-title {
-                font: 500 26px/36px Montserrat, sans-serif;
+                font: 500 26px/36px var(--base-font);
+                margin: 0 0 15px;
             }
 
             .section-news-goals-main {
@@ -214,11 +222,12 @@
 
                 .section-news-goals-description {
                     .section-news-goals-description-title {
-                        font: 700 18px/27px Montserrat, sans-serif;
+                        font: 700 18px/27px var(--base-font);
                     }
 
                     .section-news-goals-description-subtitle {
-                        font: 500 18px/27px Montserrat, sans-serif;
+                        font: 500 18px/27px var(--base-font);
+                        margin: 0 0 15px;
                     }
                 }
             }
@@ -226,47 +235,59 @@
 
         .section-news-application {
             flex-direction: column;
-            margin: 25px 20px;
+            margin: 0 30px 20px;
 
             .section-news-application-image {
                 width: 100%;
                 order: 1;
 
                 img {
-                    border-top-left-radius: 10px;
+                    border-top-left-radius: 5px;
+                    border-top-right-radius: 5px;
                     border-bottom-left-radius: 0px;
                     border-bottom-right-radius: 0px;
                 }
             }
 
             .section-news-application-description {
-                padding: 25px;
+                padding: 20px 25px 25px;
                 order: 2;
 
                 .section-news-application-description-title {
-                    font: 500 24px/36px Montserrat, sans-serif;
+                    font: 500 24px/36px var(--base-font);
+                    margin: 0 0 15px;
                 }
 
                 .section-news-application-description-info {
-                    font: 400 14px/21px Montserrat, sans-serif;
+                    font: 400 14px/21px var(--base-font);
                 }
             }
         }
 
         .section-news-contact-us {
-            margin: 20px;
+            margin: 0 30px 20px;
             padding: 25px;
             flex-direction: column;
+            text-align: center;
 
             .section-news-contact-us-main {
                 .section-news-contact-us-title {
-                    font: 600 18px/27px Montserrat, sans-serif;
+                    font: 600 18px/27px var(--base-font);
                     margin-bottom: 20px;
                 }
 
                 .section-news-contact-us-description {
-                    font: 400 14px/21px Montserrat, sans-serif;
+                    font: 400 14px/21px var(--base-font);
                     margin-bottom: 20px;
+                }
+            }
+
+            .section-news-contact-us-contact-us {
+                margin-bottom: -10px;
+
+                .section-news-contact-us-button {
+                    width: 100%;
+                    justify-content: center;
                 }
             }
         }

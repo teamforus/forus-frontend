@@ -75,6 +75,7 @@
 @import 'sections/blocks/block-sitemap.scss';
 @import 'sections/blocks/block-show-more.scss';
 @import 'sections/blocks/block-warning.scss';
+@import 'sections/blocks/block-qr-code.scss';
 
 .block {
     @import 'sections/blocks/block-markdown.scss';
@@ -133,11 +134,11 @@
     @import 'sections/blocks/block-card-table.scss';
 }
 
-.modal {
-    @import 'modals/modal-file-preview.scss';
-    @import 'modals/modal-photo-cropper.scss';
-    @import 'modals/modal-physical-cards.scss';
-    @import 'modals/modal-product-reserve.scss';
-    @import 'modals/modal-2fa-setup.scss';
-    @import 'modals/modal-pin-code.scss';
-}
+@import 'modals/modal-file-preview.scss';
+@import 'modals/modal-photo-cropper.scss';
+@import 'modals/modal-physical-cards.scss';
+@import 'modals/modal-product-reserve.scss';
+@import 'modals/modal-2fa-setup.scss';
+@import 'modals/modal-pin-code.scss';
+@import 'modals/modal-notification.scss';
+@import 'modals/modal-open-in-me.scss';
