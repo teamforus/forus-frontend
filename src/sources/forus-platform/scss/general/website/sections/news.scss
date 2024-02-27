@@ -170,6 +170,18 @@
         .header__banner {
             margin: 15px;
             padding: 0;
+
+            .header__banner-wrapper {
+                background-image: url("../img/website/news-banner-mobile.jpg");
+
+                .header__banner-info {
+                    margin-top: 50px;
+                    
+                    .header__banner-info-title {
+                        margin-bottom: 10px;
+                    }
+                }
+            }
         }
         
         .section-general-info {
