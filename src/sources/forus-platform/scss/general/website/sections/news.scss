@@ -12,6 +12,16 @@
     .header__banner {
         background-image: none;
         border-bottom: none;
+
+        .header__banner-wrapper {
+            .header__banner-info {
+                padding: 160px 60px 40px;
+
+                .header__banner-info-title {
+                    margin: 0 0 15px;
+                }
+            }
+        }
     }
 
     .section-general-info {
@@ -174,6 +184,18 @@
         .header__banner {
             margin: 15px 15px 30px;
             padding: 0;
+
+            .header__banner-wrapper {
+                background-image: url("../img/website/news-banner-mobile.jpg");
+
+                .header__banner-info {
+                    margin-top: 50px;
+                    
+                    .header__banner-info-title {
+                        margin-bottom: 10px;
+                    }
+                }
+            }
         }
 
         .section-general-info {

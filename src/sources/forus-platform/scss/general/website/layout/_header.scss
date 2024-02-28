@@ -58,8 +58,8 @@ section {
 
                     .header__banner-info-tag {
                         width: fit-content;
-                        padding: 10px 15px;
-                        margin: 0 auto 15px;
+                        padding: 5px 15px;
+                        margin: 0 auto 10px;
                         color: #1069ff;
                         border-radius: 5px;
                         font: 600 14px/21px var(--base-font);
@@ -68,16 +68,17 @@ section {
 
                     .header__banner-info-title {
                         font: 600 36px/46px var(--base-font);
-                        margin-bottom: 15px;
+                        margin-bottom: 5px;
                     }
 
                     .header__banner-info-description {
                         font: 500 18px/28px var(--base-font);
-                        margin-bottom: 15px;
+                        margin-bottom: 25px;
                     }
 
                     .button {
                         margin-top: 0;
+                        padding: 10px 20px;
                     }
                 }
             }
@@ -178,12 +179,13 @@ section {
 
             .header__banner-wrapper {
                 height: auto;
+                background-image: url("../img/website/news-banner-mobile-homepage.jpg");
 
                 .header__banner-info {
                     padding: 80px 20px 40px;
 
                     .header__banner-info-tag {
-                        padding: 8px 10px;
+                        padding: 5px 10px;
                         font: 600 14px/21px var(--base-font);
                     }
 
