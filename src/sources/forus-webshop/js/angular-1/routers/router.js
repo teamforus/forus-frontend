@@ -1135,7 +1135,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function 
         name: 'fund-pre-check',
         url: {
             en: '/fund-pre-check',
-            nl: '/fund-pre-check',
+            nl: '/regelcheck',
         },
         component: 'fundPreCheckComponent',
         resolve: {
