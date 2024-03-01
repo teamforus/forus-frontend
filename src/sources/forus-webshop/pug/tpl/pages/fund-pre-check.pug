@@ -161,7 +161,7 @@ block content
                                         name="control_{{ preCheckRecord.record_type_key }}"
                                         ng-model="preCheckRecord.input_value"
                                         options="$ctrl.recordTypesByKey[preCheckRecord.record_type_key].options"
-                                        placeholder="Uw {{ preCheckRecord.record_type.name }}")
+                                        placeholder="Maak een keuze")
 
                                     ui-control-checkbox(
                                         ng-if="preCheckRecord.control_type == 'ui_control_checkbox'"
@@ -191,7 +191,7 @@ block content
                                         ng-model="preCheckRecord.input_value"
                                         name="{{ preCheckRecord.record_type_key }}"
                                         data-id="pre_check_record_{{ preCheckRecord.record_type_key }}"
-                                        data-placeholder="Uw {{ preCheckRecord.record_type.name }}")
+                                        data-placeholder="{{ preCheckRecord.record_type.name }}")
 
                                     ui-control-text(
                                         ng-if="preCheckRecord.control_type == 'ui_control_text'"
