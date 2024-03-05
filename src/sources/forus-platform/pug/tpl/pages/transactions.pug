@@ -225,8 +225,8 @@
             //- Transactions
             .card-section(ng-if="$ctrl.viewType.key == 'transactions' && $ctrl.transactions.meta.total > 0")
                 .card-block.card-block-table
-                    .table-wrapper
-                        table.table
+                    .table-wrapper: .table-container.table-container-2
+                        .table-scroll: table.table
                             tr
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.id" value="id")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.uid" value="uid" ng-if="$ctrl.isSponsor")
@@ -242,7 +242,7 @@
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.bulk" value="transaction_in" ng-if="$ctrl.isSponsor")
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.bulk_state" value="bulk_state" ng-if="$ctrl.isSponsor").nowrap
                                 th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.status" value="state")
-                                th(th-sortable filters="$ctrl.filters.values" label="transactions.labels.action").th-narrow.text-right
+                                th &nbsp;
 
                             tr(ng-repeat="transaction in $ctrl.transactions.data" data-dusk="transactionItem")
                                 td(ng-bind="transaction.id")
@@ -319,8 +319,29 @@
                                     .label.label-success(ng-if="transaction.state == 'success'" ng-bind="transaction.state_locale")
                                     .label.label-default(ng-if="transaction.state != 'success'" ng-bind="transaction.state_locale")
 
-                                td.td-narrow.text-right: a(ui-sref="transaction(transaction.ui_sref)").button.button-sm.button-primary.button-icon.pull-right
-                                    em.mdi.mdi-eye-outline.icon-start
+                                td    
+
+                        .table-scroll-actions: table.table
+                            tr: th
+
+                            tr(ng-repeat="transaction in $ctrl.transactions.data"): td
+                                .actions(ng-class="transaction.showMenu ? 'active' : ''"): button.button.button-text.button-menu(
+                                    type="button"
+                                    transaction="{{ transaction.id }}"
+                                    ng-click="$ctrl.toggleActions($event, transaction)")
+
+                                    em.mdi.mdi-dots-horizontal
+
+                                    .menu-dropdown(
+                                        ng-if="transaction.showMenu"
+                                        click-outside="$ctrl.onClickOutsideMenu($event, transaction)")
+
+                                        .menu-dropdown-arrow
+                                        .dropdown.dropdown-actions
+                                            a(
+                                                ui-sref="transaction(transaction.ui_sref)").dropdown-item
+                                                | #[em.mdi.mdi-eye.icon-start] Bekijken
+
 
             //- Transaction totals
             .card-section(

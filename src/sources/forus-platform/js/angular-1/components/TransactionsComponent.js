@@ -330,6 +330,16 @@ const TransactionsComponent = function (
         });
     };
 
+    $ctrl.toggleActions = (e, transaction) => {
+        $ctrl.onClickOutsideMenu(e);
+        transaction.showMenu = true;
+    };
+
+    $ctrl.onClickOutsideMenu = (e) => {
+        e.stopPropagation();
+        $ctrl.transactions.data.forEach((transaction) => transaction.showMenu = false);
+    };
+
     $ctrl.$onInit = () => {
         $ctrl.isSponsor = appConfigs.panel_type == 'sponsor';
         $ctrl.isProvider = appConfigs.panel_type == 'provider';
