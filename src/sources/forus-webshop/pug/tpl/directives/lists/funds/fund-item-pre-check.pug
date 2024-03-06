@@ -1,7 +1,7 @@
 .fund-item(ng-class="{'fund-item-child' : $dir.fund.parent, 'fund-item-parent' : $dir.fund.children.length > 0}")
     .fund-content(ng-class="{'fund-content-expanded' : $dir.showMoreRequestInfo}")
         .fund-photo: img(
-            ng-src="{{ $dir.media.sizes.thumbnail || $dir.media.sizes.small || './assets/img/placeholders/fund-thumbnail.png' }}"
+            ng-src="{{ $dir.fund.logo.sizes.thumbnail || $dir.fund.logo.sizes.small || './assets/img/placeholders/fund-thumbnail.png' }}"
             alt="Dit is de afbeelding van {{ $dir.fund.name }}")
 
         .fund-details

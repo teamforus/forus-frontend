@@ -70,7 +70,7 @@
 
                     //- Value except: 'select', 'bool' or 'date'
                     input(
-                        ng-if="!['select', 'bool', 'date'].includes($dir.recordType.type) && !$dir.operators[$dir.recordType.key] != '*'"
+                        ng-if="!['select', 'select_number', 'bool', 'date'].includes($dir.recordType.type) && !$dir.operators[$dir.recordType.key] != '*'"
                         type="text" 
                         placeholder="Waarde"
                         ng-model="$dir.values[$dir.recordType.key]" 
@@ -78,7 +78,7 @@
 
                     //- Value: 'select', 'bool'
                     .form-offset: select-control(
-                        ng-if="['select', 'bool'].includes($dir.recordType.type) && !$dir.operators[$dir.recordType.key] != '*'"
+                        ng-if="['select', 'select_number', 'bool'].includes($dir.recordType.type) && !$dir.operators[$dir.recordType.key] != '*'"
                         prop="value"
                         placeholder="Waarde"
                         search="$dir.recordType.type != 'bool'"
