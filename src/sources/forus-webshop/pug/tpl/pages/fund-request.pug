@@ -392,10 +392,10 @@ main(id="main-content")
                             span {{ criteria.title || criteria.record_type.name }} #[span(ng-if="criteria.operator != '='") is] 
 
                             strong
-                                span(ng-if="!['select', 'bool'].includes(criteria.record_type.type)") 
+                                span(ng-if="!['select', 'select_number', 'bool'].includes(criteria.record_type.type)") 
                                     | {{ criteria.input_value || 'Geen' }}
 
-                                span(ng-if="['select'].includes(criteria.record_type.type)") 
+                                span(ng-if="['select', 'select_number'].includes(criteria.record_type.type)") 
                                     | {{ criteria.record_type.options_by_value[criteria.input_value].name || 'Niet geselecteerd' }}
 
                                 span(ng-if="['bool'].includes(criteria.record_type.type)") 
