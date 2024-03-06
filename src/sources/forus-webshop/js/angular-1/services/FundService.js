@@ -268,6 +268,7 @@ const FundService = function (
                 'iban': 'ui_control_text',
                 'number': 'ui_control_number',
                 'select': 'select_control',
+                'select_number': 'select_control',
             }[record_type.type];
 
             const control_type_key = {
