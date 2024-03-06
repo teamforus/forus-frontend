@@ -140,7 +140,7 @@ const FundRequestComponent = function (
             
             const isCurrency = FundService.getCurencyKeys().includes(record_type?.key);
 
-            const value = record_type.type == 'select' ?
+            const value = ['select', 'select_number'].includes(record_type.type) ?
                 (record_type.options.find((option) => option.value == criterion.value)?.name || '') :
                 criterion.value;
 
