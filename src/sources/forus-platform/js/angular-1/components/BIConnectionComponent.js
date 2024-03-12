@@ -28,9 +28,8 @@ const BIConnectionComponent = function (
     $ctrl.parameterKey = 'api_key';
 
     $ctrl.authTypes = [
-        { key: 'disabled', name: $translate('bi_connection.labels.disabled') },
-        { key: 'header', name: $translate('bi_connection.labels.header') },
-        { key: 'parameter', name: $translate('bi_connection.labels.parameter') },
+        { key: false, name: $translate('bi_connection.labels.option_disabled') },
+        { key: true, name: $translate('bi_connection.labels.option_enabled') },
     ];
 
     $ctrl.expirationPeriods = [
@@ -58,27 +57,11 @@ const BIConnectionComponent = function (
         ClipboardService.copy(str).then(() => PushNotificationsService.success("Gekopieerd naar het klembord."));
     };
 
-    $ctrl.updateUrl = () => {
-        const { auth_type } = $ctrl.form.values;
-        const { bi_connection_url } = $ctrl.organization;
-        const access_token = $ctrl.connection.access_token || '';
-
-        if (auth_type == 'header') {
-            return $ctrl.apiUrl = bi_connection_url;
-        }
-
-        if (auth_type == 'parameter') {
-            return $ctrl.apiUrl = `${bi_connection_url}?${$ctrl.parameterKey}=${access_token}`;
-        }
-    }
-
     $ctrl.resetToken = () => {
         $ctrl.askConfirmation(() => {
             BIConnectionService.resetToken($ctrl.organization.id).then((res) => {
                 $ctrl.connection = res.data.data;
-                $ctrl.updateUrl();
                 PushNotificationsService.success('Opgeslagen!');
-                $ctrl.updateUrl();
             }, (res) => {
                 PushNotificationsService.danger(res.data?.message || 'Foutmelding!');
             });
@@ -106,10 +89,10 @@ const BIConnectionComponent = function (
         $ctrl.ips = (ips || []).reduce((items, ip) => ([...items, { value: ip }]), []);
 
         const values = $ctrl.connection?.id ? {
-            auth_type: $ctrl.connection.auth_type,
+            enabled: $ctrl.connection.enabled,
             expiration_period: $ctrl.connection.expiration_period,
         } : {
-            auth_type: 'disabled',
+            enabled: false,
             expiration_period: '1_month',
         };
 
@@ -126,8 +109,6 @@ const BIConnectionComponent = function (
 
             promise.then((res) => {
                 $ctrl.connection = res.data.data;
-                $ctrl.updateUrl();
-
                 form.errors = null;
                 PushNotificationsService.success('Opgeslagen!');
             }, (res) => {
@@ -135,11 +116,10 @@ const BIConnectionComponent = function (
                 const errorKeys = Object.keys(form.errors);
 
                 const hasIpsErrors = errorKeys.filter((key) => key.startsWith('ips')).length > 0;
-                const hasAuthTypeErrors = errorKeys.filter((key) => key.startsWith('auth_type')).length > 0;
                 const hasDataTypesErrors = errorKeys.filter((key) => key.startsWith('data_types')).length > 0;
                 const hasExpirationPeriodErrors = errorKeys.filter((key) => key.startsWith('expiration_period')).length > 0;
 
-                if (hasAuthTypeErrors || hasDataTypesErrors) {
+                if (hasDataTypesErrors) {
                     $ctrl.setViewType('settings');
                 } else if (hasIpsErrors || hasExpirationPeriodErrors) {
                     $ctrl.setViewType('security');
@@ -161,7 +141,6 @@ const BIConnectionComponent = function (
         return BIConnectionService.availableDataTypes($ctrl.organization.id).then((res) => {
             $ctrl.available_data_types = chunk(res.data.data, 2);
             $ctrl.initForm();
-            $ctrl.updateUrl();
         });
     };
 

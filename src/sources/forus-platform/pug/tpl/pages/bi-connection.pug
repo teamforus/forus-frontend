@@ -34,15 +34,14 @@
             .card-section.card-section-primary(ng-if="$ctrl.viewType == 'settings'")
                 //- Auth type
                 .form-group.form-group-inline
-                    label(translate="bi_connection.labels.auth_type").form-label
+                    label(translate="bi_connection.labels.enabled").form-label
 
                     .form-offset
                         .form-group-info
                             .form-group-info-control: select-control(
                                 prop="key"
                                 search="false"
-                                ng-model="$ctrl.form.values.auth_type"
-                                ng-change="$ctrl.updateUrl()"
+                                ng-model="$ctrl.form.values.enabled"
                                 options="$ctrl.authTypes").form-control
 
                             .form-group-info-button: .button.button-default.button-icon.pull-left(
@@ -65,7 +64,7 @@
                                     li Header: Kies deze optie als uw BI-tool header ondersteunt. Voeg de token toe in de header
 
                 //- Details
-                div(ng-if="$ctrl.form && $ctrl.form.values.auth_type !== 'disabled'")
+                div(ng-if="$ctrl.form && $ctrl.form.values.enabled")
 
                     //- Api url
                     .form-group.form-group-inline
@@ -75,14 +74,14 @@
                             .form-group-info
                                 .form-group-info-control: input(
                                     ng-disabled="!$ctrl.connection.access_token"
-                                    ng-value="$ctrl.apiUrl"
+                                    ng-value="$ctrl.organization.bi_connection_url"
                                     type="text"
                                     readonly).form-control.form-control-dashed
 
                                 .form-group-info-button.form-group-info-button-dashed
                                     .button.button-default.button-dashed.button-icon.pull-left(
                                         ng-disabled="!$ctrl.connection.access_token"
-                                        ng-click="$ctrl.copyToClipboard($ctrl.apiUrl)"): em.mdi.mdi-content-copy
+                                        ng-click="$ctrl.copyToClipboard($ctrl.organization.bi_connection_url)"): em.mdi.mdi-content-copy
 
                                     .button.button-default.button-icon.pull-left(
                                         ng-click="$ctrl.showInfoBlockUrl = !$ctrl.showInfoBlockUrl"
@@ -112,7 +111,7 @@
                             .form-error(ng-repeat="error in $ctrl.form.errors.data_types" ng-bind="error")
 
                     //- Header
-                    .form-group.form-group-inline(ng-if="$ctrl.form.values.auth_type === 'header'")
+                    .form-group.form-group-inline
                         label(translate="bi_connection.labels.header_name").form-label
 
                         .form-offset
@@ -143,7 +142,7 @@
 
                     //- Token
                     .form-group.form-group-inline
-                        label(translate="bi_connection.labels.{{ $ctrl.form.values.auth_type }}_key").form-label
+                        label(translate="bi_connection.labels.header_key").form-label
 
                         .form-offset
                             .form-group-info
@@ -200,20 +199,13 @@
                         .form-offset: .block.block-info-box.block-info-box-default.block-info-box-dashed
                             .info-box-icon.mdi.mdi-information
 
-                            .info-box-content(ng-if="$ctrl.form.values.auth_type === 'header'"): .block.block-markdown
+                            .info-box-content: .block.block-markdown
                                 h4 Hoe het werkt
                                 ul
                                     li Open de BI-tool  en ga naar instellingen.
                                     li Voeg een nieuwe gegevensbron of verbinding toe en selecteer de optie om verbinding te maken met een externe URL.
                                     li Voer de bovenstaande URL in.
                                     li Vul bij de header bovenstaande naam en sleutelcode in.
-
-                            .info-box-content(ng-if="$ctrl.form.values.auth_type === 'parameter'"): .block.block-markdown
-                                h4 Hoe het werkt
-                                ul
-                                    li Open de BI-tool  en ga naar instellingen.
-                                    li Voeg een nieuwe gegevensbron of verbinding toe en selecteer de optie om verbinding te maken met een externe URL.
-                                    li Vul de bovenstaande URL in.
 
             //- Security tab
             .card-section.card-section-primary(ng-if="$ctrl.viewType == 'security'")
