@@ -298,8 +298,9 @@
 
             &.form-group-info-button-dashed {
                 .button {
-                    border-style: dashed;
-                    border-left: none;
+                    border: 1px dashed var(--border-color) !important;
+                    border-left: none !important;
+                    box-shadow: none !important;
                 }
             }
         }

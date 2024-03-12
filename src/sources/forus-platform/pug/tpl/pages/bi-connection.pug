@@ -99,14 +99,15 @@
 
                     .form-group.form-group-inline
                         .form-label(translate="bi_connection.labels.data_types")
-                        .form-offset: .checkbox-container-compact: .row(ng-repeat="data_types in $ctrl.available_data_types")
-                            .col.col-xs-12.col-lg-6(ng-repeat="data_type in data_types")
-                                input-checkbox-control(
-                                    compact="true"
-                                    title="{{ data_type.name }}"
-                                    name="data_type_{{ data_type.key }}" 
-                                    ng-model="$ctrl.data_types[data_type.key]" 
-                                    label="{{ data_type.name }}")
+                        .form-offset: .checkbox-container-compact
+                            .row(ng-repeat="data_types in $ctrl.available_data_types")
+                                .col.col-xs-12.col-lg-6(ng-repeat="data_type in data_types")
+                                    input-checkbox-control(
+                                        compact="true"
+                                        title="{{ data_type.name }}"
+                                        name="data_type_{{ data_type.key }}" 
+                                        ng-model="$ctrl.data_types[data_type.key]" 
+                                        label="{{ data_type.name }}")
 
                             .form-error(ng-repeat="error in $ctrl.form.errors.data_types" ng-bind="error")
 

@@ -93,7 +93,7 @@ const BIConnectionComponent = function (
             expiration_period: $ctrl.connection.expiration_period,
         } : {
             enabled: false,
-            expiration_period: '1_month',
+            expiration_period: 1,
         };
 
         $ctrl.form = FormBuilderService.build(values, (form) => {
