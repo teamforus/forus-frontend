@@ -203,6 +203,14 @@ const VoucherService = function($filter, ApiRequest) {
                     description: $translate('tooltips.in_use'),
                 },
             }, {
+                key: 'has_payouts',
+                label: $translate('labels.has_payouts'),
+                tooltip: {
+                    key: 'has_payouts',
+                    title: 'Heeft uitbetalingen',
+                    description: $translate('tooltips.has_payouts'),
+                },
+            }, {
                 key: 'state',
                 label: $translate('labels.state'),
                 tooltip: {
