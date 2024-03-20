@@ -172,6 +172,14 @@
                                         ng-model="$ctrl.filters.values.implementation_id"
                                         options="$ctrl.implementations").form-control
 
+                                .form-group(ng-click="$event.stopPropagation()")
+                                    form-label-toggle(label="{{ 'vouchers.labels.has_payouts' | translate }}")
+                                    .form-offset: select-control(
+                                        prop="value"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.has_payouts"
+                                        options="$ctrl.has_payouts").form-control
+
                                 .form-actions
                                     button.button.button-primary.button-wide(
                                         ng-click="$ctrl.exportVouchers()" 
@@ -179,7 +187,7 @@
                                         em.mdi.mdi-download.icon-start  
 
                                         span.ng-scope(
-                                            translate="components.dropdown.export" 
+                                            translate="components.dropdown.export"
                                             translate-values="{ total: $ctrl.vouchers.meta.total }")
 
                         .button.button-default.button-icon(ng-click="$ctrl.filters.show = !$ctrl.filters.show"): em.mdi.mdi-filter-outline
@@ -191,9 +199,9 @@
             .card-section(ng-if="!$ctrl.loading && $ctrl.vouchers.data.length > 0")
                 .card-block.card-block-table
                     table-config(
-                        ng-if="$ctrl.showTableConfig" 
+                        ng-if="$ctrl.showTableConfig"
                         on-close="$ctrl.setShowTableConfig(false)"
-                        selected-category="{{ $ctrl.tableConfigCategory }}" 
+                        selected-category="{{ $ctrl.tableConfigCategory }}"
                         tooltips="$ctrl.tooltips"
                         active-tooltip-key="$ctrl.activeTooltipKey")
 
@@ -241,7 +249,7 @@
                                         ng-class="{active: voucher.showTooltip}")
                                         .tooltip-content(ng-if="voucher.showTooltip" click-outside="$ctrl.hideTooltip($event, voucher)")
                                             .tooltip-text(ng-bind="(voucher.note || '-') | str_limit:128" title="{{ voucher.note }}")
-                                    
+
                                     .text-muted(ng-if="!voucher.note") -
 
                                 td(ng-if="$ctrl.columns_keys.includes('fund')")
@@ -263,6 +271,13 @@
                                         div(ng-if="!voucher.in_use" translate="product_vouchers.labels.no")
                                         div(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale.split(',')[0]").text-primary
                                         div(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale.split(',')[1]").text-strong.text-md.text-muted-dark
+
+                                td(ng-if="$ctrl.columns_keys.includes('has_payouts')"): .td-boolean.flex-vertical
+                                    .text-primary
+                                        em.mdi.mdi-check-circle(ng-if="voucher.has_payouts")
+                                        em.mdi.mdi-close(ng-if="!voucher.has_payouts")
+                                        div(ng-if="!voucher.has_payouts" translate="vouchers.labels.no")
+                                        div(ng-if="voucher.has_payouts" translate="vouchers.labels.yes")  
 
                                 td(ng-if="$ctrl.columns_keys.includes('state')")
                                     .td-boolean(ng-if="voucher.expired")
