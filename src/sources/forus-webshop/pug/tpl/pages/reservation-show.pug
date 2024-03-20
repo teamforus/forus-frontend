@@ -97,7 +97,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
                 
                 .card-header(ng-click="$ctrl.showReservationExtraAmount = !$ctrl.showReservationExtraAmount"): .card-header-wrapper
                     em.mdi.mdi-menu-down.card-header-arrow
-                    h2.card-heading.card-heading-lg Extra payment details
+                    h2.card-heading.card-heading-lg Bijbetalingsgegevens
 
                 .card-section(ng-if="$ctrl.showReservationExtraAmount")
                     .block.block-key-value-list.block-key-value-list-pane
@@ -133,7 +133,7 @@ main(id="main-content"): section.section.section-profile: .wrapper
 
                 .card-header(ng-click="$ctrl.showReservationRefunds = !$ctrl.showReservationRefunds"): .card-header-wrapper
                     em.mdi.mdi-menu-down.card-header-arrow
-                    h2.card-heading.card-heading-lg Extra payment details
+                    h2.card-heading.card-heading-lg Details van terugbetaling
 
                 .card-section(ng-if="$ctrl.showReservationRefunds")
                     mixin refundStatus()
