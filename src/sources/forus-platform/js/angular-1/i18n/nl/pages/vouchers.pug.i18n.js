@@ -42,6 +42,7 @@ module.exports = {
         provider_name: "Aanbieder naam",
         product_name: "Aanbod naam",
         implementation: "Implementatie",
+        has_payouts: "Heeft uitbetalingen",
     },
     events: {
         created_budget: 'Aangemaakt',
@@ -95,6 +96,12 @@ module.exports = {
             'Geeft aan of het tegoed is gebruikt om een transactie te verichten. ',
             'De mogelijke waarden zijn: "Nee" of "De datum van laatste transactie". ',
             'Let op: De waarde wordt automatisch teruggezet naar \'Nee\' als de transactie is geannuleerd binnen de bedenktijd van 14 dagen.',
+        ].join(''),
+        has_payouts: [
+            'Deze verklaring bevestigt dat, indien er ten minste één transactie is uitgevoerd, ',
+            'een verzoek tot betalingsinitiatie is aangemaakt en toegevoegd aan de bulk, ',
+            'en dat de bulk met succes door de bank is ontvangen, ',
+            'de status als "Ja" wordt aangemerkt. Indien een van deze stappen niet is voltooid, wordt de status als "Nee" aangemerkt.',
         ].join(''),
         state: [
             'Geeft de huidige toestand van het tegoed aan. ',

@@ -210,6 +210,13 @@
                                         em.mdi.mdi-close.text-black
                                         strong(translate="product_vouchers.labels.no").text-black
 
+                                td
+                                    strong(translate="vouchers.labels.has_payouts").text-strong.text-md.text-primary
+                                    br
+                                    em.mdi.mdi-close.text-black
+                                    strong(ng-if="!$ctrl.voucher.has_payouts" translate="vouchers.labels.no").text-black
+                                    strong(ng-if="$ctrl.voucher.has_payouts" translate="vouchers.labels.yes").text-black
+
                             tr(ng-if="!$ctrl.voucher.product && $ctrl.voucher.fund.type != 'subsidies'")
                                 td
                                     strong.text-strong.text-md.text-primary Totaal toegekend

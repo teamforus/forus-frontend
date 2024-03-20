@@ -46,10 +46,10 @@ const TransactionsComponent = function (
         name: 'Alle'
     }, {
         key: 'draft',
-        name: 'Draft'
+        name: 'In afwachting'
     }, {
         key: 'error',
-        name: 'Fout'
+        name: 'Mislukt'
     }, {
         key: 'pending',
         name: 'In behandeling'
@@ -80,7 +80,8 @@ const TransactionsComponent = function (
         show: false,
         values: pick($stateParams, $stateParams.type == 'transactions' ? [
             'q', 'state', 'fund_id', 'fund_state', 'from', 'to', 'amount_min', 'amount_max',
-            'order_by', 'order_dir', 'page', 'per_page',
+            'order_by', 'order_dir', 'page', 'per_page', 'bulk_state',
+            'non_cancelable_from', 'non_cancelable_to',
         ] : []),
         valuesDefault: {
             q: '',
@@ -91,6 +92,7 @@ const TransactionsComponent = function (
             to: null,
             amount_min: null,
             amount_max: null,
+            bulk_state: $ctrl.bulkStates[0].key,
             per_page: 20,
             order_by: 'created_at',
             order_dir: 'desc',
@@ -326,6 +328,16 @@ const TransactionsComponent = function (
             organization: $ctrl.organization,
             onCreated: () => $ctrl.onPageChange(),
         });
+    };
+
+    $ctrl.toggleActions = (e, transaction) => {
+        $ctrl.onClickOutsideMenu(e);
+        transaction.showMenu = true;
+    };
+
+    $ctrl.onClickOutsideMenu = (e) => {
+        e.stopPropagation();
+        $ctrl.transactions.data.forEach((transaction) => transaction.showMenu = false);
     };
 
     $ctrl.$onInit = () => {
