@@ -9,9 +9,9 @@
                     tr
                         th(ng-if="$dir.fund.type == 'budget'" translate="vouchers.labels.amount")
                         th(translate="vouchers.labels.note")
-                        th(translate="vouchers.labels.created_date").nowrap
-                        th(ng-if="!$dir.fundClosed" translate="vouchers.labels.expire_date").nowrap
-                        th(ng-if="!$dir.fundClosed" translate="vouchers.labels.used")
+                        th(translate="vouchers.labels.created_at").nowrap
+                        th(ng-if="!$dir.fundClosed" translate="vouchers.labels.expire_at").nowrap
+                        th(ng-if="!$dir.fundClosed" translate="vouchers.labels.in_use")
                         th(translate="vouchers.labels.assigned")
                         th(translate="vouchers.labels.actions").nowrap.text-right
 
