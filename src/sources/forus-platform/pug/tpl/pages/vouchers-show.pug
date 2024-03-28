@@ -180,12 +180,12 @@
                         table.table.table-fixed.table-align-top
                             tr
                                 td
-                                    strong(translate="vouchers.labels.expire_date").text-strong.text-md.text-primary
+                                    strong(translate="vouchers.labels.expire_at").text-strong.text-md.text-primary
                                     br
                                     strong(ng-bind="$ctrl.voucher.expire_at_locale").text-black
 
                                 td
-                                    strong(translate="vouchers.labels.created_date").text-strong.text-md.text-primary
+                                    strong(translate="vouchers.labels.created_at").text-strong.text-md.text-primary
                                     br
                                     strong(ng-bind="$ctrl.voucher.created_at_locale.split(' - ')[1]").text-black    
 
@@ -195,7 +195,7 @@
                                     strong(ng-bind="$ctrl.voucher.source_locale").text-black
 
                                 td
-                                    strong(translate="vouchers.labels.used").text-strong.text-md.text-primary
+                                    strong(translate="vouchers.labels.in_use").text-strong.text-md.text-primary
                                     br
                                     em.mdi.mdi-close.text-black
                                     strong(ng-if="!$ctrl.voucher.in_use" translate="product_vouchers.labels.no").text-black

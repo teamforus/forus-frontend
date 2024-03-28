@@ -120,8 +120,7 @@ const VouchersComponent = function (
             }, 200);
         } else {
             ToastService.setToast([
-                'This is the header of the table column, ',
-                'to read more about it please open the Information button from the right corner.'
+                'Klik op het informatie icoon rechtsboven in de tabel voor meer uitleg over deze pagina.'
             ].join(''));
         }
     };

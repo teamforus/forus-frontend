@@ -242,13 +242,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "organization-security",
-        url: "/organizations/{organization_id}/security?view_type",
+        url: "/organizations/{organization_id}/security?{view_type:string}",
         component: "organizationSecurityComponent",
         params: {
-            view_type: {
-                squash: true,
-                value: null
-            },
+            view_type: routeParam('employees'),
         },
         resolve: {
             organization: organizationResolver(),
@@ -1769,10 +1766,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     // BI connection
     $stateProvider.state({
         name: "bi-connection",
-        url: "/organizations/{organization_id}/bi-connection",
+        url: "/organizations/{organization_id}/bi-connection?{view_type:string}",
         component: "biConnectionComponent",
+        params: {
+            view_type: routeParam('settings'),
+        },
         resolve: {
             organization: organizationResolver(),
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
             permission: permissionMiddleware('export-api-connections', 'manage_bi_connection'),
         }
     });

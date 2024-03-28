@@ -85,7 +85,7 @@
                                             placeholder="{{ 'transactions.labels.amount_max' | translate }}").form-control    
 
                                 .form-group(ng-click="$event.stopPropagation()")
-                                    form-label-toggle(label="{{ 'vouchers.labels.used' | translate }}")
+                                    form-label-toggle(label="{{ 'vouchers.labels.in_use' | translate }}")
                                     .form-offset: select-control(
                                         prop="value"
                                         search="false"
@@ -183,9 +183,9 @@
                                 th(translate="product_vouchers.labels.product")
                                 th(translate="product_vouchers.labels.note")
                                 th(translate="product_vouchers.labels.fund")
-                                th(translate="product_vouchers.labels.created_date").nowrap
-                                th(ng-if="!$ctrl.fundClosed" translate="product_vouchers.labels.expire_date").nowrap
-                                th(ng-if="!$ctrl.fundClosed" translate="product_vouchers.labels.used").nowrap
+                                th(translate="product_vouchers.labels.created_at").nowrap
+                                th(ng-if="!$ctrl.fundClosed" translate="product_vouchers.labels.expire_at").nowrap
+                                th(ng-if="!$ctrl.fundClosed" translate="product_vouchers.labels.in_use").nowrap
                                 th(translate="vouchers.labels.has_payouts").nowrap
                                 th(translate="vouchers.labels.assigned")
                                 th &nbsp;
