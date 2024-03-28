@@ -18,23 +18,23 @@
                         table.table
                             tr
                                 th(translate="financial_dashboard_overview.labels.fund_name")
-                                th.text-right(translate="financial_dashboard_overview.labels.total_budget") 
-                                th.text-right(translate="financial_dashboard_overview.labels.used_budget") 
-                                th.text-right(translate="financial_dashboard_overview.labels.current_budget")
+                                th(translate="financial_dashboard_overview.labels.total_budget") 
+                                th(translate="financial_dashboard_overview.labels.used_budget") 
+                                th(translate="financial_dashboard_overview.labels.current_budget")
                                 th.text-right(translate="financial_dashboard_overview.labels.transaction_costs")
 
                             tr(ng-repeat="fund in $ctrl.funds.data")
                                 td(ng-bind="fund.name")
-                                td.text-right(ng-bind="fund.budget.total | currency_format")
-                                td.text-right(ng-bind="fund.budget.used | currency_format")
-                                td.text-right(ng-bind="fund.budget.left | currency_format")
+                                td(ng-bind="fund.budget.total | currency_format")
+                                td(ng-bind="fund.budget.used | currency_format")
+                                td(ng-bind="fund.budget.left | currency_format")
                                 td.text-right(ng-bind="fund.budget.transaction_costs | currency_format")
 
                             tr.table-totals
                                 td(translate="financial_dashboard_overview.labels.total")
-                                td.text-right(ng-bind="$ctrl.fundsFinancialOverview.funds.budget | currency_format")
-                                td.text-right(ng-bind="$ctrl.fundsFinancialOverview.funds.budget_used | currency_format")
-                                td.text-right(ng-bind="$ctrl.fundsFinancialOverview.funds.budget_left | currency_format")
+                                td(ng-bind="$ctrl.fundsFinancialOverview.funds.budget | currency_format")
+                                td(ng-bind="$ctrl.fundsFinancialOverview.funds.budget_used | currency_format")
+                                td(ng-bind="$ctrl.fundsFinancialOverview.funds.budget_left | currency_format")
                                 td.text-right(ng-bind="$ctrl.fundsFinancialOverview.funds.transaction_costs | currency_format")
 
         .card.card-financial(ng-if="$ctrl.budgetFunds.length > 0")
@@ -49,81 +49,77 @@
             .card-section
                 .card-block.card-block-table.card-block-financial: .table-wrapper: table.table
                     thead: tr
-                        th.cell-chevron(width="5%" translate="financial_dashboard_overview.labels.fund_name")
-                        th.text-left(width="20%")
-                        th.text-right(width="10%" translate="financial_dashboard_overview.labels.total")
-                        th.text-right(width="15%" translate="financial_dashboard_overview.labels.active") 
-                        th.text-right(width="15%" translate="financial_dashboard_overview.labels.inactive") 
-                        th.text-right(width="15%" translate="financial_dashboard_overview.labels.deactivated")
-                        th.text-right(width="15%" translate="financial_dashboard_overview.labels.used") 
+                        th(width="20%" translate="financial_dashboard_overview.labels.fund_name")
+                        th(width="10%" translate="financial_dashboard_overview.labels.total")
+                        th(width="15%" translate="financial_dashboard_overview.labels.active") 
+                        th(width="15%" translate="financial_dashboard_overview.labels.inactive") 
+                        th(width="15%" translate="financial_dashboard_overview.labels.deactivated")
+                        th(width="15%" translate="financial_dashboard_overview.labels.used") 
                         th.text-right(translate="financial_dashboard_overview.labels.left")
 
                     tbody(ng-repeat="fund in $ctrl.budgetFunds")
                         tr(ng-class="fund.collapsedData ? 'table-highlight' : 'table-separator'"
                             ng-click="fund.collapsedData = !fund.collapsedData")
-
-                            td.text-center: a.mdi.mdi-menu-down.td-menu-icon(
+                            td: .flex
+                                a.mdi.mdi-menu-down.td-menu-icon(
                                 ng-class="{'mdi-menu-right': !fund.collapsedData, 'mdi-menu-down': fund.collapsedData}")
-                            td.text-left: strong(ng-bind="fund.name")    
-                            td.text-right(ng-bind="fund.budget.vouchers_amount | currency_format")
-                            td.text-right(ng-bind="fund.budget.active_vouchers_amount | currency_format")
-                            td.text-right(ng-bind="fund.budget.inactive_vouchers_amount | currency_format")
-                            td.text-right(ng-bind="fund.budget.deactivated_vouchers_amount | currency_format")
-                            td.text-right(ng-bind="fund.budget.used_active_vouchers | currency_format")
+                                strong.nowrap(ng-bind="fund.name | str_limit:50")
+                            td(ng-bind="fund.budget.vouchers_amount | currency_format")
+                            td(ng-bind="fund.budget.active_vouchers_amount | currency_format")
+                            td(ng-bind="fund.budget.inactive_vouchers_amount | currency_format")
+                            td(ng-bind="fund.budget.deactivated_vouchers_amount | currency_format")
+                            td(ng-bind="fund.budget.used_active_vouchers | currency_format")
                             td.text-right(ng-bind="(fund.budget.vouchers_amount - fund.budget.used_active_vouchers) | currency_format")
 
                         tr.table-highlight-grey(ng-if="fund.collapsedData")
-                            td.text-center: a.mdi.mdi-circle-small
-                            td.text-left: strong(translate="financial_dashboard_overview.labels.total_percentage")
-                            td.text-right {{ fund.budget.percentageTotal }} %
-                            td.text-right {{ fund.budget.percentageActive }} %
-                            td.text-right {{ fund.budget.percentageInactive }} %
-                            td.text-right {{ fund.budget.percentageDeactivated }} %
-                            td.text-right {{ fund.budget.percentageUsed }} %
+                            td: strong(translate="financial_dashboard_overview.labels.total_percentage")
+                            td {{ fund.budget.percentageTotal }} %
+                            td {{ fund.budget.percentageActive }} %
+                            td {{ fund.budget.percentageInactive }} %
+                            td {{ fund.budget.percentageDeactivated }} %
+                            td {{ fund.budget.percentageUsed }} %
                             td.text-right {{ fund.budget.percentageLeft }} %
 
                         tr.table-highlight-grey(ng-if="fund.collapsedData")
-                            td.text-center: a.mdi.mdi-circle-small
-                            td.text-left: strong(translate="financial_dashboard_overview.labels.total_count")
-                            td.text-right(ng-bind="fund.budget.vouchers_count")
-                            td.text-right(ng-bind="fund.budget.active_vouchers_count")
-                            td.text-right(ng-bind="fund.budget.inactive_vouchers_count")
-                            td.text-right(ng-bind="fund.budget.deactivated_vouchers_count")
-                            td.text-right  -
+                            td: strong(translate="financial_dashboard_overview.labels.total_count")
+                            td(ng-bind="fund.budget.vouchers_count")
+                            td(ng-bind="fund.budget.active_vouchers_count")
+                            td(ng-bind="fund.budget.inactive_vouchers_count")
+                            td(ng-bind="fund.budget.deactivated_vouchers_count")
+                            td  -
                             td.text-right  -
 
-                        tr.table-highlight-grey(ng-if="fund.collapsedData" ng-class="{'table-separator': fund.collapsedData}")
-                            td.text-center
-                                a.mdi.mdi-circle-small: br
-                                | &nbsp
-                            td.text-left
-                                strong Tegoeden
-                                div &nbsp
-                            td.text-right(colspan="2") 
-                                div(ng-repeat="formula in fund.formulas").col-lg-6.text-right
+                        tr.table-highlight-grey(ng-if="fund.collapsedData")
+                            td: strong Tegoeden
+                            td(colspan="2")
+                                div(ng-repeat="formula in fund.formulas")
                                     div Per tegoed
-                                    div {{ formula.amount | currency_format }}
-                            td.text-right
+                                    div: strong {{ formula.amount | currency_format }}
+                            td
                                 div Gem. per tegoed
-                                div {{ fund.budget.averagePerVoucher | currency_format }}
+                                div: strong {{ fund.budget.averagePerVoucher | currency_format }}
                             td
                             td(colspan="2")
 
+                        tr.table-highlight-grey(ng-if="fund.collapsedData && fund.budget.children_count > 0")
+                            td: strong Eigenschappen
+                            td(ng-if="fund.budget.children_count > 0" colspan="6")
+                                div Aantal kinderen
+                                div: strong {{ fund.budget.children_count }}
+
                         tr.table-highlight-grey(ng-if="fund.collapsedData")
-                            td.text-center: a.mdi.mdi-circle-small
-                            td.text-left: strong(translate="financial_dashboard_overview.labels.product_vouchers")    
-                            td.text-right(ng-bind="fund.product_vouchers.vouchers_amount | currency_format")
-                            td.text-right(ng-bind="fund.product_vouchers.active_vouchers_amount | currency_format")
-                            td.text-right(ng-bind="fund.product_vouchers.inactive_vouchers_amount | currency_format")
-                            td.text-right(ng-bind="fund.product_vouchers.deactivated_vouchers_amount | currency_format")
+                            td: strong(translate="financial_dashboard_overview.labels.product_vouchers")
+                            td(ng-bind="fund.product_vouchers.vouchers_amount | currency_format")
+                            td(ng-bind="fund.product_vouchers.active_vouchers_amount | currency_format")
+                            td(ng-bind="fund.product_vouchers.inactive_vouchers_amount | currency_format")
+                            td(ng-bind="fund.product_vouchers.deactivated_vouchers_amount | currency_format")
                             td(colspan="2")
 
                     tr.table-totals
-                        td
                         td(translate="financial_dashboard_overview.labels.total")
-                        td.text-right(ng-bind="$ctrl.fundsFinancialOverview.budget_funds.vouchers_amount | currency_format")
-                        td.text-right(ng-bind="$ctrl.fundsFinancialOverview.budget_funds.active_vouchers_amount | currency_format")
-                        td.text-right(ng-bind="$ctrl.fundsFinancialOverview.budget_funds.inactive_vouchers_amount | currency_format")
-                        td.text-right(ng-bind="$ctrl.fundsFinancialOverview.budget_funds.deactivated_vouchers_amount | currency_format")
-                        td.text-right(ng-bind="$ctrl.fundsFinancialOverview.budget_funds.budget_used_active_vouchers | currency_format")
+                        td(ng-bind="$ctrl.fundsFinancialOverview.budget_funds.vouchers_amount | currency_format")
+                        td(ng-bind="$ctrl.fundsFinancialOverview.budget_funds.active_vouchers_amount | currency_format")
+                        td(ng-bind="$ctrl.fundsFinancialOverview.budget_funds.inactive_vouchers_amount | currency_format")
+                        td(ng-bind="$ctrl.fundsFinancialOverview.budget_funds.deactivated_vouchers_amount | currency_format")
+                        td(ng-bind="$ctrl.fundsFinancialOverview.budget_funds.budget_used_active_vouchers | currency_format")
                         td.text-right(ng-bind="($ctrl.fundsFinancialOverview.budget_funds.vouchers_amount - $ctrl.fundsFinancialOverview.budget_funds.budget_used_active_vouchers) | currency_format")

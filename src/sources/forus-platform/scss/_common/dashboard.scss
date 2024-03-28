@@ -975,6 +975,10 @@ body {
             cursor: inherit;
             margin: 0 0 10px;
 
+            &.card-title-sm {
+                font-size: 14px;
+            }
+
             &:last-child,
             &:last-of-type {
                 margin: 0;
