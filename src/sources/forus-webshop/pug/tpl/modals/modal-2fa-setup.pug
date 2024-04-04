@@ -64,7 +64,7 @@
             //- Next
             button(
                 type="submit" 
-                ng-click="$ctrl.submitAuthenticator()").button.button-primary.button-sm Bevestig
+                ng-click="$ctrl.submitAuthenticator()").button.button-primary.button-sm Bevestigen
 
     //- Phone number
     form(ng-submit="$ctrl.submitPhoneNumber()" ng-if="$ctrl.step == 'phone_setup'").modal-window.form
@@ -98,7 +98,7 @@
 
             //- Next
             button(
-                type="submit").button.button-primary.button-sm.flex-center Bevestig
+                type="submit").button.button-primary.button-sm.flex-center Bevestigen
 
     //- Auth 2FA provider code confirmation
     form.modal-window.form(
@@ -223,7 +223,7 @@
                 | Je bent succesvol ingelogd met tweefactorauthenticatie.
                 | Welkom terug!
 
-        .modal-footer: .button-group: button.button.button-primary.button-sm(ng-click="$ctrl.done()") Bevestig
+        .modal-footer: .button-group: button.button.button-primary.button-sm(ng-click="$ctrl.done()") Bevestigen
 
     //- Success (setup)
     .modal-window(ng-if="$ctrl.step == 'success' && !$ctrl.auth")
@@ -239,4 +239,4 @@
                     | Je account is nu extra beveiligd.
 
             .modal-footer: .button-group
-                button.button.button-primary.button-sm.flex-center(ng-click="$ctrl.done()") Bevestig
+                button.button.button-primary.button-sm.flex-center(ng-click="$ctrl.done()") Bevestigen

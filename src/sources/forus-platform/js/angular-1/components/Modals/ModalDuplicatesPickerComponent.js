@@ -69,7 +69,7 @@ const ModalDuplicatesPickerComponent = function($timeout) {
             button_cancel: $ctrl.modal.scope.button_cancel || 'Annuleren',
             button_none: $ctrl.modal.scope.button_none || 'Skip all',
             button_all: $ctrl.modal.scope.button_all || 'Yes to all',
-            button_confirm: $ctrl.modal.scope.button_confirm || 'Bevestig',
+            button_confirm: $ctrl.modal.scope.button_confirm || 'Bevestigen',
         };
 
         $ctrl.hero_icon = $ctrl.modal.scope.hero_icon || 'alert-outline';
