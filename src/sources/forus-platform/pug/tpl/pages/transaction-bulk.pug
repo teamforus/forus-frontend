@@ -11,7 +11,6 @@
             .card-header: .flex-row
                 .flex.flex-grow: .card-title(translate="financial_dashboard_transaction.labels.details")
                 .flex: .button-group
-
                     //- Export SEPA file
                     button(
                         ng-if="$ctrl.showExportButton"
@@ -19,15 +18,24 @@
 
                         .mdi.mdi-download.icon-start
                         | Export SEPA file
+                
+                    //- Resend draft payment
+                    button(
+                        ng-if="$ctrl.showResetBulkButton"
+                        ng-click="$ctrl.resetPaymentRequest($ctrl.transactionBulk)" 
+                        ng-disabled="$ctrl.submittingBulk || $ctrl.resettingBulk").button.button-text.button-narrow.button-sm
+
+                        .mdi.mdi-lock-reset.icon-start(ng-if="!$ctrl.resettingBulk")
+                        | Verstuur bulktransactie opnieuw
 
                     //- BNG: Auth url button
                     a(
                         ng-if="$ctrl.showAuthLink"
                         href="{{ $ctrl.transactionBulk.auth_url }}"
-                        ng-disabled="$ctrl.submittingBulk || $ctrl.resettingBulk").button.button-default.button-sm
+                        ng-disabled="$ctrl.submittingBulk || $ctrl.resettingBulk").button.button-primary.button-sm
 
                         .mdi.mdi-link.icon-start
-                        | Autoriseer
+                        | Transactie autoriseren
 
                     //- BNG: Submit bulk to BNG
                     button(
@@ -38,16 +46,6 @@
                         .mdi.mdi-circle-multiple-outline.icon-start(ng-if="!$ctrl.submittingBulk")
                         .mdi.mdi-reload.mdi-spin.icon-start(ng-if="$ctrl.submittingBulk")
                         | Verstuur de bulk naar BNG
-                
-                    //- Resend draft payment
-                    button(
-                        ng-if="$ctrl.showResetBulkButton"
-                        ng-click="$ctrl.resetPaymentRequest($ctrl.transactionBulk)" 
-                        ng-disabled="$ctrl.submittingBulk || $ctrl.resettingBulk").button.button-danger.button-sm
-
-                        .mdi.mdi-reload.icon-start(ng-if="!$ctrl.resettingBulk")
-                        .mdi.mdi-reload.mdi-spin.icon-start(ng-if="$ctrl.resettingBulk")
-                        | Verstuur bulktransactie opnieuw
 
                     //- Set paid
                     button(
