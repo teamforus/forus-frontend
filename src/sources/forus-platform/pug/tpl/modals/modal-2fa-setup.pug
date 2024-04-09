@@ -55,7 +55,7 @@
                     //- Cancel
                     button(type="button" ng-click="$ctrl.cancel()").button.button-default Annuleer
                     //- Next
-                    button(type="submit" ng-click="$ctrl.submitAuthenticator()").button.button-primary Bevestig
+                    button(type="submit" ng-click="$ctrl.submitAuthenticator()").button.button-primary Bevestigen
 
         //- Phone number
         .modal-body(ng-if="$ctrl.step == 'phone_setup'"): form(ng-submit="$ctrl.submitPhoneNumber()").form
@@ -81,7 +81,7 @@
                     //- Cancel
                     button(type="button" ng-click="$ctrl.cancel()").button.button-default Annuleer
                     //- Next
-                    button(type="submit").button.button-primary Bevestig
+                    button(type="submit").button.button-primary Bevestigen
 
         //- Auth 2FA provider code confirmation
         .modal-body(ng-if="$ctrl.step == 'provider_confirmation'"): form(
@@ -188,4 +188,4 @@
                     | Je bent succesvol ingelogd met tweefactorauthenticatie.
                     | Welkom terug!
 
-            .modal-footer: .button-group: button(ng-click="$ctrl.done()").button.button-primary Bevestig
+            .modal-footer: .button-group: button(ng-click="$ctrl.done()").button.button-primary Bevestigen
