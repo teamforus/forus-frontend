@@ -20,6 +20,9 @@ const features_hide = false;
 const features_contact_email = false;
 const features_contact_phone = false;
 
+const support_contact_email = features_contact_email;
+const support_contact_phone = features_contact_phone;
+
 const me_app_link = 'https://forus.io/DL';
 const ios_ipad_link = 'https://testflight.apple.com/join/gWw1lXyB';
 const ios_iphone_link = 'https://testflight.apple.com/join/gWw1lXyB';
@@ -49,6 +52,9 @@ module.exports = (core) => {
             features_hide: features_hide,
             features_contact_email: features_contact_email,
             features_contact_phone: features_contact_phone,
+
+            support_contact_email: support_contact_email,
+            support_contact_phone: support_contact_phone,
 
             html5ModeEnabled: true,
             html5Mode: {
