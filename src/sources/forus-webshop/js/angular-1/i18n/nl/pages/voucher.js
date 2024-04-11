@@ -106,7 +106,7 @@ module.exports = {
                 description: 'U kunt uw reservering annuleren om af te zien van de aankoop. Wanneer u deze aankoop niet wenst te annuleren klikt u op "sluit".'
             },
             buttons: {
-                submit: 'Bevestig',
+                submit: 'Bevestigen',
                 close: 'Sluit'
             },
         }

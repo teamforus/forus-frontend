@@ -17,7 +17,7 @@
                     span(ng-bind="$ctrl.title")
 
                 .danger_zone-description(ng-if="$ctrl.description")
-                    div(ng-repeat="description in $ctrl.description")
+                    div(ng-repeat="description in $ctrl.description track by $index")
                         div(ng-if="description" ng-bind="description")
                         div(ng-if="!description") &nbsp;
 
@@ -41,6 +41,7 @@
                 data-dusk="btnDangerZoneCancel")
             
             .button.button-danger(
+                ng-if="$ctrl.onConfirm"
                 ng-disabled="!$ctrl.confirmed" 
                 ng-click="$ctrl.confirm()" 
                 ng-bind="$ctrl.confirmButton" 
