@@ -51,14 +51,16 @@ const TransactionBulkComponent = function (
 
         if (bank.key === 'bng') {
             // Resend BNG bulk confirmation
-            return $ctrl.confirmDangerAction('Reset BNG bulk', [
-                "If you there are errors when accepting your bulk transaction in BNG or transaction expired in BNG, please contact our support.",
+            return $ctrl.confirmDangerAction('Bulktransactie opnieuw versturen naar BNG', [
+                "Als u een foutmelding tegenkomt bij het verzenden van bulktransacties naar BNG, of als een transactie bij BNG is verlopen, neem dan contact op met de support van Forus.",
                 (appConfigs?.support_contact_email || appConfigs?.support_contact_phone) ? `\n\n` : ``,
-                appConfigs?.support_contact_email ? `\nContact email: ${appConfigs?.support_contact_email}` : null,
-                appConfigs?.support_contact_phone ? `\nContact phone: ${appConfigs?.support_contact_phone}` : null,
+                "Contactgegevens:\n",
+                appConfigs?.support_contact_email ? `\nTelefoon: ${appConfigs?.support_contact_email}` : null,
+                appConfigs?.support_contact_phone ? `\nE-mail: ${appConfigs?.support_contact_phone}` : null,
                 
-                "Before requesting to send new bulk transaction to BNG, please, be sure that existing transaction is cancelled and deleted.",
-                "If you will not cancel an existing transaction, it could lead to double payments or incosisten data in Forus platform"
+                "\n\nVoordat u contact opneemt met Forus om een nieuwe bulktransactie naar BNG te verzenden,",
+                "controleer alstublieft of een bestaande transactie geannuleerd en verwijderd is in het BNG-systeem.",
+                "Als u een bestaande transactie niet annuleert, kan dit leiden tot dubbele betalingen of inconsistenties tussen het Forus-platform en BNG."
             ].filter((row) => row).join(" "), false);
         }
     }
@@ -178,8 +180,8 @@ const TransactionBulkComponent = function (
         }
 
         if (error) {
-            PushNotificationsService.danger(error == 'canceled' ? 'Transactie-autorisatie geannuleerd' : 'Error!', {
-                canceled: "Probeer het opnieuw als u de transactie wilt voltooien.",
+            PushNotificationsService.danger(error == 'canceled' ? 'De autorisatie van de transactie is mislukt' : 'Error!', {
+                canceled: "Probeer het opnieuw om de transactie te voltooien.",
                 unknown: "Er is iets misgegaan!",
             }[error] || error);
         }
