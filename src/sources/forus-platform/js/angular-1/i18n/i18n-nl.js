@@ -342,7 +342,7 @@ module.exports = {
     // FINANCIAL DASHBOARD = financial-dashboard-transaction.pug
     financial_dashboard: {
         header: {
-            title: "Financieel statistieken",
+            title: "Financiele statistieken",
         },
         labels: {
             product: "Fietsen, Computers",
@@ -391,7 +391,7 @@ module.exports = {
             used: "Uitgaven",
             left: "Restant",
             total_percentage: "Totaal percentage",
-            total_count: "Totaalaantal",
+            total_count: "Totaal aantal",
             product_vouchers: "Aanbiedingsvouchers"
         },
         buttons: {
