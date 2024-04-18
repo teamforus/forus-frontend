@@ -36,15 +36,6 @@ block content
                             .pre-check-progress-question-answer
                                 | Je bent er bijna!
 
-                .pre-check-amounts(ng-if="$ctrl.totals")
-                    .pre-check-amount
-                        .pre-check-amount-title Totaal bedrag
-                        .pre-check-amount-value {{ $ctrl.totals.amount_total_valid_locale  }}
-
-                    .pre-check-amount
-                        .pre-check-amount-title Totaal regelingen
-                        .pre-check-amount-value {{ $ctrl.totals.funds_valid.length }}
-
                 .pre-check-actions(ng-if="$ctrl.totals")
                     .button.button-download.button-fill.button-sm(
                         type="button" 
@@ -161,7 +152,7 @@ block content
                                         name="control_{{ preCheckRecord.record_type_key }}"
                                         ng-model="preCheckRecord.input_value"
                                         options="$ctrl.recordTypesByKey[preCheckRecord.record_type_key].options"
-                                        placeholder="Uw {{ preCheckRecord.record_type.name }}")
+                                        placeholder="Maak een keuze")
 
                                     ui-control-checkbox(
                                         ng-if="preCheckRecord.control_type == 'ui_control_checkbox'"
@@ -191,7 +182,7 @@ block content
                                         ng-model="preCheckRecord.input_value"
                                         name="{{ preCheckRecord.record_type_key }}"
                                         data-id="pre_check_record_{{ preCheckRecord.record_type_key }}"
-                                        data-placeholder="Uw {{ preCheckRecord.record_type.name }}")
+                                        data-placeholder="{{ preCheckRecord.record_type.name }}")
 
                                     ui-control-text(
                                         ng-if="preCheckRecord.control_type == 'ui_control_text'"

@@ -85,7 +85,7 @@
                                             placeholder="{{ 'transactions.labels.amount_max' | translate }}").form-control    
 
                                 .form-group(ng-click="$event.stopPropagation()")
-                                    form-label-toggle(label="{{ 'vouchers.labels.used' | translate }}")
+                                    form-label-toggle(label="{{ 'vouchers.labels.in_use' | translate }}")
                                     .form-offset: select-control(
                                         prop="value"
                                         search="false"
@@ -151,6 +151,14 @@
                                         ng-model="$ctrl.filters.values.implementation_id"
                                         options="$ctrl.implementations").form-control
 
+                                .form-group(ng-click="$event.stopPropagation()")
+                                    form-label-toggle(label="{{ 'vouchers.labels.has_payouts' | translate }}")
+                                    .form-offset: select-control(
+                                        prop="value"
+                                        search="false"
+                                        ng-model="$ctrl.filters.values.has_payouts"
+                                        options="$ctrl.has_payouts").form-control
+
                                 .form-actions
                                     button.button.button-primary.button-wide(
                                         ng-click="$ctrl.exportVouchers()" 
@@ -175,9 +183,10 @@
                                 th(translate="product_vouchers.labels.product")
                                 th(translate="product_vouchers.labels.note")
                                 th(translate="product_vouchers.labels.fund")
-                                th(translate="product_vouchers.labels.created_date")
-                                th(ng-if="!$ctrl.fundClosed" translate="product_vouchers.labels.expire_date")
-                                th(ng-if="!$ctrl.fundClosed" translate="product_vouchers.labels.used")
+                                th(translate="product_vouchers.labels.created_at").nowrap
+                                th(ng-if="!$ctrl.fundClosed" translate="product_vouchers.labels.expire_at").nowrap
+                                th(ng-if="!$ctrl.fundClosed" translate="product_vouchers.labels.in_use").nowrap
+                                th(translate="vouchers.labels.has_payouts").nowrap
                                 th(translate="vouchers.labels.assigned")
                                 th &nbsp;
 
@@ -232,8 +241,15 @@
                                         div(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale.split(',')[0]").text-primary
                                         div(ng-if="voucher.in_use" ng-bind="voucher.first_use_date_locale.split(',')[1]").text-strong.text-md.text-muted-dark
 
+                                td.nowrap: .td-boolean.flex-vertical
+                                    .text-primary
+                                        em.mdi.mdi-check-circle(ng-if="voucher.has_payouts")
+                                        em.mdi.mdi-close(ng-if="!voucher.has_payouts")
+                                        div(ng-if="!voucher.has_payouts" translate="vouchers.labels.no")
+                                        div(ng-if="voucher.has_payouts" translate="vouchers.labels.yes")
+
                                 //- voucher state
-                                td
+                                td.nowrap
                                     .td-boolean(ng-if="voucher.expired")
                                         em.mdi.mdi-close
                                         span.text-md.text-muted-dark Verlopen               

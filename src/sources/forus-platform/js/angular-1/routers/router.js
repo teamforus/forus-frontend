@@ -242,13 +242,10 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
 
     $stateProvider.state({
         name: "organization-security",
-        url: "/organizations/{organization_id}/security?view_type",
+        url: "/organizations/{organization_id}/security?{view_type:string}",
         component: "organizationSecurityComponent",
         params: {
-            view_type: {
-                squash: true,
-                value: null
-            },
+            view_type: routeParam('employees'),
         },
         resolve: {
             organization: organizationResolver(),
@@ -896,7 +893,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 "{fund_id:int}&{q:string}&{granted:int}&{amount_min:int}&{amount_max:int}&{date_type:string}&",
                 "{from:string}&{to:string}&{in_use:int}&{count_per_identity_min:int}&{count_per_identity_max:int}&",
                 "{type:string}&{source:string}&{sort_by:string}&{sort_order:string}&{state:string}&{page:int}&",
-                "{implementation_id:int}",
+                "{implementation_id:int}&{has_payouts:int}",
             ].join(''),
             params: {
                 q: routeParam(''),
@@ -910,6 +907,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 to: routeParam(),
                 state: routeParam(),
                 in_use: routeParam(),
+                has_payouts: routeParam(),
                 count_per_identity_min: routeParam(0),
                 count_per_identity_max: routeParam(),
                 page: routeParam(1),
@@ -969,7 +967,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 "{fund_id:int}&{q:string}&{granted:int}&{amount_min:int}&{amount_max:int}&{date_type:string}&",
                 "{from:string}&{to:string}&{in_use:int}&{count_per_identity_min:int}&{count_per_identity_max:int}&",
                 "{type:string}&{source:string}&{sort_by:string}&{sort_order:string}&{state:string}&{page:int}",
-                "{implementation_id:int}",
+                "{implementation_id:int}&{has_payouts:int}",
             ].join(''),
             params: {
                 q: routeParam(''),
@@ -983,6 +981,7 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
                 to: routeParam(),
                 state: routeParam(),
                 in_use: routeParam(),
+                has_payouts: routeParam(),
                 count_per_identity_min: routeParam(0),
                 count_per_identity_max: routeParam(),
                 page: routeParam(1),
@@ -1496,7 +1495,8 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             "/organizations/{organization_id}/transactions?",
             "{type:string}&{q:string}&{page:int}&{state:string}&{fund_id:int}&{fund_state:string}&",
             "{from:string}&{to:string}&{amount_min:int}&{amount_max:int}&{quantity_min:int}&",
-            "{quantity_max:int}&{order_by:string}&{order_dir:string}",
+            "{quantity_max:int}&{order_by:string}&{order_dir:string}&{bulk_state:string}&",
+            "{non_cancelable_from:string}&{non_cancelable_to:string}",
         ].join(''),
         params: {
             q: routeParam(""),
@@ -1505,6 +1505,9 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
             type: routeParam("transactions"),
             page: routeParam(1),
             state: routeParam(),
+            bulk_state: routeParam(),
+            non_cancelable_from: routeParam(),
+            non_cancelable_to: routeParam(),
             fund_id: routeParam(),
             fund_state: routeParam(),
             amount_min: routeParam(),
@@ -1763,10 +1766,16 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', (
     // BI connection
     $stateProvider.state({
         name: "bi-connection",
-        url: "/organizations/{organization_id}/bi-connection",
+        url: "/organizations/{organization_id}/bi-connection?{view_type:string}",
         component: "biConnectionComponent",
+        params: {
+            view_type: routeParam('settings'),
+        },
         resolve: {
             organization: organizationResolver(),
+            auth2FAState: ['Identity2FAService', (Identity2FAService) => {
+                return repackResponse(Identity2FAService.status());
+            }],
             permission: permissionMiddleware('export-api-connections', 'manage_bi_connection'),
         }
     });

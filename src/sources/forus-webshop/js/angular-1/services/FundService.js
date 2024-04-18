@@ -233,7 +233,7 @@ const FundService = function (
                 header: 'Dit tegoed is al geactiveerd',
                 mdiIconType: 'warning',
                 mdiIconClass: 'alert-outline',
-                closeBtnText: 'Bevestig',
+                closeBtnText: 'Bevestigen',
                 description: [
                     "U krijgt deze melding omdat het tegoed is geactiveerd door een ",
                     "famielid of voogd. De tegoeden zijn beschikbaar in het account ",
@@ -268,6 +268,7 @@ const FundService = function (
                 'iban': 'ui_control_text',
                 'number': 'ui_control_number',
                 'select': 'select_control',
+                'select_number': 'select_control',
             }[record_type.type];
 
             const control_type_key = {

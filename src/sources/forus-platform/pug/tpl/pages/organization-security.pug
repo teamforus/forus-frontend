@@ -16,12 +16,10 @@
 
                 .flex: .block.block-inline-filters: .flex: div: .block.block-label-tabs.pull-right: .label-tab-set
                     .label-tab.label-tab-sm(
-                        ng-class="{active: $ctrl.viewType == 'employees'}"
-                        ng-click="$ctrl.viewType = 'employees'") Medewerkers
-
-                    .label-tab.label-tab-sm(
-                        ng-class="{active: $ctrl.viewType == 'funds'}"
-                        ng-click="$ctrl.viewType = 'funds'") Fondsen
+                        ng-repeat = "tab in $ctrl.tabs"
+                        ng-class="{active: $ctrl.viewType == tab.key}"
+                        ng-click="$ctrl.setViewType(tab.key)"
+                        ng-bind="tab.name")
 
             //- 2FA employees
             .card-section.card-section-primary(ng-if="$ctrl.viewType == 'employees'"): .row: .col.col-lg-9.col-xs-12
@@ -46,6 +44,16 @@
                         ng-model="$ctrl.form.values.auth_2fa_remember_ip" 
                         options="$ctrl.auth2FARememberIpOptions").form-control
                     .form-error(ng-repeat="error in $ctrl.form.errors.auth_2fa_remember_ip" ng-bind="error")
+
+                //- Employee restricted features
+                .form-group.form-group-inline
+                    label.form-label Restrict features
+
+                    .form-offset
+                        div: input-checkbox-control(
+                            name="auth_2fa_restrict_bi_connections"
+                            ng-model="$ctrl.form.values.auth_2fa_restrict_bi_connections"
+                            label="BI tools")
             
             //- 2FA employees funds
             .card-section.card-section-primary(ng-if="$ctrl.viewType == 'funds'"): .row: .col.col-lg-9.col-xs-12
@@ -73,7 +81,7 @@
                 
                 //- Restrict some features
                 .form-group.form-group-inline(ng-if="$ctrl.form.values.auth_2fa_funds_policy == 'restrict_features'")
-                    label.form-label 
+                    label.form-label Verplicht instellen voor
 
                     .form-offset
                         div: input-checkbox-control(
@@ -94,4 +102,4 @@
             //- Submit
             .card-section.card-section-primary: .text-center
                 a(ui-sref="employees({organization_id: $ctrl.organization.id})").button.button-default Annuleer
-                button(type="submit").button.button-primary Bevestig
+                button(type="submit").button.button-primary Bevestigen

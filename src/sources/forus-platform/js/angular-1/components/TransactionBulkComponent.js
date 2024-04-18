@@ -24,13 +24,17 @@ const TransactionBulkComponent = function (
         },
     };
 
-    $ctrl.confirmDangerAction = (title, description, cancelButton = 'Annuleren', confirmButton = 'Bevestigen') => {
+    $ctrl.confirmDangerAction = (title, description, allowConfirm = true) => {
         return $q((resolve) => {
-            const onConfirm = () => resolve(true);
-            const onCancel = () => resolve(false);
-            const params = { title, description, cancelButton, confirmButton, onConfirm, onCancel };
-
-            ModalService.open("dangerZone", { ...params, text_align: 'center' });
+            ModalService.open("dangerZone", {
+                title,
+                description,
+                cancelButton: allowConfirm ? 'Annuleren' : 'Sluiten',
+                confirmButton: 'Bevestigen',
+                text_align: 'center',
+                onConfirm: allowConfirm ? () => resolve(true) : null,
+                onCancel: () => resolve(false),
+            });
         });
     }
 
@@ -46,14 +50,18 @@ const TransactionBulkComponent = function (
         }
 
         if (bank.key === 'bng') {
-            // Reset BNG bulk confirmation
-            return $ctrl.confirmDangerAction('Reset BNG bulk', [
-                "Weet u zeker dat u de bulk opnieuw wilt instellen?",
-                "Stel alleen de bulk opnieuw in als de link om te autoriseren niet meer geldig is.",
-                "Alleen de bulk betalingen die nog niet geautoriseerd zijn kunnen opnieuw worden ingesteld.\n\n",
-                'U wordt doorverwezen naar de betalingsverkeer pagina van de BNG.\n',
-                'Weet u zeker dat u door wil gaan?',
-            ].join(" "));
+            // Resend BNG bulk confirmation
+            return $ctrl.confirmDangerAction('Bulktransactie opnieuw versturen naar BNG', [
+                "Als u een foutmelding tegenkomt bij het verzenden van bulktransacties naar BNG, of als een transactie bij BNG is verlopen, neem dan contact op met de support van Forus.",
+                (appConfigs?.support_contact_email || appConfigs?.support_contact_phone) ? `\n\n` : ``,
+                "Contactgegevens:\n",
+                appConfigs?.support_contact_email ? `\nTelefoon: ${appConfigs?.support_contact_email}` : null,
+                appConfigs?.support_contact_phone ? `\nE-mail: ${appConfigs?.support_contact_phone}` : null,
+                
+                "\n\nVoordat u contact opneemt met Forus om een nieuwe bulktransactie naar BNG te verzenden,",
+                "controleer alstublieft of een bestaande transactie geannuleerd en verwijderd is in het BNG-systeem.",
+                "Als u een bestaande transactie niet annuleert, kan dit leiden tot dubbele betalingen of inconsistenties tussen het Forus-platform en BNG."
+            ].filter((row) => row).join(" "), false);
         }
     }
 
@@ -172,8 +180,8 @@ const TransactionBulkComponent = function (
         }
 
         if (error) {
-            PushNotificationsService.danger('Error!', {
-                canceled: "Geannuleerd.",
+            PushNotificationsService.danger(error == 'canceled' ? 'De autorisatie van de transactie is mislukt' : 'Error!', {
+                canceled: "Probeer het opnieuw om de transactie te voltooien.",
                 unknown: "Er is iets misgegaan!",
             }[error] || error);
         }
