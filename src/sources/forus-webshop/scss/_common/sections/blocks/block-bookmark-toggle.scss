@@ -9,6 +9,7 @@
     z-index: 1;
     transition: color .4s, background-color .4s;
     border: 1px solid var(--border-color);
+    cursor: pointer;
 
     &:hover {
         color: rgba($color: #df0c2d, $alpha: .3);

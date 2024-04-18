@@ -1,7 +1,7 @@
 module.exports = {
     // PRODUCT RESERVE CANCEL POPUP = popup-product-reserve-cancel.pug
     header_not_cancelable: {
-        title: 'Neem contact op met {{organizationname}}',
+        title: 'Neem contact op met {{organizationName}}',
     },
     description_not_cancelable: 'Deze reservering is al door de aanbieder geaccepteerd. Neem voor het annuleren binnen 14 dagen na datum van de reservering contact op met de aanbieder.',
     header_pending: {
