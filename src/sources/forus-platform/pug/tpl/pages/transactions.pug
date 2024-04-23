@@ -321,7 +321,7 @@
                                     //- Pending
                                     .label.label-default(ng-if="transaction.bulk_state == 'pending'" ng-bind="transaction.bulk_state_locale")
 
-                                td(dusk="transactionState")
+                                td(data-dusk="transactionState")
                                     .label.label-success(ng-if="transaction.state == 'success'" ng-bind="transaction.state_locale")
                                     .label.label-default(ng-if="transaction.state != 'success'" ng-bind="transaction.state_locale")
 
