@@ -70,7 +70,6 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "papaparse": "^5.3.2",
-    "pdfjs-dist": "^4.2.67",
     "progressbar.js": "^1.1.1",
     "qrcodejs": "^1.0.0",
     "sortablejs": "^1.10.1",
