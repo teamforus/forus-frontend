@@ -1,6 +1,7 @@
 .modal.modal-animated.modal-loading.modal-voucher-create(
     ng-if="$ctrl.modal.ready"
-    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']")
+    ng-class="[$ctrl.modal.scope.modalClass, $ctrl.modalClass, $ctrl.modal.loaded ? '' : 'modal-loading']"
+    data-dusk='modalFundSelect')
     .modal-backdrop(ng-click="$ctrl.close()")
 
     //- Voucher form
@@ -20,4 +21,4 @@
 
         .modal-footer.text-center
             button.button.button-default(type="button" ng-click="$ctrl.close()") Annuleren
-            button.button.button-primary(type="submit") Bevestigen
+            button.button.button-primary(type="submit" data-dusk='modalFundSelectSubmit') Bevestigen

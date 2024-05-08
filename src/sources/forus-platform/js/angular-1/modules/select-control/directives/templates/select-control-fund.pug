@@ -2,6 +2,7 @@
     .select-control-input(
         ng-class="{options : $dir.showOptions}"
         ng-disabled="$dir.disabled || $dir.ngDisabled"
+        data-dusk='selectControlFunds'
         click-outside="$dir.onClickOutside()"
         aria-haspopup="listbox"
         aria-expanded="{{ $dir.showOptions }}"

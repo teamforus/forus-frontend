@@ -1,5 +1,6 @@
 div: .select-control-options(scroll-end="$dir.onScrolledOption()")
     .select-control-option(
+        data-dusk="selectControlFundItem{{ option.raw.id }}"
         ng-repeat="option in $dir.options track by $index"
         ng-click="$dir.select(option)"
         role="option")
