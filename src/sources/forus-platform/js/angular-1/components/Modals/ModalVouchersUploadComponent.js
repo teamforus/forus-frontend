@@ -412,24 +412,24 @@ const ModalVouchersUploadComponent = function (
             this.startUploading = function (data, validation = false) {
                 this.progress = 2;
 
-                return $q((resolve) => {
+                return $q(async (resolve) => {
                     const dataGrouped = groupBy(JSON.parse(JSON.stringify(data)).map((row) => ({
                         ...row, fund_id: row.fund_id ? row.fund_id : $ctrl.fund.id,
                     })), 'fund_id');
 
-                    const promise = Object.keys(dataGrouped).reduce((chain, fundId) => {
-                        const fund = $ctrl.availableFundsById[fundId];
-                        const items = dataGrouped[fund.id].map((item) => {
-                            delete item.fund_id;
-                            return item;
-                        });
+                    const promises = Object.keys(dataGrouped).map((fundId) => {
+                        return () => {
+                            const fund = $ctrl.availableFundsById[fundId];
+                            const items = dataGrouped[fund.id].map((item) => {
+                                delete item.fund_id;
+                                return item;
+                            });
 
-                        let totalRows = items.length;
-                        let uploadedRows = 0;
+                            let totalRows = items.length;
+                            let uploadedRows = 0;
 
-                        $ctrl.setLoadingBarProgress(0, this.getStatus(fund, validation));
+                            $ctrl.setLoadingBarProgress(0, this.getStatus(fund, validation));
 
-                        return chain.then(() => {
                             if (validation) {
                                 return this
                                     .startValidationUploadingData(fund, items, (chunkData) => {
@@ -450,19 +450,20 @@ const ModalVouchersUploadComponent = function (
                                 $ctrl.setLoadingBarProgress((uploadedRows / totalRows) * 100, this.getStatus(fund, false));
 
                                 if (uploadedRows === totalRows) {
-                                    $timeout(() => {
-                                        $ctrl.setLoadingBarProgress(100, this.getStatus(fund, false));
-                                        this.progress = 3;
-                                        $rootScope.$broadcast('vouchers_csv:uploaded', true);
-                                    }, 0);
+                                    $timeout(() => $ctrl.setLoadingBarProgress(100, this.getStatus(fund, false)), 0);
                                 }
-                            });
-                        });
-                    }, $q.resolve());
-
-                    promise.then(() => {
-                        resolve();
+                            });;
+                        }
                     });
+
+                    for (let i = 0; i < promises.length; i++) {
+                        const element = promises[i];
+                        await new Promise((resolve) => element().then(resolve));
+                    }
+
+                    this.progress = 3;
+                    $rootScope.$broadcast('vouchers_csv:uploaded', true);
+                    resolve();
                 });
             };
 
