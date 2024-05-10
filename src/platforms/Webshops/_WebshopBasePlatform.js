@@ -24,7 +24,6 @@ platform.setLibs([
     "ui_router",
     "ui_select",
     "file_saver",
-    "pdfjs",
 ]);
 
 // tweaking output and cleaned paths config

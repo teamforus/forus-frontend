@@ -1,9 +1,6 @@
 const PdfPreviewDirective = function($scope, $element) {
-    // Loaded via <script> tag, create shortcut to access PDF.js exports.
-    const pdfjsLib = window['pdfjs-dist/build/pdf'];
-
     // The workerSrc property shall be specified.
-    // pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+    pdfjsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.worker.min.mjs';
 
     new Response($scope.rawPdfFile).arrayBuffer().then((data) => {
         pdfjsLib.getDocument({ data }).promise.then(function(pdf) {
