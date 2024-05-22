@@ -1,5 +1,9 @@
 - var src_prefix = (qdt_c.platform.env_data.html5ModeEnabled?qdt_c.platform.env_data.html5Mode.basePath:'');
 
+//- pdfjs
+script(type='module').
+    import pdfjsDist from 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.2.67/+esm'
+    
 //- libs bundle
 script(src=src_prefix + "assets/dist/bundle/js/bundle.min" + qdt_c.append_assets + ".js")
 

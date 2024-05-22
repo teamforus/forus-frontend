@@ -102,19 +102,19 @@
                                 .form-group
                                     form-label-toggle(label="{{ 'reimbursements.labels.from' | translate }}")
                                     datepicker(
-                                        date-format="dd-MM-yyyy" 
+                                        date-format="yyyy-MM-dd"
                                         datepicker-mobile=""
                                         date-week-start-day="1").form-control
-                                        input(ng-model="$ctrl.filters.values.from" type="text" placeholder="dd-MM-yyyy").form-control
+                                        input(ng-model="$ctrl.filters.values.from" type="text" placeholder="yyyy-MM-dd").form-control
 
                                 //- To date filter
                                 .form-group
                                     form-label-toggle(label="{{ 'reimbursements.labels.to' | translate }}")
                                     datepicker(
-                                        date-format="dd-MM-yyyy" 
+                                        date-format="yyyy-MM-dd"
                                         datepicker-mobile="" 
                                         date-week-start-day="1").form-control
-                                        input(ng-model="$ctrl.filters.values.to" type="text" placeholder="dd-MM-yyyy").form-control
+                                        input(ng-model="$ctrl.filters.values.to" type="text" placeholder="yyyy-MM-dd").form-control
 
                                 //- Implementation filter    
                                 .form-group(ng-click="$event.stopPropagation()")
