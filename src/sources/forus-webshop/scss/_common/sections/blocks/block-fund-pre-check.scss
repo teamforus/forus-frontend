@@ -98,7 +98,11 @@
                     padding-bottom: 0;
 
                     .pre-check-progress-step-icon {
-                        background: url("../img/icon-pre-check-totals-inactive.svg") center no-repeat;
+                        @if ($buildReact) {
+                            background: url("./assets/img/icon-pre-check-totals-inactive.svg") center no-repeat;
+                        } @else {
+                            background: url("../img/icon-pre-check-totals-inactive.svg") center no-repeat;
+                        }
                     }
 
                     &:before {
@@ -107,7 +111,11 @@
 
                     &.active {
                         .pre-check-progress-step-icon {
-                            background: url("../img/icon-pre-check-totals-active.svg") center no-repeat;
+                            @if ($buildReact) {
+                                background: url("./assets/img/icon-pre-check-totals-active.svg") center no-repeat;
+                            } @else {
+                                background: url("../img/icon-pre-check-totals-active.svg") center no-repeat;
+                            }
                             color: #fff;
                             background-color: var(--color-primary);
                         }

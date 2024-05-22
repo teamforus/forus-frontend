@@ -55,7 +55,9 @@ html {
 }
 
 [ng-click],
-[ui-sref] {
+[ui-sref],
+.clickable,
+.state-nav-link {
     cursor: pointer;
 
     * {

@@ -10,7 +10,7 @@ module.exports = {
     },
     labels: {
         fund: "Aanvragen",
-        limit: "Resterend tegoed:&nbsp;",
+        limit: "Resterend tegoed:",
         max_limit: "Maximaal per persoon:",
         find: "U kunt ons hier vinden",  
         description: "Omschrijving:",
