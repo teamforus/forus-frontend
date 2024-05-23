@@ -347,7 +347,11 @@
                     border: 1px solid var(--border-color);
                     border-radius: calc(var(--border-radius) / 2);
                     padding-right: 25px;
-                    background-image: url('../img/select-bg.png');
+                    @if $buildReact {
+                        background-image: url('./assets/img/select-bg.png');
+                    } @else {
+                        background-image: url('../img/select-bg.png');
+                    }
                     background-position: calc(100% - 4px);
                     background-repeat: no-repeat;
                 }

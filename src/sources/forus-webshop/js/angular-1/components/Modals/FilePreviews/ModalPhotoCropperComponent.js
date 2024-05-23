@@ -107,7 +107,7 @@ const ModalPhotoCropperComponent = function (
     }
 
     $ctrl.pdfToBlob = (rawPdfFile) => {
-        const pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.worker.min.mjs';
 
         return $q((resolve) => {
             new Response(rawPdfFile).arrayBuffer().then((data) => {

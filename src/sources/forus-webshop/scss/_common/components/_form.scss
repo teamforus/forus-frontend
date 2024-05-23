@@ -196,6 +196,7 @@
             cursor: pointer;
 
             .select-control-search-placeholder {
+                display: block;
                 color: var(--form-control-color);
                 line-height: 24px;
             }
