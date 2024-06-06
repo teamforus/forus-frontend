@@ -87,6 +87,7 @@
                         th Type
                         th Bedrag
                         th Gegeven
+                        th Aangemaakt op
                         th.text-right Laatste aanpassing
 
                     tbody
@@ -95,8 +96,12 @@
                             td(ng-bind="formula.type")
                             td(ng-bind="formula.amount_locale")
                             td(ng-bind="formula.record_type_name || '-'")
+                            td 
+                                strong(ng-bind="formula.created_at_locale.split(' - ')[0] || '-'").text-primary
+                                br
+                                span(ng-bind="formula.created_at_locale.split(' - ')[1]")
                             td.text-right
-                                strong(ng-bind="formula.updated_at_locale.split(' - ')[0]").text-primary
+                                strong(ng-bind="formula.updated_at_locale.split(' - ')[0] || '-'").text-primary
                                 br
                                 span(ng-bind="formula.updated_at_locale.split(' - ')[1]")
 
