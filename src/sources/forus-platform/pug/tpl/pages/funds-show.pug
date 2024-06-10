@@ -60,6 +60,10 @@
                         ng-click="$ctrl.viewGeneralType = 'description'") Beschrijving
 
                     .label-tab.label-tab-sm(
+                        ng-class="{active: $ctrl.viewGeneralType == 'formulas'}"
+                        ng-click="$ctrl.viewGeneralType = 'formulas'") Rekenregels
+
+                    .label-tab.label-tab-sm(
                         ng-class="{active: $ctrl.viewGeneralType == 'statistics'}"
                         ng-click="$ctrl.viewGeneralType = 'statistics'") Statistieken
 
@@ -75,6 +79,36 @@
                 .description-body(ng-if="!$ctrl.fund.description_html") 
                     .arrow-box.border.bg-dim: .arrow
                     | Geen data
+
+            .card-section(ng-if="$ctrl.viewGeneralType == 'formulas'"): .card-block.card-block-table
+                .table-wrapper: table.table(ng-if="$ctrl.fund.formulas.length > 0")
+                    thead: tr
+                        th ID
+                        th Type
+                        th Bedrag
+                        th Gegeven
+                        th Aangemaakt op
+                        th.text-right Laatste aanpassing
+
+                    tbody
+                        tr(ng-repeat="formula in $ctrl.fund.formulas")
+                            td(ng-bind="formula.id")
+                            td(ng-bind="formula.type")
+                            td(ng-bind="formula.amount_locale")
+                            td(ng-bind="formula.record_type_name || '-'")
+                            td 
+                                strong(ng-bind="formula.created_at_locale.split(' - ')[0] || '-'").text-primary
+                                br
+                                span(ng-bind="formula.created_at_locale.split(' - ')[1]")
+                            td.text-right
+                                strong(ng-bind="formula.updated_at_locale.split(' - ')[0] || '-'").text-primary
+                                br
+                                span(ng-bind="formula.updated_at_locale.split(' - ')[1]")
+
+                //- Fund formulas empty
+                block-empty(
+                    ng-if="!$ctrl.fund.formulas.length"
+                    title="No fund formulas")
 
             .card-section(ng-if="$ctrl.viewGeneralType == 'criteria'").card-section-primary: .form 
                 fund-criteria-editor(
