@@ -76,6 +76,10 @@ const FundService = function ($q, $filter, ApiRequest, ModalService) {
             return ApiRequest.get(`${uriPrefix}${organization_id}/funds/${fund_id}/identities`, data);
         };
 
+        this.identitiesCount = (organization_id, fund_id, data = {}) => {
+            return ApiRequest.get(`${uriPrefix}${organization_id}/funds/${fund_id}/identities/counts`, data);
+        };
+
         this.readIdentity = (organization_id, fund_id, id, data = {}) => {
             return ApiRequest.get(`${uriPrefix}${organization_id}/funds/${fund_id}/identities/${id}`, data);
         };

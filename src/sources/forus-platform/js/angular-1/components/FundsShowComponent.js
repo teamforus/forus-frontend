@@ -64,6 +64,29 @@ const FundsShowComponent = function (
         $ctrl.implementations.data.forEach((implementation) => implementation.showMenu = false);
     };
 
+    $ctrl.fetchCountsByIds = (query, resources) => {
+        return FundService.identitiesCount(
+            $ctrl.fund.organization_id,
+            $ctrl.fund.id,
+            { ...query, identity_ids: resources.data.data.map((item) => item.id)}
+        ).then((res) => {
+            const items = resources.data.data.map((identity) => {
+                let count = res.data.data.filter((item) => item.id === identity.id)[0];
+
+                return {...identity, ...count};
+            });
+
+            $ctrl.identities = {
+                ...resources.data,
+                data: items,
+                meta: {
+                    ...resources.data.meta,
+                    counts: res.data.meta.counts,
+                }
+            };
+        });
+    }
+
     $ctrl.identitiesOnPageChange = (query = {}) => {
         PageLoadingBarService.setProgress(0);
 
@@ -71,13 +94,17 @@ const FundsShowComponent = function (
             $ctrl.fund.organization_id,
             $ctrl.fund.id,
             query
-        ).then(
-            (res) => $ctrl.identities = res.data,
-            (res) => PushNotificationsService.danger('Error!', res.data.message)
-        ).finally(() => {
-            $ctrl.lastQueryIdentities = query.q;
-            PageLoadingBarService.setProgress(100);
-        });
+        ).then((res) => {
+                $ctrl.fetchCountsByIds(query, res).then(() => {
+                    $ctrl.lastQueryIdentities = query.q;
+                    PageLoadingBarService.setProgress(100);
+                });
+            }, (res) => {
+                PushNotificationsService.danger('Error!', res.data.message);
+                $ctrl.lastQueryIdentities = query.q;
+                PageLoadingBarService.setProgress(100);
+            }
+        );
     };
 
     $ctrl.topUpTransactionsOnPageChange = (query = {}) => {

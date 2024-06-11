@@ -83,14 +83,39 @@ const ImplementationNotificationsSendComponent = function (
         FundIdentitiesExportService.export($ctrl.organization.id, $ctrl.fund.id, $ctrl.identitiesFilters);
     };
 
+    $ctrl.fetchCountsByIds = (query, resources) => {
+        return FundService.identitiesCount(
+            $ctrl.fund.organization_id,
+            $ctrl.fund.id,
+            { ...query, identity_ids: resources.data.data.map((item) => item.id)}
+        ).then((res) => {
+            const items = resources.data.data.map((identity) => {
+                let count = res.data.data.filter((item) => item.id === identity.id)[0];
+
+                return {...identity, ...count};
+            });
+
+            $ctrl.identities = {
+                ...resources.data,
+                data: items,
+                meta: {
+                    ...resources.data.meta,
+                    counts: res.data.meta.counts,
+                }
+            };
+        });
+    }
+
     $ctrl.identitiesOnPageChange = (query = {}) => {
         PageLoadingBarService.setProgress(0);
 
         FundService.listIdentities($ctrl.organization.id, $ctrl.fund.id, query).then((res) => {
-            $ctrl.identities = res.data;
+            $ctrl.fetchCountsByIds(query, res).then(() => {
+                $ctrl.lastIdentitiesQuery = query.q;
+                PageLoadingBarService.setProgress(100);
+            });
         }, (res) => {
             PushNotificationsService.danger('Error!', res.data.message);
-        }).finally(() => {
             $ctrl.lastIdentitiesQuery = query.q;
             PageLoadingBarService.setProgress(100);
         });
