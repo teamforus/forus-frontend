@@ -15,6 +15,7 @@ const supportSupportId = false;
 const sessions = false;
 const google_maps_api_key = '';
 const feedback_email = false;
+const tag_manager_id = false;
 
 const features_hide = false;
 const features_contact_email = false;
@@ -604,6 +605,7 @@ module.exports = (core) => {
             flags: {},
             sessions: sessions,
             google_maps_api_key: google_maps_api_key,
+            tag_manager_id: tag_manager_id,
             ios_link: '/',
             android_link: '/',
         });
