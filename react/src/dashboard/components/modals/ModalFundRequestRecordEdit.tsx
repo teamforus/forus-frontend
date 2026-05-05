@@ -75,7 +75,7 @@ export default function ModalFundRequestRecordEdit({
                                     required={true}
                                     label={fundRequestRecord.record_type.name}
                                     error={form.errors?.value}
-                                    hint={criterion.description}
+                                    hint={criterion?.description}
                                     input={(id) => (
                                         <>
                                             {recordNumeric && (
@@ -90,7 +90,7 @@ export default function ModalFundRequestRecordEdit({
                                                 />
                                             )}
 
-                                            {recordSelect && (
+                                            {recordSelect && criterion && (
                                                 <SelectControl
                                                     id={id}
                                                     value={form.values.value}
