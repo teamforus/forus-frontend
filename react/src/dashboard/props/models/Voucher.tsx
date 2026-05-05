@@ -5,6 +5,7 @@ import PhysicalCard from './PhysicalCard';
 import Media from './Media';
 import OrganizationBasic from './OrganizationBasic';
 import Product from './Product';
+import Reimbursement from './Reimbursement';
 
 export interface VoucherFundPayoutButtons {
     vouchers: boolean;
@@ -38,6 +39,7 @@ export interface VoucherTransaction {
     state_locale: string;
     payment_id?: string;
     target?: 'provider' | 'iban' | 'top_up' | 'payout';
+    initiator?: 'provider' | 'sponsor' | 'requester';
     amount: string;
     amount_locale: string;
     amount_extra_cash?: string;
@@ -64,6 +66,7 @@ export interface VoucherTransaction {
     transfer_at_locale?: string;
     updated_at: string;
     product_reservation?: Reservation;
+    reimbursement?: Reimbursement;
 }
 
 export default interface Voucher {

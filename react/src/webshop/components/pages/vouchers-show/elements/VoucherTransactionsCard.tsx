@@ -21,10 +21,24 @@ export default function VoucherTransactionsCard({ voucher }: { voucher: Voucher 
                         <div className="transactions-item-icon">
                             <TransactionIconBg aria-hidden="true" />
 
-                            {transaction.incoming ? (
-                                <em className="mdi mdi-arrow-down" aria-hidden="true" />
-                            ) : (
-                                <em className="mdi mdi-arrow-up" aria-hidden="true" />
+                            {transaction.type == 'product_voucher' && (
+                                <em className="mdi mdi-tag-multiple-outline" aria-hidden="true"></em>
+                            )}
+
+                            {transaction.type == 'transaction' && transaction.target == 'provider' && (
+                                <em className="mdi mdi-qrcode" aria-hidden="true"></em>
+                            )}
+
+                            {transaction.type == 'transaction' && transaction.target == 'iban' && (
+                                <em className="mdi mdi-receipt-text-check-outline" aria-hidden="true"></em>
+                            )}
+
+                            {transaction.type == 'transaction' && transaction.target == 'top_up' && (
+                                <em className="mdi mdi-cash-plus" aria-hidden="true"></em>
+                            )}
+
+                            {transaction.type == 'transaction' && transaction.target == 'payout' && (
+                                <em className="mdi mdi-cash-refund" aria-hidden="true"></em>
                             )}
                         </div>
 
@@ -46,13 +60,38 @@ export default function VoucherTransactionsCard({ voucher }: { voucher: Voucher 
                                 <div className="transactions-item-counterpart">{transaction.product.name}</div>
                             )}
 
-                            {transaction.type == 'transaction' && transaction.target == 'provider' && (
-                                <div className="transactions-item-counterpart">{transaction.organization.name}</div>
-                            )}
+                            {transaction.type == 'transaction' &&
+                                transaction.target == 'provider' &&
+                                transaction.initiator == 'provider' && (
+                                    <div className="transactions-item-counterpart">{transaction.organization.name}</div>
+                                )}
 
-                            {transaction.type == 'transaction' && transaction.target == 'iban' && (
+                            {transaction.type == 'transaction' &&
+                                transaction.target == 'provider' &&
+                                transaction.initiator == 'sponsor' && (
+                                    <div className="transactions-item-counterpart">
+                                        {translate('voucher.transactions.provider_by_sponsor')}
+                                    </div>
+                                )}
+
+                            {transaction.type == 'transaction' &&
+                                transaction.target == 'iban' &&
+                                !transaction.reimbursement && (
+                                    <div className="transactions-item-counterpart">
+                                        {translate('voucher.transactions.bank_transfer')}
+                                    </div>
+                                )}
+
+                            {transaction.type == 'transaction' && transaction.reimbursement && (
                                 <div className="transactions-item-counterpart">
-                                    {translate('voucher.transactions.bank_transfer')}
+                                    {translate('voucher.transactions.reimbursement') + ' '}
+                                    <StateNavLink
+                                        name={WebshopRoutes.REIMBURSEMENT}
+                                        params={{
+                                            id: transaction.reimbursement.id,
+                                        }}>
+                                        #{transaction.reimbursement.code}
+                                    </StateNavLink>
                                 </div>
                             )}
 
@@ -73,12 +112,38 @@ export default function VoucherTransactionsCard({ voucher }: { voucher: Voucher 
 
                         <div className="transactions-item-amount">
                             <div className="transactions-item-value">
-                                {(transaction.incoming ? '' : '-') + ' ' + transaction.amount_locale}
+                                {(transaction.incoming ? '+' : '-') + ' ' + transaction.amount_locale}
                             </div>
                             <div className="transactions-item-type">
-                                {translate(
-                                    transaction.incoming ? 'voucher.transactions.add' : 'voucher.transactions.subtract',
-                                )}
+                                {transaction.type == 'product_voucher' && translate('voucher.transactions.reservation')}
+
+                                {transaction.type == 'transaction' &&
+                                    transaction.target == 'provider' &&
+                                    transaction.initiator == 'provider' &&
+                                    translate('voucher.transactions.qr_code')}
+
+                                {transaction.type == 'transaction' &&
+                                    transaction.target == 'provider' &&
+                                    transaction.initiator == 'sponsor' &&
+                                    translate('voucher.transactions.provider_by_sponsor')}
+
+                                {transaction.type == 'transaction' &&
+                                    transaction.target == 'iban' &&
+                                    !transaction.reimbursement &&
+                                    translate('voucher.transactions.bank_transfer')}
+
+                                {transaction.type == 'transaction' &&
+                                    transaction.target == 'iban' &&
+                                    transaction.reimbursement &&
+                                    translate('voucher.transactions.reimbursement')}
+
+                                {transaction.type == 'transaction' &&
+                                    transaction.target == 'top_up' &&
+                                    translate('voucher.transactions.top_up')}
+
+                                {transaction.type == 'transaction' &&
+                                    transaction.target == 'payout' &&
+                                    translate('voucher.transactions.payout')}
                             </div>
                         </div>
                     </div>
