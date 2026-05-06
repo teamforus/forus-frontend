@@ -22,23 +22,23 @@ export default function VoucherTransactionsCard({ voucher }: { voucher: Voucher 
                             <TransactionIconBg aria-hidden="true" />
 
                             {transaction.type == 'product_voucher' && (
-                                <em className="mdi mdi-tag-multiple-outline" aria-hidden="true"></em>
+                                <em className="mdi mdi-tag-multiple-outline" aria-hidden="true" />
                             )}
 
                             {transaction.type == 'transaction' && transaction.target == 'provider' && (
-                                <em className="mdi mdi-qrcode" aria-hidden="true"></em>
+                                <em className="mdi mdi-qrcode" aria-hidden="true" />
                             )}
 
                             {transaction.type == 'transaction' && transaction.target == 'iban' && (
-                                <em className="mdi mdi-receipt-text-check-outline" aria-hidden="true"></em>
+                                <em className="mdi mdi-receipt-text-check-outline" aria-hidden="true" />
                             )}
 
                             {transaction.type == 'transaction' && transaction.target == 'top_up' && (
-                                <em className="mdi mdi-cash-plus" aria-hidden="true"></em>
+                                <em className="mdi mdi-cash-plus" aria-hidden="true" />
                             )}
 
                             {transaction.type == 'transaction' && transaction.target == 'payout' && (
-                                <em className="mdi mdi-cash-refund" aria-hidden="true"></em>
+                                <em className="mdi mdi-cash-refund" aria-hidden="true" />
                             )}
                         </div>
 
@@ -48,9 +48,7 @@ export default function VoucherTransactionsCard({ voucher }: { voucher: Voucher 
                                     {translate('voucher.transactions.reservation') + ' '}
                                     <StateNavLink
                                         name={WebshopRoutes.RESERVATION}
-                                        params={{
-                                            id: transaction.product_reservation.id,
-                                        }}>
+                                        params={{ id: transaction.product_reservation.id }}>
                                         #{transaction.product_reservation.code}
                                     </StateNavLink>
                                 </div>
@@ -60,19 +58,9 @@ export default function VoucherTransactionsCard({ voucher }: { voucher: Voucher 
                                 <div className="transactions-item-counterpart">{transaction.product.name}</div>
                             )}
 
-                            {transaction.type == 'transaction' &&
-                                transaction.target == 'provider' &&
-                                transaction.initiator == 'provider' && (
-                                    <div className="transactions-item-counterpart">{transaction.organization.name}</div>
-                                )}
-
-                            {transaction.type == 'transaction' &&
-                                transaction.target == 'provider' &&
-                                transaction.initiator == 'sponsor' && (
-                                    <div className="transactions-item-counterpart">
-                                        {translate('voucher.transactions.provider_by_sponsor')}
-                                    </div>
-                                )}
+                            {transaction.type == 'transaction' && transaction.target == 'provider' && (
+                                <div className="transactions-item-counterpart">{transaction.organization.name}</div>
+                            )}
 
                             {transaction.type == 'transaction' &&
                                 transaction.target == 'iban' &&
@@ -87,9 +75,7 @@ export default function VoucherTransactionsCard({ voucher }: { voucher: Voucher 
                                     {translate('voucher.transactions.reimbursement') + ' '}
                                     <StateNavLink
                                         name={WebshopRoutes.REIMBURSEMENT}
-                                        params={{
-                                            id: transaction.reimbursement.id,
-                                        }}>
+                                        params={{ id: transaction.reimbursement.id }}>
                                         #{transaction.reimbursement.code}
                                     </StateNavLink>
                                 </div>
