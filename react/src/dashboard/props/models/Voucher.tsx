@@ -130,4 +130,5 @@ export default interface Voucher {
     };
     voucher_payout_partial_amounts?: Array<string> | null;
     voucher_payout_partial_amounts_label_type?: 'persons' | null;
+    voucher_payout_has_valid_records?: boolean;
 }
