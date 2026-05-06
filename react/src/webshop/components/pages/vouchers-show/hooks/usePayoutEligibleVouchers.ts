@@ -19,6 +19,7 @@ export default function usePayoutEligibleVouchers(
             .filter((voucher) => voucher?.fund?.allow_voucher_payouts)
             .filter((voucher) => voucher?.type !== 'product')
             .filter((voucher) => !voucher?.product_reservation?.id)
-            .filter((voucher) => !voucher?.expired && !voucher?.deactivated && !voucher?.external);
+            .filter((voucher) => !voucher?.expired && !voucher?.deactivated && !voucher?.external)
+            .filter((voucher) => voucher?.voucher_payout_has_valid_records);
     }, [bankAccounts, vouchers]);
 }
