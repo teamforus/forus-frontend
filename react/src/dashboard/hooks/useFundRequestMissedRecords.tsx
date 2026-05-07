@@ -11,7 +11,7 @@ export default function useFundRequestMissedRecords(fundRequest: FundRequest) {
     }, [fundRequest]);
 
     const hasInfoMissedRecords = useMemo(() => {
-        return !!fundRequest?.missed_records.filter((record) => record.type === 'warning').length;
+        return !!fundRequest?.missed_records.filter((record) => record.type === 'info').length;
     }, [fundRequest]);
 
     const infoMissedRecords = useMemo(() => {

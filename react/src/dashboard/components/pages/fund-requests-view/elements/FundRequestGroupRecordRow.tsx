@@ -143,7 +143,9 @@ export default function FundRequestGroupRecordRow({
                 <td>
                     <div className="flex flex-gap-xs">
                         {translate(`validation_requests.sources.${record.source}`)}
-                        {record.history.length > 0 && <Tooltip size="sm" text="Edited" />}
+                        {record.history.length > 0 && (
+                            <Tooltip size="sm" text={translate('validation_requests.tooltips.edited')} />
+                        )}
                     </div>
                 </td>
                 <td>{record.files.length > 0 ? translate('validation_requests.labels.yes') : <EmptyValue />}</td>

@@ -1609,6 +1609,7 @@ export default {
             has_files: 'Zijn er documenten geüpload',
             has_clarifications: 'Is er extra informatie opgevraagd',
             group_title: 'Groepen',
+            edited: 'Dit gegeven is aangepast.',
         },
         tabs: {
             all: 'Alles',
@@ -1649,7 +1650,7 @@ export default {
             resign: 'Meld af',
             uncollapse: 'Alles uitklappen',
             collapse: 'Alles inklappen',
-            approve_missing_records: 'Approve missing records',
+            approve_missing_records: 'Ontbrekende gegevens goedkeuren',
         },
         header: {
             title: 'Aanvragen',
@@ -1688,7 +1689,7 @@ export default {
                 last_name: 'Achternaam',
                 gender: 'Geslachtsaanduiding',
                 birth_date: 'Geboortedatum',
-                postal_code: 'Postal code',
+                postal_code: 'Postcode',
             },
             partner: {
                 bsn: 'Vul ook het BSN van de partner in.',

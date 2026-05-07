@@ -44,7 +44,7 @@ export default function ModalFundRequestApproveMissedRecords({
 
                         <FormGroup
                             label={translate('modals.modal_fund_request_approve_missed_records.labels.note')}
-                            hint={translate('modals.modal_voucher_activation.hints.note')}
+                            hint={translate('modals.modal_fund_request_approve_missed_records.hints.note')}
                             error={form.errors?.description}
                             input={(id) => (
                                 <textarea
@@ -63,7 +63,7 @@ export default function ModalFundRequestApproveMissedRecords({
                         <FormGroup
                             input={() => (
                                 <CheckboxControl
-                                    title={'Ik heb de aanvraag gecontroleerd en de ontbrekende gegevens aangevuld.'}
+                                    title={translate('modals.modal_fund_request_approve_missed_records.labels.approve')}
                                     checked={form.values.approve || false}
                                     onChange={(e) => form.update({ approve: e.target.checked })}
                                 />
