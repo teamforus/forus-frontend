@@ -78,6 +78,7 @@ export default interface Voucher {
     fund: Fund & {
         voucher_payout_fixed_amount?: string | null;
         allow_voucher_payout_buttons?: VoucherFundPayoutButtons;
+        allow_voucher_payout_note?: string;
     };
     type?: 'regular' | 'product';
     state?: string;

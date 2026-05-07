@@ -25,13 +25,27 @@ export default function VoucherTransactionsCard({ voucher }: { voucher: Voucher 
                                 <em className="mdi mdi-tag-multiple-outline" aria-hidden="true" />
                             )}
 
-                            {transaction.type == 'transaction' && transaction.target == 'provider' && (
-                                <em className="mdi mdi-qrcode" aria-hidden="true" />
-                            )}
+                            {transaction.type == 'transaction' &&
+                                transaction.target == 'provider' &&
+                                transaction.initiator == 'provider' && (
+                                    <em className="mdi mdi-qrcode" aria-hidden="true" />
+                                )}
 
-                            {transaction.type == 'transaction' && transaction.target == 'iban' && (
-                                <em className="mdi mdi-receipt-text-check-outline" aria-hidden="true" />
-                            )}
+                            {transaction.type == 'transaction' &&
+                                transaction.target == 'provider' &&
+                                transaction.initiator == 'sponsor' && (
+                                    <em className="mdi mdi-storefront-edit-outline" aria-hidden="true" />
+                                )}
+
+                            {transaction.type == 'transaction' &&
+                                transaction.target == 'iban' &&
+                                transaction.reimbursement && (
+                                    <em className="mdi mdi-invoice-text-check-outline" aria-hidden="true" />
+                                )}
+
+                            {transaction.type == 'transaction' &&
+                                transaction.target == 'iban' &&
+                                !transaction.reimbursement && <em className="mdi mdi-cash-refund" aria-hidden="true" />}
 
                             {transaction.type == 'transaction' && transaction.target == 'top_up' && (
                                 <em className="mdi mdi-cash-plus" aria-hidden="true" />
@@ -90,6 +104,9 @@ export default function VoucherTransactionsCard({ voucher }: { voucher: Voucher 
                             {transaction.type == 'transaction' && transaction.target == 'payout' && (
                                 <div className="transactions-item-counterpart">
                                     {translate('voucher.transactions.payout')}
+                                    {voucher.fund.allow_voucher_payout_note
+                                        ? ' - ' + voucher.fund.allow_voucher_payout_note
+                                        : ''}
                                 </div>
                             )}
 
