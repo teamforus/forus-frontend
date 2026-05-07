@@ -2,6 +2,7 @@ import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiRespo
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Office from '../props/models/Office';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class OfficeService<T = Office> {
     /**
@@ -151,6 +152,34 @@ export class OfficeService<T = Office> {
 
         return times;
     };
+
+    public getColumns(): Array<ConfigurableTableColumn> {
+        const list = ['address', 'phone', 'branch_name', 'branch_number', 'branch_id'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `offices.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `offices.labels.${key}`,
+                description: `offices.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getScheduleColumns(): Array<ConfigurableTableColumn> {
+        const list = ['weekday', 'start_time', 'end_time'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `offices.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `offices.labels.${key}`,
+                description: `offices.tooltips.${key}`,
+            },
+        }));
+    }
 }
 
 export default function useOfficeService(): OfficeService {

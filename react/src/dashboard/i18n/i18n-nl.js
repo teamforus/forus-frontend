@@ -676,11 +676,27 @@ export default {
             nocategories: 'Geen categorieën',
             none: 'Geen data',
             phone: 'Telefoonnummer',
-            hours: 'Openingstijden:',
             offices: 'Vestigingen ',
             business_type: 'Organisatie type',
             branch_id: 'VestigingID',
+            branch_name: 'Vestigingsnaam',
             branch_number: 'Vestigingsnummer',
+            address: 'Adres',
+            weekday: 'Dag van de week',
+            start_time: 'Openingstijd',
+            end_time: 'Sluitingstijd',
+        },
+        tooltips: {
+            phone: 'Het nummer waarop de vestiging of organisatie telefonisch bereikbaar is.',
+            branch_id:
+                'Een unieke ID die door de organisatie aan een vestiging wordt toegewezen voor interne administratieve doeleinden.',
+            branch_name: 'De naam waaronder een specifieke vestiging bekendstaat.',
+            branch_number:
+                'Een uniek 12-cijferig nummer dat door de Kamer van Koophandel aan elke vestiging wordt toegekend. Let op: Dit nummer verschilt van het KVK-nummer.',
+            address: 'Het fysieke locatieadres van een vestiging of organisatie.',
+            weekday: 'De dag waarop de openingstijden gelden, zoals maandag, dinsdag of zondag.',
+            start_time: 'Het tijdstip waarop een vestiging opent of bereikbaar is.',
+            end_time: 'Het tijdstip waarop een vestiging sluit.',
         },
         confirm_delete: {
             title: 'Weet u zeker dat u deze vestiging wilt verwijderen?',
@@ -694,6 +710,10 @@ export default {
                 cancel: 'Sluiten',
                 confirm: 'Medewerkers bekijken',
             },
+        },
+        empty: {
+            title: 'Geen offices',
+            description: 'Je hebt momenteel geen vestigingen.',
         },
     },
 
