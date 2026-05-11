@@ -134,7 +134,6 @@
     },
     "auth": {
         "back": "Назад",
-        "back_start": "Назад к входу в систему",
         "choose_option": "Выберите вариант",
         "logout": "Выход из системы",
         "options": {
@@ -156,23 +155,15 @@
                 "title": "Эта ссылка уже использовалась или недействительна."
             }
         },
-        "qr": {
-            "title": "Вход в систему"
-        },
-        "restore": {
-            "label": "Больше не можете войти в систему?",
-            "link": "Восстановление учетной записи в DigiD",
-            "title": "Восстановление учетной записи"
-        },
         "setup_2fa_title": "Настройка двухфакторной аутентификации",
-        "sign_in_up_title": "Создать учетную запись или подать заявку?",
+        "2fa_title": "Двухфакторная аутентификация",
         "privacy_link": {
-            "text": "Я прочитал <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">заявление о конфиденциальности</a> "
+            "text": "Я прочитал <a tabIndex=\"3\" target=\"_blank\" href=\"{{ link_url }}\">заявление о конфиденциальности</a> "
         },
         "terms_link": {
-            "text": "Я согласен с <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">условиями и положениями</a>"
+            "text": "Я согласен с <a tabIndex=\"3\" target=\"_blank\" href=\"{{ link_url }}\">условиями и положениями</a>"
         },
-        "2fa_title": "Двухфакторная аутентификация"
+        "title": "Вход в систему"
     },
     "block_funds": {
         "labels": {
@@ -474,9 +465,6 @@
             "home": "Главная"
         },
         "bsn_record_is_mandatory": "Наличие BSN является обязательным условием для подачи заявки.",
-        "bsn_warning": {
-            "description": "Обратите внимание! Вы должны заполнить форму заявки до <strong>{{value}}</strong>в противном случае снова войдите в систему DigiD и начните заполнение заявки заново."
-        },
         "buttons": {
             "back": "Назад",
             "send": "Доставка"
@@ -489,14 +477,6 @@
             "created_at": "Представлено на:",
             "fund_name": "Название фонда:",
             "status": "Запрос статуса:"
-        },
-        "digid_expired": {
-            "description": "Снова войдите в систему DigiD и снова запустите приложение.",
-            "sign_in": {
-                "description": "Снова войдите в систему с помощью DigiD, чтобы начать все сначала.",
-                "title": "DigiD"
-            },
-            "title": "Сессия DigiD истекла"
         },
         "fund_not_active": "Фонд, на который вы пытаетесь подать заявку, не активен.",
         "invalid_endpoint": "Нет доступа к этому приложению",
@@ -721,6 +701,19 @@
             },
             "subtitle": "Данные не верны? Если да, свяжитесь с муниципалитетом.",
             "title": "Нижеприведенные данные уже заполнены"
+        },
+        "bsn_warning": {
+            "description": "Обратите внимание! Вы должны заполнить форму заявки до <strong>{{value}}</strong>иначе вам придется заново подтвердить свой BSN и начать подачу заявления заново."
+        },
+        "digid_expired": {
+            "description": "Снова подтвердите свой BSN и начните подачу заявления заново.",
+            "sign_in": {
+                "digid": {
+                    "description": "Снова войдите в систему с помощью DigiD, чтобы начать все сначала.",
+                    "title": "DigiD"
+                }
+            },
+            "title": "Подтверждение BSN истекло"
         }
     },
     "fund_requests": {
@@ -3027,19 +3020,6 @@
     },
     "signup": {
         "items": {
-            "berkelland": {
-                "start_email": "Начало активации"
-            },
-            "digid": "Откройте экран входа в систему DigiD",
-            "ede": {
-                "digid": "Откройте экран входа в систему DigiD",
-                "header": "Войти здесь",
-                "pane_text": "",
-                "restore_header": "",
-                "restore_title": "Восстановление учетной записи",
-                "signup": "",
-                "title": "Вход в систему"
-            },
             "errors": {
                 "email": {
                     "type_mismatch": "Введите действительный адрес электронной почты, например, naam@voorbeeld.com.",
@@ -3049,48 +3029,18 @@
             "geertruidenberg": {
                 "signup_option": "Войдите в систему DigiD, чтобы продолжить"
             },
-            "goereeoverflakkee": {
-                "start_email": "Зарегистрироваться"
-            },
             "groningen": {
                 "signup_option": "Войдите в систему DigiD, чтобы продолжить"
             },
-            "header": "Войти здесь",
-            "heumen": {
-                "start_email": "Начало активации"
-            },
-            "noordoostpolder": {
-                "start_email": "Начало активации"
-            },
-            "oostgelre": {
-                "start_email": "Начало активации"
-            },
-            "page_title": "Вход в систему{{pageTitleSuffix}}",
-            "pane_text": "Войдите в существующую учетную запись",
             "potjeswijzer": {
                 "signup_option": "Войдите в систему DigiD, чтобы продолжить"
             },
-            "restore_header": "",
-            "restore_title": "Восстановление учетной записи",
-            "schagen": {
-                "start_email": "Начало"
-            },
             "signup_option": "Сделайте выбор в пользу продолжения",
-            "start_email": "Начать применение",
-            "title": "Вход в систему",
             "vergoedingen": {
-                "restore_title": "Восстановление учетной записи",
-                "signup_option": "Войдите в систему DigiD, чтобы продолжить",
-                "title": "Вход в систему"
+                "signup_option": "Войдите в систему DigiD, чтобы продолжить"
             },
             "waalwijk": {
                 "signup_option": "Войдите в систему DigiD, чтобы продолжить"
-            },
-            "winterswijk": {
-                "start_email": "Начало активации"
-            },
-            "fijnder": {
-                "start_email": "Активируйте"
             }
         }
     },

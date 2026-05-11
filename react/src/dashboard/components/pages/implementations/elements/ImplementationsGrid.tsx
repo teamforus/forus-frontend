@@ -10,6 +10,7 @@ import { hasPermission } from '../../../../helpers/utils';
 import { Permission } from '../../../../props/models/Organization';
 import EmptyCard from '../../../elements/empty-card/EmptyCard';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+import useTranslate from '../../../../hooks/useTranslate';
 
 type GridItem = {
     key: string;
@@ -28,10 +29,12 @@ type GridSection = {
 export default function ImplementationsGrid() {
     const activeOrganization = useActiveOrganization();
     const { id } = useParams();
+    const translate = useTranslate();
     const [search, setSearch] = useState<string>(null);
 
     const sections = useMemo<GridSection[] | null>(() => {
         const canManageImplementation = hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION);
+        const canManageImplementationCms = hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION_CMS);
         const showTranslations = activeOrganization.allow_translations && canManageImplementation;
         const showPreCheck = activeOrganization.allow_pre_checks && canManageImplementation;
 
@@ -132,6 +135,15 @@ export default function ImplementationsGrid() {
                         description: 'Beheer de DigiD gegevens en instellingen die horen bij de koppeling.',
                         state: DashboardRoutes.IMPLEMENTATION_DIGID,
                     },
+                    canManageImplementationCms
+                        ? {
+                              key: 'auth-page-settings',
+                              icon: 'mdi-login-variant',
+                              name: translate('implementation_auth_page.menu.name'),
+                              description: translate('implementation_auth_page.menu.description'),
+                              state: DashboardRoutes.IMPLEMENTATION_AUTH_PAGE,
+                          }
+                        : null,
                     {
                         key: 'funds',
                         icon: 'mdi-link-variant',
@@ -177,7 +189,7 @@ export default function ImplementationsGrid() {
             .filter((section) => section.items.length > 0);
 
         return filteredSections.length > 0 ? filteredSections : null;
-    }, [activeOrganization, search]);
+    }, [activeOrganization, search, translate]);
 
     return (
         <div className="card form">

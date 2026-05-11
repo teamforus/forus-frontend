@@ -6,6 +6,8 @@ import Media from '../props/models/Media';
 import ImplementationPage from '../../webshop/props/models/ImplementationPage';
 import Language from '../props/models/Language';
 
+export type AuthPageLoginOption = 'email' | 'digid' | 'qr';
+
 export type AppConfigProp = {
     add_money: boolean;
     validationRequests: boolean;
@@ -124,6 +126,15 @@ export type AppConfigProp = {
     has_physical_cards: boolean;
     has_payouts: boolean;
     announcements: Array<Announcement>;
+    auth_page?: {
+        title: string;
+        login_title: string;
+        login_options: Array<AuthPageLoginOption>;
+        info_enabled: boolean;
+        info_title: string;
+        info_description: string;
+        info_description_html: string;
+    };
     digid: boolean;
     bsn_confirmation_offset?: number;
     digid_sign_up_allowed: boolean;

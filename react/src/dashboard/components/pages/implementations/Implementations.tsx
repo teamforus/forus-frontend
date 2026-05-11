@@ -20,8 +20,10 @@ import { NumberParam, StringParam } from 'use-query-params';
 import { ConfigurableTableColumn } from '../vouchers/hooks/useConfigurableTable';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import useTranslate from '../../../hooks/useTranslate';
 
 export default function Implementations() {
+    const translate = useTranslate();
     const pushApiError = usePushApiError();
     const activeOrganization = useActiveOrganization();
     const runLatestRequest = useLatestRequestWithProgress();
@@ -229,6 +231,23 @@ export default function Implementations() {
                                                         onClick={e.close}>
                                                         <em className="mdi mdi-shield-key-outline icon-start" />
                                                         DigiD-instellingen
+                                                    </StateNavLink>
+                                                )}
+
+                                                {hasPermission(
+                                                    activeOrganization,
+                                                    Permission.MANAGE_IMPLEMENTATION_CMS,
+                                                ) && (
+                                                    <StateNavLink
+                                                        name={DashboardRoutes.IMPLEMENTATION_AUTH_PAGE}
+                                                        params={{
+                                                            id: implementation.id,
+                                                            organizationId: activeOrganization.id,
+                                                        }}
+                                                        className="dropdown-item"
+                                                        onClick={e.close}>
+                                                        <em className="mdi mdi-login-variant icon-start" />
+                                                        {translate('implementation_auth_page.menu.name')}
                                                     </StateNavLink>
                                                 )}
                                             </div>

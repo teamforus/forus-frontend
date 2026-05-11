@@ -134,7 +134,6 @@
     },
     "auth": {
         "back": "Powrót",
-        "back_start": "Powrót do logowania",
         "choose_option": "Wybierz opcję",
         "logout": "Wylogowanie",
         "options": {
@@ -156,23 +155,15 @@
                 "title": "Ten link został już użyty lub jest nieprawidłowy."
             }
         },
-        "qr": {
-            "title": "Logowanie"
-        },
-        "restore": {
-            "label": "Nie możesz się zalogować?",
-            "link": "Przywracanie konta za pomocą DigiD",
-            "title": "Przywracanie konta"
-        },
         "setup_2fa_title": "Konfigurowanie uwierzytelniania dwuskładnikowego",
-        "sign_in_up_title": "Założyć konto lub rozpocząć aplikację?",
+        "2fa_title": "Uwierzytelnianie dwuskładnikowe",
         "privacy_link": {
-            "text": "Zapoznałem się z <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">oświadczeniem</a> o ochronie prywatności"
+            "text": "Zapoznałem się z <a tabIndex=\"3\" target=\"_blank\" href=\"{{ link_url }}\">oświadczeniem</a> o ochronie prywatności"
         },
         "terms_link": {
-            "text": "Zgadzam się na <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">warunki i postanowienia</a>"
+            "text": "Zgadzam się na <a tabIndex=\"3\" target=\"_blank\" href=\"{{ link_url }}\">warunki i postanowienia</a>"
         },
-        "2fa_title": "Uwierzytelnianie dwuskładnikowe"
+        "title": "Logowanie"
     },
     "block_funds": {
         "labels": {
@@ -474,9 +465,6 @@
             "home": "Strona główna"
         },
         "bsn_record_is_mandatory": "BSN jest obowiązkowe do złożenia wniosku.",
-        "bsn_warning": {
-            "description": "Uwaga! Musisz wypełnić formularz zgłoszeniowy do <strong>{{value}}</strong>w przeciwnym razie zaloguj się ponownie w DigiD i rozpocznij aplikację od nowa."
-        },
         "buttons": {
             "back": "Powrót",
             "send": "Wysyłka"
@@ -489,14 +477,6 @@
             "created_at": "Zgłoszono dnia:",
             "fund_name": "Nazwa funduszu:",
             "status": "Wniosek o status:"
-        },
-        "digid_expired": {
-            "description": "Zaloguj się ponownie w DigiD i ponownie uruchom aplikację.",
-            "sign_in": {
-                "description": "Zaloguj się ponownie za pomocą DigiD, aby rozpocząć od nowa.",
-                "title": "DigiD"
-            },
-            "title": "Sesja DigiD wygasła"
         },
         "fund_not_active": "Fundusz, którego dotyczy wniosek, jest nieaktywny.",
         "invalid_endpoint": "Brak dostępu do tej aplikacji",
@@ -721,6 +701,19 @@
             },
             "subtitle": "Czy dane są nieprawidłowe? Jeśli tak, prosimy o kontakt z gminą.",
             "title": "Poniższe dane są już wypełnione"
+        },
+        "bsn_warning": {
+            "description": "Uwaga! Formularz zgłoszeniowy należy wypełnić do <strong>{{value}}</strong>w przeciwnym razie konieczne będzie ponowne potwierdzenie BSN i rozpoczęcie aplikacji od nowa."
+        },
+        "digid_expired": {
+            "description": "Potwierdź ponownie swój numer BSN i uruchom aplikację ponownie.",
+            "sign_in": {
+                "digid": {
+                    "description": "Zaloguj się ponownie za pomocą DigiD, aby rozpocząć od nowa.",
+                    "title": "DigiD"
+                }
+            },
+            "title": "Potwierdzenie BSN straciło ważność"
         }
     },
     "fund_requests": {
@@ -3027,19 +3020,6 @@
     },
     "signup": {
         "items": {
-            "berkelland": {
-                "start_email": "Rozpoczęcie aktywacji"
-            },
-            "digid": "Otwórz ekran logowania DigiD",
-            "ede": {
-                "digid": "Otwórz ekran logowania DigiD",
-                "header": "Zaloguj się tutaj",
-                "pane_text": "",
-                "restore_header": "",
-                "restore_title": "Przywracanie konta",
-                "signup": "",
-                "title": "Logowanie"
-            },
             "errors": {
                 "email": {
                     "type_mismatch": "Wprowadź prawidłowy adres e-mail, np. naam@voorbeeld.com.",
@@ -3049,48 +3029,18 @@
             "geertruidenberg": {
                 "signup_option": "Zaloguj się za pomocą DigiD, aby kontynuować"
             },
-            "goereeoverflakkee": {
-                "start_email": "Zarejestruj się"
-            },
             "groningen": {
                 "signup_option": "Zaloguj się za pomocą DigiD, aby kontynuować"
             },
-            "header": "Zaloguj się tutaj",
-            "heumen": {
-                "start_email": "Rozpoczęcie aktywacji"
-            },
-            "noordoostpolder": {
-                "start_email": "Rozpoczęcie aktywacji"
-            },
-            "oostgelre": {
-                "start_email": "Rozpoczęcie aktywacji"
-            },
-            "page_title": "Logowanie{{pageTitleSuffix}}",
-            "pane_text": "Zaloguj się do istniejącego konta",
             "potjeswijzer": {
                 "signup_option": "Zaloguj się za pomocą DigiD, aby kontynuować"
             },
-            "restore_header": "",
-            "restore_title": "Przywracanie konta",
-            "schagen": {
-                "start_email": "Start"
-            },
             "signup_option": "Dokonaj wyboru, aby kontynuować",
-            "start_email": "Rozpoczęcie aplikacji",
-            "title": "Logowanie",
             "vergoedingen": {
-                "restore_title": "Przywracanie konta",
-                "signup_option": "Zaloguj się za pomocą DigiD, aby kontynuować",
-                "title": "Logowanie"
+                "signup_option": "Zaloguj się za pomocą DigiD, aby kontynuować"
             },
             "waalwijk": {
                 "signup_option": "Zaloguj się za pomocą DigiD, aby kontynuować"
-            },
-            "winterswijk": {
-                "start_email": "Rozpoczęcie aktywacji"
-            },
-            "fijnder": {
-                "start_email": "Aktywuj"
             }
         }
     },

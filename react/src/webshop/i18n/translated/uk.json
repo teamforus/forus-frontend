@@ -134,7 +134,6 @@
     },
     "auth": {
         "back": "Назад",
-        "back_start": "Повернутися до входу",
         "choose_option": "Виберіть варіант",
         "logout": "Вийти з системи",
         "options": {
@@ -156,23 +155,15 @@
                 "title": "Це посилання вже використовувалося або є недійсним."
             }
         },
-        "qr": {
-            "title": "Логін"
-        },
-        "restore": {
-            "label": "Більше не можете увійти?",
-            "link": "Відновлення облікового запису в DigiD",
-            "title": "Відновити обліковий запис"
-        },
         "setup_2fa_title": "Налаштування двофакторної автентифікації",
-        "sign_in_up_title": "Створити обліковий запис або запустити додаток?",
+        "2fa_title": "Двофакторна автентифікація",
         "privacy_link": {
-            "text": "Я прочитав <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">заяву про конфіденційність</a> "
+            "text": "Я прочитав <a tabIndex=\"3\" target=\"_blank\" href=\"{{ link_url }}\">заяву про конфіденційність</a> "
         },
         "terms_link": {
-            "text": "Я погоджуюся з <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">умовами та положеннями</a>"
+            "text": "Я погоджуюся з <a tabIndex=\"3\" target=\"_blank\" href=\"{{ link_url }}\">умовами та положеннями</a>"
         },
-        "2fa_title": "Двофакторна автентифікація"
+        "title": "Логін"
     },
     "block_funds": {
         "labels": {
@@ -474,9 +465,6 @@
             "home": "Головна сторінка"
         },
         "bsn_record_is_mandatory": "Для подачі заявки обов'язковою є наявність BSN.",
-        "bsn_warning": {
-            "description": "Зверніть увагу! Ви повинні заповнити форму заявки до <strong>{{value}}</strong>в іншому випадку увійдіть за допомогою DigiD і почніть заповнення анкети заново."
-        },
         "buttons": {
             "back": "Назад",
             "send": "Доставка"
@@ -489,14 +477,6 @@
             "created_at": "Подав далі:",
             "fund_name": "Назва фонду:",
             "status": "Запит статусу:"
-        },
-        "digid_expired": {
-            "description": "Знову увійдіть в систему за допомогою DigiD і запустіть програму знову.",
-            "sign_in": {
-                "description": "Увійдіть знову за допомогою DigiD, щоб почати спочатку.",
-                "title": "DigiD"
-            },
-            "title": "Закінчився термін дії сесії DigiD"
         },
         "fund_not_active": "Фонд, до якого ви намагаєтеся подати заявку, не активний.",
         "invalid_endpoint": "Немає доступу до цієї програми",
@@ -721,6 +701,19 @@
             },
             "subtitle": "Неправильно вказані дані? Якщо так, зверніться до муніципалітету.",
             "title": "Нижче наведені дані вже заповнені"
+        },
+        "bsn_warning": {
+            "description": "Зверніть увагу! Ви повинні заповнити аплікаційну форму до <strong>{{value}}</strong>в іншому випадку вам потрібно буде підтвердити свій BSN і почати подачу заявки заново."
+        },
+        "digid_expired": {
+            "description": "Підтвердіть свій BSN ще раз і запустіть додаток знову.",
+            "sign_in": {
+                "digid": {
+                    "description": "Увійдіть знову за допомогою DigiD, щоб почати спочатку.",
+                    "title": "DigiD"
+                }
+            },
+            "title": "Закінчився термін дії підтвердження BSN"
         }
     },
     "fund_requests": {
@@ -3027,19 +3020,6 @@
     },
     "signup": {
         "items": {
-            "berkelland": {
-                "start_email": "Почніть активацію"
-            },
-            "digid": "Відкрийте екран входу в DigiD",
-            "ede": {
-                "digid": "Відкрийте екран входу в DigiD",
-                "header": "Увійдіть тут",
-                "pane_text": "",
-                "restore_header": "",
-                "restore_title": "Відновити обліковий запис",
-                "signup": "",
-                "title": "Логін"
-            },
             "errors": {
                 "email": {
                     "type_mismatch": "Будь ласка, введіть дійсну адресу електронної пошти, наприклад, naam@voorbeeld.com",
@@ -3049,48 +3029,18 @@
             "geertruidenberg": {
                 "signup_option": "Увійдіть за допомогою DigiD, щоб продовжити"
             },
-            "goereeoverflakkee": {
-                "start_email": "Зареєструватися"
-            },
             "groningen": {
                 "signup_option": "Увійдіть за допомогою DigiD, щоб продовжити"
             },
-            "header": "Увійдіть тут",
-            "heumen": {
-                "start_email": "Почніть активацію"
-            },
-            "noordoostpolder": {
-                "start_email": "Почніть активацію"
-            },
-            "oostgelre": {
-                "start_email": "Почніть активацію"
-            },
-            "page_title": "Логін{{pageTitleSuffix}}",
-            "pane_text": "Увійдіть в існуючий обліковий запис",
             "potjeswijzer": {
                 "signup_option": "Увійдіть за допомогою DigiD, щоб продовжити"
             },
-            "restore_header": "",
-            "restore_title": "Відновити обліковий запис",
-            "schagen": {
-                "start_email": "Старт"
-            },
             "signup_option": "Зробіть вибір, щоб продовжити",
-            "start_email": "Запустити програму",
-            "title": "Логін",
             "vergoedingen": {
-                "restore_title": "Відновити обліковий запис",
-                "signup_option": "Увійдіть за допомогою DigiD, щоб продовжити",
-                "title": "Логін"
+                "signup_option": "Увійдіть за допомогою DigiD, щоб продовжити"
             },
             "waalwijk": {
                 "signup_option": "Увійдіть за допомогою DigiD, щоб продовжити"
-            },
-            "winterswijk": {
-                "start_email": "Почніть активацію"
-            },
-            "fijnder": {
-                "start_email": "Активувати"
             }
         }
     },

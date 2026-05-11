@@ -295,6 +295,20 @@
                 .sign_up-privacy-checkbox {
                     margin: 0 0 ;
                 }
+
+                a {
+                    font: 600 13px/18px var(--base-font);
+                    color: var(--color-primary-light);
+                    transition: color 0.4s;
+                    display: inline;
+                    text-decoration: underline;
+                    cursor: pointer;
+
+                    &:hover {
+                        text-decoration: none;
+                        color: var(--tc);
+                    }
+                }
             }
 
             .list-normal {
@@ -872,10 +886,6 @@
                     line-height: 16px;
                     letter-spacing: 0.08px;
                     color: #1a1919;
-                }
-
-                .form-value-hint {
-                    font: 400 13px/18px var(--base-font);
                 }
             }
 

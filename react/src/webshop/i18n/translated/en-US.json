@@ -349,7 +349,6 @@
     },
     "auth": {
         "back": "Back",
-        "back_start": "Back to login",
         "choose_option": "Choose an option",
         "logout": "Logout",
         "options": {
@@ -366,28 +365,20 @@
                 "title": "Me app"
             }
         },
-        "terms_link": {
-            "text": "I agree to the <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">terms and conditions</a>"
-        },
         "push": {
             "link_used": {
                 "title": "This link has already been used or is invalid."
             }
         },
-        "qr": {
-            "title": "Login"
-        },
-        "restore": {
-            "label": "Can't log in anymore?",
-            "link": "Restore account with DigiD",
-            "title": "Restore account"
-        },
         "setup_2fa_title": "Setting up two-factor authentication",
-        "sign_in_up_title": "Create an account or start an application?",
+        "2fa_title": "Two-factor authentication",
         "privacy_link": {
-            "text": "I have read the <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">privacy statement</a> "
+            "text": "I have read the <a tabIndex=\"3\" target=\"_blank\" href=\"{{ link_url }}\">privacy statement</a> "
         },
-        "2fa_title": "Two-factor authentication"
+        "terms_link": {
+            "text": "I agree to the <a tabIndex=\"3\" target=\"_blank\" href=\"{{ link_url }}\">terms and conditions</a>"
+        },
+        "title": "Login"
     },
     "bookmarked_products": {
         "empty": {
@@ -657,9 +648,6 @@
             "home": "Home"
         },
         "bsn_record_is_mandatory": "A BSN is required for making an application.",
-        "bsn_warning": {
-            "description": "Notice! You must complete the application form before <strong>{{value}}</strong>, otherwise you must log in again with DigiD and start the application again."
-        },
         "buttons": {
             "back": "Back",
             "send": "Shipping"
@@ -672,14 +660,6 @@
             "created_at": "Submitted on:",
             "fund_name": "Fund name:",
             "status": "Status Request:"
-        },
-        "digid_expired": {
-            "description": "Log in again with DigiD and start the application again.",
-            "sign_in": {
-                "description": "Log in again with DigiD to start over.",
-                "title": "DigiD"
-            },
-            "title": "DigiD session expired"
         },
         "fund_not_active": "The fund you are trying to apply for is not active.",
         "invalid_endpoint": "No access to this application",
@@ -904,6 +884,19 @@
             },
             "subtitle": "Is the information not correct? If so, please contact the municipality.",
             "title": "The information below is already filled in"
+        },
+        "bsn_warning": {
+            "description": "Notice! You must complete the application form by <strong>{{value}}</strong>, otherwise you will need to reconfirm your BSN and begin the application again."
+        },
+        "digid_expired": {
+            "description": "Reconfirm your BSN and start the application again.",
+            "sign_in": {
+                "digid": {
+                    "description": "Log in again with DigiD to start over.",
+                    "title": "DigiD"
+                }
+            },
+            "title": "BSN confirmation expired"
         }
     },
     "fund_requests": {
@@ -1473,19 +1466,6 @@
     },
     "signup": {
         "items": {
-            "berkelland": {
-                "start_email": "Start activation"
-            },
-            "digid": "Open the DigiD login screen",
-            "ede": {
-                "digid": "Open the DigiD login screen",
-                "header": "Log in here",
-                "pane_text": "",
-                "restore_header": "",
-                "restore_title": "Restore account",
-                "signup": "",
-                "title": "Login"
-            },
             "errors": {
                 "email": {
                     "type_mismatch": "Please enter a valid email address, for example naam@voorbeeld.com",
@@ -1495,48 +1475,18 @@
             "geertruidenberg": {
                 "signup_option": "Log in with DigiD to continue"
             },
-            "goereeoverflakkee": {
-                "start_email": "Sign up"
-            },
             "groningen": {
                 "signup_option": "Log in with DigiD to continue"
             },
-            "header": "Log in here",
-            "heumen": {
-                "start_email": "Start activation"
-            },
-            "noordoostpolder": {
-                "start_email": "Start activation"
-            },
-            "oostgelre": {
-                "start_email": "Start activation"
-            },
-            "page_title": "Login{{pageTitleSuffix}}",
-            "pane_text": "Login to an existing account",
             "potjeswijzer": {
                 "signup_option": "Log in with DigiD to continue"
             },
-            "restore_header": "",
-            "restore_title": "Restore account",
-            "schagen": {
-                "start_email": "Start"
-            },
             "signup_option": "Make a choice to continue",
-            "start_email": "Start application",
-            "title": "Login",
             "vergoedingen": {
-                "restore_title": "Restore account",
-                "signup_option": "Log in with DigiD to continue",
-                "title": "Login"
+                "signup_option": "Log in with DigiD to continue"
             },
             "waalwijk": {
                 "signup_option": "Log in with DigiD to continue"
-            },
-            "winterswijk": {
-                "start_email": "Start activation"
-            },
-            "fijnder": {
-                "start_email": "Activate"
             }
         }
     },

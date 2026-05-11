@@ -70,16 +70,6 @@ export default interface EnvDataWebshopProp {
             productDetailsOnlyAvailableFunds?: boolean;
 
             menuItems?: Array<MenuItem>;
-
-            startPage?: {
-                combineColumns?: boolean;
-                hideSignUpDigidOption?: boolean;
-                hideSignUpEmailOption?: boolean;
-                hideSignUpQrCodeOption?: boolean;
-                hideSignInDigidOption?: boolean;
-                hideSignInEmailOption?: boolean;
-                hideSignInQrCodeOption?: boolean;
-            };
         };
     };
 }
