@@ -17,13 +17,29 @@ export default function Error() {
         return snakeCase(params.errorCode || '');
     }, [params?.errorCode]);
 
+    const recoveryStartQuery = useMemo(() => {
+        if (errorCode === 'openid_uid_used') {
+            return { logout: 1, openid: 1 };
+        }
+
+        if (errorCode === 'digid_uid_used') {
+            return { logout: 1, digid: 1 };
+        }
+
+        return { logout: 1 };
+    }, [errorCode]);
+
+    const hasRecoveryStartButton = useMemo(() => {
+        return ['digid_uid_used', 'openid_uid_used'].includes(errorCode);
+    }, [errorCode]);
+
     const transParams = useMemo(() => {
         return {
             url_webshop_home: getStateRouteUrl(WebshopRoutes.HOME, {}),
             url_webshop_start: getStateRouteUrl(WebshopRoutes.START, {}),
-            url_webshop_start_logout: getStateRouteUrl(WebshopRoutes.START, {}, { logout: 1, digid: 1 }),
+            url_webshop_start_logout: getStateRouteUrl(WebshopRoutes.START, {}, recoveryStartQuery),
         };
-    }, []);
+    }, [recoveryStartQuery]);
 
     return (
         <BlockShowcase>
@@ -47,16 +63,16 @@ export default function Error() {
                                         values={transParams}
                                     />
 
-                                    {(!hideHomeLinkButton || errorCode == 'digid_uid_used') && (
+                                    {(!hideHomeLinkButton || hasRecoveryStartButton) && (
                                         <p className="sign_up-pane-text">
-                                            {errorCode != 'digid_uid_used' ? (
+                                            {!hasRecoveryStartButton ? (
                                                 <StateNavLink name={WebshopRoutes.HOME} className="sign_up-pane-link">
                                                     {translate('error.home_button')}
                                                 </StateNavLink>
                                             ) : (
                                                 <StateNavLink
                                                     name={WebshopRoutes.START}
-                                                    query={{ logout: 1, digid: 1 }}
+                                                    query={recoveryStartQuery}
                                                     className="button button-primary">
                                                     {translate('error.start_button')}
                                                     <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />

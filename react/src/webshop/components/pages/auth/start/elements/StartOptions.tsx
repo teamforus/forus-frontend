@@ -15,6 +15,7 @@ export default function StartOptions({
     onEmail,
     onQr,
     onDigid,
+    onOpenId,
 }: {
     title: string;
     loginTitle: string;
@@ -24,6 +25,7 @@ export default function StartOptions({
     onEmail: () => void;
     onQr: () => void;
     onDigid: () => void;
+    onOpenId: () => void;
 }) {
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
@@ -48,6 +50,15 @@ export default function StartOptions({
                     descriptionDusk: null,
                     onClick: onDigid,
                     alt: 'logo DigiD',
+                },
+                openid: {
+                    icon: '/assets/img/icon-auth/icon-auth-openid.svg',
+                    title: translate('auth.options.openid.title'),
+                    description: translate('auth.options.openid.description'),
+                    titleDusk: null,
+                    descriptionDusk: null,
+                    onClick: onOpenId,
+                    alt: 'logo OpenID',
                 },
                 qr: {
                     icon: '/assets/img/icon-auth/icon-auth-me_app.svg',
@@ -86,7 +97,7 @@ export default function StartOptions({
                 </div>
             );
         },
-        [assetUrl, onDigid, onEmail, onQr, translate],
+        [assetUrl, onDigid, onEmail, onOpenId, onQr, translate],
     );
 
     return (

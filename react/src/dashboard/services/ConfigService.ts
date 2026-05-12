@@ -6,7 +6,7 @@ import Media from '../props/models/Media';
 import ImplementationPage from '../../webshop/props/models/ImplementationPage';
 import Language from '../props/models/Language';
 
-export type AuthPageLoginOption = 'email' | 'digid' | 'qr';
+export type AuthPageLoginOption = 'email' | 'digid' | 'openid' | 'qr';
 
 export type AppConfigProp = {
     add_money: boolean;
@@ -126,6 +126,11 @@ export type AppConfigProp = {
     has_physical_cards: boolean;
     has_payouts: boolean;
     announcements: Array<Announcement>;
+    openid: boolean;
+    openid_config: {
+        default_provider: 'verid' | null;
+        providers: Array<'verid'>;
+    };
     auth_page?: {
         title: string;
         login_title: string;

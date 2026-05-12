@@ -28,6 +28,9 @@ export default interface Implementation {
     email_from_address?: string;
     digid_enabled?: boolean;
     digid_available?: boolean;
+    openid_verid_enabled?: boolean;
+    openid_verid_configured?: boolean;
+    openid_available?: boolean;
     digid_app_id?: string;
     digid_shared_secret?: string;
     digid_a_select_server?: string;
@@ -84,6 +87,7 @@ export default interface Implementation {
     auth_page_login_title?: string;
     auth_page_login_email?: boolean;
     auth_page_login_digid?: boolean;
+    auth_page_login_openid?: boolean;
     auth_page_login_qr?: boolean;
     auth_page_info_enabled?: boolean;
     auth_page_info_title?: string;

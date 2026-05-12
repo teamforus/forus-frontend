@@ -71,6 +71,10 @@ export default {
                 title: 'DigiD',
                 description: 'Log opnieuw in met DigiD om opnieuw te beginnen.',
             },
+            openid: {
+                title: 'ID-Wallet',
+                description: 'Log opnieuw in met ID-Wallet om opnieuw te beginnen.',
+            },
         },
     },
 

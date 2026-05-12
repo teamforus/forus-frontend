@@ -18,6 +18,10 @@ export default {
             title: 'DigiD',
             description: 'Open DigiD inlogscherm',
         },
+        openid: {
+            title: 'ID-Wallet',
+            description: 'Log in met mijn ID-Wallet',
+        },
     },
     privacy_link: {
         text: 'Ik heb de <a tabIndex="3" target="_blank" href="{{ link_url }}">privacyverklaring</a> gelezen',

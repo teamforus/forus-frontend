@@ -4,6 +4,7 @@ import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import useEnvData from '../../../hooks/useEnvData';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import { useDigiDService } from '../../../services/DigiDService';
+import { useOpenIdService } from '../../../services/OpenIdService';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import FundsListItemModel from '../../../services/types/FundsListItemModel';
 import { ResponseError } from '../../../../dashboard/props/ApiResponses';
@@ -59,6 +60,7 @@ export default function FundActivate() {
 
     const fundService = useFundService();
     const digIdService = useDigiDService();
+    const openIdService = useOpenIdService();
     const voucherService = useVoucherService();
     const identityService = useIdentityService();
     const fundRequestService = useFundRequestService();
@@ -75,6 +77,8 @@ export default function FundActivate() {
     const [digidResponse, setDigidResponse] = useQueryParams({
         digid_error: StringParam,
         digid_success: StringParam,
+        openid_error: StringParam,
+        openid_success: StringParam,
     });
 
     const [fund, setFund] = useState<FundsListItemModel>(null);
@@ -98,6 +102,11 @@ export default function FundActivate() {
 
     const [fetchingData, setFetchingData] = useState(false);
     const [applyingFund, setApplyingFund] = useState(false);
+    const [bsnVerificationMethod, setBsnVerificationMethod] = useState<'digid' | 'openid'>('digid');
+
+    const openIdProvider = useMemo(() => {
+        return appConfigs?.openid ? appConfigs.openid_config?.default_provider : null;
+    }, [appConfigs]);
 
     const getTimeToSkipDigid = useCallback(
         (identity: Identity, fund: Fund, witOffset = true) => {
@@ -137,17 +146,41 @@ export default function FundActivate() {
                         return pushDanger(translate('push.error'), err.data.message);
                     }
 
-                    navigateState(WebshopRoutes.ERROR, { errorCode: err.headers['error-code'] });
+                    navigateState(WebshopRoutes.ERROR, {
+                        errorCode: err.headers['error-code'] || 'digid_unknown_error',
+                    });
                 });
         },
         [digIdService, navigateState, pushDanger, translate],
     );
 
-    const startBsnVerification = useCallback(
+    const startOpenId = useCallback(
         (fund: Fund) => {
-            return startDigId(fund);
+            if (!openIdProvider) {
+                return;
+            }
+
+            openIdService
+                .startFundRequest(fund.id, openIdProvider)
+                .then((res) => (document.location = res.data.redirect_url))
+                .catch((err: ResponseError) => {
+                    if (err.status === 403 && err.data.message) {
+                        return pushDanger(translate('push.error'), err.data.message);
+                    }
+
+                    navigateState(WebshopRoutes.ERROR, {
+                        errorCode: err.headers['error-code'] || 'openid_unknown_error',
+                    });
+                });
         },
-        [startDigId],
+        [navigateState, openIdProvider, openIdService, pushDanger, translate],
+    );
+
+    const startBsnVerification = useCallback(
+        (fund: Fund, method = bsnVerificationMethod) => {
+            return method === 'openid' ? startOpenId(fund) : startDigId(fund);
+        },
+        [bsnVerificationMethod, startDigId, startOpenId],
     );
 
     // Apply for the fund
@@ -237,7 +270,7 @@ export default function FundActivate() {
     }, [appConfigs, authIdentity, fund]);
 
     const checkFund = useCallback(
-        (fromVerification = false) => {
+        (fromVerification = false, method = bsnVerificationMethod) => {
             if (fetchingData) {
                 return;
             }
@@ -249,7 +282,7 @@ export default function FundActivate() {
                 const timeToSkipBsn = getTimeToSkipDigid(identity, fund);
 
                 if (!fromVerification && (timeToSkipBsn === null || timeToSkipBsn <= 0)) {
-                    return startBsnVerification(fund);
+                    return startBsnVerification(fund, method);
                 }
 
                 fundService
@@ -308,6 +341,8 @@ export default function FundActivate() {
                         setDigidResponse({
                             digid_error: null,
                             digid_success: null,
+                            openid_error: null,
+                            openid_success: null,
                         });
                         setState('select');
                     })
@@ -315,6 +350,7 @@ export default function FundActivate() {
             });
         },
         [
+            bsnVerificationMethod,
             translate,
             fetchingData,
             fund,
@@ -338,38 +374,48 @@ export default function FundActivate() {
     }, [skipBsnLimit, skipBsnLimitSoft]);
 
     const selectBsnVerificationOption = useCallback(
-        (fund: Fund) => {
+        (fund: Fund, method: 'digid' | 'openid') => {
+            setBsnVerificationMethod(method);
+
             const hasCustomCriteria = ['IIT', 'bus_2020', 'meedoen'].includes(fund.key);
             const autoValidation = fund.auto_validation;
 
             //- Show custom criteria screen
             if (autoValidation && hasCustomCriteria) {
-                return getTimeToSkip().timeToSkipBsnSoft > 0 ? setState('digid') : startBsnVerification(fund);
+                return getTimeToSkip().timeToSkipBsnSoft > 0 ? setState('digid') : startBsnVerification(fund, method);
             }
 
-            checkFund(false);
+            checkFund(false, method);
         },
         [checkFund, startBsnVerification, getTimeToSkip],
     );
 
     const selectDigiDOption = useCallback(
-        (fund: Fund) => selectBsnVerificationOption(fund),
+        (fund: Fund) => selectBsnVerificationOption(fund, 'digid'),
+        [selectBsnVerificationOption],
+    );
+
+    const selectOpenIdOption = useCallback(
+        (fund: Fund) => selectBsnVerificationOption(fund, 'openid'),
         [selectBsnVerificationOption],
     );
 
     const confirmCriteria = useCallback(() => {
-        checkFund(false);
-    }, [checkFund]);
+        checkFund(false, bsnVerificationMethod);
+    }, [bsnVerificationMethod, checkFund]);
 
     const handleDigiDResponse = useCallback(() => {
-        const { digid_success, digid_error } = digidResponse;
+        const { digid_success, digid_error, openid_success, openid_error } = digidResponse;
 
-        if ((!digid_success && !digid_error) || !fund) {
+        if ((!digid_success && !digid_error && !openid_success && !openid_error) || !fund) {
             return;
         }
 
         // got verification error, abort
-        if (digid_error) {
+        if (digid_error || openid_error) {
+            const errorProvider = openid_error ? 'openid' : 'digid';
+            const error = openid_error || digid_error;
+
             const custom404Link = {
                 name: 'fund-activate',
                 params: { id: fund.id },
@@ -380,7 +426,7 @@ export default function FundActivate() {
 
             navigateState(
                 WebshopRoutes.ERROR,
-                { errorCode: `digid_${digid_error}` },
+                { errorCode: `${errorProvider}_${error}` },
                 {},
                 {
                     state: {
@@ -392,19 +438,37 @@ export default function FundActivate() {
         }
 
         // BSN verification flow
-        if (digid_success == 'signed_up' || digid_success == 'signed_in') {
-            pushSuccess(translate('push.success'), translate('push.fund_activation.digid_success'));
+        if (
+            digid_success == 'signed_up' ||
+            digid_success == 'signed_in' ||
+            openid_success == 'signed_up' ||
+            openid_success == 'signed_in'
+        ) {
+            const method = openid_success ? 'openid' : 'digid';
+
+            pushSuccess(translate('push.success'), translate(`push.fund_activation.${method}_success`));
 
             window.setTimeout(() => {
-                selectDigiDOption(fund);
+                method === 'openid' ? selectOpenIdOption(fund) : selectDigiDOption(fund);
 
                 setDigidResponse({
                     digid_error: null,
                     digid_success: null,
+                    openid_error: null,
+                    openid_success: null,
                 });
             }, 1000);
         }
-    }, [digidResponse, fund, navigateState, pushSuccess, selectDigiDOption, setDigidResponse, translate]);
+    }, [
+        digidResponse,
+        fund,
+        navigateState,
+        pushSuccess,
+        selectDigiDOption,
+        selectOpenIdOption,
+        setDigidResponse,
+        translate,
+    ]);
 
     const fetchFund = useCallback(
         (id: number) => {
@@ -473,13 +537,17 @@ export default function FundActivate() {
                 options.push('digid');
             }
 
-            if (!appConfigs.digid && !appConfigs.digid_mandatory && fund.allow_fund_requests) {
+            if (openIdProvider) {
+                options.push('openid');
+            }
+
+            if (!appConfigs.digid && !openIdProvider && !appConfigs.digid_mandatory && fund.allow_fund_requests) {
                 options.push('request');
             }
 
             return options;
         },
-        [appConfigs],
+        [appConfigs, openIdProvider],
     );
 
     const initState = useCallback(
@@ -503,7 +571,7 @@ export default function FundActivate() {
                 return navigateState(WebshopRoutes.FUND_REQUEST, fund, {}, { state: { from: 'fund-activate' } });
             }
 
-            if (options.length === 1 && options[0] !== 'digid') {
+            if (options.length === 1 && !['digid', 'openid'].includes(options[0])) {
                 return setState(options[0]);
             }
 
@@ -598,7 +666,7 @@ export default function FundActivate() {
         }
     }, [setTitle, translate, fund]);
 
-    if (digidResponse?.digid_success) {
+    if (digidResponse?.digid_success || digidResponse?.openid_success) {
         return <BlockShowcase />;
     }
 
@@ -680,6 +748,31 @@ export default function FundActivate() {
                                                     </div>
                                                     <div className="sign_up-option-description">
                                                         {translate('fund_activate.options.digid.description')}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {options?.includes('openid') && (
+                                            <div
+                                                data-dusk="openidOption"
+                                                className="sign_up-option"
+                                                onClick={() => selectOpenIdOption(fund)}
+                                                onKeyDown={clickOnKeyEnter}
+                                                tabIndex={0}>
+                                                <div className="sign_up-option-media">
+                                                    <img
+                                                        className="sign_up-option-media-img"
+                                                        src={assetUrl('/assets/img/icon-auth/icon-auth-openid.svg')}
+                                                        alt="logo ID-Wallet"
+                                                    />
+                                                </div>
+                                                <div className="sign_up-option-details">
+                                                    <div className="sign_up-option-title">
+                                                        {translate('fund_activate.options.openid.title')}
+                                                    </div>
+                                                    <div className="sign_up-option-description">
+                                                        {translate('fund_activate.options.openid.description')}
                                                     </div>
                                                 </div>
                                             </div>

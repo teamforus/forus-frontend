@@ -33,6 +33,10 @@ export default function Implementations() {
 
     const [paginatorKey] = useState('implementations');
     const [implementations, setImplementations] = useState<PaginationData<Implementation>>(null);
+
+    const canManageImplementation = hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION);
+    const canManageImplementationCms = hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION_CMS);
+
     const columns: Array<ConfigurableTableColumn> = [
         { key: 'name', label: 'Webshop' },
         { key: 'url', label: 'Website url' },
@@ -165,28 +169,21 @@ export default function Implementations() {
                                                     <em className="mdi mdi-eye icon-start" /> Bekijken
                                                 </StateNavLink>
 
-                                                {activeOrganization.allow_translations &&
-                                                    hasPermission(
-                                                        activeOrganization,
-                                                        Permission.MANAGE_IMPLEMENTATION,
-                                                    ) && (
-                                                        <StateNavLink
-                                                            name={DashboardRoutes.IMPLEMENTATION_TRANSLATIONS}
-                                                            params={{
-                                                                id: implementation.id,
-                                                                organizationId: implementation.organization_id,
-                                                            }}
-                                                            className="dropdown-item"
-                                                            onClick={e.close}>
-                                                            <em className="mdi mdi-translate-variant icon-start" />
-                                                            Vertalingen beheren
-                                                        </StateNavLink>
-                                                    )}
+                                                {activeOrganization.allow_translations && canManageImplementation && (
+                                                    <StateNavLink
+                                                        name={DashboardRoutes.IMPLEMENTATION_TRANSLATIONS}
+                                                        params={{
+                                                            id: implementation.id,
+                                                            organizationId: implementation.organization_id,
+                                                        }}
+                                                        className="dropdown-item"
+                                                        onClick={e.close}>
+                                                        <em className="mdi mdi-translate-variant icon-start" />
+                                                        Vertalingen beheren
+                                                    </StateNavLink>
+                                                )}
 
-                                                {hasPermission(
-                                                    activeOrganization,
-                                                    Permission.MANAGE_IMPLEMENTATION,
-                                                ) && (
+                                                {canManageImplementation && (
                                                     <StateNavLink
                                                         name={DashboardRoutes.IMPLEMENTATION_COOKIES}
                                                         params={{
@@ -200,10 +197,7 @@ export default function Implementations() {
                                                     </StateNavLink>
                                                 )}
 
-                                                {hasPermission(
-                                                    activeOrganization,
-                                                    Permission.MANAGE_IMPLEMENTATION,
-                                                ) && (
+                                                {canManageImplementation && (
                                                     <StateNavLink
                                                         name={DashboardRoutes.IMPLEMENTATION_EMAIL}
                                                         params={{
@@ -217,10 +211,7 @@ export default function Implementations() {
                                                     </StateNavLink>
                                                 )}
 
-                                                {hasPermission(
-                                                    activeOrganization,
-                                                    Permission.MANAGE_IMPLEMENTATION,
-                                                ) && (
+                                                {canManageImplementation && (
                                                     <StateNavLink
                                                         name={DashboardRoutes.IMPLEMENTATION_DIGID}
                                                         params={{
@@ -234,10 +225,23 @@ export default function Implementations() {
                                                     </StateNavLink>
                                                 )}
 
-                                                {hasPermission(
-                                                    activeOrganization,
-                                                    Permission.MANAGE_IMPLEMENTATION_CMS,
-                                                ) && (
+                                                {activeOrganization.allow_openid && canManageImplementation && (
+                                                    <StateNavLink
+                                                        name={DashboardRoutes.IMPLEMENTATION_OPENID}
+                                                        params={{
+                                                            id: implementation.id,
+                                                            organizationId: activeOrganization.id,
+                                                        }}
+                                                        className="dropdown-item"
+                                                        onClick={e.close}>
+                                                        <em className="mdi mdi-wallet-outline icon-start" />
+                                                        {translate(
+                                                            'implementation_auth_page.openid_settings.menu.name',
+                                                        )}
+                                                    </StateNavLink>
+                                                )}
+
+                                                {canManageImplementationCms && (
                                                     <StateNavLink
                                                         name={DashboardRoutes.IMPLEMENTATION_AUTH_PAGE}
                                                         params={{

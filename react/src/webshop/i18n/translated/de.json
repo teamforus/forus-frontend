@@ -148,6 +148,10 @@
             "qr": {
                 "description": "Scannen eines QR-Codes mit der <u>Me-App</u>",
                 "title": "Ich-App"
+            },
+            "openid": {
+                "description": "Mit meiner ID-Wallet anmelden",
+                "title": "ID Brieftasche"
             }
         },
         "push": {
@@ -299,7 +303,17 @@
             "digid_uid_not_found": "Diese BSN-Nummer ist im System unbekannt, starten Sie Ihre Bewerbung, um ein Konto zu erstellen.",
             "digid_uid_used": "Es wurde eine andere E-Mail-Adresse für diese BSN-Nummer registriert. Um sich bei Ihrem Konto anzumelden, müssen Sie die bei uns registrierte E-Mail-Adresse verwenden.<br/><br/> Sie wissen nicht mehr, welche E-Mail-Adresse das ist, oder haben eine neue Adresse? <br/> Dann stellen Sie Ihr Konto wieder her, indem Sie <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">hier</a> oder auf die Schaltfläche unten klicken.</br>",
             "digid_unknown_error": "Bei der Kommunikation mit DigiD ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut. Sollte der Fehler weiterhin bestehen, besuchen Sie bitte die Website https://www.digid.nl/, um die neuesten Informationen zu erhalten.",
-            "unknown_error": "Bei der Kommunikation mit DigiD ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut. Sollte der Fehler weiterhin bestehen, besuchen Sie bitte die Website https://www.digid.nl/, um die neuesten Informationen zu erhalten."
+            "unknown_error": "Bei der Kommunikation mit DigiD ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut. Sollte der Fehler weiterhin bestehen, besuchen Sie bitte die Website https://www.digid.nl/, um die neuesten Informationen zu erhalten.",
+            "openid_callback_failed": "Die OpenID-Anmeldung konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut.",
+            "openid_invalid_request": "Die OpenID-Anfrage ist ungültig. Bitte versuchen Sie es erneut.",
+            "openid_missing_claims": "Die OpenID-Anmeldung hat nicht genügend Daten geliefert. Bitte versuchen Sie es erneut.",
+            "openid_not_enabled": "OpenID ist bei dieser Implementierung nicht aktiviert.",
+            "openid_session_expired": "Die OpenID-Sitzung ist abgelaufen. Bitte versuchen Sie, sich erneut anzumelden.",
+            "openid_uid_dont_match": "Die BSN-Nummer, die Sie mit ID-Wallet bestätigt haben, unterscheidet sich von der BSN-Nummer, die mit diesem Profil verbunden ist, und startet eine neue Anwendung.",
+            "openid_uid_not_found": "Diese BSN-Nummer ist im System unbekannt, wenn Sie Ihren Antrag auf Einrichtung eines Kontos starten.",
+            "openid_uid_used": "Es wurde eine andere E-Mail-Adresse für diese BSN-Nummer registriert. Um sich bei Ihrem Konto anzumelden, müssen Sie die bei uns registrierte E-Mail-Adresse verwenden.<br/><br/> Sie wissen nicht mehr, welche E-Mail-Adresse das ist, oder haben eine neue Adresse? <br/> Dann stellen Sie Ihr Konto wieder her, indem Sie <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">hier</a> oder auf die Schaltfläche unten klicken.</br>",
+            "openid_unknown_error": "Beim Einloggen mit OpenID ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
+            "openid_unknown_session_type": "Die OpenID-Sitzung hat einen unbekannten Typ. Bitte versuchen Sie es erneut."
         },
         "start_button": "Konto wiederherstellen",
         "titles": {
@@ -323,7 +337,17 @@
             "digid_uid_not_found": "Diese BSN-Nummer ist im System unbekannt",
             "digid_uid_used": "BSN-Nummer bereits verwendet.",
             "digid_unknown_error": "Bei der Kommunikation mit DigiD ist ein Fehler aufgetreten.",
-            "unknown_error": "Unbekannte Fehlermeldung"
+            "unknown_error": "Unbekannte Fehlermeldung",
+            "openid_callback_failed": "Anmeldung fehlgeschlagen",
+            "openid_invalid_request": "Ungültige Anfrage",
+            "openid_missing_claims": "Fehlende Daten",
+            "openid_not_enabled": "OpenID ist nicht verfügbar",
+            "openid_session_expired": "Sitzung abgelaufen",
+            "openid_uid_dont_match": "Für dieses Profil ist bereits eine BSN-Nummer bekannt",
+            "openid_uid_not_found": "Diese BSN-Nummer ist im System unbekannt",
+            "openid_uid_used": "BSN-Nummer bereits verwendet.",
+            "openid_unknown_error": "Unbekannte Fehlermeldung",
+            "openid_unknown_session_type": "Unbekannte Sitzung"
         }
     },
     "expired_identity": {
@@ -412,6 +436,10 @@
             "request": {
                 "description": "Gehen Sie durch das Antragsformular, um einen Kredit zu beantragen",
                 "title": "Ich möchte einen Kredit beantragen"
+            },
+            "openid": {
+                "description": "Öffnen Sie den ID-Wallet-Anmeldebildschirm",
+                "title": "ID Brieftasche"
             }
         }
     },
@@ -711,6 +739,10 @@
                 "digid": {
                     "description": "Melden Sie sich erneut mit DigiD an, um neu zu beginnen.",
                     "title": "DigiD"
+                },
+                "openid": {
+                    "description": "Melden Sie sich wieder mit ID-Wallet an, um neu zu beginnen.",
+                    "title": "ID Brieftasche"
                 }
             },
             "title": "BSN-Bestätigung abgelaufen"
@@ -2491,8 +2523,8 @@
         "bank_accounts": {
             "title": "Bankkonto",
             "iban": "IBAN",
-            "name": "Zuschreibung",
-            "source": "Quelle"
+            "source": "Quelle",
+            "name": "Zuschreibung"
         },
         "breadcrumbs": {
             "home": "Startseite",
@@ -3594,7 +3626,8 @@
         "error": "Durchgefallen!",
         "fund_activation": {
             "digid_success": "Eingeloggt mit DigiD.",
-            "success": "{{fund_name}} Kredit aktiviert!"
+            "success": "{{fund_name}} Kredit aktiviert!",
+            "openid_success": "Eingeloggt mit ID-Wallet."
         },
         "pre_check": {
             "downloaded": "Der Download wird in wenigen Augenblicken beginnen.",

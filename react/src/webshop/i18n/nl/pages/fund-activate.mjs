@@ -15,6 +15,10 @@ export default {
             title: 'DigiD',
             description: 'Open het DigiD inlogscherm',
         },
+        openid: {
+            title: 'ID-Wallet',
+            description: 'Open het ID-Wallet inlogscherm',
+        },
         request: {
             title: 'Ik wil een tegoed aanvragen',
             description: 'Doorloop het aanvraagformulier om een tegoed aan te vragen',
