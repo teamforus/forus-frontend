@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { PaginationData } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
 import useProviderFundService from '../../../../services/ProviderFundService';
-import useAssetUrl from '../../../../hooks/useAssetUrl';
 import { strLimit } from '../../../../helpers/string';
 import TableCheckboxControl from '../../../elements/tables/elements/TableCheckboxControl';
 import Tag from '../../../../props/models/Tag';
@@ -22,6 +21,7 @@ import { NumberParam, StringParam } from 'use-query-params';
 import useProviderFundsApplySuccess from '../hooks/useProviderFundsApplySuccess';
 import useProviderFundsFailOfficesCheck from '../hooks/useProviderFundsFailOfficesCheck';
 import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
+import TableEntityMain from '../../../elements/tables/elements/TableEntityMain';
 
 export default function ProviderFundsAvailableTable({
     organization,
@@ -34,7 +34,6 @@ export default function ProviderFundsAvailableTable({
 
     const [loading, setLoading] = useState(true);
 
-    const assetUrl = useAssetUrl();
     const pushApiError = usePushApiError();
     const runLatestRequest = useLatestRequestWithProgress();
 
@@ -320,21 +319,14 @@ export default function ProviderFundsAvailableTable({
                         </td>
 
                         <td>
-                            <div className="td-collapsable">
-                                <div className="collapsable-media">
-                                    <img
-                                        className="td-media td-media-sm"
-                                        src={
-                                            fund.logo?.sizes?.thumbnail ||
-                                            assetUrl('/assets/img/placeholders/fund-thumbnail.png')
-                                        }
-                                        alt=""
-                                    />
-                                </div>
-                                <div className="collapsable-content">
-                                    <div className="text-primary text-semibold" title={fund.name}>
-                                        {strLimit(fund.name, 32)}
-                                    </div>
+                            <TableEntityMain
+                                media={fund.logo}
+                                mediaAlt={fund.name}
+                                mediaRound={false}
+                                mediaPlaceholder="fund"
+                                title={fund.name}
+                                titleLimit={32}
+                                subtitle={
                                     <a
                                         href={fund.implementation.url_webshop}
                                         target="_blank"
@@ -342,8 +334,8 @@ export default function ProviderFundsAvailableTable({
                                         rel="noreferrer">
                                         {strLimit(fund.implementation?.name, 32)}
                                     </a>
-                                </div>
-                            </div>
+                                }
+                            />
                         </td>
 
                         <td title={fund.organization.name}>{strLimit(fund.organization?.name, 25)}</td>

@@ -14,6 +14,7 @@ import fund_unsubscriptions from './pages/fund-unsubscriptions';
 import bi_connection from './pages/bi-connection';
 import organization_contacts from './pages/organization-contacts';
 import organization_translations from './pages/organization-translations';
+import offices from './pages/offices';
 import reservation_settings from './pages/reservations-settings';
 import features from './pages/features';
 import mollie_connection from './pages/mollie-connection';
@@ -58,6 +59,7 @@ export default {
     bi_connection,
     organization_contacts,
     organization_translations,
+    offices,
     reservation_settings,
     features,
     mollie_connection,

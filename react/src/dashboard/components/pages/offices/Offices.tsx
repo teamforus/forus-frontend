@@ -19,6 +19,7 @@ import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithPro
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import { PaginationData } from '../../../props/ApiResponses';
 import OfficesTableItem from './elements/OfficesTableItem';
+import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 
 export type OfficeLocal = Office & {
     scheduleByDay: { [key: string]: OfficeSchedule };
@@ -27,18 +28,19 @@ export type OfficeLocal = Office & {
 export default function Offices() {
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
-    const organization = useActiveOrganization();
-
-    const officeService = useOfficeService();
     const pushApiError = usePushApiError();
     const runLatestRequest = useLatestRequestWithProgress();
+
+    const organization = useActiveOrganization();
+    const officeService = useOfficeService();
+    const paginatorService = usePaginatorService();
 
     const [offices, setOffices] = useState<PaginationData<OfficeLocal>>(null);
     const [paginatorKey] = useState('offices');
 
-    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{ q: string; per_page: number }>({
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{ q?: string; per_page: number }>({
         q: '',
-        per_page: 100,
+        per_page: paginatorService.getPerPage(paginatorKey),
     });
 
     const fetchOffices = useCallback(() => {

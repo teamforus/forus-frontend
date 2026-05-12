@@ -1,15 +1,12 @@
 import React, { Fragment, useCallback, useState } from 'react';
-import { strLimit } from '../../../../helpers/string';
 import { PaginationData } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
 import useTranslate from '../../../../hooks/useTranslate';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import usePushApiError from '../../../../hooks/usePushApiError';
-import classNames from 'classnames';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import Office from '../../../../props/models/Office';
-import useAssetUrl from '../../../../hooks/useAssetUrl';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import { NavLink, useNavigate } from 'react-router';
 import { getStateRouteUrl } from '../../../../modules/state_router/Router';
@@ -20,6 +17,7 @@ import ModalNotification from '../../../modals/ModalNotification';
 import ModalDangerZone from '../../../modals/ModalDangerZone';
 import { OfficeLocal } from '../Offices';
 import OfficeScheduleTable from './OfficeScheduleTable';
+import TableEntityMain from '../../../elements/tables/elements/TableEntityMain';
 
 export default function OfficesTableItem({
     organization,
@@ -34,7 +32,6 @@ export default function OfficesTableItem({
 }) {
     const openModal = useOpenModal();
     const navigate = useNavigate();
-    const assetUrl = useAssetUrl();
     const translate = useTranslate();
     const pushSuccess = usePushSuccess();
     const pushApiError = usePushApiError();
@@ -42,6 +39,7 @@ export default function OfficesTableItem({
     const officeService = useOfficeService();
 
     const [showSchedule, setShowSchedule] = useState(false);
+    const hasSchedule = office.schedule.length > 0;
 
     const confirmDelete = useCallback(
         (office: Office) => {
@@ -115,37 +113,22 @@ export default function OfficesTableItem({
                     organizationId: office.organization_id,
                 }}>
                 <td>
-                    <div className="td-collapsable clickable">
-                        <div
-                            className="collapsable-icon"
-                            onClick={(e) => {
-                                e?.preventDefault();
-                                e?.stopPropagation();
+                    <TableEntityMain
+                        media={office.photo}
+                        mediaAlt={office.branch_name || ''}
+                        mediaRound={false}
+                        mediaPlaceholder="office"
+                        title={office.address}
+                        titleLimit={40}
+                        collapsed={hasSchedule ? !showSchedule : null}
+                        collapsePlaceholder={!hasSchedule}
+                        collapsedClicked={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
 
-                                setShowSchedule(!showSchedule);
-                            }}>
-                            <em
-                                className={classNames(
-                                    'mdi',
-                                    'icon-collapse',
-                                    showSchedule ? 'mdi-menu-down' : 'mdi-menu-right',
-                                )}
-                            />
-                        </div>
-                        <div className="collapsable-media">
-                            <img
-                                className="td-media td-media-sm"
-                                src={
-                                    office.photo?.sizes.thumbnail ||
-                                    assetUrl('/assets/img/placeholders/office-thumbnail.png')
-                                }
-                                alt={office.branch_name}
-                            />
-                        </div>
-                        <div className="collapsable-content">
-                            <div className="text-primary text-semibold">{strLimit(office.address, 40)}</div>
-                        </div>
-                    </div>
+                            setShowSchedule(!showSchedule);
+                        }}
+                    />
                 </td>
                 <td>{office.phone ? office.phone : <TableEmptyValue />}</td>
                 <td>{office.branch_name ? office.branch_name : <TableEmptyValue />}</td>
@@ -191,7 +174,7 @@ export default function OfficesTableItem({
                 </td>
             </StateNavLink>
 
-            {showSchedule && office.schedule.length != 0 && <OfficeScheduleTable office={office} />}
+            {showSchedule && hasSchedule && <OfficeScheduleTable office={office} />}
         </Fragment>
     );
 }
