@@ -1,10 +1,10 @@
 import React, { Fragment, useState } from 'react';
-import classNames from 'classnames';
 import { numberFormat } from '../../../../helpers/string';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
 import { useOrganizationService } from '../../../../services/OrganizationService';
 import { TranslationStats } from '../../../../props/models/Organization';
+import TableEntityMain from '../../../elements/tables/elements/TableEntityMain';
 
 export default function TranslationStatsTable({
     stats,
@@ -32,18 +32,7 @@ export default function TranslationStatsTable({
                             });
                         }}>
                         <td>
-                            <div className="td-collapsable">
-                                <div className="collapsable-icon">
-                                    <div
-                                        className={classNames(
-                                            `mdi icon-collapse `,
-                                            shownKeys.includes(index) ? 'mdi-menu-down' : 'mdi-menu-right',
-                                        )}
-                                    />
-                                </div>
-
-                                <div className="collapsable-content text-semibold">{group.name}</div>
-                            </div>
+                            <TableEntityMain title={group.name} collapsed={!shownKeys.includes(index)} />
                         </td>
                         <td className={'text-semibold'}>
                             {group.symbols ? numberFormat(group.symbols) : <TableEmptyValue />}

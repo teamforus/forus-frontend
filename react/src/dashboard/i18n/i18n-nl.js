@@ -663,40 +663,6 @@ export default {
         },
     },
 
-    offices: {
-        buttons: {
-            adjust: 'Bewerk',
-            add: 'Voeg een nieuwe vestiging toe',
-            map: 'Bekijk op de kaart',
-            delete: 'Verwijderen',
-        },
-        labels: {
-            mail: 'E-mail',
-            categories: 'Categorieën',
-            nocategories: 'Geen categorieën',
-            none: 'Geen data',
-            phone: 'Telefoonnummer',
-            hours: 'Openingstijden:',
-            offices: 'Vestigingen ',
-            business_type: 'Organisatie type',
-            branch_id: 'VestigingID',
-            branch_number: 'Vestigingsnummer',
-        },
-        confirm_delete: {
-            title: 'Weet u zeker dat u deze vestiging wilt verwijderen?',
-            description:
-                'Wanneer u de vestiging verwijderd kunt u dit niet ongedaan maken. Bedenk daarom goed of u deze actie wilt verrichten.',
-        },
-        confirm_has_employees: {
-            title: 'Verwijder medewerkers uit de vestiging',
-            description: 'Voordat de vestiging wordt verwijderd, controleer of er geen toegewezen medewerker(s) zijn.',
-            buttons: {
-                cancel: 'Sluiten',
-                confirm: 'Medewerkers bekijken',
-            },
-        },
-    },
-
     provider_organizations: {
         header: {
             title: 'Aanbieders',

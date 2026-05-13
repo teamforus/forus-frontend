@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { strLimit } from '../../../../helpers/string';
 import { PaginationData } from '../../../../props/ApiResponses';
 import Organization, { SponsorProviderOrganization } from '../../../../props/models/Organization';
 import ProvidersTableItemFunds from './ProvidersTableItemFunds';
@@ -10,9 +9,9 @@ import useTranslate from '../../../../hooks/useTranslate';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import usePushApiError from '../../../../hooks/usePushApiError';
-import classNames from 'classnames';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
+import TableEntityMain from '../../../elements/tables/elements/TableEntityMain';
 
 export default function ProvidersTableItem({
     organization,
@@ -66,37 +65,21 @@ export default function ProvidersTableItem({
                     organizationId: organization.id,
                 }}>
                 <td>
-                    <div className="td-collapsable clickable">
-                        <div
-                            className="collapsable-icon"
-                            onClick={(e) => {
-                                e?.preventDefault();
-                                e?.stopPropagation();
+                    <TableEntityMain
+                        media={providerOrganization.logo}
+                        mediaAlt={providerOrganization.name}
+                        mediaRound={false}
+                        mediaPlaceholder="organization"
+                        title={providerOrganization.name}
+                        titleLimit={40}
+                        collapsed={!showFundProviders}
+                        collapsedClicked={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
 
-                                setShowFundProviders(!showFundProviders);
-                            }}>
-                            <em
-                                className={classNames(
-                                    'mdi',
-                                    'icon-collapse',
-                                    showFundProviders ? 'mdi-menu-down' : 'mdi-menu-right',
-                                )}
-                            />
-                        </div>
-                        <div className="collapsable-media">
-                            <img
-                                className="td-media td-media-sm"
-                                src={
-                                    providerOrganization.logo?.sizes?.thumbnail ||
-                                    './assets/img/placeholders/organization-thumbnail.png'
-                                }
-                                alt={providerOrganization.name}
-                            />
-                        </div>
-                        <div className="collapsable-content">
-                            <div className="text-primary text-semibold">{strLimit(providerOrganization.name, 40)}</div>
-                        </div>
-                    </div>
+                            setShowFundProviders(!showFundProviders);
+                        }}
+                    />
                 </td>
                 <td>{providerOrganization.last_activity_locale}</td>
                 <td>{providerOrganization.products_count}</td>
