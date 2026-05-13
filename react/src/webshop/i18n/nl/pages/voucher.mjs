@@ -58,7 +58,7 @@ export default {
         expired_on: 'Verlopen op {{ date }}',
         no_spending: 'Geen uitgaven',
         reservation: 'Reservering',
-        reimbursement: 'Uitbetaling',
+        reimbursement: 'Kosten terugvragen',
         bank_transfer: 'Bankoverschrijving',
         top_up: 'Opgewaardeerd',
         add: 'Toevoegen',
