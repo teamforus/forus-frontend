@@ -7265,7 +7265,7 @@
     ],
     [
         "profile.bank_accounts.name",
-        "Tenaam stelling"
+        "Tenaamstelling"
     ],
     [
         "profile.bank_accounts.source",
@@ -9710,6 +9710,18 @@
     [
         "voucher.transactions.payout",
         "Uitbetaling"
+    ],
+    [
+        "voucher.transactions.provider_by_sponsor",
+        "Transactie door medewerker"
+    ],
+    [
+        "voucher.transactions.qr_code",
+        "QR-code"
+    ],
+    [
+        "voucher.transactions.reimbursement",
+        "Kosten terugvragen"
     ],
     [
         "voucher.transactions.reservation",

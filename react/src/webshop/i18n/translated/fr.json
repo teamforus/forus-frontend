@@ -2498,8 +2498,8 @@
         "bank_accounts": {
             "title": "Compte bancaire",
             "iban": "IBAN",
-            "name": "Ascription",
-            "source": "Source"
+            "source": "Source",
+            "name": "Titulaire du compte"
         },
         "breadcrumbs": {
             "home": "Accueil",
@@ -3455,7 +3455,10 @@
             "title": "Transactions",
             "top_up": "Mise à niveau",
             "expired_on": "Expiré le {{ date }}",
-            "payout": "Décaissement"
+            "payout": "Décaissement",
+            "provider_by_sponsor": "Transaction effectuée par un employé",
+            "qr_code": "Code QR",
+            "reimbursement": "Remboursement"
         },
         "actions": {
             "choose_action": {

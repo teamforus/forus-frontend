@@ -5,6 +5,7 @@ import { uniqueId } from 'lodash';
 import Office from '../../../dashboard/props/models/Office';
 import Reservation from '../../../dashboard/props/models/Reservation';
 import Organization from '../../../dashboard/props/models/Organization';
+import Reimbursement from '../../props/models/Reimbursement';
 
 type CardTransaction = {
     id?: number;
@@ -18,6 +19,8 @@ type CardTransaction = {
     organization?: Organization;
     created_at_locale?: string;
     incoming?: boolean;
+    reimbursement?: Reimbursement;
+    initiator?: 'provider' | 'sponsor' | 'requester';
 };
 
 export type VoucherCardType = Voucher & {
@@ -45,6 +48,8 @@ export function useVoucherCombinedTransactionsList() {
             organization: transaction.organization,
             created_at_locale: transaction.created_at_locale,
             incoming: transaction.target === 'top_up',
+            reimbursement: transaction.reimbursement,
+            initiator: transaction.initiator,
         }));
 
         const productVouchers = (voucher.product_vouchers || []).map((product_voucher) => ({
@@ -59,6 +64,8 @@ export function useVoucherCombinedTransactionsList() {
             organization: null,
             created_at_locale: product_voucher.created_at_locale,
             incoming: false,
+            reimbursement: null,
+            initiator: null,
         }));
 
         return [...transactions, ...productVouchers].sort((a, b) => b.timestamp - a.timestamp);

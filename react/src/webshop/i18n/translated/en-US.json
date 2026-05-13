@@ -1794,7 +1794,10 @@
             "title": "Transactions",
             "top_up": "Upgraded",
             "expired_on": "Expired on {{ date }}",
-            "payout": "Payout"
+            "payout": "Payout",
+            "provider_by_sponsor": "Employee transaction",
+            "qr_code": "QR code",
+            "reimbursement": "Reimbursement"
         },
         "history": {
             "status": {
@@ -2341,8 +2344,8 @@
         "bank_accounts": {
             "title": "Bank account",
             "iban": "IBAN",
-            "name": "Attribution",
-            "source": "Source"
+            "source": "Source",
+            "name": "Account holder"
         },
         "breadcrumbs": {
             "home": "Home",
