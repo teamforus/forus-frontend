@@ -2,126 +2,63 @@ import React, { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import { NavLink, useNavigate } from 'react-router';
+import { NavLink } from 'react-router';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import { hasPermission } from '../../../helpers/utils';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import Office from '../../../props/models/Office';
-import EmptyCard from '../../elements/empty-card/EmptyCard';
-import useOpenModal from '../../../hooks/useOpenModal';
 import useOfficeService from '../../../services/OfficeService';
 import OfficeSchedule from '../../../props/models/OfficeSchedule';
-import ModalNotification from '../../modals/ModalNotification';
-import ModalDangerZone from '../../modals/ModalDangerZone';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
-import usePushSuccess from '../../../hooks/usePushSuccess';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { Permission } from '../../../props/models/Organization';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
+import { PaginationData } from '../../../props/ApiResponses';
+import OfficesTableItem from './elements/OfficesTableItem';
+import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 
-interface OfficeLocal extends Office {
+export type OfficeLocal = Office & {
     scheduleByDay: { [key: string]: OfficeSchedule };
-}
+};
 
 export default function Offices() {
     const assetUrl = useAssetUrl();
-    const openModal = useOpenModal();
     const translate = useTranslate();
-    const organization = useActiveOrganization();
-    const navigate = useNavigate();
-
-    const officeService = useOfficeService();
-    const pushSuccess = usePushSuccess();
     const pushApiError = usePushApiError();
     const runLatestRequest = useLatestRequestWithProgress();
 
-    const [weekDays] = useState(officeService.scheduleWeekDays());
-    const [offices, setOffices] = useState<Array<OfficeLocal>>(null);
+    const organization = useActiveOrganization();
+    const officeService = useOfficeService();
+    const paginatorService = usePaginatorService();
 
-    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{ q: string; per_page: number }>({
+    const [offices, setOffices] = useState<PaginationData<OfficeLocal>>(null);
+    const [paginatorKey] = useState('offices');
+
+    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{ q?: string; per_page: number }>({
         q: '',
-        per_page: 100,
+        per_page: paginatorService.getPerPage(paginatorKey),
     });
 
     const fetchOffices = useCallback(() => {
         runLatestRequest((config) => officeService.list(organization.id, { ...filterValuesActive }, config), {
             onSuccess: (res) =>
-                setOffices(
-                    res.data.data.map((office) => ({
+                setOffices({
+                    ...res.data,
+                    data: res.data.data.map((office) => ({
                         ...office,
                         scheduleByDay: office.schedule.reduce(
                             (item, schedule) => ({ ...item, ...{ [schedule.week_day]: schedule } }),
                             {},
                         ),
                     })),
-                ),
+                }),
             onError: pushApiError,
         });
     }, [runLatestRequest, pushApiError, officeService, organization.id, filterValuesActive]);
-
-    const confirmDelete = useCallback(
-        (office: Office) => {
-            openModal((modal) => (
-                <ModalNotification
-                    modal={modal}
-                    title={translate('offices.confirm_delete.title')}
-                    description={translate('offices.confirm_delete.description')}
-                    buttonSubmit={{
-                        onClick: () => {
-                            modal.close();
-                            officeService
-                                .destroy(office.organization_id, office.id)
-                                .then(() => {
-                                    fetchOffices();
-                                    pushSuccess('Vestiging is verwijderd.');
-                                })
-                                .catch(pushApiError);
-                        },
-                    }}
-                    buttonCancel={{
-                        onClick: () => modal.close(),
-                    }}
-                />
-            ));
-        },
-        [fetchOffices, officeService, openModal, pushApiError, pushSuccess, translate],
-    );
-
-    const confirmHasEmployees = useCallback(() => {
-        openModal((modal) => (
-            <ModalDangerZone
-                modal={modal}
-                title={translate('offices.confirm_has_employees.title')}
-                description_text={translate('offices.confirm_has_employees.description')}
-                buttonCancel={{
-                    text: translate('offices.confirm_has_employees.buttons.cancel'),
-                    onClick: modal.close,
-                }}
-                buttonSubmit={{
-                    type: 'primary',
-                    text: translate('offices.confirm_has_employees.buttons.confirm'),
-                    onClick: () => {
-                        modal.close();
-                        navigate(getStateRouteUrl(DashboardRoutes.EMPLOYEES, { organizationId: organization.id }));
-                    },
-                }}
-            />
-        ));
-    }, [organization.id, navigate, openModal, translate]);
-
-    const deleteOffice = useCallback(
-        (office: Office) => {
-            if (!office.employees_count) {
-                return confirmDelete(office);
-            }
-
-            return confirmHasEmployees();
-        },
-        [confirmDelete, confirmHasEmployees],
-    );
 
     useEffect(() => {
         fetchOffices();
@@ -221,7 +158,7 @@ export default function Offices() {
                 <div className="card">
                     <div className="card-header">
                         <div className="card-title flex flex-grow">
-                            {translate('offices.labels.offices')} ({offices?.length})
+                            {translate('offices.labels.offices')} ({offices?.meta?.total})
                         </div>
 
                         <div className="card-header-filters">
@@ -248,146 +185,25 @@ export default function Offices() {
                             </div>
                         </div>
                     </div>
+
+                    <LoaderTableCard
+                        loading={!offices.meta}
+                        empty={offices?.meta?.total == 0}
+                        emptyTitle={translate('offices.empty.title')}
+                        emptyDescription={translate('offices.empty.description')}
+                        columns={officeService.getColumns()}
+                        paginator={{ key: paginatorKey, data: offices, filterValues, filterUpdate }}>
+                        {offices?.data?.map((office) => (
+                            <OfficesTableItem
+                                key={office.id}
+                                organization={organization}
+                                offices={offices}
+                                office={office}
+                                fetchOffices={fetchOffices}
+                            />
+                        ))}
+                    </LoaderTableCard>
                 </div>
-            )}
-
-            {offices?.map((office) => (
-                <div className="card" key={office.id}>
-                    <div className="card-section">
-                        <div className="card-block card-block-provider">
-                            <div className="provider-img">
-                                <img
-                                    src={
-                                        office.photo?.sizes.thumbnail ||
-                                        assetUrl('/assets/img/placeholders/office-thumbnail.png')
-                                    }
-                                    alt={''}
-                                />
-                            </div>
-                            <div className="provider-details">
-                                <NavLink
-                                    className="provider-title"
-                                    to={getStateRouteUrl(DashboardRoutes.OFFICE_EDIT, {
-                                        id: office.id,
-                                        organizationId: office.organization_id,
-                                    })}>
-                                    {office.address}
-                                </NavLink>
-                                <div className="provider-subtitle">{office.branch_name || 'Geen naam'}</div>
-                            </div>
-                            <div className="provider-actions">
-                                <div className="button-group">
-                                    <NavLink
-                                        className="button button-default"
-                                        to={getStateRouteUrl(DashboardRoutes.OFFICE_EDIT, {
-                                            id: office.id,
-                                            organizationId: office.organization_id,
-                                        })}>
-                                        <em className="mdi mdi-pen icon-start" />
-                                        {translate('offices.buttons.adjust')}
-                                    </NavLink>
-                                    {offices.length > 1 && (
-                                        <a className="button button-default" onClick={() => deleteOffice(office)}>
-                                            <em className="mdi mdi-delete icon-start" />
-                                            {translate('offices.buttons.delete')}
-                                        </a>
-                                    )}
-                                    {office.lat && office.lon && (
-                                        <a
-                                            className="button button-primary"
-                                            href={`https://www.google.com/maps/place/${office.lat},${office.lon}`}
-                                            rel="noreferrer"
-                                            target="_blank">
-                                            <em className="mdi mdi-map-marker icon-start" />
-                                            {translate('offices.buttons.map')}
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="row">
-                            <div className="card-block card-block-listing">
-                                <div className="listing-item col-xs-6 col-md-3 col-lg-2">
-                                    <div className="listing-item-label">{translate('offices.labels.phone')}</div>
-                                    <div className="listing-item-value">
-                                        {office.phone ? (
-                                            <strong>{office.phone}</strong>
-                                        ) : (
-                                            <span className="text-muted">{translate('offices.labels.none')}</span>
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div className="listing-item col-xs-6 col-md-3 col-lg-2">
-                                    <div className="listing-item-label">
-                                        {translate('offices.labels.branch_number')}
-                                    </div>
-                                    <div className="listing-item-value">
-                                        {office.branch_number ? (
-                                            <strong>{office.branch_number}</strong>
-                                        ) : (
-                                            <span className="text-muted">{translate('offices.labels.none')}</span>
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div className="listing-item col-xs-6 col-md-3 col-lg-2">
-                                    <div className="listing-item-label">{translate('offices.labels.branch_id')}</div>
-                                    <div className="listing-item-value">
-                                        {office.branch_id ? (
-                                            <strong>{office.branch_id}</strong>
-                                        ) : (
-                                            <span className="text-muted">{translate('offices.labels.none')}</span>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {office.schedule.length != 0 && (
-                        <div className="card-section card-section-primary">
-                            <div className="card-block card-block-schedule">
-                                <div className="card-block-schedule-title">{translate('offices.labels.hours')}</div>
-                                <div className="card-block-schedule-list">
-                                    <div className="card-block card-block-listing">
-                                        {Object.keys(weekDays)?.map((weekDayKey) => (
-                                            <div
-                                                key={weekDayKey}
-                                                style={{
-                                                    display:
-                                                        !office.scheduleByDay[weekDayKey]?.start_time &&
-                                                        !office.scheduleByDay[weekDayKey]?.end_time
-                                                            ? 'none'
-                                                            : undefined,
-                                                }}
-                                                className="listing-item">
-                                                <div className="listing-item-label">{weekDays[weekDayKey]}</div>
-                                                <div className="listing-item-value">
-                                                    {office.scheduleByDay[weekDayKey]?.start_time || 'Geen data'}
-                                                    {' - '}
-                                                    {office.scheduleByDay[weekDayKey]?.end_time || 'Geen data'}
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            ))}
-
-            {!offices?.length && (
-                <EmptyCard
-                    description={'Je hebt momenteel geen vestigingen.'}
-                    button={{
-                        text: 'Vestiging toevoegen',
-                        state: DashboardRoutes.OFFICE_CREATE,
-                        stateParams: { organizationId: organization.id },
-                    }}
-                />
             )}
         </>
     );

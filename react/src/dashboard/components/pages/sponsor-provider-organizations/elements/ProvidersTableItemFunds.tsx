@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { strLimit } from '../../../../helpers/string';
 import Paginator from '../../../../modules/paginator/components/Paginator';
 import { PaginationData } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
@@ -12,6 +11,7 @@ import { useOrganizationService } from '../../../../services/OrganizationService
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import { FilterModel, FilterSetter } from '../../../../modules/filter_next/types/FilterParams';
 import Label from '../../../elements/label/Label';
+import TableEntityMain from '../../../elements/tables/elements/TableEntityMain';
 
 export default function ProvidersTableItemFunds({
     filterValues,
@@ -51,29 +51,17 @@ export default function ProvidersTableItemFunds({
                                         className={'tr-clickable'}
                                         customElement={'tr'}>
                                         <td>
-                                            <div className="td-collapsable">
-                                                <div className="collapsable-icon">
-                                                    <div className="mdi">&nbsp;</div>
-                                                </div>
-                                                <div className="collapsable-media">
-                                                    <img
-                                                        className="td-media td-media-sm"
-                                                        src={
-                                                            fundProvider.fund.logo?.sizes?.thumbnail ||
-                                                            './assets/img/placeholders/fund-thumbnail.png'
-                                                        }
-                                                        alt={fundProvider.fund.name}
-                                                    />
-                                                </div>
-                                                <div className="collapsable-content">
-                                                    <div className="text-primary text-semibold">
-                                                        {strLimit(fundProvider.fund.name, 40)}
-                                                    </div>
-                                                    <div className="text-strong text-md text-muted-dark">
-                                                        {strLimit(fundProvider.fund.implementation?.name, 40)}
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <TableEntityMain
+                                                media={fundProvider.fund.logo}
+                                                mediaAlt={fundProvider.fund.name}
+                                                mediaRound={false}
+                                                mediaPlaceholder="fund"
+                                                title={fundProvider.fund.name}
+                                                titleLimit={40}
+                                                subtitle={fundProvider.fund.implementation?.name}
+                                                subtitleLimit={40}
+                                                collapsePlaceholder={true}
+                                            />
                                         </td>
                                         <td>
                                             <Label
