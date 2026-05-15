@@ -1668,7 +1668,7 @@ export default {
                 warning: {
                     title: 'Belangrijke gegevens ontbreken',
                     description: [
-                        'Controleer de aanvraag en vul de gegevens aan om een toekenning te doen. ',
+                        'Controleer de aanvraag en vul de gegevens aan om een toekenning te doen.\n',
                         'Let op: mist er een geboortedatum, vul dan ook de leeftijdsgroepen en gezinsleden in.',
                     ].join(''),
                     person: 'Persoonlijke informatie',
