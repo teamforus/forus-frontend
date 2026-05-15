@@ -1667,8 +1667,10 @@ export default {
             labels: {
                 warning: {
                     title: 'Belangrijke gegevens ontbreken',
-                    description:
-                        'Controleer de aanvraag en vul de gegevens aan om een toekenning te doen. Let op: Mist er een geboortedatum, vul dan ook de leeftijdsgroepen en gezinsleden in.',
+                    description: [
+                        'Controleer de aanvraag en vul de gegevens aan om een toekenning te doen. ',
+                        'Let op: mist er een geboortedatum, vul dan ook de leeftijdsgroepen en gezinsleden in.',
+                    ].join(''),
                     person: 'Persoonlijke informatie',
                     family: 'Gezinsleden',
                     partner: 'Partner',
