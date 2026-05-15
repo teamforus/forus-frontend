@@ -1667,7 +1667,7 @@ export default {
             labels: {
                 warning: {
                     title: 'Belangrijke gegevens ontbreken',
-                    description: 'Controleer de aanvraag en vul de gegevens aan om een toekenning te doen.',
+                    description: 'Controleer de aanvraag en vul de gegevens aan om een toekenning te doen. Let op: Mist er een geboortedatum, vul dan ook de leeftijdsgroepen en gezinsleden in.',
                     person: 'Persoonlijke informatie',
                     family: 'Gezinsleden',
                     partner: 'Partner',
@@ -1703,13 +1703,13 @@ export default {
             children: {
                 bsn: 'Vul ook het BSN van de kind in.',
                 address:
-                    'Het adres van een kind ontbreekt. Controleer of de aanvrager kinderen heeft en voeg de juiste gegevens toe.',
+                    'Het adres van één of meerdere kinderen ontbreekt. Controleer of de aanvrager kinderen heeft en voeg de juiste gegevens toe.',
             },
             child: {
-                first_name: 'Kind {{ number }} Voornaam',
-                last_name: 'Kind {{ number }} Achternaam',
-                gender: 'Kind {{ number }} Geslachtsaanduiding',
-                birth_date: 'Kind {{ number }} Geboortedatum',
+                first_name: 'Voornaam van kind {{ number }}.',
+                last_name: 'Achternaam van kind {{ number }}.',
+                gender: 'Geslachtsaanduiding van kind {{ number }}.',
+                birth_date: 'Geboortedatum van kind {{ number }}.',
             },
         },
     },
