@@ -1559,6 +1559,7 @@ export default {
             group_title: 'Groep',
             yes: 'Ja',
             no_group: 'Overige gegevens',
+            warning: 'Melding',
         },
         tooltips: {
             id: 'Uniek ID van de aanvraag.',
@@ -1574,6 +1575,7 @@ export default {
             has_files: 'Zijn er documenten geüpload',
             has_clarifications: 'Is er extra informatie opgevraagd',
             group_title: 'Groepen',
+            edited: 'Dit gegeven is aangepast.',
         },
         tabs: {
             all: 'Alles',
@@ -1614,6 +1616,7 @@ export default {
             resign: 'Meld af',
             uncollapse: 'Alles uitklappen',
             collapse: 'Alles inklappen',
+            approve_missing_records: 'Ontbrekende gegevens goedkeuren',
         },
         header: {
             title: 'Aanvragen',
@@ -1625,6 +1628,58 @@ export default {
         clarification_states: {
             pending: 'Wachten',
             answered: 'Beantwoord',
+        },
+        missed_records: {
+            labels: {
+                warning: {
+                    title: 'Belangrijke gegevens ontbreken',
+                    description: [
+                        'Controleer de aanvraag en vul de gegevens aan om een toekenning te doen.\n',
+                        'Let op: mist er een geboortedatum, vul dan ook de leeftijdsgroepen en gezinsleden in.',
+                    ].join(''),
+                    person: 'Persoonlijke informatie',
+                    family: 'Gezinsleden',
+                    partner: 'Partner',
+                    children: 'Kinderen',
+                    children_count: 'Aantal kinderen',
+                },
+                info: {
+                    title: 'Informatieve gegevens ontbreken',
+                    description: 'Controleer de aanvraag en vul de ontbrekende gegevens aan als dat nodig is.',
+                    person: 'Persoonlijke informatie',
+                    family: 'Gezinsleden',
+                    partner: 'Partner',
+                    children: 'Kinderen',
+                    children_count: 'Aantal kinderen',
+                },
+            },
+            person: {
+                first_name: 'Voornaam',
+                last_name: 'Achternaam',
+                gender: 'Geslachtsaanduiding',
+                birth_date: 'Geboortedatum',
+                postal_code: 'Postcode',
+            },
+            partner: {
+                bsn: 'Vul ook het BSN van de partner in.',
+                first_name: 'Voornaam',
+                last_name: 'Achternaam',
+                gender: 'Geslachtsaanduiding',
+                birth_date: 'Geboortedatum',
+                address:
+                    'Het adres van de partner ontbreekt. Controleer of de aanvrager een partner heeft en voeg de juiste gegevens toe.',
+            },
+            children: {
+                bsn: 'Vul ook het BSN van de kind in.',
+                address:
+                    'Het adres van één of meerdere kinderen ontbreekt. Controleer of de aanvrager kinderen heeft en voeg de juiste gegevens toe.',
+            },
+            child: {
+                first_name: 'Voornaam van kind {{ number }}.',
+                last_name: 'Achternaam van kind {{ number }}.',
+                gender: 'Geslachtsaanduiding van kind {{ number }}.',
+                birth_date: 'Geboortedatum van kind {{ number }}.',
+            },
         },
     },
 
