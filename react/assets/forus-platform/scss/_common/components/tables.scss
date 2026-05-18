@@ -404,6 +404,12 @@
                         flex-direction: column;
                         justify-content: center;
                         margin-right: -10px;
+                        margin-left: -10px;
+
+                        .mdi {
+                            display: flex;
+                            width: 24px;
+                        }
                     }
 
                     .td-entity-main-media {

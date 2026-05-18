@@ -1,11 +1,12 @@
 import { strLimit } from '../../../../helpers/string';
-import React, { Fragment, useMemo } from 'react';
+import React, { Fragment, ReactNode, useMemo } from 'react';
 import Media from '../../../../props/models/Media';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import classNames from 'classnames';
 
 export default function TableEntityMain({
     media = false,
+    mediaAlt = '',
     mediaSize = 'sm',
     mediaRound = true,
     mediaBorder = true,
@@ -17,19 +18,22 @@ export default function TableEntityMain({
     subtitleProperties,
     collapsed = null,
     collapsedClicked = null,
+    collapsePlaceholder = false,
 }: {
     media?: Media | false;
+    mediaAlt?: string;
     mediaSize?: 'sm' | 'md';
     mediaRound?: boolean;
     mediaBorder?: boolean;
-    mediaPlaceholder?: 'fund' | 'organization' | 'product' | 'form' | 'physical_card_type';
+    mediaPlaceholder?: 'fund' | 'organization' | 'product' | 'form' | 'physical_card_type' | 'office';
     title: string;
     titleLimit?: number;
-    subtitle?: string;
+    subtitle?: string | number | ReactNode;
     subtitleLimit?: number;
     subtitleProperties?: Array<{ label: string; value: string | number }>;
     collapsed?: boolean;
     collapsedClicked?: (e: React.MouseEvent) => void;
+    collapsePlaceholder?: boolean;
 }) {
     const assetUrl = useAssetUrl();
 
@@ -37,6 +41,7 @@ export default function TableEntityMain({
         const thumbnails = {
             form: assetUrl('/assets/img/icon-fund-form.svg'),
             fund: assetUrl('/assets/img/placeholders/fund-thumbnail.png'),
+            office: assetUrl('/assets/img/placeholders/office-thumbnail.png'),
             product: assetUrl('/assets/img/placeholders/product-thumbnail.png'),
             organization: assetUrl('/assets/img/placeholders/organization-thumbnail.png'),
             physical_card_type: assetUrl('/assets/img/placeholders/physical-card-type.svg'),
@@ -45,11 +50,27 @@ export default function TableEntityMain({
         return thumbnails[mediaPlaceholder] || null;
     }, [assetUrl, mediaPlaceholder]);
 
+    const subtitleValue = useMemo(() => {
+        if (typeof subtitle === 'string' || typeof subtitle === 'number') {
+            return subtitle.toString();
+        }
+
+        return subtitle;
+    }, [subtitle]);
+
     return (
         <div className="td-entity-main">
-            {collapsed !== null && (
-                <div className="td-entity-main-collapse" onClick={collapsedClicked}>
-                    {collapsed ? <em className="mdi mdi-menu-right" /> : <em className="mdi mdi-menu-down" />}
+            {(collapsed !== null || collapsePlaceholder) && (
+                <div className="td-entity-main-collapse" onClick={collapsed !== null ? collapsedClicked : undefined}>
+                    {collapsed !== null ? (
+                        collapsed ? (
+                            <em className="mdi mdi-menu-right" />
+                        ) : (
+                            <em className="mdi mdi-menu-down" />
+                        )
+                    ) : (
+                        <em className="mdi"> </em>
+                    )}
                 </div>
             )}
 
@@ -64,7 +85,7 @@ export default function TableEntityMain({
                             !mediaBorder && 'td-media-borderless',
                         )}
                         src={media?.sizes.thumbnail || thumbnailUrl}
-                        alt={''}
+                        alt={mediaAlt}
                     />
                 </div>
             )}
@@ -74,9 +95,14 @@ export default function TableEntityMain({
                     {strLimit(title, titleLimit)}
                 </div>
 
-                <div className="text-muted-dark" title={subtitle}>
-                    {strLimit(subtitle, subtitleLimit)}
-                </div>
+                {subtitleValue &&
+                    (typeof subtitleValue === 'string' ? (
+                        <div className="text-muted-dark" title={subtitleValue}>
+                            {strLimit(subtitleValue, subtitleLimit)}
+                        </div>
+                    ) : (
+                        subtitleValue
+                    ))}
 
                 {subtitleProperties?.length > 0 && (
                     <div className={'td-entity-properties'}>
