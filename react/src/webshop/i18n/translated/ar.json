@@ -2099,7 +2099,10 @@
             "title": "المعاملات",
             "top_up": "ترقية",
             "expired_on": "انتهت صلاحيتها في {{ date }}",
-            "payout": "الصرف"
+            "payout": "الصرف",
+            "provider_by_sponsor": "معاملة بواسطة موظف",
+            "qr_code": "رمز الاستجابة السريعة",
+            "reimbursement": "استرداد المصاريف"
         },
         "actions": {
             "choose_action": {
@@ -2640,8 +2643,8 @@
         "bank_accounts": {
             "title": "الحساب البنكي",
             "iban": "رقم الحساب المصرفي الدولي (IBAN)",
-            "name": "التقادم",
-            "source": "المصدر"
+            "source": "المصدر",
+            "name": "صاحب الحساب"
         },
         "breadcrumbs": {
             "home": "الصفحة الرئيسية",
