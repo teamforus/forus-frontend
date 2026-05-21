@@ -2,25 +2,26 @@ import { useCallback, useMemo } from 'react';
 import FundRequest, { FundRequestMissedRecord } from '../props/models/FundRequest';
 import { groupBy } from 'lodash';
 import useTranslate from './useTranslate';
+import PrevalidationRequest from '../props/models/PrevalidationRequest';
 
-export default function useFundRequestMissedRecords(fundRequest: FundRequest) {
+export default function useRequestMissedRecords(request: FundRequest | PrevalidationRequest) {
     const translate = useTranslate();
 
     const hasWarningMissedRecords = useMemo(() => {
-        return !!fundRequest?.missed_records.filter((record) => record.type === 'warning').length;
-    }, [fundRequest]);
+        return !!request?.missed_records.filter((record) => record.type === 'warning').length;
+    }, [request]);
 
     const hasInfoMissedRecords = useMemo(() => {
-        return !!fundRequest?.missed_records.filter((record) => record.type === 'info').length;
-    }, [fundRequest]);
+        return !!request?.missed_records.filter((record) => record.type === 'info').length;
+    }, [request]);
 
     const infoMissedRecords = useMemo(() => {
-        return groupBy(fundRequest?.missed_records.filter((record) => record.type === 'info') || [], 'group');
-    }, [fundRequest]);
+        return groupBy(request?.missed_records.filter((record) => record.type === 'info') || [], 'group');
+    }, [request]);
 
     const warningMissedRecords = useMemo(() => {
-        return groupBy(fundRequest?.missed_records.filter((record) => record.type === 'warning') || [], 'group');
-    }, [fundRequest]);
+        return groupBy(request?.missed_records.filter((record) => record.type === 'warning') || [], 'group');
+    }, [request]);
 
     const filterAndSortChildren = useCallback((list: { [_key: number]: Array<FundRequestMissedRecord> }) => {
         const keys = Object.keys(list).filter((key) => key.startsWith('child_'));

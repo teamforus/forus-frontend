@@ -3,6 +3,8 @@ import ApiRequestService from './ApiRequestService';
 import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiResponses';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 import PrevalidationRequest from '../props/models/PrevalidationRequest';
+import Note from '../props/models/Note';
+import IdentitiesApiPerson from '../props/models/IdentitiesApiPerson';
 
 export class PrevalidationRequestService<T = PrevalidationRequest> {
     /**
@@ -45,6 +47,10 @@ export class PrevalidationRequestService<T = PrevalidationRequest> {
         });
     }
 
+    public read(organization_id: number, id: number): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.get(`${this.prefix}/${organization_id}/prevalidation-requests/${id}`);
+    }
+
     public resubmitFailed(organization_id: number): Promise<ApiResponseSingle<T>> {
         return this.apiRequest.get(`${this.prefix}/${organization_id}/prevalidation-requests/resubmit-failed`);
     }
@@ -57,6 +63,45 @@ export class PrevalidationRequestService<T = PrevalidationRequest> {
         return this.apiRequest.delete(`${this.prefix}/${organization_id}/prevalidation-requests/${id}`);
     }
 
+    public notes(
+        organizationId: number,
+        id: number,
+        data: object = {},
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<Note>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/prevalidation-requests/${id}/notes`, data, config);
+    }
+
+    public noteDestroy(organizationId: number, id: number, note_id: number): Promise<ApiResponseSingle<null>> {
+        return this.apiRequest.delete(`${this.prefix}/${organizationId}/prevalidation-requests/${id}/notes/${note_id}`);
+    }
+
+    public storeNote(organizationId: number, id: number, data: object = {}): Promise<ApiResponseSingle<Note>> {
+        return this.apiRequest.post(`${this.prefix}/${organizationId}/prevalidation-requests/${id}/notes`, data);
+    }
+
+    public updateRecord(organizationId: number, id: number, record_id: number, data: object = {}) {
+        return this.apiRequest.patch(
+            `${this.prefix}/${organizationId}/prevalidation-requests/${id}/records/${record_id}`,
+            data,
+        );
+    }
+
+    public approveMissedRecords(organizationId: number, id: number, data: object = {}): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.patch(
+            `${this.prefix}/${organizationId}/prevalidation-requests/${id}/approve-missed-records`,
+            data,
+        );
+    }
+
+    public getPersonBsn(
+        organizationId: number,
+        id: number,
+        data: object = {},
+    ): Promise<ApiResponseSingle<IdentitiesApiPerson>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/prevalidation-requests/${id}/person`, data);
+    }
+
     public getColumns(): Array<ConfigurableTableColumn> {
         const list = ['bsn', 'fund', 'employee', 'state', 'failed_reason'].filter((item) => item);
 
@@ -67,6 +112,48 @@ export class PrevalidationRequestService<T = PrevalidationRequest> {
                 key: key,
                 title: `prevalidation_requests.labels.${key}`,
                 description: `prevalidation_requests.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getRecordGroupsColumns(): Array<ConfigurableTableColumn> {
+        const list = ['group_title'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `prevalidation_requests.details.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `prevalidation_requests.details.labels.${key}`,
+                description: `prevalidation_requests.details.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getRecordsColumns(): Array<ConfigurableTableColumn> {
+        const list = ['type', 'value', 'source'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `prevalidation_requests.details.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `prevalidation_requests.details.labels.${key}`,
+                description: `prevalidation_requests.details.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getRecordChangesColumns(): Array<ConfigurableTableColumn> {
+        const list = ['new_value', 'old_value', 'employee', 'date_changed'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `prevalidation_requests.details.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `prevalidation_requests.details.labels.${key}`,
+                description: `prevalidation_requests.details.tooltips.${key}`,
             },
         }));
     }

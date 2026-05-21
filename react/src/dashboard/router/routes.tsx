@@ -104,6 +104,7 @@ import ImplementationTranslations from '../components/pages/implementations-edit
 import ImplementationAnnouncements from '../components/pages/implementations-edit/ImplementationAnnouncements';
 import ImplementationTermsAndPrivacy from '../components/pages/implementations-edit/ImplementationTermsAndPrivacy';
 import PrevalidationRequests from '../components/pages/person-prevalidations/PrevalidationRequests';
+import PrevalidationRequestsView from '../components/pages/prevalidation-requests-view/PrevalidationRequestsView';
 
 const router = new RouterBuilder();
 
@@ -653,6 +654,12 @@ router.state(DashboardRoutes.CSV_VALIDATION, <Prevalidations />, {
 router.state(DashboardRoutes.PREVALIDATION_REQUESTS, <PrevalidationRequests />, {
     path: `/organisaties/:organizationId/prevalidation-requests`,
     altPath: `/organizations/:organizationId/prevalidation-requests`,
+});
+
+router.state(DashboardRoutes.PREVALIDATION_REQUEST, <PrevalidationRequestsView />, {
+    path: `/organisaties/:organizationId/prevalidation-requests/:id`,
+    altPath: `/organizations/:organizationId/prevalidation-requests/:id`,
+    fallbackState: DashboardRoutes.PREVALIDATION_REQUESTS,
 });
 
 router.state(DashboardRoutes.PREFERENCE_EMAILS, <PreferencesEmails />, {

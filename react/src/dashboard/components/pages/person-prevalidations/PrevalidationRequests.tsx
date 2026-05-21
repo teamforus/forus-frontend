@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import React, { useState, useCallback, useEffect, useMemo, Fragment } from 'react';
 import { useFundService } from '../../../services/FundService';
 import Fund from '../../../props/models/Fund';
 import useTranslate from '../../../hooks/useTranslate';
@@ -34,6 +34,7 @@ import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import ModalDangerZone from '../../modals/ModalDangerZone';
 import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import StateNavLink from '../../../modules/state_router/StateNavLink';
 
 export default function PrevalidationRequests() {
     const translate = useTranslate();
@@ -384,7 +385,13 @@ export default function PrevalidationRequests() {
                 columns={prevalidationRequestService.getColumns()}
                 paginator={{ key: paginatorKey, data: prevalidationRequests, filterValues, filterUpdate }}>
                 {prevalidationRequests?.data?.map((row) => (
-                    <tr key={row.id} data-dusk={`tablePrevalidationRequestRow${row.id}`}>
+                    <StateNavLink
+                        key={row.id}
+                        name={DashboardRoutes.PREVALIDATION_REQUEST}
+                        params={{ id: row.id, organizationId: activeOrganization.id }}
+                        className={'tr-clickable'}
+                        dataDusk={`tablePrevalidationRequestRow${row.id}`}
+                        customElement={'tr'}>
                         <td className="text-primary text-strong">{row.bsn}</td>
 
                         <td>
@@ -405,39 +412,50 @@ export default function PrevalidationRequests() {
                         </td>
 
                         <td className={'table-td-actions text-right'}>
-                            {row.state === 'fail' ? (
-                                <TableRowActions
-                                    dataDusk={'btnPrevalidationRequestMenu'}
-                                    content={({ close }) => (
-                                        <div className="dropdown dropdown-actions">
-                                            <div
-                                                className="dropdown-item"
-                                                data-dusk={`btnPrevalidationRequestResubmit${row.id}`}
-                                                onClick={() => {
-                                                    resubmitRequest(row);
-                                                    close();
-                                                }}>
-                                                <em className="mdi mdi-restart icon-start" />{' '}
-                                                {translate('prevalidation_requests.buttons.resubmit')}
-                                            </div>
-                                            <div
-                                                className="dropdown-item"
-                                                data-dusk={`btnPrevalidationRequestDelete${row.id}`}
-                                                onClick={() => {
-                                                    deleteRequest(row);
-                                                    close();
-                                                }}>
-                                                <em className="mdi mdi-close icon-start" />{' '}
-                                                {translate('prevalidation_requests.buttons.delete')}
-                                            </div>
-                                        </div>
-                                    )}
-                                />
-                            ) : (
-                                <TableEmptyValue />
-                            )}
+                            <TableRowActions
+                                dataDusk={'btnPrevalidationRequestMenu'}
+                                content={({ close }) => (
+                                    <div className="dropdown dropdown-actions">
+                                        <StateNavLink
+                                            name={DashboardRoutes.PREVALIDATION_REQUEST}
+                                            params={{
+                                                id: row.id,
+                                                organizationId: activeOrganization.id,
+                                            }}
+                                            className="dropdown-item">
+                                            <div className="mdi mdi-eye-outline icon-start" />
+                                            Bekijk
+                                        </StateNavLink>
+
+                                        {row.state === 'fail' && (
+                                            <Fragment>
+                                                <div
+                                                    className="dropdown-item"
+                                                    data-dusk={`btnPrevalidationRequestResubmit${row.id}`}
+                                                    onClick={() => {
+                                                        resubmitRequest(row);
+                                                        close();
+                                                    }}>
+                                                    <em className="mdi mdi-restart icon-start" />{' '}
+                                                    {translate('prevalidation_requests.buttons.resubmit')}
+                                                </div>
+                                                <div
+                                                    className="dropdown-item"
+                                                    data-dusk={`btnPrevalidationRequestDelete${row.id}`}
+                                                    onClick={() => {
+                                                        deleteRequest(row);
+                                                        close();
+                                                    }}>
+                                                    <em className="mdi mdi-close icon-start" />{' '}
+                                                    {translate('prevalidation_requests.buttons.delete')}
+                                                </div>
+                                            </Fragment>
+                                        )}
+                                    </div>
+                                )}
+                            />
                         </td>
-                    </tr>
+                    </StateNavLink>
                 ))}
             </LoaderTableCard>
         </div>

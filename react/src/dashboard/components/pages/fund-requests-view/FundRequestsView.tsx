@@ -37,9 +37,9 @@ import Employee from '../../../props/models/Employee';
 import classNames from 'classnames';
 import FundRequestRecordsHasClarifications from './elements/FundRequestRecordsHasClarifications';
 import FundRequestGroupRow from './elements/FundRequestGroupRow';
-import FundRequestMissedRecords from './elements/FundRequestMissedRecords';
-import ModalFundRequestApproveMissedRecords from '../../modals/ModalFundRequestApproveMissedRecords';
-import useFundRequestMissedRecords from '../../../hooks/useFundRequestMissedRecords';
+import RequestMissedRecords from './elements/RequestMissedRecords';
+import ModalRequestApproveMissedRecords from '../../modals/ModalRequestApproveMissedRecords';
+import useRequestMissedRecords from '../../../hooks/useRequestMissedRecords';
 
 export type FundRequestRecordLocal = FundRequestRecord & { hasContent: boolean; group_id?: number };
 
@@ -85,7 +85,7 @@ export default function FundRequestsView() {
     const [uncollapsedRecords, setUncollapsedRecords] = useState<Array<number>>([]);
     const [uncollapsedRecordGroups, setUncollapsedRecordGroups] = useState<Array<number>>([]);
 
-    const { hasWarningMissedRecords, hasInfoMissedRecords } = useFundRequestMissedRecords(fundRequest);
+    const { hasWarningMissedRecords, hasInfoMissedRecords } = useRequestMissedRecords(fundRequest);
 
     const fund = useMemo(() => {
         return fundRequest?.fund;
@@ -480,10 +480,7 @@ export default function FundRequestsView() {
 
     const resolveMissingRecords = useCallback(() => {
         openModal((modal) => (
-            <ModalFundRequestApproveMissedRecords
-                modal={modal}
-                onSubmit={(data) => requestApproveMissedRecords(data)}
-            />
+            <ModalRequestApproveMissedRecords modal={modal} onSubmit={(data) => requestApproveMissedRecords(data)} />
         ));
     }, [openModal, requestApproveMissedRecords]);
 
@@ -668,7 +665,7 @@ export default function FundRequestsView() {
                         </KeyValueItem>
 
                         {(hasWarningMissedRecords || hasInfoMissedRecords) && (
-                            <FundRequestMissedRecords fundRequest={fundRequest} />
+                            <RequestMissedRecords request={fundRequest} />
                         )}
                     </div>
                 </div>

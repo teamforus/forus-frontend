@@ -6,7 +6,7 @@ import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
 import FormGroup from '../elements/forms/elements/FormGroup';
 
-export default function ModalFundRequestApproveMissedRecords({
+export default function ModalRequestApproveMissedRecords({
     modal,
     onSubmit,
 }: {
@@ -21,7 +21,9 @@ export default function ModalFundRequestApproveMissedRecords({
     });
 
     return (
-        <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading')}>
+        <div
+            className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading')}
+            data-dusk="fundRequestApproveMissedRecordsModal">
             <div className="modal-backdrop" onClick={modal.close} />
 
             <form className="modal-window form" onSubmit={form.submit}>
@@ -65,6 +67,7 @@ export default function ModalFundRequestApproveMissedRecords({
                                 <CheckboxControl
                                     title={translate('modals.modal_fund_request_approve_missed_records.labels.approve')}
                                     checked={form.values.approve || false}
+                                    dusk="approveCheckbox"
                                     onChange={(e) => form.update({ approve: e.target.checked })}
                                 />
                             )}
@@ -80,6 +83,7 @@ export default function ModalFundRequestApproveMissedRecords({
                     <button
                         type="submit"
                         className="button button-primary"
+                        data-dusk="approveBtn"
                         disabled={form.values.description.length > 140 || !form.values.approve}>
                         {translate('modals.modal_fund_request_approve_missed_records.buttons.submit')}
                     </button>
