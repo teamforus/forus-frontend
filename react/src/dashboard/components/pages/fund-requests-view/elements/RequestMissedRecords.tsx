@@ -4,7 +4,7 @@ import InfoBox from '../../../elements/info-box/InfoBox';
 import FundRequest from '../../../../props/models/FundRequest';
 import useTranslate from '../../../../hooks/useTranslate';
 import useRequestMissedRecords from '../../../../hooks/useRequestMissedRecords';
-import FundRequestMissedRecordSection from './FundRequestMissedRecordSection';
+import RequestMissedRecordSection from './RequestMissedRecordSection';
 import PrevalidationRequest from '../../../../props/models/PrevalidationRequest';
 
 export default function RequestMissedRecords({ request }: { request: FundRequest | PrevalidationRequest }) {
@@ -24,7 +24,7 @@ export default function RequestMissedRecords({ request }: { request: FundRequest
                                 borderType="dashed"
                                 iconType="warning"
                                 iconColor="default">
-                                <FundRequestMissedRecordSection
+                                <RequestMissedRecordSection
                                     type="warning"
                                     records={warningMissedRecords}
                                     recordsPerChild={warningMissedRecordsPerChild}
@@ -34,7 +34,7 @@ export default function RequestMissedRecords({ request }: { request: FundRequest
 
                         {Object.keys(infoMissedRecords).length > 0 && (
                             <InfoBox type="primary" borderType="dashed">
-                                <FundRequestMissedRecordSection
+                                <RequestMissedRecordSection
                                     type="info"
                                     records={infoMissedRecords}
                                     recordsPerChild={infoMissedRecordsPerChild}

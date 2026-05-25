@@ -9,7 +9,7 @@ import Organization from '../../../../props/models/Organization';
 import ModalPrevalidationRequestRecordEdit from '../../../modals/ModalPrevalidationRequestRecordEdit';
 import useTranslate from '../../../../hooks/useTranslate';
 import Tooltip from '../../../elements/tooltip/Tooltip';
-import PrevalidationRequestRecordHistoryTab from './PrevalidationRequestRecordHistoryTab';
+import PrevalidationRequestRecordHistory from './PrevalidationRequestRecordHistory';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 
 export default function PrevalidationRequestGroupRecordRow({
@@ -32,6 +32,8 @@ export default function PrevalidationRequestGroupRecordRow({
     const openModal = useOpenModal();
     const pushSuccess = usePushSuccess();
     const translate = useTranslate();
+    const recordType = record.record_type;
+    const recordTypeName = recordType?.name || record.record_type_key;
 
     const editRecord = useCallback(
         (prevalidationRequestRecord: PrevalidationRequestRecord) => {
@@ -81,19 +83,19 @@ export default function PrevalidationRequestGroupRecordRow({
                             </div>
                         )}
 
-                        <div className="collapsable-content text-semibold">{record.record_type.name}</div>
+                        <div className="collapsable-content text-semibold">{recordTypeName}</div>
                     </div>
                 </td>
 
-                {record?.record_type.type != 'select' && (
+                {recordType?.type != 'select' && (
                     <td className={classNames(record.value !== null && 'text-muted')}>
                         {record?.value || 'Niet beschikbaar'}
                     </td>
                 )}
 
-                {record?.record_type.type == 'select' && (
+                {recordType?.type == 'select' && (
                     <td className={classNames(record.value !== null && 'text-muted')}>
-                        {record?.record_type.options?.find((option) => option.value == record?.value)?.name ||
+                        {recordType.options?.find((option) => option.value == record?.value)?.name ||
                             'Niet beschikbaar'}
                     </td>
                 )}
@@ -136,7 +138,7 @@ export default function PrevalidationRequestGroupRecordRow({
                     {group.hasContent && <td className="td-narrow"></td>}
                     <td className="collapse-content" colSpan={7}>
                         <div className="flex flex-vertical flex-gap">
-                            <PrevalidationRequestRecordHistoryTab record={record} />
+                            <PrevalidationRequestRecordHistory record={record} />
                         </div>
                     </td>
                 </tr>

@@ -64,6 +64,7 @@ export default function PrevalidationRequests() {
         { key: 'pending', name: translate('prevalidation_requests.states.pending') },
         { key: 'success', name: translate('prevalidation_requests.states.success') },
         { key: 'fail', name: translate('prevalidation_requests.states.fail') },
+        { key: 'missing_records', name: translate('prevalidation_requests.states.missing_records') },
     ]);
 
     const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
@@ -88,7 +89,7 @@ export default function PrevalidationRequests() {
             queryParams: {
                 q: StringParam,
                 fund_id: NumberParam,
-                state: createEnumParam(['pending', 'success', 'fail']),
+                state: createEnumParam(['pending', 'success', 'fail', 'missing_records']),
                 from: StringParam,
                 to: StringParam,
                 per_page: NumberParam,

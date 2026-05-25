@@ -1,13 +1,20 @@
 import React, { Fragment } from 'react';
-import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard';
-import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
-import { usePrevalidationRequestService } from '../../../../services/PrevalidationRequestService';
-import PrevalidationRequestRecord from '../../../../props/models/PrevalidationRequestRecord';
-import useTranslate from '../../../../hooks/useTranslate';
+import useTranslate from '../../../hooks/useTranslate';
+import { ConfigurableTableColumn } from '../../pages/vouchers/hooks/useConfigurableTable';
+import LoaderTableCard from '../loader-table-card/LoaderTableCard';
+import TableEmptyValue from '../table-empty-value/TableEmptyValue';
+import FundRequestRecord from '../../../props/models/FundRequestRecord';
+import PrevalidationRequestRecord from '../../../props/models/PrevalidationRequestRecord';
 
-export default function PrevalidationRequestRecordHistoryTab({ record }: { record: PrevalidationRequestRecord }) {
+export default function RecordHistoryCard({
+    record,
+    columns,
+}: {
+    record: FundRequestRecord | PrevalidationRequestRecord;
+    columns: Array<ConfigurableTableColumn>;
+}) {
     const translate = useTranslate();
-    const prevalidationRequestService = usePrevalidationRequestService();
+    const recordType = record.record_type;
 
     return (
         <div className="card" data-dusk="historyTabContent">
@@ -16,28 +23,25 @@ export default function PrevalidationRequestRecordHistoryTab({ record }: { recor
                     {translate('validation_request_details.labels.history', { count: record.history.length })}
                 </div>
             </div>
-            <LoaderTableCard
-                empty={record.history.length == 0}
-                emptyTitle={'Geen historie.'}
-                columns={prevalidationRequestService.getRecordChangesColumns()}>
+            <LoaderTableCard empty={record.history.length == 0} emptyTitle={'Geen historie.'} columns={columns}>
                 {record.history?.map((log) => (
                     <tr key={log.id} data-dusk={`recordHistoryRow${log.id}`} className="light">
-                        {record?.record_type.type != 'select' && (
+                        {recordType?.type != 'select' && (
                             <Fragment>
                                 <td className="text-strong">{log.new_value}</td>
                                 <td className="text-muted">{log.old_value}</td>
                             </Fragment>
                         )}
 
-                        {record?.record_type.type == 'select' && (
+                        {recordType?.type == 'select' && (
                             <Fragment>
                                 <td className="text-strong">
-                                    {record?.record_type.options?.find((option) => option.value == log.new_value)
-                                        ?.name || 'Niet beschikbaar'}
+                                    {recordType.options?.find((option) => option.value == log.new_value)?.name ||
+                                        'Niet beschikbaar'}
                                 </td>
                                 <td className="text-muted">
-                                    {record?.record_type.options?.find((option) => option.value == log.old_value)
-                                        ?.name || 'Niet beschikbaar'}
+                                    {recordType.options?.find((option) => option.value == log.old_value)?.name ||
+                                        'Niet beschikbaar'}
                                 </td>
                             </Fragment>
                         )}

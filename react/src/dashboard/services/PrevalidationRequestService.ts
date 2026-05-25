@@ -94,6 +94,10 @@ export class PrevalidationRequestService<T = PrevalidationRequest> {
         );
     }
 
+    public finalize(organizationId: number, id: number): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.patch(`${this.prefix}/${organizationId}/prevalidation-requests/${id}/finalize`);
+    }
+
     public getPersonBsn(
         organizationId: number,
         id: number,

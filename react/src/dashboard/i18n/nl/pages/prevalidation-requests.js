@@ -8,6 +8,7 @@ export default {
         implementation: 'Implementatie',
         employee: 'Medewerker',
         failed_reason: 'Reden van mislukking',
+        create_prevalidation: 'Klaarzetting',
         created_at: 'Datum',
         search: 'Zoeken',
         state: 'Status',
@@ -51,6 +52,15 @@ export default {
         delete: 'Verwijderen',
         resubmit_failed: 'Mislukte verzoeken opnieuw verzenden',
         approve_missing_records: 'Ontbrekende gegevens goedkeuren',
+        create_prevalidation: 'Klaarzetting aanmaken',
+        retry_create_prevalidation: 'Klaarzetting opnieuw aanmaken',
+    },
+    notifications: {
+        create_failed: {
+            title: 'Klaarzetten mislukt',
+            description:
+                'De ontbrekende gegevens zijn goedgekeurd, maar de aanvraag kon niet worden klaargezet. Controleer de gegevens en probeer het opnieuw.',
+        },
     },
     states: {
         pending: 'In behandeling',

@@ -1,7 +1,7 @@
 import Fund from './Fund';
 import PrevalidationRequestRecord from './PrevalidationRequestRecord';
 
-export interface PrevalidationMissedRecord {
+export interface PrevalidationRequestMissedRecord {
     id: number;
     group: string;
     type: string;
@@ -34,6 +34,6 @@ export default interface PrevalidationRequest {
         identity_address: string;
         organization_id: number;
     };
-    missed_records?: Array<PrevalidationMissedRecord>;
+    missed_records?: Array<PrevalidationRequestMissedRecord>;
     missing_records_approved?: boolean;
 }

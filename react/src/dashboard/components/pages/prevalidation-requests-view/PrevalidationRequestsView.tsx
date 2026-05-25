@@ -10,10 +10,11 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import PrevalidationRequestOverview from './elements/PrevalidationRequestOverviewPane';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import PrevalidationRequestStateLabels from '../../elements/resource-states/PrevalidationRequestStateLabels';
-import ModalRequestApproveMissedRecords from '../../modals/ModalRequestApproveMissedRecords';
+import ModalPrevalidationRequestApproveMissedRecords from '../../modals/approve-missed-records/ModalPrevalidationRequestApproveMissedRecords';
 import useOpenModal from '../../../hooks/useOpenModal';
 import useTranslate from '../../../hooks/useTranslate';
 import useRequestMissedRecords from '../../../hooks/useRequestMissedRecords';
+import usePushDanger from '../../../hooks/usePushDanger';
 import PrevalidationRequestRecord from '../../../props/models/PrevalidationRequestRecord';
 import { sortBy } from 'lodash';
 import classNames from 'classnames';
@@ -22,7 +23,7 @@ import PrevalidationRequestRecordGroupRow from './elements/PrevalidationRequestG
 import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
 import { RequestConfig } from '../../../props/ApiResponses';
 import Note from '../../../props/models/Note';
-import Person from './elements/Person';
+import PrevalidationRequestBrpPersonCard from './elements/PrevalidationRequestBrpPersonCard';
 
 export type PrevalidationRequestRecordLocal = PrevalidationRequestRecord & { hasContent: boolean; group_id?: number };
 
@@ -44,6 +45,7 @@ export default function PrevalidationRequestsView() {
     const openModal = useOpenModal();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
+    const pushDanger = usePushDanger();
 
     const prevalidationRequestService = usePrevalidationRequestService();
 
@@ -65,6 +67,18 @@ export default function PrevalidationRequestsView() {
         () => hasCollapsedRecordGroups || hasCollapsedRecords,
         [hasCollapsedRecordGroups, hasCollapsedRecords],
     );
+
+    const canApproveMissingRecords = useMemo(() => {
+        return (
+            request?.state === 'missing_records' &&
+            (hasWarningMissedRecords || hasInfoMissedRecords) &&
+            !request?.missing_records_approved
+        );
+    }, [hasInfoMissedRecords, hasWarningMissedRecords, request]);
+
+    const canFinalizePrevalidationRequest = useMemo(() => {
+        return request?.missing_records_approved && (request.state === 'missing_records' || request.state === 'fail');
+    }, [request]);
 
     const updateNotesRef = useRef<() => void>(null);
 
@@ -99,35 +113,96 @@ export default function PrevalidationRequestsView() {
         };
     }, []);
 
+    const updateRequest = useCallback(
+        (request: PrevalidationRequest) => {
+            const mappedRequest = mapRequest(request);
+
+            setRequest(mappedRequest);
+            updateNotesRef?.current?.();
+
+            return mappedRequest;
+        },
+        [mapRequest],
+    );
+
+    const handleFinalizePrevalidationRequestResponse = useCallback(
+        (request: PrevalidationRequest) => {
+            const mappedRequest = updateRequest(request);
+
+            if (mappedRequest.state === 'fail') {
+                pushDanger(
+                    translate('prevalidation_requests.notifications.create_failed.title'),
+                    translate('prevalidation_requests.notifications.create_failed.description'),
+                );
+            }
+
+            return mappedRequest;
+        },
+        [pushDanger, translate, updateRequest],
+    );
+
     const fetchPrevalidationRequest = useCallback(
         (id: number) => {
             setProgress(0);
 
             prevalidationRequestService
                 .read(activeOrganization.id, id)
-                .then((res) => {
-                    setRequest(mapRequest(res.data.data));
-                    updateNotesRef?.current?.();
-                })
+                .then((res) => updateRequest(res.data.data))
                 .catch(pushApiError)
                 .finally(() => setProgress(100));
         },
-        [activeOrganization?.id, mapRequest, prevalidationRequestService, pushApiError, setProgress],
+        [activeOrganization?.id, prevalidationRequestService, pushApiError, setProgress, updateRequest],
     );
+
+    const requestFinalizePrevalidationRequest = useCallback(() => {
+        setProgress(0);
+
+        prevalidationRequestService
+            .finalize(activeOrganization.id, request.id)
+            .then((res) => handleFinalizePrevalidationRequestResponse(res.data.data))
+            .catch(pushApiError)
+            .finally(() => setProgress(100));
+    }, [
+        activeOrganization?.id,
+        handleFinalizePrevalidationRequestResponse,
+        prevalidationRequestService,
+        pushApiError,
+        request?.id,
+        setProgress,
+    ]);
 
     const requestApproveMissedRecords = useCallback(
         (data: { note: string }) => {
-            prevalidationRequestService.approveMissedRecords(activeOrganization.id, request.id, data).then((res) => {
-                setRequest(mapRequest(res.data.data));
-                updateNotesRef?.current?.();
-            });
+            setProgress(0);
+
+            prevalidationRequestService
+                .approveMissedRecords(activeOrganization.id, request.id, data)
+                .then((res) => {
+                    const approvedRequest = updateRequest(res.data.data);
+
+                    return prevalidationRequestService.finalize(activeOrganization.id, approvedRequest.id);
+                })
+                .then((res) => handleFinalizePrevalidationRequestResponse(res.data.data))
+                .catch(pushApiError)
+                .finally(() => setProgress(100));
         },
-        [prevalidationRequestService, activeOrganization?.id, request?.id, mapRequest],
+        [
+            activeOrganization?.id,
+            handleFinalizePrevalidationRequestResponse,
+            prevalidationRequestService,
+            pushApiError,
+            request?.id,
+            setProgress,
+            updateRequest,
+        ],
     );
 
     const resolveMissingRecords = useCallback(() => {
         openModal((modal) => (
-            <ModalRequestApproveMissedRecords modal={modal} onSubmit={(data) => requestApproveMissedRecords(data)} />
+            <ModalPrevalidationRequestApproveMissedRecords
+                modal={modal}
+                onSubmit={(data) => requestApproveMissedRecords(data)}
+            />
         ));
     }, [openModal, requestApproveMissedRecords]);
 
@@ -178,16 +253,37 @@ export default function PrevalidationRequestsView() {
                     <div className="card-header-filters flex-self-start">
                         <div className="block block-inline-filters">
                             <div className="button-group">
-                                {(hasWarningMissedRecords || hasInfoMissedRecords) &&
-                                    !request?.missing_records_approved && (
-                                        <button
-                                            className="button button-primary"
-                                            onClick={resolveMissingRecords}
-                                            data-dusk="prevalidationRequestApproveMissedBtn">
-                                            <em className="mdi mdi-check icon-start" />
-                                            {translate('prevalidation_requests.buttons.approve_missing_records')}
-                                        </button>
-                                    )}
+                                {canApproveMissingRecords && (
+                                    <button
+                                        className="button button-primary"
+                                        onClick={resolveMissingRecords}
+                                        data-dusk="prevalidationRequestApproveMissedBtn">
+                                        <em className="mdi mdi-check icon-start" />
+                                        {translate('prevalidation_requests.buttons.approve_missing_records')}
+                                    </button>
+                                )}
+
+                                {canFinalizePrevalidationRequest && (
+                                    <button
+                                        className="button button-primary"
+                                        onClick={requestFinalizePrevalidationRequest}
+                                        data-dusk="prevalidationRequestFinalizeBtn">
+                                        <em
+                                            className={classNames(
+                                                'mdi',
+                                                'icon-start',
+                                                request.state === 'fail' ? 'mdi-refresh' : 'mdi-check',
+                                            )}
+                                        />
+                                        {translate(
+                                            `prevalidation_requests.buttons.${
+                                                request.state === 'fail'
+                                                    ? 'retry_create_prevalidation'
+                                                    : 'create_prevalidation'
+                                            }`,
+                                        )}
+                                    </button>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -196,7 +292,7 @@ export default function PrevalidationRequestsView() {
                 <PrevalidationRequestOverview request={request} />
             </div>
 
-            <Person organization={activeOrganization} request={request} />
+            <PrevalidationRequestBrpPersonCard organization={activeOrganization} request={request} />
 
             <div className="card">
                 <div className="card-header">
