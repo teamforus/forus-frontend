@@ -253,7 +253,7 @@ export default function VoucherActions({
                         className="voucher-actions-button"
                         name={WebshopRoutes.REIMBURSEMENT_CREATE}
                         params={{ voucher_id: voucher.id }}>
-                        <em className="mdi mdi-cash-plus" />
+                        <em className="mdi mdi-receipt-text-check-outline"></em>
                         {translate('voucher.actions.declaration_request')}
                     </StateNavLink>
                 )}

@@ -2491,8 +2491,8 @@
         "bank_accounts": {
             "title": "Konto bankowe",
             "iban": "IBAN",
-            "name": "Napis",
-            "source": "Źródło"
+            "source": "Źródło",
+            "name": "Posiadacz rachunku"
         },
         "breadcrumbs": {
             "home": "Strona główna",
@@ -3405,7 +3405,10 @@
             "title": "Transakcje",
             "top_up": "Ulepszony",
             "expired_on": "Wygasł w dniu {{ date }}",
-            "payout": "Wypłata"
+            "payout": "Wypłata",
+            "provider_by_sponsor": "Transakcja wykonana przez pracownika",
+            "qr_code": "Kod QR",
+            "reimbursement": "Zwrot kosztów"
         },
         "actions": {
             "choose_action": {

@@ -6,7 +6,6 @@ import Organization from '../../../../props/models/Organization';
 import useProviderFundService from '../../../../services/ProviderFundService';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
-import useAssetUrl from '../../../../hooks/useAssetUrl';
 import { strLimit } from '../../../../helpers/string';
 import TableCheckboxControl from '../../../elements/tables/elements/TableCheckboxControl';
 import useOpenModal from '../../../../hooks/useOpenModal';
@@ -26,6 +25,7 @@ import { NumberParam, StringParam } from 'use-query-params';
 import useProviderFundsApplySuccess from '../hooks/useProviderFundsApplySuccess';
 import useProviderFundsFailOfficesCheck from '../hooks/useProviderFundsFailOfficesCheck';
 import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
+import TableEntityMain from '../../../elements/tables/elements/TableEntityMain';
 
 export default function ProviderFundsTable({
     type,
@@ -38,7 +38,6 @@ export default function ProviderFundsTable({
 }) {
     const [loading, setLoading] = useState(true);
 
-    const assetUrl = useAssetUrl();
     const translate = useTranslate();
     const openModal = useOpenModal();
     const pushSuccess = usePushSuccess();
@@ -293,21 +292,14 @@ export default function ProviderFundsTable({
                             </td>
                         )}
                         <td>
-                            <div className="td-collapsable">
-                                <div className="collapsable-media">
-                                    <img
-                                        className="td-media td-media-sm"
-                                        src={
-                                            providerFund.fund.logo?.sizes?.thumbnail ||
-                                            assetUrl('/assets/img/placeholders/fund-thumbnail.png')
-                                        }
-                                        alt=""
-                                    />
-                                </div>
-                                <div className="collapsable-content">
-                                    <div className="text-primary text-semibold" title={providerFund.fund.name}>
-                                        {strLimit(providerFund.fund.name, 32)}
-                                    </div>
+                            <TableEntityMain
+                                media={providerFund.fund.logo}
+                                mediaAlt={providerFund.fund.name}
+                                mediaRound={false}
+                                mediaPlaceholder="fund"
+                                title={providerFund.fund.name}
+                                titleLimit={32}
+                                subtitle={
                                     <a
                                         href={providerFund.fund.implementation.url_webshop}
                                         target="_blank"
@@ -315,8 +307,8 @@ export default function ProviderFundsTable({
                                         rel="noreferrer">
                                         {strLimit(providerFund.fund.implementation?.name, 32)}
                                     </a>
-                                </div>
-                            </div>
+                                }
+                            />
                         </td>
                         <td title={providerFund.fund?.organization?.name}>
                             {strLimit(providerFund.fund?.organization?.name, 25)}

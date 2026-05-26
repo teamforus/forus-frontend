@@ -2049,7 +2049,10 @@
             "title": "İşlemler",
             "top_up": "Yükseltilmiş",
             "expired_on": "Son kullanma tarihi {{ date }}",
-            "payout": "Ödeme"
+            "payout": "Ödeme",
+            "provider_by_sponsor": "Çalışan tarafından yapılan işlem",
+            "qr_code": "QR kodu",
+            "reimbursement": "Masraf iadesi"
         },
         "actions": {
             "choose_action": {
@@ -2590,8 +2593,8 @@
         "bank_accounts": {
             "title": "Banka hesabı",
             "iban": "IBAN",
-            "name": "Ascription",
-            "source": "Kaynak"
+            "source": "Kaynak",
+            "name": "Hesap sahibi"
         },
         "breadcrumbs": {
             "home": "Ev",

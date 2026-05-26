@@ -663,40 +663,6 @@ export default {
         },
     },
 
-    offices: {
-        buttons: {
-            adjust: 'Bewerk',
-            add: 'Voeg een nieuwe vestiging toe',
-            map: 'Bekijk op de kaart',
-            delete: 'Verwijderen',
-        },
-        labels: {
-            mail: 'E-mail',
-            categories: 'Categorieën',
-            nocategories: 'Geen categorieën',
-            none: 'Geen data',
-            phone: 'Telefoonnummer',
-            hours: 'Openingstijden:',
-            offices: 'Vestigingen ',
-            business_type: 'Organisatie type',
-            branch_id: 'VestigingID',
-            branch_number: 'Vestigingsnummer',
-        },
-        confirm_delete: {
-            title: 'Weet u zeker dat u deze vestiging wilt verwijderen?',
-            description:
-                'Wanneer u de vestiging verwijderd kunt u dit niet ongedaan maken. Bedenk daarom goed of u deze actie wilt verrichten.',
-        },
-        confirm_has_employees: {
-            title: 'Verwijder medewerkers uit de vestiging',
-            description: 'Voordat de vestiging wordt verwijderd, controleer of er geen toegewezen medewerker(s) zijn.',
-            buttons: {
-                cancel: 'Sluiten',
-                confirm: 'Medewerkers bekijken',
-            },
-        },
-    },
-
     provider_organizations: {
         header: {
             title: 'Aanbieders',
@@ -1593,6 +1559,7 @@ export default {
             group_title: 'Groep',
             yes: 'Ja',
             no_group: 'Overige gegevens',
+            warning: 'Melding',
         },
         tooltips: {
             id: 'Uniek ID van de aanvraag.',
@@ -1608,6 +1575,7 @@ export default {
             has_files: 'Zijn er documenten geüpload',
             has_clarifications: 'Is er extra informatie opgevraagd',
             group_title: 'Groepen',
+            edited: 'Dit gegeven is aangepast.',
         },
         tabs: {
             all: 'Alles',
@@ -1648,6 +1616,7 @@ export default {
             resign: 'Meld af',
             uncollapse: 'Alles uitklappen',
             collapse: 'Alles inklappen',
+            approve_missing_records: 'Ontbrekende gegevens goedkeuren',
         },
         header: {
             title: 'Aanvragen',
@@ -1659,6 +1628,58 @@ export default {
         clarification_states: {
             pending: 'Wachten',
             answered: 'Beantwoord',
+        },
+        missed_records: {
+            labels: {
+                warning: {
+                    title: 'Belangrijke gegevens ontbreken',
+                    description: [
+                        'Controleer de aanvraag en vul de gegevens aan om een toekenning te doen.\n',
+                        'Let op: mist er een geboortedatum, vul dan ook de leeftijdsgroepen en gezinsleden in.',
+                    ].join(''),
+                    person: 'Persoonlijke informatie',
+                    family: 'Gezinsleden',
+                    partner: 'Partner',
+                    children: 'Kinderen',
+                    children_count: 'Aantal kinderen',
+                },
+                info: {
+                    title: 'Informatieve gegevens ontbreken',
+                    description: 'Controleer de aanvraag en vul de ontbrekende gegevens aan als dat nodig is.',
+                    person: 'Persoonlijke informatie',
+                    family: 'Gezinsleden',
+                    partner: 'Partner',
+                    children: 'Kinderen',
+                    children_count: 'Aantal kinderen',
+                },
+            },
+            person: {
+                first_name: 'Voornaam',
+                last_name: 'Achternaam',
+                gender: 'Geslachtsaanduiding',
+                birth_date: 'Geboortedatum',
+                postal_code: 'Postcode',
+            },
+            partner: {
+                bsn: 'Vul ook het BSN van de partner in.',
+                first_name: 'Voornaam',
+                last_name: 'Achternaam',
+                gender: 'Geslachtsaanduiding',
+                birth_date: 'Geboortedatum',
+                address:
+                    'Het adres van de partner ontbreekt. Controleer of de aanvrager een partner heeft en voeg de juiste gegevens toe.',
+            },
+            children: {
+                bsn: 'Vul ook het BSN van de kind in.',
+                address:
+                    'Het adres van één of meerdere kinderen ontbreekt. Controleer of de aanvrager kinderen heeft en voeg de juiste gegevens toe.',
+            },
+            child: {
+                first_name: 'Voornaam van kind {{ number }}.',
+                last_name: 'Achternaam van kind {{ number }}.',
+                gender: 'Geslachtsaanduiding van kind {{ number }}.',
+                birth_date: 'Geboortedatum van kind {{ number }}.',
+            },
         },
     },
 

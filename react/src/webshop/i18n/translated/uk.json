@@ -2491,8 +2491,8 @@
         "bank_accounts": {
             "title": "Банківський рахунок",
             "iban": "IBAN",
-            "name": "Припис",
-            "source": "Джерело"
+            "source": "Джерело",
+            "name": "Власник рахунку"
         },
         "breadcrumbs": {
             "home": "Головна сторінка",
@@ -3405,7 +3405,10 @@
             "title": "Транзакції",
             "top_up": "Оновлений",
             "expired_on": "Термін дії закінчився {{ date }}",
-            "payout": "Виплата коштів"
+            "payout": "Виплата коштів",
+            "provider_by_sponsor": "Операція, виконана працівником",
+            "qr_code": "QR-код",
+            "reimbursement": "Відшкодування витрат"
         },
         "actions": {
             "choose_action": {
