@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
-import { ModalState } from '../../modules/modals/context/ModalContext';
-import { ResponseError } from '../../props/ApiResponses';
-import FundRequest from '../../props/models/FundRequest';
-import { useFundRequestValidatorService } from '../../services/FundRequestValidatorService';
-import Organization from '../../props/models/Organization';
-import FundRequestRecord from '../../props/models/FundRequestRecord';
-import ModalRecordEditBase from './record-edit/ModalRecordEditBase';
+import { ModalState } from '../../../modules/modals/context/ModalContext';
+import { ResponseError } from '../../../props/ApiResponses';
+import FundRequest from '../../../props/models/FundRequest';
+import { useFundRequestValidatorService } from '../../../services/FundRequestValidatorService';
+import Organization from '../../../props/models/Organization';
+import FundRequestRecord from '../../../props/models/FundRequestRecord';
+import ModalRecordEditBase from './ModalRecordEditBase';
 
 export default function ModalFundRequestRecordEdit({
     modal,

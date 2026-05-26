@@ -1,10 +1,10 @@
 import React from 'react';
-import { ModalState } from '../../modules/modals/context/ModalContext';
-import { ResponseError } from '../../props/ApiResponses';
-import { usePrevalidationRequestService } from '../../services/PrevalidationRequestService';
-import Organization from '../../props/models/Organization';
-import PrevalidationRequestRecord from '../../props/models/PrevalidationRequestRecord';
-import ModalRecordEditBase from './record-edit/ModalRecordEditBase';
+import { ModalState } from '../../../modules/modals/context/ModalContext';
+import { ResponseError } from '../../../props/ApiResponses';
+import { usePrevalidationRequestService } from '../../../services/PrevalidationRequestService';
+import Organization from '../../../props/models/Organization';
+import PrevalidationRequestRecord from '../../../props/models/PrevalidationRequestRecord';
+import ModalRecordEditBase from './ModalRecordEditBase';
 
 export default function ModalPrevalidationRequestRecordEdit({
     modal,

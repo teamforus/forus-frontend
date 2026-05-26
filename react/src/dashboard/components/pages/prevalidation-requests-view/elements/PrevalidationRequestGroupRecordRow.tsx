@@ -6,7 +6,7 @@ import { PrevalidationRequestRecordGroupLocal, PrevalidationRequestRecordLocal }
 import useOpenModal from '../../../../hooks/useOpenModal';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import Organization from '../../../../props/models/Organization';
-import ModalPrevalidationRequestRecordEdit from '../../../modals/ModalPrevalidationRequestRecordEdit';
+import ModalPrevalidationRequestRecordEdit from '../../../modals/record-edit/ModalPrevalidationRequestRecordEdit';
 import useTranslate from '../../../../hooks/useTranslate';
 import Tooltip from '../../../elements/tooltip/Tooltip';
 import PrevalidationRequestRecordHistory from './PrevalidationRequestRecordHistory';
