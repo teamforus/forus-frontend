@@ -175,4 +175,5 @@ export default interface Organization {
     };
     has_person_bsn_api?: boolean;
     implementations?: Array<{ id: number; name: string }>;
+    allow_fund_product_limits?: boolean;
 }

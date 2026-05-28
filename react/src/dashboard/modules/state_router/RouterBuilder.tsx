@@ -99,6 +99,7 @@ export enum DashboardRoutes {
     FEEDBACK = 'feedback',
     CSV_VALIDATION = 'csv-validation',
     PREVALIDATION_REQUESTS = 'prevalidation-requests',
+    FUND_PRODUCT_LIMITS = 'fund-product-limits',
     PREFERENCE_EMAILS = 'preferences-emails',
     PREFERENCE_NOTIFICATIONS = 'preferences-notifications',
     SECURITY_2FA = 'security-2fa',
