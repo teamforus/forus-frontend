@@ -143,6 +143,13 @@ export default function FundActivate() {
         [digIdService, navigateState, pushDanger, translate],
     );
 
+    const startBsnVerification = useCallback(
+        (fund: Fund) => {
+            return startDigId(fund);
+        },
+        [startDigId],
+    );
+
     // Apply for the fund
     const applyFund = useCallback(
         function (fund: Fund) {
@@ -230,7 +237,7 @@ export default function FundActivate() {
     }, [appConfigs, authIdentity, fund]);
 
     const checkFund = useCallback(
-        (fromDigid = false) => {
+        (fromVerification = false) => {
             if (fetchingData) {
                 return;
             }
@@ -241,8 +248,8 @@ export default function FundActivate() {
                 const identity = res.data;
                 const timeToSkipBsn = getTimeToSkipDigid(identity, fund);
 
-                if (!fromDigid && (timeToSkipBsn === null || timeToSkipBsn <= 0)) {
-                    return startDigId(fund);
+                if (!fromVerification && (timeToSkipBsn === null || timeToSkipBsn <= 0)) {
+                    return startBsnVerification(fund);
                 }
 
                 fundService
@@ -259,7 +266,7 @@ export default function FundActivate() {
                             return setState(`backoffice_error_${backoffice_error_key || 'not_eligible'}`);
                         }
 
-                        // Fund requesting is not available after successful signing with DigiD
+                        // Fund requesting is not available after successful BSN verification
                         if (!prevalidations && !vouchers && !prevalidation_vouchers.length && !fundRequestIsAvailable) {
                             return setState('error_not_available');
                         }
@@ -298,7 +305,10 @@ export default function FundActivate() {
                             ));
                         }
 
-                        setDigidResponse({ digid_error: null, digid_success: null });
+                        setDigidResponse({
+                            digid_error: null,
+                            digid_success: null,
+                        });
                         setState('select');
                     })
                     .finally(() => setFetchingData(false));
@@ -316,7 +326,7 @@ export default function FundActivate() {
             openModal,
             pushDanger,
             setDigidResponse,
-            startDigId,
+            startBsnVerification,
         ],
     );
 
@@ -327,23 +337,28 @@ export default function FundActivate() {
         return { timeToSkipBsn, timeToSkipBsnSoft };
     }, [skipBsnLimit, skipBsnLimitSoft]);
 
-    const selectDigiDOption = useCallback(
+    const selectBsnVerificationOption = useCallback(
         (fund: Fund) => {
             const hasCustomCriteria = ['IIT', 'bus_2020', 'meedoen'].includes(fund.key);
             const autoValidation = fund.auto_validation;
 
             //- Show custom criteria screen
-            if (autoValidation && appConfigs.digid && hasCustomCriteria) {
-                return getTimeToSkip().timeToSkipBsnSoft > 0 ? setState('digid') : startDigId(fund);
+            if (autoValidation && hasCustomCriteria) {
+                return getTimeToSkip().timeToSkipBsnSoft > 0 ? setState('digid') : startBsnVerification(fund);
             }
 
-            checkFund();
+            checkFund(false);
         },
-        [appConfigs.digid, checkFund, startDigId, getTimeToSkip],
+        [checkFund, startBsnVerification, getTimeToSkip],
+    );
+
+    const selectDigiDOption = useCallback(
+        (fund: Fund) => selectBsnVerificationOption(fund),
+        [selectBsnVerificationOption],
     );
 
     const confirmCriteria = useCallback(() => {
-        checkFund();
+        checkFund(false);
     }, [checkFund]);
 
     const handleDigiDResponse = useCallback(() => {
@@ -353,7 +368,7 @@ export default function FundActivate() {
             return;
         }
 
-        // got digid error, abort
+        // got verification error, abort
         if (digid_error) {
             const custom404Link = {
                 name: 'fund-activate',
@@ -376,7 +391,7 @@ export default function FundActivate() {
             );
         }
 
-        // digid sign-in flow
+        // BSN verification flow
         if (digid_success == 'signed_up' || digid_success == 'signed_in') {
             pushSuccess(translate('push.success'), translate('push.fund_activation.digid_success'));
 
@@ -573,7 +588,7 @@ export default function FundActivate() {
 
         if ((!timeToSkipBsn || timeToSkipBsn <= 0) && state === 'digid') {
             setState('select');
-            pushInfo('DigiD session expired.', 'You need to confirm your Identity by DigiD again.');
+            pushInfo(translate('push.session_expired.title'), translate('push.session_expired.description'));
         }
     }, 1000);
 

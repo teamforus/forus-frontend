@@ -23,7 +23,7 @@ export const TopNavbarDesktopUser = () => {
                         {envData.config.flags.showStartButton && (
                             <button
                                 className="button button-primary-outline"
-                                onClick={() => startFundRequest({ restore_with_email: 1 })}
+                                onClick={() => startFundRequest({ email: 1 })}
                                 aria-label={translate(
                                     'top_navbar.start_button.' + envData.client_key,
                                     null,

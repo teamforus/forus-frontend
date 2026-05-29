@@ -4,7 +4,6 @@
     },
     "auth": {
         "back": "رجوع",
-        "back_start": "العودة إلى تسجيل الدخول",
         "choose_option": "اختر خياراً",
         "logout": "تسجيل الخروج",
         "options": {
@@ -26,23 +25,15 @@
                 "title": "تم استخدام هذا الرابط بالفعل أو أنه غير صالح."
             }
         },
-        "qr": {
-            "title": "تسجيل الدخول"
-        },
-        "restore": {
-            "label": "لم يعد بإمكانك تسجيل الدخول بعد الآن؟",
-            "link": "استعادة الحساب مع DigiD",
-            "title": "استعادة الحساب"
-        },
         "setup_2fa_title": "إعداد المصادقة الثنائية",
-        "sign_in_up_title": "إنشاء حساب أو بدء تطبيق؟",
+        "2fa_title": "المصادقة الثنائية",
         "privacy_link": {
-            "text": "لقد قرأت <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">بيان الخصوصية</a> "
+            "text": "لقد قرأت <a tabIndex=\"3\" target=\"_blank\" href=\"{{ link_url }}\">بيان الخصوصية</a> "
         },
         "terms_link": {
-            "text": "أوافق على <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">الشروط والأحكام</a>"
+            "text": "أوافق على <a tabIndex=\"3\" target=\"_blank\" href=\"{{ link_url }}\">الشروط والأحكام</a>"
         },
-        "2fa_title": "المصادقة الثنائية"
+        "title": "تسجيل الدخول"
     },
     "blocks": {
         "block_exception": {
@@ -902,9 +893,6 @@
             "home": "الصفحة الرئيسية"
         },
         "bsn_record_is_mandatory": "الحصول على شهادة البكالوريوس إلزامي لتقديم الطلب.",
-        "bsn_warning": {
-            "description": "يرجى ملاحظة! يجب أن تكون قد أكملت نموذج الطلب بحلول <strong>{{value}}</strong>وإلا فقم بتسجيل الدخول مرة أخرى باستخدام DigiD وابدأ التقديم مرة أخرى."
-        },
         "buttons": {
             "back": "رجوع",
             "send": "الشحن"
@@ -917,14 +905,6 @@
             "created_at": "تم التقديم في:",
             "fund_name": "اسم الصندوق:",
             "status": "طلب الحالة:"
-        },
-        "digid_expired": {
-            "description": "سجّل الدخول مرة أخرى باستخدام DigiD وابدأ تشغيل التطبيق مرة أخرى.",
-            "sign_in": {
-                "description": "سجّل الدخول مرة أخرى باستخدام DigiD للبدء من جديد.",
-                "title": "DigiD"
-            },
-            "title": "انتهت صلاحية جلسة DigiD"
         },
         "fund_not_active": "الصندوق الذي تحاول التقدم بطلب للحصول عليه غير نشط.",
         "invalid_endpoint": "لا يوجد وصول إلى هذا التطبيق",
@@ -1149,6 +1129,19 @@
             },
             "subtitle": "هل التفاصيل غير صحيحة؟ إذا كان الأمر كذلك، يرجى الاتصال بالبلدية.",
             "title": "تم ملء التفاصيل أدناه بالفعل"
+        },
+        "bsn_warning": {
+            "description": "يرجى ملاحظة! يجب عليك إكمال نموذج الطلب بحلول <strong>{{value}}</strong>، وإلا ستحتاج إلى إعادة تأكيد شهادة البكالوريوس وبدء تقديم الطلب من جديد."
+        },
+        "digid_expired": {
+            "description": "قم بتأكيد BSN الخاص بك مرة أخرى وابدأ التقديم مرة أخرى.",
+            "sign_in": {
+                "digid": {
+                    "description": "سجّل الدخول مرة أخرى باستخدام DigiD للبدء من جديد.",
+                    "title": "DigiD"
+                }
+            },
+            "title": "انتهت صلاحية تأكيد BSN"
         }
     },
     "fund_requests": {
@@ -1757,19 +1750,6 @@
     },
     "signup": {
         "items": {
-            "berkelland": {
-                "start_email": "بدء التفعيل"
-            },
-            "digid": "افتح شاشة تسجيل الدخول إلى DigiD",
-            "ede": {
-                "digid": "افتح شاشة تسجيل الدخول إلى DigiD",
-                "header": "سجّل الدخول هنا",
-                "pane_text": "",
-                "restore_header": "",
-                "restore_title": "استعادة الحساب",
-                "signup": "",
-                "title": "تسجيل الدخول"
-            },
             "errors": {
                 "email": {
                     "type_mismatch": "يرجى إدخال عنوان بريد إلكتروني صالح، على سبيل المثال naam@voorbeeld.com",
@@ -1779,48 +1759,18 @@
             "geertruidenberg": {
                 "signup_option": "سجّل الدخول باستخدام DigiD للمتابعة"
             },
-            "goereeoverflakkee": {
-                "start_email": "التسجيل"
-            },
             "groningen": {
                 "signup_option": "سجّل الدخول باستخدام DigiD للمتابعة"
             },
-            "header": "سجّل الدخول هنا",
-            "heumen": {
-                "start_email": "بدء التفعيل"
-            },
-            "noordoostpolder": {
-                "start_email": "بدء التفعيل"
-            },
-            "oostgelre": {
-                "start_email": "بدء التفعيل"
-            },
-            "page_title": "تسجيل الدخول{{pageTitleSuffix}}",
-            "pane_text": "تسجيل الدخول إلى حساب موجود",
             "potjeswijzer": {
                 "signup_option": "سجّل الدخول باستخدام DigiD للمتابعة"
             },
-            "restore_header": "",
-            "restore_title": "استعادة الحساب",
-            "schagen": {
-                "start_email": "ابدأ"
-            },
             "signup_option": "اتخذ خياراً للمتابعة",
-            "start_email": "بدء التطبيق",
-            "title": "تسجيل الدخول",
             "vergoedingen": {
-                "restore_title": "استعادة الحساب",
-                "signup_option": "سجّل الدخول باستخدام DigiD للمتابعة",
-                "title": "تسجيل الدخول"
+                "signup_option": "سجّل الدخول باستخدام DigiD للمتابعة"
             },
             "waalwijk": {
                 "signup_option": "سجّل الدخول باستخدام DigiD للمتابعة"
-            },
-            "winterswijk": {
-                "start_email": "بدء التفعيل"
-            },
-            "fijnder": {
-                "start_email": "تفعيل"
             }
         }
     },
