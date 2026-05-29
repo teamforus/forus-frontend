@@ -395,7 +395,7 @@ export default function FundRequest() {
                         return pushDanger(translate('push.error'), err.data.message);
                     }
 
-                    navigateState(WebshopRoutes.ERROR, { errorCode: err.headers('error-code') });
+                    navigateState(WebshopRoutes.ERROR, { errorCode: err.headers['error-code'] });
                 });
         }
     }, [digIdService, fund?.id, navigateState, pushDanger, fetchAuthIdentity, translate]);
@@ -949,23 +949,29 @@ export default function FundRequest() {
                                             <div className="sign_up-pane-separator" />
                                         </div>
                                         <div className="sign_up-options">
-                                            <div className="sign_up-option" onClick={startDigId}>
-                                                <div className="sign_up-option-media">
-                                                    <img
-                                                        className="sign_up-option-media-img"
-                                                        src={assetUrl('/assets/img/icon-auth/icon-auth-digid.svg')}
-                                                        alt="logo DigiD"
-                                                    />
-                                                </div>
-                                                <div className="sign_up-option-details">
-                                                    <div className="sign_up-option-title">
-                                                        {translate('fund_request.digid_expired.sign_in.title')}
+                                            {digidAvailable && (
+                                                <div className="sign_up-option" onClick={startDigId}>
+                                                    <div className="sign_up-option-media">
+                                                        <img
+                                                            className="sign_up-option-media-img"
+                                                            src={assetUrl('/assets/img/icon-auth/icon-auth-digid.svg')}
+                                                            alt="logo DigiD"
+                                                        />
                                                     </div>
-                                                    <div className="sign_up-option-description">
-                                                        {translate('fund_request.digid_expired.sign_in.description')}
+                                                    <div className="sign_up-option-details">
+                                                        <div className="sign_up-option-title">
+                                                            {translate(
+                                                                'fund_request.digid_expired.sign_in.digid.title',
+                                                            )}
+                                                        </div>
+                                                        <div className="sign_up-option-description">
+                                                            {translate(
+                                                                'fund_request.digid_expired.sign_in.digid.description',
+                                                            )}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            )}
                                         </div>
                                     </div>
                                     <br />

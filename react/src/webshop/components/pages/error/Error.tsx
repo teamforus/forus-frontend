@@ -21,7 +21,7 @@ export default function Error() {
         return {
             url_webshop_home: getStateRouteUrl(WebshopRoutes.HOME, {}),
             url_webshop_start: getStateRouteUrl(WebshopRoutes.START, {}),
-            url_webshop_start_logout: getStateRouteUrl(WebshopRoutes.START, {}, { logout: 1, restore_with_digid: 1 }),
+            url_webshop_start_logout: getStateRouteUrl(WebshopRoutes.START, {}, { logout: 1, digid: 1 }),
         };
     }, []);
 
@@ -56,7 +56,7 @@ export default function Error() {
                                             ) : (
                                                 <StateNavLink
                                                     name={WebshopRoutes.START}
-                                                    query={{ logout: 1, restore_with_digid: 1 }}
+                                                    query={{ logout: 1, digid: 1 }}
                                                     className="button button-primary">
                                                     {translate('error.start_button')}
                                                     <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />

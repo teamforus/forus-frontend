@@ -6,7 +6,6 @@ const digiDefaultMessage = [
 export default {
     titles: {
         unknown_error: 'Onbekende foutmelding',
-
         digid_api_0000: 'Er is een fout opgetreden tijdens het aanvragen.',
         digid_uid_used: 'BSN-nummer al gebruikt.',
         digid_uid_dont_match: 'Er is al een BSN-nummer bekend bij dit profiel',

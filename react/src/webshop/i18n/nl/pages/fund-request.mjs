@@ -64,17 +64,21 @@ export default {
     },
 
     digid_expired: {
-        title: 'DigiD sessie verlopen',
-        description: 'Log opnieuw in met DigiD en begin opnieuw met de aanvraag.',
+        title: 'BSN bevestiging verlopen',
+        description: 'Bevestig uw BSN opnieuw en begin opnieuw met de aanvraag.',
         sign_in: {
-            title: 'DigiD',
-            description: 'Log opnieuw in met DigiD om opnieuw te beginnen.',
+            digid: {
+                title: 'DigiD',
+                description: 'Log opnieuw in met DigiD om opnieuw te beginnen.',
+            },
         },
     },
 
     bsn_warning: {
-        description:
-            'Let op! U dient het aanvraagformulier afgerond te hebben voor <strong>{{value}}</strong>, anders dient opnieuw in te loggen met DigiD en opnieuw te beginnen met de aanvraag.',
+        description: [
+            'Let op! U dient het aanvraagformulier afgerond te hebben voor <strong>{{value}}</strong>,',
+            'anders dient u uw BSN opnieuw te bevestigen en opnieuw te beginnen met de aanvraag.',
+        ].join(' '),
     },
 
     steps: {
