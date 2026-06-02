@@ -60,6 +60,13 @@ export class ImplementationService<T = Implementation> {
     }
 
     /**
+     * Update auth page by id
+     */
+    public updateAuthPage(organizationId: number, id: number, data: object): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.patch(`${this.prefix}/${organizationId}/implementations/${id}/auth-page`, data);
+    }
+
+    /**
      * Update email by id
      */
     public updateEmail(organizationId: number, id: number, data: object): Promise<ApiResponseSingle<T>> {

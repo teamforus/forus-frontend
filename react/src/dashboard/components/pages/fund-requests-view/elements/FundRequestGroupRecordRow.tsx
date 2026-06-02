@@ -9,7 +9,7 @@ import ModalFundRequestClarify from '../../../modals/ModalFundRequestClarify';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import Organization from '../../../../props/models/Organization';
-import ModalFundRequestRecordEdit from '../../../modals/ModalFundRequestRecordEdit';
+import ModalFundRequestRecordEdit from '../../../modals/record-edit/ModalFundRequestRecordEdit';
 import ModalNotification from '../../../modals/ModalNotification';
 import useTranslate from '../../../../hooks/useTranslate';
 import Label from '../../../elements/label/Label';
