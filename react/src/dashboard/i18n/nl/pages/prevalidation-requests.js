@@ -44,7 +44,7 @@ export default {
     },
     sources: {
         brp: 'BRP',
-        file: 'File',
+        file: 'E-formulier',
     },
     buttons: {
         upload: 'Upload .csv bestand',
@@ -52,8 +52,8 @@ export default {
         delete: 'Verwijderen',
         resubmit_failed: 'Mislukte verzoeken opnieuw verzenden',
         approve_missing_records: 'Ontbrekende gegevens goedkeuren',
-        create_prevalidation: 'Klaarzetting aanmaken',
-        retry_create_prevalidation: 'Klaarzetting opnieuw aanmaken',
+        create_prevalidation: 'Gegevens klaarzetten',
+        retry_create_prevalidation: 'Gegevens opnieuw klaarzetten',
     },
     notifications: {
         create_failed: {
@@ -77,7 +77,7 @@ export default {
         failed_reason: 'Reden van mislukking',
     },
     empty: {
-        title: 'Geen aanvragers klaargezet',
-        description: 'Er zijn nog geen aanvragers klaargezet voor dit fonds.',
+        title: 'Geen gegevens klaargezet',
+        description: 'Er zijn nog geen gegevens klaargezet voor dit fonds.',
     },
 };
