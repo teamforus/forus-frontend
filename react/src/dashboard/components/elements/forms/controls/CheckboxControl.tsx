@@ -50,6 +50,7 @@ export default function CheckboxControl({
                 value={value}
                 id={formId}
                 checked={checked}
+                disabled={disabled}
                 onChange={(e) => onChange(e, e.target.checked)}
             />
             <span className="checkbox-label">

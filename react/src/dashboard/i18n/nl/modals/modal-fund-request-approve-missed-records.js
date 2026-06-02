@@ -12,8 +12,4 @@ export default {
     hints: {
         note: 'Max. 140 tekens',
     },
-    buttons: {
-        cancel: 'Annuleer',
-        submit: 'Bevestigen',
-    },
 };

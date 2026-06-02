@@ -4,7 +4,7 @@ import Home from '../components/pages/home/Home';
 import Funds from '../components/pages/funds/Funds';
 import SignOut from '../components/pages/auth/SignOut';
 import FundsShow from '../components/pages/funds-show/FundsShow';
-import Start from '../components/pages/auth/Start';
+import Start from '../components/pages/auth/start/Start';
 import IdentityRestore from '../components/pages/auth/IdentityRestore';
 import Products from '../components/pages/products/Products';
 import Providers from '../components/pages/providers/Providers';

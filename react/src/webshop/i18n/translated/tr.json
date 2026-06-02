@@ -4,7 +4,6 @@
     },
     "auth": {
         "back": "Geri",
-        "back_start": "Girişe geri dön",
         "choose_option": "Bir seçenek seçin",
         "logout": "Oturum Kapatma",
         "options": {
@@ -26,23 +25,15 @@
                 "title": "Bu bağlantı zaten kullanılmış veya geçersiz."
             }
         },
-        "qr": {
-            "title": "Giriş"
-        },
-        "restore": {
-            "label": "Artık giriş yapamıyor musunuz?",
-            "link": "DigiD ile hesabı geri yükleme",
-            "title": "Hesabı geri yükle"
-        },
         "setup_2fa_title": "İki faktörlü kimlik doğrulamayı ayarlama",
-        "sign_in_up_title": "Bir hesap oluşturun veya bir başvuru başlatın?",
+        "2fa_title": "İki faktörlü kimlik doğrulama",
         "privacy_link": {
-            "text": "<a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">Gizlilik bildirimini</a> okudum"
+            "text": "<a tabIndex=\"3\" target=\"_blank\" href=\"{{ link_url }}\">Gizlilik bildirimini</a> okudum"
         },
         "terms_link": {
-            "text": "<a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">Hüküm ve koşulları</a> kabul ediyorum"
+            "text": "<a tabIndex=\"3\" target=\"_blank\" href=\"{{ link_url }}\">Hüküm ve koşulları</a> kabul ediyorum"
         },
-        "2fa_title": "İki faktörlü kimlik doğrulama"
+        "title": "Giriş"
     },
     "blocks": {
         "block_exception": {
@@ -881,9 +872,6 @@
             "home": "Ev"
         },
         "bsn_record_is_mandatory": "Başvuru yapabilmek için BSN sahibi olmak zorunludur.",
-        "bsn_warning": {
-            "description": "Lütfen dikkat! Başvuru formunu şu tarihe kadar doldurmuş olmanız gerekmektedir <strong>{{value}}</strong>aksi takdirde DigiD ile tekrar oturum açın ve uygulamayı yeniden başlatın."
-        },
         "buttons": {
             "back": "Geri",
             "send": "Nakliye"
@@ -896,14 +884,6 @@
             "created_at": "Gönderilme tarihi:",
             "fund_name": "Fon adı:",
             "status": "Durum Talebi:"
-        },
-        "digid_expired": {
-            "description": "DigiD ile tekrar oturum açın ve uygulamayı tekrar başlatın.",
-            "sign_in": {
-                "description": "Baştan başlamak için DigiD ile tekrar giriş yapın.",
-                "title": "DigiD"
-            },
-            "title": "DigiD oturumunun süresi doldu"
         },
         "fund_not_active": "Başvurmaya çalıştığınız fon aktif değil.",
         "invalid_endpoint": "Bu uygulamaya erişim yok",
@@ -1128,6 +1108,19 @@
             },
             "subtitle": "Bilgiler doğru değil mi? Eğer öyleyse, lütfen belediye ile iletişime geçin.",
             "title": "Aşağıdaki bilgiler zaten doldurulmuştur"
+        },
+        "bsn_warning": {
+            "description": "Lütfen dikkat! Başvuru formunu şu tarihe kadar doldurmalısınız <strong>{{value}}</strong>Aksi takdirde BSN'nizi yeniden onaylamanız ve başvuruyu yeniden başlatmanız gerekecektir."
+        },
+        "digid_expired": {
+            "description": "BSN'nizi tekrar onaylayın ve uygulamayı yeniden başlatın.",
+            "sign_in": {
+                "digid": {
+                    "description": "Baştan başlamak için DigiD ile tekrar giriş yapın.",
+                    "title": "DigiD"
+                }
+            },
+            "title": "BSN onayının süresi doldu"
         }
     },
     "fund": {
@@ -1757,19 +1750,6 @@
     },
     "signup": {
         "items": {
-            "berkelland": {
-                "start_email": "Etkinleştirmeyi başlat"
-            },
-            "digid": "DigiD giriş ekranını açın",
-            "ede": {
-                "digid": "DigiD giriş ekranını açın",
-                "header": "Buradan giriş yapın",
-                "pane_text": "",
-                "restore_header": "",
-                "restore_title": "Hesabı geri yükle",
-                "signup": "",
-                "title": "Giriş"
-            },
             "errors": {
                 "email": {
                     "type_mismatch": "Lütfen geçerli bir e-posta adresi girin, örneğin naam@voorbeeld.com",
@@ -1779,48 +1759,18 @@
             "geertruidenberg": {
                 "signup_option": "Devam etmek için DigiD ile giriş yapın"
             },
-            "goereeoverflakkee": {
-                "start_email": "Kaydolun"
-            },
             "groningen": {
                 "signup_option": "Devam etmek için DigiD ile giriş yapın"
             },
-            "header": "Buradan giriş yapın",
-            "heumen": {
-                "start_email": "Etkinleştirmeyi başlat"
-            },
-            "noordoostpolder": {
-                "start_email": "Etkinleştirmeyi başlat"
-            },
-            "oostgelre": {
-                "start_email": "Etkinleştirmeyi başlat"
-            },
-            "page_title": "Giriş{{pageTitleSuffix}}",
-            "pane_text": "Mevcut bir hesaba giriş yapın",
             "potjeswijzer": {
                 "signup_option": "Devam etmek için DigiD ile giriş yapın"
             },
-            "restore_header": "",
-            "restore_title": "Hesabı geri yükle",
-            "schagen": {
-                "start_email": "Başlangıç"
-            },
             "signup_option": "Devam etmek için bir seçim yapın",
-            "start_email": "Uygulamayı başlat",
-            "title": "Giriş",
             "vergoedingen": {
-                "restore_title": "Hesabı geri yükle",
-                "signup_option": "Devam etmek için DigiD ile giriş yapın",
-                "title": "Giriş"
+                "signup_option": "Devam etmek için DigiD ile giriş yapın"
             },
             "waalwijk": {
                 "signup_option": "Devam etmek için DigiD ile giriş yapın"
-            },
-            "winterswijk": {
-                "start_email": "Etkinleştirmeyi başlat"
-            },
-            "fijnder": {
-                "start_email": "Etkinleştir"
             }
         }
     },

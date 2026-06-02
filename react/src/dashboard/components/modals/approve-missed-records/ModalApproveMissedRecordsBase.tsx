@@ -1,17 +1,29 @@
 import React from 'react';
-import { ModalState } from '../../modules/modals/context/ModalContext';
-import useFormBuilder from '../../hooks/useFormBuilder';
-import CheckboxControl from '../elements/forms/controls/CheckboxControl';
-import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
-import FormGroup from '../elements/forms/elements/FormGroup';
+import { ModalState } from '../../../modules/modals/context/ModalContext';
+import useFormBuilder from '../../../hooks/useFormBuilder';
+import FormGroup from '../../elements/forms/elements/FormGroup';
+import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
+import useTranslate from '../../../hooks/useTranslate';
 
-export default function ModalFundRequestApproveMissedRecords({
+export default function ModalApproveMissedRecordsBase({
     modal,
     onSubmit,
+    title,
+    description,
+    noteLabel,
+    noteHint,
+    notePlaceholder,
+    approveLabel,
 }: {
     modal: ModalState;
     onSubmit: ({ note }: { note: string }) => void;
+    title: string;
+    description: string;
+    noteLabel: string;
+    noteHint: string;
+    notePlaceholder: string;
+    approveLabel: string;
 }) {
     const translate = useTranslate();
 
@@ -21,7 +33,9 @@ export default function ModalFundRequestApproveMissedRecords({
     });
 
     return (
-        <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading')}>
+        <div
+            className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading')}
+            data-dusk="fundRequestApproveMissedRecordsModal">
             <div className="modal-backdrop" onClick={modal.close} />
 
             <form className="modal-window form" onSubmit={form.submit}>
@@ -33,18 +47,14 @@ export default function ModalFundRequestApproveMissedRecords({
                 <div className="modal-body">
                     <div className="modal-section modal-section-pad">
                         <div className="text-center">
-                            <div className="modal-heading">
-                                {translate('modals.modal_fund_request_approve_missed_records.title')}
-                            </div>
-                            <div className="modal-text">
-                                {translate('modals.modal_fund_request_approve_missed_records.description')}
-                            </div>
+                            <div className="modal-heading">{title}</div>
+                            <div className="modal-text">{description}</div>
                             <span />
                         </div>
 
                         <FormGroup
-                            label={translate('modals.modal_fund_request_approve_missed_records.labels.note')}
-                            hint={translate('modals.modal_fund_request_approve_missed_records.hints.note')}
+                            label={noteLabel}
+                            hint={noteHint}
                             error={form.errors?.description}
                             input={(id) => (
                                 <textarea
@@ -52,19 +62,19 @@ export default function ModalFundRequestApproveMissedRecords({
                                     id={id}
                                     maxLength={140}
                                     value={form.values.description || ''}
-                                    placeholder={translate(
-                                        'modals.modal_fund_request_approve_missed_records.placeholders.note',
-                                    )}
+                                    placeholder={notePlaceholder}
                                     onChange={(e) => form.update({ description: e.target.value })}
                                 />
                             )}
                         />
 
                         <FormGroup
-                            input={() => (
+                            input={(id) => (
                                 <CheckboxControl
-                                    title={translate('modals.modal_fund_request_approve_missed_records.labels.approve')}
+                                    id={id}
+                                    title={approveLabel}
                                     checked={form.values.approve || false}
+                                    dusk="approveCheckbox"
                                     onChange={(e) => form.update({ approve: e.target.checked })}
                                 />
                             )}
@@ -74,14 +84,15 @@ export default function ModalFundRequestApproveMissedRecords({
 
                 <div className="modal-footer text-center">
                     <button type="button" className="button button-default" onClick={modal.close}>
-                        {translate('modals.modal_fund_request_approve_missed_records.buttons.cancel')}
+                        {translate('modal.buttons.cancel')}
                     </button>
 
                     <button
                         type="submit"
                         className="button button-primary"
+                        data-dusk="approveBtn"
                         disabled={form.values.description.length > 140 || !form.values.approve}>
-                        {translate('modals.modal_fund_request_approve_missed_records.buttons.submit')}
+                        {translate('modal.buttons.confirm')}
                     </button>
                 </div>
             </form>

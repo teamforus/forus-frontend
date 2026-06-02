@@ -20,7 +20,7 @@ import ModalFundRequestDisregard from '../../modals/ModalFundRequestDisregard';
 import ModalFundRequestDisregardUndo from '../../modals/ModalFundRequestDisregardUndo';
 import ModalFundRequestAssignValidator from '../../modals/ModalFundRequestAssignValidator';
 import useEnvData from '../../../hooks/useEnvData';
-import IdentityPerson from './elements/IdentityPerson';
+import BrpPersonCard from '../../elements/brp-person/BrpPersonCard';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import ModalApproveFundRequest from '../../modals/ModalApproveFundRequest';
@@ -37,9 +37,10 @@ import Employee from '../../../props/models/Employee';
 import classNames from 'classnames';
 import FundRequestRecordsHasClarifications from './elements/FundRequestRecordsHasClarifications';
 import FundRequestGroupRow from './elements/FundRequestGroupRow';
-import FundRequestMissedRecords from './elements/FundRequestMissedRecords';
-import ModalFundRequestApproveMissedRecords from '../../modals/ModalFundRequestApproveMissedRecords';
-import useFundRequestMissedRecords from '../../../hooks/useFundRequestMissedRecords';
+import RequestMissedRecords from './elements/RequestMissedRecords';
+import ModalFundRequestApproveMissedRecords from '../../modals/approve-missed-records/ModalFundRequestApproveMissedRecords';
+import useRequestMissedRecords from '../../../hooks/useRequestMissedRecords';
+import useSponsorIdentitiesService from '../../../services/SponsorIdentitesService';
 
 export type FundRequestRecordLocal = FundRequestRecord & { hasContent: boolean; group_id?: number };
 
@@ -79,13 +80,14 @@ export default function FundRequestsView() {
     const emailLogService = useEmailLogService();
     const activeOrganization = useActiveOrganization();
     const fundRequestService = useFundRequestValidatorService();
+    const sponsorIdentitiesService = useSponsorIdentitiesService();
 
     const [fundRequest, setFundRequest] = useState<FundRequest>(null);
     const [showCriteria, setShowCriteria] = useState(null);
     const [uncollapsedRecords, setUncollapsedRecords] = useState<Array<number>>([]);
     const [uncollapsedRecordGroups, setUncollapsedRecordGroups] = useState<Array<number>>([]);
 
-    const { hasWarningMissedRecords, hasInfoMissedRecords } = useFundRequestMissedRecords(fundRequest);
+    const { hasWarningMissedRecords, hasInfoMissedRecords } = useRequestMissedRecords(fundRequest);
 
     const fund = useMemo(() => {
         return fundRequest?.fund;
@@ -467,6 +469,12 @@ export default function FundRequestsView() {
         [activeOrganization?.id, fundRequestMeta?.id, fundRequestService],
     );
 
+    const fetchBrpPerson = useCallback(
+        (data: object = {}) =>
+            sponsorIdentitiesService.getPersonBsn(activeOrganization.id, fundRequestMeta.identity_id, data),
+        [activeOrganization.id, fundRequestMeta?.identity_id, sponsorIdentitiesService],
+    );
+
     const requestApproveMissedRecords = useCallback(
         (data: { note: string }) => {
             fundRequestService.approveMissedRecords(activeOrganization.id, fundRequest.id, data).then((res) => {
@@ -668,7 +676,7 @@ export default function FundRequestsView() {
                         </KeyValueItem>
 
                         {(hasWarningMissedRecords || hasInfoMissedRecords) && (
-                            <FundRequestMissedRecords fundRequest={fundRequest} />
+                            <RequestMissedRecords request={fundRequest} />
                         )}
                     </div>
                 </div>
@@ -746,7 +754,7 @@ export default function FundRequestsView() {
             </div>
 
             {activeOrganization.has_person_bsn_api && fundRequestMeta.bsn && fundRequestMeta.is_assigned && (
-                <IdentityPerson organization={activeOrganization} identityId={fundRequestMeta.identity_id} />
+                <BrpPersonCard fetchPerson={fetchBrpPerson} />
             )}
 
             {fundRequestMeta.note && (

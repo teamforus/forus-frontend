@@ -22,7 +22,7 @@ import useEmailLogService from '../../../services/EmailLogService';
 import useEditProfileRecords from './hooks/useEditProfileRecords';
 import { Permission } from '../../../props/models/Organization';
 import useProfileRecordTypes from './hooks/useProfileRecordTypes';
-import IdentityPerson from '../fund-requests-view/elements/IdentityPerson';
+import BrpPersonCard from '../../elements/brp-person/BrpPersonCard';
 import ProfileRelationsCard from './elements/ProfileRelationsCard';
 import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
 import Note from '../../../props/models/Note';
@@ -85,6 +85,11 @@ export default function IdentitiesShow() {
         (data: { description: string }) => {
             return sponsorIdentitiesService.storeNote(activeOrganization.id, identity?.id, data);
         },
+        [activeOrganization.id, identity?.id, sponsorIdentitiesService],
+    );
+
+    const fetchBrpPerson = useCallback(
+        (data: object = {}) => sponsorIdentitiesService.getPersonBsn(activeOrganization.id, identity.id, data),
         [activeOrganization.id, identity?.id, sponsorIdentitiesService],
     );
 
@@ -157,9 +162,7 @@ export default function IdentitiesShow() {
                 />
             </Card>
 
-            {activeOrganization.has_person_bsn_api && identity?.bsn && (
-                <IdentityPerson organization={activeOrganization} identityId={identity.id} />
-            )}
+            {activeOrganization.has_person_bsn_api && identity?.bsn && <BrpPersonCard fetchPerson={fetchBrpPerson} />}
 
             <BlockCardNotes showCreate={true} fetchNotes={fetchNotes} deleteNote={deleteNote} storeNote={storeNote} />
 
