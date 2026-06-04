@@ -5,12 +5,14 @@ import { useProductService } from '../../../../services/ProductService';
 import { strLimit } from '../../../../../dashboard/helpers/string';
 import Product from '../../../../props/models/Product';
 import ProductsListItem from '../../../elements/lists/products-list/ProductsListItem';
-import FundsListItem from '../../../elements/lists/funds-list/FundsListItem';
 import Fund from '../../../../props/models/Fund';
 import ProvidersListItem from '../../../elements/lists/providers-list/ProvidersListItem';
 import Provider from '../../../../props/models/Provider';
 import { SearchItem } from '../../../../services/SearchService';
 import PayoutTransaction from '../../../../../dashboard/props/models/PayoutTransaction';
+import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
+import FundsListItemSearch from '../../../elements/lists/funds-list/templates/FundsListItemSearch';
+import StateNavLink from '../../../../modules/state_router/StateNavLink';
 
 export default function SearchItemsList({
     items,
@@ -56,13 +58,19 @@ export default function SearchItemsList({
                     )}
 
                     {item.item_type === 'fund' && (
-                        <FundsListItem
-                            fund={{ ...item.resource, description: getDescription(item.description_text) } as Fund}
-                            vouchers={vouchers}
-                            payouts={payouts}
-                            display={'search'}
-                            stateParams={item.stateParams || null}
-                        />
+                        <StateNavLink
+                            name={WebshopRoutes.FUND}
+                            params={{ id: (item.resource as Fund).id }}
+                            state={item.stateParams || null}
+                            className={'search-item search-item-fund'}
+                            dataDusk={`listFundsRow${(item.resource as Fund).id}`}
+                            dataAttributes={{ 'data-search-item': 1 }}>
+                            <FundsListItemSearch
+                                fund={{ ...item.resource, description: getDescription(item.description_text) } as Fund}
+                                vouchers={vouchers}
+                                payouts={payouts}
+                            />
+                        </StateNavLink>
                     )}
 
                     {item.item_type === 'provider' && (

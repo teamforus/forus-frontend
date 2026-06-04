@@ -1,18 +1,81 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 import FundsListItemModel from '../../../../../services/types/FundsListItemModel';
 import Label from '../../../label/Label';
+import useAppConfigs from '../../../../../hooks/useAppConfigs';
+import { useFundService } from '../../../../../services/FundService';
+import usePushDanger from '../../../../../../dashboard/hooks/usePushDanger';
+import usePushSuccess from '../../../../../../dashboard/hooks/usePushSuccess';
+import useShowTakenByPartnerModal from '../../../../../services/helpers/useShowTakenByPartnerModal';
+import useFundMeta from '../../../../../hooks/meta/useFundMeta';
+import Voucher from '../../../../../../dashboard/props/models/Voucher';
+import PayoutTransaction from '../../../../../../dashboard/props/models/PayoutTransaction';
 
 export default function FundsListItemSearch({
     fund,
-    applyFund,
+    payouts,
+    vouchers,
 }: {
     fund?: FundsListItemModel;
-    applyFund?: (event: React.MouseEvent, fund: FundsListItemModel) => void;
+    payouts: Array<PayoutTransaction>;
+    vouchers: Array<Voucher>;
 }) {
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
+
+    const [applyingFund, setApplyingFund] = React.useState(false);
+    const appConfigs = useAppConfigs();
+
+    const fundService = useFundService();
+
+    const pushDanger = usePushDanger();
+    const pushSuccess = usePushSuccess();
+    const showTakenByPartnerModal = useShowTakenByPartnerModal();
+
+    const fundMeta = useFundMeta(fund, payouts, vouchers, appConfigs);
+
+    const onApplySuccess = useCallback(
+        (vouchers: Voucher) => {
+            pushSuccess(
+                translate('push.success'),
+                translate('push.fund_activation.success', { fund_name: vouchers?.fund?.name }),
+            );
+
+            document.location.reload();
+        },
+        [pushSuccess, translate],
+    );
+
+    const applyFund = useCallback(
+        function (e: React.MouseEvent, fund: FundsListItemModel) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            if (applyingFund) {
+                return;
+            }
+
+            if (fund.taken_by_partner) {
+                return showTakenByPartnerModal();
+            }
+
+            setApplyingFund(true);
+
+            fundService
+                .apply(fund.id)
+                .then(
+                    (res) => onApplySuccess(res.data.data),
+                    (res) => pushDanger(translate('push.error'), res.data.message),
+                )
+                .finally(() => setApplyingFund(false));
+        },
+        [applyingFund, fundService, onApplySuccess, pushDanger, showTakenByPartnerModal, translate],
+    );
+
+    if (!fundMeta) {
+        return null;
+    }
 
     return (
         <Fragment>
