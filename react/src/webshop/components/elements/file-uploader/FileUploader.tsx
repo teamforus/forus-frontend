@@ -94,6 +94,7 @@ export default function FileUploader({
 
     const [isDragOver, setIsDragOver] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const filesRef = useRef<Array<FileUploaderItem>>(null);
     const callbackRef = useRef<FileItemEventsListener>(null);
 
@@ -166,6 +167,10 @@ export default function FileUploader({
                     }));
 
                     callbackRef?.current?.onFileUploaded?.(makeFileEvent(filesRef?.current, fileItem));
+
+                    if (cropMedia) {
+                        setTimeout(() => buttonRef.current?.focus());
+                    }
                 })
                 .catch((err: ResponseError) => {
                     const error = err?.data?.errors?.file || err?.data?.errors?.type;
@@ -190,7 +195,7 @@ export default function FileUploader({
 
             return fileItem;
         },
-        [fileService, makeFileEvent, type],
+        [cropMedia, fileService, makeFileEvent, type],
     );
 
     const prepareFilesForUpload = useCallback(
@@ -358,6 +363,7 @@ export default function FileUploader({
                             data-dusk="fileUploaderBtn"
                             type="button"
                             tabIndex={0}
+                            ref={buttonRef}
                             disabled={fileItems.length >= effectiveMaxFiles}
                             onClick={() => inputRef.current?.click()}>
                             <em
