@@ -1,8 +1,7 @@
 import ApiRequestService from '../../dashboard/services/ApiRequestService';
 import { useState } from 'react';
 import { ResponseSimple } from '../../dashboard/props/ApiResponses';
-
-export type WalletProvider = 'verid';
+import type { OpenIdFlow } from '../../dashboard/props/models/OpenIdFlow';
 
 export class OpenIdService<T = unknown> {
     /**
@@ -12,18 +11,16 @@ export class OpenIdService<T = unknown> {
 
     public prefix = '/platform/openid';
 
-    public startAuth(
-        target: string | null,
-        provider: WalletProvider,
-    ): Promise<ResponseSimple<{ redirect_url: string }>> {
-        return this.apiRequest.post(`${this.prefix}/${provider}/auth`, { target });
+    public startAuth(target: string | null, flow: OpenIdFlow): Promise<ResponseSimple<{ redirect_url: string }>> {
+        return this.apiRequest.post(`${this.prefix}/auth`, { target, flow_id: flow.id });
     }
 
-    public startFundRequest(
-        fund_id: number,
-        provider: WalletProvider,
-    ): Promise<ResponseSimple<{ redirect_url: string }>> {
-        return this.apiRequest.post(`${this.prefix}/${provider}/auth`, { fund_id, request: 'fund_request' });
+    public startFundRequest(fund_id: number, flow: OpenIdFlow): Promise<ResponseSimple<{ redirect_url: string }>> {
+        return this.apiRequest.post(`${this.prefix}/auth`, {
+            fund_id,
+            request: 'fund_request',
+            flow_id: flow.id,
+        });
     }
 }
 

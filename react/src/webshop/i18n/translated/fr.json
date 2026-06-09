@@ -150,8 +150,7 @@
                 "title": "Mon application"
             },
             "openid": {
-                "description": "Se connecter avec mon portefeuille d'identité",
-                "title": "Portefeuille d'identité"
+                "description": "Utilisez {{flow_name}} pour vous connecter"
             }
         },
         "push": {
@@ -438,8 +437,7 @@
                 "title": "Je souhaite demander un crédit"
             },
             "openid": {
-                "description": "Ouvrir l'écran de connexion de l'ID-Wallet",
-                "title": "Portefeuille d'identité"
+                "description": "Utilisez {{flow_name}} pour vous connecter"
             }
         }
     },
@@ -741,8 +739,7 @@
                     "title": "DigiD"
                 },
                 "openid": {
-                    "description": "Reconnectez-vous avec ID-Wallet pour recommencer.",
-                    "title": "Portefeuille d'identité"
+                    "description": "Utilisez {{flow_name}} pour recommencer."
                 }
             },
             "title": "Confirmation du BSN expirée"

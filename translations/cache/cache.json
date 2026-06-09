@@ -453,11 +453,7 @@
     ],
     [
         "auth.options.openid.description",
-        "Log in met mijn ID-Wallet"
-    ],
-    [
-        "auth.options.openid.title",
-        "ID-Wallet"
+        "Gebruik {{flow_name}} om in te loggen"
     ],
     [
         "auth.options.qr.description",
@@ -1249,11 +1245,7 @@
     ],
     [
         "fund_activate.options.openid.description",
-        "Open het ID-Wallet inlogscherm"
-    ],
-    [
-        "fund_activate.options.openid.title",
-        "ID-Wallet"
+        "Gebruik {{flow_name}} om in te loggen"
     ],
     [
         "fund_activate.options.request.description",
@@ -1489,11 +1481,7 @@
     ],
     [
         "fund_request.digid_expired.sign_in.openid.description",
-        "Log opnieuw in met ID-Wallet om opnieuw te beginnen."
-    ],
-    [
-        "fund_request.digid_expired.sign_in.openid.title",
-        "ID-Wallet"
+        "Gebruik {{flow_name}} om opnieuw te beginnen."
     ],
     [
         "fund_request.digid_expired.title",

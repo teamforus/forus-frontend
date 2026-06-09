@@ -20,8 +20,7 @@
                 "title": "Benim uygulamam"
             },
             "openid": {
-                "description": "Kimlik Cüzdanım ile giriş yapın",
-                "title": "Kimlik Cüzdanı"
+                "description": "Oturum açmak için {{flow_name}} kullanın"
             }
         },
         "push": {
@@ -868,8 +867,7 @@
                 "title": "Kredi talebinde bulunmak istiyorum"
             },
             "openid": {
-                "description": "ID-Wallet giriş ekranını açın",
-                "title": "Kimlik Cüzdanı"
+                "description": "Oturum açmak için {{flow_name}} kullanın"
             }
         }
     },
@@ -1128,8 +1126,7 @@
                     "title": "DigiD"
                 },
                 "openid": {
-                    "description": "Yeniden başlamak için ID-Wallet ile tekrar oturum açın.",
-                    "title": "Kimlik Cüzdanı"
+                    "description": "Yeniden başlamak için {{flow_name}} kullanın."
                 }
             },
             "title": "BSN onayının süresi doldu"

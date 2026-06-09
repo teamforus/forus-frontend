@@ -16,11 +16,15 @@ export default {
         },
         labels: {
             status: 'Status',
+            flows: 'Available wallets',
         },
         info: {
             not_configured:
                 'The Ver.id connection is not configured yet. OpenID can be enabled after platform support ' +
                 'completes the setup.',
+        },
+        hints: {
+            enable_to_select_flows: 'Enable wallet login to choose wallet options.',
         },
         notifications: {
             saved: 'Saved!',

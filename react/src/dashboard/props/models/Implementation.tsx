@@ -2,6 +2,7 @@ import Media from './Media';
 import Announcement from './Announcement';
 import ImplementationPage from './ImplementationPage';
 import Language from './Language';
+import type { OpenIdFlow } from './OpenIdFlow';
 
 export default interface Implementation {
     id: number;
@@ -28,9 +29,11 @@ export default interface Implementation {
     email_from_address?: string;
     digid_enabled?: boolean;
     digid_available?: boolean;
-    openid_verid_enabled?: boolean;
-    openid_verid_configured?: boolean;
+    openid_enabled?: boolean;
+    openid_configured?: boolean;
     openid_available?: boolean;
+    openid_flows?: Array<OpenIdFlow>;
+    openid_flow_options?: Array<OpenIdFlow>;
     digid_app_id?: string;
     digid_shared_secret?: string;
     digid_a_select_server?: string;

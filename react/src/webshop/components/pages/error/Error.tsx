@@ -19,7 +19,7 @@ export default function Error() {
 
     const recoveryStartQuery = useMemo(() => {
         if (errorCode === 'openid_uid_used') {
-            return { logout: 1, openid: 1 };
+            return { logout: 1 };
         }
 
         if (errorCode === 'digid_uid_used') {

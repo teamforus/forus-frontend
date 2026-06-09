@@ -16,8 +16,7 @@ export default {
             description: 'Open het DigiD inlogscherm',
         },
         openid: {
-            title: 'ID-Wallet',
-            description: 'Open het ID-Wallet inlogscherm',
+            description: 'Gebruik {{flow_name}} om in te loggen',
         },
         request: {
             title: 'Ik wil een tegoed aanvragen',

@@ -46,6 +46,7 @@ import FundRequestStepPhysicalCardRequestAddress from './elements/steps/FundRequ
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import FundCriteriaGroup from '../../../../dashboard/props/models/FundCriteriaGroup';
 import FundRequestPersonBsnApiWarning from './elements/FundRequestPersonBsnApiWarning';
+import type { OpenIdFlow } from '../../../../dashboard/props/models/OpenIdFlow';
 
 export type LocalCriterion = FundCriterion & {
     input_value?: string;
@@ -136,8 +137,8 @@ export default function FundRequest() {
 
     const digidAvailable = useMemo(() => appConfigs?.digid, [appConfigs]);
     const digidMandatory = useMemo(() => appConfigs?.digid_mandatory, [appConfigs]);
-    const openIdProvider = useMemo(() => {
-        return appConfigs?.openid ? appConfigs.openid_config?.default_provider : null;
+    const openIdFlows = useMemo(() => {
+        return appConfigs?.openid ? appConfigs.openid_config?.flows || [] : [];
     }, [appConfigs]);
 
     const shouldAddContactInfo = useMemo(
@@ -407,26 +408,29 @@ export default function FundRequest() {
         }
     }, [digIdService, fund?.id, navigateState, pushDanger, fetchAuthIdentity, translate]);
 
-    const startOpenId = useCallback(async () => {
-        if (!openIdProvider) {
-            return;
-        }
+    const startOpenId = useCallback(
+        async (flow: OpenIdFlow) => {
+            if (!flow) {
+                return;
+            }
 
-        if ((await fetchAuthIdentity())?.identity) {
-            openIdService
-                .startFundRequest(fund.id, openIdProvider)
-                .then((res) => (document.location = res.data.redirect_url))
-                .catch((err) => {
-                    if (err.status === 403 && err.data.message) {
-                        return pushDanger(translate('push.error'), err.data.message);
-                    }
+            if ((await fetchAuthIdentity())?.identity) {
+                openIdService
+                    .startFundRequest(fund.id, flow)
+                    .then((res) => (document.location = res.data.redirect_url))
+                    .catch((err) => {
+                        if (err.status === 403 && err.data.message) {
+                            return pushDanger(translate('push.error'), err.data.message);
+                        }
 
-                    navigateState(WebshopRoutes.ERROR, {
-                        errorCode: err.headers['error-code'] || 'openid_unknown_error',
+                        navigateState(WebshopRoutes.ERROR, {
+                            errorCode: err.headers['error-code'] || 'openid_unknown_error',
+                        });
                     });
-                });
-        }
-    }, [fetchAuthIdentity, fund?.id, navigateState, openIdProvider, openIdService, pushDanger, translate]);
+            }
+        },
+        [fetchAuthIdentity, fund?.id, navigateState, openIdService, pushDanger, translate],
+    );
 
     const transformInvalidCriteria = useCallback(
         function (item: FundCriterion): LocalCriterion {
@@ -679,7 +683,7 @@ export default function FundRequest() {
         checkPersonBsnApiRecords();
 
         setAutoSubmit(
-            (digidAvailable || !!openIdProvider) &&
+            (digidAvailable || openIdFlows.length > 0) &&
                 fund.auto_validation &&
                 invalidCriteria?.length > 0 &&
                 ['IIT', 'bus_2020', 'meedoen'].includes(fund.key),
@@ -688,7 +692,7 @@ export default function FundRequest() {
         bsnIsKnown,
         transformInvalidCriteria,
         digidAvailable,
-        openIdProvider,
+        openIdFlows,
         from,
         fund,
         fundRequestIsAvailable,
@@ -1002,29 +1006,31 @@ export default function FundRequest() {
                                                 </div>
                                             )}
 
-                                            {openIdProvider && (
-                                                <div className="sign_up-option" onClick={startOpenId}>
+                                            {openIdFlows.map((flow) => (
+                                                <div
+                                                    key={flow.key}
+                                                    className="sign_up-option"
+                                                    onClick={() => startOpenId(flow)}>
                                                     <div className="sign_up-option-media">
                                                         <img
                                                             className="sign_up-option-media-img"
-                                                            src={assetUrl('/assets/img/icon-auth/icon-auth-openid.svg')}
-                                                            alt="logo ID-Wallet"
+                                                            src={assetUrl(
+                                                                `/assets/img/icon-auth/icon-auth-${flow.key}.svg`,
+                                                            )}
+                                                            alt={`logo ${flow.name}`}
                                                         />
                                                     </div>
                                                     <div className="sign_up-option-details">
-                                                        <div className="sign_up-option-title">
-                                                            {translate(
-                                                                'fund_request.digid_expired.sign_in.openid.title',
-                                                            )}
-                                                        </div>
+                                                        <div className="sign_up-option-title">{flow.name}</div>
                                                         <div className="sign_up-option-description">
                                                             {translate(
                                                                 'fund_request.digid_expired.sign_in.openid.description',
+                                                                { flow_name: flow.name },
                                                             )}
                                                         </div>
                                                     </div>
                                                 </div>
-                                            )}
+                                            ))}
                                         </div>
                                     </div>
                                     <br />

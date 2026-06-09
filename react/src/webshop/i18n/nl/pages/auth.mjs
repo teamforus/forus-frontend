@@ -19,8 +19,7 @@ export default {
             description: 'Open DigiD inlogscherm',
         },
         openid: {
-            title: 'ID-Wallet',
-            description: 'Log in met mijn ID-Wallet',
+            description: 'Gebruik {{flow_name}} om in te loggen',
         },
     },
     privacy_link: {

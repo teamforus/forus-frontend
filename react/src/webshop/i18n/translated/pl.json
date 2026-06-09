@@ -150,8 +150,7 @@
                 "title": "Moja aplikacja"
             },
             "openid": {
-                "description": "Zaloguj się za pomocą mojego ID-Wallet",
-                "title": "Portfel identyfikacyjny"
+                "description": "Użyj {{flow_name}}, aby się zalogować"
             }
         },
         "push": {
@@ -438,8 +437,7 @@
                 "title": "Chcę poprosić o kredyt"
             },
             "openid": {
-                "description": "Otwórz ekran logowania ID-Wallet",
-                "title": "Portfel identyfikacyjny"
+                "description": "Użyj {{flow_name}}, aby się zalogować"
             }
         }
     },
@@ -741,8 +739,7 @@
                     "title": "DigiD"
                 },
                 "openid": {
-                    "description": "Zaloguj się ponownie za pomocą ID-Wallet, aby rozpocząć od nowa.",
-                    "title": "Portfel identyfikacyjny"
+                    "description": "Użyj {{flow_name}}, aby rozpocząć od nowa."
                 }
             },
             "title": "Potwierdzenie BSN straciło ważność"

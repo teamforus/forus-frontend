@@ -16,11 +16,15 @@ export default {
         },
         labels: {
             status: 'Status',
+            flows: 'Beschikbare wallets',
         },
         info: {
             not_configured:
                 'De Ver.id koppeling is nog niet geconfigureerd. OpenID kan worden ingeschakeld nadat ' +
                 'platformbeheer de configuratie heeft afgerond.',
+        },
+        hints: {
+            enable_to_select_flows: 'Schakel inloggen met wallets in om walletopties te kiezen.',
         },
         notifications: {
             saved: 'Opgeslagen!',

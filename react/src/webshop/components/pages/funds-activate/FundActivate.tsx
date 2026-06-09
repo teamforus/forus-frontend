@@ -45,6 +45,7 @@ import TranslateHtml from '../../../../dashboard/components/elements/translate-h
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
 import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import type { OpenIdFlow } from '../../../../dashboard/props/models/OpenIdFlow';
 
 export default function FundActivate() {
     const { id } = useParams();
@@ -103,9 +104,10 @@ export default function FundActivate() {
     const [fetchingData, setFetchingData] = useState(false);
     const [applyingFund, setApplyingFund] = useState(false);
     const [bsnVerificationMethod, setBsnVerificationMethod] = useState<'digid' | 'openid'>('digid');
+    const [bsnVerificationOpenIdFlow, setBsnVerificationOpenIdFlow] = useState<OpenIdFlow>(null);
 
-    const openIdProvider = useMemo(() => {
-        return appConfigs?.openid ? appConfigs.openid_config?.default_provider : null;
+    const openIdFlows = useMemo(() => {
+        return appConfigs?.openid ? appConfigs.openid_config?.flows || [] : [];
     }, [appConfigs]);
 
     const getTimeToSkipDigid = useCallback(
@@ -155,13 +157,13 @@ export default function FundActivate() {
     );
 
     const startOpenId = useCallback(
-        (fund: Fund) => {
-            if (!openIdProvider) {
+        (fund: Fund, flow: OpenIdFlow) => {
+            if (!flow) {
                 return;
             }
 
             openIdService
-                .startFundRequest(fund.id, openIdProvider)
+                .startFundRequest(fund.id, flow)
                 .then((res) => (document.location = res.data.redirect_url))
                 .catch((err: ResponseError) => {
                     if (err.status === 403 && err.data.message) {
@@ -173,14 +175,14 @@ export default function FundActivate() {
                     });
                 });
         },
-        [navigateState, openIdProvider, openIdService, pushDanger, translate],
+        [navigateState, openIdService, pushDanger, translate],
     );
 
     const startBsnVerification = useCallback(
-        (fund: Fund, method = bsnVerificationMethod) => {
-            return method === 'openid' ? startOpenId(fund) : startDigId(fund);
+        (fund: Fund, method = bsnVerificationMethod, flow = bsnVerificationOpenIdFlow || openIdFlows[0]) => {
+            return method === 'openid' ? startOpenId(fund, flow) : startDigId(fund);
         },
-        [bsnVerificationMethod, startDigId, startOpenId],
+        [bsnVerificationMethod, bsnVerificationOpenIdFlow, openIdFlows, startDigId, startOpenId],
     );
 
     // Apply for the fund
@@ -270,7 +272,7 @@ export default function FundActivate() {
     }, [appConfigs, authIdentity, fund]);
 
     const checkFund = useCallback(
-        (fromVerification = false, method = bsnVerificationMethod) => {
+        (fromVerification = false, method = bsnVerificationMethod, flow = bsnVerificationOpenIdFlow) => {
             if (fetchingData) {
                 return;
             }
@@ -282,7 +284,7 @@ export default function FundActivate() {
                 const timeToSkipBsn = getTimeToSkipDigid(identity, fund);
 
                 if (!fromVerification && (timeToSkipBsn === null || timeToSkipBsn <= 0)) {
-                    return startBsnVerification(fund, method);
+                    return startBsnVerification(fund, method, flow);
                 }
 
                 fundService
@@ -350,6 +352,7 @@ export default function FundActivate() {
             });
         },
         [
+            bsnVerificationOpenIdFlow,
             bsnVerificationMethod,
             translate,
             fetchingData,
@@ -374,18 +377,21 @@ export default function FundActivate() {
     }, [skipBsnLimit, skipBsnLimitSoft]);
 
     const selectBsnVerificationOption = useCallback(
-        (fund: Fund, method: 'digid' | 'openid') => {
+        (fund: Fund, method: 'digid' | 'openid', flow?: OpenIdFlow) => {
             setBsnVerificationMethod(method);
+            setBsnVerificationOpenIdFlow(method === 'openid' ? flow : null);
 
             const hasCustomCriteria = ['IIT', 'bus_2020', 'meedoen'].includes(fund.key);
             const autoValidation = fund.auto_validation;
 
             //- Show custom criteria screen
             if (autoValidation && hasCustomCriteria) {
-                return getTimeToSkip().timeToSkipBsnSoft > 0 ? setState('digid') : startBsnVerification(fund, method);
+                return getTimeToSkip().timeToSkipBsnSoft > 0
+                    ? setState('digid')
+                    : startBsnVerification(fund, method, flow);
             }
 
-            checkFund(false, method);
+            checkFund(false, method, flow);
         },
         [checkFund, startBsnVerification, getTimeToSkip],
     );
@@ -396,13 +402,14 @@ export default function FundActivate() {
     );
 
     const selectOpenIdOption = useCallback(
-        (fund: Fund) => selectBsnVerificationOption(fund, 'openid'),
-        [selectBsnVerificationOption],
+        (fund: Fund, flow = bsnVerificationOpenIdFlow || openIdFlows[0]) =>
+            selectBsnVerificationOption(fund, 'openid', flow),
+        [bsnVerificationOpenIdFlow, openIdFlows, selectBsnVerificationOption],
     );
 
     const confirmCriteria = useCallback(() => {
-        checkFund(false, bsnVerificationMethod);
-    }, [bsnVerificationMethod, checkFund]);
+        checkFund(false, bsnVerificationMethod, bsnVerificationOpenIdFlow);
+    }, [bsnVerificationMethod, bsnVerificationOpenIdFlow, checkFund]);
 
     const handleDigiDResponse = useCallback(() => {
         const { digid_success, digid_error, openid_success, openid_error } = digidResponse;
@@ -537,17 +544,22 @@ export default function FundActivate() {
                 options.push('digid');
             }
 
-            if (openIdProvider) {
+            if (openIdFlows.length > 0) {
                 options.push('openid');
             }
 
-            if (!appConfigs.digid && !openIdProvider && !appConfigs.digid_mandatory && fund.allow_fund_requests) {
+            if (
+                !appConfigs.digid &&
+                openIdFlows.length === 0 &&
+                !appConfigs.digid_mandatory &&
+                fund.allow_fund_requests
+            ) {
                 options.push('request');
             }
 
             return options;
         },
-        [appConfigs, openIdProvider],
+        [appConfigs, openIdFlows],
     );
 
     const initState = useCallback(
@@ -753,30 +765,33 @@ export default function FundActivate() {
                                             </div>
                                         )}
 
-                                        {options?.includes('openid') && (
+                                        {(options?.includes('openid') ? openIdFlows : []).map((flow) => (
                                             <div
+                                                key={flow.key}
                                                 data-dusk="openidOption"
                                                 className="sign_up-option"
-                                                onClick={() => selectOpenIdOption(fund)}
+                                                onClick={() => selectOpenIdOption(fund, flow)}
                                                 onKeyDown={clickOnKeyEnter}
                                                 tabIndex={0}>
                                                 <div className="sign_up-option-media">
                                                     <img
                                                         className="sign_up-option-media-img"
-                                                        src={assetUrl('/assets/img/icon-auth/icon-auth-openid.svg')}
-                                                        alt="logo ID-Wallet"
+                                                        src={assetUrl(
+                                                            `/assets/img/icon-auth/icon-auth-${flow.key}.svg`,
+                                                        )}
+                                                        alt={`logo ${flow.name}`}
                                                     />
                                                 </div>
                                                 <div className="sign_up-option-details">
-                                                    <div className="sign_up-option-title">
-                                                        {translate('fund_activate.options.openid.title')}
-                                                    </div>
+                                                    <div className="sign_up-option-title">{flow.name}</div>
                                                     <div className="sign_up-option-description">
-                                                        {translate('fund_activate.options.openid.description')}
+                                                        {translate('fund_activate.options.openid.description', {
+                                                            flow_name: flow.name,
+                                                        })}
                                                     </div>
                                                 </div>
                                             </div>
-                                        )}
+                                        ))}
 
                                         {options?.includes('request') && (
                                             <StateNavLink

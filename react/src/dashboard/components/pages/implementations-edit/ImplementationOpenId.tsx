@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useFormBuilder from '../../../hooks/useFormBuilder';
@@ -19,6 +19,7 @@ import FormGroup from '../../elements/forms/elements/FormGroup';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import ToggleControl from '../../elements/forms/controls/ToggleControl';
 import InfoBox from '../../elements/info-box/InfoBox';
+import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 
 export default function ImplementationOpenId() {
     const { id } = useParams();
@@ -35,10 +36,12 @@ export default function ImplementationOpenId() {
     const [implementation, setImplementation] = useState<Implementation>(null);
 
     const form = useFormBuilder<{
-        openid_verid_enabled: boolean;
+        openid_enabled: boolean;
+        openid_flow_keys: Array<string>;
     }>(
         {
-            openid_verid_enabled: false,
+            openid_enabled: false,
+            openid_flow_keys: [],
         },
         (values) => {
             setProgress(0);
@@ -62,6 +65,23 @@ export default function ImplementationOpenId() {
     );
 
     const { update } = form;
+
+    const openIdFlowOptions = useMemo(() => {
+        return implementation?.openid_flow_options || [];
+    }, [implementation?.openid_flow_options]);
+
+    const openIdFlowsDisabled = !form.values?.openid_enabled;
+
+    const toggleFlowKey = useCallback(
+        (flowKey: string, enabled: boolean) => {
+            const flows = (form.values?.openid_flow_keys || []).filter((key) => key !== flowKey);
+
+            form.update({
+                openid_flow_keys: enabled ? [...flows, flowKey] : flows,
+            });
+        },
+        [form],
+    );
 
     const fetchImplementation = useCallback(() => {
         implementationService
@@ -88,7 +108,10 @@ export default function ImplementationOpenId() {
 
     useEffect(() => {
         if (implementation) {
-            update({ openid_verid_enabled: implementation.openid_verid_enabled });
+            update({
+                openid_enabled: implementation.openid_enabled,
+                openid_flow_keys: implementation.openid_flows?.map((flow) => flow.key) || [],
+            });
         }
     }, [update, implementation]);
 
@@ -111,7 +134,7 @@ export default function ImplementationOpenId() {
                 </div>
 
                 <FormPaneContainer className="card-section">
-                    {!implementation.openid_verid_configured && (
+                    {!implementation.openid_configured && (
                         <InfoBox type="warning">
                             {translate('implementation_auth_page.openid_settings.info.not_configured')}
                         </InfoBox>
@@ -124,11 +147,38 @@ export default function ImplementationOpenId() {
                                 <ToggleControl
                                     id={id}
                                     className="form-label"
-                                    checked={form.values?.openid_verid_enabled}
-                                    onChange={(e) => form.update({ openid_verid_enabled: e.target.checked })}
+                                    checked={form.values?.openid_enabled}
+                                    onChange={(e) => form.update({ openid_enabled: e.target.checked })}
                                 />
                             )}
                         />
+
+                        {openIdFlowOptions.length > 0 && (
+                            <FormGroup
+                                label={translate('implementation_auth_page.openid_settings.labels.flows')}
+                                hint={
+                                    openIdFlowsDisabled
+                                        ? translate(
+                                              'implementation_auth_page.openid_settings.hints.enable_to_select_flows',
+                                          )
+                                        : null
+                                }
+                                input={() => (
+                                    <div className="flex flex-vertical">
+                                        {openIdFlowOptions.map((flow) => (
+                                            <CheckboxControl
+                                                key={flow.key}
+                                                id={`openid_flow_${flow.key}`}
+                                                checked={(form.values?.openid_flow_keys || []).includes(flow.key)}
+                                                disabled={openIdFlowsDisabled}
+                                                onChange={(e) => toggleFlowKey(flow.key, e.target.checked)}>
+                                                {flow.name}
+                                            </CheckboxControl>
+                                        ))}
+                                    </div>
+                                )}
+                            />
+                        )}
                     </FormPane>
                 </FormPaneContainer>
 

@@ -365,8 +365,7 @@
                 "title": "Me app"
             },
             "openid": {
-                "description": "Log in with my ID Wallet",
-                "title": "ID Wallet"
+                "description": "Use {{flow_name}} to log in"
             }
         },
         "push": {
@@ -623,8 +622,7 @@
                 "title": "I want to request a credit"
             },
             "openid": {
-                "description": "Open the ID-Wallet login screen",
-                "title": "ID Wallet"
+                "description": "Use {{flow_name}} to log in"
             }
         }
     },
@@ -904,8 +902,7 @@
                     "title": "DigiD"
                 },
                 "openid": {
-                    "description": "Log back in with ID-Wallet to start over.",
-                    "title": "ID Wallet"
+                    "description": "Use {{flow_name}} to start over."
                 }
             },
             "title": "BSN confirmation expired"

@@ -10,6 +10,7 @@ import useEnvData from '../../../../hooks/useEnvData';
 import { BooleanParam, useQueryParams } from 'use-query-params';
 import { useDigiDService } from '../../../../services/DigiDService';
 import { useOpenIdService } from '../../../../services/OpenIdService';
+import type { OpenIdFlow } from '../../../../../dashboard/props/models/OpenIdFlow';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import FormError from '../../../../../dashboard/components/elements/forms/errors/FormError';
 import useAppConfigs from '../../../../hooks/useAppConfigs';
@@ -71,9 +72,12 @@ export default function Start() {
     const [authEmailConfirmationSent, setAuthEmailConfirmationSent] = useState<boolean>(false);
 
     const signedIn = useMemo(() => !!token, [token]);
-    const openIdProvider = appConfigs?.openid ? appConfigs.openid_config?.default_provider : null;
     const authPageTitle = appConfigs?.auth_page?.title || translate('auth.title');
     const authPageLoginTitle = appConfigs?.auth_page?.login_title || '';
+
+    const openIdFlows = useMemo(() => {
+        return appConfigs?.openid ? appConfigs.openid_config?.flows || [] : [];
+    }, [appConfigs]);
 
     const authOptions = useMemo(() => {
         const options = appConfigs?.auth_page?.login_options || [];
@@ -86,12 +90,12 @@ export default function Start() {
                 }
 
                 if (option === 'openid') {
-                    return openIdProvider;
+                    return openIdFlows.length > 0;
                 }
 
                 return true;
             });
-    }, [appConfigs?.auth_page?.login_options, appConfigs?.digid, openIdProvider]);
+    }, [appConfigs?.auth_page?.login_options, appConfigs?.digid, openIdFlows]);
 
     const hasEmailOnlyAuth = useMemo(() => {
         return authOptions.length === 1 && authOptions[0] === 'email';
@@ -180,25 +184,32 @@ export default function Start() {
             });
     }, [digIdService, navigateState, setProgress]);
 
-    const startOpenId = useCallback(() => {
-        if (!openIdProvider) {
-            return;
-        }
+    const startOpenId = useCallback(
+        (flow?: OpenIdFlow) => {
+            const openIdFlow = flow || openIdFlows[0];
 
-        setLoading(true);
-        setProgress(0);
+            if (!openIdFlow) {
+                return;
+            }
 
-        openIdService
-            .startAuth(target || null, openIdProvider)
-            .then((res) => (document.location = res.data.redirect_url))
-            .catch((res: ResponseError) =>
-                navigateState(WebshopRoutes.ERROR, { errorCode: res.headers['error-code'] || 'openid_unknown_error' }),
-            )
-            .finally(() => {
-                setLoading(false);
-                setProgress(100);
-            });
-    }, [navigateState, openIdService, openIdProvider, setProgress, target]);
+            setLoading(true);
+            setProgress(0);
+
+            openIdService
+                .startAuth(target || null, openIdFlow)
+                .then((res) => (document.location = res.data.redirect_url))
+                .catch((res: ResponseError) =>
+                    navigateState(WebshopRoutes.ERROR, {
+                        errorCode: res.headers['error-code'] || 'openid_unknown_error',
+                    }),
+                )
+                .finally(() => {
+                    setLoading(false);
+                    setProgress(100);
+                });
+        },
+        [navigateState, openIdFlows, openIdService, setProgress, target],
+    );
 
     const showStart = useCallback(() => {
         setState('start');
@@ -462,6 +473,7 @@ export default function Start() {
                                 title={authPageTitle}
                                 loginTitle={authPageLoginTitle}
                                 authOptions={authOptions}
+                                openIdFlows={openIdFlows}
                                 loading={loading}
                                 authInfo={authInfo}
                                 onEmail={showEmail}

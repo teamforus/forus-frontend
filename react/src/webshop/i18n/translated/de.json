@@ -150,8 +150,7 @@
                 "title": "Ich-App"
             },
             "openid": {
-                "description": "Mit meiner ID-Wallet anmelden",
-                "title": "ID Brieftasche"
+                "description": "Verwenden Sie {{flow_name}}, um sich anzumelden"
             }
         },
         "push": {
@@ -438,8 +437,7 @@
                 "title": "Ich möchte einen Kredit beantragen"
             },
             "openid": {
-                "description": "Öffnen Sie den ID-Wallet-Anmeldebildschirm",
-                "title": "ID Brieftasche"
+                "description": "Verwenden Sie {{flow_name}}, um sich anzumelden"
             }
         }
     },
@@ -741,8 +739,7 @@
                     "title": "DigiD"
                 },
                 "openid": {
-                    "description": "Melden Sie sich wieder mit ID-Wallet an, um neu zu beginnen.",
-                    "title": "ID Brieftasche"
+                    "description": "Verwenden Sie {{flow_name}}, um neu zu beginnen."
                 }
             },
             "title": "BSN-Bestätigung abgelaufen"

@@ -5,6 +5,7 @@ import Announcement from '../props/models/Announcement';
 import Media from '../props/models/Media';
 import ImplementationPage from '../../webshop/props/models/ImplementationPage';
 import Language from '../props/models/Language';
+import type { OpenIdFlow, OpenIdProvider } from '../props/models/OpenIdFlow';
 
 export type AuthPageLoginOption = 'email' | 'digid' | 'openid' | 'qr';
 
@@ -128,8 +129,9 @@ export type AppConfigProp = {
     announcements: Array<Announcement>;
     openid: boolean;
     openid_config: {
-        default_provider: 'verid' | null;
-        providers: Array<'verid'>;
+        default_provider: OpenIdProvider | null;
+        providers: Array<OpenIdProvider>;
+        flows: Array<OpenIdFlow>;
     };
     auth_page?: {
         title: string;
