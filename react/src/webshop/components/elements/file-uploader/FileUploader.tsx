@@ -95,6 +95,7 @@ export default function FileUploader({
     const [isDragOver, setIsDragOver] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
+    const filesListRef = useRef<HTMLDivElement>(null);
     const filesRef = useRef<Array<FileUploaderItem>>(null);
     const callbackRef = useRef<FileItemEventsListener>(null);
 
@@ -167,10 +168,6 @@ export default function FileUploader({
                     }));
 
                     callbackRef?.current?.onFileUploaded?.(makeFileEvent(filesRef?.current, fileItem));
-
-                    if (cropMedia) {
-                        setTimeout(() => buttonRef.current?.focus());
-                    }
                 })
                 .catch((err: ResponseError) => {
                     const error = err?.data?.errors?.file || err?.data?.errors?.type;
@@ -195,8 +192,17 @@ export default function FileUploader({
 
             return fileItem;
         },
-        [cropMedia, fileService, makeFileEvent, type],
+        [fileService, makeFileEvent, type],
     );
+
+    const focusAfterCropperClose = useCallback(() => {
+        if (buttonRef.current && !buttonRef.current.disabled) {
+            buttonRef.current.focus();
+            return;
+        }
+
+        filesListRef.current?.focus();
+    }, []);
 
     const prepareFilesForUpload = useCallback(
         async (files: Array<File>): Promise<Array<FileUploaderItem>> => {
@@ -207,29 +213,32 @@ export default function FileUploader({
                     );
                 }
 
-                openModal((modal) => (
-                    <ModalPhotoCropper
-                        modal={modal}
-                        accept={acceptedFiles}
-                        files={files}
-                        onSubmit={(files) => {
-                            resolve(
-                                files.map((item) =>
-                                    uploadFile({
-                                        id: uniqueId(),
-                                        file: item.file,
-                                        file_preview: item.file_preview || null,
-                                        uploaded: false,
-                                        progress: 0,
-                                    }),
-                                ),
-                            );
-                        }}
-                    />
-                ));
+                openModal(
+                    (modal) => (
+                        <ModalPhotoCropper
+                            modal={modal}
+                            accept={acceptedFiles}
+                            files={files}
+                            onSubmit={(files) => {
+                                resolve(
+                                    files.map((item) =>
+                                        uploadFile({
+                                            id: uniqueId(),
+                                            file: item.file,
+                                            file_preview: item.file_preview || null,
+                                            uploaded: false,
+                                            progress: 0,
+                                        }),
+                                    ),
+                                );
+                            }}
+                        />
+                    ),
+                    { onClosed: focusAfterCropperClose },
+                );
             });
         },
-        [acceptedFiles, cropMedia, openModal, uploadFile],
+        [acceptedFiles, cropMedia, focusAfterCropperClose, openModal, uploadFile],
     );
 
     const uploadFiles = useCallback(
@@ -385,7 +394,7 @@ export default function FileUploader({
             )}
 
             {fileItems.length > 0 && (
-                <div className="uploader-files">
+                <div className="uploader-files" ref={filesListRef} tabIndex={-1}>
                     {(template === 'inline' || template === 'group') && !hideInlineTitle && (
                         <div className="uploader-files-title">
                             {translate('global.file_uploader.attachments')}
