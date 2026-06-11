@@ -705,6 +705,73 @@
             background: none;
             border: none;
         }
+
+        .form-group-info {
+            display: flex;
+            flex-direction: row;
+
+            .form-group-info-control {
+                display: flex;
+                flex-grow: 1;
+                min-width: 0;
+
+                .form-control {
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+
+                .ui-control {
+                    width: 100%;
+                }
+            }
+
+            .form-group-info-button {
+                .button {
+                    border-left: none;
+                    box-shadow: none;
+                    height: 100%;
+                    align-items: center;
+                    margin: 0;
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+                    background: #fff;
+                    border-color: #eff2f4;
+                    color: #fff;
+
+                    .mdi {
+                        color: #646f79;
+                    }
+
+                    &:hover,
+                    &.active {
+                        .mdi {
+                            color: #009ef4;
+                        }
+                    }
+
+                    &:not(:last-child) {
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 0;
+                    }
+                }
+
+                &.form-group-info-button-dashed {
+                    .button {
+                        border: 1px dashed var(--border-color) !important;
+                        border-left: none !important;
+                        box-shadow: none !important;
+                    }
+                }
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            & + .block-info-box {
+                margin-top: 10px;
+            }
+        }
     }
 
     .sign_up-organizations {

@@ -742,6 +742,7 @@ export default {
         labels: {
             name: 'Bedrijfsnaam',
             bank: 'IBAN-nummer',
+            iban_confirmation: 'HERHAAL IBAN–NUMMER',
             mail: 'E-mailadres van organisatie',
             phone: 'Telefoonnummer',
             kvk: 'KvK-nummer',
@@ -763,6 +764,20 @@ export default {
             break: 'Pauze',
             not_specified: 'Niet ingevuld',
             description: 'Omschrijving',
+        },
+        tooltips: {
+            name: 'De officiële naam van de organisatie zoals geregistreerd bij de Kamer van Koophandel.',
+            bank: 'Het rekeningnummer van de organisatie waarop betalingen ontvangen kunnen worden.',
+            iban_confirmation:
+                'Vul het IBAN nog een keer in. Zo controleren we of het rekeningnummer correct is ingevuld en voorkomen we fouten.',
+            email: 'Het e-mailadres waarop contact kan worden opgenomen met de organisatie. Wanneer de instelling ‘publiek’ aan staat, wordt dit gebruikt voor systeemberichten en getoond op de website bij de organisatiegegevens.',
+            phone: 'Het telefoonnummer waarop de organisatie bereikbaar is voor vragen of contact. Wanneer de instelling ‘publiek’ aan staat, wordt dit gebruikt voor systeemberichten en getoond op de website bij de organisatiegegevens.',
+            kvk: 'Het KvK-nummer van de organisatie. Met dit nummer staat de organisatie ingeschreven bij de Kamer van Koophandel. Dit nummer is uniek voor elke organisatie.',
+            btw: 'Het btw-nummer van de organisatie. Dit nummer wordt gebruikt voor belastingen en op facturen. Dit veld is niet verplicht.',
+            website:
+                'De officiële website van de organisatie. Wanneer de instelling ‘publiek’ aan staat, wordt dit gebruikt voor systeemberichten en getoond op de website bij de organisatiegegevens.',
+            business_type:
+                'Het type organisatie, bijvoorbeeld stichting, vereniging, onderneming of gemeente. Wanneer de instelling ‘publiek’ aan staat, wordt dit gebruikt voor systeemberichten en getoond op de website bij de organisatiegegevens.',
         },
         buttons: {
             cancel: 'Annuleren',
