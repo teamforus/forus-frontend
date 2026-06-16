@@ -43,7 +43,6 @@ type VoucherType = Voucher & {
 type Field = {
     fullWidth?: boolean;
     description?: string;
-    showInfo?: boolean;
     label?: string;
     placeholder?: string;
     required?: boolean;
@@ -922,7 +921,7 @@ export default function ModalProductReserve({
                                                 </div>
                                             ) : field.custom ? (
                                                 field.description ? (
-                                                    <FormGroupInfo info={field.description}>
+                                                    <FormGroupInfo info={field.description} duskPrefix={field.dusk}>
                                                         {makeControlForCustomField(field)}
                                                     </FormGroupInfo>
                                                 ) : (

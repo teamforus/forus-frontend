@@ -11,6 +11,7 @@ export default function FormGroupInfo({
     copyShow = false,
     copyValue = null,
     copyDisable = false,
+    duskPrefix = null,
 }: {
     info?: ReactNode | ReactNode[];
     error?: string | Array<string>;
@@ -19,6 +20,7 @@ export default function FormGroupInfo({
     copyValue?: string;
     copyDisable?: boolean;
     children: React.ReactElement | Array<React.ReactElement>;
+    duskPrefix?: string;
 }) {
     const [showInfo, setShowInfo] = useState(false);
     const copyToClipboard = useCopyToClipboard();
@@ -46,6 +48,7 @@ export default function FormGroupInfo({
                         aria-label={showInfo ? 'Hide information' : 'Show information'}
                         aria-expanded={showInfo}
                         onClick={() => setShowInfo(!showInfo)}
+                        data-dusk={`${duskPrefix}InfoBtn`}
                         className={classNames(
                             'button button-default button-icon pull-left',
                             dashed && 'button-dashed',
@@ -59,7 +62,11 @@ export default function FormGroupInfo({
             <FormError error={error} />
 
             {showInfo && (
-                <div className="block block-info-box block-info-box-primary" role="region" aria-label="Information">
+                <div
+                    className="block block-info-box block-info-box-primary"
+                    role="region"
+                    aria-label="Information"
+                    data-dusk={`${duskPrefix}InfoContent`}>
                     <div className="info-box-icon mdi mdi-information" aria-hidden="true" />
                     <div className="info-box-content">
                         <div className="block block-markdown">
