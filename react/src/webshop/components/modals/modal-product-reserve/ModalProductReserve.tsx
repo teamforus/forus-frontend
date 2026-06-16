@@ -21,7 +21,6 @@ import BlockWarning from '../../elements/block-warning/BlockWarning';
 import { currencyFormat, strLimit } from '../../../../dashboard/helpers/string';
 import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
 import FormError from '../../../../dashboard/components/elements/forms/errors/FormError';
-import ClickOutside from '../../../../dashboard/components/elements/click-outside/ClickOutside';
 import DatePickerControl from '../../../../dashboard/components/elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../../dashboard/helpers/dates';
 import Tooltip from '../../elements/tooltip/Tooltip';
@@ -35,6 +34,7 @@ import SelectControl from '../../../../dashboard/components/elements/select-cont
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import FileUploader from '../../elements/file-uploader/FileUploader';
 import FileModel from '../../../../dashboard/props/models/File';
+import FormGroupInfo from '../../../../dashboard/components/elements/forms/elements/FormGroupInfo';
 
 type VoucherType = Voucher & {
     amount_extra: number;
@@ -471,6 +471,60 @@ export default function ModalProductReserve({
         };
     }, [fundMeta?.shownExpireDate?.unix, product.name, product.organization.name, product.price, vouchers]);
 
+    const makeControlForCustomField = useCallback(
+        (field: Field) => {
+            const fieldKey = String(field.key);
+            const customFieldValue = form.values.custom_fields?.[fieldKey];
+
+            return (
+                <Fragment>
+                    {field.type === 'text' && (
+                        <input
+                            className="form-control"
+                            type="text"
+                            value={customFieldValue ?? ''}
+                            onChange={(e) => {
+                                form.values.custom_fields = form.values.custom_fields || {};
+                                form.values.custom_fields[fieldKey] = e.target.value;
+                                form.update({ ...form.values });
+                            }}
+                            data-dusk={field.dusk}
+                        />
+                    )}
+                    {field.type === 'number' && (
+                        <input
+                            className="form-control"
+                            type="number"
+                            pattern="[0-9]+"
+                            max={999999999999999}
+                            value={customFieldValue ?? ''}
+                            onChange={(e) => {
+                                form.values.custom_fields = form.values.custom_fields || {};
+                                form.values.custom_fields[fieldKey] = e.target.value;
+                                form.update({ ...form.values });
+                            }}
+                            data-dusk={field.dusk}
+                        />
+                    )}
+                    {field.type === 'boolean' && (
+                        <SelectControl
+                            propKey={'key'}
+                            value={customFieldValue ? String(customFieldValue) : null}
+                            onChange={(value: string) => {
+                                form.values.custom_fields = form.values.custom_fields || {};
+                                form.values.custom_fields[fieldKey] = value;
+                                form.update({ ...form.values });
+                            }}
+                            dusk={field.dusk}
+                            options={customFieldBooleanOptions}
+                        />
+                    )}
+                </Fragment>
+            );
+        },
+        [customFieldBooleanOptions, form],
+    );
+
     useEffect(() => {
         fetchProfileAddress();
     }, [fetchProfileAddress]);
@@ -805,7 +859,6 @@ export default function ModalProductReserve({
                             <div className="row">
                                 {fields?.map((field, index) => {
                                     const fieldKey = String(field.key);
-                                    const customFieldValue = form.values.custom_fields?.[fieldKey];
                                     const fieldFiles = customFieldFiles?.[fieldKey] || [];
 
                                     return (
@@ -842,131 +895,39 @@ export default function ModalProductReserve({
                                                         )}
                                                     </div>
 
-                                                    <div className="form-group-info-control">
-                                                        <FileUploader
-                                                            type="product_reservation_custom_field"
-                                                            files={fieldFiles}
-                                                            template="inline"
-                                                            cropMedia={false}
-                                                            allowMultiple={true}
-                                                            maxFiles={5}
-                                                            hideDownloadButton={true}
-                                                            hideInlineTitle={true}
-                                                            acceptedFiles={['.jpg', '.jpeg', '.png']}
-                                                            onFilesChange={({ files }) => {
-                                                                form.values.custom_fields =
-                                                                    form.values.custom_fields || {};
-                                                                form.values.custom_fields[fieldKey] = files.map(
-                                                                    (file) => file.uid,
-                                                                );
+                                                    <FileUploader
+                                                        type="product_reservation_custom_field"
+                                                        files={fieldFiles}
+                                                        template="inline"
+                                                        cropMedia={false}
+                                                        allowMultiple={true}
+                                                        maxFiles={5}
+                                                        hideDownloadButton={true}
+                                                        hideInlineTitle={true}
+                                                        acceptedFiles={['.jpg', '.jpeg', '.png']}
+                                                        onFilesChange={({ files }) => {
+                                                            form.values.custom_fields = form.values.custom_fields || {};
+                                                            form.values.custom_fields[fieldKey] = files.map(
+                                                                (file) => file.uid,
+                                                            );
 
-                                                                setCustomFieldFiles((current) => ({
-                                                                    ...current,
-                                                                    [fieldKey]: files || [],
-                                                                }));
-                                                                form.update({ ...form.values });
-                                                            }}
-                                                            isRequired={field.required}
-                                                        />
-                                                    </div>
+                                                            setCustomFieldFiles((current) => ({
+                                                                ...current,
+                                                                [fieldKey]: files || [],
+                                                            }));
+                                                            form.update({ ...form.values });
+                                                        }}
+                                                        isRequired={field.required}
+                                                    />
                                                 </div>
                                             ) : field.custom ? (
-                                                <div
-                                                    className={classNames('form-group-info', {
-                                                        active: field.showInfo,
-                                                    })}>
-                                                    <div
-                                                        className={classNames(
-                                                            'form-group-info-control',
-                                                            field.description && 'has-info-btn',
-                                                        )}>
-                                                        {field.type === 'text' && (
-                                                            <input
-                                                                className="form-control"
-                                                                type="text"
-                                                                value={customFieldValue ?? ''}
-                                                                onChange={(e) => {
-                                                                    form.values.custom_fields =
-                                                                        form.values.custom_fields || {};
-                                                                    form.values.custom_fields[fieldKey] =
-                                                                        e.target.value;
-                                                                    form.update({ ...form.values });
-                                                                }}
-                                                                data-dusk={field.dusk}
-                                                            />
-                                                        )}
-                                                        {field.type === 'number' && (
-                                                            <input
-                                                                className="form-control"
-                                                                type="number"
-                                                                pattern="[0-9]+"
-                                                                max={999999999999999}
-                                                                value={customFieldValue ?? ''}
-                                                                onChange={(e) => {
-                                                                    form.values.custom_fields =
-                                                                        form.values.custom_fields || {};
-                                                                    form.values.custom_fields[fieldKey] =
-                                                                        e.target.value;
-                                                                    form.update({ ...form.values });
-                                                                }}
-                                                                data-dusk={field.dusk}
-                                                            />
-                                                        )}
-                                                        {field.type === 'boolean' && (
-                                                            <SelectControl
-                                                                propKey={'key'}
-                                                                value={
-                                                                    customFieldValue ? String(customFieldValue) : null
-                                                                }
-                                                                onChange={(value: string) => {
-                                                                    form.values.custom_fields =
-                                                                        form.values.custom_fields || {};
-                                                                    form.values.custom_fields[fieldKey] = value;
-                                                                    form.update({ ...form.values });
-                                                                }}
-                                                                dusk={field.dusk}
-                                                                options={customFieldBooleanOptions}
-                                                            />
-                                                        )}
-                                                    </div>
-
-                                                    {field.description && (
-                                                        <Fragment>
-                                                            <div
-                                                                className="form-group-info-button"
-                                                                data-dusk={`${field.dusk}InfoBtn`}
-                                                                onClick={(e) => {
-                                                                    e.stopPropagation();
-                                                                    setFields((fields) => {
-                                                                        fields[fields.indexOf(field)].showInfo =
-                                                                            !field.showInfo;
-                                                                        return [...fields];
-                                                                    });
-                                                                }}>
-                                                                <em className="mdi mdi-information" />
-                                                            </div>
-                                                            {field.showInfo && (
-                                                                <ClickOutside
-                                                                    className="block block-info-box block-info-box-primary"
-                                                                    onClickOutside={(e) => {
-                                                                        e?.stopPropagation();
-                                                                        setFields((fields) => {
-                                                                            fields[fields.indexOf(field)].showInfo =
-                                                                                false;
-                                                                            return [...fields];
-                                                                        });
-                                                                    }}>
-                                                                    <div className="info-box-icon mdi mdi-information-outline" />
-                                                                    <div className="info-box-content">
-                                                                        <div className="block block-markdown">
-                                                                            <p>{field.description}</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </ClickOutside>
-                                                            )}
-                                                        </Fragment>
-                                                    )}
-                                                </div>
+                                                field.description ? (
+                                                    <FormGroupInfo info={field.description}>
+                                                        {makeControlForCustomField(field)}
+                                                    </FormGroupInfo>
+                                                ) : (
+                                                    makeControlForCustomField(field)
+                                                )
                                             ) : null}
 
                                             {!field.custom && ['text', 'number'].includes(field.type) && (
