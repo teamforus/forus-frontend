@@ -134,8 +134,9 @@ export default function SignUpStepOrganizationAdd({
                                 label={translate('organization_edit.labels.name')}
                                 error={formOrganization.errors.name}
                                 info={translate('organization_edit.tooltips.name')}
-                                input={() => (
+                                input={(id) => (
                                     <UIControlText
+                                        id={id}
                                         value={formOrganization.values.name}
                                         onChange={(e) => formOrganization.update({ name: e.target.value })}
                                         placeholder={'Bedrijfsnaam'}
@@ -148,8 +149,9 @@ export default function SignUpStepOrganizationAdd({
                                 label={translate('organization_edit.labels.bank')}
                                 error={formOrganization.errors.iban}
                                 info={translate('organization_edit.tooltips.bank')}
-                                input={() => (
+                                input={(id) => (
                                     <UIControlText
+                                        id={id}
                                         value={formOrganization.values.iban}
                                         onChange={(e) => formOrganization.update({ iban: e.target.value })}
                                         placeholder={'Voorbeeld: NL123456789B01'}
@@ -161,8 +163,9 @@ export default function SignUpStepOrganizationAdd({
                                 label={translate('organization_edit.labels.iban_confirmation')}
                                 error={formOrganization.errors.iban_confirmation}
                                 info={translate('organization_edit.tooltips.iban_confirmation')}
-                                input={() => (
+                                input={(id) => (
                                     <UIControlText
+                                        id={id}
                                         value={formOrganization.values.iban_confirmation}
                                         onChange={(e) => formOrganization.update({ iban_confirmation: e.target.value })}
                                         placeholder={'Voorbeeld: NL123456789B01'}
@@ -185,13 +188,14 @@ export default function SignUpStepOrganizationAdd({
                         <div className="sign_up-pane-col">
                             <FormGroup
                                 label={translate('organization_edit.labels.mail')}
-                                input={() => (
+                                input={(id) => (
                                     <div className="row">
                                         <div className="col col-md-8 col-xs-12">
                                             <FormGroupInfo
                                                 error={formOrganization.errors.email}
                                                 info={translate('organization_edit.tooltips.email')}>
                                                 <UIControlText
+                                                    id={id}
                                                     value={formOrganization.values.email}
                                                     onChange={(e) => formOrganization.update({ email: e.target.value })}
                                                     placeholder={'E-mailadres'}
@@ -219,13 +223,14 @@ export default function SignUpStepOrganizationAdd({
 
                             <FormGroup
                                 label={translate('organization_edit.labels.phone')}
-                                input={() => (
+                                input={(id) => (
                                     <div className="row">
                                         <div className="col col-md-8 col-xs-12">
                                             <FormGroupInfo
                                                 error={formOrganization.errors.phone}
                                                 info={translate('organization_edit.tooltips.phone')}>
                                                 <UIControlText
+                                                    id={id}
                                                     value={formOrganization.values.phone}
                                                     onChange={(e) => formOrganization.update({ phone: e.target.value })}
                                                     placeholder={'Telefoonnummer'}
@@ -253,13 +258,14 @@ export default function SignUpStepOrganizationAdd({
 
                             <FormGroup
                                 label={translate('organization_edit.labels.website')}
-                                input={() => (
+                                input={(id) => (
                                     <div className="row">
                                         <div className="col col-md-8 col-xs-12">
                                             <FormGroupInfo
                                                 error={formOrganization.errors.website}
                                                 info={translate('organization_edit.tooltips.website')}>
                                                 <UIControlText
+                                                    id={id}
                                                     value={formOrganization.values.website}
                                                     onChange={(e) =>
                                                         formOrganization.update({ website: e.target.value })
@@ -298,8 +304,9 @@ export default function SignUpStepOrganizationAdd({
                                         label={translate('organization_edit.labels.business_type')}
                                         error={formOrganization.errors.business_type_id}
                                         info={translate('organization_edit.tooltips.business_type')}
-                                        input={() => (
+                                        input={(id) => (
                                             <SelectControl
+                                                id={id}
                                                 value={formOrganization.values.business_type_id}
                                                 propKey={'id'}
                                                 allowSearch={true}
@@ -316,8 +323,9 @@ export default function SignUpStepOrganizationAdd({
                                         label={translate('organization_edit.labels.kvk')}
                                         error={formOrganization.errors.kvk}
                                         info={translate('organization_edit.tooltips.kvk')}
-                                        input={() => (
+                                        input={(id) => (
                                             <UIControlText
+                                                id={id}
                                                 value={formOrganization.values.kvk}
                                                 onChange={(e) => formOrganization.update({ kvk: e.target.value })}
                                                 placeholder={'KvK-nummer'}
@@ -330,8 +338,9 @@ export default function SignUpStepOrganizationAdd({
                                         error={formOrganization.errors.btw}
                                         info={translate('organization_edit.tooltips.btw')}
                                         hint={translate('organization_edit.labels.optional')}
-                                        input={() => (
+                                        input={(id) => (
                                             <UIControlText
+                                                id={id}
                                                 value={formOrganization.values.btw}
                                                 onChange={(e) => formOrganization.update({ btw: e.target.value })}
                                                 placeholder={'BTW-nummer'}

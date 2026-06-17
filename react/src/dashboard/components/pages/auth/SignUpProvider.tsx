@@ -1476,8 +1476,9 @@ export default function SignUpProvider() {
                                                 label={translate('organization_edit.labels.name')}
                                                 error={formOrganization.errors.name}
                                                 info={translate('organization_edit.tooltips.name')}
-                                                input={() => (
+                                                input={(id) => (
                                                     <UIControlText
+                                                        id={id}
                                                         value={formOrganization.values.name}
                                                         onChange={(e) =>
                                                             formOrganization.update({ name: e.target.value })
@@ -1492,8 +1493,9 @@ export default function SignUpProvider() {
                                                 label={translate('organization_edit.labels.bank')}
                                                 error={formOrganization.errors.iban}
                                                 info={translate('organization_edit.tooltips.bank')}
-                                                input={() => (
+                                                input={(id) => (
                                                     <UIControlText
+                                                        id={id}
                                                         value={formOrganization.values.iban}
                                                         onChange={(e) =>
                                                             formOrganization.update({ iban: e.target.value })
@@ -1507,8 +1509,9 @@ export default function SignUpProvider() {
                                                 label={translate('organization_edit.labels.iban_confirmation')}
                                                 error={formOrganization.errors.iban_confirmation}
                                                 info={translate('organization_edit.tooltips.iban_confirmation')}
-                                                input={() => (
+                                                input={(id) => (
                                                     <UIControlText
+                                                        id={id}
                                                         value={formOrganization.values.iban_confirmation}
                                                         onChange={(e) =>
                                                             formOrganization.update({
@@ -1535,13 +1538,14 @@ export default function SignUpProvider() {
                                         <div className="sign_up-pane-col">
                                             <FormGroup
                                                 label={translate('organization_edit.labels.mail')}
-                                                input={() => (
+                                                input={(id) => (
                                                     <div className="row">
                                                         <div className="col col-md-8 col-xs-12">
                                                             <FormGroupInfo
                                                                 error={formOrganization.errors.email}
                                                                 info={translate('organization_edit.tooltips.email')}>
                                                                 <UIControlText
+                                                                    id={id}
                                                                     value={formOrganization.values.email}
                                                                     onChange={(e) =>
                                                                         formOrganization.update({
@@ -1575,13 +1579,14 @@ export default function SignUpProvider() {
 
                                             <FormGroup
                                                 label={translate('organization_edit.labels.phone')}
-                                                input={() => (
+                                                input={(id) => (
                                                     <div className="row">
                                                         <div className="col col-md-8 col-xs-12">
                                                             <FormGroupInfo
                                                                 error={formOrganization.errors.phone}
                                                                 info={translate('organization_edit.tooltips.phone')}>
                                                                 <UIControlText
+                                                                    id={id}
                                                                     value={formOrganization.values.phone}
                                                                     onChange={(e) =>
                                                                         formOrganization.update({
@@ -1615,13 +1620,14 @@ export default function SignUpProvider() {
 
                                             <FormGroup
                                                 label={translate('organization_edit.labels.website')}
-                                                input={() => (
+                                                input={(id) => (
                                                     <div className="row">
                                                         <div className="col col-md-8 col-xs-12">
                                                             <FormGroupInfo
                                                                 error={formOrganization.errors.website}
                                                                 info={translate('organization_edit.tooltips.website')}>
                                                                 <UIControlText
+                                                                    id={id}
                                                                     value={formOrganization.values.website || ''}
                                                                     onChange={(e) =>
                                                                         formOrganization.update({
@@ -1664,8 +1670,9 @@ export default function SignUpProvider() {
                                                         label={translate('organization_edit.labels.business_type')}
                                                         error={formOrganization.errors.business_type_id}
                                                         info={translate('organization_edit.tooltips.business_type')}
-                                                        input={() => (
+                                                        input={(id) => (
                                                             <SelectControl
+                                                                id={id}
                                                                 value={formOrganization.values.business_type_id}
                                                                 propKey={'id'}
                                                                 onChange={(business_type_id?: number) => {
@@ -1682,8 +1689,9 @@ export default function SignUpProvider() {
                                                         label={translate('organization_edit.labels.kvk')}
                                                         error={formOrganization.errors.kvk}
                                                         info={translate('organization_edit.tooltips.kvk')}
-                                                        input={() => (
+                                                        input={(id) => (
                                                             <UIControlText
+                                                                id={id}
                                                                 value={formOrganization.values.kvk}
                                                                 onChange={(e) =>
                                                                     formOrganization.update({ kvk: e.target.value })
@@ -1698,8 +1706,9 @@ export default function SignUpProvider() {
                                                         error={formOrganization.errors.btw}
                                                         info={translate('organization_edit.tooltips.btw')}
                                                         hint={translate('organization_edit.labels.optional')}
-                                                        input={() => (
+                                                        input={(id) => (
                                                             <UIControlText
+                                                                id={id}
                                                                 value={formOrganization.values.btw}
                                                                 onChange={(e) =>
                                                                     formOrganization.update({ btw: e.target.value })

@@ -25,7 +25,6 @@ import useTranslate from '../../../../hooks/useTranslate';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import SelectControlOptionsFD from '../../../elements/select-control/templates/SelectControlOptionsFD';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
-import TranslateHtml from '../../../elements/translate-html/TranslateHtml';
 import FormGroupInfo from '../../../elements/forms/elements/FormGroupInfo';
 import FormPane from '../../../elements/forms/elements/FormPane';
 import FormGroup from '../../../elements/forms/elements/FormGroup';
@@ -197,8 +196,9 @@ export default function OrganizationForm() {
                                     label={translate('organization_edit.labels.name')}
                                     error={form.errors.name}
                                     info={translate('organization_edit.tooltips.name')}
-                                    input={() => (
+                                    input={(id) => (
                                         <input
+                                            id={id}
                                             type="text"
                                             className="form-control"
                                             placeholder="Bedrijfsnaam"
@@ -213,8 +213,9 @@ export default function OrganizationForm() {
                                     label={translate('organization_edit.labels.kvk')}
                                     error={form.errors.kvk}
                                     info={translate('organization_edit.tooltips.kvk')}
-                                    input={() => (
+                                    input={(id) => (
                                         <input
+                                            id={id}
                                             type="text"
                                             placeholder="KvK-nummer"
                                             className="form-control"
@@ -235,8 +236,9 @@ export default function OrganizationForm() {
                                         organization?.identity_address != authIdentity.address &&
                                         'Alleen de eigenaar kan het rekeningnummer wijzigen.'
                                     }
-                                    input={() => (
+                                    input={(id) => (
                                         <input
+                                            id={id}
                                             type="text"
                                             className="form-control"
                                             placeholder={'IBAN-nummer'}
@@ -253,8 +255,9 @@ export default function OrganizationForm() {
                                     label={translate('organization_edit.labels.tax')}
                                     error={form.errors.btw}
                                     info={translate('organization_edit.tooltips.btw')}
-                                    input={() => (
+                                    input={(id) => (
                                         <input
+                                            id={id}
                                             type="text"
                                             placeholder="BTW-nummer"
                                             className="form-control"
@@ -268,14 +271,14 @@ export default function OrganizationForm() {
                                 <FormGroup
                                     required={true}
                                     label={translate('organization_edit.labels.mail')}
-                                    input={() => (
+                                    input={(id) => (
                                         <div className="row">
                                             <div className="col col-lg-8 col-lg-12">
                                                 <FormGroupInfo
                                                     error={form.errors?.email}
-                                                    info={<TranslateHtml i18n={'organization_edit.tooltips.email'} />}>
+                                                    info={translate('organization_edit.tooltips.email')}>
                                                     <input
-                                                        id={'email'}
+                                                        id={id}
                                                         type="email"
                                                         className="form-control"
                                                         value={form.values?.email || ''}
@@ -300,14 +303,14 @@ export default function OrganizationForm() {
                                 <FormGroup
                                     required={true}
                                     label={translate('organization_edit.labels.phone')}
-                                    input={() => (
+                                    input={(id) => (
                                         <div className="row">
                                             <div className="col col-lg-8 col-lg-12">
                                                 <FormGroupInfo
                                                     error={form.errors?.phone}
-                                                    info={<TranslateHtml i18n={'organization_edit.tooltips.phone'} />}>
+                                                    info={translate('organization_edit.tooltips.phone')}>
                                                     <input
-                                                        id="phone"
+                                                        id={id}
                                                         type="text"
                                                         className="form-control"
                                                         value={form.values?.phone || ''}
@@ -331,15 +334,14 @@ export default function OrganizationForm() {
 
                                 <FormGroup
                                     label={translate('organization_edit.labels.website')}
-                                    input={() => (
+                                    input={(id) => (
                                         <div className="row">
                                             <div className="col col-lg-8 col-lg-12">
                                                 <FormGroupInfo
                                                     error={form.errors?.website}
-                                                    info={
-                                                        <TranslateHtml i18n={'organization_edit.tooltips.website'} />
-                                                    }>
+                                                    info={translate('organization_edit.tooltips.website')}>
                                                     <input
+                                                        id={id}
                                                         type="text"
                                                         className="form-control"
                                                         value={form.values?.website || ''}
@@ -367,8 +369,9 @@ export default function OrganizationForm() {
                                     label={translate('organization_edit.labels.business_type')}
                                     error={form.errors.business_type_id}
                                     info={translate('organization_edit.tooltips.business_type')}
-                                    input={() => (
+                                    input={(id) => (
                                         <SelectControl
+                                            id={id}
                                             className={'form-control'}
                                             options={businessTypes || []}
                                             propKey={'id'}

@@ -752,7 +752,7 @@ export default {
             optional: 'Optioneel',
             make_public: 'Toon openbaar op website',
             photo_description:
-                'De afbeelding dient vierkant te zijn met een afmeting van bijvoorbeeld 400x400px.<br/>Toegestaande  formaten: JPG, PNG',
+                'De afbeelding dient vierkant te zijn met een afmeting van bijvoorbeeld 400x400px.<br/>Toegestaande formaten: JPG, PNG',
             schedule: 'Openingstijden',
             weekdays_same_hours: 'Alle doordeweekse dagen hebben dezelfde tijden',
             weekends_same_hours: 'Zaterdag en zondag hebben dezelfde tijden',
@@ -776,8 +776,7 @@ export default {
             btw: 'Het btw-nummer van de organisatie. Dit nummer wordt gebruikt voor belastingen en op facturen. Dit veld is niet verplicht.',
             website:
                 'De officiële website van de organisatie. Wanneer de instelling ‘publiek’ aan staat, wordt dit gebruikt voor systeemberichten en getoond op de website bij de organisatiegegevens.',
-            business_type:
-                'Het type organisatie, bijvoorbeeld stichting, vereniging, onderneming of gemeente. Wanneer de instelling ‘publiek’ aan staat, wordt dit gebruikt voor systeemberichten en getoond op de website bij de organisatiegegevens.',
+            business_type: 'Het type organisatie, bijvoorbeeld stichting, vereniging, onderneming of gemeente.',
         },
         buttons: {
             cancel: 'Annuleren',
