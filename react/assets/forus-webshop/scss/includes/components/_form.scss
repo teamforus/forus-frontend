@@ -948,6 +948,7 @@
             min-width: 0;
 
             .form-control {
+                border-right: none;
                 border-top-right-radius: 0;
                 border-bottom-right-radius: 0;
             }
@@ -958,6 +959,20 @@
         }
 
         .form-group-info-button {
+            position: relative;
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 11px;
+                bottom: 11px;
+                width: 1px;
+                background-color: var(--border-color);
+                pointer-events: none;
+                z-index: 1;
+            }
+
             .button {
                 border-left: none;
                 box-shadow: none;
@@ -972,6 +987,9 @@
 
                 .mdi {
                     color: #646f79;
+                    font-size: 18px;
+                    line-height: 18px;
+                    transition: color 0.4s;
                 }
 
                 &:hover,

@@ -475,7 +475,7 @@ export default function ModalProductReserve({
             const fieldKey = String(field.key);
             const customFieldValue = form.values.custom_fields?.[fieldKey];
 
-            return (
+            const control = (
                 <Fragment>
                     {field.type === 'text' && (
                         <input
@@ -519,6 +519,14 @@ export default function ModalProductReserve({
                         />
                     )}
                 </Fragment>
+            );
+
+            return field.description ? (
+                <FormGroupInfo info={field.description} duskPrefix={field.dusk}>
+                    {control}
+                </FormGroupInfo>
+            ) : (
+                control
             );
         },
         [customFieldBooleanOptions, form],
@@ -920,13 +928,7 @@ export default function ModalProductReserve({
                                                     />
                                                 </div>
                                             ) : field.custom ? (
-                                                field.description ? (
-                                                    <FormGroupInfo info={field.description} duskPrefix={field.dusk}>
-                                                        {makeControlForCustomField(field)}
-                                                    </FormGroupInfo>
-                                                ) : (
-                                                    makeControlForCustomField(field)
-                                                )
+                                                makeControlForCustomField(field)
                                             ) : null}
 
                                             {!field.custom && ['text', 'number'].includes(field.type) && (
