@@ -716,6 +716,7 @@
                 min-width: 0;
 
                 .form-control {
+                    border-right: none;
                     border-top-right-radius: 0;
                     border-bottom-right-radius: 0;
                 }
@@ -726,6 +727,20 @@
             }
 
             .form-group-info-button {
+                position: relative;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 11px;
+                    bottom: 11px;
+                    width: 1px;
+                    background-color: var(--border-color);
+                    pointer-events: none;
+                    z-index: 1;
+                }
+
                 .button {
                     border-left: none;
                     box-shadow: none;
@@ -734,13 +749,15 @@
                     margin: 0;
                     border-top-left-radius: 0;
                     border-bottom-left-radius: 0;
-                    background: #fff;
+                    background: #eff2f4;
                     border-color: #eff2f4;
                     color: #fff;
 
                     .mdi {
                         color: #646f79;
-                        font-size: 24px;
+                        font-size: 20px;
+                        line-height: 20px;
+                        transition: color 0.4s;
                     }
 
                     &:hover,
