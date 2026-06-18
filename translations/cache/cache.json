@@ -428,10 +428,6 @@
         "Terug"
     ],
     [
-        "auth.back_start",
-        "Terug naar inloggen"
-    ],
-    [
         "auth.choose_option",
         "Kies een optie"
     ],
@@ -465,39 +461,23 @@
     ],
     [
         "auth.privacy_link.text",
-        "Ik heb de <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">privacyverklaring</a> gelezen"
+        "Ik heb de <a tabIndex=\"3\" target=\"_blank\" href=\"{{ link_url }}\">privacyverklaring</a> gelezen"
     ],
     [
         "auth.push.link_used.title",
         "Deze link is reeds gebruikt of ongeldig."
     ],
     [
-        "auth.qr.title",
-        "Inloggen"
-    ],
-    [
-        "auth.restore.label",
-        "Kun je niet meer inloggen?"
-    ],
-    [
-        "auth.restore.link",
-        "Account herstellen met DigiD"
-    ],
-    [
-        "auth.restore.title",
-        "Account herstellen"
-    ],
-    [
         "auth.setup_2fa_title",
         "Tweefactorauthenticatie instellen"
     ],
     [
-        "auth.sign_in_up_title",
-        "Account aanmaken of een aanvraag starten?"
+        "auth.terms_link.text",
+        "Ik ga akkoord met de <a tabIndex=\"3\" target=\"_blank\" href=\"{{ link_url }}\">voorwaarden</a>"
     ],
     [
-        "auth.terms_link.text",
-        "Ik ga akkoord met de <a tabIndex=\"3\" class=\"text-primary-light sign_up-pane-link\" target=\"_blank\" href=\"{{ link_url }}\">voorwaarden</a>"
+        "auth.title",
+        "Inloggen"
     ],
     [
         "block_funds.labels.subtitle",
@@ -1281,7 +1261,7 @@
     ],
     [
         "fund_request.bsn_warning.description",
-        "Let op! U dient het aanvraagformulier afgerond te hebben voor <strong>{{value}}</strong>, anders dient opnieuw in te loggen met DigiD en opnieuw te beginnen met de aanvraag."
+        "Let op! U dient het aanvraagformulier afgerond te hebben voor <strong>{{value}}</strong>, anders dient u uw BSN opnieuw te bevestigen en opnieuw te beginnen met de aanvraag."
     ],
     [
         "fund_request.buttons.back",
@@ -1401,19 +1381,19 @@
     ],
     [
         "fund_request.digid_expired.description",
-        "Log opnieuw in met DigiD en begin opnieuw met de aanvraag."
+        "Bevestig uw BSN opnieuw en begin opnieuw met de aanvraag."
     ],
     [
-        "fund_request.digid_expired.sign_in.description",
+        "fund_request.digid_expired.sign_in.digid.description",
         "Log opnieuw in met DigiD om opnieuw te beginnen."
     ],
     [
-        "fund_request.digid_expired.sign_in.title",
+        "fund_request.digid_expired.sign_in.digid.title",
         "DigiD"
     ],
     [
         "fund_request.digid_expired.title",
-        "DigiD sessie verlopen"
+        "BSN bevestiging verlopen"
     ],
     [
         "fund_request.fund_not_active",
@@ -8636,42 +8616,6 @@
         "Aanmelden als Beoordelaar"
     ],
     [
-        "signup.items.berkelland.start_email",
-        "Start activatie"
-    ],
-    [
-        "signup.items.digid",
-        "Open het DigiD inlogscherm"
-    ],
-    [
-        "signup.items.ede.digid",
-        "Open het DigiD inlogscherm"
-    ],
-    [
-        "signup.items.ede.header",
-        "Hier logt u in"
-    ],
-    [
-        "signup.items.ede.pane_text",
-        ""
-    ],
-    [
-        "signup.items.ede.restore_header",
-        ""
-    ],
-    [
-        "signup.items.ede.restore_title",
-        "Account herstellen"
-    ],
-    [
-        "signup.items.ede.signup",
-        ""
-    ],
-    [
-        "signup.items.ede.title",
-        "Inloggen"
-    ],
-    [
         "signup.items.errors.email.type_mismatch",
         "Vul alstublieft een geldig e-mailadres in, bijvoorbeeld naam@voorbeeld.com"
     ],
@@ -8680,92 +8624,28 @@
         "Vul alstublieft een geldig e-mailadres in, bijvoorbeeld naam@voorbeeld.com."
     ],
     [
-        "signup.items.fijnder.start_email",
-        "Activeren"
-    ],
-    [
         "signup.items.geertruidenberg.signup_option",
         "Log in met DigiD om verder te gaan"
-    ],
-    [
-        "signup.items.goereeoverflakkee.start_email",
-        "Aanmelden"
     ],
     [
         "signup.items.groningen.signup_option",
         "Log in met DigiD om verder te gaan"
     ],
     [
-        "signup.items.header",
-        "Hier logt u in"
-    ],
-    [
-        "signup.items.heumen.start_email",
-        "Start activatie"
-    ],
-    [
-        "signup.items.noordoostpolder.start_email",
-        "Start activatie"
-    ],
-    [
-        "signup.items.oostgelre.start_email",
-        "Start activatie"
-    ],
-    [
-        "signup.items.page_title",
-        "Inloggen{{pageTitleSuffix}}"
-    ],
-    [
-        "signup.items.pane_text",
-        "Inloggen op een bestaand account"
-    ],
-    [
         "signup.items.potjeswijzer.signup_option",
         "Log in met DigiD om verder te gaan"
-    ],
-    [
-        "signup.items.restore_header",
-        ""
-    ],
-    [
-        "signup.items.restore_title",
-        "Account herstellen"
-    ],
-    [
-        "signup.items.schagen.start_email",
-        "Start"
     ],
     [
         "signup.items.signup_option",
         "Maak een keuze om verder te gaan"
     ],
     [
-        "signup.items.start_email",
-        "Start aanvraag"
-    ],
-    [
-        "signup.items.title",
-        "Inloggen"
-    ],
-    [
-        "signup.items.vergoedingen.restore_title",
-        "Account herstellen"
-    ],
-    [
         "signup.items.vergoedingen.signup_option",
         "Log in met DigiD om verder te gaan"
     ],
     [
-        "signup.items.vergoedingen.title",
-        "Inloggen"
-    ],
-    [
         "signup.items.waalwijk.signup_option",
         "Log in met DigiD om verder te gaan"
-    ],
-    [
-        "signup.items.winterswijk.start_email",
-        "Start activatie"
     ],
     [
         "sitemap.breadcrumbs.home",

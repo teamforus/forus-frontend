@@ -12,7 +12,7 @@ export default function TopNavbarMobileButtons() {
     const startFundRequest = useStartFundRequest();
 
     const startFundRequestMobile = useCallback(
-        (data: object) => {
+        (data = {}) => {
             setMobileMenuOpened(false);
             startFundRequest(data);
         },
@@ -24,7 +24,7 @@ export default function TopNavbarMobileButtons() {
             {envData.config.flags.showStartButton && (
                 <button
                     className="navbar-mobile-auth-button button button-primary-outline"
-                    onClick={() => startFundRequestMobile({ restore_with_email: 1 })}
+                    onClick={() => startFundRequestMobile({ email: 1 })}
                     aria-label={translate('top_navbar.start_button.' + envData.client_key, null, 'top_navbar.start')}
                     role="button">
                     <em className="mdi mdi-plus-circle icon-start" />

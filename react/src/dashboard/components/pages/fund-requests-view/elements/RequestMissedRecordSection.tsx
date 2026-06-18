@@ -1,15 +1,18 @@
 import React, { Fragment } from 'react';
-import { FundRequestMissedRecord } from '../../../../props/models/FundRequest';
 import useTranslate from '../../../../hooks/useTranslate';
+import { FundRequestMissedRecord } from '../../../../props/models/FundRequest';
+import { PrevalidationRequestMissedRecord } from '../../../../props/models/PrevalidationRequest';
 
-export default function FundRequestMissedRecordSection({
+type MissedRecord = FundRequestMissedRecord | PrevalidationRequestMissedRecord;
+
+export default function RequestMissedRecordSection({
     type,
     records,
     recordsPerChild,
 }: {
     type: 'warning' | 'info';
-    records: { [_key: string]: Array<FundRequestMissedRecord> };
-    recordsPerChild: { [_key: number]: Array<FundRequestMissedRecord> };
+    records: { [_key: string]: Array<MissedRecord> };
+    recordsPerChild: { [_key: number]: Array<MissedRecord> };
 }) {
     const translate = useTranslate();
 
@@ -72,7 +75,7 @@ export default function FundRequestMissedRecordSection({
                                     {Object.keys(recordsPerChild)
                                         .map((i) =>
                                             recordsPerChild[i]
-                                                .map((record: FundRequestMissedRecord) =>
+                                                .map((record: MissedRecord) =>
                                                     translate(
                                                         `validation_requests.missed_records.child.${record.field}`,
                                                         { number: i },

@@ -52,6 +52,7 @@ import EventLogs from '../components/pages/eventLogs/EventLogs';
 import ImplementationFunds from '../components/pages/implementation-funds/ImplementationFunds';
 import ImplementationEmail from '../components/pages/implementations-edit/ImplementationEmail';
 import ImplementationDigid from '../components/pages/implementations-edit/ImplementationDigid';
+import ImplementationAuthPage from '../components/pages/implementations-edit/ImplementationAuthPage';
 import ImplementationCookies from '../components/pages/implementations-edit/ImplementationCookies';
 import FundBackofficeEdit from '../components/pages/fund-backoffice-edit/FundBackofficeEdit';
 import ImplementationConfigs from '../components/pages/implementations-edit/ImplementationConfigs';
@@ -105,6 +106,7 @@ import ImplementationAnnouncements from '../components/pages/implementations-edi
 import ImplementationTermsAndPrivacy from '../components/pages/implementations-edit/ImplementationTermsAndPrivacy';
 import PrevalidationRequests from '../components/pages/person-prevalidations/PrevalidationRequests';
 import FundProductLimits from '../components/pages/fund-product-limits/FundProductLimits';
+import PrevalidationRequestsView from '../components/pages/prevalidation-requests-view/PrevalidationRequestsView';
 
 const router = new RouterBuilder();
 
@@ -435,6 +437,12 @@ router.state(DashboardRoutes.IMPLEMENTATION_DIGID, <ImplementationDigid />, {
     fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 
+router.state(DashboardRoutes.IMPLEMENTATION_AUTH_PAGE, <ImplementationAuthPage />, {
+    path: `/organisaties/:organizationId/implementaties/:id/inlogpagina`,
+    altPath: `/organizations/:organizationId/implementations/:id/auth-page`,
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
+});
+
 router.state(DashboardRoutes.IMPLEMENTATION_SOCIAL_MEDIA, <ImplementationSocialMediaLinks />, {
     path: `/organisaties/:organizationId/implementaties/:id/social-media`,
     altPath: `/organizations/:organizationId/implementations/:id/social-media`,
@@ -659,6 +667,12 @@ router.state(DashboardRoutes.PREVALIDATION_REQUESTS, <PrevalidationRequests />, 
 router.state(DashboardRoutes.FUND_PRODUCT_LIMITS, <FundProductLimits />, {
     path: `/organisaties/:organizationId/fund-product-limits`,
     altPath: `/organizations/:organizationId/fund-product-limits`,
+});
+
+router.state(DashboardRoutes.PREVALIDATION_REQUEST, <PrevalidationRequestsView />, {
+    path: `/organisaties/:organizationId/prevalidation-requests/:id`,
+    altPath: `/organizations/:organizationId/prevalidation-requests/:id`,
+    fallbackState: DashboardRoutes.PREVALIDATION_REQUESTS,
 });
 
 router.state(DashboardRoutes.PREFERENCE_EMAILS, <PreferencesEmails />, {

@@ -27,6 +27,7 @@ export default interface Implementation {
     email_from_name?: string;
     email_from_address?: string;
     digid_enabled?: boolean;
+    digid_available?: boolean;
     digid_app_id?: string;
     digid_shared_secret?: string;
     digid_a_select_server?: string;
@@ -79,4 +80,13 @@ export default interface Implementation {
     banner_button_target?: 'self' | '_blank';
     banner_button_type?: 'color' | 'white';
     products_default_sorting?: string;
+    auth_page_title?: string;
+    auth_page_login_title?: string;
+    auth_page_login_email?: boolean;
+    auth_page_login_digid?: boolean;
+    auth_page_login_qr?: boolean;
+    auth_page_info_enabled?: boolean;
+    auth_page_info_title?: string;
+    auth_page_info_description?: string;
+    auth_page_info_description_html?: string;
 }

@@ -20,6 +20,7 @@ import modal_invoice_number_edit from './modals/modal-invoice-number-edit';
 import modal_reservation_custom_field_edit from './modals/modal-reservation-custom-field-edit';
 import modal_fund_request_approve_missed_records from './modals/modal-fund-request-approve-missed-records';
 import modal_fund_product_limit_edit from './modals/modal-fund-product-limit-edit';
+import modal_prevalidation_request_approve_missed_records from './modals/modal-prevalidation-request-approve-missed-records';
 
 export default {
     modal_payout_create,
@@ -29,6 +30,7 @@ export default {
     modal_voucher_qr_code,
     modal_voucher_deactivation,
     modal_fund_request_approve_missed_records,
+    modal_prevalidation_request_approve_missed_records,
     modal_voucher_activation,
     modal_funds_offers,
     modal_voucher_export,

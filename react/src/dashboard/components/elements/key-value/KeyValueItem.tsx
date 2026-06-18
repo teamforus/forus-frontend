@@ -8,16 +8,18 @@ export default function KeyValueItem({
     children,
     className,
     infoBlock,
+    dataDusk = null,
 }: {
     label: string;
     children: number | string | React.ReactElement | Array<React.ReactElement>;
     className?: string;
     infoBlock?: number | string | React.ReactElement | Array<React.ReactElement>;
+    dataDusk?: string;
 }) {
     const [showInfoBlock, setShowInfoBlock] = useState(false);
 
     return (
-        <div className="keyvalue-item">
+        <div data-dusk={dataDusk} className="keyvalue-item">
             <div className="keyvalue-key">{label}</div>
             <div className={classNames('keyvalue-value', className)}>
                 {infoBlock ? (
