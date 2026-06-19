@@ -1,6 +1,6 @@
 export default {
-    title: 'Gegevens verwijderen',
-    description: 'Weet je zeker dat je deze gegevens wilt verwijderen?',
+    title: 'Gebruikslimiet verwijderen',
+    description: 'Weet je zeker dat je deze gebruikslimiet wilt verwijderen?',
     buttons: {
         cancel: 'Annuleren',
         confirm: 'Bevestigen',

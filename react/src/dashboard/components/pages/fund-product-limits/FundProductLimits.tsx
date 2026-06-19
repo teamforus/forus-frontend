@@ -32,8 +32,6 @@ import ModalDangerZone from '../../modals/ModalDangerZone';
 import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 import { useFundProductLimitService } from '../../../services/FundProductLimitService';
 import TableDateTime from '../../elements/tables/elements/TableDateTime';
-import useProductService from '../../../services/ProductService';
-import SponsorProduct from '../../../props/models/Sponsor/SponsorProduct';
 
 export default function FundProductLimits() {
     const translate = useTranslate();
@@ -46,14 +44,11 @@ export default function FundProductLimits() {
     const runLatestRequest = useLatestRequestWithProgress();
 
     const fundService = useFundService();
-    const productService = useProductService();
     const paginatorService = usePaginatorService();
     const fundProductLimitService = useFundProductLimitService();
 
-    const [funds, setFunds] = useState<Array<Fund>>([]);
-    const [products, setProducts] = useState<Array<SponsorProduct>>([]);
+    const [funds, setFunds] = useState<Array<Fund>>(null);
     const [paginatorKey] = useState('fund_product_limits');
-
     const [fundProductLimits, setFundProductLimits] = useState<PaginationData<FundProductLimit>>(null);
 
     const [states] = useState([
@@ -94,7 +89,7 @@ export default function FundProductLimits() {
     );
 
     const fundOptions = useMemo(() => {
-        return [{ id: null, name: 'Selecteer fonds' }, ...funds];
+        return [{ id: null, name: 'Selecteer fonds' }, ...(funds ?? [])];
     }, [funds]);
 
     const fetchFundProductLimits = useCallback(() => {
@@ -108,34 +103,22 @@ export default function FundProductLimits() {
         setProgress(0);
 
         fundService
-            .list(activeOrganization?.id, { state: 'active_paused_and_closed', per_page: 100 })
-            .then((res) => {
-                setFunds(res.data.data.filter((fund) => hasPermission(fund.organization, Permission.VALIDATE_RECORDS)));
-            })
+            .list(activeOrganization?.id, { configured: 1, per_page: 100 })
+            .then((res) => setFunds(res.data.data.filter((fund) => fund.state !== 'closed')))
             .finally(() => setProgress(100));
     }, [setProgress, fundService, activeOrganization?.id]);
-
-    const fetchProducts = useCallback(() => {
-        setProgress(0);
-
-        productService
-            .sponsorProducts(activeOrganization?.id, { per_page: 100 })
-            .then((res) => setProducts(res.data.data))
-            .finally(() => setProgress(100));
-    }, [setProgress, productService, activeOrganization?.id]);
 
     const createFundProductLimits = useCallback(() => {
         openModal((modal) => (
             <ModalFundProductLimitEdit
                 modal={modal}
                 funds={funds}
-                products={products}
                 fundId={filterValuesActive?.fund_id}
                 organization={activeOrganization}
                 onSubmit={fetchFundProductLimits}
             />
         ));
-    }, [activeOrganization, fetchFundProductLimits, filterValuesActive?.fund_id, funds, openModal, products]);
+    }, [activeOrganization, fetchFundProductLimits, filterValuesActive?.fund_id, funds, openModal]);
 
     const editFundProductLimit = useCallback(
         (fundProductLimit: FundProductLimit) => {
@@ -144,14 +127,13 @@ export default function FundProductLimits() {
                     fundProductLimit={fundProductLimit}
                     modal={modal}
                     funds={funds}
-                    products={products}
                     fundId={filterValuesActive?.fund_id}
                     organization={activeOrganization}
                     onSubmit={fetchFundProductLimits}
                 />
             ));
         },
-        [activeOrganization, fetchFundProductLimits, filterValuesActive?.fund_id, funds, openModal, products],
+        [activeOrganization, fetchFundProductLimits, filterValuesActive?.fund_id, funds, openModal],
     );
 
     const activateFundProductLimit = useCallback(
@@ -163,12 +145,12 @@ export default function FundProductLimits() {
                     state: 'active',
                 })
                 .then(() => {
-                    pushSuccess('Activated!');
+                    pushSuccess(translate('fund_product_limits.notifications.activated'));
                     fetchFundProductLimits();
                 })
                 .catch(pushApiError);
         },
-        [activeOrganization.id, fetchFundProductLimits, fundProductLimitService, pushApiError, pushSuccess],
+        [activeOrganization.id, fetchFundProductLimits, fundProductLimitService, pushApiError, pushSuccess, translate],
     );
 
     const deactivateFundProductLimit = useCallback(
@@ -180,12 +162,12 @@ export default function FundProductLimits() {
                     state: 'inactive',
                 })
                 .then(() => {
-                    pushSuccess('Deactivated!');
+                    pushSuccess(translate('fund_product_limits.notifications.deactivated'));
                     fetchFundProductLimits();
                 })
                 .catch(pushApiError);
         },
-        [activeOrganization.id, fetchFundProductLimits, fundProductLimitService, pushApiError, pushSuccess],
+        [activeOrganization.id, fetchFundProductLimits, fundProductLimitService, pushApiError, pushSuccess, translate],
     );
 
     const deleteLimit = useCallback(
@@ -204,7 +186,7 @@ export default function FundProductLimits() {
                             fundProductLimitService
                                 .destroy(activeOrganization?.id, request.id)
                                 .then(() => {
-                                    pushSuccess('Gelukt!', 'Verzoek verwijderd.');
+                                    pushSuccess(translate('fund_product_limits.notifications.deleted'));
                                     fetchFundProductLimits();
                                     modal.close();
                                 })
@@ -235,33 +217,28 @@ export default function FundProductLimits() {
     }, [fetchFunds]);
 
     useEffect(() => {
-        fetchProducts();
-    }, [fetchProducts]);
-
-    useEffect(() => {
-        if (!activeOrganization?.allow_fund_product_limits) {
+        if (
+            activeOrganization &&
+            (!activeOrganization.allow_fund_product_limits ||
+                !hasPermission(activeOrganization, Permission.MANAGE_PROVIDERS))
+        ) {
             navigateState(DashboardRoutes.ORGANIZATIONS);
         }
-    }, [activeOrganization?.allow_fund_product_limits, navigateState]);
+    }, [activeOrganization, navigateState]);
 
-    if (!fundProductLimits) {
+    if (!fundProductLimits || !funds) {
         return <LoadingCard />;
     }
 
     return (
-        <div className="card form" data-dusk="tableFundProductLimitContent">
+        <div className="card form">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
                     {translate('fund_product_limits.header.title')} ({fundProductLimits?.meta?.total})
                 </div>
                 <div className="card-header-filters">
                     <div className="block block-inline-filters">
-                        <button
-                            className="button button-primary"
-                            data-dusk="createFundProductLimitButton"
-                            onClick={() => {
-                                createFundProductLimits();
-                            }}>
+                        <button className="button button-primary" onClick={createFundProductLimits}>
                             <em className="mdi mdi-plus icon-start" />
                             {translate('fund_product_limits.buttons.create')}
                         </button>
@@ -276,14 +253,13 @@ export default function FundProductLimits() {
                                 allowSearch={false}
                                 onChange={(fund_id: number) => filter.update({ fund_id })}
                                 optionsComponent={SelectControlOptionsFund}
-                                dusk="fundProductLimitsSelectFund"
                             />
                         </div>
 
                         {filter.show && (
                             <div className="button button-text" onClick={() => filter.resetFilters()}>
                                 <em className="mdi mdi-close icon-start" />
-                                Wis filters
+                                {translate('fund_product_limits.buttons.clear_filters')}
                             </div>
                         )}
 
@@ -293,7 +269,6 @@ export default function FundProductLimits() {
                                     <input
                                         className="form-control"
                                         type="text"
-                                        data-dusk="tableFundProductLimitSearch"
                                         placeholder={translate('fund_product_limits.labels.search')}
                                         value={filter.values.q}
                                         onChange={(e) => filter.update({ q: e.target.value })}
@@ -353,7 +328,6 @@ export default function FundProductLimits() {
 
                                 <button
                                     className="button button-default button-icon"
-                                    data-dusk="showFilters"
                                     onClick={() => filter.setShow(!filter.show)}>
                                     <em className="mdi mdi-filter-outline" />
                                 </button>
@@ -367,17 +341,19 @@ export default function FundProductLimits() {
                 loading={!fundProductLimits.meta}
                 empty={fundProductLimits?.meta?.total == 0 || funds?.length === 0}
                 emptyTitle={
-                    funds?.length === 0 ? 'Geen fondsen gevonden' : translate('fund_product_limits.empty.title')
+                    funds?.length === 0
+                        ? translate('fund_product_limits.empty.no_funds_title')
+                        : translate('fund_product_limits.empty.title')
                 }
                 emptyDescription={
                     funds?.length === 0
-                        ? 'Maak eerst een fonds aan om prevalidatieverzoeken toe te voegen.'
+                        ? translate('fund_product_limits.empty.no_funds_description')
                         : translate('fund_product_limits.empty.description')
                 }
                 emptyButton={
                     funds?.length === 0 &&
                     hasPermission(activeOrganization, Permission.MANAGE_FUNDS) && {
-                        text: 'Fonds aanmaken',
+                        text: translate('fund_product_limits.buttons.create_fund'),
                         type: 'primary',
                         icon: 'plus',
                         state: DashboardRoutes.FUND_CREATE,
@@ -387,7 +363,7 @@ export default function FundProductLimits() {
                 columns={fundProductLimitService.getColumns()}
                 paginator={{ key: paginatorKey, data: fundProductLimits, filterValues, filterUpdate }}>
                 {fundProductLimits?.data?.map((row) => (
-                    <tr key={row.id} data-dusk={`tableFundProductLimitRow${row.id}`}>
+                    <tr key={row.id}>
                         <td className="text-primary text-strong">{row.id}</td>
 
                         <td>
@@ -408,12 +384,10 @@ export default function FundProductLimits() {
 
                         <td className={'table-td-actions text-right'}>
                             <TableRowActions
-                                dataDusk={'btnFundProductLimitMenu'}
                                 content={({ close }) => (
                                     <div className="dropdown dropdown-actions">
                                         <div
                                             className="dropdown-item"
-                                            data-dusk={`btnFundProductLimitDelete${row.id}`}
                                             onClick={() => {
                                                 editFundProductLimit(row);
                                                 close();
@@ -424,7 +398,6 @@ export default function FundProductLimits() {
                                         {row.state === 'active' ? (
                                             <div
                                                 className="dropdown-item"
-                                                data-dusk={`btnFundProductLimitDeactivate${row.id}`}
                                                 onClick={() => {
                                                     deactivateFundProductLimit(row);
                                                     close();
@@ -435,7 +408,6 @@ export default function FundProductLimits() {
                                         ) : (
                                             <div
                                                 className="dropdown-item"
-                                                data-dusk={`btnFundProductLimitActivate${row.id}`}
                                                 onClick={() => {
                                                     activateFundProductLimit(row);
                                                     close();
@@ -446,7 +418,6 @@ export default function FundProductLimits() {
                                         )}
                                         <div
                                             className="dropdown-item"
-                                            data-dusk={`btnFundProductLimitDelete${row.id}`}
                                             onClick={() => {
                                                 deleteLimit(row);
                                                 close();

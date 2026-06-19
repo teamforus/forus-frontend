@@ -1,6 +1,6 @@
 export default {
     header: {
-        title: 'Limits',
+        title: 'Gebruikslimieten',
     },
     labels: {
         id: 'Nummer',
@@ -15,10 +15,17 @@ export default {
     },
     buttons: {
         create: 'Toevoegen',
+        create_fund: 'Fonds aanmaken',
+        clear_filters: 'Wis filters',
         edit: 'Bewerken',
         activate: 'Activeren',
         deactivate: 'Deactiveren',
         delete: 'Verwijderen',
+    },
+    notifications: {
+        activated: 'Gebruikslimiet geactiveerd.',
+        deactivated: 'Gebruikslimiet gedeactiveerd.',
+        deleted: 'Gebruikslimiet verwijderd.',
     },
     states: {
         active: 'Actief',
@@ -34,7 +41,9 @@ export default {
         state: 'Status',
     },
     empty: {
-        title: 'Geen product limits',
-        description: 'Er zijn nog geen product limits voor dit fonds.',
+        title: 'Geen gebruikslimieten',
+        description: 'Er zijn nog geen gebruikslimieten voor dit fonds.',
+        no_funds_title: 'Geen fondsen gevonden',
+        no_funds_description: 'Maak eerst een fonds aan om gebruikslimieten toe te voegen.',
     },
 };
