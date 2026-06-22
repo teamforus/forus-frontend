@@ -5,10 +5,12 @@ import classNames from 'classnames';
 
 export default function ProductsList({
     display = 'grid',
+    headerTag = 'h2',
     products = [],
     setProducts = null,
 }: {
     display: 'grid' | 'list' | 'search';
+    headerTag?: 'h2' | 'h3';
     products?: Array<Product>;
     setProducts?: (products: Array<Product>) => void;
 }) {
@@ -24,6 +26,7 @@ export default function ProductsList({
                     key={product.id}
                     product={product}
                     display={display}
+                    headerTag={headerTag}
                     onToggleBookmark={(product) => {
                         setProducts?.(
                             products.map((item) => {

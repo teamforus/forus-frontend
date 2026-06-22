@@ -43,7 +43,7 @@ export default function BlockProducts({
             {cmsBlock && <CmsBlocks page={cmsBlock} />}
 
             {products?.length > 0 ? (
-                <ProductsList display={display} products={products} setProducts={setProducts} />
+                <ProductsList display={display} products={products} setProducts={setProducts} headerTag="h3" />
             ) : (
                 <EmptyBlock
                     title={translate(`block_products.labels.title`)}
