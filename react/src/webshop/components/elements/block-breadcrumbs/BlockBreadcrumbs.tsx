@@ -56,7 +56,7 @@ export default function BlockBreadcrumbs({
                         ) : (
                             <div
                                 className={classNames('breadcrumb-item', 'active', item.className)}
-                                aria-current="location">
+                                aria-current="page">
                                 {item.name}
                             </div>
                         )}
