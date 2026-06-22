@@ -46,7 +46,7 @@ export default function ModalPhotoCropper({
     const fileIsImage = useCallback((file: File) => imageTypes.includes(file.type), [imageTypes]);
 
     const loaded = useMemo(() => {
-        return cropperFiles.filter((file) => file.is_image && !file.loaded).length === 0;
+        return cropperFiles.filter((file) => file.is_image && (!file.loaded || !file.cropped_photo)).length === 0;
     }, [cropperFiles]);
 
     const onImageLoadDone = (file: ModalPhotoCropperFile, image: Blob) => {
