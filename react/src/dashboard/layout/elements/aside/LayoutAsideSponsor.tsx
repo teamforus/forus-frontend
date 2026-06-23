@@ -144,6 +144,15 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(organization, Permission.MANAGE_PROVIDERS),
                     },
+                    {
+                        id: 'fund_product_limits',
+                        name: 'Gebruikslimieten',
+                        state: DashboardRoutes.FUND_PRODUCT_LIMITS,
+                        stateParams: { organizationId: organization?.id },
+                        show:
+                            organization.allow_fund_product_limits &&
+                            hasPermission(organization, Permission.MANAGE_PROVIDERS),
+                    },
                 ]}
             />
 
