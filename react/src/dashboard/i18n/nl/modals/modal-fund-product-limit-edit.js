@@ -22,7 +22,8 @@ export default {
     descriptions: {
         products: {
             excluded: 'Voeg hier de producten toe waarop de limiet niet van toepassing is.',
-            selected: 'Voeg hier de producten toe waarop de limiet niet van toepassing is. De limiet geldt voor alle producten van dit fonds, behalve de producten die hieronder zijn toegevoegd.',
+            selected:
+                'Voeg hier de producten toe waarop de limiet niet van toepassing is. De limiet geldt voor alle producten van dit fonds, behalve de producten die hieronder zijn toegevoegd.',
         },
     },
     info: {
