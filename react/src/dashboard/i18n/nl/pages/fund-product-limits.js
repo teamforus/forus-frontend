@@ -33,12 +33,12 @@ export default {
         all: 'Alle',
     },
     tooltips: {
-        id: 'Nummer',
-        fund: 'Fonds',
-        type: 'Selectie type',
-        limit: 'Limiet',
-        created_at: 'Aangemaakt op',
-        state: 'Status',
+        id: 'Uniek identificatienummer van de ingestelde limiet.',
+        fund: 'Het fonds waarvoor deze limiet geldt.',
+        type: 'Geeft aan op welke producten de limiet wordt toegepast. Bijvoorbeeld: alle producten, alleen geselecteerde producten of alle producten behalve geselecteerde producten.',
+        limit: 'Het maximale aantal aanbiedingen dat binnen deze regeling gekozen kan worden. Bijvoorbeeld: bij een limiet van 1 kan er maximaal 1 aanbod gekozen worden.',
+        created_at: 'De datum waarop de limiet is aangemaakt.',
+        state: 'Geeft aan of de limiet actief of inactief is.',
     },
     empty: {
         title: 'Geen gebruikslimieten',
