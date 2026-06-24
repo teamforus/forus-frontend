@@ -103,7 +103,7 @@ export default function ModalAuthPincode({ modal }: { modal: ModalState }) {
                                 <img src={assetUrl('/assets/img/icon-auth/me-app-fill-pin-code.svg')} alt={''} />
                             </div>
                             <h2 className="app-instructions-title" id="pinCodeDialogTitle">
-                                {`Stap 3: ${translate('open_in_me.app_header.title')}`}
+                                {translate('open_in_me.app_header.title')}
                             </h2>
                             <div className="app-instructions-subtitle" id="pinCodeDialogSubtitle">
                                 {translate('open_in_me.app_header.subtitle')}

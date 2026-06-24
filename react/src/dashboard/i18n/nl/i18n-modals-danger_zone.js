@@ -19,6 +19,7 @@ import exclude_pre_check_fund from './modals/danger-zone/exclude_pre_check_fund'
 import remove_prevalidation_request from './modals/danger-zone/remove-prevalidation-request';
 import confirm_extra_payment_refund from './modals/danger-zone/confirm-extra-payment-refund';
 import send_voucher_by_email from './modals/danger-zone/send-voucher-by-email';
+import remove_fund_product_limit from './modals/danger-zone/remove-fund-product-limit';
 
 export default {
     remove_provider_application,
@@ -42,4 +43,5 @@ export default {
     remove_prevalidation_request,
     confirm_extra_payment_refund,
     send_voucher_by_email,
+    remove_fund_product_limit,
 };
