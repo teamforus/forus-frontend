@@ -2787,6 +2787,20 @@
         "types": {
             "active": "Aktywny",
             "archived": "Archiwum"
+        },
+        "placeholders": {
+            "amount": "10",
+            "description": "Co zostało kupione?",
+            "iban": "NL12INGB3456789012",
+            "iban_name": "J. Jansen",
+            "title": "Nazwa kosztu, o którego zwrot wnioskujesz."
+        },
+        "tooltips": {
+            "amount": "Wpisz kwotę, o której zwrot wnioskujesz. Przykład: 10.",
+            "description": "Krótko opisz, co zostało kupione. Przykład: buty sportowe.",
+            "iban": "Wpisz numer konta, na które chcesz otrzymać pieniądze. Przykładowy numer IBAN: NL12INGB3456789012.",
+            "iban_name": "Wpisz imię i nazwisko posiadacza rachunku. Przykład: J. Jansen.",
+            "title": "Nazwa kosztu, o którego zwrot wnioskujesz. Przykład: buty sportowe."
         }
     },
     "reservation": {
