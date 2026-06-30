@@ -65,6 +65,38 @@ export default function FundCriteriaCustomOverview({ fundKey }: { fundKey: strin
                     <h2>Wat hoort niet bij het inkomen?</h2>Zorgtoeslag, kinderopvangtoeslag, huurtoeslag, en
                     doeluitkeringen of vergoedingen (bijvoorbeeld schadevergoedingen). <br />
                     <br />
+                    <h2>Bent u Oekraïner en woont u op een opvanglocatie of bij iemand in huis?</h2>Dan geldt voor u
+                    onderstaande inkomensgrenzen. <br />
+                    <br />
+                    <table className="table collapse-sides">
+                        <tbody>
+                            <tr>
+                                <th>Situatie</th>
+                                <th>Bedrag</th>
+                            </tr>
+                            <tr>
+                                <td>Alleenstaand</td>
+                                <td>€ 515,-</td>
+                            </tr>
+                            <tr>
+                                <td>Gezin 2 personen</td>
+                                <td>€ 1030,-</td>
+                            </tr>
+                            <tr>
+                                <td>Gezin 3 personen</td>
+                                <td>€ 1545,-</td>
+                            </tr>
+                            <tr>
+                                <td>Gezin 4 personen</td>
+                                <td>€ 2060,-</td>
+                            </tr>
+                            <tr>
+                                <td>Gezin 5 personen</td>
+                                <td>€ 2570,-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p className="sign_up-pane-text"></p>
                     Wilt u weten op welke toeslagen of heffingskortingen u recht heeft? Kijk dan op de website van de
                     Belastingdienst: <a href="http://www.belastingdienst.nl/">www.belastingdienst.nl</a>. Heeft u hulp
                     hierbij nodig. De{' '}
@@ -91,7 +123,7 @@ export default function FundCriteriaCustomOverview({ fundKey }: { fundKey: strin
                         <li>U bent 18 jaar of ouder</li>
                         <li>U bent geen student</li>
                         <li>U woont in Nijmegen (en dit is geen opvanglocatie)</li>
-                        <li>U voldoet aan de maximale inkomensgrens (netto) voor de Meedoen-regeling 2025:</li>
+                        <li>U voldoet aan de maximale inkomensgrens (netto) voor de Meedoen-regeling:</li>
                     </ul>
                     <table className="table collapse-sides">
                         <tbody>
@@ -132,6 +164,38 @@ export default function FundCriteriaCustomOverview({ fundKey }: { fundKey: strin
                     <h2>Wat hoort niet bij het inkomen?</h2>Zorgtoeslag, kinderopvangtoeslag, huurtoeslag, en
                     doeluitkeringen of vergoedingen (bijvoorbeeld schadevergoedingen). <br />
                     <br />
+                    <h2>Bent u Oekraïner en woont u op een opvanglocatie of bij iemand in huis?</h2>Dan geldt voor u
+                    onderstaande inkomensgrenzen. <br />
+                    <br />
+                    <table className="table collapse-sides">
+                        <tbody>
+                            <tr>
+                                <th>Situatie</th>
+                                <th>Bedrag</th>
+                            </tr>
+                            <tr>
+                                <td>Alleenstaand</td>
+                                <td>€ 555,-</td>
+                            </tr>
+                            <tr>
+                                <td>Gezin 2 personen</td>
+                                <td>€ 1110,-</td>
+                            </tr>
+                            <tr>
+                                <td>Gezin 3 personen</td>
+                                <td>€ 1660,-</td>
+                            </tr>
+                            <tr>
+                                <td>Gezin 4 personen</td>
+                                <td>€ 2215,-</td>
+                            </tr>
+                            <tr>
+                                <td>Gezin 5 personen</td>
+                                <td>€ 2770,-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p className="sign_up-pane-text"></p>
                     Wilt u weten op welke toeslagen of heffingskortingen u recht heeft? Kijk dan op de website van de
                     Belastingdienst: <a href="http://www.belastingdienst.nl/">www.belastingdienst.nl</a>. Heeft u hulp
                     hierbij nodig. De{' '}
