@@ -1483,10 +1483,10 @@
         "close": "Zamknij",
         "email": "E-mail",
         "go_to_admin": "Przejdź do środowiska administracyjnego",
-        "header_title": "Blok pomocy finansowej",
-        "help_title": "Tytuł pomocy funduszu",
         "phone": "Telefon",
-        "website": "Strona internetowa"
+        "website": "Strona internetowa",
+        "header_title": "Skontaktuj się z nami",
+        "help_title": "Masz pytania lub potrzebujesz pomocy?"
     },
     "modal_logout": {
         "description_formal": "Czy na pewno chcesz się wylogować?",
@@ -3253,6 +3253,9 @@
             },
             "isd": {
                 "funds": "Programy"
+            },
+            "tilburg": {
+                "funds": "Przepisy"
             }
         },
         "user_menu": {

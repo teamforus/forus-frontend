@@ -4301,11 +4301,11 @@
     ],
     [
         "modal_fund_help.header_title",
-        "Fund Help Block"
+        "Contact opnemen"
     ],
     [
         "modal_fund_help.help_title",
-        "Fund Help Title"
+        "Vragen of hulp nodig?"
     ],
     [
         "modal_fund_help.phone",
@@ -9046,6 +9046,10 @@
     [
         "top_navbar.items.signup",
         "Uitleg aanbieders"
+    ],
+    [
+        "top_navbar.items.tilburg.funds",
+        "Regelingen"
     ],
     [
         "top_navbar.items.vergoedingen.funds",

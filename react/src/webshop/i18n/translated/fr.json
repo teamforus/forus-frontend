@@ -1483,10 +1483,10 @@
         "close": "Fermer",
         "email": "Courriel",
         "go_to_admin": "Accéder à l'environnement d'administration",
-        "header_title": "Fonds d'aide Bloc",
-        "help_title": "Fonds Aide Titre",
         "phone": "Téléphone",
-        "website": "Site web"
+        "website": "Site web",
+        "header_title": "Nous contacter",
+        "help_title": "Vous avez des questions ou besoin d'aide ?"
     },
     "modal_logout": {
         "description_formal": "Êtes-vous sûr de vouloir vous déconnecter ?",
@@ -3253,6 +3253,9 @@
             },
             "isd": {
                 "funds": "Régimes"
+            },
+            "tilburg": {
+                "funds": "Dispositions"
             }
         },
         "user_menu": {

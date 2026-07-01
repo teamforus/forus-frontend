@@ -303,6 +303,9 @@
             },
             "isd": {
                 "funds": "Regulations"
+            },
+            "tilburg": {
+                "funds": "Regulations"
             }
         },
         "user_menu": {
@@ -3256,10 +3259,10 @@
         "close": "Close",
         "email": "Email",
         "go_to_admin": "Go to the management environment",
-        "header_title": "Fund Help Block",
-        "help_title": "Fund Help Title",
         "phone": "Phone",
-        "website": "Website"
+        "website": "Website",
+        "header_title": "Contact Us",
+        "help_title": "Have questions or need help?"
     },
     "modal_photo_cropper": {
         "cancel": "Cancel",

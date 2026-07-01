@@ -743,6 +743,9 @@
             },
             "isd": {
                 "funds": "Şemalar"
+            },
+            "tilburg": {
+                "funds": "Düzenlemeler"
             }
         },
         "user_menu": {
@@ -2930,10 +2933,10 @@
         "close": "Kapat",
         "email": "E-posta",
         "go_to_admin": "Yönetim ortamına gidin",
-        "header_title": "Fon Yardım Bloğu",
-        "help_title": "Fon Yardım Başlığı",
         "phone": "Telefon",
-        "website": "Web sitesi"
+        "website": "Web sitesi",
+        "header_title": "İletişime geçmek",
+        "help_title": "Sorunuz mu var veya yardıma mı ihtiyacınız var?"
     },
     "modal_logout": {
         "description_formal": "Oturumu kapatmak istediğinizden emin misiniz?",

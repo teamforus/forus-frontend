@@ -1483,10 +1483,10 @@
         "close": "Schließen Sie",
         "email": "E-Mail",
         "go_to_admin": "Gehen Sie zur Verwaltungsumgebung",
-        "header_title": "Fonds Hilfe Block",
-        "help_title": "Fonds Hilfe Titel",
         "phone": "Telefon",
-        "website": "Website"
+        "website": "Website",
+        "header_title": "Kontakt aufnehmen",
+        "help_title": "Haben Sie Fragen oder benötigen Sie Hilfe?"
     },
     "modal_logout": {
         "description_formal": "Sind Sie sicher, dass Sie sich abmelden wollen?",
@@ -3253,6 +3253,9 @@
             },
             "isd": {
                 "funds": "Schemata"
+            },
+            "tilburg": {
+                "funds": "Regelungen"
             }
         },
         "user_menu": {
