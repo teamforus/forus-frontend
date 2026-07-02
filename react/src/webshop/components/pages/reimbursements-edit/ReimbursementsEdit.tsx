@@ -30,6 +30,7 @@ import useSetTitle from '../../../hooks/useSetTitle';
 import useFetchAuthIdentity from '../../../hooks/useFetchAuthIdentity';
 import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import FormGroup from '../../../../dashboard/components/elements/forms/elements/FormGroup';
 
 export default function ReimbursementsEdit() {
     const { id, voucher_id } = useParams();
@@ -352,92 +353,95 @@ export default function ReimbursementsEdit() {
                                 <div className="card-section">
                                     <div className="row">
                                         <div className="col col-xs-12 col-md-offset-2 col-md-8">
-                                            <div className="form-group">
-                                                <label className="form-label form-label-required" htmlFor="title">
-                                                    {translate('reimbursements.form.title')}
-                                                </label>
-                                                <input
-                                                    className="form-control"
-                                                    id="title"
-                                                    name="title"
-                                                    type="text"
-                                                    value={form.values.title || ''}
-                                                    onChange={(e) => form.update({ title: e.target.value })}
-                                                    maxLength={200}
-                                                />
-                                                <FormError error={form.errors.title} />
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="form-label form-label-required" htmlFor="amount">
-                                                    {translate('reimbursements.form.amount')}
-                                                </label>
-                                                <input
-                                                    className="form-control"
-                                                    id="amount"
-                                                    type="number"
-                                                    name="amount"
-                                                    step=".01"
-                                                    min="0.01"
-                                                    value={form.values.amount ?? ''}
-                                                    onChange={(e) => form.update({ amount: e.target.value })}
-                                                />
-                                                <FormError error={form.errors.amount} />
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="form-label" htmlFor="description">
-                                                    {translate('reimbursements.form.description')}
-                                                </label>
-                                                <textarea
-                                                    className="form-control"
-                                                    id="description"
-                                                    value={form.values.description || ''}
-                                                    onChange={(e) => form.update({ description: e.target.value })}
-                                                    name="description"
-                                                    style={{ resize: 'vertical' }}
-                                                    maxLength={2000}
-                                                />
-                                                <FormError error={form.errors.description} />
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="form-label form-label-required" htmlFor="iban">
-                                                    <div className="flex-inline">
-                                                        <div className="flex">
-                                                            {translate('reimbursements.form.iban')}
-                                                        </div>
-                                                        <div className="flex-inline flex-center flex-vertical">
-                                                            <Tooltip
-                                                                className={'text-left'}
-                                                                text={translate('reimbursements.form.iban_name')}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </label>
-                                                <input
-                                                    className="form-control"
-                                                    id="iban"
-                                                    type="text"
-                                                    name="iban"
-                                                    value={form.values.iban || ''}
-                                                    onChange={(e) => form.update({ iban: e.target.value })}
-                                                    maxLength={34}
-                                                />
-                                                <FormError error={form.errors.iban} />
-                                            </div>
-                                            <div className="form-group">
-                                                <label className="form-label form-label-required" htmlFor="iban_name">
-                                                    {translate('reimbursements.form.iban_name')}
-                                                </label>
-                                                <input
-                                                    className="form-control"
-                                                    id="iban_name"
-                                                    type="text"
-                                                    name="iban_name"
-                                                    value={form.values.iban_name || ''}
-                                                    onChange={(e) => form.update({ iban_name: e.target.value })}
-                                                    maxLength={45}
-                                                />
-                                                <FormError error={form.errors.iban_name} />
-                                            </div>
+                                            <FormGroup
+                                                required={true}
+                                                label={translate('reimbursements.form.title')}
+                                                error={form.errors.title}
+                                                info={translate('reimbursements.tooltips.title')}
+                                                input={() => (
+                                                    <input
+                                                        className="form-control"
+                                                        id="title"
+                                                        name="title"
+                                                        type="text"
+                                                        value={form.values.title || ''}
+                                                        onChange={(e) => form.update({ title: e.target.value })}
+                                                        maxLength={200}
+                                                    />
+                                                )}
+                                            />
+
+                                            <FormGroup
+                                                required={true}
+                                                label={translate('reimbursements.form.amount')}
+                                                error={form.errors.amount}
+                                                info={translate('reimbursements.tooltips.amount')}
+                                                input={() => (
+                                                    <input
+                                                        className="form-control"
+                                                        id="amount"
+                                                        type="number"
+                                                        name="amount"
+                                                        step=".01"
+                                                        min="0.01"
+                                                        value={form.values.amount ?? ''}
+                                                        onChange={(e) => form.update({ amount: e.target.value })}
+                                                    />
+                                                )}
+                                            />
+
+                                            <FormGroup
+                                                label={translate('reimbursements.form.description')}
+                                                error={form.errors.description}
+                                                info={translate('reimbursements.tooltips.description')}
+                                                input={() => (
+                                                    <textarea
+                                                        className="form-control"
+                                                        id="description"
+                                                        value={form.values.description || ''}
+                                                        onChange={(e) => form.update({ description: e.target.value })}
+                                                        name="description"
+                                                        style={{ resize: 'vertical' }}
+                                                        maxLength={2000}
+                                                    />
+                                                )}
+                                            />
+
+                                            <FormGroup
+                                                required={true}
+                                                label={translate('reimbursements.form.iban')}
+                                                error={form.errors.iban}
+                                                info={translate('reimbursements.tooltips.iban')}
+                                                input={() => (
+                                                    <input
+                                                        className="form-control"
+                                                        id="iban"
+                                                        type="text"
+                                                        name="iban"
+                                                        value={form.values.iban || ''}
+                                                        onChange={(e) => form.update({ iban: e.target.value })}
+                                                        maxLength={34}
+                                                    />
+                                                )}
+                                            />
+
+                                            <FormGroup
+                                                required={true}
+                                                label={translate('reimbursements.form.iban_name')}
+                                                error={form.errors.iban_name}
+                                                info={translate('reimbursements.tooltips.iban_name')}
+                                                input={() => (
+                                                    <input
+                                                        className="form-control"
+                                                        id="iban_name"
+                                                        type="text"
+                                                        name="iban_name"
+                                                        value={form.values.iban_name || ''}
+                                                        onChange={(e) => form.update({ iban_name: e.target.value })}
+                                                        maxLength={45}
+                                                    />
+                                                )}
+                                            />
                                         </div>
                                     </div>
                                 </div>

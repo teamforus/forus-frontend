@@ -11,11 +11,13 @@ import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 
 export default function ProductsListItem({
     display,
+    headerTag = 'h2',
     product,
     stateParams = null,
     onToggleBookmark = null,
 }: {
     display: 'grid' | 'list' | 'search';
+    headerTag?: 'h2' | 'h3';
     product: Product;
     stateParams?: object;
     onToggleBookmark?: (product: Product) => void;
@@ -43,11 +45,21 @@ export default function ProductsListItem({
             dataDusk={`listProductsRow${product.id}`}
             dataAttributes={{ 'data-search-item': 1 }}>
             {display === 'grid' && (
-                <ProductsListItemGrid price={price} toggleBookmark={toggleBookmark} product={product} />
+                <ProductsListItemGrid
+                    price={price}
+                    toggleBookmark={toggleBookmark}
+                    product={product}
+                    headerTag={headerTag}
+                />
             )}
 
             {display === 'list' && (
-                <ProductsListItemList price={price} toggleBookmark={toggleBookmark} product={product} />
+                <ProductsListItemList
+                    price={price}
+                    toggleBookmark={toggleBookmark}
+                    product={product}
+                    headerTag={headerTag}
+                />
             )}
 
             {display === 'search' && <ProductsListItemSearch product={product} />}

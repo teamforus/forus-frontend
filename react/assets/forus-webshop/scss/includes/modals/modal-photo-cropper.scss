@@ -88,11 +88,8 @@
                         &.cropper-preview-container-inactive {
                             position: fixed;
                             pointer-events: none;
-                            opacity: 0;
-                            width: 1px;
-                            height: 1px;
                             overflow: hidden;
-                            display: none;
+                            visibility: hidden;
                         }
                     }
                 }

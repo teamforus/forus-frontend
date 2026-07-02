@@ -14,10 +14,12 @@ export default function ProductsListItemList({
     price,
     product,
     toggleBookmark,
+    headerTag,
 }: {
     price: string;
     product?: Product;
     toggleBookmark: (e: React.MouseEvent) => void;
+    headerTag: 'h2' | 'h3';
 }) {
     const appConfigs = useAppConfigs();
     const authIdentity = useAuthIdentity();
@@ -43,9 +45,15 @@ export default function ProductsListItemList({
             <div className="product-content">
                 <div className="product-details">
                     <div className="product-details-header">
-                        <h2 className="product-title" data-dusk="productName">
-                            {product.name}
-                        </h2>
+                        {headerTag === 'h2' ? (
+                            <h2 className="product-title" data-dusk="productName">
+                                {product.name}
+                            </h2>
+                        ) : (
+                            <h3 className="product-title" data-dusk="productName">
+                                {product.name}
+                            </h3>
+                        )}
                         <div className="product-subtitle">{product.organization.name}</div>
                     </div>
 

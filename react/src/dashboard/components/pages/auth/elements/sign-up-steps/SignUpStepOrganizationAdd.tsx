@@ -200,6 +200,7 @@ export default function SignUpStepOrganizationAdd({
                                                     onChange={(e) => formOrganization.update({ email: e.target.value })}
                                                     placeholder={'E-mailadres'}
                                                     autoComplete={'email'}
+                                                    type="email"
                                                 />
                                             </FormGroupInfo>
                                         </div>

@@ -16,62 +16,70 @@ export type LatestRequestRunner = <T>(
 export default function useLatestRequest(): LatestRequestRunner {
     const requestIndexRef = useRef(0);
     const mountedRef = useRef(false);
-    const xhrRef = useRef<XMLHttpRequest>(null);
+    const xhrsRef = useRef<Set<XMLHttpRequest>>(new Set());
+
+    const abortXhrs = useCallback(() => {
+        xhrsRef.current.forEach((xhr) => xhr.abort());
+        xhrsRef.current.clear();
+    }, []);
 
     useEffect(() => {
         mountedRef.current = true;
 
         return () => {
             mountedRef.current = false;
-            xhrRef.current?.abort();
+            abortXhrs();
         };
-    }, []);
+    }, [abortXhrs]);
 
-    return useCallback<LatestRequestRunner>(async (request, handlers = {}) => {
-        const requestIndex = ++requestIndexRef.current;
-        const isLatestRequest = () => mountedRef.current && requestIndex === requestIndexRef.current;
-        const isLatestRequestIndex = () => requestIndex === requestIndexRef.current;
+    return useCallback<LatestRequestRunner>(
+        async (request, handlers = {}) => {
+            const requestIndex = ++requestIndexRef.current;
+            const isLatestRequest = () => mountedRef.current && requestIndex === requestIndexRef.current;
+            const isLatestRequestIndex = () => requestIndex === requestIndexRef.current;
 
-        const requestConfig: RequestConfigData = {
-            onAbort: () => {
-                if (requestIndex === requestIndexRef.current) {
-                    xhrRef.current = null;
-                }
-            },
-            onXhr: (xhr) => {
-                if (requestIndex === requestIndexRef.current) {
-                    xhrRef.current = xhr;
-                }
-            },
-        };
+            const requestConfig: RequestConfigData = {
+                onAbort: function (this: XMLHttpRequest) {
+                    if (requestIndex === requestIndexRef.current) {
+                        xhrsRef.current.delete(this);
+                    }
+                },
+                onXhr: (xhr) => {
+                    if (requestIndex === requestIndexRef.current) {
+                        xhrsRef.current.add(xhr);
+                        xhr.addEventListener('loadend', () => xhrsRef.current.delete(xhr), { once: true });
+                    }
+                },
+            };
 
-        xhrRef.current?.abort();
-        xhrRef.current = null;
-        handlers.onStart?.();
+            abortXhrs();
+            handlers.onStart?.();
 
-        try {
             try {
-                await Promise.resolve();
-                const result = await request(requestConfig);
+                try {
+                    await Promise.resolve();
+                    const result = await request(requestConfig);
 
-                if (isLatestRequest()) {
-                    handlers.onSuccess?.(result);
+                    if (isLatestRequest()) {
+                        handlers.onSuccess?.(result);
+                    }
+
+                    return result;
+                } catch (error) {
+                    if (isLatestRequest()) {
+                        handlers.onError?.(error);
+                    }
                 }
+            } finally {
+                if (isLatestRequestIndex()) {
+                    xhrsRef.current.clear();
 
-                return result;
-            } catch (error) {
-                if (isLatestRequest()) {
-                    handlers.onError?.(error);
+                    if (mountedRef.current) {
+                        handlers.onFinally?.();
+                    }
                 }
             }
-        } finally {
-            if (isLatestRequestIndex()) {
-                xhrRef.current = null;
-
-                if (mountedRef.current) {
-                    handlers.onFinally?.();
-                }
-            }
-        }
-    }, []);
+        },
+        [abortXhrs],
+    );
 }

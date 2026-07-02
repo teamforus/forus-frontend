@@ -2787,6 +2787,20 @@
         "types": {
             "active": "Aktiv",
             "archived": "Archiv"
+        },
+        "placeholders": {
+            "amount": "10",
+            "description": "Was haben Sie gekauft?",
+            "iban": "NL12INGB3456789012",
+            "iban_name": "J. Jansen",
+            "title": "Der Name der Kosten, deren Erstattung Sie beantragen."
+        },
+        "tooltips": {
+            "amount": "Geben Sie hier den Betrag ein, den Sie zurückfordern möchten. Beispiel: 10.",
+            "description": "Schreiben Sie kurz auf, was Sie gekauft haben. Beispiel: Sportschuhe.",
+            "iban": "Geben Sie die Kontonummer ein, auf die Sie das Geld erhalten möchten. Beispiel für eine IBAN: NL12INGB3456789012.",
+            "iban_name": "Geben Sie den Namen des Kontoinhabers ein. Beispiel: J. Jansen.",
+            "title": "Bezeichnung der Kosten, deren Erstattung Sie beantragen. Beispiel: Sportschuhe."
         }
     },
     "reservation": {
