@@ -2781,6 +2781,20 @@
         "types": {
             "active": "Actif",
             "archived": "Archives"
+        },
+        "placeholders": {
+            "amount": "10",
+            "description": "Qu'avez-vous acheté ?",
+            "iban": "NL12INGB3456789012",
+            "iban_name": "J. Jansen",
+            "title": "Le nom des frais que vous demandez à vous faire rembourser."
+        },
+        "tooltips": {
+            "amount": "Indiquez ici le montant que vous souhaitez récupérer. Exemple : 10.",
+            "description": "Indiquez brièvement ce que vous avez acheté. Exemple : des chaussures de sport.",
+            "iban": "Indiquez le numéro de compte sur lequel vous souhaitez recevoir l'argent. Exemple d'IBAN : NL12INGB3456789012.",
+            "iban_name": "Indiquez le nom du titulaire du compte. Exemple : J. Jansen.",
+            "title": "Nom des frais que vous demandez à vous faire rembourser. Exemple : chaussures de sport."
         }
     },
     "reservation": {

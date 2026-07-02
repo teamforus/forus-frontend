@@ -5,11 +5,11 @@ export default {
         description: 'Beheer de inlogpagina, beschikbare inlogopties en aanvullende uitleg.',
     },
     buttons: {
-        view_page: 'Bekijk homepage',
+        view_page: 'Bekijk pagina',
     },
     sections: {
-        hero: 'Hero section',
-        login: 'Login section',
+        hero: 'Hero sectie',
+        login: 'Login sectie',
         info: 'Uitleg sectie',
     },
     labels: {

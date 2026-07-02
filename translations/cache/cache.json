@@ -7944,6 +7944,26 @@
         "Er is geen e-mailadres bekend."
     ],
     [
+        "reimbursements.placeholders.amount",
+        "10"
+    ],
+    [
+        "reimbursements.placeholders.description",
+        "Wat heeft u gekocht?"
+    ],
+    [
+        "reimbursements.placeholders.iban",
+        "NL12INGB3456789012"
+    ],
+    [
+        "reimbursements.placeholders.iban_name",
+        "J. Jansen"
+    ],
+    [
+        "reimbursements.placeholders.title",
+        "De naam van de kosten die u terugvraagt."
+    ],
+    [
         "reimbursements.states.all",
         "Alle"
     ],
@@ -7978,6 +7998,26 @@
     [
         "reimbursements.title_edit",
         "Declaratienummer: #{{code}}"
+    ],
+    [
+        "reimbursements.tooltips.amount",
+        "Vul hier het bedrag in dat u wilt terugvragen. Voorbeeld: 10."
+    ],
+    [
+        "reimbursements.tooltips.description",
+        "Schrijf kort op wat u heeft gekocht. Voorbeeld: Sportschoenen."
+    ],
+    [
+        "reimbursements.tooltips.iban",
+        "Vul het rekeningnummer in waarop u het geld wilt ontvangen. Voorbeeld van een IBAN: NL12INGB3456789012."
+    ],
+    [
+        "reimbursements.tooltips.iban_name",
+        "Vul de naam van de rekeninghouder in. Voorbeeld: J. Jansen."
+    ],
+    [
+        "reimbursements.tooltips.title",
+        "Naam van de kosten die u terugvraagt. Voorbeeld: Sportschoenen."
     ],
     [
         "reimbursements.types.active",

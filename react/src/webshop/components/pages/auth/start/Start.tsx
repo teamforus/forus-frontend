@@ -335,12 +335,13 @@ export default function Start() {
                                 <UIControlText
                                     value={authForm.values.email}
                                     onChange={(e) => authForm.update({ email: e.target.value })}
-                                    id={'email'}
-                                    name={'email'}
+                                    id="email"
+                                    type="email"
+                                    name="email"
                                     tabIndex={1}
                                     autoFocus={true}
-                                    dataDusk={'authEmailFormEmail'}
-                                    autoComplete={'email'}
+                                    dataDusk="authEmailFormEmail"
+                                    autoComplete="email"
                                 />
                                 <FormError error={authForm.errors.email} />
                             </div>

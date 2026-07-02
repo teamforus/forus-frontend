@@ -1108,7 +1108,7 @@ export default function SignUpProvider() {
                                                                     </label>
                                                                     <input
                                                                         className="large form-control"
-                                                                        type="text"
+                                                                        type="email"
                                                                         id="email_input"
                                                                         name="email"
                                                                         value={emailForm.values.email}
@@ -1281,6 +1281,7 @@ export default function SignUpProvider() {
                                                         className={'large'}
                                                         placeholder={'e-mail@e-mail.nl'}
                                                         autoComplete={'email'}
+                                                        type="email"
                                                     />
                                                     <FormError error={signUpForm.errors?.email} />
                                                 </div>
@@ -1524,6 +1525,7 @@ export default function SignUpProvider() {
                                                             }
                                                             placeholder={'Voorbeeld: info@bedrijfsnaam.nl'}
                                                             autoComplete={'email'}
+                                                            type="email"
                                                         />
                                                     </div>
                                                     <div className="col col-md-4 col-xs-12">
@@ -1887,6 +1889,7 @@ export default function SignUpProvider() {
                                                     onChange={(e) => employeeForm.update({ email: e.target.value })}
                                                     placeholder={'Voorbeeld: e-mail@e-mail.nl'}
                                                     autoComplete={'email'}
+                                                    type="email"
                                                 />
                                                 <FormError error={employeeForm.errors.email} />
                                             </div>

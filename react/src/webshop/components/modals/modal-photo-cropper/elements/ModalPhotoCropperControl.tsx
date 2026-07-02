@@ -1,5 +1,7 @@
 import React, { useCallback } from 'react';
-import ImageCropper from '../../../../../dashboard/components/elements/image_cropper/ImageCropper';
+import ImageCropper, {
+    ImageCropperPresetValue,
+} from '../../../../../dashboard/components/elements/image_cropper/ImageCropper';
 import { ModalPhotoCropperFile } from '../ModalPhotoCropper';
 
 export default function ModalPhotoCropperControl({
@@ -10,8 +12,14 @@ export default function ModalPhotoCropperControl({
     onCropperChange: (file: ModalPhotoCropperFile, previewData: Blob) => void;
 }) {
     const onChange = useCallback(
-        (presets) => {
-            onCropperChange(file, presets[0]?.blob);
+        (presets: ImageCropperPresetValue[]) => {
+            const blob = presets[0]?.blob;
+
+            if (!blob) {
+                return;
+            }
+
+            onCropperChange(file, blob);
         },
         [file, onCropperChange],
     );

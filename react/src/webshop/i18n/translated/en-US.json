@@ -2424,6 +2424,20 @@
         "create_card": {
             "button": "Submit coupon",
             "title": "Cost recovery"
+        },
+        "placeholders": {
+            "amount": "10",
+            "description": "What did you buy?",
+            "iban": "NL12INGB3456789012",
+            "iban_name": "J. Jansen",
+            "title": "The name of the expense for which you are requesting a reimbursement."
+        },
+        "tooltips": {
+            "amount": "Enter the amount you want to claim here. Example: 10.",
+            "description": "Briefly write down what you bought. Example: Athletic shoes.",
+            "iban": "Enter the account number where you would like to receive the money. Example of an IBAN: NL12INGB3456789012.",
+            "iban_name": "Enter the account holder's name. Example: J. Jansen.",
+            "title": "Name of the expense you are claiming. Example: Athletic shoes."
         }
     },
     "voucher_printable": {

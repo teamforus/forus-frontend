@@ -113,6 +113,7 @@ export default function SignUpStepProfileCreate({ panelType }: { panelType: 'spo
                                         className={'large'}
                                         placeholder={'e-mail@e-mail.nl'}
                                         autoComplete={'email'}
+                                        type="email"
                                     />
                                     <FormError
                                         error={formSignUp.errors?.email || formSignUp.errors?.['records.primary_email']}

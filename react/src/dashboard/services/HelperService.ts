@@ -1,34 +1,36 @@
 import { useState } from 'react';
+import type ApiResponse from '../props/ApiResponses';
+
+type RecursiveLeachRequest<T> = (page: number, lastPage: number | null, concurrency: number) => Promise<ApiResponse<T>>;
 
 export class HelperService {
     public recursiveLeach<T>(
-        request: CallableFunction,
+        request: RecursiveLeachRequest<T>,
         concurrency = 1,
         page = 1,
-        last_page = null,
-        data = [],
+        last_page: number | null = null,
+        data: Array<T> = [],
     ): Promise<Array<T>> {
         return new Promise((resolve, reject) => {
-            const requests = [];
-            const _concurrency = last_page === null ? 1 : Math.min(concurrency, Math.max(last_page - page + 1, 1));
+            const requests: Array<Promise<ApiResponse<T>>> = [];
+            const _maxConcurrency = Math.max(1, concurrency);
+            const _concurrency = last_page === null ? 1 : Math.min(_maxConcurrency, Math.max(last_page - page + 1, 1));
 
             for (let requestIndex = 0; requestIndex < _concurrency; requestIndex++) {
                 requests.push(request(page + requestIndex, last_page, _concurrency));
             }
 
             return Promise.all(requests).then((res) => {
-                const _data = data.concat(res.reduce((arr, __data) => arr.concat(__data.data.data), []));
+                const lastPage = res[0].data.meta.last_page;
+                const _data = data.concat(res.reduce<Array<T>>((arr, __data) => arr.concat(__data.data.data), []));
 
-                if (res[0].data.meta.last_page === last_page && page + (_concurrency - 1) >= last_page) {
+                if (page + (_concurrency - 1) >= lastPage) {
                     resolve(_data);
                 } else {
-                    this.recursiveLeach<T>(
-                        request,
-                        concurrency,
-                        page + _concurrency,
-                        res[0].data.meta.last_page,
-                        _data,
-                    ).then(resolve);
+                    this.recursiveLeach<T>(request, concurrency, page + _concurrency, lastPage, _data).then(
+                        resolve,
+                        reject,
+                    );
                 }
             }, reject);
         });
