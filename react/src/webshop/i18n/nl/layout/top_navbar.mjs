@@ -19,6 +19,7 @@ export default {
     items: {
         home: 'Home',
         funds: 'Activeren',
+        partner_funds: 'Partnerfondsen',
         products: 'Aanbod',
         providers: 'Aanbieders',
         explanation: 'Uitleg',

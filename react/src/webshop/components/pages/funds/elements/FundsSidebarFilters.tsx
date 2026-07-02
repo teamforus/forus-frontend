@@ -54,12 +54,14 @@ export default function FundsSidebarFilters({
                 initialValues={initialFilterValues}
             />
 
-            <FundsFilterGroupTags
-                value={filterValues?.tag_ids}
-                setValue={(tag_ids) => filterUpdate({ tag_ids })}
-                openByDefault={true}
-                tags={tags}
-            />
+            {tags?.length > 0 && (
+                <FundsFilterGroupTags
+                    value={filterValues?.tag_ids}
+                    setValue={(tag_ids) => filterUpdate({ tag_ids })}
+                    openByDefault={true}
+                    tags={tags}
+                />
+            )}
 
             {organizations?.length > 1 && (
                 <FundsFilterGroupOrganizations

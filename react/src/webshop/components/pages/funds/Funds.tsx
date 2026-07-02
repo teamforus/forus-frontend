@@ -21,11 +21,12 @@ import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import useLatestRequestWithProgress from '../../../../dashboard/hooks/useLatestRequestWithProgress';
 import FundsListItem from '../../elements/lists/funds-list/templates/FundsListItem';
 import useFundsPageFilters from './hooks/useFundsPageFilters';
+import type { FundsPageType } from './hooks/useFundsPageFilters';
 import FundsSidebarFilters from './elements/FundsSidebarFilters';
 import Markdown from '../../elements/markdown/Markdown';
 import Section from '../../elements/sections/Section';
 
-export default function Funds() {
+export default function Funds({ pageType }: { pageType: FundsPageType }) {
     const envData = useEnvData();
     const appConfigs = useAppConfigs();
     const authIdentity = useAuthIdentity();
@@ -52,10 +53,19 @@ export default function Funds() {
         filterValues,
         initialFilterValues,
         fundsQuery,
+        showPartnersPage,
         tags,
         organizations,
-        pageType,
-    } = useFundsPageFilters();
+    } = useFundsPageFilters(pageType);
+
+    const partnerDescription =
+        pageType === 'partners' && envData
+            ? translate(
+                  `funds.partners.${envData.client_key}.description`,
+                  {},
+                  'funds.header.partners_description',
+              ).trim()
+            : '';
 
     const fetchFunds = useCallback(
         (query: object) => {
@@ -102,13 +112,19 @@ export default function Funds() {
         if (!appConfigs.funds.list) {
             return navigateState(WebshopRoutes.HOME);
         }
-    }, [appConfigs.funds.list, navigateState]);
+
+        if (pageType === 'partners' && !showPartnersPage) {
+            return navigateState(WebshopRoutes.FUNDS);
+        }
+    }, [appConfigs.funds.list, navigateState, pageType, showPartnersPage]);
 
     useEffect(() => {
-        if (fundsQuery) {
-            fetchFunds(fundsQuery);
+        if (pageType === 'partners' && !showPartnersPage) {
+            return;
         }
-    }, [fetchFunds, fundsQuery]);
+
+        fetchFunds(fundsQuery);
+    }, [fetchFunds, fundsQuery, pageType, showPartnersPage]);
 
     useEffect(() => {
         if (envData?.client_key == 'vergoedingen') {
@@ -165,16 +181,10 @@ export default function Funds() {
 
                     {pageType === 'funds' && appConfigs.pages.funds && <CmsBlocks page={appConfigs.pages.funds} />}
 
-                    {pageType === 'partners' && (
+                    {partnerDescription && (
                         <Section type={'cms'}>
                             <div className="block block-cms">
-                                <Markdown
-                                    content={translate(
-                                        `funds.partners.${envData.client_key}.description`,
-                                        {},
-                                        'funds.header.partners_description',
-                                    )}
-                                />
+                                <Markdown content={partnerDescription} />
                             </div>
                         </Section>
                     )}
@@ -203,16 +213,18 @@ export default function Funds() {
                         />
                     )}
 
-                    <div className="card" hidden={funds?.meta?.last_page < 2}>
-                        <div className="card-section">
-                            <Paginator
-                                meta={funds.meta}
-                                filters={filterValues}
-                                count-buttons={5}
-                                updateFilters={filterUpdate}
-                            />
+                    {funds?.meta?.last_page >= 2 && (
+                        <div className="card">
+                            <div className="card-section">
+                                <Paginator
+                                    meta={funds.meta}
+                                    filters={filterValues}
+                                    count-buttons={5}
+                                    updateFilters={filterUpdate}
+                                />
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </Fragment>
             )}
         </BlockShowcaseList>

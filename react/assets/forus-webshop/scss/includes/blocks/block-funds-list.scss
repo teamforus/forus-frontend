@@ -1,7 +1,12 @@
 .block.block-funds {
     --funds-columns: 3;
     --funds-gap: 25px;
-    --funds-content-padding: 30px 20px;
+    --funds-content-padding: 20px 20px;
+    --funds-title-font: 600 28px/32px var(--base-font);
+    --funds-title-color: var(--products-title-color);
+    --funds-title-hover-color: var(--products-title-hover-color);
+    --funds-text-font: 400 18px/27px var(--base-font);
+    --funds-text-color: var(--products-text-color);
 
     display: flex;
     flex-wrap: wrap;
@@ -10,7 +15,7 @@
     gap: var(--funds-gap);
     margin: 0 0 30px;
 
-    .fund-item {
+    .funds-item {
         display: flex;
         flex: 0 1 calc(calc(100% - calc(var(--funds-columns) - 1) * var(--funds-gap)) / var(--funds-columns));
         font-size: initial;
@@ -18,38 +23,31 @@
         min-width: 0;
         background: var(--showcase-item-background);
         border-radius: var(--showcase-item-border-radius);
+        box-shadow: var(--showcase-item-shadow);
         border: var(--showcase-item-border);
         overflow: hidden;
-        transition: background-color 0.4s;
+        transition:
+            background-color 0.4s,
+            box-shadow 0.4s;
 
-        .button {
-            font: 600 13px/20px var(--base-font);
-
-            &.button-text {
-                padding: 0;
-            }
-        }
-
-        .fund-content {
+        .funds-content {
             display: flex;
             flex: 1 1 auto;
             min-width: 0;
             flex-direction: column;
-            background: #ffffff;
-            transition: background-color 0.4s;
 
-            .fund-photo {
+            .funds-photo {
                 display: flex;
                 flex: 0 1 auto;
                 border-bottom: 1px solid var(--border-color);
 
-                img {
+                .funds-photo-img {
                     display: block;
                     width: 100%;
                 }
             }
 
-            .fund-details {
+            .funds-details {
                 display: flex;
                 flex: 1 1 auto;
                 padding: var(--funds-content-padding);
@@ -58,32 +56,32 @@
                 justify-content: space-between;
                 min-width: 0;
 
-                .fund-info {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 20px;
-
-                    .fund-title {
-                        flex: 0 1 auto;
-                        margin: 0 0;
-                        word-wrap: break-word;
-                        font: 600 28px/32px var(--base-font);
-                        color: var(--funds-title-color);
-                        transition: 0.4s color;
-                    }
-
-                    .fund-description {
-                        font: 400 18px/27px var(--base-font);
-                        color: var(--funds-title-color);
-                    }
-                }
-
-                .fund-actions {
+                .funds-info {
                     display: flex;
                     flex-direction: column;
                     gap: 15px;
 
-                    .fund-button-link {
+                    .funds-title {
+                        flex: 0 1 auto;
+                        margin: 0 0;
+                        word-wrap: break-word;
+                        font: var(--funds-title-font);
+                        color: var(--funds-title-color);
+                        transition: 0.4s color;
+                    }
+
+                    .funds-description {
+                        font: var(--funds-text-font);
+                        color: var(--funds-text-color);
+                    }
+                }
+
+                .funds-actions {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+
+                    .funds-button-link {
                         padding: 0;
                         display: inline-block;
                         text-decoration: underline;
@@ -95,24 +93,21 @@
         }
 
         &:hover {
-            background: #f4f5f7;
+            background: var(--showcase-item-hover-background, var(--showcase-item-background));
+            box-shadow: var(--showcase-item-hover-shadow);
 
-            .fund-content {
-                background: #f4f5f7;
-            }
-
-            .fund-details {
-                .fund-info {
-                    .fund-title {
-                        color: var(--funds-title-hover-color);
-                    }
-                }
+            .funds-title {
+                color: var(--funds-title-hover-color);
             }
         }
     }
 
     @media screen and (max-width: 800px) {
         --funds-columns: 2;
+        --funds-gap: 15px;
+        --funds-content-padding: 15px;
+        --funds-title-font: 600 24px/30px var(--base-font);
+        --funds-text-font: 400 16px/24px var(--base-font);
     }
 
     @media screen and (max-width: 480px) {

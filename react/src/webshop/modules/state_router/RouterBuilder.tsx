@@ -9,6 +9,7 @@ export enum WebshopRoutes {
     IDENTITY_RESTORE = 'identity-restore',
     IDENTITY_CONFIRMATION = 'identity-confirmation',
     FUNDS = 'funds',
+    FUNDS_PARTNERS = 'funds-partners',
     FUND = 'fund',
     FUND_REQUEST = 'fund-request',
     FUND_ACTIVATE = 'fund-activate',
