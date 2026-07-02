@@ -40,7 +40,11 @@ export default function FundRequestGroupRecordRow({
     const recordHasCriterion = useMemo(() => {
         return (
             record.fund_criterion_id &&
-            fundRequest.fund?.criteria?.find((criterion) => criterion.id === record.fund_criterion_id)
+            fundRequest.fund?.criteria?.find(
+                (criterion) =>
+                    criterion.id === record.fund_criterion_id &&
+                    !['children_same_address_nth', 'partner_same_address_nth'].includes(criterion.record_type_key),
+            )
         );
     }, [fundRequest, record]);
 
