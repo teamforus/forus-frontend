@@ -586,11 +586,11 @@
                 "continue_without_email_link": "Continuer sans adresse e-mail",
                 "email_required": "Pour continuer avec la demande, veuillez entrer votre adresse e-mail",
                 "email_sent": "Courriel envoyé",
-                "email_sent_screen": "Un e-mail de confirmation a été envoyé",
                 "no_email_link": "Je n'ai pas d'adresse électronique",
                 "sign_up_with_email": "S'identifier avec l'adresse e-mail",
                 "no_email_info": "Sans adresse e-mail, vous ne recevrez pas de messages importants concernant votre crédit et vos dépenses. Vous ne pouvez donc vous connecter qu'avec DigiD.",
-                "warning": "Remarque :"
+                "warning": "Remarque :",
+                "email_sent_screen": "Un e-mail a été envoyé"
             },
             "fund_request_overview": {
                 "application_summary": "Aperçu de la demande",
@@ -1972,16 +1972,12 @@
         "header": {
             "subtitle_formal": "Saisissez votre adresse e-mail pour recevoir un lien qui vous permettra de vous connecter.",
             "subtitle_informal": "Saisissez votre adresse e-mail pour recevoir un lien qui vous permettra de vous connecter.",
-            "subtitle_succes_formal": "Vous avez reçu un e-mail à l'adresse e-mail que vous venez de saisir. Allez dans votre boîte de réception et ouvrez l'e-mail dont l'objet est \"Confirmer l'e-mail\" et cliquez sur le bouton bleu dans l'e-mail.",
-            "subtitle_succes_informal": "Vous avez reçu un e-mail à l'adresse e-mail que vous venez de saisir. Allez dans votre boîte de réception et ouvrez l'e-mail dont l'objet est \"Confirmer l'e-mail\" et cliquez sur le bouton bleu dans l'e-mail.",
-            "subtitle_we_succes_formal": "Vous avez reçu un e-mail le <strong class=\"text-primary\">{{email}}</strong>. Allez dans votre boîte de réception et ouvrez l'e-mail dont l'objet est \"Confirmer l'e-mail\" et cliquez sur \"Confirmer\" dans l'e-mail.",
-            "subtitle_we_succes_informal": "Vous avez reçu un e-mail à l'adresse <strong class=\"text-primary\">{{email}}</strong>. Allez dans votre boîte de réception et ouvrez l'e-mail dont l'objet est \"Confirmer l'e-mail\" et cliquez sur \"Confirmer\" dans l'e-mail.",
             "title": "Courriel envoyé",
-            "title_existing_user_succes_formal": "Consultez votre courrier électronique.",
-            "title_existing_user_succes_informal": "Vérifiez votre courrier électronique.",
             "title_sr": "Démarrer la connexion",
-            "title_succes_formal": "Veuillez confirmer que vous avez accès à cette adresse électronique.",
-            "title_succes_informal": "Confirmez que vous avez accès à cette adresse électronique."
+            "subtitle_email_sent_formal": "Nous avons envoyé un e-mail à <strong class=\"text-primary\">{{email}}</strong>. Veuillez ouvrir l'e-mail et suivre le lien pour continuer.",
+            "subtitle_email_sent_informal": "Nous avons envoyé un e-mail à <strong class=\"text-primary\">{{email}}</strong>. Veuillez ouvrir l'e-mail et suivre le lien pour continuer.",
+            "title_email_sent_formal": "Consultez votre courrier électronique.",
+            "title_email_sent_informal": "Vérifiez votre courrier électronique."
         },
         "input": {
             "code": "Code d'activation",
@@ -2028,8 +2024,6 @@
         "notifications": {
             "confirmation": "Cela a fonctionné !",
             "invalid": "Le code d'activation n'est pas valide ou a déjà été utilisé.",
-            "link_formal": "Un e-mail a été envoyé à <strong class=\"text-primary\">{{email}}</strong><br/>Cliquez sur le lien pour vous inscrire.",
-            "link_informal": "Un e-mail a été envoyé à <strong class=\"text-primary\">{{email}}</strong><br/>Cliquez sur le lien pour vous inscrire.",
             "voucher_email": "Le code QR a été envoyé."
         },
         "pin_code": {
