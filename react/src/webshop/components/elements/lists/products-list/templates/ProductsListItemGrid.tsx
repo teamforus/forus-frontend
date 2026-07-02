@@ -14,10 +14,12 @@ export default function ProductsListItemGrid({
     price,
     product,
     toggleBookmark,
+    headerTag,
 }: {
     price: string;
     product?: Product;
     toggleBookmark: (e: React.MouseEvent) => void;
+    headerTag: 'h2' | 'h3';
 }) {
     const appConfigs = useAppConfigs();
     const authIdentity = useAuthIdentity();
@@ -54,9 +56,15 @@ export default function ProductsListItemGrid({
                 />
             </div>
             <div className="product-details">
-                <h2 className="product-title" data-dusk="productName">
-                    {product.name}
-                </h2>
+                {headerTag === 'h2' ? (
+                    <h2 className="product-title" data-dusk="productName">
+                        {product.name}
+                    </h2>
+                ) : (
+                    <h3 className="product-title" data-dusk="productName">
+                        {product.name}
+                    </h3>
+                )}
                 <div className="product-subtitle">{product.organization.name}</div>
             </div>
             <div className="product-actions">

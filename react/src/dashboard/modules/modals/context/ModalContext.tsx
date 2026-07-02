@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { createContext } from 'react';
 import { uniqueId } from 'lodash';
 
@@ -37,6 +37,7 @@ const { Provider } = modalsContext;
 
 const ModalsProvider = ({ children }: { children: React.ReactElement }) => {
     const [modals, setModals] = useState<Array<ModalState>>([]);
+    const [closedModals, setClosedModals] = useState<Array<ModalState>>([]);
 
     const setLoading = useCallback((id: string, loading: boolean) => {
         setModals((modals) => {
@@ -66,7 +67,10 @@ const ModalsProvider = ({ children }: { children: React.ReactElement }) => {
 
             setTimeout(() => {
                 setModals((modals) => [...modals.filter((item) => item !== modal)]);
-                setTimeout(() => modal?.onClosed && modal?.onClosed(modal));
+
+                if (modal?.onClosed) {
+                    setClosedModals((closedModals) => [...closedModals, modal]);
+                }
             }, 200);
         },
         [setLoading],
@@ -91,6 +95,17 @@ const ModalsProvider = ({ children }: { children: React.ReactElement }) => {
         },
         [closeModal, setLoading, setHidden, setProcessing],
     );
+
+    useEffect(() => {
+        if (closedModals.length === 0) {
+            return;
+        }
+
+        const modalsToClose = closedModals;
+
+        setClosedModals([]);
+        modalsToClose.forEach((modal) => modal.onClosed?.(modal));
+    }, [closedModals]);
 
     return (
         <Provider
