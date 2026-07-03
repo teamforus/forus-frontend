@@ -213,18 +213,16 @@ export default function Funds({ pageType }: { pageType: FundsPageType }) {
                         />
                     )}
 
-                    {funds?.meta?.last_page >= 2 && (
-                        <div className="card">
-                            <div className="card-section">
-                                <Paginator
-                                    meta={funds.meta}
-                                    filters={filterValues}
-                                    count-buttons={5}
-                                    updateFilters={filterUpdate}
-                                />
-                            </div>
+                    <div className="card" hidden={funds?.meta?.last_page < 2}>
+                        <div className="card-section">
+                            <Paginator
+                                meta={funds.meta}
+                                filters={filterValues}
+                                count-buttons={5}
+                                updateFilters={filterUpdate}
+                            />
                         </div>
-                    )}
+                    </div>
                 </Fragment>
             )}
         </BlockShowcaseList>
