@@ -29,4 +29,12 @@
         border: none;
         border-radius: 0;
     }
+
+    &.block-info-box-primary {
+        background-color: #f3f8fe;
+
+        .info-box-icon {
+            color: #009ef4;
+        }
+    }
 }

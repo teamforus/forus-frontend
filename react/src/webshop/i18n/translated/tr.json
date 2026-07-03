@@ -2723,6 +2723,20 @@
         "types": {
             "active": "Aktif",
             "archived": "Arşiv"
+        },
+        "placeholders": {
+            "amount": "10",
+            "description": "Ne aldınız?",
+            "iban": "NL12INGB3456789012",
+            "iban_name": "J. Jansen",
+            "title": "Geri talep ettiğiniz masrafın adı."
+        },
+        "tooltips": {
+            "amount": "Buraya geri almak istediğiniz tutarı girin. Örnek: 10.",
+            "description": "Ne satın aldığınızı kısaca yazın. Örnek: Spor ayakkabıları.",
+            "iban": "Parayı almak istediğiniz hesap numarasını girin. IBAN örneği: NL12INGB3456789012.",
+            "iban_name": "Hesap sahibinin adını girin. Örnek: J. Jansen.",
+            "title": "Geri talep ettiğiniz masrafın adı. Örnek: Spor ayakkabıları."
         }
     },
     "reservation": {

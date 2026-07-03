@@ -1,17 +1,16 @@
-import React, { Fragment, ReactNode } from 'react';
+import React, { Fragment, useMemo } from 'react';
 
 export default function LoadingCard({ type = 'card' }: { type?: 'card' | 'card-section' }) {
-    const Wrapper = ({ children }: { children: ReactNode }) => {
-        return type == 'card' ? <div className={'card'}>{children}</div> : <Fragment>{children}</Fragment>;
-    };
-
-    return (
-        <Wrapper>
+    const cardSection = useMemo(
+        () => (
             <div className="card-section">
                 <div className="card-loading">
                     <em className="mdi mdi-loading mdi-spin" />
                 </div>
             </div>
-        </Wrapper>
+        ),
+        [],
     );
+
+    return type == 'card' ? <div className="card">{cardSection}</div> : <Fragment>{cardSection}</Fragment>;
 }

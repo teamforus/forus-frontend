@@ -74,7 +74,7 @@
     "date-fns": "^4.1.0",
     "deepl-node": "^1.15.0",
     "diff": "^9.0.0",
-    "dompurify": "^3.3.2",
+    "dompurify": "^3.4.9",
     "easyqrcodejs": "^4.4.13",
     "file-saver": "^2.0.5",
     "i18n-iso-countries": "^7.13.0",
