@@ -66,7 +66,12 @@ export default function ProviderOrganizationOverview({
     }, [organization]);
 
     const updateProvider = useCallback(
-        (data: { allow_budget?: boolean; allow_products?: boolean; excluded?: boolean }) => {
+        (data: {
+            allow_budget?: boolean;
+            allow_products?: boolean;
+            excluded?: boolean;
+            allow_provider_messages?: boolean;
+        }) => {
             setProgress(0);
 
             return fundService
@@ -91,6 +96,14 @@ export default function ProviderOrganizationOverview({
 
     const updateFundProviderExcluded = useCallback(
         (data: { excluded?: boolean }) => {
+            setSubmittingExcluded(true);
+            updateProvider(data).finally(() => setSubmittingExcluded(false));
+        },
+        [updateProvider],
+    );
+
+    const updateFundProviderAllowProviderMessages = useCallback(
+        (data: { allow_provider_messages?: boolean }) => {
             setSubmittingExcluded(true);
             updateProvider(data).finally(() => setSubmittingExcluded(false));
         },
@@ -209,6 +222,21 @@ export default function ProviderOrganizationOverview({
                                             disabled={submittingAllow || fundProvider.state != 'accepted'}
                                             onChange={(e) => {
                                                 updateFundProviderAllow({ allow_products: e.target.checked });
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="flex-col">
+                                    <div className="card-block card-block-listing card-block-listing-inline card-block-listing-variant">
+                                        <div className="card-block-listing-label">Op maat berichten sturen </div>
+                                        <ToggleControl
+                                            checked={fundProvider.allow_provider_messages}
+                                            disabled={submittingAllow || fundProvider.state != 'accepted'}
+                                            onChange={(e) => {
+                                                updateFundProviderAllowProviderMessages({
+                                                    allow_provider_messages: e.target.checked,
+                                                });
                                             }}
                                         />
                                     </div>

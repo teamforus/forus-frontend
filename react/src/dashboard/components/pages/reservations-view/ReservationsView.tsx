@@ -1,14 +1,12 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
-import usePushSuccess from '../../../hooks/usePushSuccess';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { hasPermission } from '../../../helpers/utils';
 import useSetProgress from '../../../hooks/useSetProgress';
 import Reservation from '../../../props/models/Reservation';
 import { useParams } from 'react-router';
 import useProductReservationService from '../../../services/ProductReservationService';
-import useConfirmReservationApproval from '../../../services/helpers/reservations/useConfirmReservationApproval';
 import useTransactionService from '../../../services/TransactionService';
 import useEnvData from '../../../hooks/useEnvData';
 import Transaction from '../../../props/models/Transaction';
@@ -32,6 +30,8 @@ import Note from '../../../props/models/Note';
 import useProductService from '../../../services/ProductService';
 import Product from '../../../props/models/Product';
 import { RequestConfig } from '../../../props/ApiResponses';
+import ModalReservationApprove from '../../modals/ModalReservationApprove';
+import BlockCardProviderMessages from './elements/BlockCardProviderMessages';
 
 export default function ReservationsView() {
     const { id } = useParams();
@@ -41,7 +41,6 @@ export default function ReservationsView() {
 
     const translate = useTranslate();
     const openModal = useOpenModal();
-    const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
 
@@ -53,8 +52,9 @@ export default function ReservationsView() {
     const [reservation, setReservation] = useState<Reservation>(null);
     const [product, setProduct] = useState<Product>(null);
 
+    const fetchProviderMessagesRef = useRef<() => void>(null);
+
     const showRejectInfoExtraPaid = useShowRejectInfoExtraPaid();
-    const confirmReservationApproval = useConfirmReservationApproval();
 
     const fetchProduct = useCallback(
         (id: number) => {
@@ -97,33 +97,25 @@ export default function ReservationsView() {
 
     const acceptReservation = useCallback(
         (reservation: Reservation) => {
-            confirmReservationApproval([reservation], () => {
-                setProgress(0);
+            openModal((modal) => {
+                return (
+                    <ModalReservationApprove
+                        modal={modal}
+                        organization={activeOrganization}
+                        reservations={[reservation]}
+                        onDone={() => {
+                            fetchReservation(reservation.id);
+                            fetchProviderMessagesRef?.current?.();
 
-                productReservationService
-                    .accept(activeOrganization.id, reservation.id)
-                    .then((res) => {
-                        pushSuccess('Opgeslagen!');
-
-                        setReservation(res.data.data);
-
-                        if (reservation.voucher_transaction?.address) {
-                            fetchTransaction(reservation.voucher_transaction?.address);
-                        }
-                    })
-                    .catch(pushApiError)
-                    .then(() => setProgress(100));
+                            if (reservation.voucher_transaction?.address) {
+                                fetchTransaction(reservation.voucher_transaction?.address);
+                            }
+                        }}
+                    />
+                );
             });
         },
-        [
-            activeOrganization.id,
-            confirmReservationApproval,
-            fetchTransaction,
-            productReservationService,
-            pushApiError,
-            pushSuccess,
-            setProgress,
-        ],
+        [activeOrganization, fetchReservation, fetchTransaction, openModal],
     );
 
     const rejectReservation = useCallback(
@@ -138,7 +130,10 @@ export default function ReservationsView() {
                         modal={modal}
                         organization={activeOrganization}
                         reservations={[reservation]}
-                        onDone={() => fetchReservation(reservation.id)}
+                        onDone={() => {
+                            fetchReservation(reservation.id);
+                            fetchProviderMessagesRef?.current?.();
+                        }}
                     />
                 );
             });
@@ -311,6 +306,14 @@ export default function ReservationsView() {
 
             {reservation.extra_payment && reservation.extra_payment.refunds.length > 0 && (
                 <ReservationExtraPaymentRefundsCard refunds={reservation.extra_payment.refunds} />
+            )}
+
+            {reservation.allow_provider_messages && (
+                <BlockCardProviderMessages
+                    reservation={reservation}
+                    organization={activeOrganization}
+                    fetchProviderMessagesRef={fetchProviderMessagesRef}
+                />
             )}
         </Fragment>
     );

@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import Reservation from '../../../../props/models/Reservation';
 import { runSequentially } from '../../../../helpers/utils';
 import useConfirmReservationArchive from '../../../../services/helpers/reservations/useConfirmReservationArchive';
-import useConfirmReservationApproval from '../../../../services/helpers/reservations/useConfirmReservationApproval';
 import useConfirmReservationUnarchive from '../../../../services/helpers/reservations/useConfirmReservationUnarchive';
 import useShowReservationRejectInfoExtraPaid from '../../../../services/helpers/reservations/useShowRejectInfoExtraPaid';
 import useProductReservationService from '../../../../services/ProductReservationService';
@@ -11,6 +10,7 @@ import usePushSuccess from '../../../../hooks/usePushSuccess';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import ModalReservationReject from '../../../modals/ModalReservationReject';
 import useOpenModal from '../../../../hooks/useOpenModal';
+import ModalReservationApprove from '../../../modals/ModalReservationApprove';
 
 export default function useReservationsTableActions(organization: Organization, fetchReservations: () => void) {
     const openModal = useOpenModal();
@@ -20,7 +20,6 @@ export default function useReservationsTableActions(organization: Organization, 
     const productReservationService = useProductReservationService();
 
     const confirmReservationArchive = useConfirmReservationArchive();
-    const confirmReservationApproval = useConfirmReservationApproval();
     const confirmReservationUnarchive = useConfirmReservationUnarchive();
     const showReservationRejectInfoExtraPaid = useShowReservationRejectInfoExtraPaid();
 
@@ -63,39 +62,18 @@ export default function useReservationsTableActions(organization: Organization, 
 
     const acceptReservations = useCallback(
         (reservations: Reservation[]) => {
-            confirmReservationApproval(reservations, () => {
-                const total = reservations.length;
-                const isSingle = reservations.length === 1;
-
-                const tasks = reservations.map(
-                    (reservation, idx) => () =>
-                        productReservationService.accept(organization.id, reservation.id).then(() => {
-                            const prefix = isSingle ? '' : `${idx + 1}/${total}: `;
-
-                            pushSuccess(
-                                `${prefix}Reservering voor ${reservation.product!.name} voor ${reservation.amount_locale} geaccepteerd.`,
-                            );
-                        }),
+            openModal((modal) => {
+                return (
+                    <ModalReservationApprove
+                        modal={modal}
+                        organization={organization}
+                        reservations={reservations}
+                        onDone={() => fetchReservations()}
+                    />
                 );
-
-                runSequentially(tasks)
-                    .then(() => {
-                        if (!isSingle) {
-                            pushSuccess('Alle reserveringen zijn geaccepteerd.');
-                        }
-                        fetchReservations();
-                    })
-                    .catch(pushApiError);
             });
         },
-        [
-            organization.id,
-            confirmReservationApproval,
-            fetchReservations,
-            productReservationService,
-            pushApiError,
-            pushSuccess,
-        ],
+        [openModal, organization, fetchReservations],
     );
 
     const rejectReservations = useCallback(
