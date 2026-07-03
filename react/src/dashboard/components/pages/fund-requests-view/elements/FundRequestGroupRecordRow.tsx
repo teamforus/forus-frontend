@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment, useCallback, useMemo } from 'react';
 import classNames from 'classnames';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
@@ -36,6 +36,17 @@ export default function FundRequestGroupRecordRow({
     const openModal = useOpenModal();
     const pushSuccess = usePushSuccess();
     const translate = useTranslate();
+
+    const recordHasCriterion = useMemo(() => {
+        return (
+            record.fund_criterion_id &&
+            fundRequest.fund?.criteria?.find(
+                (criterion) =>
+                    criterion.id === record.fund_criterion_id &&
+                    !['children_same_address_nth', 'partner_same_address_nth'].includes(criterion.record_type_key),
+            )
+        );
+    }, [fundRequest, record]);
 
     const showInfoModal = useCallback(
         (title: string, message: string) => {
@@ -176,15 +187,17 @@ export default function FundRequestGroupRecordRow({
                             dataDusk={`fundRequestRecordMenuBtn${record.id}`}
                             content={(e) => (
                                 <div className="dropdown dropdown-actions">
-                                    <div
-                                        className="dropdown-item"
-                                        onClick={() => {
-                                            e.close();
-                                            clarifyRecord(record);
-                                        }}>
-                                        <em className="mdi mdi-message-text icon-start" />
-                                        Aanvullingsverzoek
-                                    </div>
+                                    {recordHasCriterion && (
+                                        <div
+                                            className="dropdown-item"
+                                            onClick={() => {
+                                                e.close();
+                                                clarifyRecord(record);
+                                            }}>
+                                            <em className="mdi mdi-message-text icon-start" />
+                                            Aanvullingsverzoek
+                                        </div>
+                                    )}
                                     {organization.allow_fund_request_record_edit && (
                                         <div
                                             className="dropdown-item"
