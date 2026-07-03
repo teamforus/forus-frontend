@@ -2,10 +2,10 @@
     --funds-columns: 3;
     --funds-gap: 25px;
     --funds-content-padding: 20px 20px;
-    --funds-title-font: 600 28px/32px var(--base-font);
+    --funds-title-font: 600 24px/36px var(--base-font);
     --funds-title-color: var(--products-title-color);
     --funds-title-hover-color: var(--products-title-hover-color);
-    --funds-text-font: 400 18px/27px var(--base-font);
+    --funds-text-font: 400 16px/24px var(--base-font);
     --funds-text-color: var(--products-text-color);
 
     display: flex;
@@ -79,7 +79,7 @@
                 .funds-actions {
                     display: flex;
                     flex-direction: column;
-                    gap: 15px;
+                    gap: 10px;
 
                     .funds-button-link {
                         padding: 0;
@@ -102,12 +102,9 @@
         }
     }
 
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 1150px) {
         --funds-columns: 2;
-        --funds-gap: 15px;
         --funds-content-padding: 15px;
-        --funds-title-font: 600 24px/30px var(--base-font);
-        --funds-text-font: 400 16px/24px var(--base-font);
     }
 
     @media screen and (max-width: 480px) {
