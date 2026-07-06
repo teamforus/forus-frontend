@@ -662,9 +662,6 @@
             "noordoostpolder": {
                 "activate": "Şemalar"
             },
-            "potjeswijzer": {
-                "activate": "Kavanozlar"
-            },
             "products": "Teklif",
             "profile": "Profil >",
             "providers": "Sağlayıcılar",
@@ -680,6 +677,9 @@
             },
             "westerkwartier": {
                 "activate": "İstek"
+            },
+            "potjeswijzer": {
+                "activate": "Belediye kasaları"
             }
         },
         "items": {
@@ -691,7 +691,6 @@
                 "funds": "Şemalar"
             },
             "explanation": "Açıklama",
-            "funds": "Etkinleştir",
             "geertruidenberg": {
                 "funds": "Şemalar"
             },
@@ -717,9 +716,6 @@
             "noordoostpolder": {
                 "funds": "Şemalar"
             },
-            "potjeswijzer": {
-                "funds": "Kavanozlar"
-            },
             "products": "Teklif",
             "providers": "Sağlayıcılar",
             "schagen": {
@@ -736,16 +732,21 @@
             "wadenheuvel": {
                 "funds": "Şemalar"
             },
-            "westerkwartier": {
-                "funds": "Kavanozlar"
-            },
             "fijnder": {
                 "funds": "Şemalar"
             },
             "isd": {
                 "funds": "Şemalar"
             },
-            "partner_funds": "Ortak fonlar"
+            "funds": "Düzenlemeler",
+            "partner_funds": "Sosyal taraflar",
+            "potjeswijzer": {
+                "funds": "Belediye kasaları",
+                "partner_funds": "Potjes ortakları"
+            },
+            "westerkwartier": {
+                "funds": "Belediye kasaları"
+            }
         },
         "user_menu": {
             "auth_as": "Olarak giriş yaptı:",
@@ -1268,9 +1269,6 @@
             "oostgelre": {
                 "title": "Etkinleştir"
             },
-            "potjeswijzer": {
-                "title": "Kavanozlar"
-            },
             "schagen": {
                 "title": "Şemalar"
             },
@@ -1282,6 +1280,9 @@
             },
             "fijnder": {
                 "title": "Şemalar"
+            },
+            "potjeswijzer": {
+                "title": "Belediye kasaları"
             }
         },
         "header": {
@@ -1352,10 +1353,6 @@
                 "description": "Etkinleştir",
                 "title": "Etkinleştir"
             },
-            "potjeswijzer": {
-                "description": "Kavanozlar",
-                "title": "Kavanozlar"
-            },
             "schagen": {
                 "description": "Düzenlemeler",
                 "title": "Düzenlemeler"
@@ -1367,6 +1364,10 @@
             "winterswijk": {
                 "description": "Etkinleştir",
                 "title": "Etkinleştir"
+            },
+            "potjeswijzer": {
+                "description": "Ortaklarımız da bölge sakinleri için çeşitli yardım fonları sunmaktadır. Geliriniz düşük mü? O halde ek bir yardım alabilirsiniz.",
+                "title": "Potjes ortakları"
             }
         }
     },
@@ -2989,10 +2990,10 @@
         "close": "Kapat",
         "email": "E-posta",
         "go_to_admin": "Yönetim ortamına gidin",
-        "header_title": "Fon Yardım Bloğu",
-        "help_title": "Fon Yardım Başlığı",
         "phone": "Telefon",
-        "website": "Web sitesi"
+        "website": "Web sitesi",
+        "header_title": "İletişime geçmek",
+        "help_title": "Sorunuz mu var veya yardıma mı ihtiyacınız var?"
     },
     "modal_logout": {
         "description_formal": "Oturumu kapatmak istediğinizden emin misiniz?",

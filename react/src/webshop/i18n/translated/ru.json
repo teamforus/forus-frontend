@@ -808,9 +808,6 @@
             "oostgelre": {
                 "title": "Активируйте"
             },
-            "potjeswijzer": {
-                "title": "Кувшины"
-            },
             "schagen": {
                 "title": "Схемы"
             },
@@ -822,6 +819,9 @@
             },
             "fijnder": {
                 "title": "Схемы"
+            },
+            "potjeswijzer": {
+                "title": "Муниципальные фонды"
             }
         },
         "header": {
@@ -892,10 +892,6 @@
                 "description": "Активировать",
                 "title": "Активировать"
             },
-            "potjeswijzer": {
-                "description": "Банки",
-                "title": "Банки"
-            },
             "schagen": {
                 "description": "Правила",
                 "title": "Правила"
@@ -907,6 +903,10 @@
             "winterswijk": {
                 "description": "Активировать",
                 "title": "Активировать"
+            },
+            "potjeswijzer": {
+                "description": "Наши партнеры также предлагают жителям различные программы помощи. У вас небольшой доход? В таком случае вам может быть предоставлена дополнительная помощь.",
+                "title": "Партнеры «Potjes»"
             }
         }
     },
@@ -1527,10 +1527,10 @@
         "close": "Закрыть",
         "email": "Электронная почта",
         "go_to_admin": "Перейдите в среду администрирования",
-        "header_title": "Фонд \"Блок помощи",
-        "help_title": "Фонд Помощь Название",
         "phone": "Телефон",
-        "website": "Сайт"
+        "website": "Сайт",
+        "header_title": "Связаться с нами",
+        "help_title": "Есть вопросы или нужна помощь?"
     },
     "modal_logout": {
         "description_formal": "Вы уверены, что хотите выйти из системы?",
@@ -3229,9 +3229,6 @@
             "noordoostpolder": {
                 "activate": "Схемы"
             },
-            "potjeswijzer": {
-                "activate": "Кувшины"
-            },
             "products": "Предложение",
             "profile": "Профиль >",
             "providers": "Провайдеры",
@@ -3247,6 +3244,9 @@
             },
             "westerkwartier": {
                 "activate": "Запрос"
+            },
+            "potjeswijzer": {
+                "activate": "Муниципальные фонды"
             }
         },
         "items": {
@@ -3258,7 +3258,6 @@
                 "funds": "Схемы"
             },
             "explanation": "Пояснение",
-            "funds": "Активируйте",
             "geertruidenberg": {
                 "funds": "Схемы"
             },
@@ -3284,9 +3283,6 @@
             "noordoostpolder": {
                 "funds": "Схемы"
             },
-            "potjeswijzer": {
-                "funds": "Кувшины"
-            },
             "products": "Предложение",
             "providers": "Провайдеры",
             "schagen": {
@@ -3303,16 +3299,21 @@
             "wadenheuvel": {
                 "funds": "Схемы"
             },
-            "westerkwartier": {
-                "funds": "Кувшины"
-            },
             "fijnder": {
                 "funds": "Схемы"
             },
             "isd": {
                 "funds": "Схемы"
             },
-            "partner_funds": "Партнерские фонды"
+            "funds": "Правила",
+            "partner_funds": "Социальные партнеры",
+            "potjeswijzer": {
+                "funds": "Муниципальные фонды",
+                "partner_funds": "Партнеры «Potjes»"
+            },
+            "westerkwartier": {
+                "funds": "Муниципальные фонды"
+            }
         },
         "user_menu": {
             "auth_as": "Вошел в систему как:",
