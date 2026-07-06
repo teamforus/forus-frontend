@@ -842,7 +842,9 @@
             "winterswijk": {
                 "subtitle": "Нижче наведені схеми, які ви можете активувати.",
                 "title": "Активувати"
-            }
+            },
+            "partners_description": "",
+            "partners_title": "Запити"
         },
         "labels": {
             "age": "< 18 років",
@@ -865,6 +867,47 @@
             "denied": "Відмовлено",
             "is_applicable": "Зареєструватися",
             "is_pending": "У процесі виконання"
+        },
+        "active_filters": {
+            "reset_all": "Видалити всі фільтри"
+        },
+        "partners": {
+            "berkelland": {
+                "description": "Активувати",
+                "title": "Активувати"
+            },
+            "fijnder": {
+                "description": "Правила",
+                "title": "Правила"
+            },
+            "geertruidenberg": {
+                "description": "Активувати",
+                "title": "Активувати"
+            },
+            "goereeoverflakkee": {
+                "description": "Правила",
+                "title": "Правила"
+            },
+            "oostgelre": {
+                "description": "Активувати",
+                "title": "Активувати"
+            },
+            "potjeswijzer": {
+                "description": "Банки",
+                "title": "Банки"
+            },
+            "schagen": {
+                "description": "Правила",
+                "title": "Правила"
+            },
+            "vergoedingen": {
+                "description": "Усі виплати",
+                "title": "Усі виплати"
+            },
+            "winterswijk": {
+                "description": "Активувати",
+                "title": "Активувати"
+            }
         }
     },
     "global": {
@@ -1314,7 +1357,8 @@
         "fund_item_list": {
             "buttons": {
                 "check_status": "Перевірте статус",
-                "is_applicable": "Запит"
+                "is_applicable": "Запит",
+                "more_information": "Додаткова інформація"
             },
             "show_less": "Показати менше",
             "show_more": "Показати більше",
@@ -3261,7 +3305,8 @@
             },
             "isd": {
                 "funds": "Схеми"
-            }
+            },
+            "partner_funds": "Партнерські фонди"
         },
         "user_menu": {
             "auth_as": "Увійдіть як:",

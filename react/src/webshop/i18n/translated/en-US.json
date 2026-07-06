@@ -303,7 +303,8 @@
             },
             "isd": {
                 "funds": "Regulations"
-            }
+            },
+            "partner_funds": "Partner Funds"
         },
         "user_menu": {
             "auth_as": "Logged in as:",
@@ -1025,7 +1026,9 @@
             "winterswijk": {
                 "subtitle": "Below are the schemes you can activate.",
                 "title": "Activate"
-            }
+            },
+            "partners_description": "",
+            "partners_title": "Applications"
         },
         "labels": {
             "age": "< 18 years old",
@@ -1048,6 +1051,47 @@
             "denied": "Denied",
             "is_applicable": "Sign up",
             "is_pending": "In progress"
+        },
+        "active_filters": {
+            "reset_all": "Remove all filters"
+        },
+        "partners": {
+            "berkelland": {
+                "description": "Activate",
+                "title": "Activate"
+            },
+            "fijnder": {
+                "description": "Regulations",
+                "title": "Regulations"
+            },
+            "geertruidenberg": {
+                "description": "Activate",
+                "title": "Activate"
+            },
+            "goereeoverflakkee": {
+                "description": "Regulations",
+                "title": "Regulations"
+            },
+            "oostgelre": {
+                "description": "Activate",
+                "title": "Activate"
+            },
+            "potjeswijzer": {
+                "description": "Jars",
+                "title": "Jars"
+            },
+            "schagen": {
+                "description": "Regulations",
+                "title": "Regulations"
+            },
+            "vergoedingen": {
+                "description": "All reimbursements",
+                "title": "All reimbursements"
+            },
+            "winterswijk": {
+                "description": "Activate",
+                "title": "Activate"
+            }
         }
     },
     "home": {
@@ -3148,7 +3192,8 @@
         "fund_item_list": {
             "buttons": {
                 "check_status": "Check status",
-                "is_applicable": "Request"
+                "is_applicable": "Request",
+                "more_information": "More information"
             },
             "show_less": "Show less",
             "show_more": "Show more",

@@ -221,7 +221,8 @@
         "fund_item_list": {
             "buttons": {
                 "check_status": "Durumu kontrol edin",
-                "is_applicable": "İstek"
+                "is_applicable": "İstek",
+                "more_information": "Daha fazla bilgi"
             },
             "show_less": "Daha az göster",
             "show_more": "Daha fazla göster",
@@ -743,7 +744,8 @@
             },
             "isd": {
                 "funds": "Şemalar"
-            }
+            },
+            "partner_funds": "Ortak fonlar"
         },
         "user_menu": {
             "auth_as": "Olarak giriş yaptı:",
@@ -1300,7 +1302,9 @@
             "winterswijk": {
                 "subtitle": "Aşağıda etkinleştirebileceğiniz planlar yer almaktadır.",
                 "title": "Etkinleştir"
-            }
+            },
+            "partners_description": "",
+            "partners_title": "Başvurular"
         },
         "labels": {
             "age": "< 18 yaş",
@@ -1323,6 +1327,47 @@
             "denied": "Reddedildi",
             "is_applicable": "Kaydolun",
             "is_pending": "Devam ediyor"
+        },
+        "active_filters": {
+            "reset_all": "Tüm filtreleri kaldır"
+        },
+        "partners": {
+            "berkelland": {
+                "description": "Etkinleştir",
+                "title": "Etkinleştir"
+            },
+            "fijnder": {
+                "description": "Düzenlemeler",
+                "title": "Düzenlemeler"
+            },
+            "geertruidenberg": {
+                "description": "Etkinleştir",
+                "title": "Etkinleştir"
+            },
+            "goereeoverflakkee": {
+                "description": "Düzenlemeler",
+                "title": "Düzenlemeler"
+            },
+            "oostgelre": {
+                "description": "Etkinleştir",
+                "title": "Etkinleştir"
+            },
+            "potjeswijzer": {
+                "description": "Kavanozlar",
+                "title": "Kavanozlar"
+            },
+            "schagen": {
+                "description": "Düzenlemeler",
+                "title": "Düzenlemeler"
+            },
+            "vergoedingen": {
+                "description": "Tüm ödemeler",
+                "title": "Tüm ödemeler"
+            },
+            "winterswijk": {
+                "description": "Etkinleştir",
+                "title": "Etkinleştir"
+            }
         }
     },
     "provider": {
