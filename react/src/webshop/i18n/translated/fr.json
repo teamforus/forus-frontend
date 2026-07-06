@@ -842,7 +842,9 @@
             "winterswijk": {
                 "subtitle": "Vous trouverez ci-dessous les régimes que vous pouvez activer.",
                 "title": "Activer"
-            }
+            },
+            "partners_description": "",
+            "partners_title": "Demandes"
         },
         "labels": {
             "age": "< 18 ans",
@@ -865,6 +867,47 @@
             "denied": "Refusé",
             "is_applicable": "S'inscrire",
             "is_pending": "En cours"
+        },
+        "active_filters": {
+            "reset_all": "Supprimer tous les filtres"
+        },
+        "partners": {
+            "berkelland": {
+                "description": "Activer",
+                "title": "Activer"
+            },
+            "fijnder": {
+                "description": "Dispositions",
+                "title": "Dispositions"
+            },
+            "geertruidenberg": {
+                "description": "Activer",
+                "title": "Activer"
+            },
+            "goereeoverflakkee": {
+                "description": "Dispositions",
+                "title": "Dispositions"
+            },
+            "oostgelre": {
+                "description": "Activer",
+                "title": "Activer"
+            },
+            "potjeswijzer": {
+                "description": "Petits pots",
+                "title": "Petits pots"
+            },
+            "schagen": {
+                "description": "Dispositions",
+                "title": "Dispositions"
+            },
+            "vergoedingen": {
+                "description": "Toutes les indemnités",
+                "title": "Toutes les indemnités"
+            },
+            "winterswijk": {
+                "description": "Activer",
+                "title": "Activer"
+            }
         }
     },
     "global": {
@@ -1314,7 +1357,8 @@
         "fund_item_list": {
             "buttons": {
                 "check_status": "Vérifier l'état",
-                "is_applicable": "Demande"
+                "is_applicable": "Demande",
+                "more_information": "Plus d'informations"
             },
             "show_less": "Montrer moins",
             "show_more": "Afficher plus",
@@ -3267,7 +3311,8 @@
             },
             "isd": {
                 "funds": "Régimes"
-            }
+            },
+            "partner_funds": "Fonds partenaires"
         },
         "user_menu": {
             "auth_as": "Connecté en tant que :",

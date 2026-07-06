@@ -842,7 +842,9 @@
             "winterswijk": {
                 "subtitle": "Poniżej znajdują się schematy, które można aktywować.",
                 "title": "Aktywuj"
-            }
+            },
+            "partners_description": "",
+            "partners_title": "Wnioski"
         },
         "labels": {
             "age": "< 18 lat",
@@ -865,6 +867,47 @@
             "denied": "Odmowa",
             "is_applicable": "Zarejestruj się",
             "is_pending": "W toku"
+        },
+        "active_filters": {
+            "reset_all": "Usuń wszystkie filtry"
+        },
+        "partners": {
+            "berkelland": {
+                "description": "Aktywuj",
+                "title": "Aktywuj"
+            },
+            "fijnder": {
+                "description": "Przepisy",
+                "title": "Przepisy"
+            },
+            "geertruidenberg": {
+                "description": "Aktywuj",
+                "title": "Aktywuj"
+            },
+            "goereeoverflakkee": {
+                "description": "Przepisy",
+                "title": "Przepisy"
+            },
+            "oostgelre": {
+                "description": "Aktywuj",
+                "title": "Aktywuj"
+            },
+            "potjeswijzer": {
+                "description": "Słoiczki",
+                "title": "Słoiczki"
+            },
+            "schagen": {
+                "description": "Przepisy",
+                "title": "Przepisy"
+            },
+            "vergoedingen": {
+                "description": "Wszystkie zwroty kosztów",
+                "title": "Wszystkie zwroty kosztów"
+            },
+            "winterswijk": {
+                "description": "Aktywuj",
+                "title": "Aktywuj"
+            }
         }
     },
     "global": {
@@ -1314,7 +1357,8 @@
         "fund_item_list": {
             "buttons": {
                 "check_status": "Sprawdź status",
-                "is_applicable": "Żądanie"
+                "is_applicable": "Żądanie",
+                "more_information": "Więcej informacji"
             },
             "show_less": "Pokaż mniej",
             "show_more": "Pokaż więcej",
@@ -3267,7 +3311,8 @@
             },
             "isd": {
                 "funds": "Programy"
-            }
+            },
+            "partner_funds": "Fundusze partnerskie"
         },
         "user_menu": {
             "auth_as": "Zalogowany jako:",

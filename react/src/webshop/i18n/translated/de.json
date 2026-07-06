@@ -842,7 +842,9 @@
             "winterswijk": {
                 "subtitle": "Im Folgenden finden Sie die Programme, die Sie aktivieren können.",
                 "title": "Aktivieren Sie"
-            }
+            },
+            "partners_description": "",
+            "partners_title": "Anträge"
         },
         "labels": {
             "age": "< 18 Jahre alt",
@@ -865,6 +867,47 @@
             "denied": "Verweigert",
             "is_applicable": "Registrieren Sie sich",
             "is_pending": "In Arbeit"
+        },
+        "active_filters": {
+            "reset_all": "Alle Filter entfernen"
+        },
+        "partners": {
+            "berkelland": {
+                "description": "Aktivieren",
+                "title": "Aktivieren"
+            },
+            "fijnder": {
+                "description": "Regelungen",
+                "title": "Regelungen"
+            },
+            "geertruidenberg": {
+                "description": "Aktivieren",
+                "title": "Aktivieren"
+            },
+            "goereeoverflakkee": {
+                "description": "Regelungen",
+                "title": "Regelungen"
+            },
+            "oostgelre": {
+                "description": "Aktivieren",
+                "title": "Aktivieren"
+            },
+            "potjeswijzer": {
+                "description": "Töpfchen",
+                "title": "Töpfchen"
+            },
+            "schagen": {
+                "description": "Regelungen",
+                "title": "Regelungen"
+            },
+            "vergoedingen": {
+                "description": "Alle Vergütungen",
+                "title": "Alle Vergütungen"
+            },
+            "winterswijk": {
+                "description": "Aktivieren",
+                "title": "Aktivieren"
+            }
         }
     },
     "global": {
@@ -1314,7 +1357,8 @@
         "fund_item_list": {
             "buttons": {
                 "check_status": "Status prüfen",
-                "is_applicable": "Anfrage"
+                "is_applicable": "Anfrage",
+                "more_information": "Weitere Informationen"
             },
             "show_less": "Weniger anzeigen",
             "show_more": "Mehr anzeigen",
@@ -3267,7 +3311,8 @@
             },
             "isd": {
                 "funds": "Schemata"
-            }
+            },
+            "partner_funds": "Partnerfonds"
         },
         "user_menu": {
             "auth_as": "Eingeloggt als:",

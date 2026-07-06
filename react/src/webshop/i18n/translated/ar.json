@@ -221,7 +221,8 @@
         "fund_item_list": {
             "buttons": {
                 "check_status": "التحقق من الحالة",
-                "is_applicable": "الطلب"
+                "is_applicable": "الطلب",
+                "more_information": "مزيد من المعلومات"
             },
             "show_less": "اعرض أقل",
             "show_more": "اعرض المزيد",
@@ -743,7 +744,8 @@
             },
             "isd": {
                 "funds": "المخططات"
-            }
+            },
+            "partner_funds": "الصناديق الشريكة"
         },
         "user_menu": {
             "auth_as": "تم تسجيل الدخول باسم:",
@@ -1300,7 +1302,9 @@
             "winterswijk": {
                 "subtitle": "فيما يلي المخططات التي يمكنك تفعيلها.",
                 "title": "تفعيل"
-            }
+            },
+            "partners_description": "",
+            "partners_title": "الطلبات"
         },
         "labels": {
             "age": "< أقل من 18 سنة",
@@ -1323,6 +1327,47 @@
             "denied": "مرفوض",
             "is_applicable": "التسجيل",
             "is_pending": "قيد التنفيذ"
+        },
+        "active_filters": {
+            "reset_all": "إزالة جميع المرشحات"
+        },
+        "partners": {
+            "berkelland": {
+                "description": "تفعيل",
+                "title": "تفعيل"
+            },
+            "fijnder": {
+                "description": "اللوائح",
+                "title": "اللوائح"
+            },
+            "geertruidenberg": {
+                "description": "تفعيل",
+                "title": "تفعيل"
+            },
+            "goereeoverflakkee": {
+                "description": "اللوائح",
+                "title": "اللوائح"
+            },
+            "oostgelre": {
+                "description": "تفعيل",
+                "title": "تفعيل"
+            },
+            "potjeswijzer": {
+                "description": "البرطمانات",
+                "title": "البرطمانات"
+            },
+            "schagen": {
+                "description": "اللوائح",
+                "title": "اللوائح"
+            },
+            "vergoedingen": {
+                "description": "جميع التعويضات",
+                "title": "جميع التعويضات"
+            },
+            "winterswijk": {
+                "description": "تفعيل",
+                "title": "تفعيل"
+            }
         }
     },
     "home": {

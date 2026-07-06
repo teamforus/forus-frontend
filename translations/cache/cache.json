@@ -2016,6 +2016,10 @@
         "We zijn uw aanvraag aan het controleren"
     ],
     [
+        "funds.active_filters.reset_all",
+        "Verwijder alle filters"
+    ],
+    [
         "funds.breadcrumbs.funds",
         "Aanvragen"
     ],
@@ -2128,6 +2132,14 @@
         "Activeren"
     ],
     [
+        "funds.header.partners_description",
+        ""
+    ],
+    [
+        "funds.header.partners_title",
+        "Aanvragen"
+    ],
+    [
         "funds.header.potjeswijzer.subtitle",
         "Hieronder ziet u een deel van de potjes die u kan aanvragen. Bent u benieuwd welke er nog meer zijn? Neem dan contact op met: xxxx"
     ],
@@ -2202,6 +2214,78 @@
     [
         "funds.labels.search",
         "Zoeken"
+    ],
+    [
+        "funds.partners.berkelland.description",
+        "Activeren"
+    ],
+    [
+        "funds.partners.berkelland.title",
+        "Activeren"
+    ],
+    [
+        "funds.partners.fijnder.description",
+        "Regelingen"
+    ],
+    [
+        "funds.partners.fijnder.title",
+        "Regelingen"
+    ],
+    [
+        "funds.partners.geertruidenberg.description",
+        "Activeren"
+    ],
+    [
+        "funds.partners.geertruidenberg.title",
+        "Activeren"
+    ],
+    [
+        "funds.partners.goereeoverflakkee.description",
+        "Regelingen"
+    ],
+    [
+        "funds.partners.goereeoverflakkee.title",
+        "Regelingen"
+    ],
+    [
+        "funds.partners.oostgelre.description",
+        "Activeren"
+    ],
+    [
+        "funds.partners.oostgelre.title",
+        "Activeren"
+    ],
+    [
+        "funds.partners.potjeswijzer.description",
+        "Potjes"
+    ],
+    [
+        "funds.partners.potjeswijzer.title",
+        "Potjes"
+    ],
+    [
+        "funds.partners.schagen.description",
+        "Regelingen"
+    ],
+    [
+        "funds.partners.schagen.title",
+        "Regelingen"
+    ],
+    [
+        "funds.partners.vergoedingen.description",
+        "Alle vergoedingen"
+    ],
+    [
+        "funds.partners.vergoedingen.title",
+        "Alle vergoedingen"
+    ],
+    [
+        "funds.partners.winterswijk.description",
+        "Activeren"
+    ],
+    [
+        "funds.partners.winterswijk.title",
+        "Activeren"
     ],
     [
         "funds.status.activateable",
@@ -3594,6 +3678,10 @@
     [
         "list_blocks.fund_item_list.buttons.is_applicable",
         "Aanvragen"
+    ],
+    [
+        "list_blocks.fund_item_list.buttons.more_information",
+        "Meer informatie"
     ],
     [
         "list_blocks.fund_item_list.show_less",
@@ -9062,6 +9150,10 @@
     [
         "top_navbar.items.noordoostpolder.funds",
         "Regelingen"
+    ],
+    [
+        "top_navbar.items.partner_funds",
+        "Partnerfondsen"
     ],
     [
         "top_navbar.items.potjeswijzer.funds",

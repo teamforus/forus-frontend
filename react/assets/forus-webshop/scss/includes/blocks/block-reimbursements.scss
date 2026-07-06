@@ -5,12 +5,11 @@
 
     .reimbursement-item {
         display: flex;
-        background-color: #fff;
         margin-bottom: 15px;
         position: relative;
         transition:
-            color 0.4s,
-            background-color 0.4s;
+            background-color 0.4s,
+            box-shadow 0.4s;
         min-height: 135px;
         overflow: hidden;
         cursor: default;
@@ -47,7 +46,7 @@
                 display: block;
             }
 
-            &:after {
+            &::after {
                 content: '';
                 background: #394260;
                 opacity: 0;
@@ -132,7 +131,7 @@
                 font: 400 12px/20px var(--base-font);
                 color: #646f79;
 
-                &:after {
+                &::after {
                     content: '';
                     position: absolute;
                     display: block;
@@ -151,7 +150,7 @@
                 &:last-child {
                     padding-right: 0;
 
-                    &:after {
+                    &::after {
                         display: none;
                     }
                 }
@@ -222,6 +221,7 @@
         }
 
         &:hover {
+            background: var(--showcase-item-hover-background, var(--showcase-item-background));
             box-shadow: var(--showcase-item-hover-shadow);
         }
 

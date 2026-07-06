@@ -842,7 +842,9 @@
             "winterswijk": {
                 "subtitle": "Ниже перечислены схемы, которые вы можете активировать.",
                 "title": "Активируйте"
-            }
+            },
+            "partners_description": "",
+            "partners_title": "Заявки"
         },
         "labels": {
             "age": "< 18 лет",
@@ -865,6 +867,47 @@
             "denied": "Отказано",
             "is_applicable": "Зарегистрироваться",
             "is_pending": "В процессе"
+        },
+        "active_filters": {
+            "reset_all": "Удалить все фильтры"
+        },
+        "partners": {
+            "berkelland": {
+                "description": "Активировать",
+                "title": "Активировать"
+            },
+            "fijnder": {
+                "description": "Правила",
+                "title": "Правила"
+            },
+            "geertruidenberg": {
+                "description": "Активировать",
+                "title": "Активировать"
+            },
+            "goereeoverflakkee": {
+                "description": "Правила",
+                "title": "Правила"
+            },
+            "oostgelre": {
+                "description": "Активировать",
+                "title": "Активировать"
+            },
+            "potjeswijzer": {
+                "description": "Банки",
+                "title": "Банки"
+            },
+            "schagen": {
+                "description": "Правила",
+                "title": "Правила"
+            },
+            "vergoedingen": {
+                "description": "Все выплаты",
+                "title": "Все выплаты"
+            },
+            "winterswijk": {
+                "description": "Активировать",
+                "title": "Активировать"
+            }
         }
     },
     "global": {
@@ -1314,7 +1357,8 @@
         "fund_item_list": {
             "buttons": {
                 "check_status": "Проверьте состояние",
-                "is_applicable": "Запрос"
+                "is_applicable": "Запрос",
+                "more_information": "Дополнительная информация"
             },
             "show_less": "Показать меньше",
             "show_more": "Показать еще",
@@ -3267,7 +3311,8 @@
             },
             "isd": {
                 "funds": "Схемы"
-            }
+            },
+            "partner_funds": "Партнерские фонды"
         },
         "user_menu": {
             "auth_as": "Вошел в систему как:",
