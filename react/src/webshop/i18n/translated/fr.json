@@ -808,9 +808,6 @@
             "oostgelre": {
                 "title": "Activer"
             },
-            "potjeswijzer": {
-                "title": "Bocaux"
-            },
             "schagen": {
                 "title": "Régimes"
             },
@@ -822,6 +819,9 @@
             },
             "fijnder": {
                 "title": "Régimes"
+            },
+            "potjeswijzer": {
+                "title": "Caisses communales"
             }
         },
         "header": {
@@ -892,10 +892,6 @@
                 "description": "Activer",
                 "title": "Activer"
             },
-            "potjeswijzer": {
-                "description": "Petits pots",
-                "title": "Petits pots"
-            },
             "schagen": {
                 "description": "Dispositions",
                 "title": "Dispositions"
@@ -907,6 +903,10 @@
             "winterswijk": {
                 "description": "Activer",
                 "title": "Activer"
+            },
+            "potjeswijzer": {
+                "description": "Nos partenaires proposent également différentes aides financières aux habitants. Vous disposez d'un faible revenu ? Dans ce cas, vous pouvez bénéficier d'une aide supplémentaire.",
+                "title": "Partenaires de Potjes"
             }
         }
     },
@@ -1527,10 +1527,10 @@
         "close": "Fermer",
         "email": "Courriel",
         "go_to_admin": "Accéder à l'environnement d'administration",
-        "header_title": "Fonds d'aide Bloc",
-        "help_title": "Fonds Aide Titre",
         "phone": "Téléphone",
-        "website": "Site web"
+        "website": "Site web",
+        "header_title": "Nous contacter",
+        "help_title": "Vous avez des questions ou besoin d'aide ?"
     },
     "modal_logout": {
         "description_formal": "Êtes-vous sûr de vouloir vous déconnecter ?",
@@ -3229,9 +3229,6 @@
             "noordoostpolder": {
                 "activate": "Régimes"
             },
-            "potjeswijzer": {
-                "activate": "Bocaux"
-            },
             "products": "Offre",
             "profile": "Profil >",
             "providers": "Fournisseurs",
@@ -3247,6 +3244,9 @@
             },
             "westerkwartier": {
                 "activate": "Demande"
+            },
+            "potjeswijzer": {
+                "activate": "Caisses communales"
             }
         },
         "items": {
@@ -3258,7 +3258,6 @@
                 "funds": "Régimes"
             },
             "explanation": "Explication",
-            "funds": "Activer",
             "geertruidenberg": {
                 "funds": "Régimes"
             },
@@ -3284,9 +3283,6 @@
             "noordoostpolder": {
                 "funds": "Régimes"
             },
-            "potjeswijzer": {
-                "funds": "Bocaux"
-            },
             "products": "Offre",
             "providers": "Prestataires",
             "schagen": {
@@ -3303,16 +3299,21 @@
             "wadenheuvel": {
                 "funds": "Régimes"
             },
-            "westerkwartier": {
-                "funds": "Bocaux"
-            },
             "fijnder": {
                 "funds": "Régimes"
             },
             "isd": {
                 "funds": "Régimes"
             },
-            "partner_funds": "Fonds partenaires"
+            "funds": "Dispositions",
+            "partner_funds": "Partenaires sociaux",
+            "potjeswijzer": {
+                "funds": "Caisses communales",
+                "partner_funds": "Partenaires de Potjes"
+            },
+            "westerkwartier": {
+                "funds": "Caisses communales"
+            }
         },
         "user_menu": {
             "auth_as": "Connecté en tant que :",

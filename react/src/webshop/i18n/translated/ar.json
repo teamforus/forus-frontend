@@ -662,9 +662,6 @@
             "noordoostpolder": {
                 "activate": "المخططات"
             },
-            "potjeswijzer": {
-                "activate": "البرطمانات"
-            },
             "products": "العرض",
             "profile": "الملف الشخصي >",
             "providers": "المزودون",
@@ -680,6 +677,9 @@
             },
             "westerkwartier": {
                 "activate": "الطلب"
+            },
+            "potjeswijzer": {
+                "activate": "صناديق البلدية"
             }
         },
         "items": {
@@ -691,7 +691,6 @@
                 "funds": "المخططات"
             },
             "explanation": "الشرح",
-            "funds": "تفعيل",
             "geertruidenberg": {
                 "funds": "المخططات"
             },
@@ -717,9 +716,6 @@
             "noordoostpolder": {
                 "funds": "المخططات"
             },
-            "potjeswijzer": {
-                "funds": "البرطمانات"
-            },
             "products": "العرض",
             "providers": "المزودون",
             "schagen": {
@@ -736,16 +732,21 @@
             "wadenheuvel": {
                 "funds": "المخططات"
             },
-            "westerkwartier": {
-                "funds": "البرطمانات"
-            },
             "fijnder": {
                 "funds": "المخططات"
             },
             "isd": {
                 "funds": "المخططات"
             },
-            "partner_funds": "الصناديق الشريكة"
+            "funds": "اللوائح",
+            "partner_funds": "الشركاء الاجتماعيون",
+            "potjeswijzer": {
+                "funds": "صناديق البلدية",
+                "partner_funds": "شركاء «بوتجيس»"
+            },
+            "westerkwartier": {
+                "funds": "صناديق البلدية"
+            }
         },
         "user_menu": {
             "auth_as": "تم تسجيل الدخول باسم:",
@@ -1268,9 +1269,6 @@
             "oostgelre": {
                 "title": "تفعيل"
             },
-            "potjeswijzer": {
-                "title": "البرطمانات"
-            },
             "schagen": {
                 "title": "المخططات"
             },
@@ -1282,6 +1280,9 @@
             },
             "fijnder": {
                 "title": "المخططات"
+            },
+            "potjeswijzer": {
+                "title": "صناديق البلدية"
             }
         },
         "header": {
@@ -1352,10 +1353,6 @@
                 "description": "تفعيل",
                 "title": "تفعيل"
             },
-            "potjeswijzer": {
-                "description": "البرطمانات",
-                "title": "البرطمانات"
-            },
             "schagen": {
                 "description": "اللوائح",
                 "title": "اللوائح"
@@ -1367,6 +1364,10 @@
             "winterswijk": {
                 "description": "تفعيل",
                 "title": "تفعيل"
+            },
+            "potjeswijzer": {
+                "description": "كما يقدم شركاؤنا أيضًا برامج دعم متنوعة للمواطنين. هل دخلكم محدود؟ إذاً، قد تكون هناك إعانة إضافية متاحة لكم.",
+                "title": "شركاء «بوتجيس»"
             }
         }
     },
@@ -2989,10 +2990,10 @@
         "close": "إغلاق",
         "email": "البريد الإلكتروني",
         "go_to_admin": "الانتقال إلى بيئة الإدارة",
-        "header_title": "كتلة مساعدة الصندوق",
-        "help_title": "عنوان مساعدة الصندوق",
         "phone": "الهاتف",
-        "website": "الموقع الإلكتروني"
+        "website": "الموقع الإلكتروني",
+        "header_title": "الاتصال بنا",
+        "help_title": "هل لديك أسئلة أو تحتاج إلى مساعدة؟"
     },
     "modal_logout": {
         "description_formal": "هل أنت متأكد من رغبتك في تسجيل الخروج؟",

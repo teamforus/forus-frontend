@@ -808,9 +808,6 @@
             "oostgelre": {
                 "title": "Aktivieren Sie"
             },
-            "potjeswijzer": {
-                "title": "Krüge"
-            },
             "schagen": {
                 "title": "Schemata"
             },
@@ -822,6 +819,9 @@
             },
             "fijnder": {
                 "title": "Schemata"
+            },
+            "potjeswijzer": {
+                "title": "Gemeindekasse"
             }
         },
         "header": {
@@ -892,10 +892,6 @@
                 "description": "Aktivieren",
                 "title": "Aktivieren"
             },
-            "potjeswijzer": {
-                "description": "Töpfchen",
-                "title": "Töpfchen"
-            },
             "schagen": {
                 "description": "Regelungen",
                 "title": "Regelungen"
@@ -907,6 +903,10 @@
             "winterswijk": {
                 "description": "Aktivieren",
                 "title": "Aktivieren"
+            },
+            "potjeswijzer": {
+                "description": "Auch unsere Partner bieten verschiedene Förderprogramme für Einwohner an. Haben Sie ein geringes Einkommen? Dann ist möglicherweise eine zusätzliche Unterstützung möglich.",
+                "title": "Partner von Potjes"
             }
         }
     },
@@ -1527,10 +1527,10 @@
         "close": "Schließen Sie",
         "email": "E-Mail",
         "go_to_admin": "Gehen Sie zur Verwaltungsumgebung",
-        "header_title": "Fonds Hilfe Block",
-        "help_title": "Fonds Hilfe Titel",
         "phone": "Telefon",
-        "website": "Website"
+        "website": "Website",
+        "header_title": "Kontakt aufnehmen",
+        "help_title": "Haben Sie Fragen oder benötigen Sie Hilfe?"
     },
     "modal_logout": {
         "description_formal": "Sind Sie sicher, dass Sie sich abmelden wollen?",
@@ -3229,9 +3229,6 @@
             "noordoostpolder": {
                 "activate": "Schemata"
             },
-            "potjeswijzer": {
-                "activate": "Krüge"
-            },
             "products": "Angebot",
             "profile": "Profil >",
             "providers": "Anbieter",
@@ -3247,6 +3244,9 @@
             },
             "westerkwartier": {
                 "activate": "Anfrage"
+            },
+            "potjeswijzer": {
+                "activate": "Gemeindekasse"
             }
         },
         "items": {
@@ -3258,7 +3258,6 @@
                 "funds": "Schemata"
             },
             "explanation": "Erläuterung",
-            "funds": "Aktivieren Sie",
             "geertruidenberg": {
                 "funds": "Schemata"
             },
@@ -3284,9 +3283,6 @@
             "noordoostpolder": {
                 "funds": "Schemata"
             },
-            "potjeswijzer": {
-                "funds": "Krüge"
-            },
             "products": "Angebot",
             "providers": "Anbieter",
             "schagen": {
@@ -3303,16 +3299,21 @@
             "wadenheuvel": {
                 "funds": "Schemata"
             },
-            "westerkwartier": {
-                "funds": "Krüge"
-            },
             "fijnder": {
                 "funds": "Schemata"
             },
             "isd": {
                 "funds": "Schemata"
             },
-            "partner_funds": "Partnerfonds"
+            "funds": "Regelungen",
+            "partner_funds": "Sozialpartner",
+            "potjeswijzer": {
+                "funds": "Gemeindekasse",
+                "partner_funds": "Partner von Potjes"
+            },
+            "westerkwartier": {
+                "funds": "Gemeindekasse"
+            }
         },
         "user_menu": {
             "auth_as": "Eingeloggt als:",

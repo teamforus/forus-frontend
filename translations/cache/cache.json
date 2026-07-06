@@ -2101,7 +2101,7 @@
     ],
     [
         "funds.funds.potjeswijzer.title",
-        "Potjes"
+        "Potjes gemeente"
     ],
     [
         "funds.funds.schagen.title",
@@ -2257,11 +2257,11 @@
     ],
     [
         "funds.partners.potjeswijzer.description",
-        "Potjes"
+        "Ook onze partners bieden verschillende potjes voor inwoners. Heeft u een klein inkomen? Dan is er een extraatje mogelijk."
     ],
     [
         "funds.partners.potjeswijzer.title",
-        "Potjes"
+        "Potjes partners"
     ],
     [
         "funds.partners.schagen.description",
@@ -4389,11 +4389,11 @@
     ],
     [
         "modal_fund_help.header_title",
-        "Fund Help Block"
+        "Contact opnemen"
     ],
     [
         "modal_fund_help.help_title",
-        "Fund Help Title"
+        "Vragen of hulp nodig?"
     ],
     [
         "modal_fund_help.phone",
@@ -9037,7 +9037,7 @@
     ],
     [
         "top_navbar.buttons.potjeswijzer.activate",
-        "Potjes"
+        "Potjes gemeente"
     ],
     [
         "top_navbar.buttons.products",
@@ -9101,7 +9101,7 @@
     ],
     [
         "top_navbar.items.funds",
-        "Activeren"
+        "Regelingen"
     ],
     [
         "top_navbar.items.geertruidenberg.funds",
@@ -9153,11 +9153,15 @@
     ],
     [
         "top_navbar.items.partner_funds",
-        "Partnerfondsen"
+        "Sociale partners"
     ],
     [
         "top_navbar.items.potjeswijzer.funds",
-        "Potjes"
+        "Potjes gemeente"
+    ],
+    [
+        "top_navbar.items.potjeswijzer.partner_funds",
+        "Potjes partners"
     ],
     [
         "top_navbar.items.products",
@@ -9193,7 +9197,7 @@
     ],
     [
         "top_navbar.items.westerkwartier.funds",
-        "Potjes"
+        "Potjes gemeente"
     ],
     [
         "top_navbar.language.prefix",

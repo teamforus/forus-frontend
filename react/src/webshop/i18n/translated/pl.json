@@ -808,9 +808,6 @@
             "oostgelre": {
                 "title": "Aktywuj"
             },
-            "potjeswijzer": {
-                "title": "Słoiki"
-            },
             "schagen": {
                 "title": "Programy"
             },
@@ -822,6 +819,9 @@
             },
             "fijnder": {
                 "title": "Programy"
+            },
+            "potjeswijzer": {
+                "title": "Fundusze gminne"
             }
         },
         "header": {
@@ -892,10 +892,6 @@
                 "description": "Aktywuj",
                 "title": "Aktywuj"
             },
-            "potjeswijzer": {
-                "description": "Słoiczki",
-                "title": "Słoiczki"
-            },
             "schagen": {
                 "description": "Przepisy",
                 "title": "Przepisy"
@@ -907,6 +903,10 @@
             "winterswijk": {
                 "description": "Aktywuj",
                 "title": "Aktywuj"
+            },
+            "potjeswijzer": {
+                "description": "Również nasi partnerzy oferują mieszkańcom różne formy pomocy. Czy Państwa dochody są niskie? W takim razie mogą Państwo liczyć na dodatkowe wsparcie.",
+                "title": "Partnerzy Potjes"
             }
         }
     },
@@ -1527,10 +1527,10 @@
         "close": "Zamknij",
         "email": "E-mail",
         "go_to_admin": "Przejdź do środowiska administracyjnego",
-        "header_title": "Blok pomocy finansowej",
-        "help_title": "Tytuł pomocy funduszu",
         "phone": "Telefon",
-        "website": "Strona internetowa"
+        "website": "Strona internetowa",
+        "header_title": "Skontaktuj się z nami",
+        "help_title": "Masz pytania lub potrzebujesz pomocy?"
     },
     "modal_logout": {
         "description_formal": "Czy na pewno chcesz się wylogować?",
@@ -3229,9 +3229,6 @@
             "noordoostpolder": {
                 "activate": "Programy"
             },
-            "potjeswijzer": {
-                "activate": "Słoiki"
-            },
             "products": "Oferta",
             "profile": "Profil >",
             "providers": "Dostawcy",
@@ -3247,6 +3244,9 @@
             },
             "westerkwartier": {
                 "activate": "Żądanie"
+            },
+            "potjeswijzer": {
+                "activate": "Fundusze gminne"
             }
         },
         "items": {
@@ -3258,7 +3258,6 @@
                 "funds": "Programy"
             },
             "explanation": "Wyjaśnienie",
-            "funds": "Aktywuj",
             "geertruidenberg": {
                 "funds": "Programy"
             },
@@ -3284,9 +3283,6 @@
             "noordoostpolder": {
                 "funds": "Programy"
             },
-            "potjeswijzer": {
-                "funds": "Słoiki"
-            },
             "products": "Oferta",
             "providers": "Dostawcy",
             "schagen": {
@@ -3303,16 +3299,21 @@
             "wadenheuvel": {
                 "funds": "Programy"
             },
-            "westerkwartier": {
-                "funds": "Słoiki"
-            },
             "fijnder": {
                 "funds": "Programy"
             },
             "isd": {
                 "funds": "Programy"
             },
-            "partner_funds": "Fundusze partnerskie"
+            "funds": "Przepisy",
+            "partner_funds": "Partnerzy społeczni",
+            "potjeswijzer": {
+                "funds": "Fundusze gminne",
+                "partner_funds": "Partnerzy Potjes"
+            },
+            "westerkwartier": {
+                "funds": "Fundusze gminne"
+            }
         },
         "user_menu": {
             "auth_as": "Zalogowany jako:",

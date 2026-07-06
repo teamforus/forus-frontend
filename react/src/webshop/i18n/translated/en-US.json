@@ -221,9 +221,6 @@
             "noordoostpolder": {
                 "activate": "Regulations"
             },
-            "potjeswijzer": {
-                "activate": "Jars"
-            },
             "products": "Offer",
             "profile": "Profile >",
             "providers": "Providers",
@@ -239,6 +236,9 @@
             },
             "westerkwartier": {
                 "activate": "Request"
+            },
+            "potjeswijzer": {
+                "activate": "Municipal funds"
             }
         },
         "items": {
@@ -250,7 +250,6 @@
                 "funds": "Regulations"
             },
             "explanation": "Explanation",
-            "funds": "Activate",
             "geertruidenberg": {
                 "funds": "Regulations"
             },
@@ -276,9 +275,6 @@
             "noordoostpolder": {
                 "funds": "Regulations"
             },
-            "potjeswijzer": {
-                "funds": "Jars"
-            },
             "products": "Offer",
             "providers": "Providers",
             "schagen": {
@@ -292,9 +288,6 @@
             "waalwijk": {
                 "funds": "Request"
             },
-            "westerkwartier": {
-                "funds": "Jars"
-            },
             "wadenheuvel": {
                 "funds": "Regulations"
             },
@@ -304,7 +297,15 @@
             "isd": {
                 "funds": "Regulations"
             },
-            "partner_funds": "Partner Funds"
+            "funds": "Regulations",
+            "partner_funds": "Social partners",
+            "potjeswijzer": {
+                "funds": "Municipal funds",
+                "partner_funds": "Potjes Partners"
+            },
+            "westerkwartier": {
+                "funds": "Municipal funds"
+            }
         },
         "user_menu": {
             "auth_as": "Logged in as:",
@@ -992,9 +993,6 @@
             "oostgelre": {
                 "title": "Activate"
             },
-            "potjeswijzer": {
-                "title": "Jars"
-            },
             "schagen": {
                 "title": "Regulations"
             },
@@ -1006,6 +1004,9 @@
             },
             "fijnder": {
                 "title": "Regulations"
+            },
+            "potjeswijzer": {
+                "title": "Municipal funds"
             }
         },
         "header": {
@@ -1076,10 +1077,6 @@
                 "description": "Activate",
                 "title": "Activate"
             },
-            "potjeswijzer": {
-                "description": "Jars",
-                "title": "Jars"
-            },
             "schagen": {
                 "description": "Regulations",
                 "title": "Regulations"
@@ -1091,6 +1088,10 @@
             "winterswijk": {
                 "description": "Activate",
                 "title": "Activate"
+            },
+            "potjeswijzer": {
+                "description": "Our partners also offer various assistance programs for residents. Do you have a low income? If so, you may be eligible for additional assistance.",
+                "title": "Potjes Partners"
             }
         }
     },
@@ -3315,10 +3316,10 @@
         "close": "Close",
         "email": "Email",
         "go_to_admin": "Go to the management environment",
-        "header_title": "Fund Help Block",
-        "help_title": "Fund Help Title",
         "phone": "Phone",
-        "website": "Website"
+        "website": "Website",
+        "header_title": "Contact Us",
+        "help_title": "Have questions or need help?"
     },
     "modal_photo_cropper": {
         "cancel": "Cancel",
