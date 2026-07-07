@@ -1,24 +1,25 @@
 @use "sass:color";
 
 @use "style-webshop-general-vars";
+@use "./includes/fonts/fedra-sans";
 
 /*==========  Style Sheet - Vars  ==========*/
-$primaryColor: #b9cb18;
-$primaryColorLight: #b9cb18;
+$primaryColor: #4E4D40;
+$primaryColorLight: #4E4D40;
 
 :root {
     --zoom: 100%;
     --zoom-mobile: 100%;
 
     --border-color: #e5e5e5;
-    --border-radius: 8px;
+    --border-radius: 0;
     --box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 
     --color-primary: #{$primaryColor};
     --color-primary-light: #{$primaryColorLight};
 
     --color-default: #56b4e9;
-    --color-default-light: #b9cb18;
+    --color-default-light: #4E4D40;
 
     --color-danger: #e63b3b;
 
@@ -27,7 +28,7 @@ $primaryColorLight: #b9cb18;
 
     --navbar-menu-gap: 22px;
     --navbar-menu-order: 1;
-    --navbar-menu-background: #4e4d40;
+    --navbar-menu-background: #FFFFFF;
 
     --navbar-search-gap: 20px;
     --navbar-search-order: 2;
@@ -36,8 +37,8 @@ $primaryColorLight: #b9cb18;
     --navbar-search-border-bottom: 1px solid var(--border-color);
 
     --navbar-menu-item-font: 400 18px/21px var(--base-font);
-    --navbar-menu-item-color: #fff;
-    --navbar-menu-item-color-hover: #fff;
+    --navbar-menu-item-color: #4E4D40;
+    --navbar-menu-item-color-hover: #4E4D40;
     --navbar-menu-item-padding: 16px 0;
     --navbar-menu-item-background: transparent;
     --navbar-menu-item-background-hover: transparent;
@@ -72,7 +73,7 @@ $primaryColorLight: #b9cb18;
 
     // navbar (start modal primary)
     --tc-start-btn: #fff;
-    --btn-start-bg: #4990b5;
+    --btn-start-bg: #1572AF;
     --btn-start-btn: #305dfb;
     --btn-start-border: transparent;
 
@@ -87,7 +88,7 @@ $primaryColorLight: #b9cb18;
     --header-banner-pane-banner-border-radius: initial;
 
     // base font
-    --base-font: "Helvetica", "Open Sans", "Arial", sans-serif;
+    --base-font: "Fedra Sans", "Arial", sans-serif;
 
     // text color
     --tc: #4e4d40;
@@ -119,7 +120,7 @@ $primaryColorLight: #b9cb18;
     --footer_social_border_color: var(--footer_color);
     --footer_social_border_radius: var(--border-radius);
 
-    --footer-copyright-color: #004d93;
+    --footer-copyright-color: #545457;
     --footer-copyright-font: 400 14px/30px var(--base-font);
     --footer-copyright-background: #fff;
     --footer-copyright-border-color: var(--border-color);
@@ -187,7 +188,7 @@ $primaryColorLight: #b9cb18;
     --label-default-background: #595959;
 
     --label-primary-color: #fff;
-    --label-primary-background: #1C8271;
+    --label-primary-background: #1572AF;
 
     --label-danger-color: #030304;
     --label-danger-background: #d38c87;
@@ -219,11 +220,11 @@ $primaryColorLight: #b9cb18;
     --button-disabled-color: #999;
     --button-disabled-background: #e5e5e5;
 
-    --button-primary-color: #666;
+    --button-primary-color: #FFFFFF;
     --button-primary-border: 1px solid var(--color-primary);
     --button-primary-decoration: none;
     --button-primary-background: var(--color-primary);
-    --button-primary-hover-color: #666;
+    --button-primary-hover-color: #FFFFFF;
     --button-primary-hover-border: 1px solid var(--color-primary-light);
     --button-primary-hover-decoration: none;
     --button-primary-hover-background: var(--color-primary-light);
@@ -279,7 +280,7 @@ $primaryColorLight: #b9cb18;
 
     --showcase-title-font: 600 18px/30px var(--heading-font-family);
     --showcase-title-color: var(--tc);
-    --showcase-title-count-color: #666;
+    --showcase-title-count-color: #FFFFFF;
     --showcase-title-count-background: var(--color-primary);
     --showcase-title-count-border-radius: calc(var(--border-radius) / 2);
 
@@ -348,7 +349,7 @@ $primaryColorLight: #b9cb18;
     --section-faq-padding: 30px 0;
     --section-faq-background: var(--section-background);
     --section-footer-padding: 35px 0;
-    --section-footer-background: #4990b5;
+    --section-footer-background: #4E4D40;
     --section-pre-check-padding: 0 0 30px;
     --section-pre-check-background: var(--section-background);
     --section-profile-padding: var(--section-padding);
@@ -368,7 +369,7 @@ $primaryColorLight: #b9cb18;
     --cms-funds-title-font: 400 24px/36px var(--base-font);
     --cms-funds-title-color: var(--htc);
     --cms-funds-label-font-size: 12px;
-    --cms-funds-label-background: #1C8271;
+    --cms-funds-label-background: #1572AF;
 
     --cms-funds-compact-title-font: 400 24px/36px var(--base-font);
     --cms-funds-compact-title-color: var(--htc);
