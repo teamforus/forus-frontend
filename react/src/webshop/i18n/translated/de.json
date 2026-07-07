@@ -586,11 +586,11 @@
                 "continue_without_email_link": "Weiter ohne E-Mail Adresse",
                 "email_required": "Um mit der Bewerbung fortzufahren, geben Sie bitte Ihre E-Mail-Adresse ein",
                 "email_sent": "E-Mail gesendet",
-                "email_sent_screen": "Eine Bestätigungs-E-Mail wurde verschickt",
                 "no_email_link": "Ich habe keine E-Mail Adresse",
                 "sign_up_with_email": "Anmeldung mit E-Mail Adresse",
                 "no_email_info": "Ohne E-Mail-Adresse erhalten Sie keine wichtigen Nachrichten über Ihr Guthaben und Ihre Ausgaben. Sie können sich dann nur mit DigiD anmelden.",
-                "warning": "Anmerkung:"
+                "warning": "Anmerkung:",
+                "email_sent_screen": "Es wurde eine E-Mail versandt"
             },
             "fund_request_overview": {
                 "application_summary": "Übersicht anfordern",
@@ -2016,16 +2016,12 @@
         "header": {
             "subtitle_formal": "Geben Sie Ihre E-Mail-Adresse ein, um einen Link zum Einloggen zu erhalten.",
             "subtitle_informal": "Geben Sie Ihre E-Mail-Adresse ein, um einen Link zum Einloggen zu erhalten.",
-            "subtitle_succes_formal": "Sie haben eine E-Mail an die soeben eingegebene E-Mail-Adresse erhalten. Gehen Sie zu Ihrem Posteingang und öffnen Sie die E-Mail mit dem Betreff \"E-Mail bestätigen\" und klicken Sie auf die blaue Schaltfläche in der E-Mail.",
-            "subtitle_succes_informal": "Sie haben eine E-Mail an die von Ihnen angegebene E-Mail-Adresse erhalten. Gehen Sie zu Ihrem Posteingang und öffnen Sie die E-Mail mit dem Betreff \"E-Mail bestätigen\" und klicken Sie auf die blaue Schaltfläche in der E-Mail.",
-            "subtitle_we_succes_formal": "Sie haben eine E-Mail erhalten am <strong class=\"text-primary\">{{email}}</strong>. Gehen Sie zu Ihrem Posteingang und öffnen Sie die E-Mail mit dem Betreff \"E-Mail bestätigen\" und klicken Sie in der E-Mail auf \"Bestätigen\".",
-            "subtitle_we_succes_informal": "Sie haben eine E-Mail erhalten unter <strong class=\"text-primary\">{{email}}</strong>. Gehen Sie zu Ihrem Posteingang und öffnen Sie die E-Mail mit dem Betreff \"E-Mail bestätigen\" und klicken Sie in der E-Mail auf \"Bestätigen\".",
             "title": "E-Mail gesendet",
-            "title_existing_user_succes_formal": "Prüfen Sie Ihre E-Mail.",
-            "title_existing_user_succes_informal": "Prüfen Sie Ihre E-Mail.",
             "title_sr": "Anmeldung starten",
-            "title_succes_formal": "Bitte bestätigen Sie, dass Sie Zugang zu dieser E-Mail-Adresse haben.",
-            "title_succes_informal": "Bestätigen Sie, dass Sie Zugang zu dieser E-Mail-Adresse haben."
+            "subtitle_email_sent_formal": "Wir schickten eine E-Mail an <strong class=\"text-primary\">{{email}}</strong>. Bitte öffnen Sie die E-Mail und folgen Sie dem Link, um fortzufahren.",
+            "subtitle_email_sent_informal": "Wir schickten eine E-Mail an <strong class=\"text-primary\">{{email}}</strong>. Bitte öffnen Sie die E-Mail und folgen Sie dem Link, um fortzufahren.",
+            "title_email_sent_formal": "Prüfen Sie Ihre E-Mail.",
+            "title_email_sent_informal": "Prüfen Sie Ihre E-Mail."
         },
         "input": {
             "code": "Aktivierungscode",
@@ -2072,8 +2068,6 @@
         "notifications": {
             "confirmation": "Es hat geklappt!",
             "invalid": "Der Aktivierungscode ist ungültig oder wurde bereits verwendet.",
-            "link_formal": "Eine E-Mail wurde an folgende Adresse geschickt <strong class=\"text-primary\">{{email}}</strong><br/>Klicken Sie auf den Link, um sich anzumelden.",
-            "link_informal": "Eine E-Mail wurde an folgende Adresse geschickt <strong class=\"text-primary\">{{email}}</strong><br/>Klicken Sie auf den Link, um sich anzumelden.",
             "voucher_email": "Der QR-Code wurde gesendet."
         },
         "pin_code": {

@@ -8,7 +8,6 @@ import EmailProviderLink from '../EmailProviderLink';
 import useFormBuilder from '../../../../../hooks/useFormBuilder';
 import { ResponseError } from '../../../../../props/ApiResponses';
 import { useIdentityService } from '../../../../../services/IdentityService';
-import useEnvData from '../../../../../hooks/useEnvData';
 import ProgressStorage from '../../../../../helpers/ProgressStorage';
 import { authContext } from '../../../../../contexts/AuthContext';
 import useTranslate from '../../../../../hooks/useTranslate';
@@ -16,7 +15,6 @@ import { makeQrCodeContent } from '../../../../../helpers/utils';
 import classNames from 'classnames';
 
 export default function SignUpStepProfileCreate({ panelType }: { panelType: 'sponsor' | 'validator' }) {
-    const envData = useEnvData();
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
 
@@ -27,7 +25,6 @@ export default function SignUpStepProfileCreate({ panelType }: { panelType: 'spo
     const [hasApp, setHasApp] = useState(null);
     const [tmpAuthToken, setTmpAuthToken] = useState(null);
     const [authEmailSent, setAuthEmailSent] = useState(null);
-    const [authEmailRestoreSent, setAuthEmailRestoreSent] = useState(null);
     const [progressStorage] = useState(new ProgressStorage(`${panelType}-sign_up`));
 
     const formSignUp = useFormBuilder(
@@ -46,21 +43,10 @@ export default function SignUpStepProfileCreate({ panelType }: { panelType: 'spo
                 }
             };
 
-            return identityService.validateEmail(values).then((res) => {
-                const source = `${envData.client_key}_${envData.client_type}`;
-
-                if (!res.data.email.used) {
-                    identityService
-                        .make(values)
-                        .then(() => setAuthEmailSent(true))
-                        .catch((err: ResponseError) => resolveErrors(err));
-                } else {
-                    identityService
-                        .makeAuthEmailToken(values.email, source, 'newSignup')
-                        .then(() => setAuthEmailRestoreSent(true))
-                        .catch((err: ResponseError) => resolveErrors(err));
-                }
-            }, resolveErrors);
+            return identityService
+                .make(values)
+                .then(() => setAuthEmailSent(true))
+                .catch((err: ResponseError) => resolveErrors(err));
         },
     );
 
@@ -107,7 +93,7 @@ export default function SignUpStepProfileCreate({ panelType }: { panelType: 'spo
                 {translate(`sign_up_${panelType}.header.title_step_${panelType == 'sponsor' ? 2 : 3}`)}
             </div>
 
-            {!authEmailSent && !authEmailRestoreSent && !hasApp && (
+            {!authEmailSent && !hasApp && (
                 <div className="sign_up-pane-body">
                     {panelType === 'validator' && (
                         <div className="sign_up-pane-heading">
@@ -161,7 +147,7 @@ export default function SignUpStepProfileCreate({ panelType }: { panelType: 'spo
                 </div>
             )}
 
-            {!authEmailSent && !authEmailRestoreSent && hasApp && (
+            {!authEmailSent && hasApp && (
                 <div className="sign_up-pane-body">
                     <div className="sign_up-pane-heading">{translate(`sign_up_${panelType}.app.title`)}</div>
 
@@ -212,17 +198,19 @@ export default function SignUpStepProfileCreate({ panelType }: { panelType: 'spo
                 </div>
             )}
 
-            {(authEmailSent || authEmailRestoreSent) && (
+            {authEmailSent && (
                 <div className="sign_up-pane-body text-center">
                     <div className="sign_up-pane-media">
                         <img src={assetUrl('/assets/img/email_confirmed.svg')} alt={''} />
                     </div>
                     <div className="sign_up-pane-heading sign_up-pane-heading-lg text-primary-mid">
-                        {translate(`sign_up_${panelType}.labels.confirm_email`)}
+                        {translate(`sign_up_${panelType}.labels.email_sent_title`)}
                     </div>
                     <div className="sign_up-pane-text text-center">
-                        {translate(`sign_up_${panelType}.labels.confirm_email_description`)}
+                        {translate(`sign_up_${panelType}.labels.email_sent_description`)}
                         <span className="sign_up-pane-link text-underline">&nbsp;{formSignUp.values.email}</span>
+                        <br />
+                        {translate(`sign_up_${panelType}.labels.email_sent_description_end`)}
                         <br />
                         <br />
                         <EmailProviderLink email={formSignUp.values?.email} />
