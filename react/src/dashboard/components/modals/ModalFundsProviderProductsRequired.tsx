@@ -43,12 +43,13 @@ export default function ModalFundsProviderProductsRequired({ modal, funds }: { m
                                 <IconWarning />
                             </div>
 
-                            <div className="products-required-title">U heeft nog geen aanbod toegevoegd!</div>
+                            <div className="products-required-title">Voeg aanbod toe</div>
                             <div className="products-required-description">
-                                Uw organisatie is aangemeld voor een fonds waarvoor aanbod moet worden toegevoegd.
+                                Uw organisatie is aangemeld voor een of meer fondsen waarvoor aanbod moet worden
+                                toegevoegd.
                                 <br />
-                                Na goedkeuring wordt uw aanbod zichtbaar op de website. Deze melding verdwijnt zodra u
-                                minimaal één aanbod hebt toegevoegd.
+                                Voeg minimaal één aanbieding toe. Na goedkeuring wordt uw aanbod zichtbaar op de
+                                website.
                             </div>
                         </div>
                     </div>
