@@ -64,6 +64,20 @@ export default {
         iban_tooltip: 'IBAN-nummer moet het formaat NL89BANK0123456789 hebben.',
         iban_name: 'Naam rekeninghouder',
     },
+    placeholders: {
+        title: 'De naam van de kosten die u terugvraagt.',
+        amount: '10',
+        description: 'Wat heeft u gekocht?',
+        iban: 'NL12INGB3456789012',
+        iban_name: 'J. Jansen',
+    },
+    tooltips: {
+        title: 'Naam van de kosten die u terugvraagt. Voorbeeld: Sportschoenen.',
+        amount: 'Vul hier het bedrag in dat u wilt terugvragen. Voorbeeld: 10.',
+        description: 'Schrijf kort op wat u heeft gekocht. Voorbeeld: Sportschoenen.',
+        iban: 'Vul het rekeningnummer in waarop u het geld wilt ontvangen. Voorbeeld van een IBAN: NL12INGB3456789012.',
+        iban_name: 'Vul de naam van de rekeninghouder in. Voorbeeld: J. Jansen.',
+    },
     form_buttons: {
         cancel: 'Annuleren',
         save_for_later: 'Opslaan voor later',

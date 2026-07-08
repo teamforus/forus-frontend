@@ -5,49 +5,50 @@
         margin-bottom: 15px;
 
         .organization-pane {
+            display: flex;
+            flex-direction: row;
             background: var(--showcase-item-background);
             border-radius: var(--showcase-item-border-radius);
             box-shadow: var(--showcase-item-shadow);
             border: var(--showcase-item-border);
-            transition: box-shadow .4s;
-            flex-direction: row;
-            display: flex;
+            transition:
+                background-color 0.4s,
+                box-shadow 0.4s;
 
             .organization-pane-info {
-                padding: 20px 15px;
-                align-items: center;
                 display: flex;
                 flex: 1;
+                padding: 20px 15px;
+                align-items: center;
 
                 .organization-logo {
                     margin: -10px 15px -10px 0;
-    
+
                     .organization-logo-img {
                         display: block;
                         width: 50px;
                         border-radius: var(--border-radius);
                     }
                 }
-                
+
                 .organization-title {
                     display: flex;
                     flex-direction: column;
                     flex-grow: 1;
                     font: 600 16px/20px var(--heading-font-family);
                     text-align: left;
-    
+
                     .organization-title-value {
-                        vertical-align: middle;
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
                         font: inherit;
                         margin-bottom: 5px;
+                        vertical-align: middle;
                     }
-    
+
                     .organization-title-count {
                         min-width: 30px;
-                        text-align: center;
                         padding: 0 5px;
                         height: 30px;
                         text-align: center;
@@ -73,14 +74,14 @@
             }
 
             .organization-pane-collapse {
+                display: flex;
                 align-items: center;
                 border-left: var(--showcase-item-border);
                 padding: 25px;
                 margin: 0;
-                display: flex;
                 cursor: pointer;
 
-                .organization-total-offices, 
+                .organization-total-offices,
                 .organization-total-offices-count {
                     font: 600 14px/20px var(--base-font);
                     color: #595959;
@@ -95,7 +96,7 @@
                     border-radius: 50%;
                     font-size: 13px;
                     text-align: center;
-                    background: #E5E5E5;
+                    background: #e5e5e5;
                     color: #303030;
 
                     &.active {
@@ -105,19 +106,19 @@
                 }
 
                 .organization-chevron {
-                    line-height: 20px;
                     height: 20px;
+                    line-height: 20px;
                     font-size: 20px;
                     color: #595959;
                     cursor: pointer;
-                    transition: .4s;
+                    transition: 0.4s;
                     margin-right: 10px;
-    
+
                     .mdi {
                         font-size: inherit;
                         color: inherit;
                     }
-    
+
                     &:hover {
                         color: var(--color-primary);
                     }
@@ -125,6 +126,7 @@
             }
 
             &:hover {
+                background: var(--showcase-item-hover-background, var(--showcase-item-background));
                 box-shadow: var(--showcase-item-hover-shadow);
             }
         }
@@ -134,26 +136,26 @@
 
             .block-offices {
                 margin-top: 15px;
-                transition: box-shadow .4s;
-                
+                transition: box-shadow 0.4s;
+
                 .office-item {
                     margin-bottom: 0;
                     position: relative;
 
                     .office-item-map-icon {
-                        color: var(--showcase-title-count-color);
-                        background: var(--showcase-title-count-background);
                         position: absolute;
                         left: -40px;
+                        top: 20px;
                         width: 26px;
                         height: 26px;
                         text-align: center;
                         line-height: 26px;
                         font-size: 18px;
+                        color: var(--showcase-title-count-color);
+                        background: var(--showcase-title-count-background);
                         border-radius: calc(var(--border-radius) / 2);
-                        top: 20px;
                     }
-    
+
                     .office-pane {
                         background: #fff;
                         box-shadow: none;
@@ -163,11 +165,11 @@
                             margin-top: auto;
                             margin-bottom: auto;
                             margin-left: auto;
-                            color: #646F79;
+                            color: #646f79;
                         }
                     }
 
-                    &:before {
+                    &::before {
                         content: '';
                         display: block;
                         position: absolute;
@@ -180,9 +182,9 @@
                     }
 
                     &:last-child {
-                        &:before {
+                        &::before {
                             bottom: auto;
-                            height: 60px
+                            height: 60px;
                         }
                     }
                 }

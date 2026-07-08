@@ -14,7 +14,9 @@
         display: flex;
         position: relative;
         flex-direction: row;
-        transition: box-shadow 0.4s;
+        transition:
+            background-color 0.4s,
+            box-shadow 0.4s;
 
         .product-photo {
             flex: 0 0 105px;
@@ -136,7 +138,7 @@
                             height: 18px;
                         }
 
-                        &:after {
+                        &::after {
                             content: '';
                             position: absolute;
                             right: -10px;
@@ -154,7 +156,7 @@
                         &:last-child {
                             margin-right: 0;
 
-                            &:after {
+                            &::after {
                                 content: none;
                             }
                         }
@@ -164,6 +166,7 @@
         }
 
         &:hover {
+            background: var(--showcase-item-hover-background, var(--showcase-item-background));
             box-shadow: var(--showcase-item-hover-shadow);
 
             .product-content {
@@ -228,7 +231,7 @@
                                 font-size: 24px;
                             }
 
-                            &:after {
+                            &::after {
                                 content: none;
                             }
                         }

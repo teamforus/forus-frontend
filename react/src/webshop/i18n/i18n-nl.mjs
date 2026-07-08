@@ -368,7 +368,11 @@ export default {
             },
             show_less: 'Toon minder',
             show_more: 'Toon meer',
-            buttons: { is_applicable: 'Aanvragen', check_status: 'Controleer status' },
+            buttons: {
+                is_applicable: 'Aanvragen',
+                check_status: 'Controleer status',
+                more_information: 'Meer informatie',
+            },
         },
         fund_item_search: {
             buttons: { is_pending: 'In afwachting', is_applicable: 'Aanvragen' },
