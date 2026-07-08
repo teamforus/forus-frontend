@@ -2165,7 +2165,7 @@ export default function SignUpProvider() {
                                             className="button button-text button-text-padless"
                                             onClick={finish}
                                             tabIndex={0}>
-                                            Skip and finish
+                                            Doorgaan naar de beheeromgeving
                                             <em className="mdi mdi-chevron-right icon-right" />
                                         </div>
                                     }
