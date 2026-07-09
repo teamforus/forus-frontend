@@ -6,6 +6,7 @@ import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import { StringParam, useQueryParams } from 'use-query-params';
 import { pushNotificationContext } from '../../../modules/push_notifications/context/PushNotificationsContext';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import { useOrganizationService } from '../../../services/OrganizationService';
 
 const targetHome = 'homeStart';
 const targetNewSignup = 'newSignup';
@@ -25,6 +26,7 @@ export default function IdentityRestore({ confirmation = false }: { confirmation
     const target = query.target;
     const token = confirmation ? tokenParam : query.token;
     const identityService = useIdentityService();
+    const organizationService = useOrganizationService();
     const navigate = useNavigate();
 
     const handleAuthTarget = useCallback(
@@ -50,6 +52,31 @@ export default function IdentityRestore({ confirmation = false }: { confirmation
         [navigate],
     );
 
+    const navigateToDefaultAuthTarget = useCallback(
+        (accessToken: string) => {
+            organizationService
+                .list(
+                    { per_page: 1 },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                        },
+                    },
+                )
+                .then(
+                    (res) => {
+                        navigate(
+                            getStateRouteUrl(
+                                res.data.data.length === 0 ? DashboardRoutes.SIGN_UP : DashboardRoutes.ORGANIZATIONS,
+                            ),
+                        );
+                    },
+                    () => navigate(getStateRouteUrl(DashboardRoutes.ORGANIZATIONS)),
+                );
+        },
+        [navigate, organizationService],
+    );
+
     const exchangeToken = useCallback(
         (token: string, target: string) => {
             const promise = confirmation
@@ -60,9 +87,15 @@ export default function IdentityRestore({ confirmation = false }: { confirmation
                 function (res) {
                     setToken(res.data.access_token);
 
-                    if (typeof target != 'string' || !handleAuthTarget(target.split('-'))) {
-                        navigate(getStateRouteUrl(DashboardRoutes.ORGANIZATIONS));
+                    if (typeof target == 'string' && target.length > 0) {
+                        if (!handleAuthTarget(target.split('-'))) {
+                            navigate(getStateRouteUrl(DashboardRoutes.ORGANIZATIONS));
+                        }
+
+                        return;
                     }
+
+                    navigateToDefaultAuthTarget(res.data.access_token);
                 },
                 () => {
                     pushDanger(
@@ -74,7 +107,7 @@ export default function IdentityRestore({ confirmation = false }: { confirmation
                 },
             );
         },
-        [confirmation, identityService, setToken, handleAuthTarget, navigate, pushDanger],
+        [confirmation, identityService, setToken, handleAuthTarget, navigate, navigateToDefaultAuthTarget, pushDanger],
     );
 
     useEffect(() => {

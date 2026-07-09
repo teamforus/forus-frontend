@@ -1,6 +1,8 @@
 export default {
     header: {
         title: 'Aanvragen',
+        partners_title: 'Aanvragen',
+        partners_description: '',
         subtitle: '',
         potjeswijzer: {
             title: 'Potjes',
@@ -28,9 +30,12 @@ export default {
         all_tags: 'Alle categorieën',
         all_organizations: 'Alle organisaties',
     },
+    active_filters: {
+        reset_all: 'Verwijder alle filters',
+    },
     funds: {
         potjeswijzer: {
-            title: 'Potjes',
+            title: 'Potjes gemeente',
         },
         berkelland: {
             title: 'Activeren',
@@ -55,6 +60,45 @@ export default {
         },
         fijnder: {
             title: 'Regelingen',
+        },
+    },
+    partners: {
+        potjeswijzer: {
+            title: 'Potjes partners',
+            description:
+                'Ook onze partners bieden verschillende potjes voor inwoners. Heeft u een klein inkomen? Dan is er een extraatje mogelijk.',
+        },
+        berkelland: {
+            title: 'Activeren',
+            description: 'Activeren',
+        },
+        oostgelre: {
+            title: 'Activeren',
+            description: 'Activeren',
+        },
+        winterswijk: {
+            title: 'Activeren',
+            description: 'Activeren',
+        },
+        geertruidenberg: {
+            title: 'Activeren',
+            description: 'Activeren',
+        },
+        schagen: {
+            title: 'Regelingen',
+            description: 'Regelingen',
+        },
+        goereeoverflakkee: {
+            title: 'Regelingen',
+            description: 'Regelingen',
+        },
+        vergoedingen: {
+            title: 'Alle vergoedingen',
+            description: 'Alle vergoedingen',
+        },
+        fijnder: {
+            title: 'Regelingen',
+            description: 'Regelingen',
         },
     },
     labels: {

@@ -586,11 +586,11 @@
                 "continue_without_email_link": "Continuer sans adresse e-mail",
                 "email_required": "Pour continuer avec la demande, veuillez entrer votre adresse e-mail",
                 "email_sent": "Courriel envoyé",
-                "email_sent_screen": "Un e-mail de confirmation a été envoyé",
                 "no_email_link": "Je n'ai pas d'adresse électronique",
                 "sign_up_with_email": "S'identifier avec l'adresse e-mail",
                 "no_email_info": "Sans adresse e-mail, vous ne recevrez pas de messages importants concernant votre crédit et vos dépenses. Vous ne pouvez donc vous connecter qu'avec DigiD.",
-                "warning": "Remarque :"
+                "warning": "Remarque :",
+                "email_sent_screen": "Un e-mail a été envoyé"
             },
             "fund_request_overview": {
                 "application_summary": "Aperçu de la demande",
@@ -808,9 +808,6 @@
             "oostgelre": {
                 "title": "Activer"
             },
-            "potjeswijzer": {
-                "title": "Bocaux"
-            },
             "schagen": {
                 "title": "Régimes"
             },
@@ -822,6 +819,9 @@
             },
             "fijnder": {
                 "title": "Régimes"
+            },
+            "potjeswijzer": {
+                "title": "Caisses communales"
             }
         },
         "header": {
@@ -842,7 +842,9 @@
             "winterswijk": {
                 "subtitle": "Vous trouverez ci-dessous les régimes que vous pouvez activer.",
                 "title": "Activer"
-            }
+            },
+            "partners_description": "",
+            "partners_title": "Demandes"
         },
         "labels": {
             "age": "< 18 ans",
@@ -865,6 +867,47 @@
             "denied": "Refusé",
             "is_applicable": "S'inscrire",
             "is_pending": "En cours"
+        },
+        "active_filters": {
+            "reset_all": "Supprimer tous les filtres"
+        },
+        "partners": {
+            "berkelland": {
+                "description": "Activer",
+                "title": "Activer"
+            },
+            "fijnder": {
+                "description": "Dispositions",
+                "title": "Dispositions"
+            },
+            "geertruidenberg": {
+                "description": "Activer",
+                "title": "Activer"
+            },
+            "goereeoverflakkee": {
+                "description": "Dispositions",
+                "title": "Dispositions"
+            },
+            "oostgelre": {
+                "description": "Activer",
+                "title": "Activer"
+            },
+            "schagen": {
+                "description": "Dispositions",
+                "title": "Dispositions"
+            },
+            "vergoedingen": {
+                "description": "Toutes les indemnités",
+                "title": "Toutes les indemnités"
+            },
+            "winterswijk": {
+                "description": "Activer",
+                "title": "Activer"
+            },
+            "potjeswijzer": {
+                "description": "Nos partenaires proposent également différentes aides financières aux habitants. Vous disposez d'un faible revenu ? Dans ce cas, vous pouvez bénéficier d'une aide supplémentaire.",
+                "title": "Partenaires de Potjes"
+            }
         }
     },
     "global": {
@@ -1314,7 +1357,8 @@
         "fund_item_list": {
             "buttons": {
                 "check_status": "Vérifier l'état",
-                "is_applicable": "Demande"
+                "is_applicable": "Demande",
+                "more_information": "Plus d'informations"
             },
             "show_less": "Montrer moins",
             "show_more": "Afficher plus",
@@ -1483,10 +1527,10 @@
         "close": "Fermer",
         "email": "Courriel",
         "go_to_admin": "Accéder à l'environnement d'administration",
-        "header_title": "Fonds d'aide Bloc",
-        "help_title": "Fonds Aide Titre",
         "phone": "Téléphone",
-        "website": "Site web"
+        "website": "Site web",
+        "header_title": "Nous contacter",
+        "help_title": "Vous avez des questions ou besoin d'aide ?"
     },
     "modal_logout": {
         "description_formal": "Êtes-vous sûr de vouloir vous déconnecter ?",
@@ -1972,16 +2016,12 @@
         "header": {
             "subtitle_formal": "Saisissez votre adresse e-mail pour recevoir un lien qui vous permettra de vous connecter.",
             "subtitle_informal": "Saisissez votre adresse e-mail pour recevoir un lien qui vous permettra de vous connecter.",
-            "subtitle_succes_formal": "Vous avez reçu un e-mail à l'adresse e-mail que vous venez de saisir. Allez dans votre boîte de réception et ouvrez l'e-mail dont l'objet est \"Confirmer l'e-mail\" et cliquez sur le bouton bleu dans l'e-mail.",
-            "subtitle_succes_informal": "Vous avez reçu un e-mail à l'adresse e-mail que vous venez de saisir. Allez dans votre boîte de réception et ouvrez l'e-mail dont l'objet est \"Confirmer l'e-mail\" et cliquez sur le bouton bleu dans l'e-mail.",
-            "subtitle_we_succes_formal": "Vous avez reçu un e-mail le <strong class=\"text-primary\">{{email}}</strong>. Allez dans votre boîte de réception et ouvrez l'e-mail dont l'objet est \"Confirmer l'e-mail\" et cliquez sur \"Confirmer\" dans l'e-mail.",
-            "subtitle_we_succes_informal": "Vous avez reçu un e-mail à l'adresse <strong class=\"text-primary\">{{email}}</strong>. Allez dans votre boîte de réception et ouvrez l'e-mail dont l'objet est \"Confirmer l'e-mail\" et cliquez sur \"Confirmer\" dans l'e-mail.",
             "title": "Courriel envoyé",
-            "title_existing_user_succes_formal": "Consultez votre courrier électronique.",
-            "title_existing_user_succes_informal": "Vérifiez votre courrier électronique.",
             "title_sr": "Démarrer la connexion",
-            "title_succes_formal": "Veuillez confirmer que vous avez accès à cette adresse électronique.",
-            "title_succes_informal": "Confirmez que vous avez accès à cette adresse électronique."
+            "subtitle_email_sent_formal": "Nous avons envoyé un e-mail à <strong class=\"text-primary\">{{email}}</strong>. Veuillez ouvrir l'e-mail et suivre le lien pour continuer.",
+            "subtitle_email_sent_informal": "Nous avons envoyé un e-mail à <strong class=\"text-primary\">{{email}}</strong>. Veuillez ouvrir l'e-mail et suivre le lien pour continuer.",
+            "title_email_sent_formal": "Consultez votre courrier électronique.",
+            "title_email_sent_informal": "Vérifiez votre courrier électronique."
         },
         "input": {
             "code": "Code d'activation",
@@ -2028,8 +2068,6 @@
         "notifications": {
             "confirmation": "Cela a fonctionné !",
             "invalid": "Le code d'activation n'est pas valide ou a déjà été utilisé.",
-            "link_formal": "Un e-mail a été envoyé à <strong class=\"text-primary\">{{email}}</strong><br/>Cliquez sur le lien pour vous inscrire.",
-            "link_informal": "Un e-mail a été envoyé à <strong class=\"text-primary\">{{email}}</strong><br/>Cliquez sur le lien pour vous inscrire.",
             "voucher_email": "Le code QR a été envoyé."
         },
         "pin_code": {
@@ -2787,6 +2825,20 @@
         "types": {
             "active": "Actif",
             "archived": "Archives"
+        },
+        "placeholders": {
+            "amount": "10",
+            "description": "Qu'avez-vous acheté ?",
+            "iban": "NL12INGB3456789012",
+            "iban_name": "J. Jansen",
+            "title": "Le nom des frais que vous demandez à vous faire rembourser."
+        },
+        "tooltips": {
+            "amount": "Indiquez ici le montant que vous souhaitez récupérer. Exemple : 10.",
+            "description": "Indiquez brièvement ce que vous avez acheté. Exemple : des chaussures de sport.",
+            "iban": "Indiquez le numéro de compte sur lequel vous souhaitez recevoir l'argent. Exemple d'IBAN : NL12INGB3456789012.",
+            "iban_name": "Indiquez le nom du titulaire du compte. Exemple : J. Jansen.",
+            "title": "Nom des frais que vous demandez à vous faire rembourser. Exemple : chaussures de sport."
         }
     },
     "reservation": {
@@ -3171,9 +3223,6 @@
             "noordoostpolder": {
                 "activate": "Régimes"
             },
-            "potjeswijzer": {
-                "activate": "Bocaux"
-            },
             "products": "Offre",
             "profile": "Profil >",
             "providers": "Fournisseurs",
@@ -3189,6 +3238,9 @@
             },
             "westerkwartier": {
                 "activate": "Demande"
+            },
+            "potjeswijzer": {
+                "activate": "Caisses communales"
             }
         },
         "items": {
@@ -3200,7 +3252,6 @@
                 "funds": "Régimes"
             },
             "explanation": "Explication",
-            "funds": "Activer",
             "geertruidenberg": {
                 "funds": "Régimes"
             },
@@ -3226,9 +3277,6 @@
             "noordoostpolder": {
                 "funds": "Régimes"
             },
-            "potjeswijzer": {
-                "funds": "Bocaux"
-            },
             "products": "Offre",
             "providers": "Prestataires",
             "schagen": {
@@ -3245,14 +3293,20 @@
             "wadenheuvel": {
                 "funds": "Régimes"
             },
-            "westerkwartier": {
-                "funds": "Bocaux"
-            },
             "fijnder": {
                 "funds": "Régimes"
             },
             "isd": {
                 "funds": "Régimes"
+            },
+            "funds": "Dispositions",
+            "partner_funds": "Partenaires sociaux",
+            "potjeswijzer": {
+                "funds": "Caisses communales",
+                "partner_funds": "Partenaires de Potjes"
+            },
+            "westerkwartier": {
+                "funds": "Caisses communales"
             }
         },
         "user_menu": {

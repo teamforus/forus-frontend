@@ -22,7 +22,7 @@ export default function FundsProviderProductsRequiredTable({
             <div className="card-header card-header-md clickable" onClick={() => setShowFunds(!showFunds)}>
                 <div className="card-title">
                     <div className={classNames('mdi', showFunds ? 'mdi-menu-down' : 'mdi-menu-right')} />
-                    <div>Fondsen die vereisen dat u een aanbod plaatst ({funds.length})</div>
+                    <div>Voeg een aanbieding toe voor de volgende fondsen ({funds.length})</div>
                 </div>
             </div>
 
@@ -34,7 +34,7 @@ export default function FundsProviderProductsRequiredTable({
                     {funds.map((fund) => (
                         <tr key={fund.id}>
                             <td title={fund.name || '-'}>{strLimit(fund.name, 50)}</td>
-                            <td>{fund.external ? 'External' : 'Regular'}</td>
+                            <td>{fund.external ? 'Informatief' : 'Budget'}</td>
                             <td>{fund.implementation?.name || <TableEmptyValue />}</td>
                             <td className={'table-td-actions text-right'}>
                                 <TableEmptyValue />

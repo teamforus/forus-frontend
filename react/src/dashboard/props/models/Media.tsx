@@ -1,5 +1,4 @@
 export default interface Media {
-    identity_address: string;
     original_name: string;
     type: string;
     ext: string;

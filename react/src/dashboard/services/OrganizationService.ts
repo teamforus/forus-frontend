@@ -24,8 +24,8 @@ export class OrganizationService<T = Organization> {
      */
     public prefix = '/platform/organizations';
 
-    public list(data = {}) {
-        return this.apiRequest.get<ApiResponse<T>>(`${this.prefix}`, data);
+    public list(data = {}, config: RequestConfig = {}) {
+        return this.apiRequest.get<ApiResponse<T>>(`${this.prefix}`, data, config);
     }
 
     public store(data = {}) {
