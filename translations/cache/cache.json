@@ -1673,7 +1673,7 @@
     ],
     [
         "fund_request.sign_up.fund_request_email_setup.email_sent_screen",
-        "Er is een e-mail te bevestiging verstuurd"
+        "Er is een e-mail verstuurd"
     ],
     [
         "fund_request.sign_up.fund_request_email_setup.no_email_info",
@@ -5844,6 +5844,14 @@
         "Bevestigen"
     ],
     [
+        "popup_auth.header.subtitle_email_sent_formal",
+        "We hebben een e-mail gestuurd naar <strong class=\"text-primary\">{{email}}</strong>. Open de e-mail en volg de link om verder te gaan."
+    ],
+    [
+        "popup_auth.header.subtitle_email_sent_informal",
+        "We hebben een e-mail gestuurd naar <strong class=\"text-primary\">{{email}}</strong>. Open de e-mail en volg de link om verder te gaan."
+    ],
+    [
         "popup_auth.header.subtitle_formal",
         "Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen."
     ],
@@ -5852,44 +5860,20 @@
         "Vul jouw e-mailadres in om een link te ontvangen waarmee je kunt inloggen."
     ],
     [
-        "popup_auth.header.subtitle_succes_formal",
-        "U heeft een e-mail ontvangen op het e-mailadres dat u zojuist hebt ingevuld. Ga naar uw inbox en open de e-mail met het onderwerp \"E-mail bevestigen\" en klik in de e-mail op de blauwe knop."
-    ],
-    [
-        "popup_auth.header.subtitle_succes_informal",
-        "Je hebt een e-mail ontvangen op het e-mailadres dat je zojuist hebt ingevuld. Ga naar je inbox en open de e-mail met het onderwerp \"E-mail bevestigen\" en klik in de e-mail op de blauwe knop."
-    ],
-    [
-        "popup_auth.header.subtitle_we_succes_formal",
-        "U heeft een e-mail ontvangen op <strong class=\"text-primary\">{{email}}</strong>. Ga naar uw inbox en open de e-mail met het onderwerp \"E-mail bevestigen\" en klik in de e-mail op \"Bevestigen\"."
-    ],
-    [
-        "popup_auth.header.subtitle_we_succes_informal",
-        "Je hebt een e-mail ontvangen op <strong class=\"text-primary\">{{email}}</strong>. Ga naar je inbox en open de e-mail met het onderwerp \"E-mail bevestigen\" en klik in de e-mail op \"Bevestigen\"."
-    ],
-    [
         "popup_auth.header.title",
         "E-mail verstuurd"
     ],
     [
-        "popup_auth.header.title_existing_user_succes_formal",
+        "popup_auth.header.title_email_sent_formal",
         "Controleer uw e-mail."
     ],
     [
-        "popup_auth.header.title_existing_user_succes_informal",
+        "popup_auth.header.title_email_sent_informal",
         "Controleer je e-mail."
     ],
     [
         "popup_auth.header.title_sr",
         "Start aanmelden"
-    ],
-    [
-        "popup_auth.header.title_succes_formal",
-        "Bevestig dat u toegang heeft tot dit e-mailadres."
-    ],
-    [
-        "popup_auth.header.title_succes_informal",
-        "Bevestig dat je toegang hebt tot dit e-mailadres."
     ],
     [
         "popup_auth.input.code",
@@ -6002,14 +5986,6 @@
     [
         "popup_auth.notifications.invalid",
         "De activatiecode is ongeldig of al gebruikt."
-    ],
-    [
-        "popup_auth.notifications.link_formal",
-        "Er is een e-mail verstuurd naar <strong class=\"text-primary\">{{email}}</strong>.<br/>Klik op de link om u aan te melden."
-    ],
-    [
-        "popup_auth.notifications.link_informal",
-        "Er is een e-mail verstuurd naar <strong class=\"text-primary\">{{email}}</strong>.<br/>Klik op de link om je aan te melden."
     ],
     [
         "popup_auth.notifications.voucher_email",

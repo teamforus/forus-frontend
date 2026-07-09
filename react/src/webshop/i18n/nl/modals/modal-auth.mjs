@@ -5,32 +5,20 @@ export default {
         subtitle_formal: 'Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen.',
         subtitle_informal: 'Vul jouw e-mailadres in om een link te ontvangen waarmee je kunt inloggen.',
 
-        title_succes_formal: 'Bevestig dat u toegang heeft tot dit e-mailadres.',
-        title_succes_informal: 'Bevestig dat je toegang hebt tot dit e-mailadres.',
+        title_email_sent_formal: 'Controleer uw e-mail.',
+        title_email_sent_informal: 'Controleer je e-mail.',
 
-        title_existing_user_succes_formal: 'Controleer uw e-mail.',
-        title_existing_user_succes_informal: 'Controleer je e-mail.',
-
-        subtitle_we_succes_formal: [
-            'U heeft een e-mail ontvangen op <strong class="text-primary">{{email}}</strong>.',
-            'Ga naar uw inbox en open de e-mail met het onderwerp "E-mail bevestigen" en klik in de e-mail op "Bevestigen".',
+        subtitle_email_sent_formal: [
+            'We hebben een e-mail gestuurd naar <strong class="text-primary">{{email}}</strong>.',
+            'Open de e-mail en volg de link om verder te gaan.',
         ].join(' '),
-        subtitle_we_succes_informal: [
-            'Je hebt een e-mail ontvangen op <strong class="text-primary">{{email}}</strong>.',
-            'Ga naar je inbox en open de e-mail met het onderwerp "E-mail bevestigen" en klik in de e-mail op "Bevestigen".',
+        subtitle_email_sent_informal: [
+            'We hebben een e-mail gestuurd naar <strong class="text-primary">{{email}}</strong>.',
+            'Open de e-mail en volg de link om verder te gaan.',
         ].join(' '),
-
-        subtitle_succes_formal:
-            'U heeft een e-mail ontvangen op het e-mailadres dat u zojuist hebt ingevuld. Ga naar uw inbox en open de e-mail met het onderwerp "E-mail bevestigen" en klik in de e-mail op de blauwe knop.',
-        subtitle_succes_informal:
-            'Je hebt een e-mail ontvangen op het e-mailadres dat je zojuist hebt ingevuld. Ga naar je inbox en open de e-mail met het onderwerp "E-mail bevestigen" en klik in de e-mail op de blauwe knop.',
     },
     notifications: {
         confirmation: 'Het is gelukt!',
-        link_formal:
-            'Er is een e-mail verstuurd naar <strong class="text-primary">{{email}}</strong>.<br/>Klik op de link om u aan te melden.',
-        link_informal:
-            'Er is een e-mail verstuurd naar <strong class="text-primary">{{email}}</strong>.<br/>Klik op de link om je aan te melden.',
         invalid: 'De activatiecode is ongeldig of al gebruikt.',
         voucher_email: 'De QR-code is verstuurd.',
     },

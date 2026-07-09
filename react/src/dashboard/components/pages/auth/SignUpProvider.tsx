@@ -104,7 +104,6 @@ export default function SignUpProvider() {
     const [organization, setOrganization] = useState(null);
     const [hasApp, setHasApp] = useState(true);
     const [authEmailSent, setAuthEmailSent] = useState(null);
-    const [authEmailRestoreSent, setAuthEmailRestoreSent] = useState(null);
     const [tmpAuthToken, setTmpAuthToken] = useState(null);
     const [tmpAccessToken, setTmpAccessToken] = useState(null);
 
@@ -167,21 +166,10 @@ export default function SignUpProvider() {
                 signUpForm.setErrors(err.data?.errors || { email: err?.data?.message });
             };
 
-            return identityService.validateEmail(values).then((res) => {
-                const source = `${envData.client_key}_${envData.client_type}`;
-
-                if (!res.data.email.used) {
-                    identityService
-                        .make(values)
-                        .then(() => setAuthEmailSent(true))
-                        .catch((err) => resolveErrors(err));
-                } else {
-                    identityService
-                        .makeAuthEmailToken(values.email, source, values.target)
-                        .then(() => setAuthEmailRestoreSent(true))
-                        .catch((err) => resolveErrors(err));
-                }
-            }, resolveErrors);
+            return identityService
+                .make(values)
+                .then(() => setAuthEmailSent(true))
+                .catch((err) => resolveErrors(err));
         },
     );
 
@@ -912,277 +900,267 @@ export default function SignUpProvider() {
                                 </div>
                             )}
 
-                            {!authEmailSent &&
-                                !authEmailRestoreSent &&
-                                hasApp &&
-                                !shareSmsSent &&
-                                !shareEmailSent &&
-                                !appDownloadSkip && (
-                                    <div className="sign_up-pane-body">
-                                        <div className="block block-app_download form">
-                                            <div className="app_download-row">
-                                                <div className="app_download-media">
-                                                    <img src={assetUrl('/assets/img/sign_up_me.svg')} alt={''} />
+                            {!authEmailSent && hasApp && !shareSmsSent && !shareEmailSent && !appDownloadSkip && (
+                                <div className="sign_up-pane-body">
+                                    <div className="block block-app_download form">
+                                        <div className="app_download-row">
+                                            <div className="app_download-media">
+                                                <img src={assetUrl('/assets/img/sign_up_me.svg')} alt={''} />
+                                            </div>
+                                            <div className="app_download-content form">
+                                                <h4 className="app_download-heading">Selecteer uw apparaat</h4>
+                                                <select
+                                                    className="form-control"
+                                                    value={selectedOption}
+                                                    onChange={(e) => setSelectedOption(e.target.value)}>
+                                                    <option value="null">Selecteer uw apparaat</option>
+                                                    <option value="iphone">iPhone</option>
+                                                    <option value="android-phone">Android smartphone</option>
+                                                    <option value="android-tablet">Android tablet</option>
+                                                    <option value="ipad">iPad</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        {!selectedOption && (
+                                            <Fragment>
+                                                <div className="app_download-row">
+                                                    <h4 className="app_download-heading">Of:</h4>
                                                 </div>
-                                                <div className="app_download-content form">
-                                                    <h4 className="app_download-heading">Selecteer uw apparaat</h4>
-                                                    <select
-                                                        className="form-control"
-                                                        value={selectedOption}
-                                                        onChange={(e) => setSelectedOption(e.target.value)}>
-                                                        <option value="null">Selecteer uw apparaat</option>
-                                                        <option value="iphone">iPhone</option>
-                                                        <option value="android-phone">Android smartphone</option>
-                                                        <option value="android-tablet">Android tablet</option>
-                                                        <option value="ipad">iPad</option>
-                                                    </select>
+                                                <div className="app_download-row">
+                                                    <div className="app_download-media">
+                                                        <img src={assetUrl('/assets/img/forus-dl-link.jpg')} alt={''} />
+                                                    </div>
+                                                    <div className="app_download-content">
+                                                        <p className="app_download-text">
+                                                            Typ <b>forus.io/dl</b> in uw mobiele browser (safari,
+                                                            chrome, etc) en{' '}
+                                                            <a
+                                                                className="app_download-link"
+                                                                onClick={(e) => {
+                                                                    e?.preventDefault();
+                                                                    setAppDownloadSkip(true);
+                                                                }}>
+                                                                ga verder &gt;
+                                                            </a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </Fragment>
+                                        )}
+
+                                        {(selectedOption == 'iphone' || selectedOption == 'android-phone') && (
+                                            <div className="app_download-row">
+                                                <div className="app_download-col">
+                                                    {selectedOption == 'iphone' && (
+                                                        <div className="app_download-row">
+                                                            <h4 className="app_download-heading">
+                                                                Download uit app store
+                                                            </h4>
+                                                        </div>
+                                                    )}
+                                                    {selectedOption == 'android-phone' && (
+                                                        <div className="app_download-row">
+                                                            <h4 className="app_download-heading">
+                                                                Download uit play store
+                                                            </h4>
+                                                        </div>
+                                                    )}
+                                                    <div className="app_download-row">
+                                                        {selectedOption == 'android-phone' && (
+                                                            <a
+                                                                className="app_download-store_icon"
+                                                                href={envData.config.android_link}
+                                                                target="_blank"
+                                                                rel="noreferrer">
+                                                                <img
+                                                                    alt={'Download uit play store'}
+                                                                    src={assetUrl(
+                                                                        '/assets/img/icon-app/app-store-android.svg',
+                                                                    )}
+                                                                />
+                                                            </a>
+                                                        )}
+                                                        {selectedOption == 'iphone' && (
+                                                            <a
+                                                                className="app_download-store_icon"
+                                                                href={envData.config.ios_iphone_link}
+                                                                target="_blank"
+                                                                rel="noreferrer">
+                                                                <img
+                                                                    alt={'Download uit app store'}
+                                                                    src={assetUrl(
+                                                                        '/assets/img/icon-app/app-store-ios.svg',
+                                                                    )}
+                                                                />
+                                                            </a>
+                                                        )}
+
+                                                        <div className="app_download-col flex-center">
+                                                            <a
+                                                                className="app_download-link text-muted"
+                                                                onClick={(e) => {
+                                                                    e?.preventDefault();
+                                                                    setAppDownloadSkip(true);
+                                                                }}>
+                                                                Ga verder &gt;
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div className="app_download-row">
+                                                        <h4 className="app_download-heading">
+                                                            Of stuur een downloadlink direct naar uw telefoon
+                                                        </h4>
+                                                    </div>
+                                                    <div className="app_download-row">
+                                                        <div className="app_download-col">
+                                                            <label className="form-label">Mobiele telefoonnummer</label>
+                                                            <PhoneControl
+                                                                className="visible-md visible-lg"
+                                                                onChange={onPhoneChange}
+                                                            />
+                                                            <div className="pincode-errors">
+                                                                <FormError error={phoneForm.errors.phone} />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="app_download-row">
+                                                        <button
+                                                            className="button button-primary-outline"
+                                                            type="button"
+                                                            onClick={() => phoneForm.submit()}>
+                                                            {translate('sign_up_provider.download.download_link')}
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            {!selectedOption && (
-                                                <Fragment>
-                                                    <div className="app_download-row">
-                                                        <h4 className="app_download-heading">Of:</h4>
-                                                    </div>
-                                                    <div className="app_download-row">
-                                                        <div className="app_download-media">
-                                                            <img
-                                                                src={assetUrl('/assets/img/forus-dl-link.jpg')}
-                                                                alt={''}
-                                                            />
-                                                        </div>
-                                                        <div className="app_download-content">
-                                                            <p className="app_download-text">
-                                                                Typ <b>forus.io/dl</b> in uw mobiele browser (safari,
-                                                                chrome, etc) en{' '}
-                                                                <a
-                                                                    className="app_download-link"
-                                                                    onClick={(e) => {
-                                                                        e?.preventDefault();
-                                                                        setAppDownloadSkip(true);
-                                                                    }}>
-                                                                    ga verder &gt;
-                                                                </a>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </Fragment>
-                                            )}
-
-                                            {(selectedOption == 'iphone' || selectedOption == 'android-phone') && (
-                                                <div className="app_download-row">
-                                                    <div className="app_download-col">
-                                                        {selectedOption == 'iphone' && (
-                                                            <div className="app_download-row">
-                                                                <h4 className="app_download-heading">
-                                                                    Download uit app store
-                                                                </h4>
-                                                            </div>
-                                                        )}
-                                                        {selectedOption == 'android-phone' && (
-                                                            <div className="app_download-row">
-                                                                <h4 className="app_download-heading">
-                                                                    Download uit play store
-                                                                </h4>
-                                                            </div>
-                                                        )}
-                                                        <div className="app_download-row">
-                                                            {selectedOption == 'android-phone' && (
-                                                                <a
-                                                                    className="app_download-store_icon"
-                                                                    href={envData.config.android_link}
-                                                                    target="_blank"
-                                                                    rel="noreferrer">
-                                                                    <img
-                                                                        alt={'Download uit play store'}
-                                                                        src={assetUrl(
-                                                                            '/assets/img/icon-app/app-store-android.svg',
-                                                                        )}
-                                                                    />
-                                                                </a>
-                                                            )}
-                                                            {selectedOption == 'iphone' && (
-                                                                <a
-                                                                    className="app_download-store_icon"
-                                                                    href={envData.config.ios_iphone_link}
-                                                                    target="_blank"
-                                                                    rel="noreferrer">
-                                                                    <img
-                                                                        alt={'Download uit app store'}
-                                                                        src={assetUrl(
-                                                                            '/assets/img/icon-app/app-store-ios.svg',
-                                                                        )}
-                                                                    />
-                                                                </a>
-                                                            )}
-
-                                                            <div className="app_download-col flex-center">
-                                                                <a
-                                                                    className="app_download-link text-muted"
-                                                                    onClick={(e) => {
-                                                                        e?.preventDefault();
-                                                                        setAppDownloadSkip(true);
-                                                                    }}>
-                                                                    Ga verder &gt;
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        <div className="app_download-row">
-                                                            <h4 className="app_download-heading">
-                                                                Of stuur een downloadlink direct naar uw telefoon
-                                                            </h4>
-                                                        </div>
-                                                        <div className="app_download-row">
-                                                            <div className="app_download-col">
-                                                                <label className="form-label">
-                                                                    Mobiele telefoonnummer
-                                                                </label>
-                                                                <PhoneControl
-                                                                    className="visible-md visible-lg"
-                                                                    onChange={onPhoneChange}
-                                                                />
-                                                                <div className="pincode-errors">
-                                                                    <FormError error={phoneForm.errors.phone} />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="app_download-row">
-                                                            <button
-                                                                className="button button-primary-outline"
-                                                                type="button"
-                                                                onClick={() => phoneForm.submit()}>
-                                                                {translate('sign_up_provider.download.download_link')}
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )}
-                                            {(selectedOption == 'ipad' || selectedOption == 'android-tablet') && (
-                                                <div className="app_download-row">
-                                                    <div className="app_download-col">
-                                                        {selectedOption == 'ipad' && (
-                                                            <div className="app_download-row">
-                                                                <h4 className="app_download-heading">
-                                                                    Download uit app store
-                                                                </h4>
-                                                            </div>
-                                                        )}
-                                                        {selectedOption == 'android-tablet' && (
-                                                            <div className="app_download-row">
-                                                                <h4 className="app_download-heading">
-                                                                    Download uit play store
-                                                                </h4>
-                                                            </div>
-                                                        )}
-                                                        <div className="app_download-row">
-                                                            {selectedOption == 'android-tablet' && (
-                                                                <a
-                                                                    className="app_download-store_icon"
-                                                                    href={envData.config.android_link}
-                                                                    target="_blank"
-                                                                    rel="noreferrer">
-                                                                    <img
-                                                                        alt={''}
-                                                                        src={assetUrl(
-                                                                            '/assets/img/icon-app/app-store-android.svg',
-                                                                        )}
-                                                                    />
-                                                                </a>
-                                                            )}
-                                                            {selectedOption == 'ipad' && (
-                                                                <a
-                                                                    className="app_download-store_icon"
-                                                                    href={envData.config.ios_ipad_link}
-                                                                    target="_blank"
-                                                                    rel="noreferrer">
-                                                                    <img
-                                                                        alt={''}
-                                                                        src={assetUrl(
-                                                                            '/assets/img/icon-app/app-store-ios.svg',
-                                                                        )}
-                                                                    />
-                                                                </a>
-                                                            )}
-                                                            <div className="app_download-col flex-center">
-                                                                <a
-                                                                    className="app_download-link text-muted"
-                                                                    onClick={(e) => {
-                                                                        e?.preventDefault();
-                                                                        setAppDownloadSkip(true);
-                                                                    }}>
-                                                                    Ga verder &gt;
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        <div className="app_download-row">
-                                                            <h4 className="app_download-heading">
-                                                                Of stuur een link naar een e-mailadres
-                                                            </h4>
-                                                        </div>
-                                                        <div className="app_download-row">
-                                                            <div className="app_download-col">
-                                                                <form
-                                                                    className="app_download-form_group"
-                                                                    onSubmit={emailForm.submit}>
-                                                                    <div className="app_download-form_group-input">
-                                                                        <label
-                                                                            className="form-label hide-xs"
-                                                                            htmlFor="email_input">
-                                                                            E-mailadres
-                                                                        </label>
-                                                                        <input
-                                                                            className="large form-control"
-                                                                            type="email"
-                                                                            id="email_input"
-                                                                            name="email"
-                                                                            value={emailForm.values.email}
-                                                                            onChange={(e) =>
-                                                                                emailForm.update({
-                                                                                    email: e.target.value,
-                                                                                })
-                                                                            }
-                                                                            placeholder="EMAILADRES"
-                                                                            autoComplete="email"
-                                                                        />
-                                                                    </div>
-                                                                    <div className="app_download-form_group-button">
-                                                                        <label className="form-label">&nbsp;</label>
-                                                                        <button
-                                                                            className="button button-primary-outline"
-                                                                            disabled={!emailForm.values.email}
-                                                                            type="submit">
-                                                                            verstuur e-mail
-                                                                        </button>
-                                                                    </div>
-                                                                </form>
-                                                                <div className="app_download-form_group">
-                                                                    <FormError error={emailForm.errors.email} />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )}
-                                            <div className="app_download-row" />
+                                        )}
+                                        {(selectedOption == 'ipad' || selectedOption == 'android-tablet') && (
                                             <div className="app_download-row">
-                                                <div className="app_download-text app_download-text-xs">
-                                                    {translate('sign_up_provider.download.cannot_install_app')}
-                                                    <span>&nbsp;</span>
-                                                    <a
-                                                        className="app_download-link text-muted"
-                                                        onClick={(e) => {
-                                                            e?.preventDefault();
-                                                            setHasApp(false);
-                                                        }}>
-                                                        Ga verder met uw e-mailadres &gt;
-                                                    </a>
+                                                <div className="app_download-col">
+                                                    {selectedOption == 'ipad' && (
+                                                        <div className="app_download-row">
+                                                            <h4 className="app_download-heading">
+                                                                Download uit app store
+                                                            </h4>
+                                                        </div>
+                                                    )}
+                                                    {selectedOption == 'android-tablet' && (
+                                                        <div className="app_download-row">
+                                                            <h4 className="app_download-heading">
+                                                                Download uit play store
+                                                            </h4>
+                                                        </div>
+                                                    )}
+                                                    <div className="app_download-row">
+                                                        {selectedOption == 'android-tablet' && (
+                                                            <a
+                                                                className="app_download-store_icon"
+                                                                href={envData.config.android_link}
+                                                                target="_blank"
+                                                                rel="noreferrer">
+                                                                <img
+                                                                    alt={''}
+                                                                    src={assetUrl(
+                                                                        '/assets/img/icon-app/app-store-android.svg',
+                                                                    )}
+                                                                />
+                                                            </a>
+                                                        )}
+                                                        {selectedOption == 'ipad' && (
+                                                            <a
+                                                                className="app_download-store_icon"
+                                                                href={envData.config.ios_ipad_link}
+                                                                target="_blank"
+                                                                rel="noreferrer">
+                                                                <img
+                                                                    alt={''}
+                                                                    src={assetUrl(
+                                                                        '/assets/img/icon-app/app-store-ios.svg',
+                                                                    )}
+                                                                />
+                                                            </a>
+                                                        )}
+                                                        <div className="app_download-col flex-center">
+                                                            <a
+                                                                className="app_download-link text-muted"
+                                                                onClick={(e) => {
+                                                                    e?.preventDefault();
+                                                                    setAppDownloadSkip(true);
+                                                                }}>
+                                                                Ga verder &gt;
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div className="app_download-row">
+                                                        <h4 className="app_download-heading">
+                                                            Of stuur een link naar een e-mailadres
+                                                        </h4>
+                                                    </div>
+                                                    <div className="app_download-row">
+                                                        <div className="app_download-col">
+                                                            <form
+                                                                className="app_download-form_group"
+                                                                onSubmit={emailForm.submit}>
+                                                                <div className="app_download-form_group-input">
+                                                                    <label
+                                                                        className="form-label hide-xs"
+                                                                        htmlFor="email_input">
+                                                                        E-mailadres
+                                                                    </label>
+                                                                    <input
+                                                                        className="large form-control"
+                                                                        type="email"
+                                                                        id="email_input"
+                                                                        name="email"
+                                                                        value={emailForm.values.email}
+                                                                        onChange={(e) =>
+                                                                            emailForm.update({
+                                                                                email: e.target.value,
+                                                                            })
+                                                                        }
+                                                                        placeholder="EMAILADRES"
+                                                                        autoComplete="email"
+                                                                    />
+                                                                </div>
+                                                                <div className="app_download-form_group-button">
+                                                                    <label className="form-label">&nbsp;</label>
+                                                                    <button
+                                                                        className="button button-primary-outline"
+                                                                        disabled={!emailForm.values.email}
+                                                                        type="submit">
+                                                                        verstuur e-mail
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                            <div className="app_download-form_group">
+                                                                <FormError error={emailForm.errors.email} />
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                            </div>
+                                        )}
+                                        <div className="app_download-row" />
+                                        <div className="app_download-row">
+                                            <div className="app_download-text app_download-text-xs">
+                                                {translate('sign_up_provider.download.cannot_install_app')}
+                                                <span>&nbsp;</span>
+                                                <a
+                                                    className="app_download-link text-muted"
+                                                    onClick={(e) => {
+                                                        e?.preventDefault();
+                                                        setHasApp(false);
+                                                    }}>
+                                                    Ga verder met uw e-mailadres &gt;
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
-                                )}
+                                </div>
+                            )}
 
                             {/* Sms sent message */}
-                            {!authEmailSent && !authEmailRestoreSent && shareSmsSent && (
+                            {!authEmailSent && shareSmsSent && (
                                 <div className="sign_up-pane-body">
                                     <div className="sign_up-pane-heading">
                                         {`U heeft een SMS ontvangen op ${phoneNumberFormat(phoneForm.values.phone)}`}
@@ -1215,7 +1193,7 @@ export default function SignUpProvider() {
                             )}
 
                             {/* Email sent message */}
-                            {!authEmailSent && !authEmailRestoreSent && shareEmailSent && (
+                            {!authEmailSent && shareEmailSent && (
                                 <div className="sign_up-pane-body">
                                     <div className="sign_up-pane-heading">
                                         Er is een e-mail verstuurd naar {emailForm.values.email}
@@ -1248,7 +1226,7 @@ export default function SignUpProvider() {
                             )}
 
                             {/* Skipped */}
-                            {!authEmailSent && !authEmailRestoreSent && appDownloadSkip && (
+                            {!authEmailSent && appDownloadSkip && (
                                 <div className="sign_up-pane-body">
                                     <div className="sign_up-pane-heading">
                                         Maak een profiel en scan QR-code om verder te gaan
@@ -1285,7 +1263,7 @@ export default function SignUpProvider() {
                                 </div>
                             )}
 
-                            {!authEmailSent && !authEmailRestoreSent && !hasApp && (
+                            {!authEmailSent && !hasApp && (
                                 <div className="sign_up-pane-body">
                                     <div className="sign_up-pane-heading visible-md visible-lg">
                                         {translate('sign_up_provider.no_app.enter_email')}
@@ -1330,18 +1308,20 @@ export default function SignUpProvider() {
                                 </div>
                             )}
 
-                            {(authEmailSent || authEmailRestoreSent) && (
+                            {authEmailSent && (
                                 <div className="sign_up-pane-body text-center">
                                     <div className="sign_up-pane-media">
                                         <img src={assetUrl('/assets/img/email_confirmed.svg')} alt={''} />
                                     </div>
                                     <div className="sign_up-pane-heading sign_up-pane-heading-lg text-primary-mid">
-                                        {translate('sign_up_sponsor.labels.confirm_email')}
+                                        {translate('sign_up_provider.labels.email_sent_title')}
                                     </div>
                                     <div className="sign_up-pane-text">
-                                        {translate('sign_up_sponsor.labels.confirm_email_description')}
+                                        {translate('sign_up_provider.labels.email_sent_description')}
                                         &nbsp;
                                         <span className="sign_up-pane-link">{signUpForm.values.email}</span>
+                                        <br />
+                                        {translate('sign_up_provider.labels.email_sent_description_end')}
                                         <br />
                                         <br />
                                         <EmailProviderLink email={signUpForm.values.email} />
@@ -2185,7 +2165,7 @@ export default function SignUpProvider() {
                                             className="button button-text button-text-padless"
                                             onClick={finish}
                                             tabIndex={0}>
-                                            Skip and finish
+                                            Doorgaan naar de beheeromgeving
                                             <em className="mdi mdi-chevron-right icon-right" />
                                         </div>
                                     }

@@ -6,7 +6,6 @@ import useFormBuilder from '../../../../../dashboard/hooks/useFormBuilder';
 import { ResponseError } from '../../../../../dashboard/props/ApiResponses';
 import { useIdentityService } from '../../../../../dashboard/services/IdentityService';
 import useSetProgress from '../../../../../dashboard/hooks/useSetProgress';
-import useEnvData from '../../../../hooks/useEnvData';
 import { BooleanParam, useQueryParams } from 'use-query-params';
 import { useDigiDService } from '../../../../services/DigiDService';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
@@ -28,7 +27,6 @@ import StartQrCode from './elements/StartQrCode';
 export default function Start() {
     const { token, signOut, setToken } = useContext(authContext);
 
-    const envData = useEnvData();
     const appConfigs = useAppConfigs();
 
     const setTitle = useSetTitle();
@@ -64,8 +62,7 @@ export default function Start() {
     const identityService = useIdentityService();
 
     const [disableSubmitBtn, setDisableSubmitBtn] = useState(false);
-    const [authEmailRestoreSent, setAuthEmailRestoreSent] = useState<boolean>(null);
-    const [authEmailConfirmationSent, setAuthEmailConfirmationSent] = useState<boolean>(false);
+    const [authEmailSent, setAuthEmailSent] = useState<boolean>(false);
 
     const signedIn = useMemo(() => !!token, [token]);
     const authPageTitle = appConfigs?.auth_page?.title || translate('auth.title');
@@ -124,31 +121,13 @@ export default function Start() {
                 authForm.setErrors(res.data.errors ? res.data.errors : { email: [res.data.message] });
             };
 
-            const used = await new Promise((resolve) => {
-                identityService.validateEmail(values).then((res) => {
-                    resolve(res.data.email.used);
-                }, handleErrors);
-            });
-
             setProgress(0);
 
-            if (used) {
-                return identityService
-                    .makeAuthEmailToken(values.email, `${envData.client_key}_${envData.client_type}`, values.target)
-                    .then(() => {
-                        setEmailValue(values.email);
-                        setState('email');
-                        setAuthEmailConfirmationSent(true);
-                        authForm.reset();
-                    }, handleErrors)
-                    .finally(() => setProgress(100));
-            }
-
-            identityService
+            return identityService
                 .make(values)
                 .then(() => {
                     setEmailValue(values.email);
-                    setAuthEmailRestoreSent(true);
+                    setAuthEmailSent(true);
                     authForm.reset();
                     setState('email');
                 }, handleErrors)
@@ -235,15 +214,13 @@ export default function Start() {
         }
 
         if (!digid && email && authOptions.includes('email')) {
-            setAuthEmailConfirmationSent(false);
-            setAuthEmailRestoreSent(false);
+            setAuthEmailSent(false);
             authFormReset();
             setState('email');
         }
 
         if (reset) {
-            setAuthEmailConfirmationSent(false);
-            setAuthEmailRestoreSent(false);
+            setAuthEmailSent(false);
             setState('start');
         }
 
@@ -431,8 +408,7 @@ export default function Start() {
                                 title={authPageTitle}
                                 emailForm={inlineEmailForm()}
                                 hasBackTarget={hasEmailBackTarget}
-                                authEmailRestoreSent={authEmailRestoreSent}
-                                authEmailConfirmationSent={authEmailConfirmationSent}
+                                authEmailSent={authEmailSent}
                                 communicationType={appConfigs?.communication_type}
                                 emailValue={emailValue}
                                 authInfo={authInfo}

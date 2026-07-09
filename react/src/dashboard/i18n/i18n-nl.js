@@ -1067,6 +1067,9 @@ export default {
             vat: 'BTW-Nummer',
             employee_emails: 'E-mailadressen van uw kassa medewerkers (optioneel)',
             mobile_number: 'Vul uw mobiele telefoonnummer in',
+            email_sent_title: 'Controleer uw e-mail',
+            email_sent_description: 'We hebben een e-mail gestuurd naar',
+            email_sent_description_end: 'Open de e-mail en volg de link om verder te gaan.',
         },
         buttons: {
             go_step_2: 'Ga verder naar stap 2',
@@ -1239,9 +1242,9 @@ export default {
             vat: 'BTW-Nummer',
             employee_emails: 'E-mailadressen van uw kassa medewerkers (optioneel)',
             mobile_number: 'Vul uw mobiele telefoonnummer in',
-            confirm_email: 'Bevestig uw e-mailadres',
-            confirm_email_description:
-                'Bevestig voordat we verder gaan uw e-mail adres. Klik op de link in de e-mail die is verzonden naar',
+            email_sent_title: 'Controleer uw e-mail',
+            email_sent_description: 'We hebben een e-mail gestuurd naar',
+            email_sent_description_end: 'Open de e-mail en volg de link om verder te gaan.',
             terms: '',
         },
         buttons: {
@@ -1376,9 +1379,9 @@ export default {
             vat: 'BTW-Nummer',
             employee_emails: 'E-mailadressen van uw kassa medewerkers (optioneel)',
             mobile_number: 'Vul uw mobiele telefoonnummer in',
-            confirm_email: 'Bevestig uw e-mailadres',
-            confirm_email_description:
-                'Bevestig voordat we verder gaan uw e-mailadres. Klik op de link in de e-mail die is verzonden naar',
+            email_sent_title: 'Controleer uw e-mail',
+            email_sent_description: 'We hebben een e-mail gestuurd naar',
+            email_sent_description_end: 'Open de e-mail en volg de link om verder te gaan.',
             terms: '',
         },
         buttons: {
@@ -1961,7 +1964,8 @@ export default {
         },
         notifications: {
             confirmation: 'Het is gelukt!',
-            link: 'Er is een e-mail verstuurd naar <strong class="text-primary">{{email}}</strong>.<br/>Klik op de link om u aan te melden.',
+            email_sent_description:
+                'We hebben een e-mail gestuurd naar <strong class="text-primary">{{email}}</strong>.<br/>Open de e-mail en volg de link om verder te gaan.',
             link_website:
                 'Er is een e-mail naar uw inbox gestuurd. In de e-mail vindt u een link waarmee u kunt inloggen op deze website.',
             invalid: 'De activatiecode is ongeldig of al gebruikt',
@@ -1977,7 +1981,7 @@ export default {
         },
         labels: {
             timelimit: 'De link verloopt in 24 uur, gebruik de link dus binnenkort.',
-            join: 'Aanmelden',
+            email_sent_title: 'Controleer uw e-mail',
             mail_sent: 'Een e-mail is onderweg!',
             scancode: 'Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent',
             mobilecode: 'Vul de toegangscode van de Me-app in',

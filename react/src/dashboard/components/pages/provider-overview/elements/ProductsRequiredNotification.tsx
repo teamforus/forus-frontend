@@ -41,11 +41,10 @@ export default function ProductsRequiredNotification({ organization }: { organiz
                     </div>
 
                     <div className="info-content">
-                        <div className="info-content-title">Maak een aanbod aan om deel te nemen aan een fonds</div>
+                        <div className="info-content-title">Voeg aanbod toe</div>
                         <div className="info-content-description">
-                            Uw organisatie is aangemeld voor een fonds waarvoor een aanbod moet worden toegevoegd. Na
-                            goedkeuring wordt uw aanbod zichtbaar op de website. Deze melding verdwijnt zodra u minimaal
-                            één aanbod hebt toegevoegd.
+                            Uw organisatie is aangemeld voor een of meer fondsen waarvoor aanbod moet worden toegevoegd.
+                            Voeg minimaal één aanbieding toe. Na goedkeuring wordt uw aanbod zichtbaar op de website.
                         </div>
 
                         <div className="info-content-actions">

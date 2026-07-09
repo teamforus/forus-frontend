@@ -996,11 +996,11 @@
                 "continue_without_email_link": "E-posta adresi olmadan devam edin",
                 "email_required": "Başvuruya devam etmek için lütfen e-posta adresinizi girin",
                 "email_sent": "E-posta gönderildi",
-                "email_sent_screen": "Bir onay e-postası gönderildi",
                 "no_email_link": "Bir e-posta adresim yok",
                 "sign_up_with_email": "E-posta adresi ile oturum açın",
                 "no_email_info": "E-posta adresi olmadan, kredi ve harcamalarınız hakkında önemli mesajlar alamazsınız. Daha sonra sadece DigiD ile giriş yapabilirsiniz.",
-                "warning": "Not:"
+                "warning": "Not:",
+                "email_sent_screen": "Bir e-posta gönderildi"
             },
             "fund_request_overview": {
                 "application_summary": "Talebe genel bakış",
@@ -3356,16 +3356,12 @@
         "header": {
             "subtitle_formal": "Giriş yapmak için bir bağlantı almak üzere e-posta adresinizi girin.",
             "subtitle_informal": "Giriş yapmak için bir bağlantı almak üzere e-posta adresinizi girin.",
-            "subtitle_succes_formal": "Az önce girdiğiniz e-posta adresine bir e-posta aldınız. Gelen kutunuza gidin ve \"E-postayı onayla\" konulu e-postayı açın ve e-postadaki mavi düğmeye tıklayın.",
-            "subtitle_succes_informal": "Az önce girdiğiniz e-posta adresine bir e-posta aldınız. Gelen kutunuza gidin ve \"E-postayı onayla\" konulu e-postayı açın ve e-postadaki mavi düğmeye tıklayın.",
-            "subtitle_we_succes_formal": "Şu tarihte bir e-posta aldınız <strong class=\"text-primary\">{{email}}</strong>. Gelen kutunuza gidin ve \"E-postayı onayla\" konulu e-postayı açın ve e-postadaki \"Onayla\" seçeneğine tıklayın.",
-            "subtitle_we_succes_informal": "adresinden bir e-posta aldınız <strong class=\"text-primary\">{{email}}</strong>. Gelen kutunuza gidin ve \"E-postayı onayla\" konulu e-postayı açın ve e-postadaki \"Onayla\" seçeneğine tıklayın.",
             "title": "E-posta gönderildi",
-            "title_existing_user_succes_formal": "E-postanı kontrol et.",
-            "title_existing_user_succes_informal": "E-postanı kontrol et.",
             "title_sr": "Oturum açmayı başlat",
-            "title_succes_formal": "Bu e-posta adresine erişiminiz olduğunu onaylayın.",
-            "title_succes_informal": "Bu e-posta adresine erişiminiz olduğunu onaylayın."
+            "subtitle_email_sent_formal": "Şu adrese bir e-posta gönderdik: <strong class=\"text-primary\">{{email}}</strong>. Lütfen e-postayı açın ve devam etmek için bağlantıyı takip edin.",
+            "subtitle_email_sent_informal": "Şu adrese bir e-posta gönderdik: <strong class=\"text-primary\">{{email}}</strong>. Lütfen e-postayı açın ve devam etmek için bağlantıyı takip edin.",
+            "title_email_sent_formal": "E-postanızı kontrol edin.",
+            "title_email_sent_informal": "E-postanı kontrol et."
         },
         "input": {
             "code": "Aktivasyon kodu",
@@ -3412,8 +3408,6 @@
         "notifications": {
             "confirmation": "İşe yaradı!",
             "invalid": "Aktivasyon kodu geçersiz veya zaten kullanılmış.",
-            "link_formal": "Bir e-posta gönderildi <strong class=\"text-primary\">{{email}}</strong><br/>. Kaydolmak için bağlantıya tıklayın.",
-            "link_informal": "Bir e-posta gönderildi <strong class=\"text-primary\">{{email}}</strong><br/>. Kaydolmak için bağlantıya tıklayın.",
             "voucher_email": "QR kodu gönderildi."
         },
         "pin_code": {

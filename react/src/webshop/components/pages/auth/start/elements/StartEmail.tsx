@@ -9,8 +9,7 @@ export default function StartEmail({
     title,
     emailForm,
     hasBackTarget,
-    authEmailRestoreSent,
-    authEmailConfirmationSent,
+    authEmailSent,
     communicationType,
     emailValue,
     authInfo,
@@ -19,8 +18,7 @@ export default function StartEmail({
     title: string;
     emailForm: React.ReactNode;
     hasBackTarget: boolean;
-    authEmailRestoreSent: boolean;
-    authEmailConfirmationSent: boolean;
+    authEmailSent: boolean;
     communicationType?: string;
     emailValue: string;
     authInfo: React.ReactNode;
@@ -34,7 +32,7 @@ export default function StartEmail({
             <div className="auth-wrapper auth-wrapper-email">
                 <h1 className="auth-title">{title}</h1>
 
-                {!authEmailRestoreSent && !authEmailConfirmationSent && (
+                {!authEmailSent && (
                     <div className="auth-pane">
                         <div className="auth-pane-body">{emailForm}</div>
                         {hasBackTarget && (
@@ -58,7 +56,7 @@ export default function StartEmail({
                     </div>
                 )}
 
-                {authEmailRestoreSent && (
+                {authEmailSent && (
                     <div className="auth-pane">
                         <h1 className="sr-only">{translate('popup_auth.header.title_sr')}</h1>
                         <h2 className="auth-pane-header">{translate('popup_auth.header.title')}</h2>
@@ -72,38 +70,11 @@ export default function StartEmail({
                                     />
                                 </div>
                                 <div className="auth-email-sent-title">
-                                    {translate(`popup_auth.header.title_succes_${communicationType}`)}
+                                    {translate(`popup_auth.header.title_email_sent_${communicationType}`)}
                                 </div>
                                 <TranslateHtml
                                     component={<div className="auth-email-sent-text" />}
-                                    i18n={`popup_auth.header.subtitle_we_succes_${communicationType}`}
-                                    values={{ email: emailValue }}
-                                />
-                                <EmailProviderLink email={emailValue} />
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {authEmailConfirmationSent && (
-                    <div className="auth-pane">
-                        <h1 className="sr-only">{translate('popup_auth.header.title_sr')}</h1>
-                        <h2 className="auth-pane-header">{translate('popup_auth.header.title')}</h2>
-                        <div className="auth-pane-body" data-dusk="authEmailSentConfirmation">
-                            <div className="auth-email-sent">
-                                <div className="auth-email-sent-icon">
-                                    <img
-                                        className="auth-email-sent-icon-img"
-                                        src={assetUrl('/assets/img/modal/email_signup.svg')}
-                                        alt=""
-                                    />
-                                </div>
-                                <h3 className="auth-email-sent-title">
-                                    {translate(`popup_auth.header.title_existing_user_succes_${communicationType}`)}
-                                </h3>
-                                <TranslateHtml
-                                    component={<div className="auth-email-sent-text" />}
-                                    i18n={`popup_auth.notifications.link_${communicationType}`}
+                                    i18n={`popup_auth.header.subtitle_email_sent_${communicationType}`}
                                     values={{ email: emailValue }}
                                 />
                                 <EmailProviderLink email={emailValue} />
