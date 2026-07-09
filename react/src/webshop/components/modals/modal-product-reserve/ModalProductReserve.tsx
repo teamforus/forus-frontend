@@ -890,7 +890,7 @@ export default function ModalProductReserve({
                                             )}
 
                                             {field.custom && field.type === 'file' ? (
-                                                <div className="flex flex-vertical flex-gap-sm">
+                                                <div className="flex flex-vertical flex-gap-sm" data-dusk={field.dusk}>
                                                     <div className="flex flex-vertical">
                                                         <div className="modal-section-description text-left text-strong">
                                                             {field.label}
@@ -911,7 +911,7 @@ export default function ModalProductReserve({
                                                         maxFiles={5}
                                                         hideDownloadButton={true}
                                                         hideInlineTitle={true}
-                                                        acceptedFiles={['.jpg', '.jpeg', '.png']}
+                                                        acceptedFiles={['.jpg', '.jpeg', '.png', '.pdf']}
                                                         onFilesChange={({ files }) => {
                                                             form.values.custom_fields = form.values.custom_fields || {};
                                                             form.values.custom_fields[fieldKey] = files.map(

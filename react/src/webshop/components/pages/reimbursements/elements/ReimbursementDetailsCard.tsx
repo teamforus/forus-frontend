@@ -5,6 +5,7 @@ import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import { currencyFormat } from '../../../../../dashboard/helpers/string';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
+import { getReimbursementPreviewUrl } from '../../../../../dashboard/helpers/filePreview';
 
 export default function ReimbursementDetailsCard({
     compact = false,
@@ -15,6 +16,8 @@ export default function ReimbursementDetailsCard({
 }) {
     const translate = useTranslate();
     const [previewIndex, setPreviewIndex] = useState(0);
+
+    const previewUrl = getReimbursementPreviewUrl(reimbursement.files?.[previewIndex]);
 
     const prevPreviewMedia = useCallback(() => {
         setPreviewIndex((index) => (index <= 0 ? reimbursement?.files?.length - 1 : index - 1));
@@ -29,10 +32,7 @@ export default function ReimbursementDetailsCard({
             <div className="reimbursement-section">
                 <div className="reimbursement-media">
                     <div className="media-preview">
-                        <img
-                            src={reimbursement.files[previewIndex]?.preview?.sizes?.thumbnail}
-                            alt="reimbursement media"
-                        />
+                        <img src={previewUrl} alt="reimbursement media" />
                     </div>
                     {reimbursement?.files?.length > 1 && (
                         <div className="media-pagination">

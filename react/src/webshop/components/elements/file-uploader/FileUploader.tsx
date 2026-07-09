@@ -11,7 +11,7 @@ import { ResponseError } from '../../../../dashboard/props/ApiResponses';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import classNames from 'classnames';
 import BlockWarning from '../block-warning/BlockWarning';
-import { isPreviewableExtension } from '../../../../dashboard/helpers/filePreview';
+import { canPreviewFile } from '../../../../dashboard/helpers/filePreview';
 import useFileTypeValidation from '../../../../dashboard/services/helpers/useFileTypeValidation';
 
 export type FileUploaderItem = {
@@ -109,7 +109,7 @@ export default function FileUploader({
                 id: uniqueId('file_uploader_'),
                 file: null,
                 file_data: file,
-                has_preview: isPreviewableExtension(file.ext),
+                has_preview: canPreviewFile(file),
                 uploaded: true,
             }),
         ) || [],
@@ -164,17 +164,18 @@ export default function FileUploader({
                         uploaded: true,
                         uploading: false,
                         file_data: res.data.data,
-                        has_preview: isPreviewableExtension(res.data.data?.ext),
+                        has_preview: canPreviewFile(res.data.data),
                     }));
 
                     callbackRef?.current?.onFileUploaded?.(makeFileEvent(filesRef?.current, fileItem));
                 })
                 .catch((err: ResponseError) => {
-                    const error = err?.data?.errors?.file || err?.data?.errors?.type;
+                    const error =
+                        err?.data?.errors?.file || err?.data?.errors?.type || err?.data?.message || 'Onbekende fout!';
 
                     updateItem(fileItem.id, (item) => ({
                         ...item,
-                        error: error || err?.data?.message ? [err?.data?.message] : ['Onbekende fout!'],
+                        error: Array.isArray(error) ? error : [error],
                     }));
 
                     callbackRef?.current?.onFileError?.(makeFileEvent(filesRef?.current, fileItem));
