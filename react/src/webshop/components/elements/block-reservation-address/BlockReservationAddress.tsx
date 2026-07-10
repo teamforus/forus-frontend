@@ -7,6 +7,7 @@ import { ResponseError } from '../../../../dashboard/props/ApiResponses';
 import { useProductReservationService } from '../../../services/ProductReservationService';
 import Product from '../../../props/models/Product';
 import useIsMobile from '../../../hooks/useIsMobile';
+import useAuthIdentity from '../../../hooks/useAuthIdentity';
 
 export type AddressType = {
     postal_code?: string;
@@ -22,17 +23,19 @@ export default function BlockReservationAddress({
     product,
     onAddressSubmit,
     setIsEditingAddress,
+    formSubmitAddressRef,
 }: {
     addressProfile: AddressType;
     address: AddressType;
-    setAddress: React.Dispatch<React.SetStateAction<AddressType>>;
     setIsEditingAddress: React.Dispatch<React.SetStateAction<boolean>>;
     product: Product;
     onAddressSubmit: (save: boolean, values: AddressType) => void;
+    formSubmitAddressRef?: React.RefObject<() => void>;
 }) {
     const [editing, setEditing] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const isMobile = useIsMobile();
+    const authIdentity = useAuthIdentity();
 
     const translate = useTranslate();
     const productReservationService = useProductReservationService();
@@ -107,6 +110,12 @@ export default function BlockReservationAddress({
     useEffect(() => {
         setIsEditingAddress(editing);
     }, [editing, setIsEditingAddress]);
+
+    useEffect(() => {
+        if (formSubmitAddressRef) {
+            formSubmitAddressRef.current = form.submit;
+        }
+    }, [form.submit, formSubmitAddressRef]);
 
     return (
         <div className={'block block-reservation-address form form-compact'} data-dusk={'productReserveAddress'}>
@@ -228,7 +237,7 @@ export default function BlockReservationAddress({
                     </div>
                 </div>
             )}
-            {editing && (
+            {editing && authIdentity.profile && (
                 <div className="address-actions">
                     <button
                         type="button"
