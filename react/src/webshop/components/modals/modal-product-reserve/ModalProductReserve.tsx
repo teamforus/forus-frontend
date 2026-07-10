@@ -78,7 +78,7 @@ export default function ModalProductReserve({
 
     const composerVoucherCardData = useComposeVoucherCardData();
 
-    const formSubmitAddressRef = useRef<(e?: SubmitEvent, data?: unknown) => void>(null);
+    const formSubmitAddressRef = useRef<() => void>(null);
 
     const [STEP_EMAIL_SETUP] = useState(0);
     const [STEP_SELECT_VOUCHER] = useState(1);
@@ -1011,7 +1011,7 @@ export default function ModalProductReserve({
 
                         if (!authIdentity.profile) {
                             if (isEditingAddress) {
-                                formSubmitAddressRef.current(null, { save: false });
+                                formSubmitAddressRef.current();
                                 return;
                             }
 
@@ -1064,15 +1064,15 @@ export default function ModalProductReserve({
                                 setIsEditingAddress={setIsEditingAddress}
                                 formSubmitAddressRef={formSubmitAddressRef}
                                 onAddressSubmit={(save, values) => {
-                                    if (addressFilled(values)) {
-                                        setAddress(values);
-                                    }
+                                    const isAddressFilled = addressFilled(values);
+
+                                    setAddress(isAddressFilled ? values : null);
 
                                     if (save && authIdentity.profile) {
                                         updateProfileAddress(values);
                                     }
 
-                                    if (!authIdentity.profile && reservationAddressOptional && !addressFilled(values)) {
+                                    if (!authIdentity.profile && reservationAddressOptional && !isAddressFilled) {
                                         next();
                                     }
                                 }}

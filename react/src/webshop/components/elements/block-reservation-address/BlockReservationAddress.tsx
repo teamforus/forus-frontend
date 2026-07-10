@@ -81,6 +81,8 @@ export default function BlockReservationAddress({
             });
     });
 
+    const submitAddressForm = form.submit;
+
     const getAddressString = useCallback((address: AddressType) => {
         return [address?.city, address?.street, address?.house_nr, address?.house_nr_addition, address?.postal_code]
             .filter((value) => value)
@@ -113,9 +115,9 @@ export default function BlockReservationAddress({
 
     useEffect(() => {
         if (formSubmitAddressRef) {
-            formSubmitAddressRef.current = form.submit;
+            formSubmitAddressRef.current = () => submitAddressForm(null, { save: false });
         }
-    }, [form.submit, formSubmitAddressRef]);
+    }, [formSubmitAddressRef, submitAddressForm]);
 
     return (
         <div className={'block block-reservation-address form form-compact'} data-dusk={'productReserveAddress'}>
@@ -238,7 +240,7 @@ export default function BlockReservationAddress({
                 </div>
             )}
             {editing && authIdentity.profile && (
-                <div className="address-actions">
+                <div className="address-actions" data-dusk="productReserveAddressActions">
                     <button
                         type="button"
                         className="button button-light button-sm"
@@ -278,7 +280,7 @@ export default function BlockReservationAddress({
                             className="button button-primary-outline button-sm"
                             disabled={submitting || !addressFilled(form.values)}
                             data-dusk="productReserveAddressFormApply"
-                            onClick={() => form.submit(null, { save: false })}>
+                            onClick={() => submitAddressForm(null, { save: false })}>
                             Doorgaan zonder opslaan
                         </button>
                     )}
@@ -287,7 +289,7 @@ export default function BlockReservationAddress({
                         className="button button-primary button-sm"
                         disabled={submitting || !addressFilled(form.values)}
                         data-dusk="productReserveAddressFormSave"
-                        onClick={() => form.submit(null, { save: true })}>
+                        onClick={() => submitAddressForm(null, { save: true })}>
                         Opslaan en doorgaan
                     </button>
                 </div>
