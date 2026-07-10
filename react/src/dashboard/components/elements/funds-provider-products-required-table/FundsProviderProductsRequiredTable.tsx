@@ -19,10 +19,13 @@ export default function FundsProviderProductsRequiredTable({
 
     return (
         <div className="card card-no-shadow card-bordered card-overflow-hidden">
-            <div className="card-header card-header-md clickable" onClick={() => setShowFunds(!showFunds)}>
-                <div className="card-title">
+            <div className="card-header clickable" onClick={() => setShowFunds(!showFunds)}>
+                <div className="card-title flex-align-items-center">
                     <div className={classNames('mdi', showFunds ? 'mdi-menu-down' : 'mdi-menu-right')} />
-                    <div>Voeg een aanbieding toe voor de volgende fondsen ({funds.length})</div>
+                    <div>
+                        Voeg een aanbieding toe voor de volgende fondsen
+                        <span>{` (${funds.length})`}</span>
+                    </div>
                 </div>
             </div>
 
