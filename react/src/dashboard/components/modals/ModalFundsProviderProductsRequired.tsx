@@ -29,13 +29,15 @@ export default function ModalFundsProviderProductsRequired({ modal, funds }: { m
         <div
             className={classNames(
                 `modal`,
-                'modal-md',
+                'modal-lg',
                 'modal-animated',
                 'modal-provider-products-required',
                 modal.loading && 'modal-loading',
             )}>
-            <div className="modal-backdrop" />
+            <div className="modal-backdrop" onClick={modal.close} />
             <div className="modal-window form">
+                <a className="mdi mdi-close modal-close" aria-label="Sluiten" onClick={modal.close} role="button" />
+
                 <div className="modal-body">
                     <div className="modal-section modal-section-sm">
                         <div className="block block-provider-products-required">
