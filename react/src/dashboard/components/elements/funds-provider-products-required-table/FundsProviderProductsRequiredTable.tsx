@@ -34,8 +34,23 @@ export default function FundsProviderProductsRequiredTable({
                     {funds.map((fund) => (
                         <tr key={fund.id}>
                             <td title={fund.name || '-'}>{strLimit(fund.name, 50)}</td>
-                            <td>{fund.external ? 'Informatief' : 'Budget'}</td>
-                            <td>{fund.implementation?.name || <TableEmptyValue />}</td>
+                            <td>{fund.organization?.name || <TableEmptyValue />}</td>
+                            <td>
+                                {fund.implementation?.url_webshop ? (
+                                    <a
+                                        className="text-primary text-semibold text-underline"
+                                        href={fund.implementation.url_webshop}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        onClick={(e) => e.stopPropagation()}>
+                                        {fund.implementation.name}
+                                    </a>
+                                ) : fund.implementation?.name ? (
+                                    fund.implementation.name
+                                ) : (
+                                    <TableEmptyValue />
+                                )}
+                            </td>
                             <td className={'table-td-actions text-right'}>
                                 <TableEmptyValue />
                             </td>

@@ -29,7 +29,7 @@ export default function ModalFundsProviderProductsRequired({ modal, funds }: { m
         <div
             className={classNames(
                 `modal`,
-                'modal-md',
+                'modal-lg',
                 'modal-animated',
                 'modal-provider-products-required',
                 modal.loading && 'modal-loading',
