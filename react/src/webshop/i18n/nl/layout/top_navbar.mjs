@@ -81,6 +81,9 @@ export default {
         isd: {
             funds: 'Regelingen',
         },
+        tilburg: {
+            funds: 'Regelingen',
+        },
     },
     buttons: {
         westerkwartier: {
