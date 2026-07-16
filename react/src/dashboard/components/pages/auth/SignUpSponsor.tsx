@@ -157,7 +157,9 @@ export default function SignUpSponsor() {
                     )}
                 </div>
 
-                <h2 className="block-title">{translate('sign_up_sponsor.header.main_header')}</h2>
+                <h2 className="block-title" data-dusk="signUpSponsorPageTitle">
+                    {translate('sign_up_sponsor.header.main_header')}
+                </h2>
 
                 {step == STEP_INFO_GENERAL && (
                     <Fragment>

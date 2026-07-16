@@ -20,7 +20,9 @@
         border-radius: var(--showcase-item-border-radius);
         box-shadow: var(--showcase-item-shadow);
         border: var(--showcase-item-border);
-        transition: box-shadow 0.4s;
+        transition:
+            background-color 0.4s,
+            box-shadow 0.4s;
         overflow: hidden;
 
         .block-bookmark-toggle {
@@ -34,7 +36,6 @@
             flex: 1 1 auto;
             min-width: 0;
             flex-direction: column;
-            background: #ffffff;
 
             .product-photo {
                 display: flex;
@@ -129,6 +130,7 @@
         }
 
         &:hover {
+            background: var(--showcase-item-hover-background, var(--showcase-item-background));
             box-shadow: var(--showcase-item-hover-shadow);
 
             .product-details {

@@ -742,6 +742,7 @@ export default {
         labels: {
             name: 'Bedrijfsnaam',
             bank: 'IBAN-nummer',
+            iban_confirmation: 'HERHAAL IBAN–NUMMER',
             mail: 'E-mailadres van organisatie',
             phone: 'Telefoonnummer',
             kvk: 'KvK-nummer',
@@ -751,7 +752,7 @@ export default {
             optional: 'Optioneel',
             make_public: 'Toon openbaar op website',
             photo_description:
-                'De afbeelding dient vierkant te zijn met een afmeting van bijvoorbeeld 400x400px.<br/>Toegestaande  formaten: JPG, PNG',
+                'De afbeelding dient vierkant te zijn met een afmeting van bijvoorbeeld 400x400px.<br/>Toegestaande formaten: JPG, PNG',
             schedule: 'Openingstijden',
             weekdays_same_hours: 'Alle doordeweekse dagen hebben dezelfde tijden',
             weekends_same_hours: 'Zaterdag en zondag hebben dezelfde tijden',
@@ -763,6 +764,19 @@ export default {
             break: 'Pauze',
             not_specified: 'Niet ingevuld',
             description: 'Omschrijving',
+        },
+        tooltips: {
+            name: 'De officiële naam van de organisatie zoals geregistreerd bij de Kamer van Koophandel.',
+            bank: 'Het rekeningnummer van de organisatie waarop betalingen ontvangen kunnen worden.',
+            iban_confirmation:
+                'Vul het IBAN nog een keer in. Zo controleren we of het rekeningnummer correct is ingevuld en voorkomen we fouten.',
+            email: 'Het e-mailadres waarop contact kan worden opgenomen met de organisatie. Wanneer de instelling ‘publiek’ aan staat, wordt dit gebruikt voor systeemberichten en getoond op de website bij de organisatiegegevens.',
+            phone: 'Het telefoonnummer waarop de organisatie bereikbaar is voor vragen of contact. Wanneer de instelling ‘publiek’ aan staat, wordt dit gebruikt voor systeemberichten en getoond op de website bij de organisatiegegevens.',
+            kvk: 'Het KvK-nummer van de organisatie. Met dit nummer staat de organisatie ingeschreven bij de Kamer van Koophandel. Dit nummer is uniek voor elke organisatie.',
+            btw: 'Het btw-nummer van de organisatie. Dit nummer wordt gebruikt voor belastingen en op facturen. Dit veld is niet verplicht.',
+            website:
+                'De officiële website van de organisatie. Wanneer de instelling ‘publiek’ aan staat, wordt dit gebruikt voor systeemberichten en getoond op de website bij de organisatiegegevens.',
+            business_type: 'Het type organisatie, bijvoorbeeld stichting, vereniging, onderneming of gemeente.',
         },
         buttons: {
             cancel: 'Annuleren',
@@ -1053,6 +1067,9 @@ export default {
             vat: 'BTW-Nummer',
             employee_emails: 'E-mailadressen van uw kassa medewerkers (optioneel)',
             mobile_number: 'Vul uw mobiele telefoonnummer in',
+            email_sent_title: 'Controleer uw e-mail',
+            email_sent_description: 'We hebben een e-mail gestuurd naar',
+            email_sent_description_end: 'Open de e-mail en volg de link om verder te gaan.',
         },
         buttons: {
             go_step_2: 'Ga verder naar stap 2',
@@ -1225,9 +1242,9 @@ export default {
             vat: 'BTW-Nummer',
             employee_emails: 'E-mailadressen van uw kassa medewerkers (optioneel)',
             mobile_number: 'Vul uw mobiele telefoonnummer in',
-            confirm_email: 'Bevestig uw e-mailadres',
-            confirm_email_description:
-                'Bevestig voordat we verder gaan uw e-mail adres. Klik op de link in de e-mail die is verzonden naar',
+            email_sent_title: 'Controleer uw e-mail',
+            email_sent_description: 'We hebben een e-mail gestuurd naar',
+            email_sent_description_end: 'Open de e-mail en volg de link om verder te gaan.',
             terms: '',
         },
         buttons: {
@@ -1362,9 +1379,9 @@ export default {
             vat: 'BTW-Nummer',
             employee_emails: 'E-mailadressen van uw kassa medewerkers (optioneel)',
             mobile_number: 'Vul uw mobiele telefoonnummer in',
-            confirm_email: 'Bevestig uw e-mailadres',
-            confirm_email_description:
-                'Bevestig voordat we verder gaan uw e-mailadres. Klik op de link in de e-mail die is verzonden naar',
+            email_sent_title: 'Controleer uw e-mail',
+            email_sent_description: 'We hebben een e-mail gestuurd naar',
+            email_sent_description_end: 'Open de e-mail en volg de link om verder te gaan.',
             terms: '',
         },
         buttons: {
@@ -1947,7 +1964,8 @@ export default {
         },
         notifications: {
             confirmation: 'Het is gelukt!',
-            link: 'Er is een e-mail verstuurd naar <strong class="text-primary">{{email}}</strong>.<br/>Klik op de link om u aan te melden.',
+            email_sent_description:
+                'We hebben een e-mail gestuurd naar <strong class="text-primary">{{email}}</strong>.<br/>Open de e-mail en volg de link om verder te gaan.',
             link_website:
                 'Er is een e-mail naar uw inbox gestuurd. In de e-mail vindt u een link waarmee u kunt inloggen op deze website.',
             invalid: 'De activatiecode is ongeldig of al gebruikt',
@@ -1963,7 +1981,7 @@ export default {
         },
         labels: {
             timelimit: 'De link verloopt in 24 uur, gebruik de link dus binnenkort.',
-            join: 'Aanmelden',
+            email_sent_title: 'Controleer uw e-mail',
             mail_sent: 'Een e-mail is onderweg!',
             scancode: 'Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent',
             mobilecode: 'Vul de toegangscode van de Me-app in',

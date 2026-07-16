@@ -18,7 +18,8 @@ export default {
     },
     items: {
         home: 'Home',
-        funds: 'Activeren',
+        funds: 'Regelingen',
+        partner_funds: 'Sociale partners',
         products: 'Aanbod',
         providers: 'Aanbieders',
         explanation: 'Uitleg',
@@ -30,7 +31,7 @@ export default {
             close: 'Sluiten',
         },
         westerkwartier: {
-            funds: 'Potjes',
+            funds: 'Potjes gemeente',
         },
         groningen: {
             funds: 'Aanvragen',
@@ -46,7 +47,8 @@ export default {
             funds: 'Regelingen',
         },
         potjeswijzer: {
-            funds: 'Potjes',
+            funds: 'Potjes gemeente',
+            partner_funds: 'Potjes partners',
         },
         vergoedingen: {
             funds: 'Vergoedingen',
@@ -101,7 +103,7 @@ export default {
             activate: 'Aanvragen',
         },
         potjeswijzer: {
-            activate: 'Potjes',
+            activate: 'Potjes gemeente',
         },
         vergoedingen: {
             activate: 'Vergoedingen',
