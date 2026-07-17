@@ -17,6 +17,7 @@ import CSVProgressBar from '../elements/csv-progress-bar/CSVProgressBar';
 import classNames from 'classnames';
 import useTranslate from '../../hooks/useTranslate';
 import usePushInfo from '../../hooks/usePushInfo';
+import { fileToText } from '../../helpers/utils';
 
 export default function ModalReservationUpload({
     modal,
@@ -209,53 +210,69 @@ export default function ModalReservationUpload({
     );
 
     const startUploadingData = useCallback(
-        function (reservations: Array<object>): Promise<{ success: number; errors: number }> {
+        async function (reservations: Array<object>): Promise<{ success: number; errors: number }> {
             return new Promise((resolve) => {
                 const data = { reservations };
 
                 setLoading(true);
 
-                productReservationService
-                    .storeBatch(organization.id, data)
-                    .then((res) => {
-                        const hasErrors = res.data['errors'] && typeof res.data['errors'] === 'object';
+                const upload = async function (data: { reservations: Array<object> }) {
+                    productReservationService
+                        .storeBatch(organization.id, {
+                            ...data,
+                            file: {
+                                name: csvFile.name,
+                                content: await fileToText(csvFile),
+                                total: data.reservations.length,
+                                chunk: 1,
+                                chunks: 1,
+                                chunkSize: data.reservations.length,
+                            },
+                        })
+                        .then((res) => {
+                            const hasErrors = res.data['errors'] && typeof res.data['errors'] === 'object';
 
-                        const stats = {
-                            success: res.data['reserved'].length,
-                            errors: hasErrors ? Object.keys(res.data['errors']).length : 0,
-                        };
+                            const stats = {
+                                success: res.data['reserved'].length,
+                                errors: hasErrors ? Object.keys(res.data['errors']).length : 0,
+                            };
 
-                        if (stats.errors === 0) {
-                            pushSuccess(
-                                'Gelukt!',
-                                `Alle ${stats.success} rijen uit het bulkbestand zijn geimporteerd.`,
-                            );
-                        } else {
-                            const allFailed = stats.success === 0;
+                            if (stats.errors === 0) {
+                                pushSuccess(
+                                    'Gelukt!',
+                                    `Alle ${stats.success} rijen uit het bulkbestand zijn geimporteerd.`,
+                                );
+                            } else {
+                                const allFailed = stats.success === 0;
 
-                            pushDanger(
-                                allFailed ? 'Foutmelding!' : 'Waarschuwing',
-                                [
-                                    allFailed ? `Alle ${stats.errors}` : `${stats.errors} van ${reservations.length}`,
-                                    `rij(en) uit het bulkbestand zijn niet geimporteerd,`,
-                                    `bekijk het bestand bij welke rij(en) het mis gaat.`,
-                                ].join(' '),
-                            );
+                                pushDanger(
+                                    allFailed ? 'Foutmelding!' : 'Waarschuwing',
+                                    [
+                                        allFailed
+                                            ? `Alle ${stats.errors}`
+                                            : `${stats.errors} van ${reservations.length}`,
+                                        `rij(en) uit het bulkbestand zijn niet geimporteerd,`,
+                                        `bekijk het bestand bij welke rij(en) het mis gaat.`,
+                                    ].join(' '),
+                                );
 
-                            showInvalidRows(res.data['errors'], reservations);
-                        }
+                                showInvalidRows(res.data['errors'], reservations);
+                            }
 
-                        resolve(stats);
-                    })
-                    .catch((res: ResponseError) => {
-                        if (res.status == 422 && res.data.errors) {
-                            showInvalidRows(res.data.errors, reservations, true);
-                        }
-                    })
-                    .finally(() => setLoading(false));
+                            resolve(stats);
+                        })
+                        .catch((res: ResponseError) => {
+                            if (res.status == 422 && res.data.errors) {
+                                showInvalidRows(res.data.errors, reservations, true);
+                            }
+                        })
+                        .finally(() => setLoading(false));
+                };
+
+                upload(data);
             });
         },
-        [organization.id, productReservationService, pushDanger, pushSuccess, showInvalidRows],
+        [csvFile, organization.id, productReservationService, pushDanger, pushSuccess, showInvalidRows],
     );
 
     const startUploading = useCallback(
