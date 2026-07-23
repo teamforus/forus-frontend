@@ -221,9 +221,6 @@
             "noordoostpolder": {
                 "activate": "Regulations"
             },
-            "potjeswijzer": {
-                "activate": "Jars"
-            },
             "products": "Offer",
             "profile": "Profile >",
             "providers": "Providers",
@@ -239,6 +236,9 @@
             },
             "westerkwartier": {
                 "activate": "Request"
+            },
+            "potjeswijzer": {
+                "activate": "Municipal funds"
             }
         },
         "items": {
@@ -250,7 +250,6 @@
                 "funds": "Regulations"
             },
             "explanation": "Explanation",
-            "funds": "Activate",
             "geertruidenberg": {
                 "funds": "Regulations"
             },
@@ -276,9 +275,6 @@
             "noordoostpolder": {
                 "funds": "Regulations"
             },
-            "potjeswijzer": {
-                "funds": "Jars"
-            },
             "products": "Offer",
             "providers": "Providers",
             "schagen": {
@@ -292,9 +288,6 @@
             "waalwijk": {
                 "funds": "Request"
             },
-            "westerkwartier": {
-                "funds": "Jars"
-            },
             "wadenheuvel": {
                 "funds": "Regulations"
             },
@@ -303,6 +296,18 @@
             },
             "isd": {
                 "funds": "Regulations"
+            },
+            "tilburg": {
+                "funds": "Regulations"
+            },
+            "funds": "Regulations",
+            "partner_funds": "Social partners",
+            "potjeswijzer": {
+                "funds": "Municipal funds",
+                "partner_funds": "Potjes Partners"
+            },
+            "westerkwartier": {
+                "funds": "Municipal funds"
             }
         },
         "user_menu": {
@@ -769,11 +774,11 @@
                 "continue_without_email_link": "Continue without an email address",
                 "email_required": "To proceed with the application, please provide your email address",
                 "email_sent": "E-mail sent",
-                "email_sent_screen": "An email confirmation has been sent",
                 "no_email_link": "I do not have an email address",
                 "sign_up_with_email": "Sign in with email address",
                 "no_email_info": "Without an e-mail address, you will not receive important messages about your credit and expenses. You can then only log in with DigiD.",
-                "warning": "Notice:"
+                "warning": "Notice:",
+                "email_sent_screen": "An email has been sent"
             },
             "fund_request_overview": {
                 "application_summary": "Request Overview",
@@ -991,9 +996,6 @@
             "oostgelre": {
                 "title": "Activate"
             },
-            "potjeswijzer": {
-                "title": "Jars"
-            },
             "schagen": {
                 "title": "Regulations"
             },
@@ -1005,6 +1007,9 @@
             },
             "fijnder": {
                 "title": "Regulations"
+            },
+            "potjeswijzer": {
+                "title": "Municipal funds"
             }
         },
         "header": {
@@ -1025,7 +1030,9 @@
             "winterswijk": {
                 "subtitle": "Below are the schemes you can activate.",
                 "title": "Activate"
-            }
+            },
+            "partners_description": "",
+            "partners_title": "Applications"
         },
         "labels": {
             "age": "< 18 years old",
@@ -1048,6 +1055,47 @@
             "denied": "Denied",
             "is_applicable": "Sign up",
             "is_pending": "In progress"
+        },
+        "active_filters": {
+            "reset_all": "Remove all filters"
+        },
+        "partners": {
+            "berkelland": {
+                "description": "Activate",
+                "title": "Activate"
+            },
+            "fijnder": {
+                "description": "Regulations",
+                "title": "Regulations"
+            },
+            "geertruidenberg": {
+                "description": "Activate",
+                "title": "Activate"
+            },
+            "goereeoverflakkee": {
+                "description": "Regulations",
+                "title": "Regulations"
+            },
+            "oostgelre": {
+                "description": "Activate",
+                "title": "Activate"
+            },
+            "schagen": {
+                "description": "Regulations",
+                "title": "Regulations"
+            },
+            "vergoedingen": {
+                "description": "All reimbursements",
+                "title": "All reimbursements"
+            },
+            "winterswijk": {
+                "description": "Activate",
+                "title": "Activate"
+            },
+            "potjeswijzer": {
+                "description": "Our partners also offer various assistance programs for residents. Do you have a low income? If so, you may be eligible for additional assistance.",
+                "title": "Potjes Partners"
+            }
         }
     },
     "home": {
@@ -2424,6 +2472,20 @@
         "create_card": {
             "button": "Submit coupon",
             "title": "Cost recovery"
+        },
+        "placeholders": {
+            "amount": "10",
+            "description": "What did you buy?",
+            "iban": "NL12INGB3456789012",
+            "iban_name": "J. Jansen",
+            "title": "The name of the expense for which you are requesting a reimbursement."
+        },
+        "tooltips": {
+            "amount": "Enter the amount you want to claim here. Example: 10.",
+            "description": "Briefly write down what you bought. Example: Athletic shoes.",
+            "iban": "Enter the account number where you would like to receive the money. Example of an IBAN: NL12INGB3456789012.",
+            "iban_name": "Enter the account holder's name. Example: J. Jansen.",
+            "title": "Name of the expense you are claiming. Example: Athletic shoes."
         }
     },
     "voucher_printable": {
@@ -2614,16 +2676,12 @@
         "header": {
             "subtitle_formal": "Enter your email address to receive a link to log in.",
             "subtitle_informal": "Enter your email address to receive a link to log in.",
-            "subtitle_succes_formal": "You have received an e-mail at the e-mail address you just entered. Go to your inbox and open the email with the subject \"Confirm email\" and click the blue button in the email.",
-            "subtitle_succes_informal": "You have received an e-mail at the e-mail address you just entered. Go to your inbox and open the email with the subject \"Confirm email\" and click the blue button in the email.",
-            "subtitle_we_succes_formal": "You received an email on <strong class=\"text-primary\">{{email}}</strong>. Go to your inbox and open the email with the subject \"Confirm email\" and click on \"Confirm\" in the email.",
-            "subtitle_we_succes_informal": "You received an email at <strong class=\"text-primary\">{{email}}</strong>. Go to your inbox and open the email with the subject \"Confirm email\" and click \"Confirm\" in the email.",
             "title": "E-mail sent",
-            "title_existing_user_succes_formal": "Check your e-mail.",
-            "title_existing_user_succes_informal": "Check your e-mail.",
             "title_sr": "Start sign in",
-            "title_succes_formal": "Please confirm that you have access to this email address.",
-            "title_succes_informal": "Confirm that you have access to this email address."
+            "subtitle_email_sent_formal": "We sent an e-mail to <strong class=\"text-primary\">{{email}}</strong>. Please open the email and follow the link to proceed.",
+            "subtitle_email_sent_informal": "We sent an e-mail to <strong class=\"text-primary\">{{email}}</strong>. Please open the email and follow the link to proceed.",
+            "title_email_sent_formal": "Check your e-mail.",
+            "title_email_sent_informal": "Check your e-mail."
         },
         "input": {
             "code": "Activation code",
@@ -2670,8 +2728,6 @@
         "notifications": {
             "confirmation": "It worked!",
             "invalid": "The activation code is invalid or has already been used.",
-            "link_formal": "An email has been sent to. <strong class=\"text-primary\">{{email}}</strong>.<br/>Click on the link to sign up.",
-            "link_informal": "An email has been sent to <strong class=\"text-primary\">{{email}}</strong>.<br/>Click on the link to sign up.",
             "voucher_email": "The QR code has been sent."
         },
         "pin_code": {
@@ -3140,7 +3196,8 @@
         "fund_item_list": {
             "buttons": {
                 "check_status": "Check status",
-                "is_applicable": "Request"
+                "is_applicable": "Request",
+                "more_information": "More information"
             },
             "show_less": "Show less",
             "show_more": "Show more",
@@ -3256,10 +3313,10 @@
         "close": "Close",
         "email": "Email",
         "go_to_admin": "Go to the management environment",
-        "header_title": "Fund Help Block",
-        "help_title": "Fund Help Title",
         "phone": "Phone",
-        "website": "Website"
+        "website": "Website",
+        "header_title": "Contact Us",
+        "help_title": "Have questions or need help?"
     },
     "modal_photo_cropper": {
         "cancel": "Cancel",

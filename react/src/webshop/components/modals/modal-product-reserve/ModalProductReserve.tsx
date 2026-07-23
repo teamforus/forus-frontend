@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ModalState } from '../../../../dashboard/modules/modals/context/ModalContext';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import { useNavigateState } from '../../../modules/state_router/Router';
@@ -21,7 +21,6 @@ import BlockWarning from '../../elements/block-warning/BlockWarning';
 import { currencyFormat, strLimit } from '../../../../dashboard/helpers/string';
 import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
 import FormError from '../../../../dashboard/components/elements/forms/errors/FormError';
-import ClickOutside from '../../../../dashboard/components/elements/click-outside/ClickOutside';
 import DatePickerControl from '../../../../dashboard/components/elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../../dashboard/helpers/dates';
 import Tooltip from '../../elements/tooltip/Tooltip';
@@ -35,6 +34,7 @@ import SelectControl from '../../../../dashboard/components/elements/select-cont
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import FileUploader from '../../elements/file-uploader/FileUploader';
 import FileModel from '../../../../dashboard/props/models/File';
+import FormGroupInfo from '../../../../dashboard/components/elements/forms/elements/FormGroupInfo';
 
 type VoucherType = Voucher & {
     amount_extra: number;
@@ -43,7 +43,6 @@ type VoucherType = Voucher & {
 type Field = {
     fullWidth?: boolean;
     description?: string;
-    showInfo?: boolean;
     label?: string;
     placeholder?: string;
     required?: boolean;
@@ -78,6 +77,8 @@ export default function ModalProductReserve({
     const productReservationService = useProductReservationService();
 
     const composerVoucherCardData = useComposeVoucherCardData();
+
+    const formSubmitAddressRef = useRef<() => void>(null);
 
     const [STEP_EMAIL_SETUP] = useState(0);
     const [STEP_SELECT_VOUCHER] = useState(1);
@@ -154,6 +155,10 @@ export default function ModalProductReserve({
     const addressFilled = useCallback((address: AddressType) => {
         return !!(address?.city && address?.street && address?.house_nr && address?.postal_code);
     }, []);
+
+    const reservationAddressOptional = useMemo(() => {
+        return product.reservation.address === 'optional';
+    }, [product.reservation.address]);
 
     const reservationAddressRequested = useMemo(() => {
         return product.reservation.address !== 'no';
@@ -471,9 +476,73 @@ export default function ModalProductReserve({
         };
     }, [fundMeta?.shownExpireDate?.unix, product.name, product.organization.name, product.price, vouchers]);
 
+    const makeControlForCustomField = useCallback(
+        (field: Field) => {
+            const fieldKey = String(field.key);
+            const customFieldValue = form.values.custom_fields?.[fieldKey];
+
+            const control = (
+                <Fragment>
+                    {field.type === 'text' && (
+                        <input
+                            className="form-control"
+                            type="text"
+                            value={customFieldValue ?? ''}
+                            onChange={(e) => {
+                                form.values.custom_fields = form.values.custom_fields || {};
+                                form.values.custom_fields[fieldKey] = e.target.value;
+                                form.update({ ...form.values });
+                            }}
+                            data-dusk={field.dusk}
+                        />
+                    )}
+                    {field.type === 'number' && (
+                        <input
+                            className="form-control"
+                            type="number"
+                            pattern="[0-9]+"
+                            max={999999999999999}
+                            value={customFieldValue ?? ''}
+                            onChange={(e) => {
+                                form.values.custom_fields = form.values.custom_fields || {};
+                                form.values.custom_fields[fieldKey] = e.target.value;
+                                form.update({ ...form.values });
+                            }}
+                            data-dusk={field.dusk}
+                        />
+                    )}
+                    {field.type === 'boolean' && (
+                        <SelectControl
+                            propKey={'key'}
+                            value={customFieldValue ? String(customFieldValue) : null}
+                            onChange={(value: string) => {
+                                form.values.custom_fields = form.values.custom_fields || {};
+                                form.values.custom_fields[fieldKey] = value;
+                                form.update({ ...form.values });
+                            }}
+                            dusk={field.dusk}
+                            options={customFieldBooleanOptions}
+                        />
+                    )}
+                </Fragment>
+            );
+
+            return field.description ? (
+                <FormGroupInfo info={field.description} duskPrefix={field.dusk}>
+                    {control}
+                </FormGroupInfo>
+            ) : (
+                control
+            );
+        },
+        [customFieldBooleanOptions, form],
+    );
+
     useEffect(() => {
-        fetchProfileAddress();
-    }, [fetchProfileAddress]);
+        if (authIdentity.profile) {
+            fetchProfileAddress();
+        }
+    }, [authIdentity.profile, fetchProfileAddress]);
 
     useEffect(() => {
         updateSteps();
@@ -805,7 +874,6 @@ export default function ModalProductReserve({
                             <div className="row">
                                 {fields?.map((field, index) => {
                                     const fieldKey = String(field.key);
-                                    const customFieldValue = form.values.custom_fields?.[fieldKey];
                                     const fieldFiles = customFieldFiles?.[fieldKey] || [];
 
                                     return (
@@ -842,131 +910,33 @@ export default function ModalProductReserve({
                                                         )}
                                                     </div>
 
-                                                    <div className="form-group-info-control">
-                                                        <FileUploader
-                                                            type="product_reservation_custom_field"
-                                                            files={fieldFiles}
-                                                            template="inline"
-                                                            cropMedia={false}
-                                                            allowMultiple={true}
-                                                            maxFiles={5}
-                                                            hideDownloadButton={true}
-                                                            hideInlineTitle={true}
-                                                            acceptedFiles={['.jpg', '.jpeg', '.png']}
-                                                            onFilesChange={({ files }) => {
-                                                                form.values.custom_fields =
-                                                                    form.values.custom_fields || {};
-                                                                form.values.custom_fields[fieldKey] = files.map(
-                                                                    (file) => file.uid,
-                                                                );
+                                                    <FileUploader
+                                                        type="product_reservation_custom_field"
+                                                        files={fieldFiles}
+                                                        template="inline"
+                                                        cropMedia={false}
+                                                        allowMultiple={true}
+                                                        maxFiles={5}
+                                                        hideDownloadButton={true}
+                                                        hideInlineTitle={true}
+                                                        acceptedFiles={['.jpg', '.jpeg', '.png']}
+                                                        onFilesChange={({ files }) => {
+                                                            form.values.custom_fields = form.values.custom_fields || {};
+                                                            form.values.custom_fields[fieldKey] = files.map(
+                                                                (file) => file.uid,
+                                                            );
 
-                                                                setCustomFieldFiles((current) => ({
-                                                                    ...current,
-                                                                    [fieldKey]: files || [],
-                                                                }));
-                                                                form.update({ ...form.values });
-                                                            }}
-                                                            isRequired={field.required}
-                                                        />
-                                                    </div>
+                                                            setCustomFieldFiles((current) => ({
+                                                                ...current,
+                                                                [fieldKey]: files || [],
+                                                            }));
+                                                            form.update({ ...form.values });
+                                                        }}
+                                                        isRequired={field.required}
+                                                    />
                                                 </div>
                                             ) : field.custom ? (
-                                                <div
-                                                    className={classNames('form-group-info', {
-                                                        active: field.showInfo,
-                                                    })}>
-                                                    <div
-                                                        className={classNames(
-                                                            'form-group-info-control',
-                                                            field.description && 'has-info-btn',
-                                                        )}>
-                                                        {field.type === 'text' && (
-                                                            <input
-                                                                className="form-control"
-                                                                type="text"
-                                                                value={customFieldValue ?? ''}
-                                                                onChange={(e) => {
-                                                                    form.values.custom_fields =
-                                                                        form.values.custom_fields || {};
-                                                                    form.values.custom_fields[fieldKey] =
-                                                                        e.target.value;
-                                                                    form.update({ ...form.values });
-                                                                }}
-                                                                data-dusk={field.dusk}
-                                                            />
-                                                        )}
-                                                        {field.type === 'number' && (
-                                                            <input
-                                                                className="form-control"
-                                                                type="number"
-                                                                pattern="[0-9]+"
-                                                                max={999999999999999}
-                                                                value={customFieldValue ?? ''}
-                                                                onChange={(e) => {
-                                                                    form.values.custom_fields =
-                                                                        form.values.custom_fields || {};
-                                                                    form.values.custom_fields[fieldKey] =
-                                                                        e.target.value;
-                                                                    form.update({ ...form.values });
-                                                                }}
-                                                                data-dusk={field.dusk}
-                                                            />
-                                                        )}
-                                                        {field.type === 'boolean' && (
-                                                            <SelectControl
-                                                                propKey={'key'}
-                                                                value={
-                                                                    customFieldValue ? String(customFieldValue) : null
-                                                                }
-                                                                onChange={(value: string) => {
-                                                                    form.values.custom_fields =
-                                                                        form.values.custom_fields || {};
-                                                                    form.values.custom_fields[fieldKey] = value;
-                                                                    form.update({ ...form.values });
-                                                                }}
-                                                                dusk={field.dusk}
-                                                                options={customFieldBooleanOptions}
-                                                            />
-                                                        )}
-                                                    </div>
-
-                                                    {field.description && (
-                                                        <Fragment>
-                                                            <div
-                                                                className="form-group-info-button"
-                                                                data-dusk={`${field.dusk}InfoBtn`}
-                                                                onClick={(e) => {
-                                                                    e.stopPropagation();
-                                                                    setFields((fields) => {
-                                                                        fields[fields.indexOf(field)].showInfo =
-                                                                            !field.showInfo;
-                                                                        return [...fields];
-                                                                    });
-                                                                }}>
-                                                                <em className="mdi mdi-information" />
-                                                            </div>
-                                                            {field.showInfo && (
-                                                                <ClickOutside
-                                                                    className="block block-info-box block-info-box-primary"
-                                                                    onClickOutside={(e) => {
-                                                                        e?.stopPropagation();
-                                                                        setFields((fields) => {
-                                                                            fields[fields.indexOf(field)].showInfo =
-                                                                                false;
-                                                                            return [...fields];
-                                                                        });
-                                                                    }}>
-                                                                    <div className="info-box-icon mdi mdi-information-outline" />
-                                                                    <div className="info-box-content">
-                                                                        <div className="block block-markdown">
-                                                                            <p>{field.description}</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </ClickOutside>
-                                                            )}
-                                                        </Fragment>
-                                                    )}
-                                                </div>
+                                                makeControlForCustomField(field)
                                             ) : null}
 
                                             {!field.custom && ['text', 'number'].includes(field.type) && (
@@ -1031,13 +1001,35 @@ export default function ModalProductReserve({
                         e?.preventDefault();
                         setSkipAddress(false);
 
-                        if (addressFilled(address) || product.reservation.address !== 'optional') {
+                        const validateAndNext = () => {
                             validateAddress(address)
-                                ?.then(() => next())
+                                ?.then(next)
                                 ?.catch((err: ResponseError) => onError(err, true));
-                        } else {
-                            next();
+                        };
+
+                        const isAddressFilled = addressFilled(address);
+
+                        if (!authIdentity.profile) {
+                            if (isEditingAddress) {
+                                formSubmitAddressRef.current();
+                                return;
+                            }
+
+                            if (reservationAddressOptional && !isAddressFilled) {
+                                next();
+                                return;
+                            }
+
+                            validateAndNext();
+                            return;
                         }
+
+                        if (isAddressFilled || !reservationAddressOptional) {
+                            validateAndNext();
+                            return;
+                        }
+
+                        next();
                     }}
                     data-dusk="productReserveAddress">
                     <div
@@ -1067,15 +1059,21 @@ export default function ModalProductReserve({
                         <div className="modal-section">
                             <BlockReservationAddress
                                 address={address}
-                                setAddress={setAddress}
                                 addressProfile={addressProfile}
                                 product={product}
                                 setIsEditingAddress={setIsEditingAddress}
+                                formSubmitAddressRef={formSubmitAddressRef}
                                 onAddressSubmit={(save, values) => {
-                                    setAddress(values);
+                                    const isAddressFilled = addressFilled(values);
 
-                                    if (save) {
+                                    setAddress(isAddressFilled ? values : null);
+
+                                    if (save && authIdentity.profile) {
                                         updateProfileAddress(values);
+                                    }
+
+                                    if (!authIdentity.profile && reservationAddressOptional && !isAddressFilled) {
+                                        next();
                                     }
                                 }}
                             />
@@ -1091,7 +1089,7 @@ export default function ModalProductReserve({
                             <button className="button button-light button-sm" type="button" onClick={back}>
                                 {translate('modal_reserve_product.buttons.back')}
                             </button>
-                            {addressFilled(address) && product.reservation.address === 'optional' && (
+                            {addressFilled(address) && reservationAddressOptional && (
                                 <button
                                     className="button button-primary-outline button-sm"
                                     type="button"
@@ -1107,8 +1105,9 @@ export default function ModalProductReserve({
                                 className="button button-primary button-sm"
                                 type="submit"
                                 disabled={
-                                    (!addressFilled(address) && product.reservation.address !== 'optional') ||
-                                    (isEditingAddress && addressFilled(address))
+                                    authIdentity.profile &&
+                                    ((!addressFilled(address) && !reservationAddressOptional) ||
+                                        (isEditingAddress && addressFilled(address)))
                                 }
                                 data-dusk="btnSubmit">
                                 {translate('modal_reserve_product.buttons.next')}

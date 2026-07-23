@@ -28,7 +28,7 @@ export default {
             implementation: 'Implementatie',
             status: 'Status',
             actions: 'Actie',
-            type: 'Soort',
+            sponsor: 'Sponsor',
         },
         tooltips: {
             name: 'Naam van het fonds.',
@@ -36,6 +36,7 @@ export default {
             requester_count: 'Aantal inwoners met een aanvraag.',
             implementation: 'Gekoppelde implementatie/webshop.',
             status: 'Status van het fonds.',
+            sponsor: 'Sponsor',
         },
         filters: {
             search: 'Zoeken',

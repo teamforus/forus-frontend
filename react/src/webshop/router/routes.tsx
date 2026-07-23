@@ -82,9 +82,15 @@ router.state(WebshopRoutes.IDENTITY_CONFIRMATION, <IdentityRestore confirmation=
     protected: false,
 });
 
-router.state(WebshopRoutes.FUNDS, <Funds />, {
+router.state(WebshopRoutes.FUNDS, <Funds key="funds" pageType="funds" />, {
     path: `/fondsen`,
     altPath: `/funds`,
+    protected: false,
+});
+
+router.state(WebshopRoutes.FUNDS_PARTNERS, <Funds key="funds-partners" pageType="partners" />, {
+    path: `/partnerfondsen`,
+    altPath: `/partner-funds`,
     protected: false,
 });
 

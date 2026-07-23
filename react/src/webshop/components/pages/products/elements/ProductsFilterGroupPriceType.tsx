@@ -27,16 +27,37 @@ export default function ProductsFilterGroupPriceType({
 
     const options = useMemo<Array<{ value: ProductPriceType; icon: ReactNode; dusk?: string }>>(
         () => [
-            { value: 'regular', icon: <em className="mdi mdi-cash" aria-hidden="true" /> },
-            { value: 'discount_fixed', icon: <em className="mdi mdi-currency-eur" aria-hidden="true" /> },
+            {
+                value: 'regular',
+                icon: <em className="mdi mdi-cash" aria-hidden="true" />,
+                dusk: 'priceTypeOptionRegular',
+            },
+            {
+                value: 'discount_fixed',
+                icon: <em className="mdi mdi-currency-eur" aria-hidden="true" />,
+                dusk: 'priceTypeOptionDiscountFixed',
+            },
             {
                 value: 'discount_percentage',
                 icon: <em className="mdi mdi-percent-circle-outline" aria-hidden="true" />,
+                dusk: 'priceTypeOptionDiscountPercentage',
             },
-            { value: 'free', icon: <em className="mdi mdi-gift-outline" aria-hidden="true" /> },
-            { value: 'informational', icon: <em className="mdi mdi-storefront-outline" aria-hidden="true" /> },
+            {
+                value: 'free',
+                icon: <em className="mdi mdi-gift-outline" aria-hidden="true" />,
+                dusk: 'priceTypeOptionFree',
+            },
+            {
+                value: 'informational',
+                icon: <em className="mdi mdi-storefront-outline" aria-hidden="true" />,
+                dusk: 'priceTypeOptionInformational',
+            },
             appConfig?.implementation?.voucher_payout_informational_product_id
-                ? { value: 'payout', icon: <em className="mdi mdi-cash-refund" aria-hidden="true" /> }
+                ? {
+                      value: 'payout',
+                      icon: <em className="mdi mdi-cash-refund" aria-hidden="true" />,
+                      dusk: 'priceTypeOptionPayout',
+                  }
                 : null,
         ],
         [appConfig?.implementation?.voucher_payout_informational_product_id],

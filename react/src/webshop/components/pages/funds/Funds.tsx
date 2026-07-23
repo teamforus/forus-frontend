@@ -1,36 +1,33 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import useEnvData from '../../../hooks/useEnvData';
 import useAppConfigs from '../../../hooks/useAppConfigs';
-import Tag from '../../../../dashboard/props/models/Tag';
 import Fund from '../../../props/models/Fund';
 import Voucher from '../../../../dashboard/props/models/Voucher';
-import Organization from '../../../../dashboard/props/models/Organization';
-import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
 import { useFundService } from '../../../services/FundService';
-import { useTagService } from '../../../../dashboard/services/TagService';
-import { PaginationData } from '../../../../dashboard/props/ApiResponses';
+import { PaginationData, ResponseError, ResponseErrorData } from '../../../../dashboard/props/ApiResponses';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
 import CmsBlocksNext from '../../elements/cms-blocks-next/CmsBlocksNext';
 import EmptyBlock from '../../elements/empty-block/EmptyBlock';
 import Paginator from '../../../../dashboard/modules/paginator/components/Paginator';
-import { useOrganizationService } from '../../../../dashboard/services/OrganizationService';
-import FundsListItem from '../../elements/lists/funds-list/FundsListItem';
 import { useVoucherService } from '../../../services/VoucherService';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import useSetTitle from '../../../hooks/useSetTitle';
 import BlockShowcaseList from '../../elements/block-showcase/BlockShowcaseList';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
-import UIControlText from '../../../../dashboard/components/elements/forms/ui-controls/UIControlText';
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
 import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
-import useFilterNext from '../../../../dashboard/modules/filter_next/useFilterNext';
-import { NumberParam, StringParam } from 'use-query-params';
 import useLatestRequestWithProgress from '../../../../dashboard/hooks/useLatestRequestWithProgress';
+import FundsListItem from '../../elements/lists/funds-list/templates/FundsListItem';
+import useFundsPageFilters from './hooks/useFundsPageFilters';
+import type { FundsPageType } from './hooks/useFundsPageFilters';
+import FundsSidebarFilters from './elements/FundsSidebarFilters';
+import Markdown from '../../elements/markdown/Markdown';
+import Section from '../../elements/sections/Section';
 
-export default function Funds() {
+export default function Funds({ pageType }: { pageType: FundsPageType }) {
     const envData = useEnvData();
     const appConfigs = useAppConfigs();
     const authIdentity = useAuthIdentity();
@@ -41,81 +38,48 @@ export default function Funds() {
     const navigateState = useNavigateState();
     const runLatestRequest = useLatestRequestWithProgress();
 
-    const tagService = useTagService();
     const fundService = useFundService();
     const voucherService = useVoucherService();
-    const organizationService = useOrganizationService();
     const payoutTransactionService = usePayoutTransactionService();
 
-    const [tags, setTags] = useState<Array<Partial<Tag>>>(null);
+    const [errors, setErrors] = useState<ResponseErrorData>({});
     const [funds, setFunds] = useState<PaginationData<Fund>>(null);
     const [payouts, setPayouts] = useState<Array<PayoutTransaction>>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
-    const [organizations, setOrganizations] = useState<Array<Partial<Organization>>>(null);
 
-    const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
-        q: string;
-        tag_id?: number;
-        organization_id?: number;
-        page?: number;
-        per_page?: number;
-        order_by?: string;
-        order_dir?: string;
-    }>(
-        {
-            q: '',
-            tag_id: null,
-            organization_id: null,
-            per_page: 10,
-            order_by: 'order',
-            order_dir: 'asc',
+    const {
+        countFiltersApplied,
+        filter,
+        filterUpdate,
+        filterValues,
+        initialFilterValues,
+        fundsQuery,
+        showPartnersPage,
+        tags,
+        organizations,
+    } = useFundsPageFilters(pageType);
+
+    const partnerDescription =
+        pageType === 'partners' && envData
+            ? translate(
+                  `funds.partners.${envData.client_key}.description`,
+                  {},
+                  'funds.header.partners_description',
+              ).trim()
+            : '';
+
+    const fetchFunds = useCallback(
+        (query: object) => {
+            setErrors(null);
+            setFunds(null);
+
+            runLatestRequest((config) => fundService.list({ ...query, with_external: 1, check_criteria: 1 }, config), {
+                onSuccess: (res) => setFunds(res.data),
+                onError: (e: ResponseError) => setErrors(e.data?.errors),
+            });
         },
-        {
-            queryParams: {
-                q: StringParam,
-                tag_id: NumberParam,
-                organization_id: NumberParam,
-                page: NumberParam,
-                per_page: NumberParam,
-                order_by: StringParam,
-                order_dir: StringParam,
-            },
-        },
+        [fundService, runLatestRequest],
     );
-
-    const countFiltersApplied = useMemo(() => {
-        let count = 0;
-
-        if (filterValues.q) {
-            count++;
-        }
-
-        if (filterValues.tag_id) {
-            count++;
-        }
-
-        if (filterValues.organization_id) {
-            count++;
-        }
-
-        return count;
-    }, [filterValues.organization_id, filterValues.q, filterValues.tag_id]);
-
-    const fetchFunds = useCallback(() => {
-        runLatestRequest(
-            (config) => fundService.list({ ...filterValuesActive, with_external: 1, check_criteria: 1 }, config),
-            { onSuccess: (res) => setFunds(res.data) },
-        );
-    }, [filterValuesActive, fundService, runLatestRequest]);
-
-    const fetchTags = useCallback(() => {
-        setProgress(0);
-
-        tagService
-            .list({ type: 'funds', per_page: 1000 })
-            .then((res) => setTags([{ id: null, name: translate('funds.filters.all_tags') }, ...res.data.data]))
-            .finally(() => setProgress(100));
-    }, [tagService, setProgress, translate]);
 
     const fetchVouchers = useCallback(() => {
         setProgress(0);
@@ -135,22 +99,6 @@ export default function Funds() {
             .finally(() => setProgress(100));
     }, [setProgress, payoutTransactionService]);
 
-    const fetchOrganizations = useCallback(() => {
-        setProgress(0);
-
-        organizationService
-            .list({ type: 'sponsor' })
-            .then((res) =>
-                setOrganizations([{ id: null, name: translate('funds.filters.all_organizations') }, ...res.data.data]),
-            )
-            .finally(() => setProgress(100));
-    }, [organizationService, setProgress, translate]);
-
-    useEffect(() => {
-        fetchTags();
-        fetchOrganizations();
-    }, [fetchTags, fetchVouchers, fetchOrganizations]);
-
     useEffect(() => {
         if (authIdentity) {
             fetchPayouts();
@@ -165,11 +113,19 @@ export default function Funds() {
         if (!appConfigs.funds.list) {
             return navigateState(WebshopRoutes.HOME);
         }
-    }, [appConfigs.funds.list, navigateState]);
+
+        if (pageType === 'partners' && !showPartnersPage) {
+            return navigateState(WebshopRoutes.FUNDS);
+        }
+    }, [appConfigs.funds.list, navigateState, pageType, showPartnersPage]);
 
     useEffect(() => {
-        fetchFunds();
-    }, [fetchFunds]);
+        if (pageType === 'partners' && !showPartnersPage) {
+            return;
+        }
+
+        fetchFunds(fundsQuery);
+    }, [fetchFunds, fundsQuery, pageType, showPartnersPage]);
 
     useEffect(() => {
         if (envData?.client_key == 'vergoedingen') {
@@ -183,83 +139,72 @@ export default function Funds() {
             countFiltersApplied={countFiltersApplied}
             breadcrumbItems={[
                 { name: translate(`funds.breadcrumbs.home`), state: WebshopRoutes.HOME },
-                { name: translate(`funds.funds.${envData.client_key}.title`, {}, 'funds.header.title') },
+                {
+                    name:
+                        pageType === 'funds'
+                            ? translate(`funds.funds.${envData.client_key}.title`, {}, 'funds.header.title')
+                            : translate(
+                                  `funds.partners.${envData.client_key}.title`,
+                                  {},
+                                  'funds.header.partners_title',
+                              ),
+                },
             ]}
             aside={
-                organizations &&
-                tags && (
-                    <div className="showcase-aside-block">
-                        <div className="form-group">
-                            <label className="form-label" htmlFor="search">
-                                {translate('funds.labels.search')}
-                            </label>
-                            <UIControlText
-                                id="search"
-                                value={filterValues.q}
-                                onChangeValue={(q) => filterUpdate({ q })}
-                                ariaLabel="Zoeken"
-                                dataDusk="listFundsSearch"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label className="form-label" id="select_organization_label" htmlFor="select_organization">
-                                {translate('funds.labels.organization')}
-                            </label>
-                            <SelectControl
-                                id="select_organization"
-                                propKey={'id'}
-                                value={filterValues.organization_id}
-                                allowSearch={true}
-                                onChange={(organization_id: number) => filterUpdate({ organization_id })}
-                                options={organizations || []}
-                                multiline={true}
-                                ariaLabelledby="select_organization_label"
-                                dusk="selectControlOrganizations"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label className="form-label" id="select_category_label" htmlFor="select_category">
-                                {translate('funds.labels.category')}
-                            </label>
-                            <SelectControl
-                                id="select_category"
-                                propKey={'id'}
-                                value={filterValues.tag_id}
-                                allowSearch={true}
-                                onChange={(tag_id: number) => filterUpdate({ tag_id })}
-                                options={tags || []}
-                                multiline={true}
-                                ariaLabelledby="select_category_label"
-                                dusk="selectControlTags"
-                            />
-                        </div>
-                    </div>
-                )
+                <FundsSidebarFilters
+                    errors={errors}
+                    filter={filter}
+                    filterValues={filterValues}
+                    filterUpdate={filterUpdate}
+                    tags={tags}
+                    organizations={organizations}
+                    initialFilterValues={initialFilterValues}
+                />
             }>
             {envData && appConfigs && funds && (!authIdentity || vouchers) && (
                 <Fragment>
                     <div className="showcase-content-header">
                         <h1 className="showcase-filters-title">
-                            {translate(`funds.funds.${envData.client_key}.title`, {}, 'funds.header.title')}
+                            {pageType === 'funds' &&
+                                translate(`funds.funds.${envData.client_key}.title`, {}, 'funds.header.title')}
+
+                            {pageType === 'partners' &&
+                                translate(
+                                    `funds.partners.${envData.client_key}.title`,
+                                    {},
+                                    'funds.header.partners_title',
+                                )}
                             <div className="showcase-filters-title-count" data-nosnippet="true">
                                 {funds?.meta?.total}
                             </div>
                         </h1>
                     </div>
 
-                    {appConfigs.pages.funds && <CmsBlocksNext page={appConfigs.pages.funds} />}
-                    {appConfigs.pages.funds && <CmsBlocks page={appConfigs.pages.funds} />}
+                    {pageType === 'funds' && appConfigs.pages.funds && (
+                        <Fragment>
+                            <CmsBlocksNext page={appConfigs.pages.funds} />
+                            <CmsBlocks page={appConfigs.pages.funds} />
+                        </Fragment>
+                    )}
+
+                    {partnerDescription && (
+                        <Section type={'cms'}>
+                            <div className="block block-cms">
+                                <Markdown content={partnerDescription} />
+                            </div>
+                        </Section>
+                    )}
 
                     {funds?.data?.length > 0 && (
-                        <div className="block block-funds-list" id="funds_list">
+                        <div className="block block-funds" id="funds_list">
                             {funds?.data.map((fund) => (
                                 <FundsListItem
                                     key={fund.id}
-                                    display={'list'}
                                     fund={fund}
                                     funds={funds.data}
                                     vouchers={vouchers || []}
                                     payouts={payouts}
+                                    forceShowImage={pageType === 'partners'}
                                 />
                             ))}
                         </div>

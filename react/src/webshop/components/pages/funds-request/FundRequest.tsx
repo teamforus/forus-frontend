@@ -45,6 +45,7 @@ import FundRequestStepPhysicalCardRequestAddress from './elements/steps/FundRequ
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import FundCriteriaGroup from '../../../../dashboard/props/models/FundCriteriaGroup';
 import FundRequestPersonBsnApiWarning from './elements/FundRequestPersonBsnApiWarning';
+import useFundApply from '../../../hooks/useFundApply';
 
 export type LocalCriterion = FundCriterion & {
     input_value?: string;
@@ -285,23 +286,18 @@ export default function FundRequest() {
         [contactInformation, fund?.auto_validation, address],
     );
 
-    const applyFund = useCallback(
-        (fund: Fund) => {
-            fundService
-                .apply(fund.id)
-                .then((res) => {
-                    fetchAuthIdentity().then(() => {
-                        navigateState(WebshopRoutes.VOUCHER, { number: res.data.data.number });
-                        pushSuccess(
-                            translate('push.success'),
-                            translate('push.fund_activation.success', { fund_name: fund?.name }),
-                        );
-                    });
-                })
-                .catch((err: ResponseError) => pushDanger(translate('push.error'), err.data.message));
+    const applyFund = useFundApply({
+        onApplied: (voucher, fund) => {
+            fetchAuthIdentity().then(() => {
+                navigateState(WebshopRoutes.VOUCHER, { number: voucher.number });
+                pushSuccess(
+                    translate('push.success'),
+                    translate('push.fund_activation.success', { fund_name: fund?.name }),
+                );
+            });
         },
-        [fetchAuthIdentity, fundService, navigateState, pushDanger, pushSuccess, translate],
-    );
+        showSuccessPush: false,
+    });
 
     const submitRequest = useCallback(() => {
         if (submitInProgress) {

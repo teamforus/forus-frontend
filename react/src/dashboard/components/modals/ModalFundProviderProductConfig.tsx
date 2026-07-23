@@ -132,7 +132,7 @@ export default function ModalFundProviderProductConfig({
                 allow_scanning: allow_scanning,
                 limit_total: limit_total_unlimited || isInformationalProduct ? null : limit_total,
                 limit_total_unlimited,
-                limit_per_identity: limit_total_unlimited || isInformationalProduct ? null : limit_per_identity,
+                limit_per_identity: limit_per_identity_unlimited || isInformationalProduct ? null : limit_per_identity,
                 limit_per_identity_unlimited,
             };
 

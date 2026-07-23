@@ -705,6 +705,91 @@
             background: none;
             border: none;
         }
+
+        .form-group-info {
+            display: flex;
+            flex-direction: row;
+
+            .form-group-info-control {
+                display: flex;
+                flex-grow: 1;
+                min-width: 0;
+
+                .form-control {
+                    border-right: none;
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+
+                .ui-control {
+                    width: 100%;
+                }
+            }
+
+            .form-group-info-button {
+                position: relative;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 11px;
+                    bottom: 11px;
+                    width: 1px;
+                    background-color: var(--border-color);
+                    pointer-events: none;
+                    z-index: 1;
+                }
+
+                .button {
+                    border-left: none;
+                    box-shadow: none;
+                    height: 100%;
+                    align-items: center;
+                    margin: 0;
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+                    background: #eff2f4;
+                    border-color: #eff2f4;
+                    color: #fff;
+
+                    .mdi {
+                        color: #646f79;
+                        font-size: 20px;
+                        line-height: 20px;
+                        transition: color 0.4s;
+                    }
+
+                    &:hover,
+                    &.active {
+                        .mdi {
+                            color: #009ef4;
+                        }
+                    }
+
+                    &:not(:last-child) {
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 0;
+                    }
+                }
+
+                &.form-group-info-button-dashed {
+                    .button {
+                        border: 1px dashed var(--border-color) !important;
+                        border-left: none !important;
+                        box-shadow: none !important;
+                    }
+                }
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            & + .block-info-box {
+                margin-top: 10px;
+            }
+        }
     }
 
     .sign_up-organizations {

@@ -7,6 +7,7 @@ import { ResponseError } from '../../../../dashboard/props/ApiResponses';
 import { useProductReservationService } from '../../../services/ProductReservationService';
 import Product from '../../../props/models/Product';
 import useIsMobile from '../../../hooks/useIsMobile';
+import useAuthIdentity from '../../../hooks/useAuthIdentity';
 
 export type AddressType = {
     postal_code?: string;
@@ -22,17 +23,19 @@ export default function BlockReservationAddress({
     product,
     onAddressSubmit,
     setIsEditingAddress,
+    formSubmitAddressRef,
 }: {
     addressProfile: AddressType;
     address: AddressType;
-    setAddress: React.Dispatch<React.SetStateAction<AddressType>>;
     setIsEditingAddress: React.Dispatch<React.SetStateAction<boolean>>;
     product: Product;
     onAddressSubmit: (save: boolean, values: AddressType) => void;
+    formSubmitAddressRef?: React.RefObject<() => void>;
 }) {
     const [editing, setEditing] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const isMobile = useIsMobile();
+    const authIdentity = useAuthIdentity();
 
     const translate = useTranslate();
     const productReservationService = useProductReservationService();
@@ -78,6 +81,8 @@ export default function BlockReservationAddress({
             });
     });
 
+    const submitAddressForm = form.submit;
+
     const getAddressString = useCallback((address: AddressType) => {
         return [address?.city, address?.street, address?.house_nr, address?.house_nr_addition, address?.postal_code]
             .filter((value) => value)
@@ -107,6 +112,12 @@ export default function BlockReservationAddress({
     useEffect(() => {
         setIsEditingAddress(editing);
     }, [editing, setIsEditingAddress]);
+
+    useEffect(() => {
+        if (formSubmitAddressRef) {
+            formSubmitAddressRef.current = () => submitAddressForm(null, { save: false });
+        }
+    }, [formSubmitAddressRef, submitAddressForm]);
 
     return (
         <div className={'block block-reservation-address form form-compact'} data-dusk={'productReserveAddress'}>
@@ -228,8 +239,8 @@ export default function BlockReservationAddress({
                     </div>
                 </div>
             )}
-            {editing && (
-                <div className="address-actions">
+            {editing && authIdentity.profile && (
+                <div className="address-actions" data-dusk="productReserveAddressActions">
                     <button
                         type="button"
                         className="button button-light button-sm"
@@ -269,7 +280,7 @@ export default function BlockReservationAddress({
                             className="button button-primary-outline button-sm"
                             disabled={submitting || !addressFilled(form.values)}
                             data-dusk="productReserveAddressFormApply"
-                            onClick={() => form.submit(null, { save: false })}>
+                            onClick={() => submitAddressForm(null, { save: false })}>
                             Doorgaan zonder opslaan
                         </button>
                     )}
@@ -278,7 +289,7 @@ export default function BlockReservationAddress({
                         className="button button-primary button-sm"
                         disabled={submitting || !addressFilled(form.values)}
                         data-dusk="productReserveAddressFormSave"
-                        onClick={() => form.submit(null, { save: true })}>
+                        onClick={() => submitAddressForm(null, { save: true })}>
                         Opslaan en doorgaan
                     </button>
                 </div>
