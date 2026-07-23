@@ -1,0 +1,56 @@
+.block.block-color-picker-control {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    position: relative;
+    width: 100%;
+
+    .color-picker-control-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+        min-width: 56px;
+        padding: 0 8px;
+        gap: 6px;
+        border: 1px solid var(--border-color);
+        background-color: #ffffff;
+        color: var(--text-color);
+        font: 500 13px / 24px var(--base-font);
+        transition: background-color 0.4s ease, border 0.4s ease;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+
+        .color-picker-control-preview {
+            display: flex;
+            flex: 0 0 20px;
+            height: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+        }
+
+        .mdi {
+            color: #646f79;
+            font-size: 18px;
+            line-height: 18px;
+        }
+    }
+
+    .color-picker-control-input {
+        min-width: 0;
+    }
+
+    .color-picker-control-dropdown {
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        z-index: 5;
+        width: 200px;
+        max-width: 100%;
+        padding: 12px;
+        background-color: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        box-shadow: 0 13px 36px 0 rgba(0, 0, 0, 0.2);
+    }
+}

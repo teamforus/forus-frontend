@@ -1,0 +1,242 @@
+.block.block-cms-product-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    text-align: center;
+    cursor: default;
+
+    .cms-product-categories-shape {
+        display: flex;
+
+        svg {
+            display: block;
+            width: 100%;
+            height: fit-content;
+
+            path {
+                display: block;
+                fill: var(--cms-product-categories-shape-color, var(--color-primary));
+                opacity: var(--cms-product-categories-shape-opacity, 0.05);
+            }
+        }
+    }
+
+    .cms-product-categories-content {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        gap: 20px;
+        padding: 40px 0;
+        text-align: center;
+    }
+
+    .cms-product-categories-wrapper {
+        display: inherit;
+        flex-direction: inherit;
+        gap: inherit;
+        text-align: inherit;
+    }
+
+    .cms-product-categories-title {
+        margin: 0;
+        color: #1a1a1a;
+        font: 700 40px/54px var(--base-font);
+    }
+
+    .cms-product-categories-description {
+        margin: 0;
+        color: #222;
+        font: 400 18px/24px var(--base-font);
+    }
+
+    .cms-product-categories-items {
+        --gap: 16px;
+        --items: 6;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: calc(var(--gap) * 2) var(--gap);
+        justify-content: center;
+        margin: 0;
+        padding: 20px 0;
+        list-style: none;
+
+        .cms-product-categories-item {
+            display: flex;
+            flex: 0 0 calc(calc(100% / var(--items)) - calc(calc(var(--gap) * calc(var(--items) - 1)) / var(--items)));
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            min-width: 0;
+            padding: 25px 10px;
+            color: var(--button-primary-color);
+            text-decoration: none;
+            background: var(--button-primary-background);
+            border-radius: min(var(--border-radius), 16px);
+            outline: none;
+            filter: brightness(1);
+            box-shadow: var(--button-shadow);
+            transition: 0.4s;
+            cursor: pointer;
+
+            .cms-product-categories-item-icon {
+                color: #fff;
+
+                .mdi {
+                    font-size: 50px;
+                    line-height: 50px;
+                }
+            }
+
+            .cms-product-categories-item-name {
+                margin: 0;
+                color: #fff;
+                font: 700 15px/22px var(--base-font);
+                letter-spacing: 0;
+            }
+
+            &:hover,
+            &:focus-visible {
+                color: var(--button-primary-hover-color);
+                background: var(--button-primary-hover-background);
+                box-shadow: var(--button-hover-shadow);
+            }
+        }
+
+        &.cms-product-categories-items-no-icons {
+            --items: 5;
+
+            .cms-product-categories-item {
+                padding: 20px 10px;
+
+                .cms-product-categories-item-name {
+                    font: 700 16px/22px var(--base-font);
+                }
+            }
+        }
+    }
+
+    &.block-cms-product-categories-shape {
+        .cms-product-categories-content {
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -1px;
+                left: 0;
+                top: -1px;
+                z-index: -1;
+                width: 100%;
+                opacity: var(--cms-product-categories-shape-opacity, 0.05);
+                background: var(--cms-product-categories-shape-color, var(--color-primary));
+            }
+        }
+    }
+
+    &.block-cms-product-categories-solid {
+        .cms-product-categories-content {
+            padding: 0 0;
+        }
+    }
+
+    @media screen and (max-width: 1400px) {
+        .cms-product-categories-content {
+            gap: 10px;
+            padding: 15px 0;
+        }
+
+        .cms-product-categories-items {
+            --items: 5;
+
+            .cms-product-categories-item {
+                .cms-product-categories-item-icon {
+                    .mdi {
+                        font-size: 32px;
+                        line-height: 32px;
+                    }
+                }
+
+                .cms-product-categories-item-name {
+                    font: 700 14px/20px var(--base-font);
+                }
+            }
+
+            &.cms-product-categories-items-no-icons {
+                --items: 4;
+
+                .cms-product-categories-item {
+                    .cms-product-categories-item-name {
+                        font: 700 15px/20px var(--base-font);
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .cms-product-categories-title {
+            font: 700 24px/32px var(--base-font);
+        }
+
+        .cms-product-categories-content {
+            gap: 8px;
+            padding: 15px 0;
+        }
+
+        .cms-product-categories-items {
+            --items: 4;
+            gap: var(--gap) var(--gap);
+
+            .cms-product-categories-item {
+                padding: 20px 10px;
+            }
+
+            &.cms-product-categories-items-no-icons {
+                --items: 3;
+
+                .cms-product-categories-item {
+                    padding: 15px 15px;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .cms-product-categories-title {
+            font: 700 22px/30px var(--base-font);
+        }
+
+        .cms-product-categories-description {
+            margin: 0 0 15px;
+            font: 400 14px/18px var(--base-font);
+        }
+
+        .cms-product-categories-items {
+            --items: 2;
+            --gap: 12px;
+            justify-content: flex-start;
+            gap: var(--gap) var(--gap);
+            padding: 0;
+
+            .cms-product-categories-item {
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 12px;
+                padding: 10px 15px;
+                text-align: left;
+
+                .cms-product-categories-item-icon {
+                    flex: 0 0 32px;
+                }
+            }
+
+            &.cms-product-categories-items-no-icons {
+                --items: 1;
+
+                .cms-product-categories-item {
+                    justify-content: center;
+                }
+            }
+        }
+    }
+}

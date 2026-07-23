@@ -26,6 +26,13 @@ import FormGroup from '../../../elements/forms/elements/FormGroup';
 import FormPane from '../../../elements/forms/elements/FormPane';
 import FormPaneContainer from '../../../elements/forms/elements/FormPaneContainer';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+import ImplementationCmsBlocksPane from './implementation-cms-blocks-editor/ImplementationCmsBlocksPane';
+import { cmsBlocksToForm, cmsBlocksToPayload } from './implementation-cms-blocks-editor/helpers/blocks';
+import { ImplementationCmsBlockForm } from './implementation-cms-blocks-editor/types';
+import {
+    CmsBlockUploadProvider,
+    useCmsBlockUploadManager,
+} from './implementation-cms-blocks-editor/context/CmsBlockUploadContext';
 
 export default function ImplementationsPageForm({
     page,
@@ -57,14 +64,29 @@ export default function ImplementationsPageForm({
     const [pageBlockProducts, setPageBlockProducts] = useState<ImplementationPage>(null);
     const [pageBlockProductCategories, setPageBlockProductCategories] = useState<ImplementationPage>(null);
 
-    const cmsBlockEditorRef = useRef<(() => Promise<boolean>) | null>(null);
-    const cmsBlockEditorRef2 = useRef<(() => Promise<boolean>) | null>(null);
+    const [cmsBlocks, setCmsBlocks] = useState<Array<ImplementationCmsBlockForm>>(cmsBlocksToForm(page?.cms_blocks));
+
+    const homeProductsBlockSaveRef = useRef<(() => Promise<boolean>) | null>(null);
+    const homeProductCategoriesBlockSaveRef = useRef<(() => Promise<boolean>) | null>(null);
     const faqEditorValidateRef = useRef<(() => Promise<boolean>) | null>(null);
     const blockEditorValidateRef = useRef<(() => Promise<boolean>) | null>(null);
+    const cmsBlocksEditorValidateRef = useRef<(() => Promise<boolean>) | null>(null);
+
+    const cmsBlockUploads = useCmsBlockUploadManager();
 
     const pageTypeConfig = useMemo(
         () => implementation.page_types.find((type) => type.key === pageType),
         [implementation.page_types, pageType],
+    );
+
+    const supportsLegacyPageBlocks = useCallback(
+        (external?: boolean) => Boolean(pageTypeConfig?.blocks && !external),
+        [pageTypeConfig?.blocks],
+    );
+
+    const supportsCmsPageBlocks = useCallback(
+        (external?: boolean) => Boolean(!external && pageTypeConfig?.cms_blocks),
+        [pageTypeConfig?.cms_blocks],
     );
 
     const [states] = useState([
@@ -93,7 +115,6 @@ export default function ImplementationsPageForm({
         state?: string;
         external?: boolean;
         page_type?: string;
-        blocks?: Array<ImplementationPageBlock>;
         description?: string;
         external_url?: string;
         blocks_per_row?: number;
@@ -105,7 +126,6 @@ export default function ImplementationsPageForm({
         page
             ? implementationPageService.apiResourceToForm(page)
             : {
-                  blocks: [],
                   state: states[0].value,
                   external: types[0].value,
                   page_type: pageType,
@@ -113,14 +133,31 @@ export default function ImplementationsPageForm({
                   description_position: descriptionPositions[0]?.value,
               },
         async (values) => {
-            const data = { ...values, blocks, faq };
+            if (cmsBlockUploads.hasPendingUploads) {
+                pushDanger('Even wachten', 'Wacht tot alle afbeeldingen zijn geüpload.');
+
+                return form.setIsLocked(false);
+            }
+
+            const data = {
+                ...values,
+                faq,
+                ...(supportsLegacyPageBlocks(values.external) ? { blocks } : {}),
+                ...(supportsCmsPageBlocks(values.external) ? { cms_blocks: cmsBlocksToPayload(cmsBlocks) } : {}),
+            };
 
             try {
                 if (
-                    (cmsBlockEditorRef?.current && !(await cmsBlockEditorRef?.current())) ||
-                    (cmsBlockEditorRef2?.current && !(await cmsBlockEditorRef2?.current())) ||
-                    (faqEditorValidateRef?.current && !(await faqEditorValidateRef?.current())) ||
-                    (blockEditorValidateRef?.current && !(await blockEditorValidateRef?.current()))
+                    (cmsBlocksEditorValidateRef?.current && !(await cmsBlocksEditorValidateRef.current())) ||
+                    (faqEditorValidateRef?.current && !(await faqEditorValidateRef.current())) ||
+                    (blockEditorValidateRef?.current && !(await blockEditorValidateRef.current()))
+                ) {
+                    return form.setIsLocked(false);
+                }
+
+                if (
+                    (homeProductsBlockSaveRef?.current && !(await homeProductsBlockSaveRef.current())) ||
+                    (homeProductCategoriesBlockSaveRef?.current && !(await homeProductCategoriesBlockSaveRef.current()))
                 ) {
                     return form.setIsLocked(false);
                 }
@@ -146,6 +183,8 @@ export default function ImplementationsPageForm({
                     }
 
                     form.update(implementationPageService.apiResourceToForm(res.data.data));
+                    setCmsBlocks((blocks) => cmsBlocksToForm(res.data.data.cms_blocks || [], blocks));
+                    setBlocks(res.data.data.blocks?.map((item) => ({ ...item, uid: uniqueId() })) || []);
                     form.setErrors({});
                     pushSuccess('Opgeslagen!');
                 })
@@ -211,8 +250,8 @@ export default function ImplementationsPageForm({
                 <div className="breadcrumb-item active">{translate(`implementation_edit.labels.${pageType}`)}</div>
             </div>
 
-            <div className="card">
-                <form className="form" onSubmit={form.submit}>
+            <form className="form" onSubmit={form.submit} inert={form.isLocked} aria-busy={form.isLocked}>
+                <div className="card">
                     <div className="card-header">
                         <div className="flex flex-grow card-title">
                             {translate(`implementation_edit.labels.${pageType}`)}
@@ -230,10 +269,6 @@ export default function ImplementationsPageForm({
                                         <em className="mdi mdi-open-in-new icon-end" />
                                     </a>
                                 )}
-
-                                <button className="button button-primary button-sm" type="submit">
-                                    {translate('funds_edit.buttons.confirm')}
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -340,7 +375,7 @@ export default function ImplementationsPageForm({
                                     implementation={implementation}
                                     pageBlock={pageBlockProducts}
                                     setPageBlock={setPageBlockProducts}
-                                    saveBlockRef={cmsBlockEditorRef}
+                                    saveBlockRef={homeProductsBlockSaveRef}
                                 />
                             </FormPane>
                         )}
@@ -355,15 +390,18 @@ export default function ImplementationsPageForm({
                                     implementation={implementation}
                                     pageBlock={pageBlockProductCategories}
                                     setPageBlock={setPageBlockProductCategories}
-                                    saveBlockRef={cmsBlockEditorRef2}
+                                    saveBlockRef={homeProductCategoriesBlockSaveRef}
                                 />
                             </FormPane>
                         )}
 
-                        {pageTypeConfig.blocks && !form.values?.external && (
-                            <FormPane title="Blokken">
+                        {supportsLegacyPageBlocks(form.values?.external) && (
+                            <FormPane
+                                title={translate('components.implementation_cms_block_editor.sections.legacy_blocks')}>
                                 <FormGroup
-                                    label={'Blokken'}
+                                    label={translate(
+                                        'components.implementation_cms_block_editor.sections.legacy_blocks',
+                                    )}
                                     input={() => (
                                         <ImplementationsBlockEditor
                                             blocks={blocks}
@@ -377,7 +415,9 @@ export default function ImplementationsPageForm({
                                 />
 
                                 <FormGroup
-                                    label={'Blokken per rij'}
+                                    label={translate(
+                                        'components.implementation_cms_block_editor.labels.blocks_per_row',
+                                    )}
                                     input={() => (
                                         <SelectControl
                                             className="form-control"
@@ -389,6 +429,21 @@ export default function ImplementationsPageForm({
                                     )}
                                 />
                             </FormPane>
+                        )}
+
+                        {supportsCmsPageBlocks(form.values?.external) && (
+                            <CmsBlockUploadProvider trackUpload={cmsBlockUploads.trackUpload}>
+                                <ImplementationCmsBlocksPane
+                                    blocks={cmsBlocks}
+                                    setBlocks={setCmsBlocks}
+                                    errors={form.errors}
+                                    setErrors={(errors: ResponseErrorData) => form.setErrors(errors)}
+                                    implementation={implementation}
+                                    page={page}
+                                    pageType={pageType}
+                                    validateRef={cmsBlocksEditorValidateRef}
+                                />
+                            </CmsBlockUploadProvider>
                         )}
 
                         {pageTypeConfig.faq && !form.values?.external && (
@@ -407,6 +462,7 @@ export default function ImplementationsPageForm({
                             />
                         )}
                     </FormPaneContainer>
+
                     <div className="card-footer">
                         <div className="button-group flex-center">
                             <StateNavLink
@@ -415,13 +471,16 @@ export default function ImplementationsPageForm({
                                 className="button button-default">
                                 {translate('funds_edit.buttons.cancel')}
                             </StateNavLink>
-                            <button className="button button-primary" type="submit">
+                            <button
+                                className="button button-primary"
+                                type="submit"
+                                disabled={cmsBlockUploads.hasPendingUploads}>
                                 {translate('funds_edit.buttons.confirm')}
                             </button>
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </Fragment>
     );
 }

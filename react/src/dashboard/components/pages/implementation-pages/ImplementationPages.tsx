@@ -129,8 +129,11 @@ export default function ImplementationPages() {
                             {pageType.type === 'extra' && <td className="text-muted">Optionele pagina</td>}
                             {pageType.type === 'element' && <td className="text-muted">Pagina element</td>}
 
-                            {pageType.blocks ? (
-                                <td>{pagesByKey?.[pageType.key]?.blocks?.length || 'None'}</td>
+                            {pageType.blocks || pageType.cms_blocks ? (
+                                <td>
+                                    {(pagesByKey?.[pageType.key]?.blocks?.length || 0) +
+                                        (pagesByKey?.[pageType.key]?.cms_blocks?.length || 0) || 'None'}
+                                </td>
                             ) : (
                                 <td className="text-muted">Niet beschikbaar</td>
                             )}

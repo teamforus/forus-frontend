@@ -12,6 +12,7 @@ import { useFundService } from '../../../services/FundService';
 import { useTagService } from '../../../../dashboard/services/TagService';
 import { PaginationData } from '../../../../dashboard/props/ApiResponses';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
+import CmsBlocksNext from '../../elements/cms-blocks-next/CmsBlocksNext';
 import EmptyBlock from '../../elements/empty-block/EmptyBlock';
 import Paginator from '../../../../dashboard/modules/paginator/components/Paginator';
 import { useOrganizationService } from '../../../../dashboard/services/OrganizationService';
@@ -246,6 +247,7 @@ export default function Funds() {
                         </h1>
                     </div>
 
+                    {appConfigs.pages.funds && <CmsBlocksNext page={appConfigs.pages.funds} />}
                     {appConfigs.pages.funds && <CmsBlocks page={appConfigs.pages.funds} />}
 
                     {funds?.data?.length > 0 && (

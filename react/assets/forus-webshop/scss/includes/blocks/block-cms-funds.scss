@@ -50,6 +50,7 @@
                 font: 400 18px/28px var(--base-font);
                 margin: 0 0;
                 order: 3;
+                flex: 1 1;
             }
     
             .fund-button {
@@ -80,7 +81,24 @@
         }
     }
 
-    a.fund-item:hover {
+    .fund-item-clickable {
+        position: relative;
+
+        .fund-description a {
+            position: relative;
+            z-index: 2;
+        }
+
+        .fund-button a::after {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            content: '';
+        }
+    }
+
+    a.fund-item:hover,
+    .fund-item-clickable:hover {
         box-shadow: var(--showcase-item-hover-shadow);
     }
 
