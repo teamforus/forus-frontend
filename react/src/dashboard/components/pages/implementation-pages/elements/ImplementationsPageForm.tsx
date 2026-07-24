@@ -52,6 +52,7 @@ export default function ImplementationsPageForm({
     const activeOrganization = useActiveOrganization();
 
     const implementationPageService = useImplementationPageService();
+    const [currentPage, setCurrentPage] = useState(page);
 
     const [faq, setFaq] = useState<Array<Faq & { uid: string }>>(
         page?.faq?.map((item) => ({ ...item, uid: uniqueId() })) || [],
@@ -168,25 +169,35 @@ export default function ImplementationsPageForm({
 
             setProgress(0);
 
-            const promise: Promise<ApiResponseSingle<ImplementationPage>> = page
-                ? implementationPageService.update(activeOrganization.id, implementation.id, page.id, data)
+            const isNewPage = !currentPage?.id;
+
+            const promise: Promise<ApiResponseSingle<ImplementationPage>> = currentPage?.id
+                ? implementationPageService.update(activeOrganization.id, implementation.id, currentPage.id, data)
                 : implementationPageService.store(activeOrganization.id, implementation.id, data);
 
-            promise
+            return promise
                 .then((res) => {
-                    if (!page) {
-                        return navigateState(DashboardRoutes.IMPLEMENTATION_VIEW_PAGE_EDIT, {
-                            organizationId: implementation.organization_id,
-                            implementationId: implementation.id,
-                            id: res.data.data.id,
-                        });
-                    }
+                    const savedPage = res.data.data;
 
-                    form.update(implementationPageService.apiResourceToForm(res.data.data));
-                    setCmsBlocks((blocks) => cmsBlocksToForm(res.data.data.cms_blocks || [], blocks));
-                    setBlocks(res.data.data.blocks?.map((item) => ({ ...item, uid: uniqueId() })) || []);
+                    setCurrentPage(savedPage);
+                    form.update(implementationPageService.apiResourceToForm(savedPage));
+                    setCmsBlocks((blocks) => cmsBlocksToForm(savedPage.cms_blocks || [], blocks));
+                    setBlocks(savedPage.blocks?.map((item) => ({ ...item, uid: uniqueId() })) || []);
                     form.setErrors({});
                     pushSuccess('Opgeslagen!');
+
+                    if (isNewPage) {
+                        navigateState(
+                            DashboardRoutes.IMPLEMENTATION_VIEW_PAGE_EDIT,
+                            {
+                                organizationId: implementation.organization_id,
+                                implementationId: implementation.id,
+                                id: savedPage.id,
+                            },
+                            null,
+                            { replace: true },
+                        );
+                    }
                 })
                 .catch((err: ResponseError) => {
                     form.setErrors(err.data.errors);
@@ -259,7 +270,7 @@ export default function ImplementationsPageForm({
 
                         <div className="card-header-filters">
                             <div className="block block-inline-filters">
-                                {(page?.state == 'public' || pageTypeConfig.type === 'static') && (
+                                {(currentPage?.state == 'public' || pageTypeConfig.type === 'static') && (
                                     <a
                                         className="button button-text button-sm"
                                         href={pageTypeConfig.webshop_url}
@@ -439,7 +450,7 @@ export default function ImplementationsPageForm({
                                     errors={form.errors}
                                     setErrors={(errors: ResponseErrorData) => form.setErrors(errors)}
                                     implementation={implementation}
-                                    page={page}
+                                    page={currentPage}
                                     pageType={pageType}
                                     validateRef={cmsBlocksEditorValidateRef}
                                 />
