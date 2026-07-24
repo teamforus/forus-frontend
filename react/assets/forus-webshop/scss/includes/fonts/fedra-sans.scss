@@ -21,30 +21,30 @@
 
 @font-face {
     font-family: "Fedra Sans";
-    src: url("./assets/fonts/FedraSansStd-Medium.woff2") format("woff2");
+    src: url("./assets/fonts/FedraSansStd-Demi.woff2") format("woff2");
     font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Fedra Sans";
+    src: url("./assets/fonts/FedraSansStd-DemiItalic.woff2") format("woff2");
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Fedra Sans";
+    src: url("./assets/fonts/FedraSansStd-Medium.woff2") format("woff2");
+    font-weight: 600;
     font-style: normal;
 }
 
 @font-face {
     font-family: "Fedra Sans";
     src: url("./assets/fonts/FedraSansStd-MediumItalic.woff2") format("woff2");
-    font-weight: 500;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: "Fedra Sans";
-    src: url("./assets/fonts/FedraSansStd-DemiItalic.woff2") format("woff2");
     font-weight: 600;
     font-style: italic;
-}
-
-@font-face {
-    font-family: "Fedra Sans";
-    src: url("./assets/fonts/FedraSansStd-Demi.woff2") format("woff2");
-    font-weight: 600;
-    font-style: normal;
 }
 
 @font-face {

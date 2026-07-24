@@ -33,9 +33,8 @@
 
             .fund-label {
                 margin: 0 0 -10px;
-                line-height: 20px;
                 order: 1;
-                font-size: var(--cms-funds-label-font-size);
+                font: var(--cms-funds-label-font);
                 background: var(--cms-funds-label-background);
             }
     
