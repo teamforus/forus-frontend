@@ -137,7 +137,7 @@ export class ProviderFundService<T = FundProvider> {
     }
 
     public getProductsRequiredColumns(): Array<ConfigurableTableColumn> {
-        const list = ['name', 'type', 'implementation'].filter((item) => item);
+        const list = ['name', 'sponsor', 'implementation'].filter((item) => item);
 
         return list.map((key) => ({
             key,
