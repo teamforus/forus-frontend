@@ -49,6 +49,9 @@ $primaryColorLight: #2a2a7f;
 
     --navbar-logo-height: 100px;
 
+    // Banner
+    --banner-title-font: 700 48px/64px var(--base-font);
+
     // Nav item line position
     --navbar-menu-item-line-position-top: auto;
     --navbar-menu-item-line-position-bottom: 0;
@@ -143,6 +146,9 @@ $primaryColorLight: #2a2a7f;
     --form-control-placeholder-color: #515152;
     --form-label-color: #595959;
     --form-label-font: 700 11px/16px var(--base-font);
+
+    // Labels
+    --label-font: 600 11px/18px var(--base-font);
 
     // Search bar
     --color-search-icon-medium: #{$primaryColor};
@@ -367,6 +373,7 @@ $primaryColorLight: #2a2a7f;
     // CMS funds
     --cms-funds-title-font: 400 24px/36px var(--base-font);
     --cms-funds-title-color: var(--htc);
+    --cms-funds-label-font: 600 11px/20px var(--base-font);
     --cms-funds-label-background: var(--color-primary);
 
     --cms-funds-compact-title-font: 400 24px/36px var(--base-font);
