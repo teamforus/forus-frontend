@@ -1,5 +1,6 @@
 export default interface PayoutBankAccount {
     id?: number;
+    identity_id: number | null;
     iban: string;
     iban_name: string;
     type?: 'fund_request' | 'profile_bank_account' | 'reimbursement' | 'payout';

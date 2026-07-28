@@ -23,6 +23,11 @@ export default interface PayoutTransaction {
     amount: string;
     amount_locale: string;
     amount_preset_id?: number;
+    funding_type: 'standalone' | 'voucher';
+    voucher: {
+        id: number;
+        number: string;
+    } | null;
     transfer_in?: number;
     transfer_in_pending?: boolean;
     expired?: boolean;

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import Organization from '../../../../props/models/Organization';
+import Organization, { Permission } from '../../../../props/models/Organization';
 import { PaginationData } from '../../../../props/ApiResponses';
 import { FilterModel, FilterScope, FilterSetter } from '../../../../modules/filter_next/types/FilterParams';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
@@ -19,6 +19,8 @@ import useOpenModal from '../../../../hooks/useOpenModal';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import Fund from '../../../../props/models/Fund';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+import useTranslate from '../../../../hooks/useTranslate';
+import { hasPermission } from '../../../../helpers/utils';
 
 export default function PayoutsTable({
     filter,
@@ -42,24 +44,18 @@ export default function PayoutsTable({
     funds: Array<Partial<Fund>>;
 }) {
     const openModal = useOpenModal();
+    const translate = useTranslate();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
     const pushSuccess = usePushSuccess();
 
     const payoutTransactionService = usePayoutTransactionService();
 
-    const updatePayment = useCallback(
-        (
-            transaction: PayoutTransaction,
-            data: {
-                skip_transfer_delay?: boolean;
-                cancel?: boolean;
-            },
-        ) => {
+    const handlePaymentRequest = useCallback(
+        (request: () => Promise<unknown>) => {
             setProgress(0);
 
-            payoutTransactionService
-                .update(organization.id, transaction.address, data)
+            request()
                 .then(() => {
                     fetchTransactions(filter.activeValues);
                     pushSuccess('Opgeslagen!');
@@ -67,15 +63,7 @@ export default function PayoutsTable({
                 .catch(pushApiError)
                 .finally(() => setProgress(100));
         },
-        [
-            setProgress,
-            pushApiError,
-            payoutTransactionService,
-            organization.id,
-            fetchTransactions,
-            filter.activeValues,
-            pushSuccess,
-        ],
+        [setProgress, pushApiError, fetchTransactions, filter.activeValues, pushSuccess],
     );
 
     const editPayout = useCallback(
@@ -99,7 +87,7 @@ export default function PayoutsTable({
             empty={transactions?.meta?.total == 0}
             emptyTitle={'Geen uitbetalingen gevonden'}
             columns={payoutTransactionService.getColumns()}
-            tableOptions={{ filter, sortable: true }}
+            tableOptions={{ filter, sortable: true, sortableExclude: ['funding_type'] }}
             paginator={{ key: paginatorKey, data: transactions, filterValues, filterUpdate }}>
             {transactions?.data?.map((transaction) => (
                 <StateNavLink
@@ -138,6 +126,29 @@ export default function PayoutsTable({
                             title={transaction.payment_type_locale.subtitle || ''}>
                             {strLimit(transaction.payment_type_locale.subtitle)}
                         </div>
+                    </td>
+                    <td>
+                        <div
+                            className="text-semibold text-primary"
+                            data-dusk={`payoutsTableFundingType${transaction.id}`}
+                            data-funding-type={transaction.funding_type}>
+                            {transaction.funding_type === 'voucher'
+                                ? translate('payouts.funding_types.voucher')
+                                : translate('payouts.funding_types.standalone')}
+                        </div>
+                        {transaction.voucher &&
+                            (hasPermission(organization, [Permission.MANAGE_VOUCHERS, Permission.VIEW_VOUCHERS]) ? (
+                                <StateNavLink
+                                    name={DashboardRoutes.VOUCHER}
+                                    params={{ organizationId: organization.id, id: transaction.voucher.id }}
+                                    className="text-strong text-md text-muted-dark text-decoration-link">
+                                    #{transaction.voucher.number || transaction.voucher.id}
+                                </StateNavLink>
+                            ) : (
+                                <div className="text-strong text-md text-muted-dark">
+                                    #{transaction.voucher.number || transaction.voucher.id}
+                                </div>
+                            ))}
                     </td>
                     <td>
                         {transaction.payout_relations?.length > 0 ? (
@@ -196,9 +207,12 @@ export default function PayoutsTable({
                                         <div
                                             className="dropdown-item"
                                             onClick={() => {
-                                                updatePayment(transaction, {
-                                                    cancel: true,
-                                                });
+                                                handlePaymentRequest(() =>
+                                                    payoutTransactionService.cancel(
+                                                        organization.id,
+                                                        transaction.address,
+                                                    ),
+                                                );
                                                 close();
                                             }}>
                                             <em className="mdi mdi-close-circle icon-start" /> Annuleren
@@ -208,9 +222,13 @@ export default function PayoutsTable({
                                         <div
                                             className="dropdown-item"
                                             onClick={() => {
-                                                updatePayment(transaction, {
-                                                    skip_transfer_delay: true,
-                                                });
+                                                handlePaymentRequest(() =>
+                                                    payoutTransactionService.update(
+                                                        organization.id,
+                                                        transaction.address,
+                                                        { skip_transfer_delay: true },
+                                                    ),
+                                                );
                                             }}>
                                             <em className="mdi mdi-clock-fast icon-start" />{' '}
                                             {strLimit('Direct doorzetten naar betaalopdracht', 32)}
