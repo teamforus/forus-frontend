@@ -31,12 +31,12 @@ export default function PayoutBankAccountFields({
     const fundingTypeOptions = useMemo(
         () => [
             {
-                key: 'standalone',
-                label: translate('modals.modal_payout_create.options.funding_type_standalone'),
-            },
-            {
                 key: 'voucher',
                 label: translate('modals.modal_payout_create.options.funding_type_voucher'),
+            },
+            {
+                key: 'standalone',
+                label: translate('modals.modal_payout_create.options.funding_type_standalone'),
             },
         ],
         [translate],
