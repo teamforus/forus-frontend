@@ -22,10 +22,10 @@ export default {
         provider: 'Aanbieder',
         product_id: 'Aanbod ID',
         employee_email: 'Aangemaakt door',
-        payment_type: 'Toewijzingsmethode',
-        funding_type: 'Financiering',
+        payment_type: 'Soort bedrag',
+        funding_type: 'Betaald vanuit',
         voucher: 'Tegoed',
-        relation: 'Methode',
+        relation: 'Gekoppeld aan',
         product_name: 'Aanbod naam',
         date_non_cancelable: 'Definitieve transactie',
         search: 'Zoeken',
@@ -84,7 +84,7 @@ export default {
             "Naar deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends. Tenzij anders is ingesteld of alleen handmatige bulks mogelijk zijn.",
     },
     funding_types: {
-        standalone: 'Onafhankelijke uitbetaling',
+        standalone: 'Zonder tegoed',
         voucher: 'Bestaand tegoed',
     },
     buttons: {
