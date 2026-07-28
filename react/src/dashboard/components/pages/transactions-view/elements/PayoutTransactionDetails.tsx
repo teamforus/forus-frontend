@@ -7,9 +7,15 @@ import TransactionStateLabel from '../../../elements/resource-states/Transaction
 import TableDateOnly from '../../../elements/tables/elements/TableDateOnly';
 import PayoutTransaction from '../../../../props/models/PayoutTransaction';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
+import useActiveOrganization from '../../../../hooks/useActiveOrganization';
+import StateNavLink from '../../../../modules/state_router/StateNavLink';
+import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+import { hasPermission } from '../../../../helpers/utils';
+import { Permission } from '../../../../props/models/Organization';
 
 export default function PayoutTransactionDetails({ transaction }: { transaction: PayoutTransaction }) {
     const translate = useTranslate();
+    const activeOrganization = useActiveOrganization();
 
     if (!transaction) {
         return <LoadingCard />;
@@ -65,6 +71,37 @@ export default function PayoutTransactionDetails({ transaction }: { transaction:
                                     <div className="keyvalue-key">{translate('payouts.labels.payment_type')}</div>
                                     {transaction.payment_type_locale?.title}
                                 </div>
+                                <div className="keyvalue-item">
+                                    <div className="keyvalue-key">{translate('payouts.labels.funding_type')}</div>
+                                    <div className="keyvalue-value">
+                                        {transaction.funding_type === 'voucher'
+                                            ? translate('payouts.funding_types.voucher')
+                                            : translate('payouts.funding_types.standalone')}
+                                    </div>
+                                </div>
+                                {transaction.voucher && (
+                                    <div className="keyvalue-item">
+                                        <div className="keyvalue-key">{translate('payouts.labels.voucher')}</div>
+                                        <div className="keyvalue-value">
+                                            {hasPermission(activeOrganization, [
+                                                Permission.MANAGE_VOUCHERS,
+                                                Permission.VIEW_VOUCHERS,
+                                            ]) ? (
+                                                <StateNavLink
+                                                    name={DashboardRoutes.VOUCHER}
+                                                    params={{
+                                                        organizationId: activeOrganization.id,
+                                                        id: transaction.voucher.id,
+                                                    }}
+                                                    className="text-primary text-semibold text-inherit text-decoration-link">
+                                                    #{transaction.voucher.number || transaction.voucher.id}
+                                                </StateNavLink>
+                                            ) : (
+                                                `#${transaction.voucher.number || transaction.voucher.id}`
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
                                 <div className="keyvalue-item">
                                     <div className="keyvalue-key">{translate('payouts.labels.created_by')}</div>
                                     {transaction.employee?.email}
