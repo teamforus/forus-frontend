@@ -1,3 +1,4 @@
+import ImplementationCmsBlock from './ImplementationCmsBlock';
 import ImplementationPageBlock from './ImplementationPageBlock';
 import { WebshopRoutes } from '../../modules/state_router/RouterBuilder';
 
@@ -12,6 +13,7 @@ export default interface ImplementationPage {
     description_html: string;
     external_url: string;
     blocks: Array<ImplementationPageBlock>;
+    cms_blocks: Array<ImplementationCmsBlock>;
     faq: Array<{
         id: number;
         title: string;

@@ -23,6 +23,13 @@ type SummernoteObject = {
 
 type Summernote = SummernoteConstructor & SummernoteObject;
 
+type MarkdownEditorChangeEvent = {
+    data: {
+        content?: string;
+        content_html?: string;
+    };
+};
+
 const $ =
     typeof jQuery !== 'undefined'
         ? (jQuery as JQueryStatic & {
@@ -45,7 +52,7 @@ export default function MarkdownEditor({
     bindEditor = null,
     onChange = null,
     height = 400,
-    onUpdatedRaw,
+    onChangeRaw,
     insertTextRef,
 }: {
     value: string;
@@ -54,14 +61,14 @@ export default function MarkdownEditor({
     buttons?: Array<{ key: string; handler: CallableFunction; iconKey: string; icon: string }>;
     alignment?: string;
     onChangeAlignment?: (alignment: string) => void;
-    onUpdatedRaw?: (data: { data: { content?: string; content_html?: string } }) => void;
+    onChangeRaw?: (e: MarkdownEditorChangeEvent) => void;
     disabled?: boolean;
     placeholder?: string;
     allowLists?: boolean;
     allowPreview?: boolean;
     allowAlignment?: boolean;
     extendedOptions?: boolean;
-    onChange: (value: string) => void;
+    onChange?: (value: string) => void;
     height?: number;
     onMediaUploaded?: (value: { media_uid: string }) => void;
     insertTextRef?: React.MutableRefObject<(text: string) => void>;
@@ -77,6 +84,7 @@ export default function MarkdownEditor({
     const markdownValueRef = useRef(null);
 
     const onChangeRef = useRef(null);
+    const onChangeRawRef = useRef(onChangeRaw);
     const mediaUploadedRef = useRef(null);
 
     const getEditor = useCallback(() => {
@@ -452,9 +460,9 @@ export default function MarkdownEditor({
                 onChange: (content_html: string) => {
                     const value = markdownService.toMarkdown(content_html);
 
-                    onChangeRef.current(value);
+                    onChangeRef.current?.(value);
                     markdownValueRef.current = value;
-                    onUpdatedRaw?.({ data: { content: value, content_html } });
+                    onChangeRawRef.current?.({ data: { content: value, content_html } });
                 },
                 onPaste: (e: Event & { originalEvent: ClipboardEvent }) => {
                     e.preventDefault();
@@ -477,13 +485,16 @@ export default function MarkdownEditor({
         CmsCodeMarkdown,
         initialized,
         getEditor,
-        onUpdatedRaw,
         height,
     ]);
 
     useEffect(() => {
         onChangeRef.current = onChange;
     }, [onChange]);
+
+    useEffect(() => {
+        onChangeRawRef.current = onChangeRaw;
+    }, [onChangeRaw]);
 
     useEffect(() => {
         mediaUploadedRef.current = onMediaUploaded;
@@ -502,7 +513,11 @@ export default function MarkdownEditor({
     }, [bindEditor, clear, disabled, getEditor, initTheEditor, insertHTML, insertText, replace]);
 
     useEffect(() => {
-        getEditor().summernote('code', value);
+        const currentValue = getEditor().summernote('code') as unknown as string;
+
+        if (currentValue !== value) {
+            getEditor().summernote('code', value);
+        }
     }, [value, getEditor]);
 
     useEffect(() => {

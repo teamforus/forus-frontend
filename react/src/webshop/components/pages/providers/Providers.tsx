@@ -3,6 +3,7 @@ import { PaginationData, ResponseError, ResponseErrorData } from '../../../../da
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
+import CmsBlocksNext from '../../elements/cms-blocks-next/CmsBlocksNext';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import Paginator from '../../../../dashboard/modules/paginator/components/Paginator';
 import EmptyBlock from '../../elements/empty-block/EmptyBlock';
@@ -198,6 +199,7 @@ export default function Providers() {
                             </div>
                         </div>
                     </div>
+                    {appConfigs.pages.providers && <CmsBlocksNext page={appConfigs.pages.providers} />}
                     {appConfigs.pages.providers && <CmsBlocks page={appConfigs.pages.providers} />}
 
                     {!filterValues.show_map && (

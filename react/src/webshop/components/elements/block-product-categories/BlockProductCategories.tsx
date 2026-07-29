@@ -43,8 +43,12 @@ export default function BlockProductCategories() {
                                 query={{ product_category_ids: category.id }}
                                 className="product-category-item"
                                 key={category.id}
-                                role="listitem"
-                                aria-label={`Bekijk producten in categorie ${category.name}`}>
+                                dataAttributes={{
+                                    role: 'listitem',
+                                    'aria-label': translate('block_product_categories.category_link_label', {
+                                        category: category.name,
+                                    }),
+                                }}>
                                 {productCategoriesIconMap?.[category.key] && (
                                     <div className="product-category-item-icon" aria-hidden="true">
                                         {productCategoriesIconMap[category.key]}

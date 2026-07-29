@@ -6,12 +6,15 @@ export default function Section({
     id,
     type,
     wrapper = true,
+    style,
+    className,
     children,
 }: {
     id?: string;
     type:
         | 'default'
         | 'cms'
+        | 'cms-next'
         | 'faq'
         | 'breadcrumbs'
         | 'map'
@@ -23,6 +26,8 @@ export default function Section({
         | 'pre-check'
         | 'footer';
     wrapper?: boolean;
+    style?: React.CSSProperties;
+    className?: string;
     children: ReactNode | ReactNode[];
 }) {
     const translate = useTranslate();
@@ -42,6 +47,7 @@ export default function Section({
                 type === 'map' && 'section-map',
                 type === 'faq' && 'section-faq',
                 type === 'cms' && 'section-cms',
+                type === 'cms-next' && 'section-cms-next',
                 type === 'footer' && 'section-footer',
                 type === 'default' && 'section-default',
                 type === 'profile' && 'section-profile',
@@ -51,9 +57,11 @@ export default function Section({
                 type === 'copyright' && 'section-copyright',
                 type === 'breadcrumbs' && 'section-breadcrumbs',
                 type === 'voucher_details' && 'section-voucher-details',
+                className,
             )}
             role={type === 'footer' ? 'contentinfo' : type === 'copyright' ? 'region' : null}
             aria-label={ariaLabel}
+            style={style}
             id={id}>
             {wrapper ? <div className="wrapper">{children}</div> : children}
         </section>
