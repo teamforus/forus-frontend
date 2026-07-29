@@ -103,12 +103,12 @@ export default {
         },
         unsupported: {
             config:
-                'Dit bloktype is niet beschikbaar voor deze pagina. ' +
+                'Dit type content blok is niet beschikbaar voor deze pagina. ' +
                 'De inhoud en status blijven behouden. Het blok kan worden gesorteerd of verwijderd.',
         },
         labels: {
             blocks_per_row: 'Blokken per rij',
-            block_type: 'Bloktype',
+            block_type: 'Soort content blok',
             state: 'Status',
         },
         tooltips: {
