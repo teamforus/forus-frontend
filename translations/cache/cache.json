@@ -496,6 +496,10 @@
         "Notificaties"
     ],
     [
+        "block_product_categories.category_link_label",
+        "Bekijk producten in categorie {{category}}"
+    ],
+    [
         "block_product_categories.description",
         "Klik op een thema en je ziet meteen uit welk aanbod je kan kiezen."
     ],

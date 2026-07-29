@@ -1,9 +1,15 @@
 export default {
     title: 'Uitbetaling aanmaken',
+    sections: {
+        payout_details: 'Uitbetalingsgegevens',
+        payment_details: 'Betaalgegevens',
+    },
     labels: {
         fund: 'Fonds',
-        allocate_by: 'Toewijzingsmethode',
-        assign_by_type: 'Methode',
+        funding_type: 'Betalen vanuit',
+        voucher: 'Tegoed',
+        allocate_by: 'Soort bedrag',
+        assign_by_type: 'Ontvanger koppelen via',
         amount: 'Bedrag',
         bank_account_source: 'Bron bankrekening',
         bank_account: 'Bankrekening',
@@ -13,6 +19,11 @@ export default {
     },
     info: {
         fund: 'Selecteer het fonds waaruit de uitbetaling wordt gedaan. De regels die op dit fonds van toepassing zijn, worden automatisch overgenomen voor de uitbetaling.',
+        funding_type:
+            'Kies of de uitbetaling onafhankelijk wordt aangemaakt of van een bestaand tegoed wordt afgeschreven.',
+        funding_type_standalone: 'Deze uitbetaling wordt niet afgeschreven van een bestaand tegoed.',
+        funding_type_manual: 'Bij handmatige invoer is alleen een onafhankelijke uitbetaling mogelijk.',
+        voucher: 'Selecteer het tegoed waaruit de uitbetaling wordt afgeschreven.',
         allocate_by: 'Kies of het bedrag vrij is (handmatig invoeren) of een vooraf ingesteld bedrag uit het fonds.',
         amount: 'Het bedrag dat wordt uitbetaald. Bij vrij bedrag kunt u een bedrag tussen het minimum en maximum invoeren. Bij vaste bedragen selecteert u een vooraf ingesteld bedrag.',
         assign_by_type: 'Koppel de uitbetaling optioneel aan een e-mailadres of BSN van de ontvanger.',
@@ -39,11 +50,17 @@ export default {
         submit: 'Bevestigen',
     },
     options: {
+        funding_type_voucher: 'Bestaand tegoed',
+        funding_type_standalone: 'Zonder tegoed',
         bank_account_source_manual: 'Handmatige invoer',
         bank_account_source_fund_request: 'Zoeken via aanvraag',
         bank_account_source_profile_bank_account: 'Handmatige bankrekening',
         bank_account_source_reimbursement: 'Declaratie',
         bank_account_source_payout: 'Uitbetaling',
         bank_account_select_placeholder: 'Selecteer aanvraag',
+        voucher_select_placeholder: 'Selecteer tegoed',
+        voucher_select_loading: 'Tegoeden laden...',
+        voucher_select_empty: 'Geen geschikt tegoed gevonden',
+        voucher_select_bank_first: 'Selecteer eerst een bankrekening',
     },
 };

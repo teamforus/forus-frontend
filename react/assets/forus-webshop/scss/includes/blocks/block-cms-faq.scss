@@ -1,0 +1,198 @@
+.block.block-cms-faq {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    max-width: 100%;
+    cursor: default;
+
+    .cms-faq-intro {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 1080px;
+        max-width: 100%;
+    }
+
+    .cms-faq-section-title {
+        margin: 0;
+        font: var(--section-title-font);
+        text-align: var(--section-title-align);
+    }
+
+    .cms-faq-section-description {
+        margin: 0;
+    }
+
+    .cms-faq-groups {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        width: 1080px;
+        max-width: 100%;
+    }
+
+    .cms-faq-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .cms-faq-group-header {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+
+    .cms-faq-group-title {
+        margin: 0;
+        color: #222;
+        font: 700 22px/30px var(--base-font);
+    }
+
+    .cms-faq-group-subtitle {
+        margin: 0;
+        color: #353535;
+        font: 400 18px/24px var(--base-font);
+    }
+
+    .cms-faq-item {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        background: #fff;
+        box-shadow: var(--box-shadow);
+        transition: 0.4s;
+
+        .cms-faq-item-heading {
+            margin: 0;
+        }
+
+        .cms-faq-item-header {
+            appearance: none;
+            display: flex;
+            flex: 0 0 72px;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 15px;
+            width: 100%;
+            padding: 15px 19px 15px 25px;
+            border: none;
+            background: none;
+            color: inherit;
+            font: inherit;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        .cms-faq-item-title {
+            display: flex;
+            flex: 1 1 auto;
+            align-self: center;
+            margin: 0;
+            padding-right: 60px;
+            color: #222222;
+            font: 700 18px/26px var(--base-font);
+        }
+
+        .cms-faq-item-chevron {
+            display: flex;
+            flex: 0 0 32px;
+            align-items: center;
+            justify-content: center;
+            height: 32px;
+            border: 1px solid #eceff0;
+            border-radius: 16px;
+            background-color: #eceff0;
+            transition:
+                0.4s color,
+                0.4s background-color;
+
+            .mdi {
+                font-size: 24px;
+            }
+        }
+
+        .cms-faq-item-content {
+            display: none;
+            padding: 0 120px 25px 25px;
+            color: #222222;
+            font: 400 16px var(--base-font);
+            cursor: default;
+
+            a {
+                color: var(--tc-link);
+            }
+
+            p {
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        &.active {
+            .cms-faq-item-content {
+                display: block;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        .cms-faq-intro,
+        .cms-faq-groups {
+            width: 800px;
+        }
+    }
+
+    @media screen and (max-width: 850px) {
+        gap: 20px;
+
+        .cms-faq-intro,
+        .cms-faq-groups {
+            width: 100%;
+        }
+
+        .cms-faq-group-header {
+            margin-bottom: 5px;
+        }
+
+        .cms-faq-group-title {
+            font: 700 16px/24px var(--base-font);
+        }
+
+        .cms-faq-group-subtitle {
+            font: 400 12px/20px var(--base-font);
+        }
+
+        .cms-faq-item {
+            .cms-faq-item-header {
+                padding: 15px 14px 15px 15px;
+            }
+
+            .cms-faq-item-title {
+                padding-right: 0;
+                font: 600 14px/20px var(--base-font);
+            }
+
+            .cms-faq-item-chevron {
+                flex: 0 0 20px;
+                height: 20px;
+
+                .mdi {
+                    font-size: 17px;
+                }
+            }
+
+            .cms-faq-item-content {
+                padding: 0 30px 15px 15px;
+                font: 400 14px var(--base-font);
+            }
+        }
+    }
+}

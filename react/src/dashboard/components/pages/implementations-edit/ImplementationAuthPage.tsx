@@ -302,10 +302,10 @@ export default function ImplementationAuthPage() {
                                             )}
                                             height={120}
                                             onChange={(value) => form.update({ auth_page_info_description: value })}
-                                            onUpdatedRaw={(data) =>
+                                            onChangeRaw={(e) =>
                                                 form.update({
-                                                    auth_page_info_description: data.data.content || '',
-                                                    auth_page_info_description_html: data.data.content_html || '',
+                                                    auth_page_info_description: e.data.content || '',
+                                                    auth_page_info_description_html: e.data.content_html || '',
                                                 })
                                             }
                                         />

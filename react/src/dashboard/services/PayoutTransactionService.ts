@@ -36,7 +36,6 @@ export class PayoutTransactionService<T = PayoutTransaction> {
         organizationId: number,
         address: string,
         data: {
-            cancel?: boolean;
             skip_transfer_delay?: boolean;
             note?: string;
             amount?: string;
@@ -46,6 +45,10 @@ export class PayoutTransactionService<T = PayoutTransaction> {
         } = {},
     ): Promise<ApiResponseSingle<Transaction>> {
         return this.apiRequest.patch(`${this.prefix}/${organizationId}/sponsor/payouts/${address}`, data);
+    }
+
+    public cancel(organizationId: number, address: string): Promise<ApiResponseSingle<Transaction>> {
+        return this.apiRequest.post(`${this.prefix}/${organizationId}/sponsor/payouts/${address}/cancel`);
     }
 
     public show(type: string, organizationId: number, address: string): Promise<ApiResponseSingle<T>> {
@@ -112,6 +115,16 @@ export class PayoutTransactionService<T = PayoutTransaction> {
                     key: 'payment_type',
                     title: 'payouts.labels.payment_type',
                     description: 'payouts.tooltips.payment_type',
+                },
+            },
+            {
+                key: 'funding_type',
+                value: 'funding_type',
+                label: 'payouts.labels.funding_type',
+                tooltip: {
+                    key: 'funding_type',
+                    title: 'payouts.labels.funding_type',
+                    description: 'payouts.tooltips.funding_type',
                 },
             },
             {

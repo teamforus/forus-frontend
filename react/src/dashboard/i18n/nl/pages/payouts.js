@@ -22,8 +22,10 @@ export default {
         provider: 'Aanbieder',
         product_id: 'Aanbod ID',
         employee_email: 'Aangemaakt door',
-        payment_type: 'Toewijzingsmethode',
-        relation: 'Methode',
+        payment_type: 'Soort bedrag',
+        funding_type: 'Betaald vanuit',
+        voucher: 'Tegoed',
+        relation: 'Gekoppeld aan',
         product_name: 'Aanbod naam',
         date_non_cancelable: 'Definitieve transactie',
         search: 'Zoeken',
@@ -65,6 +67,7 @@ export default {
         transfer_at: 'De datum waarop de uitbetaling is uitgevoerd.',
         payment_type:
             'Geeft aan hoe de transactie is aangemaakt: Handmatig (individueel) betekent dat de betaling handmatig is gedaan op de uitbetalingenpagina; Handmatig (Bulk) betekent dat de betaling is gedaan via de bulkoptie op de uitbetalingenpagina; Beoordelaar betekent dat de uitbetaling is aangevraagd door een beoordelaar op basis van een goedgekeurde aanvraag.',
+        funding_type: 'Geeft aan of de uitbetaling onafhankelijk is of van een bestaand tegoed wordt afgeschreven.',
         relation:
             'Deze informatie wordt gebruikt om de uitbetaling te associëren met een specifieke deelnemer. Mogelijkheden: BSN (alleen geautoriseerde organisaties), E-mailadres of Geen.',
         status: 'Geeft de huidige status van de uitbetaling aan.',
@@ -79,6 +82,10 @@ export default {
             "Vanaf deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends. Tenzij anders is ingesteld of alleen handmatige bulks mogelijk zijn.",
         pending_iban_to:
             "Naar deze bankrekening wordt de transactie uitbetaald. Deze kan nog wijzigen tot dat de betaling is verstuurd naar de bank, dit gebeurt dagelijks automatisch om 09:00 's ochtends. Tenzij anders is ingesteld of alleen handmatige bulks mogelijk zijn.",
+    },
+    funding_types: {
+        standalone: 'Zonder tegoed',
+        voucher: 'Bestaand tegoed',
     },
     buttons: {
         previous: 'Vorige',

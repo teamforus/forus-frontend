@@ -105,8 +105,8 @@ export default function ModalFundCriteriaDescriptionEdit({
                                     value={form.values.description_html || ''}
                                     height={200}
                                     onChange={(description: string) => form.update({ description: description })}
-                                    onUpdatedRaw={(data) => {
-                                        setDescriptionHtml(data.data.content_html);
+                                    onChangeRaw={(e) => {
+                                        setDescriptionHtml(e.data.content_html);
                                     }}
                                 />
                             )}
@@ -123,8 +123,8 @@ export default function ModalFundCriteriaDescriptionEdit({
                                         onChange={(description: string) =>
                                             form.update({ extra_description: description })
                                         }
-                                        onUpdatedRaw={(data) => {
-                                            setExtraDescriptionHtml(data.data.content_html);
+                                        onChangeRaw={(e) => {
+                                            setExtraDescriptionHtml(e.data.content_html);
                                         }}
                                     />
                                 )}

@@ -1,5 +1,6 @@
 import React from 'react';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
+import CmsBlocksNext from '../../elements/cms-blocks-next/CmsBlocksNext';
 import useCmsPage from './hooks/useCmsPage';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
@@ -15,6 +16,7 @@ export default function TermsAndConditions() {
                 { name: translate('terms_and_conditions.breadcrumbs.home'), state: WebshopRoutes.HOME },
                 { name: translate('terms_and_conditions.breadcrumbs.terms_and_conditions') },
             ]}>
+            {page && <CmsBlocksNext page={page} />}
             {page && <CmsBlocks page={page} largeMarkdown={true} />}
         </BlockShowcase>
     );

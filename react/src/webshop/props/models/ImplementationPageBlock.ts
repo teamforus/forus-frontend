@@ -11,5 +11,5 @@ export default interface ImplementationPageBlock {
     button_target_blank: boolean;
     button_enabled: boolean;
     button_link_label: string;
-    media: Media;
+    media?: Media | null;
 }
