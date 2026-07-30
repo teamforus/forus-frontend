@@ -17,6 +17,7 @@ import CSVProgressBar from '../elements/csv-progress-bar/CSVProgressBar';
 import classNames from 'classnames';
 import useTranslate from '../../hooks/useTranslate';
 import usePushInfo from '../../hooks/usePushInfo';
+import usePushApiError from '../../hooks/usePushApiError';
 import { fileToText } from '../../helpers/utils';
 
 export default function ModalReservationUpload({
@@ -61,6 +62,7 @@ export default function ModalReservationUpload({
 
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
+    const pushApiError = usePushApiError();
 
     const closeModal = useCallback(() => {
         if (loading) {
@@ -210,7 +212,7 @@ export default function ModalReservationUpload({
     );
 
     const startUploadingData = useCallback(
-        async function (reservations: Array<object>): Promise<{ success: number; errors: number }> {
+        async function (reservations: Array<object>): Promise<{ success: number; errors: number } | null> {
             return new Promise((resolve) => {
                 const data = { reservations };
 
@@ -262,17 +264,25 @@ export default function ModalReservationUpload({
                             resolve(stats);
                         })
                         .catch((res: ResponseError) => {
-                            if (res.status == 422 && res.data.errors) {
+                            if (res.status == 422 && res.data?.errors) {
                                 showInvalidRows(res.data.errors, reservations, true);
+                            } else {
+                                pushApiError(res, 'Onbekende error.');
                             }
+
+                            resolve(null);
                         })
                         .finally(() => setLoading(false));
                 };
 
-                upload(data);
+                upload(data).catch(() => {
+                    pushDanger('Foutmelding!', 'Het gekozen bestand kon niet worden gelezen.');
+                    setLoading(false);
+                    resolve(null);
+                });
             });
         },
-        [csvFile, organization.id, productReservationService, pushDanger, pushSuccess, showInvalidRows],
+        [csvFile, organization.id, productReservationService, pushApiError, pushDanger, pushSuccess, showInvalidRows],
     );
 
     const startUploading = useCallback(
@@ -281,6 +291,12 @@ export default function ModalReservationUpload({
             setProgressBar(0);
 
             const stats = await startUploadingData([...data].map((row) => ({ ...row })));
+
+            if (!stats) {
+                setProgress(1);
+                return null;
+            }
+
             setProgressBar(100);
             return stats;
         },
@@ -293,6 +309,10 @@ export default function ModalReservationUpload({
             e.stopPropagation();
 
             startUploading().then((stats) => {
+                if (!stats) {
+                    return;
+                }
+
                 setProgress(3);
                 setUploadedPartly(stats['errors'] !== 0);
 
