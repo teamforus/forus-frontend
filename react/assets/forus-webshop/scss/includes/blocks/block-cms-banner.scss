@@ -1,0 +1,222 @@
+.block.block-cms-banner {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    color: inherit;
+    background: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-decoration: none;
+    transition: box-shadow 0.4s;
+
+    .cms-banner-media {
+        flex: 0 0 50%;
+        min-height: 360px;
+
+        img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+    }
+
+    .cms-banner-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 18px;
+        padding: 55px 60px;
+        background: #fff;
+        box-sizing: border-box;
+    }
+
+    .cms-banner-label {
+        font: 700 13px/20px var(--base-font);
+        text-transform: uppercase;
+
+        &.cms-banner-label-with-background {
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+    }
+
+    .cms-banner-title {
+        margin: 0;
+        color: inherit;
+        font: 700 34px/44px var(--base-font);
+    }
+
+    .cms-banner-description {
+        margin: 0;
+        color: inherit;
+        font: 400 18px/28px var(--base-font);
+        white-space: pre-line;
+    }
+
+    .cms-banner-button {
+        margin-top: 6px;
+        margin-right: 0;
+    }
+
+    &.block-cms-banner-clickable {
+        &:hover,
+        &:focus {
+            color: inherit;
+            text-decoration: none;
+            box-shadow: var(--showcase-item-hover-shadow);
+        }
+    }
+
+    &.block-cms-banner-image-left {
+        border: 1px solid var(--border-color);
+
+        .cms-banner-media {
+            order: 1;
+        }
+
+        .cms-banner-content {
+            order: 2;
+        }
+    }
+
+    &.block-cms-banner-image-right {
+        border: 1px solid var(--border-color);
+
+        .cms-banner-media {
+            order: 2;
+        }
+
+        .cms-banner-content {
+            order: 1;
+        }
+    }
+
+    &.block-cms-banner-overlay {
+        position: relative;
+        display: block;
+        min-height: 460px;
+        border-radius: 0;
+        box-shadow: none;
+
+        .cms-banner-media {
+            position: absolute;
+            inset: 0;
+            min-height: 0;
+        }
+
+        .cms-banner-image-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .cms-banner-wrapper {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            min-height: 460px;
+            padding-top: 80px;
+            padding-bottom: 80px;
+            box-sizing: border-box;
+        }
+
+        .cms-banner-content {
+            max-width: 560px;
+            padding: 0;
+            color: #fff;
+            background: transparent;
+        }
+
+        .cms-banner-title {
+            font-size: 42px;
+            line-height: 54px;
+        }
+
+        &:hover,
+        &:focus {
+            box-shadow: none;
+        }
+
+        &.block-cms-banner-overlay-left {
+            .cms-banner-wrapper {
+                justify-content: flex-start;
+            }
+        }
+
+        &.block-cms-banner-overlay-center {
+            .cms-banner-wrapper {
+                justify-content: center;
+                text-align: center;
+            }
+
+            .cms-banner-content {
+                align-items: center;
+            }
+        }
+
+        &.block-cms-banner-overlay-right {
+            .cms-banner-wrapper {
+                justify-content: flex-end;
+                text-align: right;
+            }
+
+            .cms-banner-content {
+                align-items: flex-end;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        flex-direction: column;
+
+        .cms-banner-media {
+            flex-basis: auto;
+            min-height: 240px;
+        }
+
+        .cms-banner-content {
+            padding: 30px 25px;
+            gap: 14px;
+        }
+
+        .cms-banner-title {
+            font-size: 26px;
+            line-height: 34px;
+        }
+
+        .cms-banner-description {
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        &.block-cms-banner-image-right {
+            .cms-banner-media,
+            .cms-banner-content {
+                order: initial;
+            }
+        }
+
+        &.block-cms-banner-overlay {
+            min-height: 360px;
+
+            .cms-banner-wrapper {
+                min-height: 360px;
+                padding: 45px 25px;
+            }
+
+            .cms-banner-content {
+                max-width: 100%;
+            }
+
+            .cms-banner-title {
+                font-size: 28px;
+                line-height: 36px;
+            }
+        }
+    }
+}

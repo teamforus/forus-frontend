@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
-import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
 import useEnvData from '../../../hooks/useEnvData';
 import useCmsPage from './hooks/useCmsPage';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
-import classNames from 'classnames';
+import CmsPageContent from './elements/CmsPageContent';
+import { shouldShowCmsPageDefaultContent } from './helpers/cmsPage';
 
 export default function Accessibility() {
     const envData = useEnvData();
@@ -33,15 +33,8 @@ export default function Accessibility() {
             ]}>
             {page && (
                 <div className="section">
-                    <div
-                        className={classNames(
-                            'flex',
-                            'flex-vertical',
-                            page.description_position == 'after' && 'flex-vertical-reverse',
-                        )}>
-                        {page && <CmsBlocks page={page} largeMarkdown={true} />}
-
-                        {(!page.description_html || page.description_position !== 'replace') && (
+                    <CmsPageContent page={page}>
+                        {shouldShowCmsPageDefaultContent(page) && (
                             <div className={'wrapper'}>
                                 <div className="section-title text-left">{translate('accessibility.title')}</div>
                                 <div className="block block-accessibility">
@@ -276,7 +269,7 @@ export default function Accessibility() {
                                 </div>
                             </div>
                         )}
-                    </div>
+                    </CmsPageContent>
                 </div>
             )}
         </BlockShowcase>

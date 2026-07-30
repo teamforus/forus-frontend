@@ -3794,7 +3794,8 @@
     },
     "block_product_categories": {
         "description": "Kliknij motyw, a natychmiast zobaczysz, z której oferty możesz wybierać.",
-        "title": "Co lubisz robić?"
+        "title": "Co lubisz robić?",
+        "category_link_label": "Zobacz produkty w kategorii {{category}}"
     },
     "modal_image_preview": {
         "alt_text": "Przykład pliku",

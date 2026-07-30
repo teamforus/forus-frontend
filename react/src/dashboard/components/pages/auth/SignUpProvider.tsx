@@ -624,7 +624,7 @@ export default function SignUpProvider() {
             demoTransactionService.read(demoToken).then((res) => {
                 if (res.data.data.state != 'pending') {
                     setDemoToken(null);
-                    setStep('STEP_SIGNUP_FINISHED');
+                    goToStep('STEP_SIGNUP_FINISHED');
                 }
             });
         };
@@ -632,7 +632,7 @@ export default function SignUpProvider() {
         const id = setInterval(callback, 2000);
 
         return () => clearInterval(id);
-    }, [demoToken, demoTransactionService]);
+    }, [demoToken, demoTransactionService, goToStep]);
 
     useEffect(() => {
         if (!tmpAccessToken) {

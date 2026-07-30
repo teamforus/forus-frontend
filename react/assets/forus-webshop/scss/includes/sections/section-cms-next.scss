@@ -1,0 +1,19 @@
+.section.section-cms-next {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0;
+    background: transparent;
+
+    &.section-cms-next-spacing-none {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    &.section-cms-next-spacing-no-top {
+        padding-top: 0;
+    }
+
+    &.section-cms-next-spacing-no-bottom {
+        padding-bottom: 0;
+    }
+}

@@ -8,6 +8,7 @@ import Voucher from '../../../../dashboard/props/models/Voucher';
 import { useFundService } from '../../../services/FundService';
 import { PaginationData, ResponseError, ResponseErrorData } from '../../../../dashboard/props/ApiResponses';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
+import CmsBlocksNext from '../../elements/cms-blocks-next/CmsBlocksNext';
 import EmptyBlock from '../../elements/empty-block/EmptyBlock';
 import Paginator from '../../../../dashboard/modules/paginator/components/Paginator';
 import { useVoucherService } from '../../../services/VoucherService';
@@ -179,7 +180,12 @@ export default function Funds({ pageType }: { pageType: FundsPageType }) {
                         </h1>
                     </div>
 
-                    {pageType === 'funds' && appConfigs.pages.funds && <CmsBlocks page={appConfigs.pages.funds} />}
+                    {pageType === 'funds' && appConfigs.pages.funds && (
+                        <Fragment>
+                            <CmsBlocksNext page={appConfigs.pages.funds} />
+                            <CmsBlocks page={appConfigs.pages.funds} />
+                        </Fragment>
+                    )}
 
                     {partnerDescription && (
                         <Section type={'cms'}>

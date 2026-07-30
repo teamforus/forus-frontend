@@ -3794,7 +3794,8 @@
     },
     "block_product_categories": {
         "description": "Click on a theme and you'll immediately see what offerings you can choose from.",
-        "title": "What do you think would be fun to do?"
+        "title": "What do you think would be fun to do?",
+        "category_link_label": "View products in category {{category}}"
     },
     "modal_image_preview": {
         "alt_text": "Example of file",
