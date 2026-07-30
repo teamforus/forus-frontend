@@ -9,10 +9,11 @@
 
     .search-item {
         position: relative;
-        background: #ffffff;
         display: flex;
         flex-direction: row;
-        transition: box-shadow 0.4s;
+        transition:
+            background-color 0.4s,
+            box-shadow 0.4s;
         width: 100%;
         background: var(--showcase-item-background);
         border-radius: var(--showcase-item-border-radius);
@@ -36,7 +37,7 @@
                 object-fit: cover;
             }
 
-            &:after {
+            &::after {
                 content: '';
                 background: #394260;
                 opacity: 0;
@@ -120,10 +121,11 @@
         }
 
         &:hover {
+            background: var(--showcase-item-hover-background, var(--showcase-item-background));
             box-shadow: var(--showcase-item-hover-shadow);
 
             .search-media {
-                &:after {
+                &::after {
                     opacity: 0.05;
                 }
             }

@@ -48,6 +48,9 @@ $primaryColorLight: #196005;
     --navbar-auth-font: 600 16px/20px var(--base-font);
     --navbar-logo-height: 90px;
 
+    // Banner
+    --banner-title-font: 700 48px/64px var(--base-font);
+
     // Nav item line position
     --navbar-menu-item-line-position-top: 0;
     --navbar-menu-item-line-position-bottom: auto;
@@ -62,14 +65,28 @@ $primaryColorLight: #196005;
     --focus-box-shadow: 0 0 0 3px white;
 
     // navbar (auth) (default button)
+    --tc-auth-menu: #305dfb;
     --tc-auth-btn: #fff;
     --btn-auth-bg: #{$secondaryColor};
     --btn-auth-border: #{$secondaryColor};
+    --auth-avater-bg: #305dfb;
+    --auth-avater-svg: #fff;
 
     // navbar (start modal primary)
     --tc-start-btn: #fff;
     --btn-start-bg: #{$primaryColor};
+    --btn-start-btn: #305dfb;
     --btn-start-border: #{$primaryColor};
+
+    // header background
+    --bg-values: url('../img/splash-top-b.png') no-repeat 100% 0;
+
+    // Header banner
+    --header-banner-pane-banner-padding: 50px 0;
+    --header-banner-pane-banner-max-width: 650px;
+    --header-banner-pane-banner-background: transparent;
+    --header-banner-pane-banner-border-color: initial;
+    --header-banner-pane-banner-border-radius: initial;
 
     // base font
     --base-font: 'Open Sans', arial, sans-serif;
@@ -128,6 +145,9 @@ $primaryColorLight: #196005;
     --form-control-placeholder-color: #535561;
     --form-label-color: #595959;
     --form-label-font: 700 11px/16px var(--base-font);
+
+    // Labels
+    --label-font: 600 11px/18px var(--base-font);
 
     // Search bar
     --color-search-icon-medium: #0099CC;
@@ -353,14 +373,14 @@ $primaryColorLight: #196005;
     // CMS funds
     --cms-funds-title-font: 400 24px/36px var(--base-font);
     --cms-funds-title-color: var(--htc);
-    --cms-funds-label-font-size: 11px;
+    --cms-funds-label-font: 600 11px/20px var(--base-font);
     --cms-funds-label-background: var(--color-primary);
 
     --cms-funds-compact-title-font: 400 24px/36px var(--base-font);
     --cms-funds-compact-title-color: var(--htc);
 
     --cms-funds-link-color: var(--color-primary);
-    --cms-funds-link-font: 600 18px/20px var(--base-font);
+    --cms-funds-link-font: 600 16px/20px var(--base-font);
 
     // Section order
     --order-page-voucher-map: 0;

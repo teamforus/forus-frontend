@@ -12,24 +12,15 @@ export default function useTopMenuItems(onlyEnabled = true) {
     const identity = useAuthIdentity();
     const translate = useTranslate();
 
-    const replaceMenuItems = useCallback(
-        (defaultMenuItems: Array<MenuItem>, customMenuItems: Array<MenuItem>): Array<MenuItem> => {
-            return customMenuItems
-                .map((menuItem: MenuItem) => {
-                    const defaultItem = defaultMenuItems.find((item: MenuItem) => item.id == menuItem.id);
-                    const item = { ...defaultItem, ...{ ...menuItem, enabled: true } };
-
-                    return { ...item };
-                })
-                .filter((menuItem: MenuItem) => menuItem.enabled);
-        },
-        [],
-    );
-
     const defaultMenuItems = useMemo<Array<MenuItem>>(() => {
         if (!envData || !appConfigs) {
             return [];
         }
+
+        const fundsMenuEnabled = !!(
+            envData.config.flags.fundsMenu &&
+            (identity || envData.config?.flags?.fundsMenuIfLoggedOut)
+        );
 
         return [
             {
@@ -47,10 +38,16 @@ export default function useTopMenuItems(onlyEnabled = true) {
                 state: WebshopRoutes.FUNDS,
                 stateParams: {},
                 target: '_self',
-                enabled: !!(
-                    envData.config.flags.fundsMenu &&
-                    (identity || envData.config?.flags?.fundsMenuIfLoggedOut)
-                ),
+                enabled: fundsMenuEnabled,
+            },
+            {
+                id: 'partner_funds_page',
+                nameTranslate: `top_navbar.items.${envData.client_key}.partner_funds`,
+                nameTranslateDefault: translate(`top_navbar.items.partner_funds`),
+                state: WebshopRoutes.FUNDS_PARTNERS,
+                stateParams: {},
+                target: '_self',
+                enabled: !!(fundsMenuEnabled && appConfigs.show_fund_partners_page),
             },
             {
                 id: 'products_page',
@@ -88,6 +85,20 @@ export default function useTopMenuItems(onlyEnabled = true) {
             },
         ].filter((menuItem) => menuItem.enabled);
     }, [appConfigs, envData, identity, translate]);
+
+    const replaceMenuItems = useCallback(
+        (defaultMenuItems: Array<MenuItem>, customMenuItems: Array<MenuItem>): Array<MenuItem> => {
+            return customMenuItems
+                .map((menuItem: MenuItem) => {
+                    const defaultItem = defaultMenuItems.find((item: MenuItem) => item.id == menuItem.id);
+                    const item = { ...defaultItem, ...{ ...menuItem, enabled: true } };
+
+                    return { ...item };
+                })
+                .filter((menuItem: MenuItem) => menuItem.enabled);
+        },
+        [],
+    );
 
     return useMemo(() => {
         if (!envData || !appConfigs) {

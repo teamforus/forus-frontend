@@ -221,7 +221,8 @@
         "fund_item_list": {
             "buttons": {
                 "check_status": "التحقق من الحالة",
-                "is_applicable": "الطلب"
+                "is_applicable": "الطلب",
+                "more_information": "مزيد من المعلومات"
             },
             "show_less": "اعرض أقل",
             "show_more": "اعرض المزيد",
@@ -661,9 +662,6 @@
             "noordoostpolder": {
                 "activate": "المخططات"
             },
-            "potjeswijzer": {
-                "activate": "البرطمانات"
-            },
             "products": "العرض",
             "profile": "الملف الشخصي >",
             "providers": "المزودون",
@@ -679,6 +677,9 @@
             },
             "westerkwartier": {
                 "activate": "الطلب"
+            },
+            "potjeswijzer": {
+                "activate": "صناديق البلدية"
             }
         },
         "items": {
@@ -690,7 +691,6 @@
                 "funds": "المخططات"
             },
             "explanation": "الشرح",
-            "funds": "تفعيل",
             "geertruidenberg": {
                 "funds": "المخططات"
             },
@@ -716,9 +716,6 @@
             "noordoostpolder": {
                 "funds": "المخططات"
             },
-            "potjeswijzer": {
-                "funds": "البرطمانات"
-            },
             "products": "العرض",
             "providers": "المزودون",
             "schagen": {
@@ -735,14 +732,23 @@
             "wadenheuvel": {
                 "funds": "المخططات"
             },
-            "westerkwartier": {
-                "funds": "البرطمانات"
-            },
             "fijnder": {
                 "funds": "المخططات"
             },
             "isd": {
                 "funds": "المخططات"
+            },
+            "tilburg": {
+                "funds": "اللوائح"
+            },
+            "funds": "اللوائح",
+            "partner_funds": "الشركاء الاجتماعيون",
+            "potjeswijzer": {
+                "funds": "صناديق البلدية",
+                "partner_funds": "شركاء «بوتجيس»"
+            },
+            "westerkwartier": {
+                "funds": "صناديق البلدية"
             }
         },
         "user_menu": {
@@ -1014,11 +1020,11 @@
                 "continue_without_email_link": "المتابعة بدون عنوان بريد إلكتروني",
                 "email_required": "لمتابعة الطلب، يرجى إدخال عنوان البريد الإلكتروني الخاص بك",
                 "email_sent": "البريد الإلكتروني المرسل",
-                "email_sent_screen": "تم إرسال رسالة تأكيد بالبريد الإلكتروني",
                 "no_email_link": "ليس لدي عنوان بريد إلكتروني",
                 "sign_up_with_email": "تسجيل الدخول باستخدام عنوان البريد الإلكتروني",
                 "no_email_info": "بدون عنوان بريد إلكتروني، لن تتلقى رسائل مهمة حول رصيدك ونفقاتك. يمكنك بعد ذلك تسجيل الدخول باستخدام DigiD فقط.",
-                "warning": "ملاحظة:"
+                "warning": "ملاحظة:",
+                "email_sent_screen": "تم إرسال بريد إلكتروني"
             },
             "fund_request_overview": {
                 "application_summary": "نظرة عامة على الطلب",
@@ -1266,9 +1272,6 @@
             "oostgelre": {
                 "title": "تفعيل"
             },
-            "potjeswijzer": {
-                "title": "البرطمانات"
-            },
             "schagen": {
                 "title": "المخططات"
             },
@@ -1280,6 +1283,9 @@
             },
             "fijnder": {
                 "title": "المخططات"
+            },
+            "potjeswijzer": {
+                "title": "صناديق البلدية"
             }
         },
         "header": {
@@ -1300,7 +1306,9 @@
             "winterswijk": {
                 "subtitle": "فيما يلي المخططات التي يمكنك تفعيلها.",
                 "title": "تفعيل"
-            }
+            },
+            "partners_description": "",
+            "partners_title": "الطلبات"
         },
         "labels": {
             "age": "< أقل من 18 سنة",
@@ -1323,6 +1331,47 @@
             "denied": "مرفوض",
             "is_applicable": "التسجيل",
             "is_pending": "قيد التنفيذ"
+        },
+        "active_filters": {
+            "reset_all": "إزالة جميع المرشحات"
+        },
+        "partners": {
+            "berkelland": {
+                "description": "تفعيل",
+                "title": "تفعيل"
+            },
+            "fijnder": {
+                "description": "اللوائح",
+                "title": "اللوائح"
+            },
+            "geertruidenberg": {
+                "description": "تفعيل",
+                "title": "تفعيل"
+            },
+            "goereeoverflakkee": {
+                "description": "اللوائح",
+                "title": "اللوائح"
+            },
+            "oostgelre": {
+                "description": "تفعيل",
+                "title": "تفعيل"
+            },
+            "schagen": {
+                "description": "اللوائح",
+                "title": "اللوائح"
+            },
+            "vergoedingen": {
+                "description": "جميع التعويضات",
+                "title": "جميع التعويضات"
+            },
+            "winterswijk": {
+                "description": "تفعيل",
+                "title": "تفعيل"
+            },
+            "potjeswijzer": {
+                "description": "كما يقدم شركاؤنا أيضًا برامج دعم متنوعة للمواطنين. هل دخلكم محدود؟ إذاً، قد تكون هناك إعانة إضافية متاحة لكم.",
+                "title": "شركاء «بوتجيس»"
+            }
         }
     },
     "home": {
@@ -2944,10 +2993,10 @@
         "close": "إغلاق",
         "email": "البريد الإلكتروني",
         "go_to_admin": "الانتقال إلى بيئة الإدارة",
-        "header_title": "كتلة مساعدة الصندوق",
-        "help_title": "عنوان مساعدة الصندوق",
         "phone": "الهاتف",
-        "website": "الموقع الإلكتروني"
+        "website": "الموقع الإلكتروني",
+        "header_title": "الاتصال بنا",
+        "help_title": "هل لديك أسئلة أو تحتاج إلى مساعدة؟"
     },
     "modal_logout": {
         "description_formal": "هل أنت متأكد من رغبتك في تسجيل الخروج؟",
@@ -3310,16 +3359,12 @@
         "header": {
             "subtitle_formal": "أدخل عنوان بريدك الإلكتروني لتلقي رابط لتسجيل الدخول.",
             "subtitle_informal": "أدخل عنوان بريدك الإلكتروني لتلقي رابط لتسجيل الدخول.",
-            "subtitle_succes_formal": "لقد تلقيت بريداً إلكترونياً على عنوان البريد الإلكتروني الذي أدخلته للتو. انتقل إلى صندوق الوارد الخاص بك وافتح البريد الإلكتروني الذي يحمل عنوان \"تأكيد البريد الإلكتروني\" وانقر على الزر الأزرق في البريد الإلكتروني.",
-            "subtitle_succes_informal": "لقد تلقيت بريداً إلكترونياً على عنوان البريد الإلكتروني الذي أدخلته للتو. انتقل إلى صندوق الوارد الخاص بك وافتح البريد الإلكتروني الذي يحمل عنوان \"تأكيد البريد الإلكتروني\" وانقر على الزر الأزرق في البريد الإلكتروني.",
-            "subtitle_we_succes_formal": "لقد تلقيت بريدًا إلكترونيًا على <strong class=\"text-primary\">{{email}}</strong>. انتقل إلى صندوق الوارد الخاص بك وافتح البريد الإلكتروني الذي يحمل عنوان \"تأكيد البريد الإلكتروني\" وانقر على \"تأكيد\" في البريد الإلكتروني.",
-            "subtitle_we_succes_informal": "لقد تلقيت بريداً إلكترونياً على <strong class=\"text-primary\">{{email}}</strong>. انتقل إلى صندوق الوارد الخاص بك وافتح البريد الإلكتروني الذي يحمل عنوان \"تأكيد البريد الإلكتروني\" وانقر على \"تأكيد\" في البريد الإلكتروني.",
             "title": "البريد الإلكتروني المرسل",
-            "title_existing_user_succes_formal": "تحقق من بريدك الإلكتروني",
-            "title_existing_user_succes_informal": "تحقق من بريدك الإلكتروني",
             "title_sr": "ابدأ تسجيل الدخول",
-            "title_succes_formal": "يرجى تأكيد أن لديك إمكانية الوصول إلى عنوان البريد الإلكتروني هذا.",
-            "title_succes_informal": "تأكد من أن لديك حق الوصول إلى عنوان البريد الإلكتروني هذا."
+            "subtitle_email_sent_formal": "أرسلنا بريدًا إلكترونيًا إلى <strong class=\"text-primary\">{{email}}</strong>. يرجى فتح البريد الإلكتروني واتباع الرابط للمتابعة.",
+            "subtitle_email_sent_informal": "أرسلنا بريدًا إلكترونيًا إلى <strong class=\"text-primary\">{{email}}</strong>. يرجى فتح البريد الإلكتروني واتباع الرابط للمتابعة.",
+            "title_email_sent_formal": "تحقق من بريدك الإلكتروني",
+            "title_email_sent_informal": "تحقق من بريدك الإلكتروني"
         },
         "input": {
             "code": "رمز التفعيل",
@@ -3366,8 +3411,6 @@
         "notifications": {
             "confirmation": "لقد نجح الأمر!",
             "invalid": "رمز التفعيل غير صالح أو تم استخدامه بالفعل.",
-            "link_formal": "تم إرسال بريد إلكتروني إلى <strong class=\"text-primary\">{{email}}</strong><br/>. انقر على الرابط للتسجيل.",
-            "link_informal": "تم إرسال بريد إلكتروني إلى <strong class=\"text-primary\">{{email}}</strong><br/>. انقر على الرابط للتسجيل.",
             "voucher_email": "تم إرسال رمز الاستجابة السريعة."
         },
         "pin_code": {
@@ -3751,7 +3794,8 @@
     },
     "block_product_categories": {
         "description": "انقر على سمة وسترى على الفور العرض الذي يمكنك الاختيار من بينها.",
-        "title": "ماذا تحب أن تفعل؟"
+        "title": "ماذا تحب أن تفعل؟",
+        "category_link_label": "عرض المنتجات في فئة {{category}}"
     },
     "modal_image_preview": {
         "alt_text": "مثال على الملف",
