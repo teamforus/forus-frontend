@@ -1,0 +1,126 @@
+.block.block-cms-callout {
+    display: flex;
+    overflow: hidden;
+    margin: 0 0;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+
+    .cms-callout-media {
+        display: flex;
+        flex: 0 0 45%;
+    }
+
+    .cms-callout-image {
+        display: block;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .cms-callout-content {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 40px 100px 40px 80px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.06);
+        cursor: default;
+    }
+
+    .cms-callout-label {
+        margin: 0 0 15px;
+    }
+
+    .cms-callout-title {
+        margin: 0 0 25px;
+        font: 700 32px/48px var(--base-font);
+    }
+
+    .cms-callout-description {
+        margin: 0 0 40px;
+        font: 400 18px/26px var(--base-font);
+    }
+
+    .cms-callout-actions {
+        display: flex;
+    }
+
+    &.block-cms-callout-align-left {
+        .cms-callout-content {
+            align-items: flex-start;
+            text-align: left;
+        }
+    }
+
+    &.block-cms-callout-align-center {
+        .cms-callout-content {
+            align-items: center;
+            text-align: center;
+        }
+    }
+
+    &.block-cms-callout-align-right {
+        .cms-callout-content {
+            align-items: flex-end;
+            text-align: right;
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        .cms-callout-content {
+            padding: 30px 40px 30px 40px;
+        }
+
+        .cms-callout-label {
+            margin: 0 0 10px;
+        }
+
+        .cms-callout-title {
+            margin: 0 0 15px;
+        }
+
+        .cms-callout-description {
+            margin: 0 0 20px;
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        flex-direction: column;
+
+        .cms-callout-media {
+            width: 100%;
+        }
+
+        .cms-callout-content {
+            width: 100%;
+            padding: 15px;
+        }
+
+        .cms-callout-label {
+            margin: 0 0 5px;
+            font: 700 8px/10px var(--base-font);
+        }
+
+        .cms-callout-title {
+            margin: 0 0 5px;
+            font: 600 18px/27px var(--base-font);
+        }
+
+        .cms-callout-description {
+            margin: 0 0 15px;
+            font: 400 12px/18px var(--base-font);
+        }
+
+        .cms-callout-actions {
+            width: 100%;
+
+            .button {
+                display: flex;
+                width: 100%;
+                justify-content: center;
+                padding: 10px 13px;
+                font: 700 12px/18px var(--base-font);
+            }
+        }
+    }
+}

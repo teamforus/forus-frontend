@@ -4,10 +4,10 @@ import useCmsPage from './hooks/useCmsPage';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
-import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
-import classNames from 'classnames';
+import CmsPageContent from './elements/CmsPageContent';
+import { shouldShowCmsPageDefaultContent } from './helpers/cmsPage';
 
 export default function ProvidersSignUp() {
     const page = useCmsPage('provider');
@@ -20,6 +20,10 @@ export default function ProvidersSignUp() {
     const providerPanelUrl = useMemo(() => {
         return appConfigs?.fronts.url_provider || '';
     }, [appConfigs?.fronts.url_provider]);
+
+    const providerSignUpUrl = useMemo(() => {
+        return appConfigs?.fronts.url_provider_sign_up || '';
+    }, [appConfigs?.fronts.url_provider_sign_up]);
 
     const signUpUrlParams = useMemo(() => {
         const params = envData.config?.provider_sign_up_filters || {};
@@ -42,15 +46,8 @@ export default function ProvidersSignUp() {
                 { name: translate('provider_sign_up.breadcrumbs.sign_up_provider') },
             ]}>
             {page && (
-                <div
-                    className={classNames(
-                        'flex',
-                        'flex-vertical',
-                        page.description_position == 'after' && 'flex-vertical-reverse',
-                    )}>
-                    {page && <CmsBlocks page={page} largeMarkdown={true} />}
-
-                    {(!page.description_html || page.description_position !== 'replace') && (
+                <CmsPageContent page={page}>
+                    {shouldShowCmsPageDefaultContent(page) && (
                         <div className="wrapper">
                             <div className="block block-sign_up-provider">
                                 <div className="sign_up-overview">
@@ -62,7 +59,7 @@ export default function ProvidersSignUp() {
                                         <p>
                                             <a
                                                 className="button button-primary-outline"
-                                                href={providerPanelUrl + 'sign-up' + signUpUrlParams}
+                                                href={providerSignUpUrl + signUpUrlParams}
                                                 target="_self">
                                                 {translate('provider_sign_up.button.register')}
                                                 <em className="mdi mdi-arrow-right icon-right" aria-hidden="true" />
@@ -84,7 +81,7 @@ export default function ProvidersSignUp() {
                             </div>
                         </div>
                     )}
-                </div>
+                </CmsPageContent>
             )}
         </BlockShowcase>
     );

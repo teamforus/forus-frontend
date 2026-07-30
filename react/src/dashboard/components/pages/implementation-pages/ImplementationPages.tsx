@@ -3,7 +3,7 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import usePushSuccess from '../../../hooks/usePushSuccess';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useOpenModal from '../../../hooks/useOpenModal';
-import ModalNotification from '../../modals/ModalNotification';
+import ModalDangerZone from '../../modals/ModalDangerZone';
 import useImplementationPageService from '../../../services/ImplementationPageService';
 import Implementation from '../../../props/models/Implementation';
 import ImplementationPage from '../../../props/models/ImplementationPage';
@@ -60,9 +60,8 @@ export default function ImplementationPages() {
     const deletePage = useCallback(
         (page: ImplementationPage) => {
             openModal((modal) => (
-                <ModalNotification
+                <ModalDangerZone
                     modal={modal}
-                    className={'modal-md'}
                     title={'Wilt u dit gegeven verwijderen?'}
                     description={
                         'Weet u zeker dat u dit gegeven wilt verwijderen? Deze actie kunt niet ongedaan maken, u kunt echter wel een nieuw gegeven aanmaken.'
@@ -116,12 +115,17 @@ export default function ImplementationPages() {
                     {pageTypes.map((pageType) => (
                         <StateNavLink
                             key={pageType.key}
-                            name={DashboardRoutes.IMPLEMENTATION_VIEW_PAGE_EDIT}
+                            name={
+                                pagesByKey?.[pageType.key]?.id
+                                    ? DashboardRoutes.IMPLEMENTATION_VIEW_PAGE_EDIT
+                                    : DashboardRoutes.IMPLEMENTATION_VIEW_PAGE_CREATE
+                            }
                             params={{
-                                id: pagesByKey?.[pageType.key]?.id,
+                                ...(pagesByKey?.[pageType.key]?.id ? { id: pagesByKey[pageType.key].id } : {}),
                                 organizationId: implementation.organization_id,
                                 implementationId: implementation.id,
                             }}
+                            query={pagesByKey?.[pageType.key]?.id ? {} : { type: pageType.key }}
                             customElement={'tr'}
                             className={'tr-clickable'}>
                             <td>{translate(`implementation_edit.labels.${pageType.key}`)}</td>
@@ -129,8 +133,11 @@ export default function ImplementationPages() {
                             {pageType.type === 'extra' && <td className="text-muted">Optionele pagina</td>}
                             {pageType.type === 'element' && <td className="text-muted">Pagina element</td>}
 
-                            {pageType.blocks ? (
-                                <td>{pagesByKey?.[pageType.key]?.blocks?.length || 'None'}</td>
+                            {pageType.blocks || pageType.cms_blocks ? (
+                                <td>
+                                    {(pagesByKey?.[pageType.key]?.blocks?.length || 0) +
+                                        (pagesByKey?.[pageType.key]?.cms_blocks?.length || 0) || 'None'}
+                                </td>
                             ) : (
                                 <td className="text-muted">Niet beschikbaar</td>
                             )}

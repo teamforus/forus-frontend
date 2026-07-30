@@ -3794,7 +3794,8 @@
     },
     "block_product_categories": {
         "description": "Klicken Sie auf ein Thema und Sie sehen sofort, aus welchem Angebot Sie wählen können.",
-        "title": "Was machen Sie gerne?"
+        "title": "Was machen Sie gerne?",
+        "category_link_label": "Produkte in der Kategorie {{category}} anzeigen"
     },
     "modal_image_preview": {
         "alt_text": "Beispiel einer Datei",

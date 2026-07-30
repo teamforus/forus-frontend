@@ -90,6 +90,63 @@ export default {
             },
         },
     },
+    implementation_cms_block_editor: {
+        fix_validation_errors: 'Mislukt! Er gaat iets mis.. U heeft een foutmelding op een invoerveld.',
+        sections: {
+            blocks: 'Blokken',
+            legacy_blocks: 'Oude blokken',
+            items: 'Onderdelen',
+            posts: 'Berichten',
+        },
+        empty: {
+            title: 'Geen blokken toegevoegd.',
+        },
+        unsupported: {
+            config:
+                'Dit type content blok is niet beschikbaar voor deze pagina. ' +
+                'De inhoud en status blijven behouden. Het blok kan worden gesorteerd of verwijderd.',
+        },
+        labels: {
+            blocks_per_row: 'Blokken per rij',
+            block_type: 'Soort content blok',
+            state: 'Status',
+        },
+        tooltips: {
+            state:
+                'Conceptblokken zijn niet zichtbaar in de webshop. ' +
+                'Gepubliceerde blokken zijn zichtbaar wanneer de pagina is gepubliceerd.',
+        },
+        states: {
+            draft: 'Concept',
+            public: 'Gepubliceerd',
+        },
+        buttons: {
+            add_block: 'Blok toevoegen',
+            delete_block: 'Blok verwijderen',
+            add_item: '{{item}} toevoegen',
+            delete_item: 'Onderdeel verwijderen',
+            add_post: 'Bericht toevoegen',
+            delete_post: 'Bericht verwijderen',
+            remove_media: 'Afbeelding verwijderen',
+            expand: 'Uitklappen',
+            collapse: 'Inklappen',
+        },
+        items: {
+            new_item: 'Nieuw {{item}}',
+            edit_item: '{{item}} aanpassen',
+            new_post: 'Nieuw bericht',
+            edit_post: 'Bericht aanpassen',
+        },
+        modals: {
+            create_block: {
+                title: 'Blok toevoegen',
+            },
+            delete_block: {
+                title: 'Blok verwijderen',
+                description: 'Weet u zeker dat u dit blok wilt verwijderen?',
+            },
+        },
+    },
     fund_criteria_editor_item: {
         buttons: {
             edit: 'Aanpassen',
