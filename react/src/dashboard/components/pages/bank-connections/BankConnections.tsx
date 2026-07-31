@@ -25,6 +25,7 @@ import TableTopScroller from '../../elements/tables/TableTopScroller';
 import Label from '../../elements/label/Label';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import ModalBankAccountRequest from '../../modals/ModalBankAccountRequest';
 
 export default function BankConnections() {
     const activeOrganization = useActiveOrganization();
@@ -148,6 +149,37 @@ export default function BankConnections() {
         ],
     );
 
+    const storeBankConnection = useCallback(
+        (bank: Bank, data: object) => bankConnectionService.store(activeOrganization.id, { bank_id: bank.id, ...data }),
+        [activeOrganization.id, bankConnectionService],
+    );
+
+    const onBankConnectionCreated = useCallback(
+        (data: BankConnection) => {
+            const { auth_url, state } = data;
+
+            if (state === 'pending' && auth_url) {
+                return (document.location = auth_url);
+            }
+
+            pushDanger('Error!', 'Er is een onbekende fout opgetreden.');
+            setSubmittingConnection(false);
+        },
+        [pushDanger],
+    );
+
+    const submitBankConnectionRequest = useCallback(
+        (bank: Bank) => {
+            storeBankConnection(bank, {})
+                .then((res) => onBankConnectionCreated(res.data.data))
+                .catch((res) => {
+                    setSubmittingConnection(false);
+                    onRequestError(res);
+                });
+        },
+        [onBankConnectionCreated, onRequestError, storeBankConnection],
+    );
+
     const makeBankConnection = useCallback(
         (bank: Bank) => {
             if (submittingConnection) {
@@ -159,31 +191,30 @@ export default function BankConnections() {
             confirmNewConnection().then((confirmed) => {
                 if (!confirmed) {
                     setSubmittingConnection(false);
+                    return;
                 }
 
-                bankConnectionService
-                    .store(activeOrganization.id, { bank_id: bank.id })
-                    .then((res) => {
-                        const { auth_url, state } = res.data.data;
-
-                        if (state === 'pending' && auth_url) {
-                            return (document.location = auth_url);
-                        }
-
-                        pushDanger('Error!', 'Er is een onbekende fout opgetreden.');
-                    })
-                    .catch((res) => {
-                        setSubmittingConnection(false);
-                        onRequestError(res);
-                    });
+                if (bank.key === 'bng') {
+                    openModal((modal) => (
+                        <ModalBankAccountRequest
+                            modal={modal}
+                            bank={bank}
+                            storeBankConnection={storeBankConnection}
+                            onCreated={(connection) => onBankConnectionCreated(connection)}
+                            onDismiss={() => setSubmittingConnection(false)}
+                        />
+                    ));
+                } else {
+                    submitBankConnectionRequest(bank);
+                }
             });
         },
         [
-            activeOrganization.id,
-            bankConnectionService,
             confirmNewConnection,
-            onRequestError,
-            pushDanger,
+            onBankConnectionCreated,
+            openModal,
+            storeBankConnection,
+            submitBankConnectionRequest,
             submittingConnection,
         ],
     );
