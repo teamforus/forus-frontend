@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useFileService } from '../../../../dashboard/services/FileService';
 import FileModel from '../../../../dashboard/props/models/File';
 import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
@@ -13,6 +13,9 @@ import classNames from 'classnames';
 import BlockWarning from '../block-warning/BlockWarning';
 import { canPreviewFile } from '../../../../dashboard/helpers/filePreview';
 import useFileTypeValidation from '../../../../dashboard/services/helpers/useFileTypeValidation';
+import { formatFileExtensionsForAccept } from '../../../../dashboard/helpers/file';
+import { mainContext as dashboardMainContext } from '../../../../dashboard/contexts/MainContext';
+import { mainContext as webshopMainContext } from '../../../contexts/MainContext';
 
 export type FileUploaderItem = {
     id?: string;
@@ -52,7 +55,6 @@ export default function FileUploader({
     maxFiles = 15,
     cropMedia = true,
     readOnly = false,
-    acceptedFiles = ['.xlsx', '.xls', '.docx', '.doc', '.pdf', '.png', '.jpg', '.jpeg'],
     onFileError = null,
     onFileQueued = null,
     onFileRemoved = null,
@@ -78,7 +80,6 @@ export default function FileUploader({
     maxFiles?: number;
     cropMedia?: boolean;
     readOnly?: boolean;
-    acceptedFiles?: Array<string>;
     hidePreviewButton?: boolean;
     hideDownloadButton?: boolean;
     isRequired?: boolean;
@@ -91,6 +92,10 @@ export default function FileUploader({
     const translate = useTranslate();
     const openModal = useOpenModal();
     const fileTypeIsValid = useFileTypeValidation();
+    const dashboardAppConfigs = useContext(dashboardMainContext)?.appConfigs;
+    const webshopAppConfigs = useContext(webshopMainContext)?.appConfigs;
+    const appConfigs = isWebshop ? webshopAppConfigs : dashboardAppConfigs;
+    const sourceExtensions = appConfigs?.files?.[type]?.source_extensions;
 
     const [isDragOver, setIsDragOver] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -102,6 +107,10 @@ export default function FileUploader({
     const effectiveMaxFiles = useMemo(() => {
         return allowMultiple ? maxFiles : 1;
     }, [allowMultiple, maxFiles]);
+
+    const acceptedFiles = useMemo(() => {
+        return sourceExtensions === undefined ? [] : formatFileExtensionsForAccept(sourceExtensions);
+    }, [sourceExtensions]);
 
     const [fileItems, setFileItems] = useState(
         files?.map(
@@ -316,6 +325,10 @@ export default function FileUploader({
         });
     }, [fileItems]);
 
+    if (sourceExtensions === undefined) {
+        return null;
+    }
+
     return (
         <div
             className={classNames('block', 'block-file-uploader', {
@@ -330,7 +343,7 @@ export default function FileUploader({
                 name={'file_uploader_input_hidden'}
                 hidden={true}
                 multiple={allowMultiple}
-                accept={(acceptedFiles || []).join(',')}
+                accept={acceptedFiles.join(',')}
                 ref={inputRef}
                 onChange={(e) => {
                     uploadFiles(filterSelectedFiles(e.target.files));

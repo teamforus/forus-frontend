@@ -919,7 +919,6 @@ export default function ModalProductReserve({
                                                         maxFiles={5}
                                                         hideDownloadButton={true}
                                                         hideInlineTitle={true}
-                                                        acceptedFiles={['.jpg', '.jpeg', '.png', '.pdf']}
                                                         onFilesChange={({ files }) => {
                                                             form.values.custom_fields = form.values.custom_fields || {};
                                                             form.values.custom_fields[fieldKey] = files.map(
