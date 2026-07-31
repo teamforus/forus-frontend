@@ -1,0 +1,114 @@
+.block.block-cms-link-panels {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    cursor: default;
+
+    .cms-link-panels-header {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .cms-link-panels-title {
+        margin: 0;
+        font: var(--section-title-font);
+        text-align: var(--section-title-align);
+    }
+
+    .cms-link-panels-description {
+        margin: 0;
+    }
+
+    .cms-link-panels-items {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 40px;
+    }
+
+    .cms-link-panels-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        min-width: 0;
+        padding: 0 0 36px;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .cms-link-panels-panel-title {
+        margin: 0;
+        font:
+            400 32px/48px 'Oranda',
+            var(--base-font);
+    }
+
+    .cms-link-panels-panel-description {
+        margin: 0;
+        padding-right: 50px;
+        font: 400 16px/24px var(--base-font);
+    }
+
+    .cms-link-panels-panel-links {
+        margin: 10px 0;
+
+        ul {
+            padding-left: 15px;
+            margin: 0;
+            list-style: disc;
+        }
+
+        li {
+            margin: 0 0 16px;
+
+            &::marker {
+                color: #e5e5e5;
+            }
+        }
+
+        a {
+            color: #176b55;
+            font: 600 18px/1.5em var(--base-font);
+            text-decoration: underline;
+
+            &:hover {
+                color: #17564a;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .cms-link-panels-panel-button {
+        color: #950022;
+        font: 600 18px/18px var(--base-font);
+        text-decoration: underline;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    &.block-cms-link-panels-1-column {
+        .cms-link-panels-items {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+
+    &.block-cms-link-panels-2-columns {
+        .cms-link-panels-items {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    &.block-cms-link-panels-3-columns {
+        .cms-link-panels-items {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        .cms-link-panels-items {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+}

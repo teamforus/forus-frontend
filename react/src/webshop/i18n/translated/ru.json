@@ -3299,6 +3299,9 @@
             "isd": {
                 "funds": "Схемы"
             },
+            "tilburg": {
+                "funds": "Правила"
+            },
             "funds": "Правила",
             "partner_funds": "Социальные партнеры",
             "potjeswijzer": {
@@ -3791,7 +3794,8 @@
     },
     "block_product_categories": {
         "description": "Нажмите на тему, и вы сразу увидите, какое предложение вы можете выбрать.",
-        "title": "Чем вы любите заниматься?"
+        "title": "Чем вы любите заниматься?",
+        "category_link_label": "Просмотреть товары в категории {{category}}"
     },
     "modal_image_preview": {
         "alt_text": "Пример файла",

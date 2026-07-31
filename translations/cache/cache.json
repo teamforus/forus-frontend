@@ -496,6 +496,10 @@
         "Notificaties"
     ],
     [
+        "block_product_categories.category_link_label",
+        "Bekijk producten in categorie {{category}}"
+    ],
+    [
         "block_product_categories.description",
         "Klik op een thema en je ziet meteen uit welk aanbod je kan kiezen."
     ],
@@ -9158,6 +9162,10 @@
     [
         "top_navbar.items.signup",
         "Uitleg aanbieders"
+    ],
+    [
+        "top_navbar.items.tilburg.funds",
+        "Regelingen"
     ],
     [
         "top_navbar.items.vergoedingen.funds",

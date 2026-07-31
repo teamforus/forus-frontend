@@ -61,7 +61,7 @@ export default function ImplementationsInlineBlockEditor({
             promise
                 .then((res) => {
                     resolve(true);
-                    setPageBlock((pageBlock) => ({ ...pageBlock, ...res.data }));
+                    setPageBlock((pageBlock) => ({ ...pageBlock, ...res.data.data }));
                 })
                 .catch((err: ResponseError) => {
                     resolve(false);

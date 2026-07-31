@@ -1,5 +1,6 @@
 .block.block-page-loading-bar {
     position: fixed;
+    pointer-events: none;
     top: 0;
     left: 0;
     background-color: var(--color-primary);

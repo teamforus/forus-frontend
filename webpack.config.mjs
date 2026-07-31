@@ -71,6 +71,7 @@ export default (env = {}, argv = {}) => {
     logInfo(`Building fronts:\n${configs?.map((config) => `   - ${config?.out}`)?.join('\n')}\n`);
 
     const { mode = 'development' } = argv;
+    const shouldFailLint = !isDevServer;
     const distPath = 'dist';
     const scriptPath = `app-${timestamp}.js`;
 
@@ -290,8 +291,10 @@ export default (env = {}, argv = {}) => {
             new ESLintPlugin({
                 extensions: ['js', 'mjs', 'ts', 'tsx'],
                 eslintPath: require.resolve('eslint'),
-                failOnError: true,
-                failOnWarning: true,
+                emitError: true,
+                emitWarning: true,
+                failOnError: shouldFailLint,
+                failOnWarning: shouldFailLint,
                 cache: true,
             }),
         ].filter((plugin) => plugin),

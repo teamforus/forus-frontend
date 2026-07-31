@@ -39,6 +39,7 @@
 @use 'includes/sections/section';
 @use 'includes/sections/section-faq';
 @use 'includes/sections/section-cms';
+@use 'includes/sections/section-cms-next';
 @use 'includes/sections/section-map';
 @use 'includes/sections/section-footer';
 @use 'includes/sections/section-profile';
@@ -107,6 +108,13 @@
 @use 'includes/blocks/block-reservations';
 @use 'includes/blocks/block-reservation';
 @use 'includes/blocks/block-cms-funds';
+@use 'includes/blocks/block-cms-banner';
+@use 'includes/blocks/block-cms-callout';
+@use 'includes/blocks/block-cms-faq';
+@use 'includes/blocks/block-cms-link-panels';
+@use 'includes/blocks/block-cms-providers-map';
+@use 'includes/blocks/block-cms-product-categories';
+@use 'includes/blocks/block-cms-provider-sign-up';
 @use 'includes/blocks/block-announcement';
 @use 'includes/blocks/block-empty';
 @use 'includes/blocks/block-bookmark-toggle';

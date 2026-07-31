@@ -624,9 +624,7 @@ export default function SystemNotificationTemplateEditor({
                                         <MarkdownEditor
                                             value={form.values.content_html || ''}
                                             onChange={(content) => form.update({ content })}
-                                            onUpdatedRaw={(data) => {
-                                                setMarkdownRaw({ content_html: data.data.content_html });
-                                            }}
+                                            onChangeRaw={(e) => setMarkdownRaw({ content_html: e.data.content_html })}
                                             allowLists={false}
                                             allowPreview={!compose}
                                             buttons={editorButtons}

@@ -3299,6 +3299,9 @@
             "isd": {
                 "funds": "Régimes"
             },
+            "tilburg": {
+                "funds": "Dispositions"
+            },
             "funds": "Dispositions",
             "partner_funds": "Partenaires sociaux",
             "potjeswijzer": {
@@ -3791,7 +3794,8 @@
     },
     "block_product_categories": {
         "description": "Cliquez sur un thème et vous verrez immédiatement l'offre que vous pouvez choisir.",
-        "title": "Qu'aimez-vous faire ?"
+        "title": "Qu'aimez-vous faire ?",
+        "category_link_label": "Voir les produits de la catégorie {{category}}"
     },
     "modal_image_preview": {
         "alt_text": "Exemple de fichier",

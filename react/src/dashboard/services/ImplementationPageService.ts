@@ -3,6 +3,7 @@ import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import ImplementationPage from '../props/models/ImplementationPage';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
+import ImplementationCmsBlockConfig from '../props/models/ImplementationCmsBlockConfig';
 
 export class ImplementationPageService<T = ImplementationPage> {
     /**
@@ -62,12 +63,28 @@ export class ImplementationPageService<T = ImplementationPage> {
         );
     }
 
+    public cmsBlockConfigs(
+        organizationId: number,
+        id: number,
+        data: object = {},
+    ): Promise<ApiResponse<ImplementationCmsBlockConfig>> {
+        return this.apiRequest.get(
+            `${this.prefix}/${organizationId}/implementations/${id}/pages/cms-block-configs`,
+            data,
+        );
+    }
+
+    public validateCmsBlocks(organizationId: number, id: number, data: object): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.post(
+            `${this.prefix}/${organizationId}/implementations/${id}/pages/validate-cms-blocks`,
+            data,
+        );
+    }
+
     public apiResourceToForm(apiResource: ImplementationPage) {
         return {
             state: apiResource.state,
             external: apiResource.external,
-            blocks: apiResource.blocks,
-            faq: apiResource.faq,
             page_type: apiResource.page_type,
             external_url: apiResource.external_url,
             blocks_per_row: apiResource.blocks_per_row,

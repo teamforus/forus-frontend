@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ModalState } from '../../../../dashboard/modules/modals/context/ModalContext';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import { useNavigateState } from '../../../modules/state_router/Router';
@@ -78,6 +78,8 @@ export default function ModalProductReserve({
 
     const composerVoucherCardData = useComposeVoucherCardData();
 
+    const formSubmitAddressRef = useRef<() => void>(null);
+
     const [STEP_EMAIL_SETUP] = useState(0);
     const [STEP_SELECT_VOUCHER] = useState(1);
     const [STEP_FILL_DATA] = useState(2);
@@ -153,6 +155,10 @@ export default function ModalProductReserve({
     const addressFilled = useCallback((address: AddressType) => {
         return !!(address?.city && address?.street && address?.house_nr && address?.postal_code);
     }, []);
+
+    const reservationAddressOptional = useMemo(() => {
+        return product.reservation.address === 'optional';
+    }, [product.reservation.address]);
 
     const reservationAddressRequested = useMemo(() => {
         return product.reservation.address !== 'no';
@@ -533,8 +539,10 @@ export default function ModalProductReserve({
     );
 
     useEffect(() => {
-        fetchProfileAddress();
-    }, [fetchProfileAddress]);
+        if (authIdentity.profile) {
+            fetchProfileAddress();
+        }
+    }, [authIdentity.profile, fetchProfileAddress]);
 
     useEffect(() => {
         updateSteps();
@@ -993,13 +1001,35 @@ export default function ModalProductReserve({
                         e?.preventDefault();
                         setSkipAddress(false);
 
-                        if (addressFilled(address) || product.reservation.address !== 'optional') {
+                        const validateAndNext = () => {
                             validateAddress(address)
-                                ?.then(() => next())
+                                ?.then(next)
                                 ?.catch((err: ResponseError) => onError(err, true));
-                        } else {
-                            next();
+                        };
+
+                        const isAddressFilled = addressFilled(address);
+
+                        if (!authIdentity.profile) {
+                            if (isEditingAddress) {
+                                formSubmitAddressRef.current();
+                                return;
+                            }
+
+                            if (reservationAddressOptional && !isAddressFilled) {
+                                next();
+                                return;
+                            }
+
+                            validateAndNext();
+                            return;
                         }
+
+                        if (isAddressFilled || !reservationAddressOptional) {
+                            validateAndNext();
+                            return;
+                        }
+
+                        next();
                     }}
                     data-dusk="productReserveAddress">
                     <div
@@ -1029,15 +1059,21 @@ export default function ModalProductReserve({
                         <div className="modal-section">
                             <BlockReservationAddress
                                 address={address}
-                                setAddress={setAddress}
                                 addressProfile={addressProfile}
                                 product={product}
                                 setIsEditingAddress={setIsEditingAddress}
+                                formSubmitAddressRef={formSubmitAddressRef}
                                 onAddressSubmit={(save, values) => {
-                                    setAddress(values);
+                                    const isAddressFilled = addressFilled(values);
 
-                                    if (save) {
+                                    setAddress(isAddressFilled ? values : null);
+
+                                    if (save && authIdentity.profile) {
                                         updateProfileAddress(values);
+                                    }
+
+                                    if (!authIdentity.profile && reservationAddressOptional && !isAddressFilled) {
+                                        next();
                                     }
                                 }}
                             />
@@ -1053,7 +1089,7 @@ export default function ModalProductReserve({
                             <button className="button button-light button-sm" type="button" onClick={back}>
                                 {translate('modal_reserve_product.buttons.back')}
                             </button>
-                            {addressFilled(address) && product.reservation.address === 'optional' && (
+                            {addressFilled(address) && reservationAddressOptional && (
                                 <button
                                     className="button button-primary-outline button-sm"
                                     type="button"
@@ -1069,8 +1105,9 @@ export default function ModalProductReserve({
                                 className="button button-primary button-sm"
                                 type="submit"
                                 disabled={
-                                    (!addressFilled(address) && product.reservation.address !== 'optional') ||
-                                    (isEditingAddress && addressFilled(address))
+                                    authIdentity.profile &&
+                                    ((!addressFilled(address) && !reservationAddressOptional) ||
+                                        (isEditingAddress && addressFilled(address)))
                                 }
                                 data-dusk="btnSubmit">
                                 {translate('modal_reserve_product.buttons.next')}

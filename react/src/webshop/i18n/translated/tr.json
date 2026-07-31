@@ -738,6 +738,9 @@
             "isd": {
                 "funds": "Şemalar"
             },
+            "tilburg": {
+                "funds": "Düzenlemeler"
+            },
             "funds": "Düzenlemeler",
             "partner_funds": "Sosyal taraflar",
             "potjeswijzer": {
@@ -3791,7 +3794,8 @@
     },
     "block_product_categories": {
         "description": "Bir temaya tıkladığınızda hangi teklifler arasından seçim yapabileceğinizi hemen göreceksiniz.",
-        "title": "Ne yapmaktan hoşlanırsın?"
+        "title": "Ne yapmaktan hoşlanırsın?",
+        "category_link_label": "{{category}} kategorisindeki ürünleri görüntüleyin"
     },
     "modal_image_preview": {
         "alt_text": "Dosya örneği",

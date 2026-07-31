@@ -738,6 +738,9 @@
             "isd": {
                 "funds": "المخططات"
             },
+            "tilburg": {
+                "funds": "اللوائح"
+            },
             "funds": "اللوائح",
             "partner_funds": "الشركاء الاجتماعيون",
             "potjeswijzer": {
@@ -3791,7 +3794,8 @@
     },
     "block_product_categories": {
         "description": "انقر على سمة وسترى على الفور العرض الذي يمكنك الاختيار من بينها.",
-        "title": "ماذا تحب أن تفعل؟"
+        "title": "ماذا تحب أن تفعل؟",
+        "category_link_label": "عرض المنتجات في فئة {{category}}"
     },
     "modal_image_preview": {
         "alt_text": "مثال على الملف",

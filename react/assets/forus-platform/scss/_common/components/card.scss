@@ -175,18 +175,6 @@
             }
         }
 
-        &.card-header-md {
-            .card-title {
-                font: 600 14px / 21px var(--base-font);
-
-                .mdi {
-                    margin-right: 0;
-                    margin-left: -15px;
-                    color: #646f79;
-                }
-            }
-        }
-
         &.card-header-cursor-default {
             cursor: default;
         }

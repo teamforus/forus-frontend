@@ -18,6 +18,7 @@ export default function PhotoSelector({
     template = 'default',
     selectPhoto,
     resetPhoto,
+    resetPhotoText,
 }: {
     id?: string;
     type: string;
@@ -29,6 +30,7 @@ export default function PhotoSelector({
     template?: 'default' | 'photo-selector-sign_up' | 'photo-selector-notifications';
     selectPhoto: (file: Blob) => void;
     resetPhoto?: () => void;
+    resetPhotoText?: string;
 }) {
     const [selectorId] = useState(uniqueId());
 
@@ -96,15 +98,30 @@ export default function PhotoSelector({
                     <div className="photo-label">{label || translate('photo_selector.labels.image')}</div>
                     {description && <div className="photo-description">{description}</div>}
 
-                    <button
-                        id={id ? id : `photo_selector_${selectorId}`}
-                        type={'button'}
-                        className="button button-primary"
-                        disabled={disabled}
-                        onClick={() => inputRef.current?.click()}>
-                        <em className="mdi mdi-upload icon-start" />
-                        {translate('photo_selector.buttons.change')}
-                    </button>
+                    <div className="button-group">
+                        <button
+                            id={id ? id : `photo_selector_${selectorId}`}
+                            type={'button'}
+                            className="button button-primary"
+                            disabled={disabled}
+                            onClick={() => inputRef.current?.click()}>
+                            <em className="mdi mdi-upload icon-start" />
+                            {translate('photo_selector.buttons.change')}
+                        </button>
+
+                        {thumbnailValue && resetPhoto && (
+                            <button
+                                className="button button-default"
+                                type="button"
+                                onClick={() => {
+                                    setThumbnailValue(null);
+                                    resetPhoto();
+                                }}>
+                                <i className="icon-start mdi mdi-refresh" />
+                                {resetPhotoText || 'Reset'}
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
         );
