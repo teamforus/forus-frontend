@@ -30,7 +30,7 @@
                     flex-direction: column;
                     justify-content: center;
                     align-items: flex-start;
-                    flex: 0 0 50%;
+                    flex: 0 0 var(--header-banner-pane-banner-pane-width);
                     padding: 40px 50px;
                     gap: 20px;
                     border-radius: var(--border-radius);
