@@ -86,6 +86,7 @@ $primaryColorLight: #4e4d40;
     // Header banner
     --header-banner-pane-banner-padding: 50px 0;
     --header-banner-pane-banner-max-width: 650px;
+    --header-banner-pane-banner-pane-width: 50%;
     --header-banner-pane-banner-background: transparent;
     --header-banner-pane-banner-border-color: initial;
     --header-banner-pane-banner-border-radius: initial;
@@ -377,7 +378,7 @@ $primaryColorLight: #4e4d40;
     --cms-funds-label-font: 500 12px/20px var(--base-font);
     --cms-funds-label-background: #1572af;
 
-    --cms-funds-compact-title-font: 400 24px/36px var(--base-font);
+    --cms-funds-compact-title-font: 600 24px/36px var(--base-font);
     --cms-funds-compact-title-color: var(--htc);
 
     --cms-funds-link-color: var(--color-primary);
