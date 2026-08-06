@@ -94,12 +94,7 @@ export default function CmsBannerBlockNext({ block }: { block: ImplementationCms
     const content = (
         <div className="cms-banner-content" style={contentStyle}>
             {labelEnabled && (
-                <div
-                    className={classNames(
-                        'cms-banner-label',
-                        labelBackgroundColor && 'cms-banner-label-with-background',
-                    )}
-                    style={labelStyle}>
+                <div className={classNames('label', 'label-primary', 'cms-banner-label')} style={labelStyle}>
                     {label}
                 </div>
             )}
