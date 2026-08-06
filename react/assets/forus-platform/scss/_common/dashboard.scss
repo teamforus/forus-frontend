@@ -16,6 +16,8 @@
 @use 'components/card.scss';
 @use 'components/signup-layout.scss';
 @use 'components/forms';
+@use 'select-controls/select-control';
+@use 'components/phone-control';
 @use 'components/tables';
 @use 'components/buttons';
 @use 'components/button-groups';
@@ -153,8 +155,11 @@
 @use 'modals/modal-bulk-upload.scss';
 
 // Select controls
+@use 'select-controls/select-control-country-codes';
 @use 'select-controls/select-control-funds';
 @use 'select-controls/select-control-organizations';
+@use 'select-controls/select-control-card-header';
+@use 'select-controls/select-control-filter-panel';
 
 // Dropdown menus
 @use 'dropdown/dropdown-actions';

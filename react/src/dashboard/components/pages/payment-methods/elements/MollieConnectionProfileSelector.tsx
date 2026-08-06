@@ -2,6 +2,7 @@ import React from 'react';
 import SelectControl from '../../../elements/select-control/SelectControl';
 import MollieConnectionProfile from '../../../../props/models/MollieConnectionProfile';
 import useTranslate from '../../../../hooks/useTranslate';
+import classNames from 'classnames';
 
 export default function MollieConnectionProfileSelector({
     profiles,
@@ -23,7 +24,8 @@ export default function MollieConnectionProfileSelector({
             <div className="form">
                 <div className="form-group">
                     <SelectControl
-                        className="form-control inline-filter-control"
+                        className={classNames('select-control-card-header')}
+                        menuClassName={classNames('select-control-menu-card-header')}
                         propKey={'id'}
                         placeholder={translate('mollie_connection.labels.current_profile')}
                         options={profiles}

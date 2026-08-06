@@ -81,7 +81,7 @@ export default function ModalPreCheckEditFundExclusions({
                                     </Fragment>
                                 }>
                                 <SelectControl
-                                    className="form-control inline-filter-control"
+                                    className={classNames('inline-filter-control')}
                                     disabled={!!fund?.id}
                                     propKey={'id'}
                                     propValue={'name'}
@@ -106,7 +106,7 @@ export default function ModalPreCheckEditFundExclusions({
                                     </Fragment>
                                 }>
                                 <SelectControl
-                                    className="form-control inline-filter-control"
+                                    className={classNames('inline-filter-control')}
                                     propKey={'value'}
                                     propValue={'label'}
                                     options={disableOptions}

@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useState } from 'react';
-import ClickOutside from '../../click-outside/ClickOutside';
+import ClickOutside from '../../../../modules/click-outside/ClickOutside';
 import classNames from 'classnames';
 import PhotoSelectorData from '../types/PhotoSelectorData';
 

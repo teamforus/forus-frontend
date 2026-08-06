@@ -27,6 +27,7 @@ import TableRowActionItem from '../../../elements/tables/TableRowActionItem';
 import { hasPermission } from '../../../../helpers/utils';
 import { Permission } from '../../../../props/models/Organization';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+import classNames from 'classnames';
 
 export default function IdentitiesTable() {
     const translate = useTranslate();
@@ -132,7 +133,8 @@ export default function IdentitiesTable() {
                         <div className="form">
                             <div className="form-group">
                                 <SelectControl
-                                    className="form-control inline-filter-control"
+                                    className={classNames('select-control-card-header')}
+                                    menuClassName={classNames('select-control-menu-card-header')}
                                     propKey={'id'}
                                     options={funds}
                                     value={filter.activeValues.fund_id}
@@ -246,7 +248,7 @@ export default function IdentitiesTable() {
 
                             <FilterItemToggle label={translate('sponsor_products.filters.has_bsn')}>
                                 <SelectControl
-                                    className="form-control"
+                                    className={classNames('select-control-filter-panel')}
                                     propKey={'key'}
                                     allowSearch={false}
                                     value={filterValues.has_bsn}

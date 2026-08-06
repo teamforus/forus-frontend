@@ -299,7 +299,7 @@ export default function FundCriteriaEditorItem({
                                 <div className="col col-xs-12 col-sm-4">
                                     <label className="form-label">Persoonsgegeven</label>
                                     <SelectControl
-                                        className={classNames('form-control', disabled && 'disabled')}
+                                        className={classNames(disabled && 'disabled')}
                                         placeholder="Persoonsgegeven"
                                         disabled={disabled}
                                         value={recordType}
@@ -314,7 +314,7 @@ export default function FundCriteriaEditorItem({
                                     <div className="col col-xs-12 col-sm-4">
                                         <label className="form-label">Verhouding</label>
                                         <SelectControl
-                                            className={classNames('form-control', disabled && 'disabled')}
+                                            className={classNames(disabled && 'disabled')}
                                             placeholder="Verhouding"
                                             disabled={disabled}
                                             allowSearch={false}
@@ -352,7 +352,7 @@ export default function FundCriteriaEditorItem({
                                             {['select', 'select_number', 'bool'].includes(recordType.type) &&
                                                 operators[recordType.key] != '*' && (
                                                     <SelectControl
-                                                        className={classNames('form-control', disabled && 'disabled')}
+                                                        className={classNames(disabled && 'disabled')}
                                                         placeholder="Verhouding"
                                                         allowSearch={false}
                                                         propKey={'value'}
