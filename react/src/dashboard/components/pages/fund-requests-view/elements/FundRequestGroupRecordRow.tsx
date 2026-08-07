@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment, useCallback, useMemo } from 'react';
 import classNames from 'classnames';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
@@ -9,11 +9,12 @@ import ModalFundRequestClarify from '../../../modals/ModalFundRequestClarify';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import Organization from '../../../../props/models/Organization';
-import ModalFundRequestRecordEdit from '../../../modals/ModalFundRequestRecordEdit';
+import ModalFundRequestRecordEdit from '../../../modals/record-edit/ModalFundRequestRecordEdit';
 import ModalNotification from '../../../modals/ModalNotification';
 import useTranslate from '../../../../hooks/useTranslate';
 import Label from '../../../elements/label/Label';
 import EmptyValue from '../../../elements/empty-value/EmptyValue';
+import Tooltip from '../../../elements/tooltip/Tooltip';
 
 export default function FundRequestGroupRecordRow({
     organization,
@@ -35,6 +36,17 @@ export default function FundRequestGroupRecordRow({
     const openModal = useOpenModal();
     const pushSuccess = usePushSuccess();
     const translate = useTranslate();
+
+    const recordHasCriterion = useMemo(() => {
+        return (
+            record.fund_criterion_id &&
+            fundRequest.fund?.criteria?.find(
+                (criterion) =>
+                    criterion.id === record.fund_criterion_id &&
+                    !['children_same_address_nth', 'partner_same_address_nth'].includes(criterion.record_type_key),
+            )
+        );
+    }, [fundRequest, record]);
 
     const showInfoModal = useCallback(
         (title: string, message: string) => {
@@ -139,7 +151,14 @@ export default function FundRequestGroupRecordRow({
                     </td>
                 )}
 
-                <td>{translate(`validation_requests.sources.${record.source}`)}</td>
+                <td>
+                    <div className="flex flex-gap-xs">
+                        {translate(`validation_requests.sources.${record.source}`)}
+                        {record.history.length > 0 && (
+                            <Tooltip size="sm" text={translate('validation_requests.tooltips.edited')} />
+                        )}
+                    </div>
+                </td>
                 <td>{record.files.length > 0 ? translate('validation_requests.labels.yes') : <EmptyValue />}</td>
                 <td>
                     {record.clarifications.length > 0 ? translate('validation_requests.labels.yes') : <EmptyValue />}
@@ -168,15 +187,17 @@ export default function FundRequestGroupRecordRow({
                             dataDusk={`fundRequestRecordMenuBtn${record.id}`}
                             content={(e) => (
                                 <div className="dropdown dropdown-actions">
-                                    <div
-                                        className="dropdown-item"
-                                        onClick={() => {
-                                            e.close();
-                                            clarifyRecord(record);
-                                        }}>
-                                        <em className="mdi mdi-message-text icon-start" />
-                                        Aanvullingsverzoek
-                                    </div>
+                                    {recordHasCriterion && (
+                                        <div
+                                            className="dropdown-item"
+                                            onClick={() => {
+                                                e.close();
+                                                clarifyRecord(record);
+                                            }}>
+                                            <em className="mdi mdi-message-text icon-start" />
+                                            Aanvullingsverzoek
+                                        </div>
+                                    )}
                                     {organization.allow_fund_request_record_edit && (
                                         <div
                                             className="dropdown-item"

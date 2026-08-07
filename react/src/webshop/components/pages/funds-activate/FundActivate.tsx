@@ -46,6 +46,7 @@ import usePayoutTransactionService from '../../../services/PayoutTransactionServ
 import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import type { OpenIdFlow } from '../../../../dashboard/props/models/OpenIdFlow';
+import useFundApply from '../../../hooks/useFundApply';
 
 export default function FundActivate() {
     const { id } = useParams();
@@ -102,7 +103,6 @@ export default function FundActivate() {
     const [options, setOptions] = useState(null);
 
     const [fetchingData, setFetchingData] = useState(false);
-    const [applyingFund, setApplyingFund] = useState(false);
     const [bsnVerificationMethod, setBsnVerificationMethod] = useState<'digid' | 'openid'>('digid');
     const [bsnVerificationOpenIdFlow, setBsnVerificationOpenIdFlow] = useState<OpenIdFlow>(null);
 
@@ -185,31 +185,10 @@ export default function FundActivate() {
         [bsnVerificationMethod, bsnVerificationOpenIdFlow, openIdFlows, startDigId, startOpenId],
     );
 
-    // Apply for the fund
-    const applyFund = useCallback(
-        function (fund: Fund) {
-            if (applyingFund) {
-                return;
-            }
-
-            setApplyingFund(true);
-
-            fundService
-                .apply(fund.id)
-                .then((res) => {
-                    pushSuccess(
-                        translate('push.success'),
-                        translate('push.fund_activation.success', { fund_name: res.data.data.fund.name }),
-                    );
-                    navigateState(WebshopRoutes.VOUCHER, { number: res.data.data.number });
-                })
-                .catch((err: ResponseError) => {
-                    pushDanger(translate('push.error'), err.data.message);
-                    navigateState(WebshopRoutes.FUND, { id: fund.id });
-                });
-        },
-        [applyingFund, fundService, navigateState, pushDanger, pushSuccess, translate],
-    );
+    const applyFund = useFundApply({
+        onApplied: (voucher) => navigateState(WebshopRoutes.VOUCHER, { number: voucher.number }),
+        onError: (_err, fund) => navigateState(WebshopRoutes.FUND, { id: fund.id }),
+    });
 
     const codeForm = useFormBuilder({ code: '' }, (values) => {
         if (!values.code) {

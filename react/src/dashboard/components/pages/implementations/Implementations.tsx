@@ -115,7 +115,6 @@ export default function Implementations() {
                         const organizationId = implementation.organization_id || activeOrganization.id;
 
                         const implementationLogo: Media = {
-                            identity_address: '',
                             original_name: '',
                             type: '',
                             ext: '',

@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
-import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
+import React from 'react';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import useCmsPage from './hooks/useCmsPage';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import ExplanationFaq from './elements/ExplanationFaq';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import CmsPageContent from './elements/CmsPageContent';
 
 export default function Explanation() {
     const translate = useTranslate();
@@ -18,19 +18,9 @@ export default function Explanation() {
                 { name: translate('explanation.breadcrumbs.explanation') },
             ]}>
             {page && (
-                <Fragment>
-                    {page.description_position == 'after' ? (
-                        <>
-                            <ExplanationFaq page={page} />
-                            <CmsBlocks page={page} largeMarkdown={true} />
-                        </>
-                    ) : (
-                        <>
-                            <CmsBlocks page={page} largeMarkdown={true} />
-                            <ExplanationFaq page={page} />
-                        </>
-                    )}
-                </Fragment>
+                <CmsPageContent page={page}>
+                    <ExplanationFaq page={page} />
+                </CmsPageContent>
             )}
         </BlockShowcase>
     );

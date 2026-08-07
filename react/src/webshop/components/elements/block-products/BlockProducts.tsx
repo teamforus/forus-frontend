@@ -5,6 +5,7 @@ import Product from '../../../../dashboard/props/models/Product';
 import EmptyBlock from '../empty-block/EmptyBlock';
 import ProductsList from '../lists/products-list/ProductsList';
 import CmsBlocks from '../cms-blocks/CmsBlocks';
+import CmsBlocksNext from '../cms-blocks-next/CmsBlocksNext';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import Section from '../sections/Section';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
@@ -40,10 +41,11 @@ export default function BlockProducts({
                 </h2>
             )}
 
+            {cmsBlock && <CmsBlocksNext page={cmsBlock} />}
             {cmsBlock && <CmsBlocks page={cmsBlock} />}
 
             {products?.length > 0 ? (
-                <ProductsList display={display} products={products} setProducts={setProducts} />
+                <ProductsList display={display} products={products} setProducts={setProducts} headerTag="h3" />
             ) : (
                 <EmptyBlock
                     title={translate(`block_products.labels.title`)}

@@ -8,7 +8,11 @@ export default function PrevalidationRequestStateLabels({ request }: { request: 
     const translate = useTranslate();
 
     if (request.state === 'success') {
-        return <Label type="success">{translate(`prevalidation_requests.states.${request.state}`)}</Label>;
+        return (
+            <Label type="success" dusk="successLabel">
+                {translate(`prevalidation_requests.states.${request.state}`)}
+            </Label>
+        );
     }
 
     if (request.state === 'pending') {
@@ -17,6 +21,10 @@ export default function PrevalidationRequestStateLabels({ request }: { request: 
 
     if (request.state === 'fail') {
         return <Label type="danger">{translate(`prevalidation_requests.states.${request.state}`)}</Label>;
+    }
+
+    if (request.state === 'missing_records') {
+        return <Label type="warning">{translate(`prevalidation_requests.states.${request.state}`)}</Label>;
     }
 
     return <TableEmptyValue />;

@@ -20,7 +20,7 @@ import ModalFundRequestDisregard from '../../modals/ModalFundRequestDisregard';
 import ModalFundRequestDisregardUndo from '../../modals/ModalFundRequestDisregardUndo';
 import ModalFundRequestAssignValidator from '../../modals/ModalFundRequestAssignValidator';
 import useEnvData from '../../../hooks/useEnvData';
-import IdentityPerson from './elements/IdentityPerson';
+import BrpPersonCard from '../../elements/brp-person/BrpPersonCard';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import ModalApproveFundRequest from '../../modals/ModalApproveFundRequest';
@@ -37,6 +37,10 @@ import Employee from '../../../props/models/Employee';
 import classNames from 'classnames';
 import FundRequestRecordsHasClarifications from './elements/FundRequestRecordsHasClarifications';
 import FundRequestGroupRow from './elements/FundRequestGroupRow';
+import RequestMissedRecords from './elements/RequestMissedRecords';
+import ModalFundRequestApproveMissedRecords from '../../modals/approve-missed-records/ModalFundRequestApproveMissedRecords';
+import useRequestMissedRecords from '../../../hooks/useRequestMissedRecords';
+import useSponsorIdentitiesService from '../../../services/SponsorIdentitesService';
 
 export type FundRequestRecordLocal = FundRequestRecord & { hasContent: boolean; group_id?: number };
 
@@ -76,11 +80,14 @@ export default function FundRequestsView() {
     const emailLogService = useEmailLogService();
     const activeOrganization = useActiveOrganization();
     const fundRequestService = useFundRequestValidatorService();
+    const sponsorIdentitiesService = useSponsorIdentitiesService();
 
     const [fundRequest, setFundRequest] = useState<FundRequest>(null);
     const [showCriteria, setShowCriteria] = useState(null);
     const [uncollapsedRecords, setUncollapsedRecords] = useState<Array<number>>([]);
     const [uncollapsedRecordGroups, setUncollapsedRecordGroups] = useState<Array<number>>([]);
+
+    const { hasWarningMissedRecords, hasInfoMissedRecords } = useRequestMissedRecords(fundRequest);
 
     const fund = useMemo(() => {
         return fundRequest?.fund;
@@ -226,6 +233,10 @@ export default function FundRequestsView() {
     }, [activeOrganization.id, fundRequestMeta?.id, fundRequestService, pushApiError]);
 
     const requestApprove = useCallback(() => {
+        if (hasWarningMissedRecords && !fundRequest?.missing_records_approved) {
+            return;
+        }
+
         if (!enableCustomConfirmationModal) {
             return openModal((modal) => (
                 <ModalNotification
@@ -281,6 +292,7 @@ export default function FundRequestsView() {
             })
             .catch(pushApiError);
     }, [
+        hasWarningMissedRecords,
         enableCustomConfirmationModal,
         fundRequestService,
         activeOrganization,
@@ -456,6 +468,32 @@ export default function FundRequestsView() {
         (data: object) => fundRequestService.storeNote(activeOrganization.id, fundRequestMeta.id, data),
         [activeOrganization?.id, fundRequestMeta?.id, fundRequestService],
     );
+
+    const fetchBrpPerson = useCallback(
+        (data: object = {}) =>
+            sponsorIdentitiesService.getPersonBsn(activeOrganization.id, fundRequestMeta.identity_id, data),
+        [activeOrganization.id, fundRequestMeta?.identity_id, sponsorIdentitiesService],
+    );
+
+    const requestApproveMissedRecords = useCallback(
+        (data: { note: string }) => {
+            fundRequestService.approveMissedRecords(activeOrganization.id, fundRequest.id, data).then((res) => {
+                setFundRequest(res.data.data);
+                fetchEmailsRef?.current?.();
+                updateNotesRef?.current?.();
+            });
+        },
+        [fundRequestService, activeOrganization?.id, fundRequest?.id],
+    );
+
+    const resolveMissingRecords = useCallback(() => {
+        openModal((modal) => (
+            <ModalFundRequestApproveMissedRecords
+                modal={modal}
+                onSubmit={(data) => requestApproveMissedRecords(data)}
+            />
+        ));
+    }, [openModal, requestApproveMissedRecords]);
 
     useEffect(() => {
         fetchFundRequest();
@@ -636,6 +674,10 @@ export default function FundRequestsView() {
                             className={classNames(fundRequestMeta.bsn ? 'text-black' : 'text-muted')}>
                             {fundRequestMeta.bsn || 'Geen BSN'}
                         </KeyValueItem>
+
+                        {(hasWarningMissedRecords || hasInfoMissedRecords) && (
+                            <RequestMissedRecords request={fundRequest} />
+                        )}
                     </div>
                 </div>
 
@@ -644,10 +686,25 @@ export default function FundRequestsView() {
                         <div className="flex flex-end">
                             {fundRequestMeta.state == 'pending' &&
                                 fundRequestMeta.is_assigned &&
+                                !fundRequestMeta.can_disregarded_undo &&
+                                hasWarningMissedRecords &&
+                                !fundRequest?.missing_records_approved && (
+                                    <button
+                                        className="button button-primary"
+                                        onClick={resolveMissingRecords}
+                                        data-dusk="fundRequestApproveBtn">
+                                        <em className="mdi mdi-check icon-start" />
+                                        {translate('validation_requests.buttons.approve_missing_records')}
+                                    </button>
+                                )}
+
+                            {fundRequestMeta.state == 'pending' &&
+                                fundRequestMeta.is_assigned &&
                                 !fundRequestMeta.can_disregarded_undo && (
                                     <button
                                         className="button button-primary"
                                         onClick={requestApprove}
+                                        disabled={hasWarningMissedRecords && !fundRequest?.missing_records_approved}
                                         data-dusk="fundRequestApproveBtn">
                                         <em className="mdi mdi-check icon-start" />
                                         {translate('validation_requests.buttons.accept_all')}
@@ -697,7 +754,7 @@ export default function FundRequestsView() {
             </div>
 
             {activeOrganization.has_person_bsn_api && fundRequestMeta.bsn && fundRequestMeta.is_assigned && (
-                <IdentityPerson organization={activeOrganization} identityId={fundRequestMeta.identity_id} />
+                <BrpPersonCard fetchPerson={fetchBrpPerson} />
             )}
 
             {fundRequestMeta.note && (

@@ -4,7 +4,6 @@ import PhotoSelector from '../../../elements/photo-selector/PhotoSelector';
 import useFormBuilder from '../../../../hooks/useFormBuilder';
 import { useOrganizationService } from '../../../../services/OrganizationService';
 import Organization from '../../../../props/models/Organization';
-import FormError from '../../../elements/forms/errors/FormError';
 import CheckboxControl from '../../../elements/forms/controls/CheckboxControl';
 import SelectControl from '../../../elements/select-control/SelectControl';
 import BusinessType from '../../../../props/models/BusinessType';
@@ -26,6 +25,9 @@ import useTranslate from '../../../../hooks/useTranslate';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import SelectControlOptionsFD from '../../../elements/select-control/templates/SelectControlOptionsFD';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+import FormGroupInfo from '../../../elements/forms/elements/FormGroupInfo';
+import FormPane from '../../../elements/forms/elements/FormPane';
+import FormGroup from '../../../elements/forms/elements/FormGroup';
 
 export default function OrganizationForm() {
     const { organizationId } = useParams();
@@ -177,224 +179,229 @@ export default function OrganizationForm() {
                     )}
                 </div>
             </div>
-            <div className="card-section card-section-primary">
+
+            <div className="card-section">
                 <div className="row">
-                    <div className="col col-md-8 col-md-offset-2 col-xs-12">
-                        <PhotoSelector
-                            type="organization_logo"
-                            thumbnail={organization?.logo?.sizes?.thumbnail}
-                            selectPhoto={(file) => setMediaFile(file)}
-                        />
+                    <div className="col col-md-10 col-md-offset-1 col-xs-12">
+                        <div className="flex flex-gap flex-vertical">
+                            <FormPane title="Algemene gegevens">
+                                <PhotoSelector
+                                    type="organization_logo"
+                                    thumbnail={organization?.logo?.sizes?.thumbnail}
+                                    selectPhoto={(file) => setMediaFile(file)}
+                                />
+
+                                <FormGroup
+                                    required={true}
+                                    label={translate('organization_edit.labels.name')}
+                                    error={form.errors.name}
+                                    info={translate('organization_edit.tooltips.name')}
+                                    input={(id) => (
+                                        <input
+                                            id={id}
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Bedrijfsnaam"
+                                            value={form.values?.name || ''}
+                                            onChange={(e) => form.update({ name: e.target.value })}
+                                        />
+                                    )}
+                                />
+
+                                <FormGroup
+                                    required={true}
+                                    label={translate('organization_edit.labels.kvk')}
+                                    error={form.errors.kvk}
+                                    info={translate('organization_edit.tooltips.kvk')}
+                                    input={(id) => (
+                                        <input
+                                            id={id}
+                                            type="text"
+                                            placeholder="KvK-nummer"
+                                            className="form-control"
+                                            value={form.values?.kvk || ''}
+                                            onChange={(e) => form.update({ kvk: e.target.value })}
+                                        />
+                                    )}
+                                />
+                            </FormPane>
+                            <FormPane title="Financiële gegevens">
+                                <FormGroup
+                                    required={true}
+                                    label={translate('organization_edit.labels.bank')}
+                                    error={form.errors.iban}
+                                    info={translate('organization_edit.tooltips.bank')}
+                                    hint={
+                                        organization &&
+                                        organization?.identity_address != authIdentity.address &&
+                                        'Alleen de eigenaar kan het rekeningnummer wijzigen.'
+                                    }
+                                    input={(id) => (
+                                        <input
+                                            id={id}
+                                            type="text"
+                                            className="form-control"
+                                            placeholder={'IBAN-nummer'}
+                                            value={form.values?.iban || ''}
+                                            onChange={(e) => form.update({ iban: e.target.value })}
+                                            disabled={
+                                                organization && organization?.identity_address != authIdentity.address
+                                            }
+                                        />
+                                    )}
+                                />
+
+                                <FormGroup
+                                    label={translate('organization_edit.labels.tax')}
+                                    error={form.errors.btw}
+                                    info={translate('organization_edit.tooltips.btw')}
+                                    input={(id) => (
+                                        <input
+                                            id={id}
+                                            type="text"
+                                            placeholder="BTW-nummer"
+                                            className="form-control"
+                                            value={form.values?.btw || ''}
+                                            onChange={(e) => form.update({ btw: e.target.value })}
+                                        />
+                                    )}
+                                />
+                            </FormPane>
+                            <FormPane title="Contactgegevens">
+                                <FormGroup
+                                    required={true}
+                                    label={translate('organization_edit.labels.mail')}
+                                    input={(id) => (
+                                        <div className="row">
+                                            <div className="col col-lg-8 col-lg-12">
+                                                <FormGroupInfo
+                                                    error={form.errors?.email}
+                                                    info={translate('organization_edit.tooltips.email')}>
+                                                    <input
+                                                        id={id}
+                                                        type="email"
+                                                        className="form-control"
+                                                        value={form.values?.email || ''}
+                                                        onChange={(e) => form.update({ email: e.target.value })}
+                                                        placeholder="E-mailadres"
+                                                    />
+                                                </FormGroupInfo>
+                                            </div>
+
+                                            <div className="col col-lg-4 col-lg-12">
+                                                <CheckboxControl
+                                                    id={'email_public'}
+                                                    title={'Toon openbaar op website'}
+                                                    checked={!!form.values?.email_public}
+                                                    onChange={(e) => form.update({ email_public: e.target.checked })}
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
+                                />
+
+                                <FormGroup
+                                    required={true}
+                                    label={translate('organization_edit.labels.phone')}
+                                    input={(id) => (
+                                        <div className="row">
+                                            <div className="col col-lg-8 col-lg-12">
+                                                <FormGroupInfo
+                                                    error={form.errors?.phone}
+                                                    info={translate('organization_edit.tooltips.phone')}>
+                                                    <input
+                                                        id={id}
+                                                        type="text"
+                                                        className="form-control"
+                                                        value={form.values?.phone || ''}
+                                                        onChange={(e) => form.update({ phone: e.target.value })}
+                                                        placeholder="Telefoonnummer"
+                                                    />
+                                                </FormGroupInfo>
+                                            </div>
+
+                                            <div className="col col-lg-4 col-lg-12">
+                                                <CheckboxControl
+                                                    id={'phone_public'}
+                                                    title={'Toon openbaar op website'}
+                                                    checked={!!form.values?.phone_public}
+                                                    onChange={(e) => form.update({ phone_public: e.target.checked })}
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
+                                />
+
+                                <FormGroup
+                                    label={translate('organization_edit.labels.website')}
+                                    input={(id) => (
+                                        <div className="row">
+                                            <div className="col col-lg-8 col-lg-12">
+                                                <FormGroupInfo
+                                                    error={form.errors?.website}
+                                                    info={translate('organization_edit.tooltips.website')}>
+                                                    <input
+                                                        id={id}
+                                                        type="text"
+                                                        className="form-control"
+                                                        value={form.values?.website || ''}
+                                                        onChange={(e) => form.update({ website: e.target.value })}
+                                                        placeholder="Website"
+                                                    />
+                                                </FormGroupInfo>
+                                            </div>
+
+                                            <div className="col col-lg-4 col-lg-12">
+                                                <CheckboxControl
+                                                    id={'website_public'}
+                                                    title={'Toon openbaar op website'}
+                                                    checked={!!form.values?.website_public}
+                                                    onChange={(e) => form.update({ website_public: e.target.checked })}
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
+                                />
+                            </FormPane>
+                            <FormPane title="Over de organisatie">
+                                <FormGroup
+                                    required={true}
+                                    label={translate('organization_edit.labels.business_type')}
+                                    error={form.errors.business_type_id}
+                                    info={translate('organization_edit.tooltips.business_type')}
+                                    input={(id) => (
+                                        <SelectControl
+                                            id={id}
+                                            className={'form-control'}
+                                            options={businessTypes || []}
+                                            propKey={'id'}
+                                            allowSearch={true}
+                                            value={form.values?.business_type_id}
+                                            optionsComponent={SelectControlOptionsFD}
+                                            onChange={(id?: number) => form.update({ business_type_id: id })}
+                                        />
+                                    )}
+                                />
+
+                                <FormGroup
+                                    required={true}
+                                    label={translate('organization_edit.labels.description')}
+                                    error={form.errors.description}
+                                    input={() => (
+                                        <MarkdownEditor
+                                            value={form.values?.description_html || ''}
+                                            onChange={(description) => form.update({ description })}
+                                            placeholder={translate('organization_edit.labels.description')}
+                                        />
+                                    )}
+                                />
+                            </FormPane>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div className="card-section card-section-primary">
-                <div className="row">
-                    <div className="col col-md-8 col-md-offset-2 col-xs-12">
-                        <div className="form-group">
-                            <label htmlFor="name" className="form-label form-label-required">
-                                {translate('organization_edit.labels.name')}
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Bedrijfsnaam"
-                                value={form.values?.name || ''}
-                                onChange={(e) => form.update({ name: e.target.value })}
-                            />
-                            <FormError error={form.errors?.name} />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="iban" className="form-label form-label-required">
-                                {translate('organization_edit.labels.bank')}
-                            </label>
-
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder={'IBAN-nummer'}
-                                value={form.values?.iban || ''}
-                                onChange={(e) => form.update({ iban: e.target.value })}
-                                disabled={organization && organization?.identity_address != authIdentity.address}
-                            />
-                            {organization && organization?.identity_address != authIdentity.address && (
-                                <div className="form-hint">Alleen de eigenaar kan het rekeningnummer wijzigen.</div>
-                            )}
-                            <FormError error={form.errors?.iban} />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="card-section card-section-primary">
-                <div className="row">
-                    <div className="col col-md-8 col-md-offset-2 col-xs-12">
-                        <div className="form-group">
-                            <label htmlFor="email" className="form-label form-label-required">
-                                {translate('organization_edit.labels.mail')}
-                            </label>
-
-                            <div className="row">
-                                <div className="col col-lg-8 col-lg-12">
-                                    <input
-                                        id={'email'}
-                                        type="email"
-                                        className="form-control"
-                                        value={form.values?.email || ''}
-                                        onChange={(e) => form.update({ email: e.target.value })}
-                                        placeholder="E-mailadres"
-                                    />
-                                    <FormError error={form.errors?.email} />
-                                </div>
-
-                                <div className="col col-lg-4 col-lg-12">
-                                    <CheckboxControl
-                                        id={'email_public'}
-                                        title={'Maak publiek'}
-                                        checked={!!form.values?.email_public}
-                                        onChange={(e) => form.update({ email_public: e.target.checked })}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="phone" className="form-label form-label-required">
-                                {translate('organization_edit.labels.phone')}
-                            </label>
-
-                            <div className="row">
-                                <div className="col col-lg-8 col-lg-12">
-                                    <input
-                                        id="phone"
-                                        type="text"
-                                        className="form-control"
-                                        value={form.values?.phone || ''}
-                                        onChange={(e) => form.update({ phone: e.target.value })}
-                                        placeholder="Telefoonnummer"
-                                    />
-                                    <FormError error={form.errors?.phone} />
-                                </div>
-
-                                <div className="col col-lg-4 col-lg-12">
-                                    <CheckboxControl
-                                        id={'phone_public'}
-                                        title={'Maak publiek'}
-                                        checked={!!form.values?.phone_public}
-                                        onChange={(e) => form.update({ phone_public: e.target.checked })}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="website" className="form-label">
-                                {translate('organization_edit.labels.website')}
-                            </label>
-
-                            <div className="row">
-                                <div className="col col-lg-8 col-lg-12">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        value={form.values?.website || ''}
-                                        onChange={(e) => form.update({ website: e.target.value })}
-                                        placeholder="Website"
-                                    />
-                                    <FormError error={form.errors?.website} />
-                                </div>
-
-                                <div className="col col-lg-4 col-lg-12">
-                                    <CheckboxControl
-                                        id={'website_public'}
-                                        title={'Maak publiek'}
-                                        checked={!!form.values?.website_public}
-                                        onChange={(e) => form.update({ website_public: e.target.checked })}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="card-section card-section-primary">
-                <div className="row">
-                    <div className="col col-md-8 col-md-offset-2 col-xs-12">
-                        <div className="form-group">
-                            <label htmlFor="" className="form-label form-label-required">
-                                {translate('organization_edit.labels.business_type')}
-                            </label>
-
-                            <SelectControl
-                                className={'form-control'}
-                                options={businessTypes || []}
-                                propKey={'id'}
-                                allowSearch={true}
-                                value={form.values?.business_type_id}
-                                optionsComponent={SelectControlOptionsFD}
-                                onChange={(id?: number) => form.update({ business_type_id: id })}
-                            />
-                            <FormError error={form.errors?.business_type_id} />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="card-section card-section-primary">
-                <div className="row">
-                    <div className="col col-md-8 col-md-offset-2 col-xs-12">
-                        <div className="form-group">
-                            <label htmlFor="description" className="form-label form-label-required">
-                                {translate('organization_edit.labels.description')}
-                            </label>
-
-                            <MarkdownEditor
-                                value={form.values?.description_html || ''}
-                                onChange={(description) => form.update({ description })}
-                                placeholder={translate('organization_edit.labels.description')}
-                            />
-                            <FormError error={form.errors?.description} />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="card-section card-section-primary">
-                <div className="row">
-                    <div className="col col-md-8 col-md-offset-2 col-xs-12">
-                        <div className="form-group">
-                            <label htmlFor="kvk" className="form-label form-label-required">
-                                {translate('organization_edit.labels.kvk')}
-                            </label>
-                            <input
-                                type="text"
-                                placeholder="KvK-nummer"
-                                className="form-control"
-                                value={form.values?.kvk || ''}
-                                onChange={(e) => form.update({ kvk: e.target.value })}
-                            />
-                            <FormError error={form.errors?.kvk} />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="kvk" className="form-label">
-                                {translate('organization_edit.labels.tax')}
-                            </label>
-                            <input
-                                type="text"
-                                placeholder="BTW-nummer"
-                                className="form-control"
-                                value={form.values?.btw || ''}
-                                onChange={(e) => form.update({ btw: e.target.value })}
-                            />
-                            <FormError error={form.errors?.btw} />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="card-section card-section-primary">
+            <div className="card-section">
                 <div className="text-center">
                     {organization ? (
                         <StateNavLink

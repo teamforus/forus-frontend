@@ -7,7 +7,6 @@ import QrCode from '../../elements/qr-code/QrCode';
 import { authContext } from '../../../contexts/AuthContext';
 import AppLinks from '../../elements/app-links/AppLinks';
 import FormError from '../../elements/forms/errors/FormError';
-import useEnvData from '../../../hooks/useEnvData';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import TranslateHtml from '../../elements/translate-html/TranslateHtml';
 import { ResponseError } from '../../../props/ApiResponses';
@@ -20,18 +19,14 @@ export default function SignIn() {
     const [qrValue, setQrValue] = useState<{ type: 'auth_token'; value: string }>(null);
     const { token, setToken } = useContext(authContext);
 
-    const envData = useEnvData();
-
     const assetUrl = useAssetUrl();
     const navigate = useNavigate();
     const translate = useTranslate();
     const identityService = useIdentityService();
 
     const signInForm = useFormBuilder({ email: '' }, async (values) => {
-        const source = `${envData.client_key}_${envData.client_type}`;
-
         return identityService
-            .makeAuthEmailToken(values.email?.toString(), source)
+            .make({ email: values.email?.toString() })
             .then(() => signInForm.setState('success'))
             .catch((err: ResponseError) => {
                 return signInForm.setErrors(err.data.errors ? err.data.errors : { email: [err.data.message] });
@@ -163,10 +158,12 @@ export default function SignIn() {
                                     className="sign_up-email_sent-icon-img"
                                 />
                             </div>
-                            <div className="block-login-email_sent-title">{translate('popup_auth.labels.join')}</div>
+                            <div className="block-login-email_sent-title">
+                                {translate('popup_auth.labels.email_sent_title')}
+                            </div>
                             <div className="block-login-email_sent-text">
                                 <TranslateHtml
-                                    i18n={'popup_auth.notifications.link'}
+                                    i18n={'popup_auth.notifications.email_sent_description'}
                                     values={{ email: signInForm.values.email }}
                                 />
                             </div>

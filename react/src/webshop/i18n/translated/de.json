@@ -612,11 +612,11 @@
                 "continue_without_email_link": "Weiter ohne E-Mail Adresse",
                 "email_required": "Um mit der Bewerbung fortzufahren, geben Sie bitte Ihre E-Mail-Adresse ein",
                 "email_sent": "E-Mail gesendet",
-                "email_sent_screen": "Eine Bestätigungs-E-Mail wurde verschickt",
                 "no_email_link": "Ich habe keine E-Mail Adresse",
                 "sign_up_with_email": "Anmeldung mit E-Mail Adresse",
                 "no_email_info": "Ohne E-Mail-Adresse erhalten Sie keine wichtigen Nachrichten über Ihr Guthaben und Ihre Ausgaben. Sie können sich dann nur mit DigiD anmelden.",
-                "warning": "Anmerkung:"
+                "warning": "Anmerkung:",
+                "email_sent_screen": "Es wurde eine E-Mail versandt"
             },
             "fund_request_overview": {
                 "application_summary": "Übersicht anfordern",
@@ -837,9 +837,6 @@
             "oostgelre": {
                 "title": "Aktivieren Sie"
             },
-            "potjeswijzer": {
-                "title": "Krüge"
-            },
             "schagen": {
                 "title": "Schemata"
             },
@@ -851,6 +848,9 @@
             },
             "fijnder": {
                 "title": "Schemata"
+            },
+            "potjeswijzer": {
+                "title": "Gemeindekasse"
             }
         },
         "header": {
@@ -871,7 +871,9 @@
             "winterswijk": {
                 "subtitle": "Im Folgenden finden Sie die Programme, die Sie aktivieren können.",
                 "title": "Aktivieren Sie"
-            }
+            },
+            "partners_description": "",
+            "partners_title": "Anträge"
         },
         "labels": {
             "age": "< 18 Jahre alt",
@@ -894,6 +896,47 @@
             "denied": "Verweigert",
             "is_applicable": "Registrieren Sie sich",
             "is_pending": "In Arbeit"
+        },
+        "active_filters": {
+            "reset_all": "Alle Filter entfernen"
+        },
+        "partners": {
+            "berkelland": {
+                "description": "Aktivieren",
+                "title": "Aktivieren"
+            },
+            "fijnder": {
+                "description": "Regelungen",
+                "title": "Regelungen"
+            },
+            "geertruidenberg": {
+                "description": "Aktivieren",
+                "title": "Aktivieren"
+            },
+            "goereeoverflakkee": {
+                "description": "Regelungen",
+                "title": "Regelungen"
+            },
+            "oostgelre": {
+                "description": "Aktivieren",
+                "title": "Aktivieren"
+            },
+            "schagen": {
+                "description": "Regelungen",
+                "title": "Regelungen"
+            },
+            "vergoedingen": {
+                "description": "Alle Vergütungen",
+                "title": "Alle Vergütungen"
+            },
+            "winterswijk": {
+                "description": "Aktivieren",
+                "title": "Aktivieren"
+            },
+            "potjeswijzer": {
+                "description": "Auch unsere Partner bieten verschiedene Förderprogramme für Einwohner an. Haben Sie ein geringes Einkommen? Dann ist möglicherweise eine zusätzliche Unterstützung möglich.",
+                "title": "Partner von Potjes"
+            }
         }
     },
     "global": {
@@ -1343,7 +1386,8 @@
         "fund_item_list": {
             "buttons": {
                 "check_status": "Status prüfen",
-                "is_applicable": "Anfrage"
+                "is_applicable": "Anfrage",
+                "more_information": "Weitere Informationen"
             },
             "show_less": "Weniger anzeigen",
             "show_more": "Mehr anzeigen",
@@ -1512,10 +1556,10 @@
         "close": "Schließen Sie",
         "email": "E-Mail",
         "go_to_admin": "Gehen Sie zur Verwaltungsumgebung",
-        "header_title": "Fonds Hilfe Block",
-        "help_title": "Fonds Hilfe Titel",
         "phone": "Telefon",
-        "website": "Website"
+        "website": "Website",
+        "header_title": "Kontakt aufnehmen",
+        "help_title": "Haben Sie Fragen oder benötigen Sie Hilfe?"
     },
     "modal_logout": {
         "description_formal": "Sind Sie sicher, dass Sie sich abmelden wollen?",
@@ -2001,16 +2045,12 @@
         "header": {
             "subtitle_formal": "Geben Sie Ihre E-Mail-Adresse ein, um einen Link zum Einloggen zu erhalten.",
             "subtitle_informal": "Geben Sie Ihre E-Mail-Adresse ein, um einen Link zum Einloggen zu erhalten.",
-            "subtitle_succes_formal": "Sie haben eine E-Mail an die soeben eingegebene E-Mail-Adresse erhalten. Gehen Sie zu Ihrem Posteingang und öffnen Sie die E-Mail mit dem Betreff \"E-Mail bestätigen\" und klicken Sie auf die blaue Schaltfläche in der E-Mail.",
-            "subtitle_succes_informal": "Sie haben eine E-Mail an die von Ihnen angegebene E-Mail-Adresse erhalten. Gehen Sie zu Ihrem Posteingang und öffnen Sie die E-Mail mit dem Betreff \"E-Mail bestätigen\" und klicken Sie auf die blaue Schaltfläche in der E-Mail.",
-            "subtitle_we_succes_formal": "Sie haben eine E-Mail erhalten am <strong class=\"text-primary\">{{email}}</strong>. Gehen Sie zu Ihrem Posteingang und öffnen Sie die E-Mail mit dem Betreff \"E-Mail bestätigen\" und klicken Sie in der E-Mail auf \"Bestätigen\".",
-            "subtitle_we_succes_informal": "Sie haben eine E-Mail erhalten unter <strong class=\"text-primary\">{{email}}</strong>. Gehen Sie zu Ihrem Posteingang und öffnen Sie die E-Mail mit dem Betreff \"E-Mail bestätigen\" und klicken Sie in der E-Mail auf \"Bestätigen\".",
             "title": "E-Mail gesendet",
-            "title_existing_user_succes_formal": "Prüfen Sie Ihre E-Mail.",
-            "title_existing_user_succes_informal": "Prüfen Sie Ihre E-Mail.",
             "title_sr": "Anmeldung starten",
-            "title_succes_formal": "Bitte bestätigen Sie, dass Sie Zugang zu dieser E-Mail-Adresse haben.",
-            "title_succes_informal": "Bestätigen Sie, dass Sie Zugang zu dieser E-Mail-Adresse haben."
+            "subtitle_email_sent_formal": "Wir schickten eine E-Mail an <strong class=\"text-primary\">{{email}}</strong>. Bitte öffnen Sie die E-Mail und folgen Sie dem Link, um fortzufahren.",
+            "subtitle_email_sent_informal": "Wir schickten eine E-Mail an <strong class=\"text-primary\">{{email}}</strong>. Bitte öffnen Sie die E-Mail und folgen Sie dem Link, um fortzufahren.",
+            "title_email_sent_formal": "Prüfen Sie Ihre E-Mail.",
+            "title_email_sent_informal": "Prüfen Sie Ihre E-Mail."
         },
         "input": {
             "code": "Aktivierungscode",
@@ -2057,8 +2097,6 @@
         "notifications": {
             "confirmation": "Es hat geklappt!",
             "invalid": "Der Aktivierungscode ist ungültig oder wurde bereits verwendet.",
-            "link_formal": "Eine E-Mail wurde an folgende Adresse geschickt <strong class=\"text-primary\">{{email}}</strong><br/>Klicken Sie auf den Link, um sich anzumelden.",
-            "link_informal": "Eine E-Mail wurde an folgende Adresse geschickt <strong class=\"text-primary\">{{email}}</strong><br/>Klicken Sie auf den Link, um sich anzumelden.",
             "voucher_email": "Der QR-Code wurde gesendet."
         },
         "pin_code": {
@@ -2521,7 +2559,7 @@
             "title": "Bankkonto",
             "iban": "IBAN",
             "source": "Quelle",
-            "name": "Zuschreibung"
+            "name": "Kontoinhaber"
         },
         "breadcrumbs": {
             "home": "Startseite",
@@ -2816,6 +2854,20 @@
         "types": {
             "active": "Aktiv",
             "archived": "Archiv"
+        },
+        "placeholders": {
+            "amount": "10",
+            "description": "Was haben Sie gekauft?",
+            "iban": "NL12INGB3456789012",
+            "iban_name": "J. Jansen",
+            "title": "Der Name der Kosten, deren Erstattung Sie beantragen."
+        },
+        "tooltips": {
+            "amount": "Geben Sie hier den Betrag ein, den Sie zurückfordern möchten. Beispiel: 10.",
+            "description": "Schreiben Sie kurz auf, was Sie gekauft haben. Beispiel: Sportschuhe.",
+            "iban": "Geben Sie die Kontonummer ein, auf die Sie das Geld erhalten möchten. Beispiel für eine IBAN: NL12INGB3456789012.",
+            "iban_name": "Geben Sie den Namen des Kontoinhabers ein. Beispiel: J. Jansen.",
+            "title": "Bezeichnung der Kosten, deren Erstattung Sie beantragen. Beispiel: Sportschuhe."
         }
     },
     "reservation": {
@@ -3200,9 +3252,6 @@
             "noordoostpolder": {
                 "activate": "Schemata"
             },
-            "potjeswijzer": {
-                "activate": "Krüge"
-            },
             "products": "Angebot",
             "profile": "Profil >",
             "providers": "Anbieter",
@@ -3218,6 +3267,9 @@
             },
             "westerkwartier": {
                 "activate": "Anfrage"
+            },
+            "potjeswijzer": {
+                "activate": "Gemeindekasse"
             }
         },
         "items": {
@@ -3229,7 +3281,6 @@
                 "funds": "Schemata"
             },
             "explanation": "Erläuterung",
-            "funds": "Aktivieren Sie",
             "geertruidenberg": {
                 "funds": "Schemata"
             },
@@ -3255,9 +3306,6 @@
             "noordoostpolder": {
                 "funds": "Schemata"
             },
-            "potjeswijzer": {
-                "funds": "Krüge"
-            },
             "products": "Angebot",
             "providers": "Anbieter",
             "schagen": {
@@ -3274,14 +3322,23 @@
             "wadenheuvel": {
                 "funds": "Schemata"
             },
-            "westerkwartier": {
-                "funds": "Krüge"
-            },
             "fijnder": {
                 "funds": "Schemata"
             },
             "isd": {
                 "funds": "Schemata"
+            },
+            "tilburg": {
+                "funds": "Regelungen"
+            },
+            "funds": "Regelungen",
+            "partner_funds": "Sozialpartner",
+            "potjeswijzer": {
+                "funds": "Gemeindekasse",
+                "partner_funds": "Partner von Potjes"
+            },
+            "westerkwartier": {
+                "funds": "Gemeindekasse"
             }
         },
         "user_menu": {
@@ -3434,7 +3491,10 @@
             "title": "Transaktionen",
             "top_up": "Verbessert",
             "expired_on": "Abgelaufen am {{ date }}",
-            "payout": "Auszahlung"
+            "payout": "Auszahlung",
+            "provider_by_sponsor": "Transaktion durch Mitarbeiter",
+            "qr_code": "QR-Code",
+            "reimbursement": "Kostenerstattung"
         },
         "actions": {
             "choose_action": {
@@ -3764,7 +3824,8 @@
     },
     "block_product_categories": {
         "description": "Klicken Sie auf ein Thema und Sie sehen sofort, aus welchem Angebot Sie wählen können.",
-        "title": "Was machen Sie gerne?"
+        "title": "Was machen Sie gerne?",
+        "category_link_label": "Produkte in der Kategorie {{category}} anzeigen"
     },
     "modal_image_preview": {
         "alt_text": "Beispiel einer Datei",

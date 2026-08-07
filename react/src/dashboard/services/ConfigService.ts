@@ -228,11 +228,14 @@ export type AppConfigProp = {
     show_office_map: boolean;
     show_voucher_map: boolean;
     show_product_map: boolean;
+    show_fund_image_list: boolean;
+    show_fund_partners_page: boolean;
     page_title_suffix?: string;
     show_terms_checkbox?: boolean;
     show_privacy_checkbox?: boolean;
     languages: Array<Language>;
     products_default_sorting?: string;
+    organization_id?: number;
 };
 
 export class ConfigService<T = AppConfigProp> {

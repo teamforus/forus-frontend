@@ -128,7 +128,7 @@ export default {
             none: 'Geen',
         },
         fund_request_email_setup: {
-            email_sent_screen: 'Er is een e-mail te bevestiging verstuurd',
+            email_sent_screen: 'Er is een e-mail verstuurd',
             email_sent: 'E-mail verstuurd',
             sign_up_with_email: 'Aanmelden met e-mailadres',
             email_required: 'Om verder te gaan met de aanvraag dient u uw e-mailadres op te geven',

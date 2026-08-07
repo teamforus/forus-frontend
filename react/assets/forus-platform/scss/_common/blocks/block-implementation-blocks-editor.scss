@@ -1,16 +1,16 @@
-@use "../includes/helpers";
+@use '../includes/helpers';
 
 .block.block-implementation-blocks-editor {
     display: flex;
     flex-direction: column;
+    gap: 10px;
 
     .block-item {
         display: flex;
         flex-direction: column;
-        margin: 0 0 10px;
+        margin: 0 0;
         background: #ffffff;
         border: 1px solid var(--border-color);
-        box-shadow: 0 0 5px rgba(25, 39, 52, 0.22);
         border-radius: calc(var(--border-radius));
         position: relative;
 
@@ -48,7 +48,7 @@
 
         .block-body {
             display: block;
-            padding: 30px;
+            padding: 15px;
         }
 
         &:last-child {
@@ -59,6 +59,55 @@
     .block-actions {
         &:first-child {
             padding: 0 0 0;
+        }
+    }
+
+    .cms-block-field-choice-control {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 15px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        background: #ffffff;
+
+        .cms-block-field-choice-control-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            appearance: none;
+            border: 0;
+            padding: 0;
+            background: transparent;
+            color: #8fa2a5;
+            cursor: pointer;
+            font: 600 13px/20px var(--base-font);
+            transition: color 0.2s;
+
+            .cms-block-field-choice-control-icon {
+                display: block;
+            }
+
+            &:hover {
+                color: var(--color-primary);
+            }
+
+            &:focus-visible {
+                color: var(--color-primary);
+                outline: none;
+
+                .cms-block-field-choice-control-icon {
+                    outline: 2px solid var(--color-primary);
+                    outline-offset: 3px;
+                    border-radius: var(--border-radius);
+                }
+            }
+
+            &.cms-block-field-choice-control-option-active {
+                color: var(--color-primary);
+            }
         }
     }
 }

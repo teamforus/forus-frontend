@@ -48,6 +48,9 @@ $primaryColorLight: #1B8761;
 
     --navbar-logo-height: 50px;
 
+    // Banner
+    --banner-title-font: 700 48px/64px var(--base-font);
+
     // Nav item line position
     --navbar-menu-item-line-position-top: 0;
     --navbar-menu-item-line-position-bottom: auto;
@@ -81,6 +84,7 @@ $primaryColorLight: #1B8761;
     // Header banner
     --header-banner-pane-banner-padding: 40px 50px;
     --header-banner-pane-banner-max-width: 760px;
+    --header-banner-pane-banner-pane-width: 60%;
     --header-banner-pane-banner-background: #fff;
     --header-banner-pane-banner-border-color: initial;
     --header-banner-pane-banner-border-radius: var(--border-radius);
@@ -142,6 +146,9 @@ $primaryColorLight: #1B8761;
     --form-control-placeholder-color: #535561;
     --form-label-color: #595959;
     --form-label-font: 700 11px/16px var(--base-font);
+
+    // Labels
+    --label-font: 600 11px/18px var(--base-font);
 
     // Search bar
     --color-search-icon-medium: #1B8761;
@@ -366,14 +373,14 @@ $primaryColorLight: #1B8761;
     // CMS funds
     --cms-funds-title-font: 400 24px/36px var(--base-font);
     --cms-funds-title-color: var(--htc);
-    --cms-funds-label-font-size: 11px;
+    --cms-funds-label-font: 600 11px/20px var(--base-font);
     --cms-funds-label-background: var(--color-primary);
 
     --cms-funds-compact-title-font: 400 24px/36px var(--base-font);
     --cms-funds-compact-title-color: var(--htc);
 
     --cms-funds-link-color: var(--color-primary);
-    --cms-funds-link-font: 600 18px/20px var(--base-font);
+    --cms-funds-link-font: 600 16px/20px var(--base-font);
 
     // Section order
     --order-page-voucher-map: 0;

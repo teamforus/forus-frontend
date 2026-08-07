@@ -20,14 +20,8 @@ export default class IdentityService<T = Identity> {
         return this.apiRequest.get(this.prefix);
     }
 
-    public make(data = {}): Promise<ResponseSimple<{ address: string }>> {
+    public make(data = {}): Promise<ResponseSimple<object>> {
         return this.apiRequest.post(this.prefix, data);
-    }
-
-    public validateEmail(
-        data = {},
-    ): Promise<ResponseSimple<{ email: { used: boolean; unique: boolean; valid: boolean } }>> {
-        return this.apiRequest.post(`${this.prefix}/validate/email`, data);
     }
 
     public deleteToken(): Promise<ResponseSimple<null>> {
@@ -42,10 +36,6 @@ export default class IdentityService<T = Identity> {
         return this.apiRequest.post<ResponseSimple<{ auth_token: string; access_token: string }>>(
             `${this.prefix}/proxy/code`,
         );
-    }
-
-    public makeAuthEmailToken(email: string, source: string, target?: string) {
-        return this.apiRequest.post<ResponseSimple<null>>(`${this.prefix}/proxy/email`, { email, target, source });
     }
 
     public checkAccessToken(access_token: string) {

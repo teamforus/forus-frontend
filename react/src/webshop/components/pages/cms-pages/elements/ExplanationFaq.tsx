@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import implementationPage from '../../../../props/models/ImplementationPage';
+import ImplementationPage from '../../../../props/models/ImplementationPage';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import Fund from '../../../../props/models/Fund';
 import { useFundService } from '../../../../services/FundService';
 import { uniqueId } from 'lodash';
 import useEnvData from '../../../../hooks/useEnvData';
 import FaqBlock from '../../../elements/faq-block/FaqBlock';
+import { shouldShowCmsPageDefaultContent } from '../helpers/cmsPage';
 
-export default function ExplanationFaq({ page }: { page: implementationPage }) {
+export default function ExplanationFaq({ page }: { page: ImplementationPage }) {
     const envData = useEnvData();
     const translate = useTranslate();
 
@@ -67,7 +68,7 @@ export default function ExplanationFaq({ page }: { page: implementationPage }) {
         fundService.list().then((res) => makeDefaultFAQ(res.data.data));
     }, [fundService, makeDefaultFAQ]);
 
-    if (page.description_html && page.description_position === 'replace' && page.faq.length < 1) {
+    if (page.faq.length < 1 && !shouldShowCmsPageDefaultContent(page)) {
         return null;
     }
 

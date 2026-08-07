@@ -49,6 +49,7 @@ export default interface Implementation {
         key: string;
         type: 'element' | 'block' | 'extra' | 'static';
         blocks: boolean;
+        cms_blocks: boolean;
         faq: boolean;
         webshop_url: string;
         description_position_configurable: boolean;

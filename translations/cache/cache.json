@@ -500,6 +500,10 @@
         "Notificaties"
     ],
     [
+        "block_product_categories.category_link_label",
+        "Bekijk producten in categorie {{category}}"
+    ],
+    [
         "block_product_categories.description",
         "Klik op een thema en je ziet meteen uit welk aanbod je kan kiezen."
     ],
@@ -1765,7 +1769,7 @@
     ],
     [
         "fund_request.sign_up.fund_request_email_setup.email_sent_screen",
-        "Er is een e-mail te bevestiging verstuurd"
+        "Er is een e-mail verstuurd"
     ],
     [
         "fund_request.sign_up.fund_request_email_setup.no_email_info",
@@ -2108,6 +2112,10 @@
         "We zijn uw aanvraag aan het controleren"
     ],
     [
+        "funds.active_filters.reset_all",
+        "Verwijder alle filters"
+    ],
+    [
         "funds.breadcrumbs.funds",
         "Aanvragen"
     ],
@@ -2189,7 +2197,7 @@
     ],
     [
         "funds.funds.potjeswijzer.title",
-        "Potjes"
+        "Potjes gemeente"
     ],
     [
         "funds.funds.schagen.title",
@@ -2218,6 +2226,14 @@
     [
         "funds.header.oostgelre.title",
         "Activeren"
+    ],
+    [
+        "funds.header.partners_description",
+        ""
+    ],
+    [
+        "funds.header.partners_title",
+        "Aanvragen"
     ],
     [
         "funds.header.potjeswijzer.subtitle",
@@ -2294,6 +2310,78 @@
     [
         "funds.labels.search",
         "Zoeken"
+    ],
+    [
+        "funds.partners.berkelland.description",
+        "Activeren"
+    ],
+    [
+        "funds.partners.berkelland.title",
+        "Activeren"
+    ],
+    [
+        "funds.partners.fijnder.description",
+        "Regelingen"
+    ],
+    [
+        "funds.partners.fijnder.title",
+        "Regelingen"
+    ],
+    [
+        "funds.partners.geertruidenberg.description",
+        "Activeren"
+    ],
+    [
+        "funds.partners.geertruidenberg.title",
+        "Activeren"
+    ],
+    [
+        "funds.partners.goereeoverflakkee.description",
+        "Regelingen"
+    ],
+    [
+        "funds.partners.goereeoverflakkee.title",
+        "Regelingen"
+    ],
+    [
+        "funds.partners.oostgelre.description",
+        "Activeren"
+    ],
+    [
+        "funds.partners.oostgelre.title",
+        "Activeren"
+    ],
+    [
+        "funds.partners.potjeswijzer.description",
+        "Ook onze partners bieden verschillende potjes voor inwoners. Heeft u een klein inkomen? Dan is er een extraatje mogelijk."
+    ],
+    [
+        "funds.partners.potjeswijzer.title",
+        "Potjes partners"
+    ],
+    [
+        "funds.partners.schagen.description",
+        "Regelingen"
+    ],
+    [
+        "funds.partners.schagen.title",
+        "Regelingen"
+    ],
+    [
+        "funds.partners.vergoedingen.description",
+        "Alle vergoedingen"
+    ],
+    [
+        "funds.partners.vergoedingen.title",
+        "Alle vergoedingen"
+    ],
+    [
+        "funds.partners.winterswijk.description",
+        "Activeren"
+    ],
+    [
+        "funds.partners.winterswijk.title",
+        "Activeren"
     ],
     [
         "funds.status.activateable",
@@ -3688,6 +3776,10 @@
         "Aanvragen"
     ],
     [
+        "list_blocks.fund_item_list.buttons.more_information",
+        "Meer informatie"
+    ],
+    [
         "list_blocks.fund_item_list.show_less",
         "Toon minder"
     ],
@@ -4393,11 +4485,11 @@
     ],
     [
         "modal_fund_help.header_title",
-        "Fund Help Block"
+        "Contact opnemen"
     ],
     [
         "modal_fund_help.help_title",
-        "Fund Help Title"
+        "Vragen of hulp nodig?"
     ],
     [
         "modal_fund_help.phone",
@@ -5848,6 +5940,14 @@
         "Bevestigen"
     ],
     [
+        "popup_auth.header.subtitle_email_sent_formal",
+        "We hebben een e-mail gestuurd naar <strong class=\"text-primary\">{{email}}</strong>. Open de e-mail en volg de link om verder te gaan."
+    ],
+    [
+        "popup_auth.header.subtitle_email_sent_informal",
+        "We hebben een e-mail gestuurd naar <strong class=\"text-primary\">{{email}}</strong>. Open de e-mail en volg de link om verder te gaan."
+    ],
+    [
         "popup_auth.header.subtitle_formal",
         "Vul uw e-mailadres in om een link te ontvangen waarmee u kunt inloggen."
     ],
@@ -5856,44 +5956,20 @@
         "Vul jouw e-mailadres in om een link te ontvangen waarmee je kunt inloggen."
     ],
     [
-        "popup_auth.header.subtitle_succes_formal",
-        "U heeft een e-mail ontvangen op het e-mailadres dat u zojuist hebt ingevuld. Ga naar uw inbox en open de e-mail met het onderwerp \"E-mail bevestigen\" en klik in de e-mail op de blauwe knop."
-    ],
-    [
-        "popup_auth.header.subtitle_succes_informal",
-        "Je hebt een e-mail ontvangen op het e-mailadres dat je zojuist hebt ingevuld. Ga naar je inbox en open de e-mail met het onderwerp \"E-mail bevestigen\" en klik in de e-mail op de blauwe knop."
-    ],
-    [
-        "popup_auth.header.subtitle_we_succes_formal",
-        "U heeft een e-mail ontvangen op <strong class=\"text-primary\">{{email}}</strong>. Ga naar uw inbox en open de e-mail met het onderwerp \"E-mail bevestigen\" en klik in de e-mail op \"Bevestigen\"."
-    ],
-    [
-        "popup_auth.header.subtitle_we_succes_informal",
-        "Je hebt een e-mail ontvangen op <strong class=\"text-primary\">{{email}}</strong>. Ga naar je inbox en open de e-mail met het onderwerp \"E-mail bevestigen\" en klik in de e-mail op \"Bevestigen\"."
-    ],
-    [
         "popup_auth.header.title",
         "E-mail verstuurd"
     ],
     [
-        "popup_auth.header.title_existing_user_succes_formal",
+        "popup_auth.header.title_email_sent_formal",
         "Controleer uw e-mail."
     ],
     [
-        "popup_auth.header.title_existing_user_succes_informal",
+        "popup_auth.header.title_email_sent_informal",
         "Controleer je e-mail."
     ],
     [
         "popup_auth.header.title_sr",
         "Start aanmelden"
-    ],
-    [
-        "popup_auth.header.title_succes_formal",
-        "Bevestig dat u toegang heeft tot dit e-mailadres."
-    ],
-    [
-        "popup_auth.header.title_succes_informal",
-        "Bevestig dat je toegang hebt tot dit e-mailadres."
     ],
     [
         "popup_auth.input.code",
@@ -6006,14 +6082,6 @@
     [
         "popup_auth.notifications.invalid",
         "De activatiecode is ongeldig of al gebruikt."
-    ],
-    [
-        "popup_auth.notifications.link_formal",
-        "Er is een e-mail verstuurd naar <strong class=\"text-primary\">{{email}}</strong>.<br/>Klik op de link om u aan te melden."
-    ],
-    [
-        "popup_auth.notifications.link_informal",
-        "Er is een e-mail verstuurd naar <strong class=\"text-primary\">{{email}}</strong>.<br/>Klik op de link om je aan te melden."
     ],
     [
         "popup_auth.notifications.voucher_email",
@@ -8064,6 +8132,26 @@
         "Er is geen e-mailadres bekend."
     ],
     [
+        "reimbursements.placeholders.amount",
+        "10"
+    ],
+    [
+        "reimbursements.placeholders.description",
+        "Wat heeft u gekocht?"
+    ],
+    [
+        "reimbursements.placeholders.iban",
+        "NL12INGB3456789012"
+    ],
+    [
+        "reimbursements.placeholders.iban_name",
+        "J. Jansen"
+    ],
+    [
+        "reimbursements.placeholders.title",
+        "De naam van de kosten die u terugvraagt."
+    ],
+    [
         "reimbursements.states.all",
         "Alle"
     ],
@@ -8098,6 +8186,26 @@
     [
         "reimbursements.title_edit",
         "Declaratienummer: #{{code}}"
+    ],
+    [
+        "reimbursements.tooltips.amount",
+        "Vul hier het bedrag in dat u wilt terugvragen. Voorbeeld: 10."
+    ],
+    [
+        "reimbursements.tooltips.description",
+        "Schrijf kort op wat u heeft gekocht. Voorbeeld: Sportschoenen."
+    ],
+    [
+        "reimbursements.tooltips.iban",
+        "Vul het rekeningnummer in waarop u het geld wilt ontvangen. Voorbeeld van een IBAN: NL12INGB3456789012."
+    ],
+    [
+        "reimbursements.tooltips.iban_name",
+        "Vul de naam van de rekeninghouder in. Voorbeeld: J. Jansen."
+    ],
+    [
+        "reimbursements.tooltips.title",
+        "Naam van de kosten die u terugvraagt. Voorbeeld: Sportschoenen."
     ],
     [
         "reimbursements.types.active",
@@ -9005,7 +9113,7 @@
     ],
     [
         "top_navbar.buttons.potjeswijzer.activate",
-        "Potjes"
+        "Potjes gemeente"
     ],
     [
         "top_navbar.buttons.products",
@@ -9069,7 +9177,7 @@
     ],
     [
         "top_navbar.items.funds",
-        "Activeren"
+        "Regelingen"
     ],
     [
         "top_navbar.items.geertruidenberg.funds",
@@ -9120,8 +9228,16 @@
         "Regelingen"
     ],
     [
+        "top_navbar.items.partner_funds",
+        "Sociale partners"
+    ],
+    [
         "top_navbar.items.potjeswijzer.funds",
-        "Potjes"
+        "Potjes gemeente"
+    ],
+    [
+        "top_navbar.items.potjeswijzer.partner_funds",
+        "Potjes partners"
     ],
     [
         "top_navbar.items.products",
@@ -9144,6 +9260,10 @@
         "Uitleg aanbieders"
     ],
     [
+        "top_navbar.items.tilburg.funds",
+        "Regelingen"
+    ],
+    [
         "top_navbar.items.vergoedingen.funds",
         "Vergoedingen"
     ],
@@ -9157,7 +9277,7 @@
     ],
     [
         "top_navbar.items.westerkwartier.funds",
-        "Potjes"
+        "Potjes gemeente"
     ],
     [
         "top_navbar.language.prefix",
@@ -9686,6 +9806,18 @@
     [
         "voucher.transactions.payout",
         "Uitbetaling"
+    ],
+    [
+        "voucher.transactions.provider_by_sponsor",
+        "Transactie door medewerker"
+    ],
+    [
+        "voucher.transactions.qr_code",
+        "QR-code"
+    ],
+    [
+        "voucher.transactions.reimbursement",
+        "Kosten terugvragen"
     ],
     [
         "voucher.transactions.reservation",

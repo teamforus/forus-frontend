@@ -663,40 +663,6 @@ export default {
         },
     },
 
-    offices: {
-        buttons: {
-            adjust: 'Bewerk',
-            add: 'Voeg een nieuwe vestiging toe',
-            map: 'Bekijk op de kaart',
-            delete: 'Verwijderen',
-        },
-        labels: {
-            mail: 'E-mail',
-            categories: 'Categorieën',
-            nocategories: 'Geen categorieën',
-            none: 'Geen data',
-            phone: 'Telefoonnummer',
-            hours: 'Openingstijden:',
-            offices: 'Vestigingen ',
-            business_type: 'Organisatie type',
-            branch_id: 'VestigingID',
-            branch_number: 'Vestigingsnummer',
-        },
-        confirm_delete: {
-            title: 'Weet u zeker dat u deze vestiging wilt verwijderen?',
-            description:
-                'Wanneer u de vestiging verwijderd kunt u dit niet ongedaan maken. Bedenk daarom goed of u deze actie wilt verrichten.',
-        },
-        confirm_has_employees: {
-            title: 'Verwijder medewerkers uit de vestiging',
-            description: 'Voordat de vestiging wordt verwijderd, controleer of er geen toegewezen medewerker(s) zijn.',
-            buttons: {
-                cancel: 'Sluiten',
-                confirm: 'Medewerkers bekijken',
-            },
-        },
-    },
-
     provider_organizations: {
         header: {
             title: 'Aanbieders',
@@ -776,6 +742,7 @@ export default {
         labels: {
             name: 'Bedrijfsnaam',
             bank: 'IBAN-nummer',
+            iban_confirmation: 'HERHAAL IBAN–NUMMER',
             mail: 'E-mailadres van organisatie',
             phone: 'Telefoonnummer',
             kvk: 'KvK-nummer',
@@ -785,7 +752,7 @@ export default {
             optional: 'Optioneel',
             make_public: 'Toon openbaar op website',
             photo_description:
-                'De afbeelding dient vierkant te zijn met een afmeting van bijvoorbeeld 400x400px.<br/>Toegestaande  formaten: JPG, PNG',
+                'De afbeelding dient vierkant te zijn met een afmeting van bijvoorbeeld 400x400px.<br/>Toegestaande formaten: JPG, PNG',
             schedule: 'Openingstijden',
             weekdays_same_hours: 'Alle doordeweekse dagen hebben dezelfde tijden',
             weekends_same_hours: 'Zaterdag en zondag hebben dezelfde tijden',
@@ -797,6 +764,19 @@ export default {
             break: 'Pauze',
             not_specified: 'Niet ingevuld',
             description: 'Omschrijving',
+        },
+        tooltips: {
+            name: 'De officiële naam van de organisatie zoals geregistreerd bij de Kamer van Koophandel.',
+            bank: 'Het rekeningnummer van de organisatie waarop betalingen ontvangen kunnen worden.',
+            iban_confirmation:
+                'Vul het IBAN nog een keer in. Zo controleren we of het rekeningnummer correct is ingevuld en voorkomen we fouten.',
+            email: 'Het e-mailadres waarop contact kan worden opgenomen met de organisatie. Wanneer de instelling ‘publiek’ aan staat, wordt dit gebruikt voor systeemberichten en getoond op de website bij de organisatiegegevens.',
+            phone: 'Het telefoonnummer waarop de organisatie bereikbaar is voor vragen of contact. Wanneer de instelling ‘publiek’ aan staat, wordt dit gebruikt voor systeemberichten en getoond op de website bij de organisatiegegevens.',
+            kvk: 'Het KvK-nummer van de organisatie. Met dit nummer staat de organisatie ingeschreven bij de Kamer van Koophandel. Dit nummer is uniek voor elke organisatie.',
+            btw: 'Het btw-nummer van de organisatie. Dit nummer wordt gebruikt voor belastingen en op facturen. Dit veld is niet verplicht.',
+            website:
+                'De officiële website van de organisatie. Wanneer de instelling ‘publiek’ aan staat, wordt dit gebruikt voor systeemberichten en getoond op de website bij de organisatiegegevens.',
+            business_type: 'Het type organisatie, bijvoorbeeld stichting, vereniging, onderneming of gemeente.',
         },
         buttons: {
             cancel: 'Annuleren',
@@ -1087,6 +1067,9 @@ export default {
             vat: 'BTW-Nummer',
             employee_emails: 'E-mailadressen van uw kassa medewerkers (optioneel)',
             mobile_number: 'Vul uw mobiele telefoonnummer in',
+            email_sent_title: 'Controleer uw e-mail',
+            email_sent_description: 'We hebben een e-mail gestuurd naar',
+            email_sent_description_end: 'Open de e-mail en volg de link om verder te gaan.',
         },
         buttons: {
             go_step_2: 'Ga verder naar stap 2',
@@ -1259,9 +1242,9 @@ export default {
             vat: 'BTW-Nummer',
             employee_emails: 'E-mailadressen van uw kassa medewerkers (optioneel)',
             mobile_number: 'Vul uw mobiele telefoonnummer in',
-            confirm_email: 'Bevestig uw e-mailadres',
-            confirm_email_description:
-                'Bevestig voordat we verder gaan uw e-mail adres. Klik op de link in de e-mail die is verzonden naar',
+            email_sent_title: 'Controleer uw e-mail',
+            email_sent_description: 'We hebben een e-mail gestuurd naar',
+            email_sent_description_end: 'Open de e-mail en volg de link om verder te gaan.',
             terms: '',
         },
         buttons: {
@@ -1396,9 +1379,9 @@ export default {
             vat: 'BTW-Nummer',
             employee_emails: 'E-mailadressen van uw kassa medewerkers (optioneel)',
             mobile_number: 'Vul uw mobiele telefoonnummer in',
-            confirm_email: 'Bevestig uw e-mailadres',
-            confirm_email_description:
-                'Bevestig voordat we verder gaan uw e-mailadres. Klik op de link in de e-mail die is verzonden naar',
+            email_sent_title: 'Controleer uw e-mail',
+            email_sent_description: 'We hebben een e-mail gestuurd naar',
+            email_sent_description_end: 'Open de e-mail en volg de link om verder te gaan.',
             terms: '',
         },
         buttons: {
@@ -1593,6 +1576,7 @@ export default {
             group_title: 'Groep',
             yes: 'Ja',
             no_group: 'Overige gegevens',
+            warning: 'Melding',
         },
         tooltips: {
             id: 'Uniek ID van de aanvraag.',
@@ -1608,6 +1592,7 @@ export default {
             has_files: 'Zijn er documenten geüpload',
             has_clarifications: 'Is er extra informatie opgevraagd',
             group_title: 'Groepen',
+            edited: 'Dit gegeven is aangepast.',
         },
         tabs: {
             all: 'Alles',
@@ -1648,6 +1633,7 @@ export default {
             resign: 'Meld af',
             uncollapse: 'Alles uitklappen',
             collapse: 'Alles inklappen',
+            approve_missing_records: 'Ontbrekende gegevens goedkeuren',
         },
         header: {
             title: 'Aanvragen',
@@ -1659,6 +1645,58 @@ export default {
         clarification_states: {
             pending: 'Wachten',
             answered: 'Beantwoord',
+        },
+        missed_records: {
+            labels: {
+                warning: {
+                    title: 'Belangrijke gegevens ontbreken',
+                    description: [
+                        'Controleer de aanvraag en vul de gegevens aan om een toekenning te doen.\n',
+                        'Let op: mist er een geboortedatum, vul dan ook de leeftijdsgroepen en gezinsleden in.',
+                    ].join(''),
+                    person: 'Persoonlijke informatie',
+                    family: 'Gezinsleden',
+                    partner: 'Partner',
+                    children: 'Kinderen',
+                    children_count: 'Aantal kinderen',
+                },
+                info: {
+                    title: 'Informatieve gegevens ontbreken',
+                    description: 'Controleer de aanvraag en vul de ontbrekende gegevens aan als dat nodig is.',
+                    person: 'Persoonlijke informatie',
+                    family: 'Gezinsleden',
+                    partner: 'Partner',
+                    children: 'Kinderen',
+                    children_count: 'Aantal kinderen',
+                },
+            },
+            person: {
+                first_name: 'Voornaam',
+                last_name: 'Achternaam',
+                gender: 'Geslachtsaanduiding',
+                birth_date: 'Geboortedatum',
+                postal_code: 'Postcode',
+            },
+            partner: {
+                bsn: 'Vul ook het BSN van de partner in.',
+                first_name: 'Voornaam',
+                last_name: 'Achternaam',
+                gender: 'Geslachtsaanduiding',
+                birth_date: 'Geboortedatum',
+                address:
+                    'Het adres van de partner ontbreekt. Controleer of de aanvrager een partner heeft en voeg de juiste gegevens toe.',
+            },
+            children: {
+                bsn: 'Vul ook het BSN van de kind in.',
+                address:
+                    'Het adres van één of meerdere kinderen ontbreekt. Controleer of de aanvrager kinderen heeft en voeg de juiste gegevens toe.',
+            },
+            child: {
+                first_name: 'Voornaam van kind {{ number }}.',
+                last_name: 'Achternaam van kind {{ number }}.',
+                gender: 'Geslachtsaanduiding van kind {{ number }}.',
+                birth_date: 'Geboortedatum van kind {{ number }}.',
+            },
         },
     },
 
@@ -1926,7 +1964,8 @@ export default {
         },
         notifications: {
             confirmation: 'Het is gelukt!',
-            link: 'Er is een e-mail verstuurd naar <strong class="text-primary">{{email}}</strong>.<br/>Klik op de link om u aan te melden.',
+            email_sent_description:
+                'We hebben een e-mail gestuurd naar <strong class="text-primary">{{email}}</strong>.<br/>Open de e-mail en volg de link om verder te gaan.',
             link_website:
                 'Er is een e-mail naar uw inbox gestuurd. In de e-mail vindt u een link waarmee u kunt inloggen op deze website.',
             invalid: 'De activatiecode is ongeldig of al gebruikt',
@@ -1942,7 +1981,7 @@ export default {
         },
         labels: {
             timelimit: 'De link verloopt in 24 uur, gebruik de link dus binnenkort.',
-            join: 'Aanmelden',
+            email_sent_title: 'Controleer uw e-mail',
             mail_sent: 'Een e-mail is onderweg!',
             scancode: 'Scan deze QR-Code met een ander apparaat waar u al op aangemeld bent',
             mobilecode: 'Vul de toegangscode van de Me-app in',

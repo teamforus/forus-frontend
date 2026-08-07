@@ -14,6 +14,7 @@ import fund_unsubscriptions from './pages/fund-unsubscriptions';
 import bi_connection from './pages/bi-connection';
 import organization_contacts from './pages/organization-contacts';
 import organization_translations from './pages/organization-translations';
+import offices from './pages/offices';
 import reservation_settings from './pages/reservations-settings';
 import features from './pages/features';
 import mollie_connection from './pages/mollie-connection';
@@ -41,6 +42,7 @@ import reimbursement_categories from './pages/reimbursement-categories';
 import provider_organization_funds from './pages/provider-organization-funds';
 import transaction_bulks from './pages/transaction-bulks';
 import prevalidation_requests from './pages/prevalidation-requests';
+import fund_product_limits from './pages/fund-product-limits';
 
 export default {
     vouchers,
@@ -59,6 +61,7 @@ export default {
     bi_connection,
     organization_contacts,
     organization_translations,
+    offices,
     reservation_settings,
     features,
     mollie_connection,
@@ -86,4 +89,5 @@ export default {
     provider_organization_funds,
     transaction_bulks,
     prevalidation_requests,
+    fund_product_limits,
 };

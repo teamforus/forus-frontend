@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { PaginationData } from '../../../../props/ApiResponses';
 import Organization from '../../../../props/models/Organization';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
-import useAssetUrl from '../../../../hooks/useAssetUrl';
 import TableCheckboxControl from '../../../elements/tables/elements/TableCheckboxControl';
 import FundProviderInvitation from '../../../../props/models/FundProviderInvitation';
 import useFundProviderInvitationsService from '../../../../services/useFundProviderInvitationsService';
@@ -18,6 +17,7 @@ import Label, { LabelType } from '../../../elements/label/Label';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
 import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
+import TableEntityMain from '../../../elements/tables/elements/TableEntityMain';
 
 type FundProviderInvitationLocal = FundProviderInvitation & {
     status_type?: LabelType;
@@ -35,7 +35,6 @@ export default function ProviderFundInvitationsTable({
 }) {
     const [loading, setLoading] = useState(true);
 
-    const assetUrl = useAssetUrl();
     const translate = useTranslate();
     const pushSuccess = usePushSuccess();
     const pushApiError = usePushApiError();
@@ -235,21 +234,14 @@ export default function ProviderFundInvitationsTable({
                             </td>
                         )}
                         <td>
-                            <div className="td-collapsable">
-                                <div className="collapsable-media">
-                                    <img
-                                        className="td-media td-media-sm"
-                                        src={
-                                            invitation.fund?.logo?.sizes?.thumbnail ||
-                                            assetUrl('/assets/img/placeholders/fund-thumbnail.png')
-                                        }
-                                        alt=""
-                                    />
-                                </div>
-                                <div className="collapsable-content">
-                                    <div className="text-primary text-semibold" title={invitation.fund.name}>
-                                        {strLimit(invitation.fund.name, 32)}
-                                    </div>
+                            <TableEntityMain
+                                media={invitation.fund.logo}
+                                mediaAlt={invitation.fund.name}
+                                mediaRound={false}
+                                mediaPlaceholder="fund"
+                                title={invitation.fund.name}
+                                titleLimit={32}
+                                subtitle={
                                     <a
                                         href={invitation.fund.implementation?.url_webshop}
                                         target="_blank"
@@ -257,8 +249,8 @@ export default function ProviderFundInvitationsTable({
                                         rel="noreferrer">
                                         {strLimit(invitation.fund.implementation?.name, 32)}
                                     </a>
-                                </div>
-                            </div>
+                                }
+                            />
                         </td>
 
                         <td title={invitation.fund?.organization?.name}>

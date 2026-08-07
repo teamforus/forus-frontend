@@ -224,7 +224,8 @@
         "fund_item_list": {
             "buttons": {
                 "check_status": "Durumu kontrol edin",
-                "is_applicable": "İstek"
+                "is_applicable": "İstek",
+                "more_information": "Daha fazla bilgi"
             },
             "show_less": "Daha az göster",
             "show_more": "Daha fazla göster",
@@ -664,9 +665,6 @@
             "noordoostpolder": {
                 "activate": "Şemalar"
             },
-            "potjeswijzer": {
-                "activate": "Kavanozlar"
-            },
             "products": "Teklif",
             "profile": "Profil >",
             "providers": "Sağlayıcılar",
@@ -682,6 +680,9 @@
             },
             "westerkwartier": {
                 "activate": "İstek"
+            },
+            "potjeswijzer": {
+                "activate": "Belediye kasaları"
             }
         },
         "items": {
@@ -693,7 +694,6 @@
                 "funds": "Şemalar"
             },
             "explanation": "Açıklama",
-            "funds": "Etkinleştir",
             "geertruidenberg": {
                 "funds": "Şemalar"
             },
@@ -719,9 +719,6 @@
             "noordoostpolder": {
                 "funds": "Şemalar"
             },
-            "potjeswijzer": {
-                "funds": "Kavanozlar"
-            },
             "products": "Teklif",
             "providers": "Sağlayıcılar",
             "schagen": {
@@ -738,14 +735,23 @@
             "wadenheuvel": {
                 "funds": "Şemalar"
             },
-            "westerkwartier": {
-                "funds": "Kavanozlar"
-            },
             "fijnder": {
                 "funds": "Şemalar"
             },
             "isd": {
                 "funds": "Şemalar"
+            },
+            "tilburg": {
+                "funds": "Düzenlemeler"
+            },
+            "funds": "Düzenlemeler",
+            "partner_funds": "Sosyal taraflar",
+            "potjeswijzer": {
+                "funds": "Belediye kasaları",
+                "partner_funds": "Potjes ortakları"
+            },
+            "westerkwartier": {
+                "funds": "Belediye kasaları"
             }
         },
         "user_menu": {
@@ -999,11 +1005,11 @@
                 "continue_without_email_link": "E-posta adresi olmadan devam edin",
                 "email_required": "Başvuruya devam etmek için lütfen e-posta adresinizi girin",
                 "email_sent": "E-posta gönderildi",
-                "email_sent_screen": "Bir onay e-postası gönderildi",
                 "no_email_link": "Bir e-posta adresim yok",
                 "sign_up_with_email": "E-posta adresi ile oturum açın",
                 "no_email_info": "E-posta adresi olmadan, kredi ve harcamalarınız hakkında önemli mesajlar alamazsınız. Daha sonra sadece DigiD ile giriş yapabilirsiniz.",
-                "warning": "Not:"
+                "warning": "Not:",
+                "email_sent_screen": "Bir e-posta gönderildi"
             },
             "fund_request_overview": {
                 "application_summary": "Talebe genel bakış",
@@ -1275,9 +1281,6 @@
             "oostgelre": {
                 "title": "Etkinleştir"
             },
-            "potjeswijzer": {
-                "title": "Kavanozlar"
-            },
             "schagen": {
                 "title": "Şemalar"
             },
@@ -1289,6 +1292,9 @@
             },
             "fijnder": {
                 "title": "Şemalar"
+            },
+            "potjeswijzer": {
+                "title": "Belediye kasaları"
             }
         },
         "header": {
@@ -1309,7 +1315,9 @@
             "winterswijk": {
                 "subtitle": "Aşağıda etkinleştirebileceğiniz planlar yer almaktadır.",
                 "title": "Etkinleştir"
-            }
+            },
+            "partners_description": "",
+            "partners_title": "Başvurular"
         },
         "labels": {
             "age": "< 18 yaş",
@@ -1332,6 +1340,47 @@
             "denied": "Reddedildi",
             "is_applicable": "Kaydolun",
             "is_pending": "Devam ediyor"
+        },
+        "active_filters": {
+            "reset_all": "Tüm filtreleri kaldır"
+        },
+        "partners": {
+            "berkelland": {
+                "description": "Etkinleştir",
+                "title": "Etkinleştir"
+            },
+            "fijnder": {
+                "description": "Düzenlemeler",
+                "title": "Düzenlemeler"
+            },
+            "geertruidenberg": {
+                "description": "Etkinleştir",
+                "title": "Etkinleştir"
+            },
+            "goereeoverflakkee": {
+                "description": "Düzenlemeler",
+                "title": "Düzenlemeler"
+            },
+            "oostgelre": {
+                "description": "Etkinleştir",
+                "title": "Etkinleştir"
+            },
+            "schagen": {
+                "description": "Düzenlemeler",
+                "title": "Düzenlemeler"
+            },
+            "vergoedingen": {
+                "description": "Tüm ödemeler",
+                "title": "Tüm ödemeler"
+            },
+            "winterswijk": {
+                "description": "Etkinleştir",
+                "title": "Etkinleştir"
+            },
+            "potjeswijzer": {
+                "description": "Ortaklarımız da bölge sakinleri için çeşitli yardım fonları sunmaktadır. Geliriniz düşük mü? O halde ek bir yardım alabilirsiniz.",
+                "title": "Potjes ortakları"
+            }
         }
     },
     "provider": {
@@ -2058,7 +2107,10 @@
             "title": "İşlemler",
             "top_up": "Yükseltilmiş",
             "expired_on": "Son kullanma tarihi {{ date }}",
-            "payout": "Ödeme"
+            "payout": "Ödeme",
+            "provider_by_sponsor": "Çalışan tarafından yapılan işlem",
+            "qr_code": "QR kodu",
+            "reimbursement": "Masraf iadesi"
         },
         "actions": {
             "choose_action": {
@@ -2620,7 +2672,7 @@
             "title": "Banka hesabı",
             "iban": "IBAN",
             "source": "Kaynak",
-            "name": "Ascription"
+            "name": "Hesap sahibi"
         },
         "breadcrumbs": {
             "home": "Ev",
@@ -2749,6 +2801,20 @@
         "types": {
             "active": "Aktif",
             "archived": "Arşiv"
+        },
+        "placeholders": {
+            "amount": "10",
+            "description": "Ne aldınız?",
+            "iban": "NL12INGB3456789012",
+            "iban_name": "J. Jansen",
+            "title": "Geri talep ettiğiniz masrafın adı."
+        },
+        "tooltips": {
+            "amount": "Buraya geri almak istediğiniz tutarı girin. Örnek: 10.",
+            "description": "Ne satın aldığınızı kısaca yazın. Örnek: Spor ayakkabıları.",
+            "iban": "Parayı almak istediğiniz hesap numarasını girin. IBAN örneği: NL12INGB3456789012.",
+            "iban_name": "Hesap sahibinin adını girin. Örnek: J. Jansen.",
+            "title": "Geri talep ettiğiniz masrafın adı. Örnek: Spor ayakkabıları."
         }
     },
     "reservation": {
@@ -2956,10 +3022,10 @@
         "close": "Kapat",
         "email": "E-posta",
         "go_to_admin": "Yönetim ortamına gidin",
-        "header_title": "Fon Yardım Bloğu",
-        "help_title": "Fon Yardım Başlığı",
         "phone": "Telefon",
-        "website": "Web sitesi"
+        "website": "Web sitesi",
+        "header_title": "İletişime geçmek",
+        "help_title": "Sorunuz mu var veya yardıma mı ihtiyacınız var?"
     },
     "modal_logout": {
         "description_formal": "Oturumu kapatmak istediğinizden emin misiniz?",
@@ -3322,16 +3388,12 @@
         "header": {
             "subtitle_formal": "Giriş yapmak için bir bağlantı almak üzere e-posta adresinizi girin.",
             "subtitle_informal": "Giriş yapmak için bir bağlantı almak üzere e-posta adresinizi girin.",
-            "subtitle_succes_formal": "Az önce girdiğiniz e-posta adresine bir e-posta aldınız. Gelen kutunuza gidin ve \"E-postayı onayla\" konulu e-postayı açın ve e-postadaki mavi düğmeye tıklayın.",
-            "subtitle_succes_informal": "Az önce girdiğiniz e-posta adresine bir e-posta aldınız. Gelen kutunuza gidin ve \"E-postayı onayla\" konulu e-postayı açın ve e-postadaki mavi düğmeye tıklayın.",
-            "subtitle_we_succes_formal": "Şu tarihte bir e-posta aldınız <strong class=\"text-primary\">{{email}}</strong>. Gelen kutunuza gidin ve \"E-postayı onayla\" konulu e-postayı açın ve e-postadaki \"Onayla\" seçeneğine tıklayın.",
-            "subtitle_we_succes_informal": "adresinden bir e-posta aldınız <strong class=\"text-primary\">{{email}}</strong>. Gelen kutunuza gidin ve \"E-postayı onayla\" konulu e-postayı açın ve e-postadaki \"Onayla\" seçeneğine tıklayın.",
             "title": "E-posta gönderildi",
-            "title_existing_user_succes_formal": "E-postanı kontrol et.",
-            "title_existing_user_succes_informal": "E-postanı kontrol et.",
             "title_sr": "Oturum açmayı başlat",
-            "title_succes_formal": "Bu e-posta adresine erişiminiz olduğunu onaylayın.",
-            "title_succes_informal": "Bu e-posta adresine erişiminiz olduğunu onaylayın."
+            "subtitle_email_sent_formal": "Şu adrese bir e-posta gönderdik: <strong class=\"text-primary\">{{email}}</strong>. Lütfen e-postayı açın ve devam etmek için bağlantıyı takip edin.",
+            "subtitle_email_sent_informal": "Şu adrese bir e-posta gönderdik: <strong class=\"text-primary\">{{email}}</strong>. Lütfen e-postayı açın ve devam etmek için bağlantıyı takip edin.",
+            "title_email_sent_formal": "E-postanızı kontrol edin.",
+            "title_email_sent_informal": "E-postanı kontrol et."
         },
         "input": {
             "code": "Aktivasyon kodu",
@@ -3378,8 +3440,6 @@
         "notifications": {
             "confirmation": "İşe yaradı!",
             "invalid": "Aktivasyon kodu geçersiz veya zaten kullanılmış.",
-            "link_formal": "Bir e-posta gönderildi <strong class=\"text-primary\">{{email}}</strong><br/>. Kaydolmak için bağlantıya tıklayın.",
-            "link_informal": "Bir e-posta gönderildi <strong class=\"text-primary\">{{email}}</strong><br/>. Kaydolmak için bağlantıya tıklayın.",
             "voucher_email": "QR kodu gönderildi."
         },
         "pin_code": {
@@ -3764,7 +3824,8 @@
     },
     "block_product_categories": {
         "description": "Bir temaya tıkladığınızda hangi teklifler arasından seçim yapabileceğinizi hemen göreceksiniz.",
-        "title": "Ne yapmaktan hoşlanırsın?"
+        "title": "Ne yapmaktan hoşlanırsın?",
+        "category_link_label": "{{category}} kategorisindeki ürünleri görüntüleyin"
     },
     "modal_image_preview": {
         "alt_text": "Dosya örneği",

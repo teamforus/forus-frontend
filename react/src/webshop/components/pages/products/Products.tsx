@@ -2,6 +2,7 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import SelectControl from '../../../../dashboard/components/elements/select-control/SelectControl';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
+import CmsBlocksNext from '../../elements/cms-blocks-next/CmsBlocksNext';
 import Paginator from '../../../../dashboard/modules/paginator/components/Paginator';
 import ProductsList from '../../elements/lists/products-list/ProductsList';
 import EmptyBlock from '../../elements/empty-block/EmptyBlock';
@@ -167,6 +168,7 @@ export default function Products() {
                         </div>
                     </div>
 
+                    {appConfigs.pages.products && <CmsBlocksNext page={appConfigs.pages.products} />}
                     {appConfigs.pages.products && <CmsBlocks page={appConfigs.pages.products} />}
 
                     {products?.meta?.total > 0 && (

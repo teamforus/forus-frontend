@@ -101,11 +101,11 @@ export default function FundRequestStepEmailSetup({
                                 />
                             </div>
                             <div className="sign_up-email_sent-title">
-                                {translate(`popup_auth.header.title_succes_${appConfigs?.communication_type}`)}
+                                {translate(`popup_auth.header.title_email_sent_${appConfigs?.communication_type}`)}
                             </div>
                             <TranslateHtml
                                 component={<div className="sign_up-email_sent-text" />}
-                                i18n={`popup_auth.header.subtitle_we_succes_${appConfigs?.communication_type}`}
+                                i18n={`popup_auth.header.subtitle_email_sent_${appConfigs?.communication_type}`}
                                 values={{ email: emailForm.values.email }}
                             />
                             <EmailProviderLink email={emailForm.values.email} />

@@ -5,6 +5,7 @@ import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { useFundService } from '../../../services/FundService';
 import CmsBlocks from '../../elements/cms-blocks/CmsBlocks';
+import CmsBlocksNext from '../../elements/cms-blocks-next/CmsBlocksNext';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
 import { StringParam, useQueryParams } from 'use-query-params';
 import { useNavigateState, useStateParams } from '../../../modules/state_router/Router';
@@ -173,8 +174,8 @@ export default function Home() {
                 </div>
             )}
 
-            <Section type={'pre-check'}>
-                {appConfigs.pre_check_enabled && appConfigs.pre_check_banner_state == 'public' && (
+            {appConfigs.pre_check_enabled && appConfigs.pre_check_banner_state == 'public' && (
+                <Section type={'pre-check'}>
                     <div className="block block-pre-check-banner">
                         {appConfigs.pre_check_banner?.sizes?.large && (
                             <div className="pre-check-banner-media">
@@ -204,9 +205,10 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                )}
-            </Section>
+                </Section>
+            )}
 
+            {appConfigs.pages.home && <CmsBlocksNext page={appConfigs.pages.home} />}
             {appConfigs.pages.home && <CmsBlocks page={appConfigs.pages.home} />}
             {appConfigs.pages.block_home_product_categories && <BlockProductCategories />}
             {appConfigs.show_home_products && <RandomProductsBlock count={6} showCustomDescription={true} />}

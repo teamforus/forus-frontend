@@ -61,6 +61,7 @@ export default function Modal({
                     : title && (
                           <div className="modal-header">
                               <div className={'modal-header-title'}>{title}</div>
+                              <a className="mdi mdi-close modal-close" onClick={modal.close} role="button" />
                           </div>
                       )}
 

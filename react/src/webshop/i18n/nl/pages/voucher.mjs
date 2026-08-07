@@ -58,11 +58,14 @@ export default {
         expired_on: 'Verlopen op {{ date }}',
         no_spending: 'Geen uitgaven',
         reservation: 'Reservering',
+        reimbursement: 'Kosten terugvragen',
         bank_transfer: 'Bankoverschrijving',
         top_up: 'Opgewaardeerd',
         add: 'Toevoegen',
         subtract: 'Aftrekken',
         payout: 'Uitbetaling',
+        qr_code: 'QR-code',
+        provider_by_sponsor: 'Transactie door medewerker',
     },
 
     share_voucher: {

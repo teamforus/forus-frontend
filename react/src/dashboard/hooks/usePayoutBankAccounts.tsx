@@ -9,6 +9,7 @@ export type BankAccountSource = 'manual' | 'fund_request' | 'profile_bank_accoun
 
 export type PayoutBankAccountOption = {
     id: number | null;
+    identity_id: number | null;
     iban?: string;
     iban_name?: string;
     label: string;
@@ -64,6 +65,7 @@ export default function usePayoutBankAccounts({
 
             return {
                 id: accountId,
+                identity_id: bankAccount.identity_id,
                 iban: bankAccount.iban,
                 iban_name: bankAccount.iban_name,
                 label: `${typePrefix} - ${bankAccount.iban} / ${bankAccount.iban_name}`,
@@ -73,6 +75,7 @@ export default function usePayoutBankAccounts({
         return [
             {
                 id: null,
+                identity_id: null,
                 label:
                     placeholderLabel || translate('modals.modal_payout_create.options.bank_account_select_placeholder'),
             },

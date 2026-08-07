@@ -30,14 +30,14 @@
                     flex-direction: column;
                     justify-content: center;
                     align-items: flex-start;
-                    flex: 0 0 60%;
+                    flex: 0 0 var(--header-banner-pane-banner-pane-width);
                     padding: 40px 50px;
                     gap: 20px;
                     border-radius: var(--border-radius);
                     cursor: default;
 
                     .banner-title {
-                        font: 700 48px/64px var(--base-font);
+                        font: var(--banner-title-font);
                         margin: 0 0 0;
                     }
 

@@ -5,24 +5,68 @@ export default {
     labels: {
         bsn: 'BSN',
         fund: 'Fonds',
+        implementation: 'Implementatie',
         employee: 'Medewerker',
         failed_reason: 'Reden van mislukking',
+        create_prevalidation: 'Klaarzetting',
         created_at: 'Datum',
         search: 'Zoeken',
         state: 'Status',
         from: 'Van',
         to: 'Tot',
     },
+    details: {
+        labels: {
+            history: 'Geschiedenis ({{ count }})',
+            old_value: 'Oude waarde',
+            new_value: 'Nieuwe waarde',
+            employee: 'Medewerker',
+            date_changed: 'Datum gewijzigd',
+            type: 'Gegeven',
+            value: 'Waarde',
+            source: 'Bron',
+            group_title: 'Groep',
+            yes: 'Ja',
+            no_group: 'Overige gegevens',
+            warning: 'Melding',
+        },
+        tooltips: {
+            old_value: 'De oude waarde van de eigenschap die door de medewerker is aangepast.',
+            new_value: 'De nieuwe waarde van de eigenschap die aan de aanvraag is toegevoegd.',
+            employee: 'Het e-mailadres van de medewerker die de eigenschap heeft aangepast.',
+            date_changed: 'De datum en het tijdstip dat de eigenschap is gewijzigd.',
+            source: 'Bron',
+            group_title: 'Groepen',
+            edited: 'Dit gegeven is aangepast.',
+            type: 'Type gegeven (bijv. aantal kinderen).',
+            value: 'Opgegeven waarde door inwoner.',
+        },
+    },
+    sources: {
+        brp: 'BRP',
+        file: 'E-formulier',
+    },
     buttons: {
         upload: 'Upload .csv bestand',
         resubmit: 'Opnieuw verzenden',
         delete: 'Verwijderen',
         resubmit_failed: 'Mislukte verzoeken opnieuw verzenden',
+        approve_missing_records: 'Ontbrekende gegevens goedkeuren',
+        create_prevalidation: 'Gegevens klaarzetten',
+        retry_create_prevalidation: 'Gegevens opnieuw klaarzetten',
+    },
+    notifications: {
+        create_failed: {
+            title: 'Klaarzetten mislukt',
+            description:
+                'De ontbrekende gegevens zijn goedgekeurd, maar de aanvraag kon niet worden klaargezet. Controleer de gegevens en probeer het opnieuw.',
+        },
     },
     states: {
         pending: 'In behandeling',
         success: 'Gelukt',
         fail: 'Mislukt',
+        missing_records: 'Gegevens ontbreken',
         all: 'Alle',
     },
     tooltips: {
@@ -33,7 +77,7 @@ export default {
         failed_reason: 'Reden van mislukking',
     },
     empty: {
-        title: 'Geen aanvragers klaargezet',
-        description: 'Er zijn nog geen aanvragers klaargezet voor dit fonds.',
+        title: 'Geen gegevens klaargezet',
+        description: 'Er zijn nog geen gegevens klaargezet voor dit fonds.',
     },
 };
