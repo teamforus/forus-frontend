@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useState } from 'react';
 import { hasPermission } from '../../../../helpers/utils';
 import Organization, { Permission } from '../../../../props/models/Organization';
 import SelectControl from '../../../elements/select-control/SelectControl';
-import ClickOutside from '../../../elements/click-outside/ClickOutside';
+import ClickOutside from '../../../../modules/click-outside/ClickOutside';
 import FilterItemToggle from '../../../elements/tables/elements/FilterItemToggle';
 import DatePickerControl from '../../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../../helpers/dates';
@@ -15,6 +15,7 @@ import SponsorVoucher from '../../../../props/models/Sponsor/SponsorVoucher';
 import Fund from '../../../../props/models/Fund';
 import { keyBy } from 'lodash';
 import { FilterScope } from '../../../../modules/filter_next/types/FilterParams';
+import classNames from 'classnames';
 
 export type VouchersTableFiltersProps = {
     q?: string;
@@ -125,7 +126,7 @@ export default function VouchersTableFilters({
 
                                 <FilterItemToggle label={translate('vouchers.labels.granted')}>
                                     <SelectControl
-                                        className="form-control"
+                                        className={classNames('select-control-filter-panel')}
                                         propKey={'value'}
                                         allowSearch={false}
                                         value={filter.values.granted}
@@ -136,7 +137,7 @@ export default function VouchersTableFilters({
 
                                 <FilterItemToggle label={translate('vouchers.labels.source')}>
                                     <SelectControl
-                                        className="form-control"
+                                        className={classNames('select-control-filter-panel')}
                                         propKey={'value'}
                                         allowSearch={false}
                                         value={filter.values.source}
@@ -147,7 +148,7 @@ export default function VouchersTableFilters({
 
                                 <FilterItemToggle label={translate('vouchers.labels.state')}>
                                     <SelectControl
-                                        className="form-control"
+                                        className={classNames('select-control-filter-panel')}
                                         propKey={'value'}
                                         allowSearch={false}
                                         value={filter.values.state}
@@ -190,7 +191,7 @@ export default function VouchersTableFilters({
 
                                 <FilterItemToggle label={translate('vouchers.labels.in_use')}>
                                     <SelectControl
-                                        className="form-control"
+                                        className={classNames('select-control-filter-panel')}
                                         propKey={'value'}
                                         allowSearch={false}
                                         value={filter.values.in_use}
@@ -259,7 +260,7 @@ export default function VouchersTableFilters({
 
                                 <FilterItemToggle label={translate('vouchers.labels.date_type')}>
                                     <SelectControl
-                                        className="form-control"
+                                        className={classNames('select-control-filter-panel')}
                                         propKey={'value'}
                                         allowSearch={false}
                                         value={filter.values.date_type}
@@ -284,7 +285,7 @@ export default function VouchersTableFilters({
 
                                 <FilterItemToggle label={translate('reimbursements.labels.fund')}>
                                     <SelectControl
-                                        className="form-control"
+                                        className={classNames('select-control-filter-panel')}
                                         propKey={'id'}
                                         allowSearch={false}
                                         value={filter.values.fund_id}
@@ -295,7 +296,7 @@ export default function VouchersTableFilters({
 
                                 <FilterItemToggle label={translate('reimbursements.labels.implementation')}>
                                     <SelectControl
-                                        className="form-control"
+                                        className={classNames('select-control-filter-panel')}
                                         propKey={'id'}
                                         allowSearch={false}
                                         value={filter.values.implementation_id}
@@ -306,7 +307,7 @@ export default function VouchersTableFilters({
 
                                 <FilterItemToggle label={translate('vouchers.labels.has_payouts')}>
                                     <SelectControl
-                                        className="form-control"
+                                        className={classNames('select-control-filter-panel')}
                                         propKey={'value'}
                                         allowSearch={false}
                                         value={filter.values.has_payouts}

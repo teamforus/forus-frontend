@@ -96,7 +96,6 @@ export default function MollieConnectionForm({
                                     {translate('mollie_connection.labels.country')}
                                 </label>
                                 <SelectControl
-                                    className="form-control"
                                     propKey={'code'}
                                     options={countryOptions}
                                     value={form.values.country_code}

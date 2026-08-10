@@ -14,6 +14,7 @@ import Product from '../../../../props/models/Product';
 import useProductReservationsExporter from '../../../../services/exporters/useProductReservationsExporter';
 import useProductService from '../../../../services/ProductService';
 import useProviderFundService from '../../../../services/ProviderFundService';
+import classNames from 'classnames';
 
 export type ReservationsTableFiltersProps = {
     q?: string;
@@ -129,7 +130,7 @@ export default function ReservationsTableFilters({
                 <FilterItemToggle label={translate('reservations.filters.fund')}>
                     {funds && (
                         <SelectControl
-                            className="form-control"
+                            className={classNames('select-control-filter-panel')}
                             propKey={'id'}
                             allowSearch={false}
                             options={funds}
@@ -141,7 +142,7 @@ export default function ReservationsTableFilters({
                 <FilterItemToggle label={translate('reservations.filters.product')}>
                     {products && (
                         <SelectControl
-                            className="form-control"
+                            className={classNames('select-control-filter-panel')}
                             propKey={'id'}
                             allowSearch={true}
                             options={products}
@@ -170,7 +171,7 @@ export default function ReservationsTableFilters({
 
                 <FilterItemToggle label={translate('reservations.filters.state')}>
                     <SelectControl
-                        className="form-control"
+                        className={classNames('select-control-filter-panel')}
                         propKey={'key'}
                         allowSearch={false}
                         value={filter.values.state}

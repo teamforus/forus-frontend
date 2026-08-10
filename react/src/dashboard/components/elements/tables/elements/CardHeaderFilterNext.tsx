@@ -6,6 +6,7 @@ import SelectControl from '../../select-control/SelectControl';
 import SelectControlOptionsFund from '../../select-control/templates/SelectControlOptionsFund';
 import useTranslate from '../../../../hooks/useTranslate';
 import FormGroup from '../../forms/elements/FormGroup';
+import classNames from 'classnames';
 
 export default function CardHeaderFilterNext({
     funds,
@@ -31,7 +32,8 @@ export default function CardHeaderFilterNext({
                     input={(id) => (
                         <SelectControl
                             id={id}
-                            className="form-control inline-filter-control"
+                            className={classNames('select-control-card-header')}
+                            menuClassName={classNames('select-control-menu-card-header')}
                             propKey={'id'}
                             options={fundOptions}
                             value={filter.activeValues.fund_id}
