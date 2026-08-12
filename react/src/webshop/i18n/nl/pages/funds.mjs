@@ -35,7 +35,7 @@ export default {
     },
     funds: {
         potjeswijzer: {
-            title: 'Potjes gemeente',
+            title: 'Potjes',
         },
         berkelland: {
             title: 'Activeren',
