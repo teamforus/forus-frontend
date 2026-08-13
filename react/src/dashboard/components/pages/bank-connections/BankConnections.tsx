@@ -150,7 +150,9 @@ export default function BankConnections() {
     );
 
     const storeBankConnection = useCallback(
-        (bank: Bank, data: object) => bankConnectionService.store(activeOrganization.id, { bank_id: bank.id, ...data }),
+        (bank: Bank, data = {}) => {
+            return bankConnectionService.store(activeOrganization.id, { bank_id: bank.id, ...data });
+        },
         [activeOrganization.id, bankConnectionService],
     );
 
@@ -168,16 +170,32 @@ export default function BankConnections() {
         [pushDanger],
     );
 
-    const submitBankConnectionRequest = useCallback(
+    const startBankConnectionRequest = useCallback(
         (bank: Bank) => {
-            storeBankConnection(bank, {})
+            if (bank.key === 'bng') {
+                openModal(
+                    (modal) => (
+                        <ModalBankAccountRequest
+                            modal={modal}
+                            bank={bank}
+                            storeBankConnection={(bank, values) => storeBankConnection(bank, values)}
+                            onCreated={onBankConnectionCreated}
+                        />
+                    ),
+                    { onClosed: () => setSubmittingConnection(false) },
+                );
+
+                return;
+            }
+
+            storeBankConnection(bank)
                 .then((res) => onBankConnectionCreated(res.data.data))
                 .catch((res) => {
                     setSubmittingConnection(false);
                     onRequestError(res);
                 });
         },
-        [onBankConnectionCreated, onRequestError, storeBankConnection],
+        [onBankConnectionCreated, onRequestError, openModal, storeBankConnection],
     );
 
     const makeBankConnection = useCallback(
@@ -194,29 +212,10 @@ export default function BankConnections() {
                     return;
                 }
 
-                if (bank.key === 'bng') {
-                    openModal((modal) => (
-                        <ModalBankAccountRequest
-                            modal={modal}
-                            bank={bank}
-                            storeBankConnection={storeBankConnection}
-                            onCreated={(connection) => onBankConnectionCreated(connection)}
-                            onDismiss={() => setSubmittingConnection(false)}
-                        />
-                    ));
-                } else {
-                    submitBankConnectionRequest(bank);
-                }
+                startBankConnectionRequest(bank);
             });
         },
-        [
-            confirmNewConnection,
-            onBankConnectionCreated,
-            openModal,
-            storeBankConnection,
-            submitBankConnectionRequest,
-            submittingConnection,
-        ],
+        [confirmNewConnection, startBankConnectionRequest, submittingConnection],
     );
 
     const switchMonetaryAccount = useCallback(

@@ -17,13 +17,11 @@ export default function ModalBankAccountRequest({
     bank,
     onCreated,
     storeBankConnection,
-    onDismiss,
 }: {
     modal: ModalState;
     bank: Bank;
     onCreated: (connection: BankConnection) => void;
     storeBankConnection: (bank: Bank, values: FormValuesModel) => Promise<ApiResponseSingle<BankConnection>>;
-    onDismiss: () => void;
 }) {
     const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
@@ -38,13 +36,16 @@ export default function ModalBankAccountRequest({
 
     const form = useFormBuilder({ account_type: 'all', iban: '' }, () => {
         setProgress(0);
+        modal.setProcessing(true);
 
-        return storeBankConnection(bank, { iban: form.values.iban })
+        return storeBankConnection(bank, { iban: form.values.account_type === 'single' ? form.values.iban : null })
             .then((res) => {
+                modal.setProcessing(false);
                 onCreated(res?.data?.data);
                 modal.close();
             })
             .catch((err: ResponseError) => {
+                modal.setProcessing(false);
                 form.setErrors(err?.data?.errors);
                 form.setIsLocked(false);
                 pushApiError(err);
@@ -54,22 +55,9 @@ export default function ModalBankAccountRequest({
 
     return (
         <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading')}>
-            <div
-                className="modal-backdrop"
-                onClick={() => {
-                    onDismiss();
-                    modal.close();
-                }}
-            />
+            <div className="modal-backdrop" onClick={modal.close} />
             <form className="modal-window form" onSubmit={form.submit}>
-                <div
-                    className="modal-close mdi mdi-close"
-                    onClick={() => {
-                        onDismiss();
-                        modal.close();
-                    }}
-                    role="button"
-                />
+                <div className="modal-close mdi mdi-close" onClick={modal.close} role="button" />
                 <div className="modal-header">{translate('modals.modal_bank_account_request.title')}</div>
                 <div className="modal-body">
                     <div className="modal-section">
@@ -101,7 +89,7 @@ export default function ModalBankAccountRequest({
                                     <input
                                         type="text"
                                         value={form.values.iban}
-                                        placeholder="IBAN"
+                                        placeholder={translate('modals.modal_bank_account_request.placeholders.iban')}
                                         id={id}
                                         className="form-control"
                                         onChange={(e) => form.update({ iban: e.target.value })}
@@ -116,10 +104,7 @@ export default function ModalBankAccountRequest({
                         type="button"
                         className="button button-default"
                         disabled={form.isLoading}
-                        onClick={() => {
-                            onDismiss();
-                            modal.close();
-                        }}>
+                        onClick={modal.close}>
                         Annuleren
                     </button>
                     <button
