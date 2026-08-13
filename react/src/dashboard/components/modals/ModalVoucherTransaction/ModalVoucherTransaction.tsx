@@ -349,7 +349,6 @@ export default function ModalVoucherTransaction({
                                         {translate('modals.modal_voucher_transaction.labels.target')}
                                     </div>
                                     <SelectControl
-                                        className="form-control"
                                         value={form.values.target}
                                         propKey={'key'}
                                         options={targets}
@@ -369,7 +368,6 @@ export default function ModalVoucherTransaction({
                                         {translate('modals.modal_voucher_transaction.labels.provider')}
                                     </div>
                                     <SelectControl
-                                        className={'form-control'}
                                         value={form.values?.organization_id}
                                         propKey={'id'}
                                         propValue={'name'}
@@ -387,7 +385,6 @@ export default function ModalVoucherTransaction({
                                         {translate('modals.modal_voucher_transaction.labels.bank_account_source')}
                                     </div>
                                     <SelectControl
-                                        className="form-control"
                                         value={bankAccountSource}
                                         propKey={'key'}
                                         options={bankAccountSourceOptions}
@@ -413,7 +410,6 @@ export default function ModalVoucherTransaction({
                                         {translate('modals.modal_voucher_transaction.labels.bank_account')}
                                     </div>
                                     <SelectControl
-                                        className="form-control"
                                         value={form.values[BANK_ACCOUNT_SOURCE_FIELDS[bankAccountSource]] || null}
                                         propKey={'id'}
                                         propValue={'label'}

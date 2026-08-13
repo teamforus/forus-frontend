@@ -7,7 +7,7 @@ import useProductService from '../../../services/ProductService';
 import { PaginationData } from '../../../props/ApiResponses';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';
-import ClickOutside from '../../elements/click-outside/ClickOutside';
+import ClickOutside from '../../../modules/click-outside/ClickOutside';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SponsorProductsTable from './elements/SponsorProductsTable';
 import SponsorProductsChangesTable from './elements/SponsorProductsChangesTable';
@@ -23,6 +23,7 @@ import SelectControlOptionsFund from '../../elements/select-control/templates/Se
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 import usePushApiError from '../../../hooks/usePushApiError';
+import classNames from 'classnames';
 
 export default function SponsorProducts() {
     const activeOrganization = useActiveOrganization();
@@ -184,7 +185,8 @@ export default function SponsorProducts() {
 
                                 <div className="form-group">
                                     <SelectControl
-                                        className="form-control inline-filter-control"
+                                        className={classNames('select-control-card-header')}
+                                        menuClassName={classNames('select-control-menu-card-header')}
                                         propKey={'id'}
                                         options={funds}
                                         value={filter.activeValues.fund_id}
@@ -229,7 +231,7 @@ export default function SponsorProducts() {
 
                                             <FilterItemToggle label={translate('sponsor_products.filters.funds')}>
                                                 <SelectControl
-                                                    className="form-control"
+                                                    className={classNames('select-control-filter-panel')}
                                                     propKey={'id'}
                                                     allowSearch={false}
                                                     value={filterValues.fund_id || funds?.[0]?.id}
@@ -241,7 +243,7 @@ export default function SponsorProducts() {
                                             <FilterItemToggle
                                                 label={translate('sponsor_products.filters.has_reservations')}>
                                                 <SelectControl
-                                                    className="form-control"
+                                                    className={classNames('select-control-filter-panel')}
                                                     propKey={'key'}
                                                     allowSearch={false}
                                                     value={filterValues.has_reservations}
@@ -284,7 +286,7 @@ export default function SponsorProducts() {
 
                                             <FilterItemToggle label={translate('sponsor_products.labels.date_type')}>
                                                 <SelectControl
-                                                    className="form-control"
+                                                    className={classNames('select-control-filter-panel')}
                                                     propKey={'key'}
                                                     allowSearch={false}
                                                     value={filterValues.date_type}

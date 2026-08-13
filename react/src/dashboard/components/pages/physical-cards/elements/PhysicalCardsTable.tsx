@@ -22,6 +22,7 @@ import BlockInlineCopy from '../../../elements/block-inline-copy/BlockInlineCopy
 import PhysicalCardType from '../../../../props/models/PhysicalCardType';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
+import classNames from 'classnames';
 
 export default function PhysicalCardsTable({
     tab,
@@ -92,7 +93,8 @@ export default function PhysicalCardsTable({
 
                         <div className="form-group">
                             <SelectControl
-                                className="form-control inline-filter-control"
+                                className={classNames('select-control-card-header')}
+                                menuClassName={classNames('select-control-menu-card-header')}
                                 propKey={'id'}
                                 options={funds}
                                 value={filterActiveValues.fund_id}

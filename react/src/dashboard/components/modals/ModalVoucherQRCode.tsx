@@ -268,7 +268,6 @@ export default function ModalVoucherQRCode({
                                         )}
                                     </div>
                                     <SelectControl
-                                        className="form-control"
                                         propValue={'label'}
                                         options={assignOptions}
                                         value={assignType}

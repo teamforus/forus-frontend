@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Organization from '../../../props/models/Organization';
 import { useNotificationService } from '../../../services/NotificationService';
-import ClickOutside from '../../../components/elements/click-outside/ClickOutside';
+import ClickOutside from '../../../modules/click-outside/ClickOutside';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { PaginationData } from '../../../props/ApiResponses';
 import Notification from '../../../props/models/Notification';

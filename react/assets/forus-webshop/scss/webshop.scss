@@ -23,6 +23,12 @@
 @use 'includes/components/carrousel';
 @use 'includes/components/dropdown';
 @use 'includes/components/form';
+@use 'includes/select-controls/select-control';
+@use 'includes/components/phone-control';
+@use 'includes/select-controls/select-control-country-codes';
+@use 'includes/select-controls/select-control-lang';
+@use 'includes/select-controls/select-control-showcase';
+@use 'includes/select-controls/select-control-vouchers';
 @use 'includes/components/ui-controls';
 @use 'includes/components/label';
 @use 'includes/components/label-groups';
@@ -141,7 +147,6 @@
 @use 'includes/blocks/block-exception';
 @use 'includes/blocks/block-payouts';
 @use 'includes/blocks/block-cookie-banner';
-@use 'includes/blocks/block-lang-control';
 @use 'includes/blocks/block-reservation-address';
 @use 'includes/blocks/block-progress-steps';
 @use 'includes/blocks/block-banner';

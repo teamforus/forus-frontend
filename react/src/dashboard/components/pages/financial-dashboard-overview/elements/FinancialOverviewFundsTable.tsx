@@ -13,6 +13,7 @@ import LoaderTableCard from '../../../elements/loader-table-card/LoaderTableCard
 import { RequestConfig } from '../../../../props/ApiResponses';
 import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 import usePushApiError from '../../../../hooks/usePushApiError';
+import classNames from 'classnames';
 
 export default function FinancialOverviewFundsTable({
     years,
@@ -86,7 +87,8 @@ export default function FinancialOverviewFundsTable({
                         <div className="form">
                             <div className="form-group">
                                 <SelectControl
-                                    className={'form-control'}
+                                    className={classNames('select-control-card-header')}
+                                    menuClassName={classNames('select-control-menu-card-header')}
                                     options={years}
                                     propKey={'id'}
                                     allowSearch={false}

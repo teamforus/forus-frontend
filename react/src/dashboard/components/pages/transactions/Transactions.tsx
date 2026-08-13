@@ -33,6 +33,7 @@ import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 import TransactionsTableSection from './elements/TransactionsTableSection';
+import classNames from 'classnames';
 import TransactionBulksTableSection from './elements/TransactionBulksTableSection';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
@@ -564,7 +565,7 @@ export default function Transactions() {
 
                                 <FilterItemToggle label={translate('transactions.labels.state')}>
                                     <SelectControl
-                                        className="form-control"
+                                        className={classNames('select-control-filter-panel')}
                                         propKey={'key'}
                                         allowSearch={false}
                                         value={filterValues.state}
@@ -578,7 +579,7 @@ export default function Transactions() {
                                     label={translate('transactions.labels.fund_name')}>
                                     {funds && (
                                         <SelectControl
-                                            className="form-control"
+                                            className={classNames('select-control-filter-panel')}
                                             propKey={'id'}
                                             allowSearch={false}
                                             options={fundOptions}
@@ -680,7 +681,7 @@ export default function Transactions() {
 
                                         <FilterItemToggle label={translate('transactions.labels.bulk_state')}>
                                             <SelectControl
-                                                className="form-control"
+                                                className={classNames('select-control-filter-panel')}
                                                 propKey={'key'}
                                                 allowSearch={false}
                                                 value={filterValues.bulk_state}
@@ -693,7 +694,7 @@ export default function Transactions() {
 
                                 <FilterItemToggle label={translate('transactions.labels.fund_state')}>
                                     <SelectControl
-                                        className="form-control"
+                                        className={classNames('select-control-filter-panel')}
                                         propKey={'key'}
                                         allowSearch={false}
                                         value={filterValues.fund_state}
@@ -786,7 +787,7 @@ export default function Transactions() {
 
                                 <FilterItemToggle label={translate('transactions.labels.state')}>
                                     <SelectControl
-                                        className="form-control"
+                                        className={classNames('select-control-filter-panel')}
                                         propKey={'key'}
                                         allowSearch={false}
                                         value={bulkFilterValues.state}

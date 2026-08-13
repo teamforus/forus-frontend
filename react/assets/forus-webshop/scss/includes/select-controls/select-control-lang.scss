@@ -1,0 +1,96 @@
+.select-control.select-control-lang {
+    z-index: 12;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    user-select: none;
+
+    .select-control-input {
+        .select-control-search {
+            display: flex;
+            flex-direction: row;
+            gap: 4px;
+            padding: 6px;
+            color: var(--navbar-menu-item-color);
+            font: 600 14px/20px var(--base-font);
+            cursor: pointer;
+
+            .mdi {
+                height: 20px;
+                font-size: 18px;
+                line-height: 20px;
+            }
+
+            .select-control-search-icon-lang {
+                margin-right: 2px;
+            }
+        }
+    }
+
+    .navbar-mobile-lang & {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translate(0, -50%);
+    }
+
+    @media screen and (max-width: 1000px) {
+        position: absolute;
+        top: 8px;
+        right: 60px;
+        border-color: transparent;
+
+        .select-control-input {
+            .select-control-search {
+                gap: 2px;
+                padding: 6px 0;
+            }
+        }
+    }
+}
+
+.select-control-menu.select-control-menu-lang {
+    padding-top: 2px;
+
+    .select-control-options {
+        width: 230px;
+        max-width: 90vw;
+        max-height: none;
+        overflow: visible;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--box-shadow);
+
+        .select-control-option {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 5px;
+            height: auto;
+            padding: 8px 10px;
+            overflow: visible;
+            border-bottom: 1px solid var(--border-color);
+            white-space: normal;
+            text-overflow: clip;
+
+            .select-control-option-separator-lang {
+                width: 1px;
+                height: 8px;
+                background: var(--border-color);
+            }
+
+            .select-control-option-name-lang {
+                flex: 1 1 auto;
+
+                &.select-control-option-name-right-lang {
+                    text-align: right;
+                }
+            }
+
+            .select-control-option-check-lang {
+                height: 20px;
+                font-size: 18px;
+                line-height: 20px;
+            }
+        }
+    }
+}

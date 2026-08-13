@@ -41,7 +41,6 @@ export default function OrganizationsFundsSecurityAuth2FAForm({
                     <div className="form-label">Onthoud IP-adres</div>
 
                     <SelectControl
-                        className="form-control"
                         propKey={'value'}
                         allowSearch={false}
                         value={formValues.auth_2fa_remember_ip}
