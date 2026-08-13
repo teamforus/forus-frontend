@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { ReactNode } from 'react';
+import React, { CSSProperties, ReactNode } from 'react';
 
 export type LabelType = 'success' | 'warning' | 'danger' | 'default' | 'primary' | 'light' | 'default-outline';
 
@@ -11,6 +11,7 @@ export default function Label({
     round = false,
     nowrap = false,
     size,
+    style,
 }: {
     children?: ReactNode | ReactNode[];
     type?: LabelType;
@@ -19,10 +20,12 @@ export default function Label({
     round?: boolean;
     nowrap?: boolean;
     size?: 'sm' | 'md' | 'xl';
+    style?: CSSProperties | undefined;
 }) {
     return (
         <div
             data-dusk={dusk}
+            style={style}
             className={classNames(
                 'label',
                 type === 'success' && 'label-success',

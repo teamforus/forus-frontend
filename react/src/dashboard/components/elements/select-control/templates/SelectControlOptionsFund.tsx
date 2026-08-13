@@ -1,11 +1,12 @@
 import React, { Fragment, useMemo, useRef, useState } from 'react';
-import ClickOutside from '../../click-outside/ClickOutside';
 import { uniqueId } from 'lodash';
 import { SelectControlOptionsProp } from '../SelectControl';
+import classNames from 'classnames';
+import useSelectControlKeyEventFDHandlers from '../hooks/useSelectControlKeyEventFDHandlers';
+import FDTargetClick from '../../../../modules/frame_director/components/FDTargetClick';
+import FDTargetContainerSelect from '../../../../modules/frame_director/tooltip-data/FDTargetContainerSelect';
 import Fund from '../../../../props/models/Fund';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
-import classNames from 'classnames';
-import useSelectControlKeyEventHandlers from '../hooks/useSelectControlKeyEventHandlers';
 
 export default function SelectControlOptionsFund<T>({
     id,
@@ -20,18 +21,23 @@ export default function SelectControlOptionsFund<T>({
     showOptions,
     visibleCount,
     className,
+    menuClassName,
     onInputClick,
     searchOption,
     setShowOptions,
     searchInputChanged,
     onOptionsScroll,
+    isOptionSelected,
+    selectedOptionId,
     disabled,
     modelValue,
+    ariaLabelledby,
     multiline = { selected: false, options: true },
 }: SelectControlOptionsProp<T>) {
     const [controlId] = useState('select_control_' + uniqueId());
     const input = useRef(null);
     const selectorRef = useRef<HTMLDivElement>(null);
+    const optionsRef = useRef<HTMLDivElement>(null);
     const placeholderRef = useRef<HTMLLabelElement>(null);
     const assetUrl = useAssetUrl();
 
@@ -43,8 +49,9 @@ export default function SelectControlOptionsFund<T>({
         return multiline === true || (typeof multiline === 'object' && multiline?.options === true);
     }, [multiline]);
 
-    const { onKeyDown, onBlur } = useSelectControlKeyEventHandlers(
+    const { onKeyDown, onBlur, focusFirst } = useSelectControlKeyEventFDHandlers(
         selectorRef,
+        optionsRef,
         placeholderRef,
         showOptions,
         setShowOptions,
@@ -56,127 +63,150 @@ export default function SelectControlOptionsFund<T>({
             className={classNames(
                 'form-control',
                 'select-control',
-                'select-control-lg',
                 'select-control-funds',
                 disabled && 'disabled',
                 className,
             )}
-            tabIndex={0}
-            role="button"
+            tabIndex={disabled ? -1 : 0}
+            role="combobox"
             data-dusk={dusk}
             aria-haspopup="listbox"
             aria-expanded={showOptions}
-            aria-labelledby={controlId}
-            aria-controls={`${controlId}_options`}
+            aria-labelledby={ariaLabelledby || controlId}
+            aria-controls={showOptions ? `${controlId}_options` : null}
+            aria-activedescendant={showOptions && selectedOptionId ? `option_${selectedOptionId}` : null}
             ref={selectorRef}
-            onKeyDown={onKeyDown}
+            onKeyDown={(e) => (disabled ? null : onKeyDown(e))}
             onBlur={onBlur}>
-            <div
-                className={classNames(
-                    'select-control-input',
-                    showOptions && 'options',
+            <FDTargetClick
+                contentContainer={FDTargetContainerSelect}
+                contentContainerClassName={classNames(
+                    'select-control-menu-funds',
+                    menuClassName,
                     multilineOptions && 'multiline-options',
-                    multilineSelected && 'multiline-selected',
                 )}
-                data-dusk="selectControlFunds">
-                {/* Placeholder */}
-                <label
-                    htmlFor={controlId}
-                    role="presentation"
-                    ref={placeholderRef}
-                    className="select-control-search form-control"
-                    onClick={searchOption}
-                    style={{ display: showOptions && allowSearch ? 'none' : 'block' }}
-                    title={placeholderValue || placeholder}>
-                    <div className="select-control-search-placeholder">
-                        <div className="select-control-search-placeholder-media">
-                            <img
-                                src={
-                                    (modelValue?.raw as Fund)?.logo?.sizes?.thumbnail ||
-                                    assetUrl('/assets/img/icon-my_funds.svg')
-                                }
-                                alt=""
-                            />
-                        </div>
-                        <span className="ellipsis">{placeholderValue || placeholder}</span>
-                    </div>
-                    <div className={'select-control-icon'}>
-                        <em className={classNames('mdi', showOptions ? 'mdi-chevron-up' : 'mdi-chevron-down')} />
-                    </div>
-                </label>
+                content={(e) => {
+                    if (!showOptions) {
+                        return null;
+                    }
 
-                {allowSearch && (
-                    <div className="select-control-search-container">
-                        {showOptions && (
-                            <input
-                                id={controlId}
-                                placeholder={placeholder || placeholderValue}
-                                ref={input}
-                                value={query}
-                                onClick={onInputClick}
-                                onChange={(e) => setQuery(e.target.value)}
-                                className="select-control-search form-control"
-                            />
-                        )}
-
-                        {query && (
-                            <div
-                                className="select-control-search-clear"
-                                onClick={() => {
-                                    setQuery('');
-                                    searchInputChanged();
-                                }}
-                                aria-label="Annuleren">
-                                <em className="mdi mdi-close-circle" />
-                            </div>
-                        )}
-                    </div>
-                )}
-
-                {showOptions && (
-                    <ClickOutside
-                        className="select-control-options"
-                        attr={{
-                            id: `${controlId}_options`,
-                            role: 'listbox',
-                            onScroll: onOptionsScroll,
-                            onClick: null,
-                        }}
-                        onClickOutside={(e) => {
-                            e.stopPropagation();
-                            setShowOptions(false);
-                        }}>
-                        {optionsFiltered.slice(0, visibleCount)?.map((option) => (
-                            <div
-                                key={option.id}
-                                className={'select-control-option'}
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    selectOption(option);
-                                }}
-                                onKeyDown={(e) => (e.key === 'Enter' ? e.currentTarget.click() : null)}
-                                tabIndex={0}
-                                data-dusk={`selectControlFundItem${(option.raw as Fund).id}`}
-                                role="option">
-                                <div className="select-control-option-media">
-                                    <img
-                                        src={
-                                            (option.raw as Fund)?.logo?.sizes?.thumbnail ||
-                                            assetUrl('/assets/img/placeholders/fund-thumbnail.png')
-                                        }
-                                        alt=""
-                                    />
+                    return (
+                        <div
+                            className="select-control-options"
+                            id={`${controlId}_options`}
+                            role={'listbox'}
+                            onClick={null}
+                            data-dusk={`${dusk}Options`}
+                            ref={optionsRef}
+                            style={{ width: `${e.item.observedRect.width}px` }}
+                            onKeyDown={(e) => onKeyDown(e)}
+                            onScroll={onOptionsScroll}>
+                            {optionsFiltered.slice(0, visibleCount)?.map((option) => (
+                                <div
+                                    key={option.id}
+                                    id={`option_${option.id}`}
+                                    className={classNames(
+                                        'select-control-option',
+                                        isOptionSelected(option) && 'active',
+                                    )}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        selectOption(option);
+                                    }}
+                                    onKeyDown={(e) => (e.key === 'Enter' ? e.currentTarget.click() : null)}
+                                    tabIndex={0}
+                                    data-dusk={`selectControlFundItem${(option.raw as Fund).id}`}
+                                    aria-selected={isOptionSelected(option)}
+                                    role="option">
+                                    <div className="select-control-option-media-funds">
+                                        <img
+                                            src={
+                                                (option.raw as Fund)?.logo?.sizes?.thumbnail ||
+                                                assetUrl('/assets/img/placeholders/fund-thumbnail.png')
+                                            }
+                                            alt=""
+                                        />
+                                    </div>
+                                    {option.labelFormat?.map((str, index) => (
+                                        <Fragment key={str.id}>
+                                            {index != 1 ? <span>{str.value}</span> : <strong>{str.value}</strong>}
+                                        </Fragment>
+                                    ))}
                                 </div>
-                                {option.labelFormat?.map((str, index) => (
-                                    <Fragment key={str.id}>
-                                        {index != 1 ? <span>{str.value}</span> : <strong>{str.value}</strong>}
-                                    </Fragment>
-                                ))}
+                            ))}
+                        </div>
+                    );
+                }}
+                align={'start'}
+                position={'bottom'}
+                showExternal
+                show={showOptions}
+                setShow={setShowOptions}
+                onContentReady={focusFirst}>
+                <div
+                    className={classNames(
+                        'select-control-input',
+                        showOptions && 'options',
+                        multilineSelected && 'multiline-selected',
+                    )}
+                    data-dusk="selectControlFunds">
+                    {/* Placeholder */}
+                    <label
+                        htmlFor={controlId}
+                        role="presentation"
+                        ref={placeholderRef}
+                        className="select-control-search form-control"
+                        style={{ display: showOptions && allowSearch ? 'none' : 'flex' }}
+                        onClick={searchOption}
+                        title={placeholderValue || placeholder}>
+                        <div className="select-control-search-placeholder">
+                            <div className="select-control-search-placeholder-media-funds">
+                                <img
+                                    src={
+                                        (modelValue?.raw as Fund)?.logo?.sizes?.thumbnail ||
+                                        assetUrl('/assets/img/icon-my_funds.svg')
+                                    }
+                                    alt=""
+                                />
                             </div>
-                        ))}
-                    </ClickOutside>
-                )}
-            </div>
+                            <span className="ellipsis">{placeholderValue || placeholder}</span>
+                        </div>
+                        <div className="select-control-icon">
+                            <em className={classNames('mdi', showOptions ? 'mdi-chevron-up' : 'mdi-chevron-down')} />
+                        </div>
+                    </label>
+
+                    {allowSearch && (
+                        <div className="select-control-search-container">
+                            {showOptions && (
+                                <input
+                                    id={controlId}
+                                    placeholder={placeholder || placeholderValue}
+                                    ref={input}
+                                    value={query}
+                                    tabIndex={0}
+                                    onClick={onInputClick}
+                                    aria-controls={`${controlId}_options`}
+                                    onChange={(e) => setQuery(e.target.value)}
+                                    className="select-control-search form-control"
+                                />
+                            )}
+
+                            {query && (
+                                <div
+                                    className="select-control-search-clear"
+                                    onClick={() => {
+                                        setQuery('');
+                                        searchInputChanged();
+                                    }}
+                                    aria-label="Annuleren">
+                                    <em className="mdi mdi-close-circle" />
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
+            </FDTargetClick>
         </div>
     );
 }

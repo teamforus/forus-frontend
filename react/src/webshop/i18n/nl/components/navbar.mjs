@@ -8,4 +8,9 @@ export default {
     goereeoverflakkee: {
         funds: 'Regelingen',
     },
+    potjeswijzer: {
+        funds: 'Potjes',
+        partner_funds: 'Potjes partners',
+        funds_kindpakket: 'Kindpakket',
+    },
 };

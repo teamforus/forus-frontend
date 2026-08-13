@@ -93,7 +93,6 @@ export default function ModalFundEditPhysicalCardSettings({
                             <SelectControl
                                 id={id}
                                 propKey={'value'}
-                                className={'form-control'}
                                 value={form.values.allow_physical_cards}
                                 options={options}
                                 onChange={(allow_physical_cards: boolean) => {

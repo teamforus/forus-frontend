@@ -98,7 +98,8 @@ export default function PhysicalCardTypesTable({
                         {funds?.length > 0 && (
                             <div className="form-group">
                                 <SelectControl
-                                    className="form-control inline-filter-control"
+                                    className={classNames('select-control-card-header')}
+                                    menuClassName={classNames('select-control-menu-card-header')}
                                     propKey={'id'}
                                     options={funds}
                                     value={filterValues.fund_id}

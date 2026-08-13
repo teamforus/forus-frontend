@@ -249,6 +249,7 @@ export default function ProviderFundsAvailableTable({
                                 dusk="selectControlImplementationsToggle"
                                 label={translate('provider_funds.filters.labels.implementations')}>
                                 <SelectControl
+                                    className={classNames('select-control-filter-panel')}
                                     value={filterValues.implementation_id}
                                     options={implementations}
                                     propKey={'id'}
@@ -262,6 +263,7 @@ export default function ProviderFundsAvailableTable({
                                 dusk="selectControlOrganizationsToggle"
                                 label={translate('provider_funds.filters.labels.organizations')}>
                                 <SelectControl
+                                    className={classNames('select-control-filter-panel')}
                                     value={filterValues.organization_id}
                                     options={organizations}
                                     propKey={'id'}
@@ -275,6 +277,7 @@ export default function ProviderFundsAvailableTable({
                                 dusk="selectControlTagsToggle"
                                 label={translate('provider_funds.filters.labels.tags')}>
                                 <SelectControl
+                                    className={classNames('select-control-filter-panel')}
                                     value={filterValues.tag}
                                     options={tags}
                                     propKey={'key'}
