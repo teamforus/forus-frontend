@@ -228,9 +228,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-color: var(--color-default);
+            border: 1px solid var(--btn-user-avatar-border-color);
             border-radius: var(--button-border-radius);
             background: var(--btn-start-bg);
+
+            svg {
+                path {
+                    fill: var(--btn-user-avatar-icon-color);
+                }
+            }
         }
 
         .navbar-desktop-user-caret {

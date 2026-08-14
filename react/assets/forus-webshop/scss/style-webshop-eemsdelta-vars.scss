@@ -78,6 +78,8 @@ $primaryColorLight: #0d4379;
     --btn-start-bg: #0d4379;
     --btn-start-btn: #0d4379;
     --btn-start-border: #0d4379;
+    --btn-user-avatar-border-color: #{$primaryColor};
+    --btn-user-avatar-icon-color: revert-layer;
 
     // header background
     --bg-values: url('../img/splash-top-b.jpg') no-repeat center 100%;
