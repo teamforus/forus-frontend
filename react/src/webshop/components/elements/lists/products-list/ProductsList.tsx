@@ -20,7 +20,10 @@ export default function ProductsList({
                 'block',
                 display === 'grid' && 'block-products',
                 display === 'list' && 'block-products-list',
-            )}>
+            )}
+            data-dusk={
+                display === 'grid' ? 'displayTypeGrid' : display === 'list' ? 'displayTypeList' : 'displayTypeSearch'
+            }>
             {products?.map((product) => (
                 <ProductsListItem
                     key={product.id}
