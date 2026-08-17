@@ -21,6 +21,7 @@ import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import classNames from 'classnames';
 
 export default function ExtraPayments() {
     const activeOrganization = useActiveOrganization();
@@ -129,7 +130,8 @@ export default function ExtraPayments() {
                                 <div className="form">
                                     <div className="form-group">
                                         <SelectControl
-                                            className="form-control inline-filter-control"
+                                            className={classNames('select-control-card-header')}
+                                            menuClassName={classNames('select-control-menu-card-header')}
                                             propKey={'id'}
                                             options={funds}
                                             value={filterValues.fund_id}
@@ -166,7 +168,7 @@ export default function ExtraPayments() {
                             </FilterItemToggle>
                             <FilterItemToggle label={translate('extra_payments.labels.fund')}>
                                 <SelectControl
-                                    className={'form-control'}
+                                    className={classNames('select-control-filter-panel')}
                                     options={funds}
                                     propKey={'id'}
                                     allowSearch={false}

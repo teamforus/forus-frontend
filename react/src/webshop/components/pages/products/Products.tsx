@@ -112,6 +112,8 @@ export default function Products() {
                                     </div>
                                     <SelectControl
                                         id={'sort_by'}
+                                        className={classNames('select-control-showcase')}
+                                        menuClassName={classNames('select-control-menu-showcase')}
                                         allowSearch={false}
                                         propKey={'id'}
                                         propValue={'label'}

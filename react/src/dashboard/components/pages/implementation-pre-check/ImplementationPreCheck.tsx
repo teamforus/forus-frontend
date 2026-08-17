@@ -309,7 +309,6 @@ export default function ImplementationPreCheck() {
                             input={(id) => (
                                 <SelectControl
                                     id={id}
-                                    className="form-control"
                                     propKey={'key'}
                                     allowSearch={false}
                                     options={enableOptions}
@@ -446,7 +445,6 @@ export default function ImplementationPreCheck() {
                             input={(id) => (
                                 <SelectControl
                                     id={id}
-                                    className={'form-control'}
                                     propKey={'value'}
                                     allowSearch={false}
                                     options={bannerStates}

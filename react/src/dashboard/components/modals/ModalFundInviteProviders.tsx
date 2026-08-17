@@ -89,7 +89,6 @@ export default function ModalFundInviteProviders({
                                         input={(id) => (
                                             <SelectControl
                                                 id={id}
-                                                className={'form-control'}
                                                 options={funds}
                                                 propKey={'id'}
                                                 allowSearch={true}

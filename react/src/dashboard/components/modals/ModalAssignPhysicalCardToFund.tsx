@@ -143,7 +143,6 @@ export default function ModalAssignPhysicalCardToFund({
                                 id={id}
                                 propKey={'id'}
                                 propValue={'name'}
-                                className={'form-control'}
                                 value={form.values.physical_card_type_id}
                                 options={physicalCardTypes}
                                 disabled={!!fundPhysicalCardType}
@@ -167,7 +166,6 @@ export default function ModalAssignPhysicalCardToFund({
                                             <SelectControl
                                                 id={id}
                                                 propKey={'value'}
-                                                className={'form-control'}
                                                 value={form.values.allow_physical_card_linking}
                                                 options={options}
                                                 onChange={(allow_physical_card_linking: boolean) => {
@@ -188,7 +186,6 @@ export default function ModalAssignPhysicalCardToFund({
                                             <SelectControl
                                                 id={id}
                                                 propKey={'value'}
-                                                className={'form-control'}
                                                 value={form.values.allow_physical_card_deactivation}
                                                 options={options}
                                                 onChange={(allow_physical_card_deactivation: boolean) => {
@@ -211,7 +208,6 @@ export default function ModalAssignPhysicalCardToFund({
                                             <SelectControl
                                                 id={id}
                                                 propKey={'value'}
-                                                className={'form-control'}
                                                 value={form.values.allow_physical_card_requests}
                                                 options={options}
                                                 onChange={(allow_physical_card_requests: boolean) => {

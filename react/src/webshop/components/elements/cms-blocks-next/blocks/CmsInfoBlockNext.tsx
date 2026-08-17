@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { CSSProperties, Fragment } from 'react';
 import Markdown from '../../markdown/Markdown';
 import classNames from 'classnames';
 import Section from '../../sections/Section';
@@ -41,6 +41,18 @@ export default function CmsInfoBlockNext({ block }: { block: ImplementationCmsBl
                                 stringValue(itemValues.button_link_label) || buttonText || undefined;
                             const shouldMakeItemClickable = buttonEnabled && blocksPerRow > 1;
                             const TitleTag = title ? 'h3' : 'h2';
+                            const labelBackgroundColor = stringValue(itemValues.label_background_color);
+                            const labelTextColor = stringValue(itemValues.label_text_color);
+
+                            const style: CSSProperties = {};
+
+                            if (labelBackgroundColor) {
+                                style.backgroundColor = labelBackgroundColor;
+                            }
+
+                            if (labelTextColor) {
+                                style.color = labelTextColor;
+                            }
 
                             const content = (
                                 <Fragment>
@@ -55,7 +67,10 @@ export default function CmsInfoBlockNext({ block }: { block: ImplementationCmsBl
                                             <TitleTag className="fund-title">{stringValue(itemValues.title)}</TitleTag>
                                         )}
                                         {stringValue(itemValues.label) && (
-                                            <Label type="primary" className="fund-label">
+                                            <Label
+                                                type="primary"
+                                                className="fund-label"
+                                                style={Object.keys(style).length > 0 ? style : undefined}>
                                                 {stringValue(itemValues.label)}
                                             </Label>
                                         )}
