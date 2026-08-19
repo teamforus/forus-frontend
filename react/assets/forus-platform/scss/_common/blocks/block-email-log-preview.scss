@@ -21,6 +21,12 @@
                 font: 600 12px/20px var(--base-font);
             }
         }
+
+        &.email-log-overview-two-columns {
+            .email-log-overview-col {
+                flex: 0 0 50%;
+            }
+        }
     }
 
     .email-log-preview {

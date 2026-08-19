@@ -13,7 +13,7 @@ import IconValidator from '../../../../assets/forus-platform/resources/_platform
 import IconProvider from '../../../../assets/forus-platform/resources/_platform-common/assets/img/menu/icon-dropdown-provider.svg';
 import IconSponsor from '../../../../assets/forus-platform/resources/_platform-common/assets/img/menu/icon-dropdown-sponsor.svg';
 
-import ClickOutside from '../../components/elements/click-outside/ClickOutside';
+import ClickOutside from '../../modules/click-outside/ClickOutside';
 import { Announcements } from '../../components/elements/announcements/Accouncements';
 import { useOrganizationService } from '../../services/OrganizationService';
 import SelectControl from '../../components/elements/select-control/SelectControl';

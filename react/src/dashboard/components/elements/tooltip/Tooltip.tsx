@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from 'react';
 import classNames from 'classnames';
 import { strLimit } from '../../../helpers/string';
-import ClickOutside from '../click-outside/ClickOutside';
+import ClickOutside from '../../../modules/click-outside/ClickOutside';
 
 export default function Tooltip({
     text,

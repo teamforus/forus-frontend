@@ -23,7 +23,6 @@ import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import Media from '../../../../props/models/Media';
 import useTranslate from '../../../../hooks/useTranslate';
 import usePushApiError from '../../../../hooks/usePushApiError';
-import SelectControlOptionsFD from '../../../elements/select-control/templates/SelectControlOptionsFD';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import FormGroupInfo from '../../../elements/forms/elements/FormGroupInfo';
 import FormPane from '../../../elements/forms/elements/FormPane';
@@ -372,12 +371,10 @@ export default function OrganizationForm() {
                                     input={(id) => (
                                         <SelectControl
                                             id={id}
-                                            className={'form-control'}
                                             options={businessTypes || []}
                                             propKey={'id'}
                                             allowSearch={true}
                                             value={form.values?.business_type_id}
-                                            optionsComponent={SelectControlOptionsFD}
                                             onChange={(id?: number) => form.update({ business_type_id: id })}
                                         />
                                     )}

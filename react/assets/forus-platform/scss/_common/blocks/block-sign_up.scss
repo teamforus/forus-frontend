@@ -639,22 +639,15 @@
             }
         }
 
-        .select-control-input {
-            .select-control-search {
-                background-color: #eff2f4;
-                border-color: #eff2f4;
-                height: 50px;
-                font: 400 13px/24px var(--base-font) !important;
-            }
-
-            .select-control-option {
-                background-color: #eff2f4;
-                border-color: #eff2f4;
-                border-bottom: 1px solid #e3e3e3;
-            }
-
-            .select-control-options {
-                border: none;
+        .select-control {
+            &.select-control-sign-up {
+                .select-control-input {
+                    .select-control-search {
+                        background-color: #eff2f4;
+                        border-color: #eff2f4;
+                        font: 400 13px/24px var(--base-font) !important;
+                    }
+                }
             }
         }
 

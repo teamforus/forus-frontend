@@ -295,7 +295,7 @@ export default function OrganizationFunds() {
 
                                 <FilterItemToggle label={translate('components.organization_funds.filters.state')}>
                                     <SelectControl
-                                        className="form-control"
+                                        className={classNames('select-control-filter-panel')}
                                         propKey={'key'}
                                         allowSearch={false}
                                         value={filterValues.state}
@@ -307,7 +307,7 @@ export default function OrganizationFunds() {
                                 <FilterItemToggle
                                     label={translate('components.organization_funds.filters.implementation')}>
                                     <SelectControl
-                                        className="form-control"
+                                        className={classNames('select-control-filter-panel')}
                                         propKey={'id'}
                                         allowSearch={false}
                                         value={filterValues.implementation_id}

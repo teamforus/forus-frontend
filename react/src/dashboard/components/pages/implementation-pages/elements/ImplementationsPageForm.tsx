@@ -292,7 +292,6 @@ export default function ImplementationsPageForm({
                                 input={(id) => (
                                     <SelectControl
                                         id={id}
-                                        className="form-control"
                                         propKey={'value'}
                                         value={form.values?.state}
                                         onChange={(state: string) => form.update({ state })}
@@ -316,7 +315,6 @@ export default function ImplementationsPageForm({
                                     input={(id) => (
                                         <SelectControl
                                             id={id}
-                                            className="form-control"
                                             propKey={'value'}
                                             value={form.values?.external}
                                             onChange={(external: boolean) => form.update({ external })}
@@ -365,7 +363,6 @@ export default function ImplementationsPageForm({
                                     input={(id) => (
                                         <SelectControl
                                             id={id}
-                                            className="form-control"
                                             propKey={'value'}
                                             value={form.values?.description_position}
                                             onChange={(description_position: string) => {
@@ -431,7 +428,6 @@ export default function ImplementationsPageForm({
                                     )}
                                     input={() => (
                                         <SelectControl
-                                            className="form-control"
                                             propKey={'value'}
                                             value={form.values?.blocks_per_row}
                                             onChange={(blocks_per_row: number) => form.update({ blocks_per_row })}

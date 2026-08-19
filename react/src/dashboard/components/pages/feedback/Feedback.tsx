@@ -115,7 +115,6 @@ export default function Feedback() {
                                         input={(id) => (
                                             <SelectControl
                                                 id={id}
-                                                className="form-control"
                                                 propValue={'label'}
                                                 propKey={'value'}
                                                 allowSearch={false}
