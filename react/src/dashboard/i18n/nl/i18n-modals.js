@@ -24,6 +24,7 @@ import modal_prevalidation_request_approve_missed_records from './modals/modal-p
 import modal_product_reservation_send_mail from './modals/modal-product-reservation-send-mail';
 import modal_product_reservation_approve from './modals/modal-product-reservation-approve';
 import modal_product_reservation_reject from './modals/modal-product-reservation-reject';
+import modal_bank_account_request from './modals/modal-bank-account-request';
 
 export default {
     modal_payout_create,
@@ -52,4 +53,5 @@ export default {
     modal_product_reservation_send_mail,
     modal_product_reservation_approve,
     modal_product_reservation_reject,
+    modal_bank_account_request,
 };

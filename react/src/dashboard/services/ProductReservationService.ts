@@ -30,7 +30,7 @@ export class ProductReservationService<T = Reservation> {
     }
 
     public storeBatch(organization_id: number, data = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.post(`${this.prefix}/${organization_id}/product-reservations/batch`, { ...data });
+        return this.apiRequest.post(`${this.prefix}/${organization_id}/product-reservations/batch`, data);
     }
 
     public read(organization_id: number, id: number): Promise<ApiResponseSingle<T>> {
