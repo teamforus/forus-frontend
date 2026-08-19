@@ -25,6 +25,6 @@ export default {
     },
     empty: {
         title: 'Geen berichten',
-        description: 'Er zijn nog geen gegevens klaargezet voor dit fonds.',
+        description: 'Er zijn nog geen berichten gestuurd.',
     },
 };
