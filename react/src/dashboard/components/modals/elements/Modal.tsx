@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback } from 'react';
+import React, { ReactNode, SubmitEventHandler, useCallback } from 'react';
 import { ModalState } from '../../../modules/modals/context/ModalContext';
 import classNames from 'classnames';
 
@@ -6,29 +6,41 @@ export default function Modal({
     modal,
     size = 'md',
     title,
+    headerType = 'default',
+    headerIcon,
     body,
     bodyOverflowVisible = false,
     head,
     children,
     className,
     footer,
+    footerClassName,
     onSubmit,
     dusk = null,
 }: {
     modal: ModalState;
     title?: string | ReactNode;
     size?: 'sm' | 'md' | 'lg';
+    headerType?: 'default' | 'danger';
+    headerIcon?: string;
     children?: ReactNode | ReactNode[];
     head?: ReactNode | ReactNode[];
     body?: ReactNode | ReactNode[];
     bodyOverflowVisible?: boolean;
     footer?: ReactNode | ReactNode[];
-    onSubmit?: () => void;
+    footerClassName?: string;
+    onSubmit?: SubmitEventHandler<HTMLFormElement>;
     className?: string;
     dusk?: string;
 }) {
     const ModalWindow = useCallback(
-        ({ children, onSubmit }: { children: ReactNode | ReactNode[]; onSubmit?: () => void }) => {
+        ({
+            children,
+            onSubmit,
+        }: {
+            children: ReactNode | ReactNode[];
+            onSubmit?: SubmitEventHandler<HTMLFormElement>;
+        }) => {
             if (onSubmit) {
                 return (
                     <form className={'modal-window form'} onSubmit={onSubmit}>
@@ -59,8 +71,9 @@ export default function Modal({
                 {head
                     ? head
                     : title && (
-                          <div className="modal-header">
-                              <div className={'modal-header-title'}>{title}</div>
+                          <div className={classNames('modal-header', headerType === 'danger' && 'modal-header-danger')}>
+                              {headerIcon && <em className={classNames('modal-header-icon', headerIcon)} />}
+                              <div className="modal-header-title">{title}</div>
                               <a className="mdi mdi-close modal-close" onClick={modal.close} role="button" />
                           </div>
                       )}
@@ -73,7 +86,7 @@ export default function Modal({
                     </div>
                 )}
 
-                {footer && <div className="modal-footer">{footer}</div>}
+                {footer && <div className={classNames('modal-footer', footerClassName)}>{footer}</div>}
             </ModalWindow>
         </div>
     );

@@ -28,6 +28,11 @@ export default function ReservationOverviewPane({ reservation }: { reservation: 
                 <KeyValueItem label={translate('reservation.labels.rejected_at')}>
                     {reservation.rejected_at ? reservation.rejected_at_locale : <TableEmptyValue />}
                 </KeyValueItem>
+                {reservation.accepted_at && reservation.accepted_note && (
+                    <KeyValueItem label={translate('reservation.labels.accepted_note')}>
+                        {reservation.accepted_note}
+                    </KeyValueItem>
+                )}
                 {reservation.canceled_at && reservation.state === 'canceled' && reservation.cancellation_note && (
                     <KeyValueItem label={translate('reservation.labels.cancellation_note')}>
                         {reservation.cancellation_note}

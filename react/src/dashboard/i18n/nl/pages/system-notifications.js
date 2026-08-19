@@ -177,6 +177,11 @@ export default {
             title: 'Reservering geweigerd',
             description: 'Deelnemers ontvangen dit bericht wanneer hun reservering door de aanbieder is geweigerd.',
         },
+        'notifications_identities.product_reservation_message': {
+            title: 'Bericht over reservering',
+            description:
+                'Deelnemers ontvangen dit bericht wanneer de aanbieder een op maat bericht verstuurd over de reservering.',
+        },
         'notifications_products.approved': {
             title: 'Aanbod geaccepteerd',
             description: 'Aanbieders ontvangen dit bericht wanneer hun aanbod door de sponsor is geaccepteerd.',

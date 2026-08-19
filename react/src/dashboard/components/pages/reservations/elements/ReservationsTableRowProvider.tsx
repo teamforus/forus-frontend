@@ -143,7 +143,7 @@ export default function ReservationsTableRowProvider({
                                         e.close();
                                     }}>
                                     <em className="mdi mdi-close icon-start" />
-                                    Afwijzen
+                                    {reservation.state === 'accepted' ? 'Annuleren' : 'Afwijzen'}
                                 </div>
                             )}
 
