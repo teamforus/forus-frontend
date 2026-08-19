@@ -10,15 +10,12 @@ import useProductReservationService from '../../../services/ProductReservationSe
 import useTransactionService from '../../../services/TransactionService';
 import useEnvData from '../../../hooks/useEnvData';
 import Transaction from '../../../props/models/Transaction';
-import useShowRejectInfoExtraPaid from '../../../services/helpers/reservations/useShowRejectInfoExtraPaid';
 import TransactionDetailsPane from '../transactions-view/elements/panes/TransactionDetailsPane';
 import ReservationExtraPaymentRefundsCard from './elements/ReservationExtraPaymentRefundsCard';
 import ReservationExtraPaymentDetailsPane from './elements/panes/ReservationExtraPaymentDetailsPane';
 import usePushApiError from '../../../hooks/usePushApiError';
 import ProductDetailsBlockPropertiesPane from '../products-view/elements/panes/ProductDetailsBlockPropertiesPane';
 import ReservationStateLabel from '../../elements/resource-states/ReservationStateLabel';
-import ModalReservationReject from '../../modals/ModalReservationReject';
-import useOpenModal from '../../../hooks/useOpenModal';
 import ReservationExtraInformationPane from './elements/panes/ReservationExtraInformationPane';
 import ReservationOverviewPane from './elements/panes/ReservationOverviewPane';
 import ReservationDetailsPane from './elements/panes/ReservationDetailsPane';
@@ -30,8 +27,9 @@ import Note from '../../../props/models/Note';
 import useProductService from '../../../services/ProductService';
 import Product from '../../../props/models/Product';
 import { RequestConfig } from '../../../props/ApiResponses';
-import ModalReservationApprove from '../../modals/ModalReservationApprove';
 import BlockCardProviderMessages from './elements/BlockCardProviderMessages';
+import useReservationApproveModal from '../../../services/helpers/reservations/useReservationApproveModal';
+import useReservationRejectModal from '../../../services/helpers/reservations/useReservationRejectModal';
 
 export default function ReservationsView() {
     const { id } = useParams();
@@ -40,7 +38,6 @@ export default function ReservationsView() {
     const activeOrganization = useActiveOrganization();
 
     const translate = useTranslate();
-    const openModal = useOpenModal();
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
 
@@ -54,7 +51,8 @@ export default function ReservationsView() {
 
     const fetchProviderMessagesRef = useRef<() => void>(null);
 
-    const showRejectInfoExtraPaid = useShowRejectInfoExtraPaid();
+    const openReservationRejectModal = useReservationRejectModal(activeOrganization);
+    const openReservationApproveModal = useReservationApproveModal(activeOrganization);
 
     const fetchProduct = useCallback(
         (id: number) => {
@@ -97,48 +95,26 @@ export default function ReservationsView() {
 
     const acceptReservation = useCallback(
         (reservation: Reservation) => {
-            openModal((modal) => {
-                return (
-                    <ModalReservationApprove
-                        modal={modal}
-                        organization={activeOrganization}
-                        reservations={[reservation]}
-                        onDone={() => {
-                            fetchReservation(reservation.id);
-                            fetchProviderMessagesRef?.current?.();
+            openReservationApproveModal([reservation], () => {
+                fetchReservation(reservation.id);
+                fetchProviderMessagesRef?.current?.();
 
-                            if (reservation.voucher_transaction?.address) {
-                                fetchTransaction(reservation.voucher_transaction?.address);
-                            }
-                        }}
-                    />
-                );
+                if (reservation.voucher_transaction?.address) {
+                    fetchTransaction(reservation.voucher_transaction?.address);
+                }
             });
         },
-        [activeOrganization, fetchReservation, fetchTransaction, openModal],
+        [fetchReservation, fetchTransaction, openReservationApproveModal],
     );
 
     const rejectReservation = useCallback(
         (reservation: Reservation) => {
-            if (reservation.extra_payment?.is_paid && !reservation.extra_payment?.is_fully_refunded) {
-                return showRejectInfoExtraPaid();
-            }
-
-            openModal((modal) => {
-                return (
-                    <ModalReservationReject
-                        modal={modal}
-                        organization={activeOrganization}
-                        reservations={[reservation]}
-                        onDone={() => {
-                            fetchReservation(reservation.id);
-                            fetchProviderMessagesRef?.current?.();
-                        }}
-                    />
-                );
+            openReservationRejectModal([reservation], () => {
+                fetchReservation(reservation.id);
+                fetchProviderMessagesRef?.current?.();
             });
         },
-        [activeOrganization, fetchReservation, openModal, showRejectInfoExtraPaid],
+        [fetchReservation, openReservationRejectModal],
     );
 
     const onTransactionUpdate = useCallback(() => {
@@ -231,7 +207,7 @@ export default function ReservationsView() {
                                         className="button button-danger button-sm"
                                         onClick={() => rejectReservation(reservation)}>
                                         <em className="mdi mdi-close icon-start" />
-                                        Weiger
+                                        {reservation.state === 'accepted' ? 'Annuleer' : 'Weiger'}
                                     </div>
                                 )}
                             </div>
@@ -308,13 +284,11 @@ export default function ReservationsView() {
                 <ReservationExtraPaymentRefundsCard refunds={reservation.extra_payment.refunds} />
             )}
 
-            {reservation.allow_provider_messages && (
-                <BlockCardProviderMessages
-                    reservation={reservation}
-                    organization={activeOrganization}
-                    fetchProviderMessagesRef={fetchProviderMessagesRef}
-                />
-            )}
+            <BlockCardProviderMessages
+                reservation={reservation}
+                organization={activeOrganization}
+                fetchProviderMessagesRef={fetchProviderMessagesRef}
+            />
         </Fragment>
     );
 }

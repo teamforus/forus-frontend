@@ -98,7 +98,7 @@ export default function ModalProviderMessageShow({
                                 modal.close();
                                 exportProviderMessage(providerMessage);
                             }}>
-                            Download as PDF
+                            Download als PDF
                         </div>
                     </div>
                 </div>

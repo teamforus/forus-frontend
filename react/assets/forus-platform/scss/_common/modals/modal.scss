@@ -59,12 +59,14 @@
             position: absolute;
             font-size: 24px;
             right: 20px;
-            top: 20px;
+            top: 10px;
             display: block;
             cursor: pointer;
             color: #222;
             transition: color 0.4s;
             z-index: 1;
+            line-height: 36px;
+            height: 36px;
         }
 
         .modal-header {
@@ -73,6 +75,7 @@
             font: 600 16px/25px var(--base-font);
             border-bottom: 1px solid #d4d9dd;
             position: relative;
+            gap: 8px;
             border-radius: 3px 3px 0 0;
 
             &.modal-header-compact {
@@ -84,15 +87,21 @@
                 flex-direction: row;
                 align-items: center;
 
-                .mdi {
+                .modal-header-icon {
                     color: #e63b3b;
                     font-size: 20px;
                     line-height: 20px;
-                    margin: 0 8px 0 0;
+                    margin: 0 0;
 
                     &:before {
                         line-height: inherit;
                     }
+                }
+
+                .modal-header-title {
+                    font: inherit;
+                    margin: 0 0;
+                    @include helpers.ellipsis();
                 }
             }
         }

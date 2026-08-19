@@ -1,5 +1,6 @@
 export default {
     modal_title: 'Reservering accepteren',
+    form_title: 'Notitie toevoegen',
     title: {
         single: 'Weet u zeker dat u deze reservering wilt accepteren?',
         plural: 'Weet u zeker dat u deze reserveringen wilt accepteren?',
@@ -30,5 +31,10 @@ export default {
     buttons: {
         cancel: 'Annuleren',
         submit: 'Bevestigen',
+    },
+    success: {
+        item: 'Reservering voor {{product_name}} voor {{amount}} geaccepteerd.',
+        single: 'Opgeslagen!',
+        batch: 'Alle reserveringen zijn geaccepteerd.',
     },
 };

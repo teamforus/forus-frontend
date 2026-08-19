@@ -1,7 +1,7 @@
-import React, { Fragment, useState } from 'react';
+import React from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import { ModalButton } from './elements/ModalButton';
-import classNames from 'classnames';
+import Modal from './elements/Modal';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import FormGroup from '../elements/forms/elements/FormGroup';
 import Reservation from '../../props/models/Reservation';
@@ -12,8 +12,9 @@ import usePushSuccess from '../../hooks/usePushSuccess';
 import usePushApiError from '../../hooks/usePushApiError';
 import { ResponseError } from '../../props/ApiResponses';
 import CheckboxControl from '../elements/forms/controls/CheckboxControl';
-import InfoBox from '../elements/info-box/InfoBox';
 import useTranslate from '../../hooks/useTranslate';
+import InfoBox from '../elements/info-box/InfoBox';
+import FormPane from '../elements/forms/elements/FormPane';
 
 export default function ModalReservationReject({
     modal,
@@ -30,9 +31,13 @@ export default function ModalReservationReject({
     const pushApiError = usePushApiError();
     const translate = useTranslate();
 
-    const [showInfoBlock, setShowInfoBlock] = useState(false);
-
     const productReservationService = useProductReservationService();
+
+    const hasRejections = reservations.some((reservation) => reservation.state !== 'accepted');
+    const hasCancellations = reservations.some((reservation) => reservation.state === 'accepted');
+    const actionType = hasRejections && hasCancellations ? 'mixed' : hasCancellations ? 'cancel' : 'reject';
+    const countType = reservations.length > 1 ? 'plural' : 'single';
+    const canShareNoteByEmail = reservations.every((reservation) => !!reservation.identity_email);
 
     const form = useFormBuilder<{ note: string; share_note_by_email: boolean }>(
         {
@@ -47,127 +52,105 @@ export default function ModalReservationReject({
                 (reservation, idx) => () =>
                     productReservationService.reject(organization.id, reservation.id, values).then(() => {
                         const prefix = isSingle ? '' : `${idx + 1}/${total}: `;
+                        const reservationActionType = reservation.state === 'accepted' ? 'cancel' : 'reject';
 
                         pushSuccess(
-                            `${prefix}Reservering voor ${reservation.product!.name} voor ${reservation.amount_locale} geannuleerd.`,
+                            prefix +
+                                translate(
+                                    `modals.modal_product_reservation_reject.success.item.${reservationActionType}`,
+                                    { product_name: reservation.product!.name, amount: reservation.amount_locale },
+                                ),
                         );
                     }),
             );
 
             runSequentially(tasks)
                 .then(() => {
-                    if (isSingle) {
-                        pushSuccess('Opgeslagen!');
-                    } else {
-                        pushSuccess('Alle reserveringen zijn geannuleerd.');
-                    }
+                    const successKey = isSingle
+                        ? 'modals.modal_product_reservation_reject.success.single'
+                        : `modals.modal_product_reservation_reject.success.batch.${actionType}`;
 
+                    pushSuccess(translate(successKey));
+                })
+                .catch((err: ResponseError) => pushApiError(err))
+                .finally(() => {
                     onDone?.();
                     modal.close();
-                })
-                .catch((err: ResponseError) => {
-                    form.setErrors(err?.data?.errors);
-                    form.setIsLocked(false);
-                    pushApiError(err);
                 });
         },
     );
 
     return (
-        <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading')}>
-            <div className="modal-backdrop" onClick={modal.close} />
-            <form className="modal-window form" onSubmit={form.submit}>
-                <div className="modal-close mdi mdi-close" onClick={modal.close} role="button" />
-                <div className="modal-header modal-header-danger">
-                    <em className="mdi mdi-alert" />
-                    {translate('modals.modal_product_reservation_reject.modal_title')}
-                </div>
-                <div className="modal-body">
-                    <div className="modal-section">
-                        <div className="modal-heading">
-                            {translate(
-                                `modals.modal_product_reservation_reject.title.${reservations.length > 1 ? 'plural' : 'single'}`,
-                            )}
-                        </div>
-                        <div className="modal-text">
-                            {translate(
-                                `modals.modal_product_reservation_reject.description.${reservations.length > 1 ? 'plural' : 'single'}`,
-                            )
-                                .split('\n')
-                                .map((value: string, index: number) =>
-                                    value ? <div key={index}>{value}</div> : <div key={index}>&nbsp;</div>,
-                                )}
-                        </div>
-                    </div>
-                    <div className="modal-section">
-                        <FormGroup
-                            required={false}
-                            label={translate('modals.modal_product_reservation_reject.labels.message')}
-                            info={translate('modals.modal_product_reservation_reject.tooltips.message')}
-                            error={form.errors?.note}
-                            input={(id) => (
-                                <textarea
-                                    className="form-control"
-                                    id={id}
-                                    value={form.values.note}
-                                    placeholder={translate(
-                                        'modals.modal_product_reservation_reject.placeholders.message',
-                                    )}
-                                    data-dusk="noteInput"
-                                    onChange={(e) => form.update({ note: e.target.value })}
-                                />
-                            )}
-                        />
-
-                        <FormGroup
-                            input={() => (
-                                <Fragment>
-                                    <div className="flex flex-vertical flex-gap">
-                                        <div className="flex flex-align-items-center flex-gap-sm">
-                                            <CheckboxControl
-                                                className="checkbox-compact"
-                                                checked={form.values.share_note_by_email}
-                                                title={translate(
-                                                    'modals.modal_product_reservation_reject.labels.notify',
-                                                )}
-                                                onChange={(e) => form.update({ share_note_by_email: e.target.checked })}
-                                            />
-                                            <div className="block block-form_tooltip">
-                                                <div
-                                                    className="tooltip-icon"
-                                                    onClick={() => setShowInfoBlock(!showInfoBlock)}>
-                                                    <em className="mdi mdi-information" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {showInfoBlock && (
-                                            <InfoBox>
-                                                {translate('modals.modal_product_reservation_reject.tooltips.notify')}
-                                            </InfoBox>
-                                        )}
-                                    </div>
-                                </Fragment>
-                            )}
-                        />
-                    </div>
-                </div>
-
-                <div className="modal-footer text-center">
+        <Modal
+            modal={modal}
+            title={translate(`modals.modal_product_reservation_reject.modal_title.${actionType}`)}
+            headerType="danger"
+            headerIcon="mdi mdi-alert"
+            footerClassName="text-center"
+            onSubmit={form.submit}
+            footer={
+                <>
                     <ModalButton
                         type="default"
                         button={{ onClick: modal.close }}
-                        disabled={form.isLoading}
+                        disabled={form.isLocked}
                         text={translate('modals.modal_product_reservation_reject.buttons.cancel')}
                     />
                     <ModalButton
                         type="primary"
                         button={{ onClick: form.submit }}
-                        disabled={form.isLoading}
+                        disabled={form.isLocked}
                         text={translate('modals.modal_product_reservation_reject.buttons.submit')}
                     />
-                </div>
-            </form>
-        </div>
+                </>
+            }>
+            <div className="modal-heading">
+                {translate(`modals.modal_product_reservation_reject.title.${actionType}.${countType}`)}
+            </div>
+            <div className="modal-text">
+                {translate(`modals.modal_product_reservation_reject.description.${actionType}.${countType}`)
+                    .split('\n')
+                    .map((value: string, index: number) =>
+                        value ? <div key={index}>{value}</div> : <div key={index}>&nbsp;</div>,
+                    )}
+            </div>
+
+            <FormPane title={translate('modals.modal_product_reservation_reject.form_title')}>
+                <FormGroup
+                    required={false}
+                    label={translate('modals.modal_product_reservation_reject.labels.message')}
+                    info={translate(`modals.modal_product_reservation_reject.tooltips.message.${actionType}`)}
+                    error={form.errors?.note}
+                    input={(id) => (
+                        <textarea
+                            className="form-control"
+                            id={id}
+                            value={form.values.note}
+                            placeholder={translate('modals.modal_product_reservation_reject.placeholders.message')}
+                            data-dusk="noteInput"
+                            onChange={(e) => form.update({ note: e.target.value })}
+                        />
+                    )}
+                />
+
+                <FormGroup
+                    input={() => (
+                        <CheckboxControl
+                            className="checkbox-compact"
+                            checked={form.values.share_note_by_email}
+                            disabled={!canShareNoteByEmail}
+                            title={translate('modals.modal_product_reservation_reject.labels.notify')}
+                            onChange={(e) => form.update({ share_note_by_email: e.target.checked })}
+                        />
+                    )}
+                />
+
+                {!canShareNoteByEmail && (
+                    <InfoBox type="warning" iconColor="default">
+                        {translate('provider_message.info.note_email_missing')}
+                    </InfoBox>
+                )}
+            </FormPane>
+        </Modal>
     );
 }

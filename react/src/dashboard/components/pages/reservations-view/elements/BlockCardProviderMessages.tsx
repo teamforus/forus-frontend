@@ -20,6 +20,7 @@ import { useFileService } from '../../../../services/FileService';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import ModalProviderMessageShow from '../../../modals/ModalProviderMessageShow';
 import { strLimit } from '../../../../helpers/string';
+import InfoBox from '../../../elements/info-box/InfoBox';
 
 export default function BlockCardProviderMessages({
     organization,
@@ -47,6 +48,8 @@ export default function BlockCardProviderMessages({
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext({
         per_page: paginatorService.getPerPage(paginatorKey),
     });
+
+    const canSendProviderMessage = !!reservation.allow_provider_messages && !!reservation.identity_email;
 
     const fetchProviderMessages = useCallback(() => {
         runLatestRequest(
@@ -106,7 +109,7 @@ export default function BlockCardProviderMessages({
                 storeMessage={storeMessage}
                 onCreated={() => {
                     fetchProviderMessages();
-                    pushSuccess('Gelukt!', 'Message created.');
+                    pushSuccess('Gelukt!', 'Bericht aangemaakt.');
                 }}
             />
         ));
@@ -126,22 +129,40 @@ export default function BlockCardProviderMessages({
         return <LoadingCard />;
     }
 
+    if (!reservation.allow_provider_messages && !messages.meta.total) {
+        return null;
+    }
+
     return (
         <div className="card">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
-                    {translate('provider_message.header.title')}({messages?.meta?.total})
+                    <span>{translate('provider_message.header.title')}</span>
+                    &nbsp;
+                    <span className="span-count">{messages?.meta?.total}</span>
                 </div>
-                <div className="button-group">
-                    <div
-                        className="button button-sm button-primary"
-                        onClick={onAddProviderMessage}
-                        data-dusk="addProviderMessageBtn">
-                        <em className="mdi mdi-plus icon-start" />
-                        {translate('provider_message.buttons.add_new')}
+                {reservation.allow_provider_messages && (
+                    <div className="button-group">
+                        <button
+                            type="button"
+                            className="button button-sm button-primary"
+                            disabled={!canSendProviderMessage}
+                            onClick={onAddProviderMessage}
+                            data-dusk="addProviderMessageBtn">
+                            <em className="mdi mdi-plus icon-start" />
+                            {translate('provider_message.buttons.add_new')}
+                        </button>
                     </div>
-                </div>
+                )}
             </div>
+
+            {reservation.allow_provider_messages && !canSendProviderMessage && (
+                <div className="card-section card-section-padless">
+                    <InfoBox type="warning" iconColor="default" borderType="none">
+                        {translate('provider_message.info.message_email_missing')}
+                    </InfoBox>
+                </div>
+            )}
 
             <LoaderTableCard
                 empty={!messages?.meta?.total}
@@ -150,7 +171,11 @@ export default function BlockCardProviderMessages({
                 columns={productReservationService.getProviderMessagesColumns()}
                 paginator={{ key: paginatorKey, data: messages, filterValues, filterUpdate }}>
                 {messages?.data?.map((message) => (
-                    <tr key={message.id} data-dusk={`providerMessageRow${message.id}`}>
+                    <tr
+                        key={message.id}
+                        data-dusk={`providerMessageRow${message.id}`}
+                        className="tr-clickable"
+                        onClick={() => openMessage(message)}>
                         <td>
                             <strong className="text-primary">{message.created_at_locale?.split(' - ')[0]}</strong>
                             <br />

@@ -30,6 +30,7 @@ export default function ProviderOrganizationOverview({
     const [submittingState, setSubmittingState] = useState(null);
     const [submittingAllow, setSubmittingAllow] = useState(null);
     const [submittingExcluded, setSubmittingExcluded] = useState(false);
+    const [submittingProviderMessages, setSubmittingProviderMessages] = useState(false);
 
     const properties = useMemo(() => {
         const propsArray: Array<{ label: string; value?: string; primary?: boolean }> = [];
@@ -104,8 +105,8 @@ export default function ProviderOrganizationOverview({
 
     const updateFundProviderAllowProviderMessages = useCallback(
         (data: { allow_provider_messages?: boolean }) => {
-            setSubmittingExcluded(true);
-            updateProvider(data).finally(() => setSubmittingExcluded(false));
+            setSubmittingProviderMessages(true);
+            updateProvider(data).finally(() => setSubmittingProviderMessages(false));
         },
         [updateProvider],
     );
@@ -232,7 +233,7 @@ export default function ProviderOrganizationOverview({
                                         <div className="card-block-listing-label">Op maat berichten sturen </div>
                                         <ToggleControl
                                             checked={fundProvider.allow_provider_messages}
-                                            disabled={submittingAllow || fundProvider.state != 'accepted'}
+                                            disabled={submittingProviderMessages || fundProvider.state != 'accepted'}
                                             onChange={(e) => {
                                                 updateFundProviderAllowProviderMessages({
                                                     allow_provider_messages: e.target.checked,

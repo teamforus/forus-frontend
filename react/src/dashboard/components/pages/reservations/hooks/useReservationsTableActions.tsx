@@ -3,17 +3,14 @@ import Reservation from '../../../../props/models/Reservation';
 import { runSequentially } from '../../../../helpers/utils';
 import useConfirmReservationArchive from '../../../../services/helpers/reservations/useConfirmReservationArchive';
 import useConfirmReservationUnarchive from '../../../../services/helpers/reservations/useConfirmReservationUnarchive';
-import useShowReservationRejectInfoExtraPaid from '../../../../services/helpers/reservations/useShowRejectInfoExtraPaid';
 import useProductReservationService from '../../../../services/ProductReservationService';
 import Organization from '../../../../props/models/Organization';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
 import usePushApiError from '../../../../hooks/usePushApiError';
-import ModalReservationReject from '../../../modals/ModalReservationReject';
-import useOpenModal from '../../../../hooks/useOpenModal';
-import ModalReservationApprove from '../../../modals/ModalReservationApprove';
+import useReservationApproveModal from '../../../../services/helpers/reservations/useReservationApproveModal';
+import useReservationRejectModal from '../../../../services/helpers/reservations/useReservationRejectModal';
 
 export default function useReservationsTableActions(organization: Organization, fetchReservations: () => void) {
-    const openModal = useOpenModal();
     const pushSuccess = usePushSuccess();
     const pushApiError = usePushApiError();
 
@@ -21,7 +18,8 @@ export default function useReservationsTableActions(organization: Organization, 
 
     const confirmReservationArchive = useConfirmReservationArchive();
     const confirmReservationUnarchive = useConfirmReservationUnarchive();
-    const showReservationRejectInfoExtraPaid = useShowReservationRejectInfoExtraPaid();
+    const openReservationRejectModal = useReservationRejectModal(organization);
+    const openReservationApproveModal = useReservationApproveModal(organization);
 
     const unarchiveReservations = useCallback(
         (reservations: Reservation[]) => {
@@ -62,40 +60,16 @@ export default function useReservationsTableActions(organization: Organization, 
 
     const acceptReservations = useCallback(
         (reservations: Reservation[]) => {
-            openModal((modal) => {
-                return (
-                    <ModalReservationApprove
-                        modal={modal}
-                        organization={organization}
-                        reservations={reservations}
-                        onDone={() => fetchReservations()}
-                    />
-                );
-            });
+            openReservationApproveModal(reservations, fetchReservations);
         },
-        [openModal, organization, fetchReservations],
+        [fetchReservations, openReservationApproveModal],
     );
 
     const rejectReservations = useCallback(
         (reservations: Reservation[]) => {
-            for (let i = 0; i < reservations.length; i++) {
-                const reservation = reservations[0];
-
-                if (reservation.extra_payment?.is_paid && !reservation.extra_payment?.is_fully_refunded) {
-                    return showReservationRejectInfoExtraPaid();
-                }
-            }
-
-            openModal((modal) => (
-                <ModalReservationReject
-                    modal={modal}
-                    organization={organization}
-                    reservations={reservations}
-                    onDone={() => fetchReservations()}
-                />
-            ));
+            openReservationRejectModal(reservations, fetchReservations);
         },
-        [openModal, showReservationRejectInfoExtraPaid, organization, fetchReservations],
+        [fetchReservations, openReservationRejectModal],
     );
 
     const archiveReservations = useCallback(

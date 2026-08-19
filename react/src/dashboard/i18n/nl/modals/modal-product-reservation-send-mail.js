@@ -1,5 +1,6 @@
 export default {
     modal_title: 'Bericht versturen',
+    form_title: 'Bericht opstellen',
     title: 'Verstuur een persoonlijk bericht naar de klant',
     description: 'De inwoner ontvangt dit bericht per e-mail.',
     labels: {

@@ -34,6 +34,7 @@ export default {
         extra_payment_paid_at: 'Datum van bijbetaling',
         refund_date: 'Datum van terugbetaling',
         refund_amount: 'Terugbetaald',
+        accepted_note: 'Notitie',
         cancellation_note: 'Notitie',
         rejection_note: 'Notitie',
         invoice_number: 'Factuurnummer',
