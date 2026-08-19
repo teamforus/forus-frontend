@@ -479,7 +479,7 @@ export default function ModalPrevalidationRequestsUpload({
                     .storeBatch(fund.organization_id, data, fund.id, {
                         name: csvFile.name,
                         content: await fileToText(csvFile),
-                        total: data.length,
+                        total: processedRef.current.total,
                         chunk: currentChunkNth,
                         chunks: chunksCount,
                         chunkSize: dataChunkSize,

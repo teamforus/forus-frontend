@@ -21,6 +21,7 @@ import modal_reservation_custom_field_edit from './modals/modal-reservation-cust
 import modal_fund_request_approve_missed_records from './modals/modal-fund-request-approve-missed-records';
 import modal_fund_product_limit_edit from './modals/modal-fund-product-limit-edit';
 import modal_prevalidation_request_approve_missed_records from './modals/modal-prevalidation-request-approve-missed-records';
+import modal_bank_account_request from './modals/modal-bank-account-request';
 
 export default {
     modal_payout_create,
@@ -46,4 +47,5 @@ export default {
     modal_invoice_number_edit,
     modal_reservation_custom_field_edit,
     modal_fund_product_limit_edit,
+    modal_bank_account_request,
 };
