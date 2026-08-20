@@ -304,7 +304,6 @@ export default function BiConnection() {
                                                 </Fragment>
                                             }>
                                             <SelectControl
-                                                className="form-control"
                                                 propKey={'value'}
                                                 value={form.values.enabled}
                                                 options={authTypes}
@@ -506,7 +505,6 @@ export default function BiConnection() {
                                                 </p>
                                             }>
                                             <SelectControl
-                                                className="form-control"
                                                 propKey={'value'}
                                                 value={form.values.expiration_period}
                                                 options={expirationPeriods}

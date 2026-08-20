@@ -1655,6 +1655,7 @@ export default function SignUpProvider() {
                                                         input={(id) => (
                                                             <SelectControl
                                                                 id={id}
+                                                                className={classNames('select-control-sign-up')}
                                                                 value={formOrganization.values.business_type_id}
                                                                 propKey={'id'}
                                                                 onChange={(business_type_id?: number) => {

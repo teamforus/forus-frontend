@@ -174,8 +174,12 @@ $primaryColorLight: #1c7878;
     --dropdown-item-font: 500 13px/20px var(--base-font);
     --dropdown-item-color: #282b39;
     --dropdown-item-background: #ffffff;
-    --dropdown-item-hover-color: #000000;
-    --dropdown-item-hover-background: #e5e5e5;
+    --dropdown-item-focus-color: #000000;
+    --dropdown-item-focus-background: #ffffff;
+    --dropdown-item-hover-color: #282b39;
+    --dropdown-item-hover-background: #f4f4f4;
+    --dropdown-item-active-color: var(--label-set-active-background);
+    --dropdown-item-active-background: #fff;
 
     // Paginator
     --paginator-border-radius: var(--border-radius);

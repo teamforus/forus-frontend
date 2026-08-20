@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useRef, useState } from 'rea
 import { useNavigateState, useStateRoutes } from '../../../modules/state_router/Router';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import { mainContext } from '../../../contexts/MainContext';
-import ClickOutside from '../../../../dashboard/components/elements/click-outside/ClickOutside';
+import ClickOutside from '../../../../dashboard/modules/click-outside/ClickOutside';
 import {
     SearchResult,
     SearchResultGroup,

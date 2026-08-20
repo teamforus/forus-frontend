@@ -137,7 +137,6 @@ export default function ModalVoucherRecordEdit({
                                     input={(id) => (
                                         <SelectControl
                                             id={id}
-                                            className="form-control"
                                             value={form.values.record_type_key}
                                             propKey={'key'}
                                             options={recordTypes}

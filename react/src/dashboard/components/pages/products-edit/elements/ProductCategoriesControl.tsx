@@ -124,7 +124,6 @@ export default function ProductCategoriesControl({
                     ) : null}
 
                     <SelectControl
-                        className="form-control"
                         propKey="id"
                         options={categoriesHierarchy[index]}
                         value={categoriesValues[index]}

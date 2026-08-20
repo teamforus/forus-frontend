@@ -201,7 +201,6 @@ export default function ImplementationsBlockEditorItem({
                                     <label className="form-label form-label-required">Open knop koppeling in</label>
 
                                     <SelectControl
-                                        className="form-control"
                                         propKey={'value'}
                                         allowSearch={false}
                                         value={block.button_target_blank}
