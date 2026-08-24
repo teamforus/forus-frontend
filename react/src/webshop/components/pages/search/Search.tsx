@@ -371,6 +371,8 @@ export default function Search() {
                                     </label>
                                     <SelectControl
                                         id="sort_by"
+                                        className={classNames('select-control-showcase')}
+                                        menuClassName={classNames('select-control-menu-showcase')}
                                         propKey={'id'}
                                         propValue={'label'}
                                         allowSearch={false}

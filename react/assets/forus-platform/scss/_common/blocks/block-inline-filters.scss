@@ -12,37 +12,6 @@
         white-space: nowrap;
     }
 
-    .select-control {
-        width: 180px !important;
-
-        .select-control-input {
-            label.form-control:not([type='radio']):not([type='checkbox']) {
-                padding-left: 7.5px;
-                font-size: 12px;
-                line-height: 28px;
-
-                .select-control-search-placeholder-media {
-                    margin: 4px 0;
-                }
-            }
-
-            .select-control-search-container .select-control-search-clear {
-                line-height: 18px;
-            }
-        }
-
-        .select-control-options {
-            .select-control-option {
-                padding-left: 10px;
-                font-size: 12px;
-            }
-        }
-
-        &.select-control-lg {
-            width: 240px !important;
-        }
-    }
-
     .form {
         display: flex;
         margin-right: 10px;
@@ -60,20 +29,6 @@
             margin: 0;
             padding: 0 10px;
             line-height: 28px;
-
-            &.select-control {
-                .select-control-input {
-                    font-size: 12px;
-
-                    .select-control-options {
-                        .select-control-option {
-                            --option-height: 35px;
-                            color: #353535;
-                            font: 500 12px/20px var(--base-font);
-                        }
-                    }
-                }
-            }
         }
 
         select.form-control {
@@ -184,23 +139,6 @@
                         height: 30px;
                         font-size: 12px;
                         width: 100% !important;
-
-                        &.select-control {
-                            .select-control-search {
-                                margin-bottom: 0;
-                                border: 1px solid #d4d9dd;
-                                line-height: 30px;
-                            }
-
-                            .select-control-options {
-                                --option-height: 35px;
-
-                                .select-control-option {
-                                    color: #353535;
-                                    font: 500 12px/20px var(--base-font);
-                                }
-                            }
-                        }
                     }
 
                     &:first-child {

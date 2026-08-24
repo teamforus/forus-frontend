@@ -1148,7 +1148,6 @@ export default function ProductsForm({
                                         input={(id) => (
                                             <SelectControl
                                                 id={id}
-                                                className="form-control"
                                                 propValue={'label'}
                                                 propKey={'value'}
                                                 allowSearch={false}
@@ -1173,7 +1172,6 @@ export default function ProductsForm({
                                         }
                                         input={(id) => (
                                             <SelectControl
-                                                className="form-control"
                                                 propKey={'value'}
                                                 propValue={'label'}
                                                 id={id}
@@ -1243,7 +1241,6 @@ export default function ProductsForm({
                                                         input={(id) => (
                                                             <SelectControl
                                                                 id={id}
-                                                                className="form-control"
                                                                 propKey={'value'}
                                                                 propValue={'label'}
                                                                 value={form.values.reservation_phone}
@@ -1261,7 +1258,6 @@ export default function ProductsForm({
                                                         input={(id) => (
                                                             <SelectControl
                                                                 id={id}
-                                                                className="form-control"
                                                                 propKey={'value'}
                                                                 propValue={'label'}
                                                                 value={form.values.reservation_address}
@@ -1279,7 +1275,6 @@ export default function ProductsForm({
                                                         input={(id) => (
                                                             <SelectControl
                                                                 id={id}
-                                                                className="form-control"
                                                                 propKey={'value'}
                                                                 propValue={'label'}
                                                                 value={form.values.reservation_birth_date}
@@ -1297,7 +1292,6 @@ export default function ProductsForm({
                                                         input={(id) => (
                                                             <SelectControl
                                                                 id={id}
-                                                                className="form-control"
                                                                 propKey={'value'}
                                                                 propValue={'label'}
                                                                 value={form.values.reservation_fields_config}
@@ -1336,7 +1330,6 @@ export default function ProductsForm({
                                     error={form.errors.reservation_extra_payments}
                                     input={() => (
                                         <SelectControl
-                                            className="form-control"
                                             propKey={'value'}
                                             propValue={'label'}
                                             disabled={!isEditable}

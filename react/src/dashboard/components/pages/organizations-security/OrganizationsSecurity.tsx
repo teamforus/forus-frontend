@@ -125,7 +125,6 @@ export default function OrganizationsSecurity() {
                                             {' '}
                                             <label className="form-label">2FA beperkingen</label>
                                             <SelectControl
-                                                className="form-control"
                                                 propKey="value"
                                                 allowSearch={false}
                                                 value={form.values.auth_2fa_policy}
@@ -142,7 +141,6 @@ export default function OrganizationsSecurity() {
                                                 <label className="form-label">Onthoud IP-adres</label>
 
                                                 <SelectControl
-                                                    className="form-control"
                                                     propKey="value"
                                                     allowSearch={false}
                                                     value={form.values.auth_2fa_remember_ip}
@@ -182,7 +180,6 @@ export default function OrganizationsSecurity() {
                                             <label className="form-label">2FA beperkingen</label>
 
                                             <SelectControl
-                                                className="form-control"
                                                 propKey="value"
                                                 allowSearch={false}
                                                 value={form.values.auth_2fa_funds_policy}
@@ -203,7 +200,6 @@ export default function OrganizationsSecurity() {
                                                 <label className="form-label">Onthoud IP-adres</label>
 
                                                 <SelectControl
-                                                    className="form-control"
                                                     propKey="value"
                                                     allowSearch={false}
                                                     value={form.values.auth_2fa_funds_remember_ip}

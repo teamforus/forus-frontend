@@ -84,6 +84,7 @@ $primaryColorLight: #b31869;
     // Header banner
     --header-banner-pane-banner-padding: 40px 50px;
     --header-banner-pane-banner-max-width: 760px;
+    --header-banner-pane-banner-pane-width: 60%;
     --header-banner-pane-banner-background: #fff;
     --header-banner-pane-banner-border-color: initial;
     --header-banner-pane-banner-border-radius: var(--border-radius);
@@ -171,8 +172,12 @@ $primaryColorLight: #b31869;
     --dropdown-item-font: 500 13px/20px var(--base-font);
     --dropdown-item-color: #282b39;
     --dropdown-item-background: #ffffff;
-    --dropdown-item-hover-color: #000000;
-    --dropdown-item-hover-background: #e5e5e5;
+    --dropdown-item-focus-color: #000000;
+    --dropdown-item-focus-background: #ffffff;
+    --dropdown-item-hover-color: #282b39;
+    --dropdown-item-hover-background: #f4f4f4;
+    --dropdown-item-active-color: var(--label-set-active-background);
+    --dropdown-item-active-background: #fff;
 
     // Paginator
     --paginator-border-radius: var(--border-radius);

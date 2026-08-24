@@ -6,6 +6,7 @@ import { ApiResponse, ApiResponseSingle, RequestConfig, ResponseSimple } from '.
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 import Note from '../props/models/Note';
+import ProviderMessage from '../props/models/ProviderMessage';
 
 export class ProductReservationService<T = Reservation> {
     /**
@@ -29,7 +30,7 @@ export class ProductReservationService<T = Reservation> {
     }
 
     public storeBatch(organization_id: number, data = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.post(`${this.prefix}/${organization_id}/product-reservations/batch`, { ...data });
+        return this.apiRequest.post(`${this.prefix}/${organization_id}/product-reservations/batch`, data);
     }
 
     public read(organization_id: number, id: number): Promise<ApiResponseSingle<T>> {
@@ -125,6 +126,44 @@ export class ProductReservationService<T = Reservation> {
         return this.apiRequest.post(`${this.prefix}/${organizationId}/product-reservations/${id}/notes`, data);
     }
 
+    public providerMessages(
+        organizationId: number,
+        id: number,
+        data: object,
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<ProviderMessage>> {
+        return this.apiRequest.get(
+            `${this.prefix}/${organizationId}/product-reservations/${id}/provider-messages`,
+            data,
+            config,
+        );
+    }
+
+    public storeProviderMessage(
+        organizationId: number,
+        id: number,
+        data: object,
+    ): Promise<ApiResponseSingle<ProviderMessage>> {
+        return this.apiRequest.post(
+            `${this.prefix}/${organizationId}/product-reservations/${id}/provider-messages`,
+            data,
+        );
+    }
+
+    public exportProviderMessage(
+        organizationId: number,
+        reservationId: number,
+        id: number,
+    ): Promise<ResponseSimple<ArrayBuffer>> {
+        return this.apiRequest.get(
+            `${this.prefix}/${organizationId}/product-reservations/${reservationId}/provider-messages/${id}/export`,
+            {},
+            {
+                responseType: 'arraybuffer',
+            },
+        );
+    }
+
     public getColumns(showExtraPayments: boolean, isSponsor: boolean): Array<ConfigurableTableColumn> {
         const list = [
             'code',
@@ -160,6 +199,20 @@ export class ProductReservationService<T = Reservation> {
                 key: key,
                 title: `reservation.labels.${key}`,
                 description: `reservation.tooltips.${key}`,
+            },
+        }));
+    }
+
+    public getProviderMessagesColumns(): Array<ConfigurableTableColumn> {
+        const list = ['created_at', 'message', 'recipient', 'employee'].filter((item) => item);
+
+        return list.map((key) => ({
+            key,
+            label: `provider_message.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `provider_message.labels.${key}`,
+                description: `provider_message.tooltips.${key}`,
             },
         }));
     }
