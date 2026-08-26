@@ -1,25 +1,21 @@
 import React, { useCallback } from 'react';
 import File from '../../props/models/File';
-import { useFileService } from '../../services/FileService';
+import useFileDownload from '../../services/helpers/useFileDownload';
 import useFilePreview from '../../services/helpers/useFilePreview';
-import { isPdfExtension, isPreviewableExtension } from '../../helpers/filePreview';
+import { canPreviewFile, isPdfExtension } from '../../helpers/filePreview';
 
 export default function FileAttachmentsList({ attachments }: { attachments: Array<{ file: File; date?: string }> }) {
+    const fileDownload = useFileDownload();
     const filePreview = useFilePreview();
-
-    const fileService = useFileService();
 
     const downloadFile = useCallback(
         (e: React.MouseEvent<HTMLElement>, file: File) => {
             e?.preventDefault();
             e?.stopPropagation();
 
-            fileService
-                .download(file)
-                .then((res) => fileService.downloadFile(file.original_name, res.data, res.headers['content-type']))
-                .catch(console.error);
+            fileDownload(file);
         },
-        [fileService],
+        [fileDownload],
     );
 
     const previewFile = useCallback(
@@ -48,16 +44,18 @@ export default function FileAttachmentsList({ attachments }: { attachments: Arra
                             className="attachment-action"
                             title="Download"
                             aria-label="Download"
+                            data-dusk="fileDownloadButton"
                             onClick={(e) => downloadFile(e, attachment.file)}>
                             <div className="mdi mdi-download" aria-hidden="true" />
                         </button>
 
-                        {isPreviewableExtension(attachment.file?.ext) && (
+                        {canPreviewFile(attachment.file) && (
                             <button
                                 type="button"
                                 className="attachment-action"
                                 title={isPdfExtension(attachment.file.ext) ? 'Bekijk PDF-bestand' : 'Bekijk file'}
                                 aria-label={isPdfExtension(attachment.file.ext) ? 'Bekijk PDF-bestand' : 'Bekijk file'}
+                                data-dusk="filePreviewButton"
                                 onClick={(e) => previewFile(e, attachment.file)}>
                                 <div className="mdi mdi-eye" aria-hidden="true" />
                             </button>

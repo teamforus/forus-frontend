@@ -73,6 +73,7 @@ export default function ModalDangerZone({
                             <div className="form text-center">
                                 <CheckboxControl
                                     checked={confirmed}
+                                    dusk="dangerZoneConfirmation"
                                     narrow={true}
                                     onChange={(_, checked) => setConfirmed(checked)}
                                     title={confirmation}
