@@ -133,7 +133,6 @@ export default function ModalReservationCustomFieldEdit({
                                 maxFiles={5}
                                 hideDownloadButton={true}
                                 hideInlineTitle={true}
-                                acceptedFiles={['.jpg', '.jpeg', '.png']}
                                 onFilesChange={({ files }) => form.update({ value: files.map((file) => file.uid) })}
                                 isRequired={field.required}
                                 isWebshop={false}

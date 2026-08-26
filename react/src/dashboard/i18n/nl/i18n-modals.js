@@ -21,6 +21,11 @@ import modal_reservation_custom_field_edit from './modals/modal-reservation-cust
 import modal_fund_request_approve_missed_records from './modals/modal-fund-request-approve-missed-records';
 import modal_fund_product_limit_edit from './modals/modal-fund-product-limit-edit';
 import modal_prevalidation_request_approve_missed_records from './modals/modal-prevalidation-request-approve-missed-records';
+import modal_file_pdf_archive from './modals/modal-file-pdf-archive';
+import modal_file_pdf_preview from './modals/modal-file-pdf-preview';
+import modal_product_reservation_send_mail from './modals/modal-product-reservation-send-mail';
+import modal_product_reservation_approve from './modals/modal-product-reservation-approve';
+import modal_product_reservation_reject from './modals/modal-product-reservation-reject';
 import modal_bank_account_request from './modals/modal-bank-account-request';
 
 export default {
@@ -47,5 +52,10 @@ export default {
     modal_invoice_number_edit,
     modal_reservation_custom_field_edit,
     modal_fund_product_limit_edit,
+    modal_file_pdf_archive,
+    modal_file_pdf_preview,
+    modal_product_reservation_send_mail,
+    modal_product_reservation_approve,
+    modal_product_reservation_reject,
     modal_bank_account_request,
 };

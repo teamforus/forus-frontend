@@ -11,6 +11,7 @@ export default function useConfirmDangerAction() {
             description_text: string | Array<string> | ReactNode,
             confirmButton = 'Bevestigen',
             cancelButton = 'Annuleren',
+            confirmation?: string,
         ) => {
             return new Promise((resolve) => {
                 openModal((modal) => (
@@ -18,6 +19,7 @@ export default function useConfirmDangerAction() {
                         modal={modal}
                         title={title}
                         description_text={description_text}
+                        confirmation={confirmation}
                         buttonCancel={{
                             text: cancelButton,
                             onClick: () => {
