@@ -18,6 +18,9 @@ export default {
             title: 'DigiD',
             description: 'Open DigiD inlogscherm',
         },
+        openid: {
+            description: 'Gebruik {{flow_name}} om in te loggen',
+        },
     },
     privacy_link: {
         text: 'Ik heb de <a tabIndex="3" target="_blank" href="{{ link_url }}">privacyverklaring</a> gelezen',

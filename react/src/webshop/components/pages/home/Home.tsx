@@ -39,6 +39,7 @@ export default function Home() {
 
     const [digidResponse] = useQueryParams({
         digid_error: StringParam,
+        openid_error: StringParam,
     });
 
     const stateParams = useStateParams<{
@@ -62,6 +63,10 @@ export default function Home() {
     useEffect(() => {
         if (digidResponse?.digid_error) {
             navigateState(WebshopRoutes.ERROR, { errorCode: 'digid_' + digidResponse?.digid_error });
+        }
+
+        if (digidResponse?.openid_error) {
+            navigateState(WebshopRoutes.ERROR, { errorCode: 'openid_' + digidResponse?.openid_error });
         }
     }, [digidResponse, navigateState]);
 

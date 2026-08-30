@@ -71,6 +71,9 @@ export default {
                 title: 'DigiD',
                 description: 'Log opnieuw in met DigiD om opnieuw te beginnen.',
             },
+            openid: {
+                description: 'Gebruik {{flow_name}} om opnieuw te beginnen.',
+            },
         },
     },
 

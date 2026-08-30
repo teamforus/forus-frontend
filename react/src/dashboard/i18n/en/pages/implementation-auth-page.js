@@ -4,6 +4,32 @@ export default {
         name: 'Login page',
         description: 'Manage the login page, available login options, and additional information.',
     },
+    openid_settings: {
+        title: 'OpenID settings',
+        page_title: 'ID-Wallet settings',
+        menu: {
+            name: 'OpenID settings',
+            description: 'Manage whether ID-Wallet is available for this webshop.',
+        },
+        sections: {
+            settings: 'Settings',
+        },
+        labels: {
+            status: 'Status',
+            flows: 'Available wallets',
+        },
+        info: {
+            not_configured:
+                'The Ver.id connection is not configured yet. OpenID can be enabled after platform support ' +
+                'completes the setup.',
+        },
+        hints: {
+            enable_to_select_flows: 'Enable wallet login to choose wallet options.',
+        },
+        notifications: {
+            saved: 'Saved!',
+        },
+    },
     buttons: {
         view_page: 'View homepage',
     },
@@ -27,12 +53,15 @@ export default {
     options: {
         email: 'Email address',
         digid: 'DigiD',
+        openid: 'ID-Wallet',
         qr: 'Me app',
     },
     tooltips: {
         email: 'Shows the option to receive a login link by email.',
         digid: 'Shows DigiD as a login option when DigiD is available.',
         digid_disabled: 'DigiD is not available for this webshop.',
+        openid: 'Shows ID-Wallet as a login option when OpenID is available.',
+        openid_disabled: 'ID-Wallet is not available for this webshop.',
         qr: 'Shows the option to log in with the Me app.',
     },
     placeholders: {

@@ -90,6 +90,7 @@ const AuthProvider = ({ children }: { children: React.ReactElement }) => {
                 identityService.deleteToken().then();
             }
 
+            localStorage.removeItem('active_account');
             setToken(null);
             setIdentity(null);
             setIdentity2FAState(null);
@@ -139,7 +140,11 @@ const AuthProvider = ({ children }: { children: React.ReactElement }) => {
     }, [fetchIdentity, fetchIdentity2FA]);
 
     useEffect(() => {
-        localStorage.active_account = token;
+        if (token) {
+            localStorage.active_account = token;
+        } else {
+            localStorage.removeItem('active_account');
+        }
     }, [token]);
 
     useEffect(() => {

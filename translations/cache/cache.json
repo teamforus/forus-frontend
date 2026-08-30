@@ -452,6 +452,10 @@
         "E-mailadres"
     ],
     [
+        "auth.options.openid.description",
+        "Gebruik {{flow_name}} om in te loggen"
+    ],
+    [
         "auth.options.qr.description",
         "Scan een QR-code met de&nbsp;<u>Me app</u>"
     ],
@@ -868,6 +872,46 @@
         "Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals. Indien deze fout blijft aanhouden,, kijk dan op de website https://www.digid.nl/ voor de laatste informatie."
     ],
     [
+        "error.messages.openid_callback_failed",
+        "De OpenID login kon niet worden afgerond. Probeer het opnieuw."
+    ],
+    [
+        "error.messages.openid_invalid_request",
+        "Het OpenID verzoek is ongeldig. Probeer het opnieuw."
+    ],
+    [
+        "error.messages.openid_missing_claims",
+        "De OpenID login leverde onvoldoende gegevens op. Probeer het opnieuw."
+    ],
+    [
+        "error.messages.openid_not_enabled",
+        "OpenID is niet ingeschakeld voor deze implementatie."
+    ],
+    [
+        "error.messages.openid_session_expired",
+        "De OpenID sessie is verlopen. Probeer opnieuw in te loggen."
+    ],
+    [
+        "error.messages.openid_uid_dont_match",
+        "Het BSN nummer dat u met ID-Wallet heeft bevestigd verschilt van het BSN-nummer dat aan dit profiel is gekoppeld start een nieuwe aanvraag."
+    ],
+    [
+        "error.messages.openid_uid_not_found",
+        "Dit BSN-nummer is onbekend in het systeem start uw aanvraag om een account aan te maken."
+    ],
+    [
+        "error.messages.openid_uid_used",
+        "Voor dit BSN nummer is een ander e-mailadres geregistreerd. Om in te loggen op uw account moet u het e-mailadres gebruiken wat bij ons geregistreerd staat.<br/><br/> Weet u niet meer welk e-mailadres dit is of heeft u een nieuw e-mailadres? <br/> Herstel dan uw account door <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">hier</a> te klikken of de knop hieronder.</br>"
+    ],
+    [
+        "error.messages.openid_unknown_error",
+        "Er is een fout opgetreden tijdens het inloggen met OpenID. Probeer het later opnieuw."
+    ],
+    [
+        "error.messages.openid_unknown_session_type",
+        "De OpenID sessie heeft een onbekend type. Probeer het opnieuw."
+    ],
+    [
         "error.messages.unknown_error",
         "Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals. Indien deze fout blijft aanhouden,, kijk dan op de website https://www.digid.nl/ voor de laatste informatie."
     ],
@@ -954,6 +998,46 @@
     [
         "error.titles.digid_unknown_error",
         "Er is een fout opgetreden in de communicatie met DigiD."
+    ],
+    [
+        "error.titles.openid_callback_failed",
+        "Inloggen mislukt"
+    ],
+    [
+        "error.titles.openid_invalid_request",
+        "Ongeldig verzoek"
+    ],
+    [
+        "error.titles.openid_missing_claims",
+        "Ontbrekende gegevens"
+    ],
+    [
+        "error.titles.openid_not_enabled",
+        "OpenID is niet beschikbaar"
+    ],
+    [
+        "error.titles.openid_session_expired",
+        "Sessie verlopen"
+    ],
+    [
+        "error.titles.openid_uid_dont_match",
+        "Er is al een BSN-nummer bekend bij dit profiel"
+    ],
+    [
+        "error.titles.openid_uid_not_found",
+        "Dit BSN-nummer is onbekend in het systeem"
+    ],
+    [
+        "error.titles.openid_uid_used",
+        "BSN-nummer al gebruikt."
+    ],
+    [
+        "error.titles.openid_unknown_error",
+        "Onbekende foutmelding"
+    ],
+    [
+        "error.titles.openid_unknown_session_type",
+        "Onbekende sessie"
     ],
     [
         "error.titles.unknown_error",
@@ -1162,6 +1246,10 @@
     [
         "fund_activate.options.digid.title",
         "DigiD"
+    ],
+    [
+        "fund_activate.options.openid.description",
+        "Gebruik {{flow_name}} om in te loggen"
     ],
     [
         "fund_activate.options.request.description",
@@ -1394,6 +1482,10 @@
     [
         "fund_request.digid_expired.sign_in.digid.title",
         "DigiD"
+    ],
+    [
+        "fund_request.digid_expired.sign_in.openid.description",
+        "Gebruik {{flow_name}} om opnieuw te beginnen."
     ],
     [
         "fund_request.digid_expired.title",
@@ -7662,6 +7754,10 @@
     [
         "push.fund_activation.digid_success",
         "Ingelogd met DigiD."
+    ],
+    [
+        "push.fund_activation.openid_success",
+        "Ingelogd met ID-Wallet."
     ],
     [
         "push.fund_activation.success",

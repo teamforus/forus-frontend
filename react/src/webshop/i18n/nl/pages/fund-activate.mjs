@@ -15,6 +15,9 @@ export default {
             title: 'DigiD',
             description: 'Open het DigiD inlogscherm',
         },
+        openid: {
+            description: 'Gebruik {{flow_name}} om in te loggen',
+        },
         request: {
             title: 'Ik wil een tegoed aanvragen',
             description: 'Doorloop het aanvraagformulier om een tegoed aan te vragen',

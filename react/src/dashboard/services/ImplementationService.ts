@@ -60,6 +60,13 @@ export class ImplementationService<T = Implementation> {
     }
 
     /**
+     * Update openid by id
+     */
+    public updateOpenId(organizationId: number, id: number, data: object): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.patch(`${this.prefix}/${organizationId}/implementations/${id}/openid`, data);
+    }
+
+    /**
      * Update auth page by id
      */
     public updateAuthPage(organizationId: number, id: number, data: object): Promise<ApiResponseSingle<T>> {

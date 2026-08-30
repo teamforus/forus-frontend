@@ -4,6 +4,32 @@ export default {
         name: 'Inlog pagina',
         description: 'Beheer de inlogpagina, beschikbare inlogopties en aanvullende uitleg.',
     },
+    openid_settings: {
+        title: 'OpenID instellingen',
+        page_title: 'ID-Wallet instellingen',
+        menu: {
+            name: 'OpenID instellingen',
+            description: 'Beheer of ID-Wallet beschikbaar is voor deze webshop.',
+        },
+        sections: {
+            settings: 'Instellingen',
+        },
+        labels: {
+            status: 'Status',
+            flows: 'Beschikbare wallets',
+        },
+        info: {
+            not_configured:
+                'De Ver.id koppeling is nog niet geconfigureerd. OpenID kan worden ingeschakeld nadat ' +
+                'platformbeheer de configuratie heeft afgerond.',
+        },
+        hints: {
+            enable_to_select_flows: 'Schakel inloggen met wallets in om walletopties te kiezen.',
+        },
+        notifications: {
+            saved: 'Opgeslagen!',
+        },
+    },
     buttons: {
         view_page: 'Bekijk pagina',
     },
@@ -27,12 +53,15 @@ export default {
     options: {
         email: 'E-mailadres',
         digid: 'DigiD',
+        openid: 'ID-Wallet',
         qr: 'Me-app',
     },
     tooltips: {
         email: 'Toont de optie om een inloglink per e-mail te ontvangen.',
         digid: 'Toont DigiD als inlogoptie wanneer DigiD beschikbaar is.',
         digid_disabled: 'DigiD is niet beschikbaar voor deze webshop.',
+        openid: 'Toont ID-Wallet als inlogoptie wanneer OpenID beschikbaar is.',
+        openid_disabled: 'ID-Wallet is niet beschikbaar voor deze webshop.',
         qr: 'Toont de optie om in te loggen met de Me-app.',
     },
     placeholders: {

@@ -148,6 +148,9 @@
             "qr": {
                 "description": "Zeskanuj kod QR za pomocą aplikacji <u>Me</u>",
                 "title": "Moja aplikacja"
+            },
+            "openid": {
+                "description": "Użyj {{flow_name}}, aby się zalogować"
             }
         },
         "push": {
@@ -299,7 +302,17 @@
             "digid_uid_not_found": "Ten numer BSN jest nieznany w systemie, uruchom aplikację, aby utworzyć konto.",
             "digid_uid_used": "Dla tego numeru BSN zarejestrowano inny adres e-mail. Aby zalogować się na swoje konto, należy użyć zarejestrowanego adresu e-mail.<br/><br/> Nie pamiętasz, który to adres e-mail lub masz nowy? <br/> Przywróć swoje konto, klikając <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">tutaj</a> lub przycisk poniżej.</br>",
             "digid_unknown_error": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
-            "unknown_error": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje."
+            "unknown_error": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
+            "openid_callback_failed": "Nie można ukończyć logowania OpenID. Spróbuj ponownie.",
+            "openid_invalid_request": "Żądanie OpenID jest nieprawidłowe. Spróbuj ponownie.",
+            "openid_missing_claims": "Login OpenID nie dostarczył wystarczających danych. Spróbuj ponownie.",
+            "openid_not_enabled": "OpenID nie jest włączony dla tej implementacji.",
+            "openid_session_expired": "Sesja OpenID wygasła. Spróbuj zalogować się ponownie.",
+            "openid_uid_dont_match": "Numer BSN potwierdzony w ID-Wallet różni się od numeru BSN powiązanego z tym profilem podczas uruchamiania nowej aplikacji.",
+            "openid_uid_not_found": "Ten numer BSN jest nieznany w systemie, który uruchamia aplikację w celu utworzenia konta.",
+            "openid_uid_used": "Dla tego numeru BSN zarejestrowano inny adres e-mail. Aby zalogować się na swoje konto, należy użyć zarejestrowanego adresu e-mail.<br/><br/> Nie pamiętasz, który to adres e-mail lub masz nowy? <br/> Przywróć swoje konto, klikając <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">tutaj</a> lub przycisk poniżej.</br>",
+            "openid_unknown_error": "Wystąpił błąd podczas logowania za pomocą OpenID. Spróbuj ponownie później.",
+            "openid_unknown_session_type": "Sesja OpenID ma nieznany typ. Spróbuj ponownie."
         },
         "start_button": "Przywracanie konta",
         "titles": {
@@ -323,7 +336,17 @@
             "digid_uid_not_found": "Ten numer BSN jest nieznany w systemie",
             "digid_uid_used": "Numer BSN został już użyty.",
             "digid_unknown_error": "Wystąpił błąd w komunikacji z DigiD.",
-            "unknown_error": "Nieznany komunikat o błędzie"
+            "unknown_error": "Nieznany komunikat o błędzie",
+            "openid_callback_failed": "Logowanie nie powiodło się",
+            "openid_invalid_request": "Nieprawidłowe żądanie",
+            "openid_missing_claims": "Brakujące dane",
+            "openid_not_enabled": "OpenID nie jest dostępny",
+            "openid_session_expired": "Sesja wygasła",
+            "openid_uid_dont_match": "Numer BSN jest już znany dla tego profilu",
+            "openid_uid_not_found": "Ten numer BSN jest nieznany w systemie",
+            "openid_uid_used": "Numer BSN został już użyty.",
+            "openid_unknown_error": "Nieznany komunikat o błędzie",
+            "openid_unknown_session_type": "Nieznana sesja"
         }
     },
     "expired_identity": {
@@ -412,6 +435,9 @@
             "request": {
                 "description": "Przejdź przez formularz wniosku o kredyt",
                 "title": "Chcę poprosić o kredyt"
+            },
+            "openid": {
+                "description": "Użyj {{flow_name}}, aby się zalogować"
             }
         }
     },
@@ -711,6 +737,9 @@
                 "digid": {
                     "description": "Zaloguj się ponownie za pomocą DigiD, aby rozpocząć od nowa.",
                     "title": "DigiD"
+                },
+                "openid": {
+                    "description": "Użyj {{flow_name}}, aby rozpocząć od nowa."
                 }
             },
             "title": "Potwierdzenie BSN straciło ważność"
@@ -3654,7 +3683,8 @@
         "error": "Nie udało się!",
         "fund_activation": {
             "digid_success": "Zalogowany za pomocą DigiD.",
-            "success": "{{fund_name}} kredyt aktywowany!"
+            "success": "{{fund_name}} kredyt aktywowany!",
+            "openid_success": "Zalogowany za pomocą ID-Wallet."
         },
         "pre_check": {
             "downloaded": "Pobieranie rozpocznie się za kilka chwil.",

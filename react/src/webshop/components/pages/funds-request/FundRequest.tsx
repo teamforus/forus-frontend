@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import Fund from '../../../props/models/Fund';
 import { useFundRequestService } from '../../../services/FundRequestService';
 import { ResponseError } from '../../../../dashboard/props/ApiResponses';
@@ -8,6 +8,7 @@ import { useNavigateState, useStateParams } from '../../../modules/state_router/
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import { currencyFormat } from '../../../../dashboard/helpers/string';
 import { useDigiDService } from '../../../services/DigiDService';
+import { useOpenIdService } from '../../../services/OpenIdService';
 import Voucher from '../../../../dashboard/props/models/Voucher';
 import { useHelperService } from '../../../../dashboard/services/HelperService';
 import FundsListItemModel from '../../../services/types/FundsListItemModel';
@@ -45,6 +46,7 @@ import FundRequestStepPhysicalCardRequestAddress from './elements/steps/FundRequ
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import FundCriteriaGroup from '../../../../dashboard/props/models/FundCriteriaGroup';
 import FundRequestPersonBsnApiWarning from './elements/FundRequestPersonBsnApiWarning';
+import type { OpenIdFlow } from '../../../../dashboard/props/models/OpenIdFlow';
 import useFundApply from '../../../hooks/useFundApply';
 
 export type LocalCriterion = FundCriterion & {
@@ -89,6 +91,7 @@ export default function FundRequest() {
 
     const fundService = useFundService();
     const digIdService = useDigiDService();
+    const openIdService = useOpenIdService();
     const helperService = useHelperService();
     const voucherService = useVoucherService();
     const recordTypeService = useRecordTypeService();
@@ -135,6 +138,9 @@ export default function FundRequest() {
 
     const digidAvailable = useMemo(() => appConfigs?.digid, [appConfigs]);
     const digidMandatory = useMemo(() => appConfigs?.digid_mandatory, [appConfigs]);
+    const openIdFlows = useMemo(() => {
+        return appConfigs?.openid ? appConfigs.openid_config?.flows || [] : [];
+    }, [appConfigs]);
 
     const shouldAddContactInfo = useMemo(
         () => !authIdentity?.email && fund?.contact_info_enabled,
@@ -391,10 +397,36 @@ export default function FundRequest() {
                         return pushDanger(translate('push.error'), err.data.message);
                     }
 
-                    navigateState(WebshopRoutes.ERROR, { errorCode: err.headers['error-code'] });
+                    navigateState(WebshopRoutes.ERROR, {
+                        errorCode: err.headers['error-code'] || 'digid_unknown_error',
+                    });
                 });
         }
     }, [digIdService, fund?.id, navigateState, pushDanger, fetchAuthIdentity, translate]);
+
+    const startOpenId = useCallback(
+        async (flow: OpenIdFlow) => {
+            if (!flow) {
+                return;
+            }
+
+            if ((await fetchAuthIdentity())?.identity) {
+                openIdService
+                    .startFundRequest(fund.id, flow)
+                    .then((res) => (document.location = res.data.redirect_url))
+                    .catch((err) => {
+                        if (err.status === 403 && err.data.message) {
+                            return pushDanger(translate('push.error'), err.data.message);
+                        }
+
+                        navigateState(WebshopRoutes.ERROR, {
+                            errorCode: err.headers['error-code'] || 'openid_unknown_error',
+                        });
+                    });
+            }
+        },
+        [fetchAuthIdentity, fund?.id, navigateState, openIdService, pushDanger, translate],
+    );
 
     const transformInvalidCriteria = useCallback(
         function (item: FundCriterion): LocalCriterion {
@@ -465,7 +497,7 @@ export default function FundRequest() {
     }, [setStepByName, steps, submitRequest]);
 
     const submitContactInformation = useCallback(
-        (e: React.FormEvent) => {
+        (e: ChangeEvent) => {
             e?.preventDefault();
             e?.stopPropagation();
 
@@ -647,7 +679,7 @@ export default function FundRequest() {
         checkPersonBsnApiRecords();
 
         setAutoSubmit(
-            digidAvailable &&
+            (digidAvailable || openIdFlows.length > 0) &&
                 fund.auto_validation &&
                 invalidCriteria?.length > 0 &&
                 ['IIT', 'bus_2020', 'meedoen'].includes(fund.key),
@@ -656,6 +688,7 @@ export default function FundRequest() {
         bsnIsKnown,
         transformInvalidCriteria,
         digidAvailable,
+        openIdFlows,
         from,
         fund,
         fundRequestIsAvailable,
@@ -968,6 +1001,32 @@ export default function FundRequest() {
                                                     </div>
                                                 </div>
                                             )}
+
+                                            {openIdFlows.map((flow) => (
+                                                <div
+                                                    key={flow.key}
+                                                    className="sign_up-option"
+                                                    onClick={() => startOpenId(flow)}>
+                                                    <div className="sign_up-option-media">
+                                                        <img
+                                                            className="sign_up-option-media-img"
+                                                            src={assetUrl(
+                                                                `/assets/img/icon-auth/icon-auth-${flow.key}.svg`,
+                                                            )}
+                                                            alt={`logo ${flow.name}`}
+                                                        />
+                                                    </div>
+                                                    <div className="sign_up-option-details">
+                                                        <div className="sign_up-option-title">{flow.name}</div>
+                                                        <div className="sign_up-option-description">
+                                                            {translate(
+                                                                'fund_request.digid_expired.sign_in.openid.description',
+                                                                { flow_name: flow.name },
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                                     <br />
