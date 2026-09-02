@@ -39,9 +39,15 @@ export type AppConfigProp = {
             soft_limit: number;
         };
     };
+    files: {
+        [key: string]: {
+            source_extensions: Array<string>;
+        };
+    };
     media: {
         cms_media: {
             aspect_ratio: number;
+            source_extensions: Array<string>;
             size: {
                 thumbnail: [number, number, boolean];
                 public: [number, number, boolean];
@@ -50,6 +56,7 @@ export type AppConfigProp = {
         };
         fund_logo: {
             aspect_ratio: number;
+            source_extensions: Array<string>;
             size: {
                 thumbnail: [number, number, boolean];
                 large: [number, number, boolean];
@@ -58,6 +65,7 @@ export type AppConfigProp = {
         };
         office_photo: {
             aspect_ratio: number;
+            source_extensions: Array<string>;
             size: {
                 thumbnail: [number, number, boolean];
                 large: [number, number, boolean];
@@ -66,6 +74,7 @@ export type AppConfigProp = {
         };
         product_photo: {
             aspect_ratio: number;
+            source_extensions: Array<string>;
             size: {
                 thumbnail: [number, number, boolean];
                 small: [number, number, boolean];
@@ -75,6 +84,7 @@ export type AppConfigProp = {
         };
         organization_logo: {
             aspect_ratio: number;
+            source_extensions: Array<string>;
             size: {
                 thumbnail: [number, number, boolean];
                 large: [number, number, boolean];
@@ -83,6 +93,7 @@ export type AppConfigProp = {
         };
         implementation_banner: {
             aspect_ratio: number;
+            source_extensions: Array<string>;
             size: {
                 thumbnail: [number, number, boolean];
                 medium: [number, number, boolean];
@@ -92,6 +103,7 @@ export type AppConfigProp = {
         };
         reimbursement_file_preview: {
             aspect_ratio: number;
+            source_extensions: Array<string>;
             size: {
                 thumbnail: [number, number, boolean];
                 original: [number, number, boolean];
@@ -99,6 +111,7 @@ export type AppConfigProp = {
         };
         email_logo: {
             aspect_ratio: number;
+            source_extensions: Array<string>;
             size: {
                 thumbnail: [number, number, boolean];
                 large: [number, number, boolean];
@@ -107,6 +120,7 @@ export type AppConfigProp = {
         };
         implementation_block_media: {
             aspect_ratio: number;
+            source_extensions: Array<string>;
             size: {
                 thumbnail: [number, number, boolean];
                 public: [number, number, boolean];
@@ -116,6 +130,7 @@ export type AppConfigProp = {
         };
         [key: string]: {
             aspect_ratio: number;
+            source_extensions: Array<string>;
             size: {
                 [key: string]: [number, number, boolean];
             };

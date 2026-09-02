@@ -32,6 +32,7 @@
 // blocks from webshop
 @use '../../../forus-webshop/scss/includes/blocks/block-sign_up' as webshop_block_sign_up;
 @use '../../../forus-webshop/scss/includes/blocks/block-exception';
+@use '../../../forus-webshop/scss/includes/blocks/block-pdf-preview-pages';
 
 // blocks
 @use 'blocks/block-chat';

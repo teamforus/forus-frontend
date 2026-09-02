@@ -65,6 +65,7 @@ export default {
         },
         eemsdelta: {
             funds: 'Regelingen',
+            partner_funds: 'Partners',
         },
         noordoostpolder: {
             funds: 'Regelingen',

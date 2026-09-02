@@ -13,6 +13,7 @@ import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 import classNames from 'classnames';
 import Label from '../../../elements/label/Label';
+import { getReimbursementPreviewUrl } from '../../../../../dashboard/helpers/filePreview';
 
 export default function ReimbursementCard({
     onDelete,
@@ -28,6 +29,7 @@ export default function ReimbursementCard({
     const navigateState = useNavigateState();
     const confirmReimbursementDestroy = useConfirmReimbursementDestroy();
 
+    const previewUrl = getReimbursementPreviewUrl(reimbursement?.files?.[0]);
     const reimbursementService = useReimbursementService();
 
     const cancelReimbursement = useCallback(
@@ -80,12 +82,8 @@ export default function ReimbursementCard({
                     reimbursement.state === 'declined' && 'reimbursement-image-declined',
                 )}
                 role="img"
-                aria-hidden={!reimbursement?.files?.[0]?.preview}>
-                {!reimbursement?.files?.[0]?.preview ? (
-                    <IconReimbursement />
-                ) : (
-                    <img src={reimbursement?.files?.[0]?.preview?.sizes?.thumbnail} alt="reimbursement image" />
-                )}
+                aria-hidden={!previewUrl}>
+                {!previewUrl ? <IconReimbursement /> : <img src={previewUrl} alt="reimbursement image" />}
             </div>
 
             <div className="reimbursement-container">

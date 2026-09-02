@@ -50,6 +50,7 @@ export default function LayoutAsideProvider({ organization }: { organization: Or
                         state: DashboardRoutes.PRODUCTS,
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(organization, Permission.MANAGE_PRODUCTS),
+                        dusk: 'productsPage',
                     },
                     {
                         id: 'reservations',

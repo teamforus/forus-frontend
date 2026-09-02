@@ -147,6 +147,7 @@ export default function Products() {
                                         onKeyDown={clickOnKeyEnter}
                                         tabIndex={0}
                                         aria-pressed={filterValues.display_type == 'grid'}
+                                        data-dusk="displayTypeGridTab"
                                         role="button">
                                         <em className="mdi mdi-view-grid-outline icon-start" />
                                         {translate('products.view.grid')}
@@ -161,6 +162,7 @@ export default function Products() {
                                         onKeyDown={clickOnKeyEnter}
                                         tabIndex={0}
                                         aria-pressed={filterValues.display_type == 'list'}
+                                        data-dusk="displayTypeListTab"
                                         role="button">
                                         <em className="mdi mdi-format-list-text icon-start" />
                                         {translate('products.view.list')}
