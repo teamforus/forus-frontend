@@ -117,18 +117,18 @@ export default function FundRequestClarificationsBlock({
                                     <div className="block block-fund-request-conversations">
                                         {item.clarifications.map((clarification) => (
                                             <div className="block-fund-request-conversation" key={clarification.id}>
-                                                {clarification.state === 'answered' ? (
-                                                    <FundRequestClarificationAnswered
-                                                        clarification={clarification}
-                                                        fundRequest={fundRequest}
-                                                    />
-                                                ) : (
+                                                {clarification.state === 'pending' ? (
                                                     <FundRequestClarificationPending
                                                         record={item.record}
                                                         clarification={clarification}
                                                         fundRequest={fundRequest}
                                                         setFundRequest={setFundRequest}
                                                         setClarificationsResponded={setClarificationsResponded}
+                                                    />
+                                                ) : (
+                                                    <FundRequestClarificationAnswered
+                                                        clarification={clarification}
+                                                        fundRequest={fundRequest}
                                                     />
                                                 )}
                                             </div>

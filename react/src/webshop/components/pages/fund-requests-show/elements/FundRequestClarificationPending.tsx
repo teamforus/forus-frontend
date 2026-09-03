@@ -11,7 +11,6 @@ import { ResponseError } from '../../../../../dashboard/props/ApiResponses';
 import { useFundRequestClarificationService } from '../../../../services/FundRequestClarificationService';
 import MultilineText from '../../../../../dashboard/components/elements/multiline-text/MultilineText';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
-import classNames from 'classnames';
 import usePushDanger from '../../../../../dashboard/hooks/usePushDanger';
 import { uniq } from 'lodash';
 import ModalNotification from '../../../modals/ModalNotification';
@@ -98,14 +97,17 @@ export default function FundRequestClarificationPending({
     }, [openModal, translate]);
 
     return (
-        <div
-            className={classNames(
-                'conversation-item-body',
-                clarification?.state === 'answered' && 'conversation-item-body-responded',
-            )}>
+        <div className="conversation-item-body">
             <div className="conversation-item-section conversation-item-section-question">
                 <div className="conversation-item-section-header">
-                    <div className="conversation-item-section-header-date">{clarification?.created_at_locale}</div>
+                    <div className="conversation-item-section-header-date">
+                        {clarification?.created_at_locale}
+                        {!!clarification?.changed_at && (
+                            <span>
+                                | {translate('fund_request.labels.edited')}: {clarification?.changed_at_locale}
+                            </span>
+                        )}
+                    </div>
                 </div>
 
                 <div className="conversation-item-section-body">

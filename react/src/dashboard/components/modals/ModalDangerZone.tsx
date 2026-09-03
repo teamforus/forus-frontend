@@ -11,6 +11,7 @@ export default function ModalDangerZone({
     description,
     description_title,
     description_text,
+    overview,
     confirmation,
     buttonCancel,
     buttonSubmit,
@@ -22,6 +23,7 @@ export default function ModalDangerZone({
     description?: string | Array<string>;
     description_title?: string;
     description_text?: string | Array<string> | ReactNode;
+    overview?: Array<{ title: string; description: string }>;
     confirmation?: string;
     buttonCancel?: ModalButton;
     buttonSubmit?: ModalButton;
@@ -37,49 +39,62 @@ export default function ModalDangerZone({
             <div className="modal-window">
                 <div className="modal-body form">
                     <div className="modal-section">
-                        {(title || description) && (
-                            <div className="block block-danger_zone">
-                                <div className="danger_zone-title">
-                                    <em className="mdi mdi-alert" />
-                                    {title}
-                                </div>
-
-                                {description && (
-                                    <div className="danger_zone-description">
-                                        {Array.isArray(description)
-                                            ? description
-                                            : [description].map((value, index) => <div key={index}>{value}</div>)}
+                        <div className="block block-danger_zone">
+                            {(title || description) && (
+                                <div className="danger_zone-header">
+                                    <div className="danger_zone-title">
+                                        <em className="mdi mdi-alert" />
+                                        {title}
                                     </div>
-                                )}
-                            </div>
-                        )}
 
-                        {description_title && <div className="modal-heading">{description_title}</div>}
+                                    {description && (
+                                        <div className="danger_zone-description">
+                                            {Array.isArray(description)
+                                                ? description
+                                                : [description].map((value, index) => <div key={index}>{value}</div>)}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
 
-                        {typeof description_text === 'string' || Array.isArray(description_text) ? (
-                            <div className="modal-text">
-                                {(Array.isArray(description_text)
-                                    ? description_text
-                                    : description_text.split('\n')
-                                ).map((value: string, index: number) =>
-                                    value ? <div key={index}>{value}</div> : <div key={index}>&nbsp;</div>,
-                                )}
-                            </div>
-                        ) : (
-                            <div className="modal-text">{description_text}</div>
-                        )}
+                            {description_title && <div className="modal-heading">{description_title}</div>}
 
-                        {confirmation && (
-                            <div className="form text-center">
-                                <CheckboxControl
-                                    checked={confirmed}
-                                    dusk="dangerZoneConfirmation"
-                                    narrow={true}
-                                    onChange={(_, checked) => setConfirmed(checked)}
-                                    title={confirmation}
-                                />
-                            </div>
-                        )}
+                            {typeof description_text === 'string' || Array.isArray(description_text) ? (
+                                <div className="modal-text">
+                                    {(Array.isArray(description_text)
+                                        ? description_text
+                                        : description_text.split('\n')
+                                    ).map((value: string, index: number) =>
+                                        value ? <div key={index}>{value}</div> : <div key={index}>&nbsp;</div>,
+                                    )}
+                                </div>
+                            ) : (
+                                <div className="modal-text">{description_text}</div>
+                            )}
+
+                            {overview && (
+                                <div className="danger_zone-overview">
+                                    {overview.map((value: { title: string; description: string }, index: number) => (
+                                        <div key={index} className="danger_zone-overview-item">
+                                            <div className="danger_zone-overview-title">{value.title}</div>
+                                            <div>{value.description}</div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+
+                            {confirmation && (
+                                <div className="form text-center">
+                                    <CheckboxControl
+                                        checked={confirmed}
+                                        dusk="dangerZoneConfirmation"
+                                        narrow={true}
+                                        onChange={(_, checked) => setConfirmed(checked)}
+                                        title={confirmation}
+                                    />
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
 

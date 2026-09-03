@@ -39,11 +39,11 @@ export default function FundRequestsShow() {
         return fundRequest?.records
             ?.map((current) =>
                 current?.clarifications.filter((clarification) => {
-                    return clarification?.state === 'answered';
+                    return clarification?.state === 'answered' || clarification?.state === 'closed';
                 }),
             )
             .flat()
-            .sort((a, b) => new Date(a.answered_at).getTime() - new Date(b.answered_at).getTime())?.[0];
+            .sort((a, b) => new Date(a.resolved_at).getTime() - new Date(b.resolved_at).getTime())?.[0];
     }, [fundRequest?.records]);
 
     const hasNotAnswered = useMemo(() => {
@@ -159,7 +159,7 @@ export default function FundRequestsShow() {
                                             {translate('fund_request.details.last_answered')}
                                         </div>
                                         <div className="fund-request-prop-value">
-                                            {latestAnswered?.answered_at_locale || <EmptyValue />}
+                                            {latestAnswered?.resolved_at_locale || <EmptyValue />}
                                         </div>
                                     </div>
                                 </div>

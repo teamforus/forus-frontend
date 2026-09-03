@@ -21,12 +21,12 @@ export default function FundRequestRecordsBlockItem({
     const translate = useTranslate();
 
     const answered = useMemo(
-        () => record.clarifications.filter((item) => item.state === 'answered'),
+        () => record.clarifications.filter((item) => ['answered', 'closed'].includes(item.state)),
         [record.clarifications],
     );
 
     const notAnsweredCount = useMemo(
-        () => record.clarifications.filter((item) => item.state !== 'answered').length,
+        () => record.clarifications.filter((item) => item.state === 'pending').length,
         [record.clarifications],
     );
 

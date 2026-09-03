@@ -64,6 +64,8 @@ export default {
         question_from: 'Vraag van {{ name }}',
         date: 'Datum:',
         your_answer: 'Uw antwoord:',
+        closed_by_sponsor: 'Beantwoord door {{ sponsor_name }}',
+        edited: 'Edited',
     },
 
     declined: {

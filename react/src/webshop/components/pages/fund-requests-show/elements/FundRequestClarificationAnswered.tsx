@@ -18,7 +18,14 @@ export default function FundRequestClarificationAnswered({
         <div className="conversation-item-body">
             <div className="conversation-item-section conversation-item-section-question">
                 <div className="conversation-item-section-header">
-                    <div className="conversation-item-section-header-date">{clarification?.created_at_locale}</div>
+                    <div className="conversation-item-section-header-date">
+                        {clarification?.created_at_locale}
+                        {!!clarification?.changed_at && (
+                            <span>
+                                | {translate('fund_request.labels.edited')}: {clarification?.changed_at_locale}
+                            </span>
+                        )}
+                    </div>
                 </div>
 
                 <div className="conversation-item-section-body">
@@ -37,35 +44,47 @@ export default function FundRequestClarificationAnswered({
 
             <div className="conversation-item-section conversation-item-section-answer">
                 <div className="conversation-item-section-header">
-                    <div className="conversation-item-section-header-date">{clarification?.answered_at_locale}</div>
+                    <div className="conversation-item-section-header-date">{clarification?.resolved_at_locale}</div>
                 </div>
 
-                <div className="conversation-item-section-body" data-dusk="clarificationAnswer">
-                    <div className="conversation-item-section-body-bubble">
-                        <div className="conversation-item-section-body-label">
-                            {translate('fund_request.labels.your_answer')}:
+                {clarification.state === 'closed' ? (
+                    <div className="conversation-item-section-body" data-dusk="clarificationAnswer">
+                        <div className="conversation-item-section-body-bubble">
+                            <div className="conversation-item-section-body-label">
+                                {translate('fund_request.labels.closed_by_sponsor', {
+                                    sponsor_name: fundRequest?.fund?.organization_name,
+                                })}
+                            </div>
                         </div>
-
-                        {clarification.answer && (
-                            <div className="conversation-item-section-body-bubble-content">
-                                <MultilineText text={clarification.answer} />
-                            </div>
-                        )}
-
-                        {clarification.files?.length > 0 && (
-                            <div className="conversation-item-section-body-bubble-files">
-                                <FileUploader
-                                    type="fund_request_clarification_proof"
-                                    files={clarification.files}
-                                    template={'compact'}
-                                    readOnly={true}
-                                    hidePreviewButton={true}
-                                    hideDownloadButton={true}
-                                />
-                            </div>
-                        )}
                     </div>
-                </div>
+                ) : (
+                    <div className="conversation-item-section-body" data-dusk="clarificationAnswer">
+                        <div className="conversation-item-section-body-bubble">
+                            <div className="conversation-item-section-body-label">
+                                {translate('fund_request.labels.your_answer')}:
+                            </div>
+
+                            {clarification.answer && (
+                                <div className="conversation-item-section-body-bubble-content">
+                                    <MultilineText text={clarification.answer} />
+                                </div>
+                            )}
+
+                            {clarification.files?.length > 0 && (
+                                <div className="conversation-item-section-body-bubble-files">
+                                    <FileUploader
+                                        type="fund_request_clarification_proof"
+                                        files={clarification.files}
+                                        template={'compact'}
+                                        readOnly={true}
+                                        hidePreviewButton={true}
+                                        hideDownloadButton={true}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

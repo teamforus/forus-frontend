@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import { ResponseError } from '../../props/ApiResponses';
@@ -12,16 +12,22 @@ import FormGroup from '../elements/forms/elements/FormGroup';
 import FormPane from '../elements/forms/elements/FormPane';
 import InfoBox from '../elements/info-box/InfoBox';
 import SelectControl from '../elements/select-control/SelectControl';
+import FundRequestClarification from '../../props/models/FundRequestClarification';
+import CheckboxControl from '../elements/forms/controls/CheckboxControl';
+import ModalDangerZone from './ModalDangerZone';
+import useTranslate from '../../hooks/useTranslate';
+import useOpenModal from '../../hooks/useOpenModal';
 
 type Requirement = 'no' | 'optional' | 'required';
 
-export default function ModalFundRequestClarify({
+export default function ModalFundRequestClarificationEdit({
     modal,
     className,
     fundRequest,
     onSubmitted,
     organization,
     fundRequestRecord,
+    clarification,
 }: {
     modal: ModalState;
     className?: string;
@@ -29,47 +35,114 @@ export default function ModalFundRequestClarify({
     onSubmitted: (err?: ResponseError) => void;
     organization: Organization;
     fundRequestRecord: FundRequestRecord;
+    clarification?: FundRequestClarification;
 }) {
+    const openModal = useOpenModal();
+    const translate = useTranslate();
     const setProgress = useSetProgress();
     const fundRequestService = useFundRequestValidatorService();
+
+    const [requirementText] = useState({ required: 'Ja (verplicht)', optional: 'Optioneel', no: 'Nee' });
 
     const form = useFormBuilder<{
         text_requirement: Requirement;
         files_requirement: Requirement;
         question: string;
+        notify_requester: boolean;
     }>(
         {
-            text_requirement: 'required',
-            files_requirement: 'required',
-            question: '',
+            text_requirement: clarification?.text_requirement || 'required',
+            files_requirement: clarification?.files_requirement || 'required',
+            question: clarification?.question || '',
+            notify_requester: false,
         },
-        async () => {
-            setProgress(0);
+        () => {
+            confirmSubmit().then((confirmed) => {
+                if (!confirmed) {
+                    setTimeout(() => form.setIsLocked(false));
+                    return;
+                }
 
-            return fundRequestService
-                .requestRecordClarification(organization.id, fundRequestRecord.fund_request_id, {
+                setProgress(0);
+
+                const data = {
                     fund_request_record_id: fundRequestRecord.id,
                     text_requirement: form.values.text_requirement,
                     files_requirement: form.values.files_requirement,
                     question: form.values.question,
-                })
-                .then(() => {
-                    modal.close();
-                    onSubmitted();
-                })
-                .catch((err: ResponseError) => {
-                    form.setIsLocked(false);
+                };
 
-                    if (err.status === 422) {
-                        return form.setErrors(err.data.errors);
-                    }
+                const promise = clarification
+                    ? fundRequestService.updateRecordClarification(
+                          organization.id,
+                          fundRequestRecord.fund_request_id,
+                          clarification.id,
+                          { ...data, notify_requester: form.values.notify_requester },
+                      )
+                    : fundRequestService.requestRecordClarification(
+                          organization.id,
+                          fundRequestRecord.fund_request_id,
+                          data,
+                      );
 
-                    modal.close();
-                    onSubmitted(err);
-                })
-                .finally(() => setProgress(100));
+                promise
+                    .then(() => {
+                        modal.close();
+                        onSubmitted();
+                    })
+                    .catch((err: ResponseError) => {
+                        form.setIsLocked(false);
+
+                        if (err.status === 422) {
+                            return form.setErrors(err.data.errors);
+                        }
+
+                        modal.close();
+                        onSubmitted(err);
+                    })
+                    .finally(() => setProgress(100));
+            });
         },
     );
+
+    const confirmSubmit = useCallback(() => {
+        return new Promise((resolve) =>
+            openModal((modal) => (
+                <ModalDangerZone
+                    modal={modal}
+                    title={translate(`modals.danger_zone.fund_request_clarification.title`)}
+                    description_title={translate(`modals.danger_zone.fund_request_clarification.description`)}
+                    overview={[
+                        { title: 'Vraag:', description: form.values.question },
+                        { title: 'Tekstuele uitleg:', description: requirementText[form.values.text_requirement] },
+                        { title: 'Uploaden bestand:', description: requirementText[form.values.files_requirement] },
+                        ...(clarification
+                            ? [
+                                  {
+                                      title: 'Inwoner informeren:',
+                                      description: form.values.notify_requester ? 'Ja' : 'Nee',
+                                  },
+                              ]
+                            : []),
+                    ]}
+                    buttonCancel={{
+                        text: translate(`modals.danger_zone.fund_request_clarification.buttons.cancel`),
+                        onClick: () => {
+                            modal.close();
+                            resolve(false);
+                        },
+                    }}
+                    buttonSubmit={{
+                        text: translate(`modals.danger_zone.fund_request_clarification.buttons.confirm`),
+                        onClick: () => {
+                            modal.close();
+                            resolve(true);
+                        },
+                    }}
+                />
+            )),
+        );
+    }, [clarification, form, openModal, requirementText, translate]);
 
     return (
         <div className={classNames('modal', 'modal-md', 'modal-animated', modal.loading && 'modal-loading', className)}>
@@ -152,6 +225,21 @@ export default function ModalFundRequestClarify({
                                     )}
                                 />
                             </FormPane>
+
+                            {clarification && (
+                                <FormPane title={'Informeer de inwoner'}>
+                                    <CheckboxControl
+                                        title="Stuur de inwoner een nieuw bericht over deze wijziging."
+                                        checked={form.values.notify_requester}
+                                        onChange={(e) => {
+                                            form.update({
+                                                notify_requester: e.target.checked,
+                                            });
+                                        }}
+                                    />
+                                </FormPane>
+                            )}
+
                             <InfoBox>
                                 Gebruik deze functie om de aanvrager te vragen om extra informatie of documenten, zodat
                                 de aanvraag alsnog beoordeeld kan worden. Geef aan wat bij de aanvraag nodig is. Een
