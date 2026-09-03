@@ -97,7 +97,7 @@ export default function FundRequestClarificationPending({
     }, [openModal, translate]);
 
     return (
-        <div className="conversation-item-body">
+        <div className="conversation-item-body" data-dusk={`clarificationCard${clarification.id}`}>
             <div className="conversation-item-section conversation-item-section-question">
                 <div className="conversation-item-section-header">
                     <div className="conversation-item-section-header-date">
