@@ -78,7 +78,7 @@ export default function ProductsListItemList({
                 </div>
 
                 <div className="product-actions">
-                    <div className="product-price">
+                    <div className="product-price" data-dusk="productPrice">
                         {isPayoutInfoProduct ? (
                             <em className="mdi mdi-cash-refund" />
                         ) : product?.price_type === 'informational' ? (

@@ -130,6 +130,7 @@ export default function ProductCategoriesControl({
                         onChange={(value?: number) => changeCategory(index, value)}
                         disabled={disabled}
                         placeholder="Selecteer categorie..."
+                        dusk={`selectControlProductCategory${index}`}
                     />
 
                     {index == categoriesHierarchy.length - 1 && <FormError error={errors} />}

@@ -541,7 +541,7 @@ export default function ProductsForm({
                 </div>
             )}
 
-            <form className="card form" onSubmit={form.submit}>
+            <form className="card form" onSubmit={form.submit} data-dusk="productForm">
                 <div className="card-header">
                     <div className="card-title">
                         {translate(id ? 'product_edit.header.title_edit' : 'product_edit.header.title_add')}
@@ -617,6 +617,7 @@ export default function ProductsForm({
                                         className="form-control"
                                         placeholder={'Naam'}
                                         value={form.values.name || ''}
+                                        data-dusk="nameInput"
                                         onChange={(e) => form.update({ name: e.target.value })}
                                     />
                                 )}
@@ -687,6 +688,7 @@ export default function ProductsForm({
                                                 value={form.values.price_type}
                                                 onChange={(price_type: ProductPriceType) => form.update({ price_type })}
                                                 options={priceTypes}
+                                                dusk="selectControlPriceType"
                                             />
                                         )}
                                     />
@@ -697,6 +699,7 @@ export default function ProductsForm({
                                             label={'Bedrag'}
                                             required={true}
                                             error={form.errors.price}
+                                            dusk="priceFormGroup"
                                             info={
                                                 <Fragment>
                                                     Vul het bedrag in die de klant voor dit aanbod betaald. Dit is de
@@ -717,6 +720,7 @@ export default function ProductsForm({
                                                     type="number"
                                                     placeholder="Bedrag in euro's"
                                                     step="0.01"
+                                                    data-dusk="priceInput"
                                                 />
                                             )}
                                         />
@@ -860,6 +864,7 @@ export default function ProductsForm({
                                                             onChange={(unlimited_stock: boolean) => {
                                                                 form.update({ unlimited_stock });
                                                             }}
+                                                            dusk="selectControlUnlimitedStock"
                                                         />
                                                     )}
                                                 />
@@ -998,6 +1003,7 @@ export default function ProductsForm({
                                                     type="text"
                                                     placeholder={translate('product_edit.labels.ean_placeholder')}
                                                     disabled={!isEditable}
+                                                    data-dusk="eanInput"
                                                 />
                                             )}
                                         />
@@ -1016,6 +1022,7 @@ export default function ProductsForm({
                                                     type="text"
                                                     placeholder={translate('product_edit.labels.sku_placeholder')}
                                                     disabled={!isEditable}
+                                                    data-dusk="skuInput"
                                                 />
                                             )}
                                         />
@@ -1364,7 +1371,7 @@ export default function ProductsForm({
                         </button>
 
                         {isEditable && (
-                            <button type="submit" className="button button-primary">
+                            <button type="submit" className="button button-primary" data-dusk="submitBtn">
                                 {translate('product_edit.buttons.confirm')}
                             </button>
                         )}

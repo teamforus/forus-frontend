@@ -11,7 +11,7 @@ export default function ModalPhotoUploader({
     modal,
     onSubmit,
     className,
-    acceptedFiles = ['.png', '.jpg', '.jpeg', '.svg', '.webp', '.gif', '.bmp'],
+    acceptedFiles,
     initialCropWidth = 90,
 }: {
     type: string;
@@ -19,7 +19,7 @@ export default function ModalPhotoUploader({
     modal: ModalState;
     onSubmit: (file: Blob, sizes: Array<ImageCropperPresetValue>) => void;
     className?: string;
-    acceptedFiles?: Array<string>;
+    acceptedFiles: Array<string>;
     initialCropWidth?: number;
 }) {
     const appConfigs = useAppConfigs();
@@ -54,7 +54,7 @@ export default function ModalPhotoUploader({
         const input = document.createElement('input');
         input.style.display = 'none';
         input.setAttribute('type', 'file');
-        input.setAttribute('accept', (acceptedFiles || []).join(','));
+        input.setAttribute('accept', acceptedFiles.join(','));
         input.addEventListener('change', () => {
             setTargetFile(null);
             window.setTimeout(() => setTargetFile(input.files[0]), 0);
