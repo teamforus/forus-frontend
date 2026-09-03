@@ -8,9 +8,15 @@ export default {
     },
 
     details: {
+        number: 'Aanvraagummer:',
         status: 'Status Aanvraag:',
         created_at: 'Ingediend op:',
-        fund_name: 'Naam van het fonds:',
+        fund_name: 'Regeling:',
+        last_answered: 'Laatst aangepast:',
+    },
+
+    state: {
+        answer_needed: 'Meer informatie van u nodig',
     },
 
     clarifications: {
@@ -20,6 +26,7 @@ export default {
         info_requested: 'Extra vraag gesteld',
         info_responded_count: '{{count}} bericht',
         provide_info: 'Beantwoord de vraag',
+        info_pending: 'Antwoord nodig',
     },
 
     received: {
@@ -56,6 +63,9 @@ export default {
         question: 'Gestelde vraag',
         question_from: 'Vraag van {{ name }}',
         date: 'Datum:',
+        your_answer: 'Uw antwoord:',
+        closed_by_sponsor: 'Beantwoord door {{ sponsor_name }}',
+        edited: 'Edited',
     },
 
     declined: {
