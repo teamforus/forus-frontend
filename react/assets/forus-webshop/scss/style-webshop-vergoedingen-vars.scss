@@ -178,6 +178,8 @@ $primaryColorLight: #2f7f6b;
     --btn-start-bg: #176b55;
     --btn-start-btn: transparent;
     --btn-start-border: #176b55;
+    --btn-user-avatar-icon-color: #ffffff;
+    --btn-user-avatar-border-color: var(--color-primary);
 
     // header background
     --bg-values: url('../img/splash-top-b.jpg') no-repeat 100% 0;
@@ -273,8 +275,12 @@ $primaryColorLight: #2f7f6b;
     --dropdown-item-font: 500 13px/20px var(--base-font);
     --dropdown-item-color: #282b39;
     --dropdown-item-background: #ffffff;
-    --dropdown-item-hover-color: #000000;
-    --dropdown-item-hover-background: #e5e5e5;
+    --dropdown-item-focus-color: #000000;
+    --dropdown-item-focus-background: #ffffff;
+    --dropdown-item-hover-color: #282b39;
+    --dropdown-item-hover-background: #f4f4f4;
+    --dropdown-item-active-color: var(--label-set-active-background);
+    --dropdown-item-active-background: #fff;
 
     // Paginator
     --paginator-border-radius: var(--border-radius);

@@ -1,8 +1,6 @@
 import React, { ReactNode } from 'react';
-import FDTargetClick, {
-    FDTargetContainerProps,
-} from '../../../modules/frame_director/components/targets/FDTargetClick';
-import FDTargetContainerTableMenu from '../../../modules/frame_director/components/target-containers/FDTargetContainerTableMenu';
+import FDTargetClick, { FDTargetContainerProps } from '../../../modules/frame_director/components/FDTargetClick';
+import FDTargetContainerTableMenu from '../../../modules/frame_director/tooltip-data/FDTargetContainerTableMenu';
 
 export default function TableRowActions({
     content,

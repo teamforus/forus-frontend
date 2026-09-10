@@ -22,7 +22,7 @@ import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import ModalNotification from '../../modals/ModalNotification';
 import ModalCreatePrevalidation from '../../modals/ModalCreatePrevalidation';
 import ModalPrevalidationsUpload from '../../modals/ModalPrevalidationsUpload';
-import ClickOutside from '../../elements/click-outside/ClickOutside';
+import ClickOutside from '../../../modules/click-outside/ClickOutside';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../helpers/dates';
@@ -33,6 +33,7 @@ import TableEmptyValue from '../../elements/table-empty-value/TableEmptyValue';
 import { NumberParam, StringParam } from 'use-query-params';
 import usePrevalidationExporter from '../../../services/exporters/usePrevalidationExporter';
 import Label from '../../elements/label/Label';
+import classNames from 'classnames';
 import { Permission } from '../../../props/models/Organization';
 import { uniq } from 'lodash';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
@@ -305,7 +306,8 @@ export default function Prevalidations() {
 
                         <div className="form-group">
                             <SelectControl
-                                className="form-control inline-filter-control"
+                                className={classNames('select-control-card-header')}
+                                menuClassName={classNames('select-control-menu-card-header')}
                                 propKey={'id'}
                                 options={fundOptions}
                                 value={filter.activeValues.fund_id}
@@ -362,7 +364,7 @@ export default function Prevalidations() {
 
                                             <FilterItemToggle label={translate('prevalidated_table.labels.active')}>
                                                 <SelectControl
-                                                    className="form-control"
+                                                    className={classNames('select-control-filter-panel')}
                                                     propKey={'key'}
                                                     allowSearch={true}
                                                     options={states}
@@ -372,7 +374,7 @@ export default function Prevalidations() {
 
                                             <FilterItemToggle label={translate('prevalidated_table.labels.exported')}>
                                                 <SelectControl
-                                                    className="form-control"
+                                                    className={classNames('select-control-filter-panel')}
                                                     propKey={'key'}
                                                     allowSearch={true}
                                                     options={statesExported}

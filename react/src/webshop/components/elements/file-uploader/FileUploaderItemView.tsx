@@ -5,14 +5,15 @@ import { ResponseError } from '../../../../dashboard/props/ApiResponses';
 import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import ModalImagePreview from '../../modals/ModalImagePreview';
 import ModalPdfPreview from '../../modals/ModalPdfPreview';
+import ModalFilePdfPreview from '../../modals/ModalFilePdfPreview';
 import { FileUploaderItem } from './FileUploader';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import classNames from 'classnames';
 import {
+    canPreviewFile,
     isImageExtension,
     isPdfExtension,
-    isPreviewableExtension,
-    normalizeFileExtension,
+    usesPdfPreviewPages,
 } from '../../../../dashboard/helpers/filePreview';
 
 export default function FileUploaderItemView({
@@ -44,45 +45,7 @@ export default function FileUploaderItemView({
         return lastDotIndex === -1 ? '' : name.slice(lastDotIndex + 1).toLowerCase();
     }, [name]);
 
-    const previewFile = useCallback(
-        (e: React.MouseEvent, file: Partial<FileUploaderItem>) => {
-            e.preventDefault();
-            e.stopPropagation();
-
-            const fileData = file.file_data;
-            const fileExtension = normalizeFileExtension(fileData?.ext);
-
-            if (!fileData || !isPreviewableExtension(fileExtension)) {
-                return;
-            }
-
-            if (isPdfExtension(fileExtension)) {
-                fileService
-                    .downloadBlob(fileData)
-                    .then((res) => {
-                        openModal((modal) => <ModalPdfPreview modal={modal} rawPdfFile={res.data} />);
-                    })
-                    .catch((err: ResponseError) => console.error(err));
-            } else if (isImageExtension(fileExtension)) {
-                openModal((modal) => <ModalImagePreview modal={modal} imageSrc={fileData.url} />);
-            }
-        },
-        [fileService, openModal],
-    );
-
-    const downloadFile = useCallback(
-        (e: React.MouseEvent, file: Partial<FileUploaderItem>) => {
-            e.preventDefault();
-            e.stopPropagation();
-
-            fileService.download(file.file_data).then((res) => {
-                fileService.downloadFile(file.file_data.original_name, res.data);
-            }, console.error);
-        },
-        [fileService],
-    );
-
-    const progressValue = useMemo(() => {
+    const uploadProgress = useMemo(() => {
         const value = Number(item.progress);
 
         if (!Number.isFinite(value)) {
@@ -91,6 +54,68 @@ export default function FileUploaderItemView({
 
         return Math.max(0, Math.min(100, Math.round(value)));
     }, [item.progress]);
+
+    const visibleProgress = item.uploading ? Math.min(uploadProgress, 99) : uploadProgress;
+    const showPreviewButton = item.has_preview && !hidePreviewButton;
+    const showDownloadButton = !item.uploading && !hideDownloadButton && !usesPdfPreviewPages(item.file_data);
+    const showRemoveButton = !readOnly;
+
+    const previewFile = useCallback(
+        (e: React.MouseEvent, file: Partial<FileUploaderItem>) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const fileData = file.file_data;
+
+            if (!fileData || !canPreviewFile(fileData)) {
+                return;
+            }
+
+            if (usesPdfPreviewPages(fileData)) {
+                openModal((modal) => <ModalFilePdfPreview modal={modal} file={fileData} />);
+
+                return;
+            }
+
+            if (isPdfExtension(fileData.ext)) {
+                fileService
+                    .downloadBlob(fileData)
+                    .then((res) => {
+                        openModal((modal) => <ModalPdfPreview modal={modal} rawPdfFile={res.data} />);
+                    })
+                    .catch((err: ResponseError) => console.error(err));
+            } else if (isImageExtension(fileData.ext)) {
+                fileService
+                    .downloadBlob(fileData)
+                    .then((res) => {
+                        const imageUrl = URL.createObjectURL(res.data);
+
+                        openModal((modal) => <ModalImagePreview modal={modal} imageSrc={imageUrl} />, {
+                            onClosed: () => URL.revokeObjectURL(imageUrl),
+                        });
+                    })
+                    .catch((err: ResponseError) => console.error(err));
+            }
+        },
+        [fileService, openModal],
+    );
+
+    const downloadFile = useCallback(
+        (e: React.MouseEvent, fileData: FileUploaderItem['file_data']) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (!fileData) {
+                return;
+            }
+
+            fileService
+                .download(fileData)
+                .then((res) => fileService.downloadFile(fileData.original_name, res.data, res.headers['content-type']))
+                .catch((err: ResponseError) => console.error(err));
+        },
+        [fileService],
+    );
 
     return (
         <div className={classNames('file-item', { 'file-item-uploading': item.uploading })}>
@@ -105,17 +130,18 @@ export default function FileUploaderItemView({
                 <div className="file-item-name">{name}</div>
                 <div className="file-item-progress">
                     <div className="file-item-progress-container">
-                        <progress max="100" value={progressValue} />
+                        <progress max="100" value={visibleProgress} />
                     </div>
-                    {template === 'group' && <div className="file-item-progress-value">{progressValue}%</div>}
+                    {template === 'group' && <div className="file-item-progress-value">{visibleProgress}%</div>}
                 </div>
 
-                {item.has_preview && !hidePreviewButton && (
+                {showPreviewButton && (
                     <div className="file-item-action">
                         <button
                             className="mdi mdi-eye-outline"
                             onClick={(e) => previewFile(e, item)}
                             title={translate('global.file_item.view_file')}
+                            data-dusk="filePreviewButton"
                             role="button"
                             tabIndex={0}
                             type="button"
@@ -124,20 +150,21 @@ export default function FileUploaderItemView({
                     </div>
                 )}
 
-                {!item.uploading && !hideDownloadButton && (
+                {showDownloadButton && (
                     <div className="file-item-action">
                         <button
                             type={'button'}
                             className="mdi mdi-tray-arrow-down"
-                            onClick={(e) => downloadFile(e, item)}
+                            onClick={(e) => downloadFile(e, item.file_data)}
                             title={translate('global.file_item.download_file')}
+                            data-dusk="fileDownloadButton"
                             role="button"
                             tabIndex={0}
                             name={translate('global.file_item.download_file')}></button>
                     </div>
                 )}
 
-                {!readOnly && (
+                {showRemoveButton && (
                     <div className="file-item-action">
                         <button
                             type="button"

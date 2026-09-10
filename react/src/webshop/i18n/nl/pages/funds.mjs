@@ -35,7 +35,7 @@ export default {
     },
     funds: {
         potjeswijzer: {
-            title: 'Potjes gemeente',
+            title: 'Potjes',
         },
         berkelland: {
             title: 'Activeren',
@@ -67,6 +67,9 @@ export default {
             title: 'Potjes partners',
             description:
                 'Ook onze partners bieden verschillende potjes voor inwoners. Heeft u een klein inkomen? Dan is er een extraatje mogelijk.',
+        },
+        eemsdelta: {
+            title: 'Partners',
         },
         berkelland: {
             title: 'Activeren',

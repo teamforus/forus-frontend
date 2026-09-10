@@ -290,7 +290,7 @@ export default function ModalVoucherPayout({
                                 input={(id) => (
                                     <SelectControl
                                         id={id}
-                                        className="form-control"
+                                        className={classNames('form-control')}
                                         propKey="id"
                                         propValue="address"
                                         allowSearch={false}
@@ -315,7 +315,6 @@ export default function ModalVoucherPayout({
                                             input={(id) => (
                                                 <SelectControl
                                                     id={id}
-                                                    className="form-control"
                                                     propKey="id"
                                                     propValue="name"
                                                     allowSearch={false}
@@ -337,7 +336,6 @@ export default function ModalVoucherPayout({
                                                 return (
                                                     <SelectControl
                                                         id={id}
-                                                        className="form-control"
                                                         propKey="id"
                                                         propValue="name"
                                                         allowSearch={false}

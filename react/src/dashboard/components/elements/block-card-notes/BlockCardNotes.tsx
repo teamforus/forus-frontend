@@ -123,7 +123,9 @@ export default function BlockCardNotes({
         <div className="card">
             <div className="card-header">
                 <div className="card-title flex flex-grow">
-                    {translate('notes.header.title')}({notes?.meta?.total})
+                    <span>{translate('notes.header.title')}</span>
+                    &nbsp;
+                    <span className="span-count">{notes?.meta?.total}</span>
                 </div>
                 <div className="button-group">
                     {showCreate && (

@@ -218,7 +218,6 @@ export default function ReservationsSettings() {
                                 error={form.errors.reservation_note}
                                 input={(id) => (
                                     <SelectControl
-                                        className="form-control"
                                         propKey={'value'}
                                         propValue={'label'}
                                         id={id}

@@ -17,6 +17,8 @@ import Organization from '../../../props/models/Organization';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFileTypeValidation from '../../../services/helpers/useFileTypeValidation';
 import usePushDanger from '../../../hooks/usePushDanger';
+import useAppConfigs from '../../../hooks/useAppConfigs';
+import { getImageCropperAcceptedFiles } from '../../../helpers/file';
 
 export default function PhotoSelectorBanner({
     disabled,
@@ -53,8 +55,9 @@ export default function PhotoSelectorBanner({
     const openModal = useOpenModal();
     const pushDanger = usePushDanger();
     const fileTypeIsValid = useFileTypeValidation();
+    const appConfigs = useAppConfigs();
+    const sourceExtensions = appConfigs?.media?.implementation_banner?.source_extensions;
 
-    const [acceptedFiles] = useState(['.png', '.jpg', '.jpeg', '.svg', '.webp', '.gif', '.bmp']);
     const [activeDropdown, setActiveDropdown] = useState<'style' | 'button' | 'color' | 'background' | 'overlay'>(null);
     const [descriptionPreview, setDescriptionPreview] = useState<string>(null);
 
@@ -78,6 +81,10 @@ export default function PhotoSelectorBanner({
                 label: `${(10 - option) * 10}%`,
             })),
     );
+
+    const acceptedFiles = useMemo(() => {
+        return sourceExtensions === undefined ? [] : getImageCropperAcceptedFiles(sourceExtensions);
+    }, [sourceExtensions]);
 
     const onPhotoChange = useCallback(
         (e: ChangeEvent<HTMLInputElement>) => {
@@ -127,6 +134,10 @@ export default function PhotoSelectorBanner({
             .then((res) => setDescriptionPreview(res.data.html))
             .catch(console.error);
     }, [description, markdownService]);
+
+    if (sourceExtensions === undefined) {
+        return null;
+    }
 
     return (
         <div className="block block-banner-editor">

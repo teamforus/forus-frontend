@@ -198,7 +198,6 @@ export default function ReservationFieldItem({
                             }
                             input={() => (
                                 <SelectControl
-                                    className="form-control"
                                     propKey={'key'}
                                     allowSearch={false}
                                     value={field.type}
@@ -225,7 +224,6 @@ export default function ReservationFieldItem({
                             }
                             input={() => (
                                 <SelectControl
-                                    className="form-control"
                                     propKey={'key'}
                                     allowSearch={false}
                                     value={field.fillable_by}

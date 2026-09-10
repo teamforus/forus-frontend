@@ -96,7 +96,6 @@ export default function FundFormPhysicalCardsCard({
                                     <SelectControl
                                         id={id}
                                         propKey={'value'}
-                                        className={'form-control'}
                                         value={form.values.fund_request_physical_card_enable}
                                         disabled={!fund.allow_physical_cards}
                                         options={options}
@@ -120,7 +119,6 @@ export default function FundFormPhysicalCardsCard({
                                         <SelectControl
                                             id={id}
                                             propKey={'id'}
-                                            className={'form-control'}
                                             value={form.values.fund_request_physical_card_type_id}
                                             options={physicalCardTypes}
                                             onChange={(fund_request_physical_card_type_id?: number) => {

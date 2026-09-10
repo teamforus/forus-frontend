@@ -34,4 +34,7 @@ export default {
         status: 'De huidige status van de reservering.',
         amount_extra: 'Het bedrag dat door de deelnemer is bijbetaald.',
     },
+    csv: {
+        default_note: '',
+    },
 };

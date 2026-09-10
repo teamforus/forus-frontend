@@ -25,6 +25,7 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import useProviderExporter from '../../../services/exporters/useProviderExporter';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import classNames from 'classnames';
 
 export default function SponsorProviderOrganizations() {
     const translate = useTranslate();
@@ -187,7 +188,8 @@ export default function SponsorProviderOrganizations() {
                             <Fragment>
                                 <label className="form-label">Sorteer op:</label>
                                 <SelectControl
-                                    className={'form-control form-control-text nowrap'}
+                                    className={classNames('form-control-text', 'nowrap', 'select-control-card-header')}
+                                    menuClassName={classNames('select-control-menu-card-header')}
                                     options={orderByOptions}
                                     propKey={'value'}
                                     allowSearch={false}
@@ -416,7 +418,7 @@ export default function SponsorProviderOrganizations() {
 
                             <FilterItemToggle label="Implementatie">
                                 <SelectControl
-                                    className={'form-control'}
+                                    className={classNames('select-control-filter-panel')}
                                     options={implementations}
                                     propKey={'id'}
                                     allowSearch={false}

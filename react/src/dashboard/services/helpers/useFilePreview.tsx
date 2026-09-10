@@ -1,15 +1,17 @@
 import React, { useCallback } from 'react';
 import ModalPdfPreview from '../../components/modals/ModalPdfPreview';
 import ModalImagePreview from '../../components/modals/ModalImagePreview';
+import ModalFilePdfPreview from '../../components/modals/ModalFilePdfPreview';
 import useOpenModal from '../../hooks/useOpenModal';
 import File from '../../props/models/File';
 import { useFileService } from '../FileService';
 import usePushApiError from '../../hooks/usePushApiError';
 import {
+    canPreviewFile,
     isImageExtension,
     isPdfExtension,
-    isPreviewableExtension,
     normalizeFileExtension,
+    usesPdfPreviewPages,
 } from '../../helpers/filePreview';
 
 export default function useFilePreview() {
@@ -22,7 +24,13 @@ export default function useFilePreview() {
         (file: File) => {
             const extension = normalizeFileExtension(file?.ext);
 
-            if (!isPreviewableExtension(extension)) {
+            if (!canPreviewFile(file)) {
+                return;
+            }
+
+            if (usesPdfPreviewPages(file)) {
+                openModal((modal) => <ModalFilePdfPreview modal={modal} file={file} />);
+
                 return;
             }
 
@@ -34,7 +42,16 @@ export default function useFilePreview() {
                     })
                     .catch(pushApiError);
             } else if (isImageExtension(extension)) {
-                openModal((modal) => <ModalImagePreview modal={modal} imageSrc={file.url} />);
+                fileService
+                    .downloadBlob(file)
+                    .then((res) => {
+                        const imageUrl = URL.createObjectURL(res.data);
+
+                        openModal((modal) => <ModalImagePreview modal={modal} imageSrc={imageUrl} />, {
+                            onClosed: () => URL.revokeObjectURL(imageUrl),
+                        });
+                    })
+                    .catch(pushApiError);
             }
         },
         [fileService, openModal, pushApiError],

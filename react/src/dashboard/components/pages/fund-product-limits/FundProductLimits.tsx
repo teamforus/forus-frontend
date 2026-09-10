@@ -13,7 +13,7 @@ import usePaginatorService from '../../../modules/paginator/services/usePaginato
 import { PaginationData } from '../../../props/ApiResponses';
 import FundProductLimit from '../../../props/models/FundProductLimit';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
-import ClickOutside from '../../elements/click-outside/ClickOutside';
+import ClickOutside from '../../../modules/click-outside/ClickOutside';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import DatePickerControl from '../../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../../helpers/dates';
@@ -32,6 +32,7 @@ import ModalDangerZone from '../../modals/ModalDangerZone';
 import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 import { useFundProductLimitService } from '../../../services/FundProductLimitService';
 import TableDateTime from '../../elements/tables/elements/TableDateTime';
+import classNames from 'classnames';
 
 export default function FundProductLimits() {
     const translate = useTranslate();
@@ -245,7 +246,8 @@ export default function FundProductLimits() {
 
                         <div className="form-group">
                             <SelectControl
-                                className="form-control inline-filter-control"
+                                className={classNames('select-control-card-header')}
+                                menuClassName={classNames('select-control-menu-card-header')}
                                 propKey={'id'}
                                 options={fundOptions}
                                 value={filter.activeValues.fund_id}
@@ -300,7 +302,7 @@ export default function FundProductLimits() {
 
                                             <FilterItemToggle label={translate('fund_product_limits.labels.state')}>
                                                 <SelectControl
-                                                    className="form-control"
+                                                    className={classNames('select-control-filter-panel')}
                                                     propKey={'key'}
                                                     allowSearch={true}
                                                     options={states}

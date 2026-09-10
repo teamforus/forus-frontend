@@ -259,7 +259,6 @@ export default function TransactionSettings() {
                                 <div className="form-group">
                                     <label className="form-label">Scheidingsteken</label>
                                     <SelectControl
-                                        className="form-control"
                                         propValue={'value'}
                                         propKey={'key'}
                                         allowSearch={false}

@@ -379,6 +379,7 @@ export default function ModalPrevalidationsUpload({
             return new Promise((resolve, reject) => {
                 setCsvProgress(CSVProgress.uploading);
 
+                const total = data.length;
                 const submitData = chunkList(JSON.parse(JSON.stringify(data)), dataChunkSize);
                 const chunksCount = submitData.length;
 
@@ -400,7 +401,7 @@ export default function ModalPrevalidationsUpload({
                             {
                                 name: csvFile.name,
                                 content: await fileToText(csvFile),
-                                total: data.length,
+                                total,
                                 chunk: currentChunkNth,
                                 chunks: chunksCount,
                                 chunkSize: dataChunkSize,

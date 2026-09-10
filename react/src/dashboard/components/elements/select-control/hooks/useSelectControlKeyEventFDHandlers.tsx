@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 export default function useSelectControlKeyEventFDHandlers(
     selectorRef?: React.MutableRefObject<HTMLElement>,
@@ -7,6 +7,8 @@ export default function useSelectControlKeyEventFDHandlers(
     showOptions?: boolean,
     setShowOptions?: React.Dispatch<React.SetStateAction<boolean>>,
 ) {
+    const wasOpenRef = useRef(showOptions);
+
     const [focusableSelectors] = useState([
         'a[href]',
         'area[href]',
@@ -50,6 +52,10 @@ export default function useSelectControlKeyEventFDHandlers(
         return focusable as Array<HTMLElement>;
     }, [selectorRef, optionsRef, focusableSelectors, isFocusable]);
 
+    const focusFirst = useCallback(() => {
+        getFocusable()[0]?.focus();
+    }, [getFocusable]);
+
     const onKeyDown = useCallback(
         (e: React.KeyboardEvent) => {
             const focusable = getFocusable();
@@ -67,8 +73,6 @@ export default function useSelectControlKeyEventFDHandlers(
 
             if (e.key == 'Escape') {
                 e.preventDefault();
-
-                window.setTimeout(() => selectorRef?.current?.focus(), 0);
                 return setShowOptions(false);
             }
 
@@ -113,10 +117,12 @@ export default function useSelectControlKeyEventFDHandlers(
     );
 
     useEffect(() => {
-        if (showOptions) {
-            window.setTimeout(() => getFocusable()[0]?.focus(), 0);
+        if (wasOpenRef.current && !showOptions) {
+            selectorRef?.current?.focus();
         }
-    }, [getFocusable, showOptions]);
 
-    return { onBlur, onKeyDown };
+        wasOpenRef.current = showOptions;
+    }, [selectorRef, showOptions]);
+
+    return { onBlur, onKeyDown, focusFirst };
 }

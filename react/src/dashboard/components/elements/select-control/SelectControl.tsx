@@ -9,8 +9,7 @@ import React, {
 } from 'react';
 import './styles/ui-select.scss';
 import { uniqueId } from 'lodash';
-// import SelectControlOptions from './templates/SelectControlOptions';
-import SelectControlOptionsFD from './templates/SelectControlOptionsFD';
+import SelectControlOptions from './templates/SelectControlOptions';
 
 type SelectControlProps<T> = {
     id?: string;
@@ -27,6 +26,7 @@ type SelectControlProps<T> = {
     placeholder?: string | null;
     disabled?: boolean;
     className?: string;
+    menuClassName?: string;
     scrollSize?: number;
     dusk?: string;
     optionsComponent?: FunctionComponent<SelectControlOptionsProp<T>>;
@@ -58,13 +58,16 @@ export type SelectControlOptionsProp<T> = {
     visibleCount: number;
     setVisibleCount: (visibleCount: number) => void;
     className?: string;
+    menuClassName?: string;
     onInputClick: (e: React.MouseEvent<HTMLInputElement>) => void;
-    modelValue?: { id: string; value: unknown; raw: T };
+    modelValue?: OptionType<T> | null;
     searchOption: (e: React.MouseEvent<HTMLElement>) => void;
     setShowOptions?: React.Dispatch<React.SetStateAction<boolean>>;
     searchInputChanged: () => void;
     searchAutoComplete?: HTMLInputAutoCompleteAttribute;
     onOptionsScroll: UIEventHandler;
+    isOptionSelected: (option: OptionType<T>) => boolean;
+    selectedOptionId?: string | null;
     disabled?: boolean;
     rawValue?: unknown;
     propKey?: string | null;
@@ -87,15 +90,16 @@ export default function SelectControl<T>({
     onSearchChange = null,
     disabled = false,
     className = null,
+    menuClassName = null,
     scrollSize = 50,
-    optionsComponent = SelectControlOptionsFD,
+    optionsComponent = SelectControlOptions,
     searchAutoComplete = 'off',
     dusk = null,
     multiline,
     ariaLabelledby = null,
 }: SelectControlProps<T>) {
     const [query, setQuery] = useState('');
-    const [modelValue, setModelValue] = useState(null);
+    const [modelValue, setModelValue] = useState<OptionType<T> | null>(null);
     const [showOptions, setShowOptions] = useState(false);
     const [visibleCount, setVisibleCount] = useState(scrollSize);
     const [scrollEndThreshold] = useState(10);
@@ -114,18 +118,24 @@ export default function SelectControl<T>({
         );
     }, [options, propValue]);
 
-    const findValue = useCallback(
-        (value: T | string | number | boolean) => {
-            return optionsPrepared.find((option) => {
-                if (strict) {
-                    return propKey ? option.raw[propKey] === value : option.raw == value;
-                }
+    const isOptionSelected = useCallback(
+        (option: OptionType<T>) => {
+            if (strict) {
+                return propKey ? option.raw[propKey] === value : option.raw === value;
+            }
 
-                return propKey ? option.raw[propKey] == value : option.raw == value;
-            });
+            return propKey ? option.raw[propKey] == value : option.raw == value;
         },
-        [optionsPrepared, propKey, strict],
+        [propKey, strict, value],
     );
+
+    const findValue = useCallback(() => {
+        return optionsPrepared.find(isOptionSelected);
+    }, [isOptionSelected, optionsPrepared]);
+
+    const selectedOptionId = useMemo(() => {
+        return findValue()?.id ?? null;
+    }, [findValue]);
 
     const prepareOptions = useCallback(
         (search: string) => {
@@ -224,7 +234,7 @@ export default function SelectControl<T>({
 
     useEffect(() => {
         setModelValue((oldValue: OptionType<T>) => {
-            const newValue = findValue(value);
+            const newValue = findValue();
 
             if (
                 oldValue &&
@@ -237,7 +247,7 @@ export default function SelectControl<T>({
 
             return oldValue != newValue ? newValue : oldValue;
         });
-    }, [findValue, propKey, propValue, value]);
+    }, [findValue, propKey, propValue]);
 
     useEffect(() => {
         if (modelValue) {
@@ -268,8 +278,11 @@ export default function SelectControl<T>({
         setShowOptions,
         searchInputChanged,
         onOptionsScroll,
+        isOptionSelected,
+        selectedOptionId,
         modelValue,
         className,
+        menuClassName,
         rawValue: value,
         disabled,
         propKey,

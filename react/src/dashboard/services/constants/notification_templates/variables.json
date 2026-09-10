@@ -63,5 +63,7 @@
     ":webshop_clarification_button": "[aanvulverzoek_link]",
     ":subsidy_new_limit": "[tegoed_nieuw_saldo]",
     ":email_signature": "[email_handtekening]",
-    ":email_logo": "[email_logo]"
+    ":email_logo": "[email_logo]",
+    ":provider_note": "[aanbieder_notitie]",
+    ":provider_message": "[aanbieder_bericht]"
 }

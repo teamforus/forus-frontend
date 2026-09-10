@@ -32,6 +32,18 @@ export class FileService<T = File> {
         return this.apiRequest.get(`${this.prefix}/${file.uid}/download`, {}, { responseType: 'arraybuffer' });
     }
 
+    public downloadArchive(file: File): Promise<ResponseSimple<ArrayBuffer>> {
+        return this.apiRequest.get(`${this.prefix}/${file.uid}/download-archive`, {}, { responseType: 'arraybuffer' });
+    }
+
+    public downloadPreviewArchive(file: File): Promise<ResponseSimple<ArrayBuffer>> {
+        return this.apiRequest.get(
+            `${this.prefix}/${file.uid}/download-preview-archive`,
+            {},
+            { responseType: 'arraybuffer' },
+        );
+    }
+
     public downloadBlob(file: File): Promise<ResponseSimple<Blob>> {
         return this.apiRequest.get(`${this.prefix}/${file.uid}/download`, {}, { responseType: 'blob' });
     }

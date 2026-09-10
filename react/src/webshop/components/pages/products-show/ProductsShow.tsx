@@ -244,7 +244,9 @@ export default function ProductsShow() {
                                         <span>{product?.product_category?.name}</span>
                                     </div>
 
-                                    <div className="product-overview-price">{price}</div>
+                                    <div className="product-overview-price" data-dusk="productPrice">
+                                        {price}
+                                    </div>
 
                                     {authIdentity ? (
                                         <Fragment>

@@ -1,16 +1,8 @@
 import React, { Fragment, useCallback, useMemo } from 'react';
-import { useFileService } from '../../../services/FileService';
-import { ResponseError } from '../../../props/ApiResponses';
-import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
-import ModalImagePreview from '../../modals/ModalImagePreview';
-import ModalPdfPreview from '../../modals/ModalPdfPreview';
 import { FileUploaderItem } from '../../../../webshop/components/elements/file-uploader/FileUploader';
-import {
-    isImageExtension,
-    isPdfExtension,
-    isPreviewableExtension,
-    normalizeFileExtension,
-} from '../../../helpers/filePreview';
+import { isPdfExtension } from '../../../helpers/filePreview';
+import useFileDownload from '../../../services/helpers/useFileDownload';
+import useFilePreview from '../../../services/helpers/useFilePreview';
 
 export default function FileUploaderItemView({
     item,
@@ -25,12 +17,17 @@ export default function FileUploaderItemView({
     readOnly?: boolean;
     removeFile?: (file: FileUploaderItem) => void;
 }) {
-    const openModal = useOpenModal();
-    const fileService = useFileService();
+    const filePreview = useFilePreview();
+    const fileDownload = useFileDownload();
 
     const name = useMemo(() => {
         return item.file?.name || item.file_data?.original_name || '';
     }, [item.file?.name, item.file_data?.original_name]);
+
+    const showPreviewButton = item.has_preview && !hidePreviewButton;
+    const showDownloadButton = !item.uploading && !hideDownloadButton;
+    const showRemoveButton = !readOnly;
+    const previewButtonTitle = isPdfExtension(item.file_data?.ext) ? 'Bekijk PDF-bestand' : 'Bekijk file';
 
     const previewFile = useCallback(
         (e: React.MouseEvent, file: Partial<FileUploaderItem>) => {
@@ -38,36 +35,28 @@ export default function FileUploaderItemView({
             e.stopPropagation();
 
             const fileData = file.file_data;
-            const fileExtension = normalizeFileExtension(fileData?.ext);
 
-            if (!fileData || !isPreviewableExtension(fileExtension)) {
+            if (!fileData) {
                 return;
             }
 
-            if (isPdfExtension(fileExtension)) {
-                fileService
-                    .downloadBlob(fileData)
-                    .then((res) => {
-                        openModal((modal) => <ModalPdfPreview modal={modal} rawPdfFile={res.data} />);
-                    })
-                    .catch((err: ResponseError) => console.error(err));
-            } else if (isImageExtension(fileExtension)) {
-                openModal((modal) => <ModalImagePreview modal={modal} imageSrc={fileData.url} />);
-            }
+            filePreview(fileData);
         },
-        [fileService, openModal],
+        [filePreview],
     );
 
     const downloadFile = useCallback(
-        (e: React.MouseEvent, file: Partial<FileUploaderItem>) => {
+        (e: React.MouseEvent, fileData: FileUploaderItem['file_data']) => {
             e.preventDefault();
             e.stopPropagation();
 
-            fileService.download(file.file_data).then((res) => {
-                fileService.downloadFile(file.file_data.original_name, res.data);
-            }, console.error);
+            if (!fileData) {
+                return;
+            }
+
+            fileDownload(fileData);
         },
-        [fileService],
+        [fileDownload],
     );
 
     return (
@@ -81,29 +70,31 @@ export default function FileUploaderItemView({
                     <div className="attachment-name">{name}</div>
                     <div className="attachment-date"></div>
                     <div className="attachment-actions">
-                        {!item.uploading && !hideDownloadButton && (
+                        {showDownloadButton && (
                             <button
                                 type="button"
                                 className="attachment-action"
                                 title="Download"
                                 aria-label="Download"
-                                onClick={(e) => downloadFile(e, item)}>
+                                data-dusk="fileDownloadButton"
+                                onClick={(e) => downloadFile(e, item.file_data)}>
                                 <div className="mdi mdi-download" aria-hidden="true" />
                             </button>
                         )}
 
-                        {item.has_preview && !hidePreviewButton && (
+                        {showPreviewButton && (
                             <button
                                 type="button"
                                 className="attachment-action"
-                                title={isPdfExtension(item.file_data?.ext) ? 'Bekijk PDF-bestand' : 'Bekijk file'}
-                                aria-label={isPdfExtension(item.file_data?.ext) ? 'Bekijk PDF-bestand' : 'Bekijk file'}
+                                title={previewButtonTitle}
+                                aria-label={previewButtonTitle}
+                                data-dusk="filePreviewButton"
                                 onClick={(e) => previewFile(e, item)}>
                                 <div className="mdi mdi-eye" aria-hidden="true" />
                             </button>
                         )}
 
-                        {!readOnly && (
+                        {showRemoveButton && (
                             <div className="file-item-action">
                                 <button
                                     type="button"

@@ -144,6 +144,14 @@ export default function Reservations() {
     const { acceptReservations, rejectReservations, archiveReservations, unarchiveReservations } =
         useReservationsTableActions(activeOrganization, fetchAllReservations);
 
+    const selectedRejectableButtonText = selectedMeta?.selected_rejectable.every(
+        (reservation) => reservation.state === 'accepted',
+    )
+        ? 'Annuleren'
+        : selectedMeta?.selected_rejectable.some((reservation) => reservation.state === 'accepted')
+          ? 'Weigeren of annuleren'
+          : 'Afwijzen';
+
     const toggleAcceptByDefault = useCallback(
         async (value: boolean) => {
             setAcceptByDefault(value);
@@ -279,7 +287,7 @@ export default function Reservations() {
                                         className="button button-danger button-sm"
                                         onClick={() => rejectReservations(selectedMeta?.selected_rejectable)}>
                                         <em className="mdi mdi-close-box-multiple icon-start" />
-                                        Afwijzen
+                                        {selectedRejectableButtonText}
                                     </button>
                                 )}
                                 {selectedMeta?.selected_archivable?.length > 0 && (

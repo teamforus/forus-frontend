@@ -165,7 +165,6 @@ export default function ModalFundProductLimitEdit({
                         input={(id) => (
                             <SelectControl
                                 id={id}
-                                className="form-control"
                                 value={form.values.fund_id}
                                 propKey="id"
                                 options={funds}
@@ -183,7 +182,6 @@ export default function ModalFundProductLimitEdit({
                         input={(id) => (
                             <SelectControl
                                 id={id}
-                                className="form-control"
                                 value={form.values.type}
                                 propKey="id"
                                 options={types}
@@ -225,7 +223,6 @@ export default function ModalFundProductLimitEdit({
                                     <div className="form-group-info" key={index}>
                                         <div className="form-group-info-control">
                                             <SelectControl
-                                                className="form-control"
                                                 value={p}
                                                 propKey="id"
                                                 options={productOptions}

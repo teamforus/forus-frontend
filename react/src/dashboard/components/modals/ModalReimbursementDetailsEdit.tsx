@@ -129,7 +129,6 @@ export default function ModalReimbursementDetailsEdit({
                                 <div className="row">
                                     <div className="col col-xs-9">
                                         <SelectControl
-                                            className={'form-control'}
                                             options={categories}
                                             propKey={'id'}
                                             allowSearch={false}

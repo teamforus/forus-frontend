@@ -6,10 +6,9 @@ import usePaginatorService from '../../../modules/paginator/services/usePaginato
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import useSetProgress from '../../../hooks/useSetProgress';
-import ClickOutside from '../../elements/click-outside/ClickOutside';
+import ClickOutside from '../../../modules/click-outside/ClickOutside';
 import FilterItemToggle from '../../elements/tables/elements/FilterItemToggle';
 import SelectControl from '../../elements/select-control/SelectControl';
-import SelectControlOptions from '../../elements/select-control/templates/SelectControlOptions';
 import useImplementationService from '../../../services/ImplementationService';
 import Implementation from '../../../props/models/Implementation';
 import { strLimit } from '../../../helpers/string';
@@ -27,6 +26,7 @@ import TableDateTime from '../../elements/tables/elements/TableDateTime';
 import { NumberParam, StringParam } from 'use-query-params';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import classNames from 'classnames';
 
 export default function FundForms() {
     const translate = useTranslate();
@@ -172,13 +172,12 @@ export default function FundForms() {
                                                         'components.organization_funds_forms.filters.state',
                                                     )}>
                                                     <SelectControl
-                                                        className="form-control"
+                                                        className={classNames('select-control-filter-panel')}
                                                         propKey={'value'}
                                                         propValue={'label'}
                                                         allowSearch={false}
                                                         value={filterValues.state}
                                                         options={statesOptions}
-                                                        optionsComponent={SelectControlOptions}
                                                         onChange={(state: string) => filterUpdate({ state })}
                                                     />
                                                 </FilterItemToggle>
@@ -188,12 +187,11 @@ export default function FundForms() {
                                                         'components.organization_funds_forms.filters.implementation',
                                                     )}>
                                                     <SelectControl
-                                                        className="form-control"
+                                                        className={classNames('select-control-filter-panel')}
                                                         propKey={'id'}
                                                         allowSearch={false}
                                                         value={filterValues.implementation_id}
                                                         options={implementations}
-                                                        optionsComponent={SelectControlOptions}
                                                         onChange={(implementation_id: number) =>
                                                             filterUpdate({ implementation_id })
                                                         }

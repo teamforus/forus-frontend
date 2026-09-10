@@ -330,7 +330,6 @@ export default function ImplementationCmsBlocksEditor({
                                         input={(id) => (
                                             <SelectControl
                                                 id={id}
-                                                className="form-control"
                                                 propKey={'value'}
                                                 value={block.state}
                                                 options={blockStates}

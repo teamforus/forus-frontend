@@ -15,9 +15,9 @@ import TableEmptyValue from '../elements/table-empty-value/TableEmptyValue';
 import usePushApiError from '../../hooks/usePushApiError';
 import classNames from 'classnames';
 import FormGroup from '../elements/forms/elements/FormGroup';
-import SelectControlOptionsFund from '../elements/select-control/templates/SelectControlOptionsFund';
 import useTranslate from '../../hooks/useTranslate';
 import { ProfileRecordType } from '../../props/models/Sponsor/SponsorIdentity';
+import SelectControlOptionsFund from '../elements/select-control/templates/SelectControlOptionsFund';
 
 export default function ModalCreatePrevalidation({
     modal,
@@ -249,7 +249,7 @@ export default function ModalCreatePrevalidation({
                                         input={(id) => (
                                             <SelectControl
                                                 id={id}
-                                                className="form-control inline-filter-control"
+                                                className={classNames('inline-filter-control')}
                                                 propKey={'id'}
                                                 options={funds}
                                                 value={fund.id}

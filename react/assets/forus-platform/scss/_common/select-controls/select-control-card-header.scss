@@ -1,0 +1,36 @@
+.select-control.select-control-card-header {
+    width: 180px !important;
+    min-height: auto !important;
+    height: 30px;
+    margin: 0;
+
+    .select-control-input {
+        .select-control-search {
+            height: 30px;
+            margin: 0;
+            padding: 0 30px 0 10px;
+            line-height: 28px;
+        }
+    }
+
+    &.select-control-funds {
+        width: 240px !important;
+
+        .select-control-input {
+            .select-control-search {
+                padding-left: 7.5px;
+                font-size: 12px;
+            }
+        }
+    }
+}
+
+.select-control-menu.select-control-menu-card-header {
+    .select-control-options {
+        .select-control-option {
+            padding-left: 10px;
+            color: #353535;
+            font: 500 12px/20px var(--base-font);
+        }
+    }
+}

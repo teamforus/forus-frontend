@@ -28,6 +28,7 @@ import { Permission } from '../../../props/models/Organization';
 import { useFundService } from '../../../services/FundService';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import classNames from 'classnames';
 
 export default function FundRequests() {
     const appConfigs = useAppConfigs();
@@ -223,7 +224,7 @@ export default function FundRequests() {
                         </FilterItemToggle>
                         <FilterItemToggle label={translate('validation_requests.labels.state')}>
                             <SelectControl
-                                className={'form-control'}
+                                className={classNames('select-control-filter-panel')}
                                 options={states}
                                 propKey={'key'}
                                 allowSearch={false}
@@ -232,7 +233,7 @@ export default function FundRequests() {
                         </FilterItemToggle>
                         <FilterItemToggle label={translate('validation_requests.labels.assignee_state')}>
                             <SelectControl
-                                className={'form-control'}
+                                className={classNames('select-control-filter-panel')}
                                 options={assignedOptions}
                                 propKey={'key'}
                                 allowSearch={false}
@@ -242,7 +243,7 @@ export default function FundRequests() {
                         <FilterItemToggle label={translate('validation_requests.labels.assigned_to')}>
                             {employees && (
                                 <SelectControl
-                                    className={'form-control'}
+                                    className={classNames('select-control-filter-panel')}
                                     options={employees.data}
                                     propKey={'id'}
                                     propValue={'email'}

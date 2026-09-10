@@ -144,7 +144,6 @@ export default function ImplementationTermsAndPrivacy() {
                                         }>
                                         <SelectControl
                                             id={id}
-                                            className="form-control"
                                             propKey="value"
                                             propValue="label"
                                             allowSearch={false}
@@ -178,7 +177,6 @@ export default function ImplementationTermsAndPrivacy() {
                                         }>
                                         <SelectControl
                                             id={id}
-                                            className="form-control"
                                             propKey="value"
                                             propValue="label"
                                             allowSearch={false}

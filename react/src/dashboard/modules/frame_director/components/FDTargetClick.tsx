@@ -1,16 +1,20 @@
-import React, { ReactElement, useCallback, useRef, useState } from 'react';
-import FrameDirectorObserver from '../FrameDirectorObserver';
-import { FDAlign, FDItem, FDPosition } from '../../context/FrameDirectorContext';
-import ClickOutside from '../../../../components/elements/click-outside/ClickOutside';
+import React, { Dispatch, ReactElement, SetStateAction, useCallback, useRef, useState } from 'react';
+
+import FrameDirectorObserver from './FrameDirectorObserver';
+import type { FDAlign, FDItem, FDPosition } from '../types';
+import ClickOutside from '../../click-outside/ClickOutside';
 
 export interface FDTargetContainerProps {
     item: FDItem;
     position: FDPosition;
     align: FDAlign;
+    className?: string;
     content?: ((props: FDTargetContainerProps) => ReactElement | ReactElement[]) | ReactElement | ReactElement[];
     icon?: string;
     title?: string;
     close?: () => void;
+    onContentReady?: () => void;
+    onPositionChange?: (position: FDPosition) => void;
 }
 
 export default function FDTargetClick({
@@ -21,12 +25,16 @@ export default function FDTargetClick({
     position = 'bottom',
     children,
     contentContainer: FdTargetContainer,
+    contentContainerClassName,
     syncType = 'observer',
     showExternal = false,
     show,
     setShow,
     className,
     observerClassName,
+    stackRoot = false,
+    onContentReady,
+    onPositionChange,
 }: {
     icon?: string;
     title?: string;
@@ -34,36 +42,42 @@ export default function FDTargetClick({
     align?: FDAlign;
     position?: FDPosition;
     children?: ReactElement | ReactElement[];
-    contentContainer?: (props: FDTargetContainerProps) => ReactElement;
+    contentContainer: (props: FDTargetContainerProps) => ReactElement;
+    contentContainerClassName?: string;
     syncType?: 'observer' | 'requestAnimationFrame';
     showExternal?: boolean;
     show?: boolean;
-    setShow?: React.Dispatch<React.SetStateAction<boolean>>;
+    setShow?: Dispatch<SetStateAction<boolean>>;
     className?: string;
     observerClassName?: string;
+    stackRoot?: boolean;
+    onContentReady?: () => void;
+    onPositionChange?: (position: FDPosition) => void;
 }) {
     const [internalShow, setInternalShow] = useState(false);
     const elRef = useRef<HTMLDivElement>(null);
 
     const setShowValue = useCallback(
         (value: boolean) => {
-            return showExternal ? setShow(value) : setInternalShow(value);
+            showExternal ? setShow(value) : setInternalShow(value);
         },
         [setShow, showExternal],
     );
+    const isOpen = showExternal ? !!show : internalShow;
 
     return (
         <ClickOutside
             elRef={elRef}
+            disabled={!isOpen}
             attr={{
                 className,
                 onClick: (e) => {
                     e.stopPropagation();
-                    setShowValue(!internalShow);
+                    setShowValue(!isOpen);
                 },
             }}
             onClickOutside={() => setShowValue(false)}>
-            {(showExternal ? show : internalShow) ? (
+            {isOpen ? (
                 <FrameDirectorObserver
                     position={position}
                     align={align}
@@ -71,14 +85,18 @@ export default function FDTargetClick({
                     fallbackPositions={true}
                     close={() => setShowValue(false)}
                     syncType={syncType}
+                    stackRoot={stackRoot}
                     element={(item) => (
                         <FdTargetContainer
                             icon={icon}
                             title={title}
+                            className={contentContainerClassName}
                             content={content}
                             position={position}
                             align={align}
                             close={() => setShowValue(false)}
+                            onContentReady={onContentReady}
+                            onPositionChange={onPositionChange}
                             item={item}
                         />
                     )}>

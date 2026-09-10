@@ -123,7 +123,6 @@ export default function VoucherRecordsEditor({
                             </div>
                         ) : (
                             <SelectControl
-                                className="form-control"
                                 allowSearch={false}
                                 options={recordTypesAvailable}
                                 value={recordType}

@@ -225,7 +225,6 @@ export default function SystemNotificationEditor({
                                 <div className="keyvalue-value">
                                     <div className="col col-xs-12 col-lg-8">
                                         <SelectControl
-                                            className="form-control"
                                             placeholder="Kies een fonds"
                                             options={funds}
                                             value={fund}

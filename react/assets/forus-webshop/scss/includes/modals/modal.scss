@@ -32,14 +32,17 @@
 
         .modal-close {
             position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 25px;
+            height: 25px;
             font-size: 20px;
             line-height: 25px;
-            right: var(--modal-section-padding);
+            right: 15px;
             top: 15px;
-            display: block;
             cursor: pointer;
             color: #848484;
-            transition: color .4s;
             z-index: 1;
             background: none;
             border: none;

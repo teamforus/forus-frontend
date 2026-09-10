@@ -362,7 +362,6 @@ export default function FundBackofficeEdit() {
                                     <div className="form-group-info">
                                         <div className="form-group-info-control">
                                             <SelectControl
-                                                className={'form-control'}
                                                 options={fallbackOptions}
                                                 propKey={'value'}
                                                 propValue={'label'}
@@ -416,7 +415,6 @@ export default function FundBackofficeEdit() {
                                     <div className="form-group-info">
                                         <div className="form-group-info-control">
                                             <SelectControl
-                                                className={'form-control'}
                                                 options={ineligiblePolicyOptions}
                                                 propKey={'value'}
                                                 propValue={'label'}

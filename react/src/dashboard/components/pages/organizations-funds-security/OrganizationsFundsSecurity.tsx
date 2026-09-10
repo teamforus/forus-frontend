@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import useFormBuilder from '../../../hooks/useFormBuilder';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import Fund from '../../../props/models/Fund';
@@ -120,7 +121,6 @@ export default function OrganizationsFundsSecurity() {
                                     <div className="form-label">2FA beperkingen</div>
 
                                     <SelectControl
-                                        className="form-control"
                                         propKey={'value'}
                                         allowSearch={false}
                                         value={form.values?.auth_2fa_policy}
@@ -134,7 +134,7 @@ export default function OrganizationsFundsSecurity() {
                                 {form.values?.auth_2fa_policy == 'global' && (
                                     <div className="form-group">
                                         <SelectControl
-                                            className="form-control disabled"
+                                            className={classNames('disabled')}
                                             propKey={'value'}
                                             allowSearch={false}
                                             value={fund.organization_funds_2fa.auth_2fa_policy}

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
-import ClickOutside from '../../../../../dashboard/components/elements/click-outside/ClickOutside';
+import ClickOutside from '../../../../../dashboard/modules/click-outside/ClickOutside';
 import { strLimit } from '../../../../../dashboard/helpers/string';
 import useAuthIdentity from '../../../../hooks/useAuthIdentity';
 import { mainContext } from '../../../../contexts/MainContext';

@@ -1,22 +1,22 @@
 import React, { Fragment, useMemo } from 'react';
 import { OptionType } from '../../../../../../dashboard/components/elements/select-control/SelectControl';
 import Voucher from '../../../../../../dashboard/props/models/Voucher';
-import useAssetUrl from '../../../../../hooks/useAssetUrl';
 
 export default function SelectControlOptionItemVoucher<T>({
     option,
+    fallbackThumbnailUrl,
     selectOption,
 }: {
     option: OptionType<T>;
+    fallbackThumbnailUrl: string;
     selectOption: (options: OptionType<T>) => void;
 }) {
     const voucher = useMemo(() => option?.raw as Voucher, [option]);
-    const assetUrl = useAssetUrl();
 
     return (
         <div
             key={option.id}
-            className="voucher-item voucher-item-select voucher-item-select"
+            className="voucher-item voucher-item-select"
             data-dusk={`voucherSelectorOption${voucher?.id}`}
             onKeyDown={(e) => (e.key === 'Enter' ? e.currentTarget.click() : null)}
             tabIndex={0}
@@ -31,7 +31,7 @@ export default function SelectControlOptionItemVoucher<T>({
                     src={
                         voucher?.fund?.logo?.sizes.thumbnail ||
                         voucher?.fund?.organization?.logo?.sizes?.thumbnail ||
-                        assetUrl('/assets/img/placeholders/fund-thumbnail.png')
+                        fallbackThumbnailUrl
                     }
                 />
             </div>

@@ -25,6 +25,7 @@ import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import BlockLabelTabs from '../../elements/block-label-tabs/BlockLabelTabs';
 import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 import usePushApiError from '../../../hooks/usePushApiError';
+import classNames from 'classnames';
 
 export default function Reimbursements() {
     const activeOrganization = useActiveOrganization();
@@ -189,7 +190,8 @@ export default function Reimbursements() {
                             <div className="form">
                                 <div className="form-group">
                                     <SelectControl
-                                        className="form-control inline-filter-control"
+                                        className={classNames('select-control-card-header')}
+                                        menuClassName={classNames('select-control-menu-card-header')}
                                         propKey={'id'}
                                         options={funds}
                                         value={filterValuesActive.fund_id}
@@ -236,7 +238,7 @@ export default function Reimbursements() {
 
                                 <FilterItemToggle label={translate('reimbursements.labels.state')}>
                                     <SelectControl
-                                        className="form-control"
+                                        className={classNames('select-control-filter-panel')}
                                         propKey={'value'}
                                         allowSearch={false}
                                         value={filterValues.state}
@@ -249,7 +251,7 @@ export default function Reimbursements() {
                                     <Fragment>
                                         <FilterItemToggle label={translate('reimbursements.labels.expired')}>
                                             <SelectControl
-                                                className="form-control"
+                                                className={classNames('select-control-filter-panel')}
                                                 propKey={'value'}
                                                 allowSearch={false}
                                                 value={filterValues.expired}
@@ -260,7 +262,7 @@ export default function Reimbursements() {
 
                                         <FilterItemToggle label={translate('reimbursements.labels.deactivated')}>
                                             <SelectControl
-                                                className="form-control"
+                                                className={classNames('select-control-filter-panel')}
                                                 propKey={'value'}
                                                 allowSearch={false}
                                                 value={filterValues.deactivated}
@@ -325,7 +327,7 @@ export default function Reimbursements() {
 
                                 <FilterItemToggle label={translate('reimbursements.labels.implementation')}>
                                     <SelectControl
-                                        className="form-control"
+                                        className={classNames('select-control-filter-panel')}
                                         propKey={'id'}
                                         allowSearch={false}
                                         value={filterValues.implementation_id}

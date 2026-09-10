@@ -95,7 +95,6 @@ export default function ImplementationsInlineBlockEditor({
                     input={(id) => (
                         <SelectControl
                             id={id}
-                            className="form-control"
                             propKey={'value'}
                             value={pageBlock?.state}
                             onChange={(state: string) => setPageBlock({ ...pageBlock, state })}

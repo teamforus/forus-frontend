@@ -98,7 +98,6 @@ export default function CmsBlockFieldInput({
         return (
             <SelectControl
                 id={id}
-                className="form-control"
                 propKey={'value'}
                 allowSearch={false}
                 value={value ?? field.default ?? null}
@@ -160,7 +159,6 @@ export default function CmsBlockFieldInput({
             return (
                 <SelectControl
                     id={id}
-                    className="form-control"
                     propKey={'value'}
                     value={value ?? field.default ?? null}
                     onChange={(value: number) => onChange({ value })}

@@ -9,7 +9,7 @@ import EventLog from '../../../props/models/EventLog';
 import { hasPermission } from '../../../helpers/utils';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import Organization from '../../../props/models/Organization';
-import ClickOutside from '../click-outside/ClickOutside';
+import ClickOutside from '../../../modules/click-outside/ClickOutside';
 import { strLimit } from '../../../helpers/string';
 import usePaginatorService from '../../../modules/paginator/services/usePaginatorService';
 import useTranslate from '../../../hooks/useTranslate';

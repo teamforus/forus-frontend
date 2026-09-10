@@ -1,6 +1,6 @@
 import React, { useCallback, useId, useMemo, useState } from 'react';
 import type { ColorResult } from '@uiw/color-convert';
-import ClickOutside from '../../click-outside/ClickOutside';
+import ClickOutside from '../../../../modules/click-outside/ClickOutside';
 import PhotoSelectorBannerControlColorPicker from '../../photo-selector/elements/PhotoSelectorBannerControlColorPicker';
 
 const validColorPattern = /^#[a-fA-F0-9]{3,4}$|^#[a-fA-F0-9]{6}$|^#[a-fA-F0-9]{8}$/;

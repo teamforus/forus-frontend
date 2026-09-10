@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef, useEffect, ChangeEvent } from 'react';
+import React, { useCallback, useState, useRef, useEffect, ChangeEvent, useMemo } from 'react';
 import ModalPhotoUploader from '../../modals/ModalPhotoUploader';
 import { uniqueId } from 'lodash';
 import useOpenModal from '../../../hooks/useOpenModal';
@@ -6,6 +6,8 @@ import useAssetUrl from '../../../hooks/useAssetUrl';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushDanger from '../../../hooks/usePushDanger';
 import useFileTypeValidation from '../../../services/helpers/useFileTypeValidation';
+import useAppConfigs from '../../../hooks/useAppConfigs';
+import { getImageCropperAcceptedFiles } from '../../../helpers/file';
 
 export default function PhotoSelector({
     id,
@@ -42,8 +44,13 @@ export default function PhotoSelector({
     const openModal = useOpenModal();
     const pushDanger = usePushDanger();
     const fileTypeIsValid = useFileTypeValidation();
+    const appConfigs = useAppConfigs();
+    const sourceExtensions = appConfigs?.media?.[type]?.source_extensions;
 
-    const [acceptedFiles] = useState(['.png', '.jpg', '.jpeg', '.svg', '.webp', '.gif', '.bmp']);
+    const acceptedFiles = useMemo(() => {
+        return sourceExtensions === undefined ? [] : getImageCropperAcceptedFiles(sourceExtensions);
+    }, [sourceExtensions]);
+
     const acceptedFilesLabel = acceptedFiles.map((item) => item.toUpperCase()).join(', ');
 
     const onPhotoChange = useCallback(
@@ -80,6 +87,10 @@ export default function PhotoSelector({
     useEffect(() => {
         setThumbnailValue(thumbnail);
     }, [thumbnail]);
+
+    if (sourceExtensions === undefined) {
+        return null;
+    }
 
     if (template == 'default') {
         return (

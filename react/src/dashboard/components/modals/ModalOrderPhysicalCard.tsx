@@ -137,7 +137,6 @@ export default function ModalOrderPhysicalCard({
                                         id={id}
                                         propKey={'id'}
                                         propValue={'name'}
-                                        className={'form-control'}
                                         value={form.values.fund_physical_card_type_id}
                                         options={types}
                                         onChange={(fund_physical_card_type_id?: number) => {

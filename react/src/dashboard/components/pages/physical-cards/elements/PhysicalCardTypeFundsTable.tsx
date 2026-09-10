@@ -17,12 +17,13 @@ import { useFundService } from '../../../../services/FundService';
 import Fund from '../../../../props/models/Fund';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import { hasPermission } from '../../../../helpers/utils';
-import ClickOutside from '../../../elements/click-outside/ClickOutside';
+import ClickOutside from '../../../../modules/click-outside/ClickOutside';
 import FundStateLabels from '../../../elements/resource-states/FundStateLabels';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import { Permission } from '../../../../props/models/Organization';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
 import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
+import classNames from 'classnames';
 
 export default function PhysicalCardTypeFundsTable({ physicalCardType }: { physicalCardType: PhysicalCardType }) {
     const translate = useTranslate();
@@ -157,7 +158,7 @@ export default function PhysicalCardTypeFundsTable({ physicalCardType }: { physi
                                                 <FilterItemToggle
                                                     label={translate('components.organization_funds.filters.state')}>
                                                     <SelectControl
-                                                        className="form-control"
+                                                        className={classNames('select-control-filter-panel')}
                                                         propKey={'key'}
                                                         allowSearch={false}
                                                         value={filterValues.state}

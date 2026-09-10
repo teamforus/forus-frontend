@@ -124,13 +124,13 @@ export default function ProductCategoriesControl({
                     ) : null}
 
                     <SelectControl
-                        className="form-control"
                         propKey="id"
                         options={categoriesHierarchy[index]}
                         value={categoriesValues[index]}
                         onChange={(value?: number) => changeCategory(index, value)}
                         disabled={disabled}
                         placeholder="Selecteer categorie..."
+                        dusk={`selectControlProductCategory${index}`}
                     />
 
                     {index == categoriesHierarchy.length - 1 && <FormError error={errors} />}

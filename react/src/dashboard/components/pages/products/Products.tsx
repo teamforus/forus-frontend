@@ -128,9 +128,9 @@ export default function Products() {
     }
 
     return (
-        <div className="card">
+        <div className="card" data-dusk="tableProductContent">
             <div className="card-header">
-                <div className="card-title flex flex-grow">
+                <div className="card-title flex flex-grow" data-dusk="productsTitle">
                     {translate('products.offers')} ({products?.meta?.total})
                 </div>
 
@@ -146,6 +146,7 @@ export default function Products() {
                                 productHardLimitReached && 'disabled',
                             )}
                             id="add_product"
+                            dataDusk="addProduct"
                             disabled={productHardLimitReached}>
                             <em className="mdi mdi-plus-circle icon-start" />
                             {translate('products.add')}
@@ -170,7 +171,7 @@ export default function Products() {
                                     type="text"
                                     value={filterValues.q}
                                     onChange={(e) => filterUpdate({ q: e.target.value })}
-                                    data-dusk="searchTransaction"
+                                    data-dusk="tableProductSearch"
                                     placeholder={translate('transactions.labels.search')}
                                 />
                             </div>
@@ -209,6 +210,7 @@ export default function Products() {
                             organizationId: activeOrganization.id,
                         }}
                         customElement={'tr'}
+                        dataDusk={`tableProductRow${product.id}`}
                         className={'tr-clickable'}>
                         <td className={'td-narrow'}>{product.id}</td>
                         <td title={product.name}>

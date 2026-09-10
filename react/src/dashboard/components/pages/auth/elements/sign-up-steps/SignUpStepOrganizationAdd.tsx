@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
 import UIControlText from '../../../../elements/forms/ui-controls/UIControlText';
 import PhotoSelector from '../../../../elements/photo-selector/PhotoSelector';
 import UIControlCheckbox from '../../../../elements/forms/ui-controls/UIControlCheckbox';
@@ -308,6 +309,7 @@ export default function SignUpStepOrganizationAdd({
                                         input={(id) => (
                                             <SelectControl
                                                 id={id}
+                                                className={classNames('select-control-sign-up')}
                                                 value={formOrganization.values.business_type_id}
                                                 propKey={'id'}
                                                 allowSearch={true}

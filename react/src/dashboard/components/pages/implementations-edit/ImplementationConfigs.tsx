@@ -171,7 +171,6 @@ export default function ImplementationConfigs() {
                             input={(id) => (
                                 <SelectControl
                                     id={id}
-                                    className="form-control"
                                     propKey="value"
                                     propValue="label"
                                     allowSearch={false}
@@ -195,7 +194,6 @@ export default function ImplementationConfigs() {
                                             error={form.errors?.products_default_sorting}
                                             info={translate('implementation_config.info.show_home_map')}>
                                             <SelectControl
-                                                className="form-control"
                                                 propKey={'value'}
                                                 value={form.values.show_home_map}
                                                 options={showHideOptions}
@@ -214,7 +212,6 @@ export default function ImplementationConfigs() {
                                             error={form.errors?.products_default_sorting}
                                             info={translate('implementation_config.info.show_home_products')}>
                                             <SelectControl
-                                                className="form-control"
                                                 propKey={'value'}
                                                 value={form.values.show_home_products}
                                                 options={showHideOptions}
@@ -240,7 +237,6 @@ export default function ImplementationConfigs() {
                                             error={form.errors?.products_default_sorting}
                                             info={translate('implementation_config.info.select_default_sorting')}>
                                             <SelectControl
-                                                className="form-control"
                                                 propKey={'value'}
                                                 value={form.values.products_default_sorting}
                                                 options={productSortOptions}
@@ -261,7 +257,6 @@ export default function ImplementationConfigs() {
                                             error={form.errors?.products_default_sorting}
                                             info={translate('implementation_config.info.show_product_map')}>
                                             <SelectControl
-                                                className="form-control"
                                                 propKey={'value'}
                                                 value={form.values.show_product_map}
                                                 options={showHideOptions}
@@ -285,7 +280,6 @@ export default function ImplementationConfigs() {
                                     error={form.errors?.products_default_sorting}
                                     info={translate('implementation_config.info.show_providers_map')}>
                                     <SelectControl
-                                        className="form-control"
                                         propKey={'value'}
                                         value={form.values.show_providers_map}
                                         options={showHideOptions}
@@ -305,7 +299,6 @@ export default function ImplementationConfigs() {
                                     error={form.errors?.products_default_sorting}
                                     info={translate('implementation_config.info.show_provider_map')}>
                                     <SelectControl
-                                        className="form-control"
                                         propKey={'value'}
                                         value={form.values.show_provider_map}
                                         options={showHideOptions}
@@ -325,7 +318,6 @@ export default function ImplementationConfigs() {
                                     error={form.errors?.products_default_sorting}
                                     info={translate('implementation_config.info.show_office_map')}>
                                     <SelectControl
-                                        className="form-control"
                                         propKey={'value'}
                                         value={form.values.show_office_map}
                                         options={showHideOptions}
@@ -345,7 +337,6 @@ export default function ImplementationConfigs() {
                                     error={form.errors?.products_default_sorting}
                                     info={translate('implementation_config.info.show_voucher_map')}>
                                     <SelectControl
-                                        className="form-control"
                                         propKey={'value'}
                                         value={form.values.show_voucher_map}
                                         options={showHideOptions}

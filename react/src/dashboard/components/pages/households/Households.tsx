@@ -28,6 +28,7 @@ import useDeleteHousehold from './hooks/useDeleteHousehold';
 import TableRowActionItem from '../../elements/tables/TableRowActionItem';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import classNames from 'classnames';
 
 export default function Households() {
     const translate = useTranslate();
@@ -144,7 +145,8 @@ export default function Households() {
                         <div className="form">
                             <div className="form-group">
                                 <SelectControl
-                                    className="form-control inline-filter-control"
+                                    className={classNames('select-control-card-header')}
+                                    menuClassName={classNames('select-control-menu-card-header')}
                                     propKey={'id'}
                                     options={funds}
                                     value={filter.activeValues.fund_id}

@@ -52,13 +52,6 @@
         position: relative;
         display: flex;
         flex: 0 0 0;
-
-        .block-lang-control {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translate(0, -50%);
-        }
     }
 
     .navbar-mobile-auth-buttons {

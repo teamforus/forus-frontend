@@ -180,7 +180,6 @@ export default function ModalReservationCreate({
                                         <FormGroupInfo
                                             info={<TranslateHtml i18n={'reservation_create.tooltips.product'} />}>
                                             <SelectControl
-                                                className="form-control"
                                                 propKey={'id'}
                                                 options={products}
                                                 value={formProducts.values.product_id}

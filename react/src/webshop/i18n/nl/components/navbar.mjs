@@ -9,7 +9,7 @@ export default {
         funds: 'Regelingen',
     },
     potjeswijzer: {
-        funds: 'Potjes gemeente',
+        funds: 'Potjes',
         partner_funds: 'Potjes partners',
         funds_kindpakket: 'Kindpakket',
     },

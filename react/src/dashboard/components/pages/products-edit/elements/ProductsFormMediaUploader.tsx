@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Dispatch, SetStateAction, useCallback, useRef, useState } from 'react';
+import React, { ChangeEvent, Dispatch, SetStateAction, useCallback, useMemo, useRef } from 'react';
 import Media from '../../../../props/models/Media';
 import ModalPhotoUploader from '../../../modals/ModalPhotoUploader';
 import useOpenModal from '../../../../hooks/useOpenModal';
@@ -22,6 +22,8 @@ import {
 } from '@dnd-kit/sortable';
 import usePushDanger from '../../../../hooks/usePushDanger';
 import useFileTypeValidation from '../../../../services/helpers/useFileTypeValidation';
+import useAppConfigs from '../../../../hooks/useAppConfigs';
+import { getImageCropperAcceptedFiles } from '../../../../helpers/file';
 
 export default function ProductsFormMediaUploader({
     media,
@@ -42,8 +44,12 @@ export default function ProductsFormMediaUploader({
 
     const mediaService = useMediaService();
     const fileTypeIsValid = useFileTypeValidation();
+    const appConfigs = useAppConfigs();
+    const sourceExtensions = appConfigs?.media?.product_photo?.source_extensions;
 
-    const [acceptedFiles] = useState(['.png', '.jpg', '.jpeg', '.svg', '.webp', '.gif', '.bmp']);
+    const acceptedFiles = useMemo(() => {
+        return sourceExtensions === undefined ? [] : getImageCropperAcceptedFiles(sourceExtensions);
+    }, [sourceExtensions]);
 
     const uploadMedia = useCallback(
         (mediaFile: Blob): Promise<Media> => {
@@ -113,6 +119,10 @@ export default function ProductsFormMediaUploader({
         },
         [media, setMedia],
     );
+
+    if (sourceExtensions === undefined) {
+        return null;
+    }
 
     return (
         <div className="block block-product-media-uploader">

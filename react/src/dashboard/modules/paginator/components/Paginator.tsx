@@ -104,7 +104,6 @@ export default function Paginator({
                     <div className="table-pagination-counter">
                         {perPageKey && (
                             <SelectControl
-                                className={'form-control'}
                                 options={perPageOptions}
                                 propKey={'key'}
                                 allowSearch={false}

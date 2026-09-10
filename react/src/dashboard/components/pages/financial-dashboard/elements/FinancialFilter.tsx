@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
-import ClickOutside from '../../../elements/click-outside/ClickOutside';
+import ClickOutside from '../../../../modules/click-outside/ClickOutside';
 import { FinancialFilterOptionItem } from '../types/FinancialStatisticTypes';
 import useTranslate from '../../../../hooks/useTranslate';
 import CheckboxControl from '../../../elements/forms/controls/CheckboxControl';

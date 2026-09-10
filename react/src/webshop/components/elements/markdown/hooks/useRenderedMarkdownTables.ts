@@ -79,9 +79,15 @@ export default function useRenderedMarkdownTables(content: string) {
             }
         });
 
-        root.querySelectorAll('a').forEach((link) => {
+        root.querySelectorAll<HTMLAnchorElement>('a[href]').forEach((link) => {
+            const href = link.getAttribute('href')?.trim();
+
+            if (!href) {
+                return;
+            }
+
             try {
-                const url = new URL(link.href);
+                const url = new URL(href, window.location.href);
 
                 if (url.origin === window.location.origin) {
                     link.target = '_self';
@@ -90,8 +96,8 @@ export default function useRenderedMarkdownTables(content: string) {
                     link.target = '_blank';
                     link.rel = 'noopener noreferrer';
                 }
-            } catch (e) {
-                console.error('Could not update link target: ' + e.toString(), link.href);
+            } catch {
+                return;
             }
         });
 

@@ -525,7 +525,6 @@ export default function ImplementationNotificationSend() {
                             <label className="form-label">Kies een fonds</label>
 
                             <SelectControl
-                                className="form-control"
                                 allowSearch={false}
                                 value={fund}
                                 onChange={(value: Fund) => setFund(value)}
@@ -539,7 +538,6 @@ export default function ImplementationNotificationSend() {
                                 <label className="form-label">Verstuur naar</label>
 
                                 <SelectControl
-                                    className="form-control"
                                     propKey={'value'}
                                     allowSearch={false}
                                     value={identitiesFilterValues.target}
@@ -557,7 +555,6 @@ export default function ImplementationNotificationSend() {
                                 <label className="form-label">Verstuur naar</label>
 
                                 <SelectControl
-                                    className="form-control"
                                     propKey={'value'}
                                     allowSearch={false}
                                     value={providersFilterValues.target}

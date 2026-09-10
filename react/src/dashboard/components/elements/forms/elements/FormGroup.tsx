@@ -14,6 +14,7 @@ export default function FormGroup({
     required = false,
     className = null,
     textAlign = null,
+    dusk = null,
 }: {
     id?: string;
     error?: string | Array<string>;
@@ -24,6 +25,7 @@ export default function FormGroup({
     required?: boolean;
     className?: string;
     textAlign?: 'center' | null;
+    dusk?: string;
 }) {
     const input_id = useState(id || uniqueId('input_group_id_'))[0];
 
@@ -34,7 +36,8 @@ export default function FormGroup({
                 error && 'form-group-error',
                 textAlign === 'center' && 'text-center',
                 className,
-            )}>
+            )}
+            data-dusk={dusk}>
             {label && (
                 <label htmlFor={input_id} className={classNames('form-label', required && 'form-label-required')}>
                     {label}
@@ -42,7 +45,7 @@ export default function FormGroup({
             )}
 
             {info ? <FormGroupInfo info={info}>{input && input(input_id)}</FormGroupInfo> : input && input(input_id)}
-            {error && <FormError error={error} />}
+            {error && <FormError error={error} duskPrefix={dusk ? `${dusk}Error` : null} />}
             {hint && <div className="form-hint">{hint}</div>}
         </div>
     );

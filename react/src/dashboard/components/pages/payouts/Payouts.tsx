@@ -23,6 +23,7 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import PayoutsTable from './elements/PayoutsTable';
 import { createEnumParam, NumberParam, StringParam } from 'use-query-params';
 import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import classNames from 'classnames';
 
 export default function Payouts() {
     const openModal = useOpenModal();
@@ -200,7 +201,8 @@ export default function Payouts() {
                         <div className="form">
                             <div className="form-group">
                                 <SelectControl
-                                    className="form-control inline-filter-control"
+                                    className={classNames('select-control-card-header')}
+                                    menuClassName={classNames('select-control-menu-card-header')}
                                     propKey={'id'}
                                     options={funds}
                                     value={filter.activeValues.fund_id}
@@ -269,7 +271,7 @@ export default function Payouts() {
 
                             <FilterItemToggle label={translate('payouts.labels.state')}>
                                 <SelectControl
-                                    className="form-control"
+                                    className={classNames('select-control-filter-panel')}
                                     propKey={'key'}
                                     allowSearch={false}
                                     value={filterValues.state}

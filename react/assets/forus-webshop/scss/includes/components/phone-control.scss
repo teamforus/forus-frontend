@@ -1,0 +1,41 @@
+.form {
+    .phone-control {
+        --selector-width: 115px;
+        --input-padding: 12px 15px;
+
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        position: relative;
+
+        & > input[type='tel'].phone-control-input {
+            padding: var(--input-padding) !important;;
+            padding-left: calc(var(--selector-width) + 10px) !important;
+            font: 600 16px/24px var(--base-font) !important;
+            letter-spacing: 1px;
+            height: auto;
+
+            &::placeholder {
+                font: 400 16px/24px var(--base-font)  !important;
+            }
+        }
+
+        & > .select-control-country-codes {
+            width: var(--selector-width);
+            position: absolute;
+        }
+
+        @media screen and (max-width: 1000px) {
+            --selector-width: 105px;
+            --input-padding: 12px 12px;
+
+            & > input[type='tel'].phone-control-input {
+                font-size: 14px;
+
+                &::placeholder {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}

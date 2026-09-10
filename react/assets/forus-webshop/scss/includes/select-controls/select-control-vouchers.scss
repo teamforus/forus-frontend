@@ -1,0 +1,121 @@
+@use '../includes/helpers';
+
+@mixin select-control-vouchers-block() {
+    .block.block-vouchers {
+        margin-bottom: 0;
+
+        .voucher-item {
+            grid-template-columns: 52.5px 1fr auto;
+
+            &.voucher-item-select {
+                min-height: 60px;
+                margin-bottom: 0;
+                border-bottom: 1px solid var(--border-color);
+                border-radius: 0;
+                box-shadow: none;
+                cursor: pointer;
+
+                .voucher-image {
+                    padding: 7.5px 0 7.5px 7.5px;
+                }
+
+                .voucher-details {
+                    padding: 9px;
+
+                    .voucher-name,
+                    .voucher-value {
+                        margin: 0;
+                        font: 700 14px/22px var(--heading-font-family);
+                    }
+
+                    .voucher-date,
+                    .voucher-organization {
+                        margin: 0;
+                        font: 400 11px/18px var(--base-font);
+                    }
+
+                    .voucher-date,
+                    .voucher-value {
+                        order: 1 !important;
+                        white-space: nowrap;
+                    }
+
+                    .voucher-date {
+                        display: flex;
+                        flex-direction: column;
+                        flex-grow: 1;
+                        justify-content: flex-start;
+                    }
+                }
+
+                &::after {
+                    @include helpers.fill_parent();
+
+                    content: '';
+                    pointer-events: none;
+                    background-color: #000;
+                    opacity: 0;
+                    transition: opacity 0.3s;
+                }
+
+                &:hover {
+                    &::after {
+                        opacity: 0.035;
+                    }
+                }
+
+                &:last-child {
+                    border-bottom: none;
+
+                    &:not(:focus) {
+                        border-bottom-right-radius: calc(var(--border-radius) / 2);
+                        border-bottom-left-radius: calc(var(--border-radius) / 2);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.select-control.select-control-vouchers {
+    .select-control-input {
+        @include select-control-vouchers-block();
+
+        .block.block-vouchers {
+            .voucher-item.voucher-item-select {
+                &.voucher-item-select-placeholder {
+                    padding-right: 25px;
+                    border: 1px solid var(--border-color);
+                    border-radius: calc(var(--border-radius) / 2);
+                    background-image: url('./assets/img/select-bg.png');
+                    background-repeat: no-repeat;
+                    background-position: calc(100% - 4px);
+                }
+            }
+        }
+
+        &.options {
+            .block.block-vouchers {
+                .voucher-item.voucher-item-select-placeholder {
+                    border-bottom-right-radius: 0;
+                    border-bottom-left-radius: 0;
+                }
+            }
+        }
+    }
+}
+
+.select-control-menu.select-control-menu-vouchers {
+    .select-control-options {
+        @include select-control-vouchers-block();
+
+        .block.block-vouchers {
+            .voucher-item.voucher-item-select {
+                &:focus {
+                    border-radius: 7px;
+                    outline-offset: -2px !important;
+                }
+            }
+        }
+    }
+}
