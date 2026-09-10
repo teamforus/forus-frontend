@@ -18,6 +18,9 @@
             "qr": {
                 "description": "<u>Me</u> uygulaması ile bir QR kodu tarayın",
                 "title": "Benim uygulamam"
+            },
+            "openid": {
+                "description": "Oturum açmak için {{flow_name}} kullanın"
             }
         },
         "push": {
@@ -868,6 +871,9 @@
             "request": {
                 "description": "Kredi talebinde bulunmak için başvuru formunu doldurun",
                 "title": "Kredi talebinde bulunmak istiyorum"
+            },
+            "openid": {
+                "description": "Oturum açmak için {{flow_name}} kullanın"
             }
         }
     },
@@ -1124,6 +1130,9 @@
                 "digid": {
                     "description": "Baştan başlamak için DigiD ile tekrar giriş yapın.",
                     "title": "DigiD"
+                },
+                "openid": {
+                    "description": "Yeniden başlamak için {{flow_name}} kullanın."
                 }
             },
             "title": "BSN onayının süresi doldu"
@@ -2355,7 +2364,17 @@
             "digid_uid_not_found": "Bu BSN numarası sistemde bilinmiyor, bir hesap oluşturmak için başvurunuzu başlatın.",
             "digid_uid_used": "Bu BSN numarası için farklı bir e-posta adresi kaydedilmiştir. Hesabınıza giriş yapmak için bize kayıtlı e-posta adresini kullanmanız gerekmektedir.<br/><br/> Bunun hangi e-posta adresi olduğunu hatırlayamıyor musunuz veya yeni bir e-posta adresiniz mi var? <br/> O zaman <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">buraya</a> veya aşağıdaki düğmeye tıklayarak hesabınızı geri yükleyin.</br>",
             "digid_unknown_error": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
-            "unknown_error": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin."
+            "unknown_error": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
+            "openid_callback_failed": "OpenID oturum açma işlemi tamamlanamadı. Lütfen tekrar deneyin.",
+            "openid_invalid_request": "OpenID isteği geçersiz. Lütfen tekrar deneyin.",
+            "openid_missing_claims": "OpenID girişi yeterli veri sağlamadı. Lütfen tekrar deneyin.",
+            "openid_not_enabled": "OpenID bu uygulama için etkinleştirilmemiştir.",
+            "openid_session_expired": "OpenID oturumunun süresi doldu. Lütfen tekrar giriş yapmayı deneyin.",
+            "openid_uid_dont_match": "ID-Wallet ile onayladığınız BSN numarası, yeni bir başvuru başlatan bu profille ilişkili BSN numarasından farklıdır.",
+            "openid_uid_not_found": "Sistemde bilinmeyen bu BSN numarası hesap oluşturmak için başvurunuzu başlatır.",
+            "openid_uid_used": "Bu BSN numarası için farklı bir e-posta adresi kaydedilmiştir. Hesabınıza giriş yapmak için bize kayıtlı e-posta adresini kullanmanız gerekmektedir.<br/><br/> Bunun hangi e-posta adresi olduğunu hatırlayamıyor musunuz veya yeni bir e-posta adresiniz mi var? <br/> O zaman <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">buraya</a> veya aşağıdaki düğmeye tıklayarak hesabınızı geri yükleyin.</br>",
+            "openid_unknown_error": "OpenID ile oturum açarken bir hata oluştu. Lütfen daha sonra tekrar deneyin.",
+            "openid_unknown_session_type": "OpenID oturumu bilinmeyen bir türe sahip. Lütfen tekrar deneyin."
         },
         "start_button": "Hesabı geri yükle",
         "titles": {
@@ -2379,7 +2398,17 @@
             "digid_uid_not_found": "Bu BSN numarası sistemde bilinmiyor",
             "digid_uid_used": "BSN numarası zaten kullanılıyor.",
             "digid_unknown_error": "DigiD ile iletişimde bir hata oluştu.",
-            "unknown_error": "Bilinmeyen hata mesajı"
+            "unknown_error": "Bilinmeyen hata mesajı",
+            "openid_callback_failed": "Giriş başarısız",
+            "openid_invalid_request": "Geçersiz istek",
+            "openid_missing_claims": "Eksik veri",
+            "openid_not_enabled": "OpenID kullanılamıyor",
+            "openid_session_expired": "Oturum süresi doldu",
+            "openid_uid_dont_match": "Bu profil için bir BSN numarası zaten biliniyor",
+            "openid_uid_not_found": "Bu BSN numarası sistemde bilinmiyor",
+            "openid_uid_used": "BSN numarası zaten kullanılıyor.",
+            "openid_unknown_error": "Bilinmeyen hata mesajı",
+            "openid_unknown_session_type": "Bilinmeyen oturum"
         }
     },
     "payouts": {
@@ -3654,7 +3683,8 @@
         "error": "Başarısız!",
         "fund_activation": {
             "digid_success": "DigiD ile giriş yapıldı.",
-            "success": "{{fund_name}} kredi̇ akti̇fleşti̇ri̇ldi̇!"
+            "success": "{{fund_name}} kredi̇ akti̇fleşti̇ri̇ldi̇!",
+            "openid_success": "ID-Wallet ile giriş yapıldı."
         },
         "pre_check": {
             "downloaded": "İndirme işlemi birkaç dakika içinde başlayacaktır.",

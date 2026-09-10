@@ -5,31 +5,62 @@ import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 import TranslateHtml from '../../../../../../dashboard/components/elements/translate-html/TranslateHtml';
 import { clickOnKeyEnter } from '../../../../../../dashboard/helpers/wcag';
 import type { AuthPageLoginOption } from '../../../../../../dashboard/services/ConfigService';
+import type { OpenIdFlow } from '../../../../../../dashboard/props/models/OpenIdFlow';
 
 export default function StartOptions({
     title,
     loginTitle,
     authOptions,
+    openIdFlows,
     loading,
     authInfo,
     onEmail,
     onQr,
     onDigid,
+    onOpenId,
 }: {
     title: string;
     loginTitle: string;
     authOptions: Array<AuthPageLoginOption>;
+    openIdFlows: Array<OpenIdFlow>;
     loading: boolean;
     authInfo: React.ReactNode;
     onEmail: () => void;
     onQr: () => void;
     onDigid: () => void;
+    onOpenId: (flow: OpenIdFlow) => void;
 }) {
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
 
     const renderOption = useCallback(
         (option: AuthPageLoginOption) => {
+            if (option === 'openid') {
+                return openIdFlows.map((flow) => (
+                    <div
+                        key={`openid_${flow.key}`}
+                        className="auth-option"
+                        tabIndex={0}
+                        onKeyDown={clickOnKeyEnter}
+                        onClick={() => onOpenId(flow)}
+                        role="button">
+                        <div className="auth-option-media">
+                            <img
+                                className="auth-option-media-img"
+                                src={assetUrl(`/assets/img/icon-auth/icon-auth-${flow.key}.svg`)}
+                                alt={`logo ${flow.name}`}
+                            />
+                        </div>
+                        <div className="auth-option-details">
+                            <div className="auth-option-title">{flow.name}</div>
+                            <div className="auth-option-description">
+                                {translate('auth.options.openid.description', { flow_name: flow.name })}
+                            </div>
+                        </div>
+                    </div>
+                ));
+            }
+
             const optionConfig = {
                 email: {
                     icon: '/assets/img/icon-auth/icon-auth-mail.svg',
@@ -86,7 +117,7 @@ export default function StartOptions({
                 </div>
             );
         },
-        [assetUrl, onDigid, onEmail, onQr, translate],
+        [assetUrl, onDigid, onEmail, onOpenId, onQr, openIdFlows, translate],
     );
 
     return (

@@ -21,20 +21,6 @@ import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import ToggleControl from '../../elements/forms/controls/ToggleControl';
 import MarkdownEditor from '../../elements/forms/markdown-editor/MarkdownEditor';
 
-type AuthPageLoginOptionField = 'auth_page_login_email' | 'auth_page_login_digid' | 'auth_page_login_qr';
-
-type AuthPageFormValues = {
-    auth_page_title: string;
-    auth_page_login_title: string;
-    auth_page_login_email: boolean;
-    auth_page_login_digid: boolean;
-    auth_page_login_qr: boolean;
-    auth_page_info_enabled: boolean;
-    auth_page_info_title: string;
-    auth_page_info_description: string;
-    auth_page_info_description_html?: string;
-};
-
 export default function ImplementationAuthPage() {
     const { id } = useParams();
 
@@ -48,12 +34,24 @@ export default function ImplementationAuthPage() {
 
     const [implementation, setImplementation] = useState<Implementation>(null);
 
-    const form = useFormBuilder<AuthPageFormValues>(
+    const form = useFormBuilder<{
+        auth_page_title: string;
+        auth_page_login_title: string;
+        auth_page_login_email: boolean;
+        auth_page_login_digid: boolean;
+        auth_page_login_openid: boolean;
+        auth_page_login_qr: boolean;
+        auth_page_info_enabled: boolean;
+        auth_page_info_title: string;
+        auth_page_info_description: string;
+        auth_page_info_description_html?: string;
+    }>(
         {
             auth_page_title: '',
             auth_page_login_title: '',
             auth_page_login_email: true,
             auth_page_login_digid: true,
+            auth_page_login_openid: true,
             auth_page_login_qr: true,
             auth_page_info_enabled: false,
             auth_page_info_title: '',
@@ -84,29 +82,48 @@ export default function ImplementationAuthPage() {
     const { update } = form;
 
     const loginOptions = useMemo(() => {
-        return [
+        const options: Array<{
+            key: 'auth_page_login_email' | 'auth_page_login_digid' | 'auth_page_login_openid' | 'auth_page_login_qr';
+            label: string;
+            tooltip: string;
+            available: boolean;
+        }> = [
             {
-                key: 'auth_page_login_email' as AuthPageLoginOptionField,
+                key: 'auth_page_login_email',
                 label: translate('implementation_auth_page.options.email'),
                 tooltip: translate('implementation_auth_page.tooltips.email'),
                 available: true,
             },
             {
-                key: 'auth_page_login_digid' as AuthPageLoginOptionField,
+                key: 'auth_page_login_digid',
                 label: translate('implementation_auth_page.options.digid'),
                 tooltip: implementation?.digid_available
                     ? translate('implementation_auth_page.tooltips.digid')
                     : translate('implementation_auth_page.tooltips.digid_disabled'),
                 available: !!implementation?.digid_available,
             },
-            {
-                key: 'auth_page_login_qr' as AuthPageLoginOptionField,
-                label: translate('implementation_auth_page.options.qr'),
-                tooltip: translate('implementation_auth_page.tooltips.qr'),
-                available: true,
-            },
         ];
-    }, [implementation?.digid_available, translate]);
+
+        if (activeOrganization.allow_openid) {
+            options.push({
+                key: 'auth_page_login_openid',
+                label: translate('implementation_auth_page.options.openid'),
+                tooltip: implementation?.openid_available
+                    ? translate('implementation_auth_page.tooltips.openid')
+                    : translate('implementation_auth_page.tooltips.openid_disabled'),
+                available: !!implementation?.openid_available,
+            });
+        }
+
+        options.push({
+            key: 'auth_page_login_qr',
+            label: translate('implementation_auth_page.options.qr'),
+            tooltip: translate('implementation_auth_page.tooltips.qr'),
+            available: true,
+        });
+
+        return options;
+    }, [activeOrganization.allow_openid, implementation?.digid_available, implementation?.openid_available, translate]);
 
     const availableLoginOptions = useMemo(() => {
         return loginOptions.filter((option) => option.available);
@@ -140,6 +157,7 @@ export default function ImplementationAuthPage() {
                 auth_page_login_title: implementation.auth_page_login_title || '',
                 auth_page_login_email: !!implementation.auth_page_login_email,
                 auth_page_login_digid: !!implementation.auth_page_login_digid,
+                auth_page_login_openid: !!implementation.auth_page_login_openid,
                 auth_page_login_qr: !!implementation.auth_page_login_qr,
                 auth_page_info_enabled: !!implementation.auth_page_info_enabled,
                 auth_page_info_title: implementation.auth_page_info_title || '',

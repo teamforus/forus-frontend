@@ -368,6 +368,9 @@
             "qr": {
                 "description": "Scan a QR code with the <u>Me</u> app",
                 "title": "Me app"
+            },
+            "openid": {
+                "description": "Use {{flow_name}} to log in"
             }
         },
         "push": {
@@ -622,6 +625,9 @@
             "request": {
                 "description": "Go through the application form to request a credit",
                 "title": "I want to request a credit"
+            },
+            "openid": {
+                "description": "Use {{flow_name}} to log in"
             }
         }
     },
@@ -899,6 +905,9 @@
                 "digid": {
                     "description": "Log in again with DigiD to start over.",
                     "title": "DigiD"
+                },
+                "openid": {
+                    "description": "Use {{flow_name}} to start over."
                 }
             },
             "title": "BSN confirmation expired"
@@ -2055,7 +2064,17 @@
             "digid_uid_not_found": "This BSN number is unknown in the system, please start your application to create an account.",
             "digid_uid_used": "A different email address is registered for this BSN number. To login to your account, you must use the email address registered with us.<br/><br/> Can't remember which email address this is or do you have a new one? <br/> Then restore your account by clicking <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">here</a> or the button below.</br>",
             "digid_unknown_error": "An error occurred in communication with DigiD. Please try again later. If this error persists, please check the website https://www.digid.nl/ for the latest information.",
-            "unknown_error": "An error occurred in communication with DigiD. Please try again later. If this error persists, please check the website https://www.digid.nl/ for the latest information."
+            "unknown_error": "An error occurred in communication with DigiD. Please try again later. If this error persists, please check the website https://www.digid.nl/ for the latest information.",
+            "openid_callback_failed": "The OpenID login could not be completed. Please try again.",
+            "openid_invalid_request": "The OpenID request is invalid. Please try again.",
+            "openid_missing_claims": "The OpenID login did not provide sufficient data. Please try again.",
+            "openid_not_enabled": "OpenID is not enabled for this implementation.",
+            "openid_session_expired": "The OpenID session has expired. Please try logging in again.",
+            "openid_uid_dont_match": "The BSN number you confirmed with ID-Wallet is different from the BSN number associated with this profile starts a new application.",
+            "openid_uid_not_found": "This BSN number is unknown in the system starts your application to create an account.",
+            "openid_uid_used": "A different email address is registered for this BSN number. To log into your account, you must use the email address registered with us.<br/><br/> Can't remember which email address this is or do you have a new one? <br/> Then restore your account by clicking <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">here</a> or the button below.</br>",
+            "openid_unknown_error": "An error occurred while logging in with OpenID. Please try again later.",
+            "openid_unknown_session_type": "The OpenID session has an unknown type. Please try again."
         },
         "start_button": "Restore account",
         "titles": {
@@ -2079,7 +2098,17 @@
             "digid_uid_not_found": "This BSN number is unknown in the system",
             "digid_uid_used": "BSN number already used.",
             "digid_unknown_error": "An error occurred in communication with DigiD.",
-            "unknown_error": "Unknown error message"
+            "unknown_error": "Unknown error message",
+            "openid_callback_failed": "Login failed",
+            "openid_invalid_request": "Invalid request",
+            "openid_missing_claims": "Missing data",
+            "openid_not_enabled": "OpenID is not available",
+            "openid_session_expired": "Session expired",
+            "openid_uid_dont_match": "A BSN number is already known to this profile",
+            "openid_uid_not_found": "This BSN number is unknown in the system",
+            "openid_uid_used": "BSN number already used.",
+            "openid_unknown_error": "Unknown error message",
+            "openid_unknown_session_type": "Unknown session"
         }
     },
     "payouts": {
@@ -3654,7 +3683,8 @@
         "error": "Failed!",
         "fund_activation": {
             "digid_success": "Logged in with DigiD.",
-            "success": "{{fund_name}} credit activated!"
+            "success": "{{fund_name}} credit activated!",
+            "openid_success": "Logged in with ID Wallet."
         },
         "pre_check": {
             "downloaded": "The download will begin in a few moments.",

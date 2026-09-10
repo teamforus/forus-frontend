@@ -6,6 +6,17 @@ const digiDefaultMessage = [
 export default {
     titles: {
         unknown_error: 'Onbekende foutmelding',
+        openid_not_enabled: 'OpenID is niet beschikbaar',
+        openid_invalid_request: 'Ongeldig verzoek',
+        openid_session_expired: 'Sessie verlopen',
+        openid_callback_failed: 'Inloggen mislukt',
+        openid_missing_claims: 'Ontbrekende gegevens',
+        openid_uid_used: 'BSN-nummer al gebruikt.',
+        openid_uid_dont_match: 'Er is al een BSN-nummer bekend bij dit profiel',
+        openid_uid_not_found: 'Dit BSN-nummer is onbekend in het systeem',
+        openid_unknown_session_type: 'Onbekende sessie',
+        openid_unknown_error: 'Onbekende foutmelding',
+
         digid_api_0000: 'Er is een fout opgetreden tijdens het aanvragen.',
         digid_uid_used: 'BSN-nummer al gebruikt.',
         digid_uid_dont_match: 'Er is al een BSN-nummer bekend bij dit profiel',
@@ -33,6 +44,28 @@ export default {
             'Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals. Indien deze fout blijft aanhouden,',
             ' kijk dan op de website https://www.digid.nl/ voor de laatste informatie.',
         ].join(),
+        openid_not_enabled: 'OpenID is niet ingeschakeld voor deze implementatie.',
+        openid_invalid_request: 'Het OpenID verzoek is ongeldig. Probeer het opnieuw.',
+        openid_session_expired: 'De OpenID sessie is verlopen. Probeer opnieuw in te loggen.',
+        openid_callback_failed: 'De OpenID login kon niet worden afgerond. Probeer het opnieuw.',
+        openid_missing_claims: 'De OpenID login leverde onvoldoende gegevens op. Probeer het opnieuw.',
+        openid_uid_used: [
+            'Voor dit BSN nummer is een ander e-mailadres geregistreerd.',
+            'Om in te loggen op uw account moet u het e-mailadres gebruiken wat bij ons geregistreerd staat.<br/><br/>',
+            'Weet u niet meer welk e-mailadres dit is of heeft u een nieuw e-mailadres? <br/> Herstel dan uw account door',
+            '<a href="{{ url_webshop_start_logout }}" class="sign_up-pane-link">hier</a> te klikken of de knop hieronder.</br>',
+        ].join(' '),
+        openid_uid_dont_match: [
+            'Het BSN nummer dat u met ID-Wallet heeft bevestigd verschilt van het BSN-nummer dat aan dit profiel',
+            'is gekoppeld',
+            'start een nieuwe aanvraag.',
+        ].join(' '),
+        openid_uid_not_found: [
+            'Dit BSN-nummer is onbekend in het systeem',
+            'start uw aanvraag om een account aan te maken.',
+        ].join(' '),
+        openid_unknown_session_type: 'De OpenID sessie heeft een onbekend type. Probeer het opnieuw.',
+        openid_unknown_error: 'Er is een fout opgetreden tijdens het inloggen met OpenID. Probeer het later opnieuw.',
         // digid
         digid_api_0000: [
             'Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals. Indien deze fout blijft aanhouden,',

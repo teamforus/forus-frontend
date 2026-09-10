@@ -37,6 +37,7 @@ export default function ImplementationsGrid() {
         const canManageImplementationCms = hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION_CMS);
         const showTranslations = activeOrganization.allow_translations && canManageImplementation;
         const showPreCheck = activeOrganization.allow_pre_checks && canManageImplementation;
+        const showOpenId = activeOrganization.allow_openid && canManageImplementation;
 
         const allSections: GridSection[] = [
             {
@@ -135,6 +136,15 @@ export default function ImplementationsGrid() {
                         description: 'Beheer de DigiD gegevens en instellingen die horen bij de koppeling.',
                         state: DashboardRoutes.IMPLEMENTATION_DIGID,
                     },
+                    showOpenId
+                        ? {
+                              key: 'openid-settings',
+                              icon: 'mdi-wallet-outline',
+                              name: translate('implementation_auth_page.openid_settings.menu.name'),
+                              description: translate('implementation_auth_page.openid_settings.menu.description'),
+                              state: DashboardRoutes.IMPLEMENTATION_OPENID,
+                          }
+                        : null,
                     canManageImplementationCms
                         ? {
                               key: 'auth-page-settings',
