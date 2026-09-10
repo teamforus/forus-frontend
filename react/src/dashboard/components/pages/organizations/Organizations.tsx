@@ -45,7 +45,7 @@ export default function Organizations() {
             const selectedOrganizationId = getLastUsedOrganization(organizations);
 
             if (selectedOrganizationId) {
-                organizationService.use(selectedOrganizationId);
+                organizationService.setActiveId(selectedOrganizationId);
 
                 if (redirect) {
                     redirectToDashboard(selectedOrganizationId, organizations);

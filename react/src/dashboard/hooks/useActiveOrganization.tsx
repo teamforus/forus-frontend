@@ -23,7 +23,7 @@ export default function useActiveOrganization() {
 
     useEffect(() => {
         if (organization && organization?.id != activeOrganization?.id) {
-            organizationService.use(organization.id);
+            organizationService.setActiveId(organization.id);
             setActiveOrganization(organization);
         }
     }, [organizationService, organization, setActiveOrganization, activeOrganization?.id]);
