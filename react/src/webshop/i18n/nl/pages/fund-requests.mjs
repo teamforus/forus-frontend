@@ -20,4 +20,7 @@ export default {
         questions_count: '{{count}} nieuw bericht',
         created_at: 'Ingediend op:',
     },
+    state: {
+        expired: 'Expired',
+    },
 };

@@ -124,64 +124,68 @@ export default function FundRequestClarificationPending({
                 </div>
             </div>
 
-            <form
-                onSubmit={form.submit}
-                className={classNames(
-                    'fund-request-conversation-section',
-                    'fund-request-conversation-form',
-                    'form form-compact',
-                )}>
-                {clarification?.text_requirement !== 'no' && (
-                    <div className="fund-request-conversation-content">
-                        <label className="fund-request-conversation-label" htmlFor={`answerInput${clarification.id}`}>
-                            {translate('fund_request.record.answer_question_label')}
-                        </label>
-                        <UIControlText
-                            type={'textarea'}
-                            rows={5}
-                            id={`answerInput${clarification.id}`}
-                            dataDusk="answerInput"
-                            value={form.values.answer}
-                            onChangeValue={(answer) => form.update({ answer })}
-                        />
-                        <FormError duskPrefix={'errorAnswer'} error={form.errors?.answer} />
-                    </div>
-                )}
-
-                {clarification?.files_requirement !== 'no' && (
-                    <div className="fund-request-conversation-content">
-                        <div className="fund-request-conversation-label">
-                            {translate('fund_request.record.add_document_label')}{' '}
-                            {clarification?.files_requirement === 'optional'
-                                ? translate('fund_request.record.optional_label')
-                                : ''}
+            {!fundRequest.expired && (
+                <form
+                    onSubmit={form.submit}
+                    className={classNames(
+                        'fund-request-conversation-section',
+                        'fund-request-conversation-form',
+                        'form form-compact',
+                    )}>
+                    {clarification?.text_requirement !== 'no' && (
+                        <div className="fund-request-conversation-content">
+                            <label
+                                className="fund-request-conversation-label"
+                                htmlFor={`answerInput${clarification.id}`}>
+                                {translate('fund_request.record.answer_question_label')}
+                            </label>
+                            <UIControlText
+                                type={'textarea'}
+                                rows={5}
+                                id={`answerInput${clarification.id}`}
+                                dataDusk="answerInput"
+                                value={form.values.answer}
+                                onChangeValue={(answer) => form.update({ answer })}
+                            />
+                            <FormError duskPrefix={'errorAnswer'} error={form.errors?.answer} />
                         </div>
-                        <FileUploader
-                            type="fund_request_clarification_proof"
-                            className="block-file-uploader-stacked-mobile"
-                            files={[]}
-                            template={'compact'}
-                            cropMedia={false}
-                            onFilesChange={({ files, fileItems }) => {
-                                updateForm({ files: files.map((file) => file?.uid) });
-                                setUploading(fileItems.filter((item) => item.uploading).length > 0);
-                            }}
-                        />
-                        <FormError duskPrefix={'errorFiles'} error={form.errors?.files} />
-                    </div>
-                )}
+                    )}
 
-                <div className="button-group">
-                    <button
-                        type={'submit'}
-                        className="button button-primary button-xs"
-                        data-dusk="submitBtn"
-                        disabled={uploading}>
-                        <em className="mdi mdi-send-outline" aria-hidden="true" />
-                        {translate('fund_request.record.send_btn')}
-                    </button>
-                </div>
-            </form>
+                    {clarification?.files_requirement !== 'no' && (
+                        <div className="fund-request-conversation-content">
+                            <div className="fund-request-conversation-label">
+                                {translate('fund_request.record.add_document_label')}{' '}
+                                {clarification?.files_requirement === 'optional'
+                                    ? translate('fund_request.record.optional_label')
+                                    : ''}
+                            </div>
+                            <FileUploader
+                                type="fund_request_clarification_proof"
+                                className="block-file-uploader-stacked-mobile"
+                                files={[]}
+                                template={'compact'}
+                                cropMedia={false}
+                                onFilesChange={({ files, fileItems }) => {
+                                    updateForm({ files: files.map((file) => file?.uid) });
+                                    setUploading(fileItems.filter((item) => item.uploading).length > 0);
+                                }}
+                            />
+                            <FormError duskPrefix={'errorFiles'} error={form.errors?.files} />
+                        </div>
+                    )}
+
+                    <div className="button-group">
+                        <button
+                            type={'submit'}
+                            className="button button-primary button-xs"
+                            data-dusk="submitBtn"
+                            disabled={uploading}>
+                            <em className="mdi mdi-send-outline" aria-hidden="true" />
+                            {translate('fund_request.record.send_btn')}
+                        </button>
+                    </div>
+                </form>
+            )}
         </div>
     );
 }

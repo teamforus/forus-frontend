@@ -8,11 +8,13 @@ import BlockLabelTabs from '../../../elements/block-label-tabs/BlockLabelTabs';
 import FundRequestClarification from '../../../../props/models/FundRequestClarification';
 
 export default function FundRequestRecordTabs({
+    expired,
     fundRequestRecord,
     canManageClarifications,
     editClarification,
     closeClarification,
 }: {
+    expired: boolean;
     fundRequestRecord: FundRequestRecord;
     canManageClarifications: boolean;
     editClarification: (clarification: FundRequestClarification) => void;
@@ -75,6 +77,7 @@ export default function FundRequestRecordTabs({
 
             {shownType == 'clarifications' && fundRequestRecord.clarifications.length > 0 && (
                 <FundRequestRecordClarificationsTab
+                    expired={expired}
                     fundRequestRecord={fundRequestRecord}
                     canManageClarifications={canManageClarifications}
                     editClarification={editClarification}

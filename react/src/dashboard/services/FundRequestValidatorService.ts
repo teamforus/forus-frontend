@@ -12,6 +12,7 @@ export type FundRequestTotals = {
     pending: number;
     assigned: number;
     resolved: number;
+    expired: number;
 };
 
 export class FundRequestValidatorService<T = FundRequest> {
