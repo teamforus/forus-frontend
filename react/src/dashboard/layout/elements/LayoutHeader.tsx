@@ -135,7 +135,7 @@ export const LayoutHeader = () => {
                                 options={organizations}
                                 allowSearch={true}
                                 onChange={(value: Organization) => {
-                                    organizationService.use(value.id);
+                                    organizationService.setActiveId(value.id);
 
                                     navigate(
                                         getStateRouteUrl(route.state.fallbackState || route.state.name, {

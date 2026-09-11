@@ -1,11 +1,9 @@
 import React, { useCallback, useEffect, useState, createContext, useRef } from 'react';
 import Identity from '../../dashboard/props/models/Identity';
-import { useAuthService } from '../../dashboard/services/AuthService';
 import { useStateRoutes } from '../modules/state_router/Router';
 import events from '../../dashboard/helpers/events';
 import { ResponseError } from '../../dashboard/props/ApiResponses';
 import Identity2FAState from '../../dashboard/props/models/Identity2FAState';
-import { useIdentity2FAService } from '../../dashboard/services/Identity2FAService';
 import useSetProgress from '../../dashboard/hooks/useSetProgress';
 import { useIdentityService } from '../../dashboard/services/IdentityService';
 import { useNavigateState } from '../modules/state_router/Router';
@@ -14,6 +12,8 @@ import ModalNotification from '../components/modals/ModalNotification';
 import useAppConfigs from '../hooks/useAppConfigs';
 import useTranslate from '../../dashboard/hooks/useTranslate';
 import { WebshopRoutes } from '../modules/state_router/RouterBuilder';
+import useAuthToken from '../../dashboard/hooks/useAuthToken';
+import useIdentityState from '../../dashboard/hooks/useIdentityState';
 
 interface AuthMemoProps {
     token?: string;
@@ -35,28 +35,21 @@ interface AuthMemoProps {
 const authContext = createContext<AuthMemoProps>(null);
 const { Provider } = authContext;
 
-const getToken = () => {
-    const token = localStorage?.getItem('active_account');
-
-    return token && token != 'null' ? token : null;
-};
-
 const AuthProvider = ({ children }: { children: React.ReactElement }) => {
-    const authService = useAuthService();
     const appConfigs = useAppConfigs();
-    const identity2FAService = useIdentity2FAService();
     const { route } = useStateRoutes();
     const translate = useTranslate();
-    const [token, setToken] = useState(getToken());
-    const [identity, setIdentity] = useState<Identity>(null);
+    const [token, setToken] = useAuthToken();
     const identityService = useIdentityService();
-    const [identity2FAState, setIdentity2FAState] = useState<Identity2FAState>(null);
     const setProgress = useSetProgress();
     const openModal = useOpenModal();
     const navigateState = useNavigateState();
 
     const last401ErrorThreshold = useState<number>(10000)[0];
     const last401ErrorTime = useRef<number | null>(null);
+
+    const { identity, setIdentity, identity2FAState, setIdentity2FAState, fetchIdentity2FA, updateIdentity } =
+        useIdentityState(token);
 
     const signOut = useCallback(
         (
@@ -102,45 +95,17 @@ const AuthProvider = ({ children }: { children: React.ReactElement }) => {
                 navigateState(redirect);
             }
         },
-        [appConfigs?.communication_type, identityService, navigateState, openModal, translate],
+        [
+            appConfigs?.communication_type,
+            identityService,
+            navigateState,
+            openModal,
+            setIdentity,
+            setIdentity2FAState,
+            setToken,
+            translate,
+        ],
     );
-
-    const fetchIdentity = useCallback(async () => {
-        const identity = token
-            ? await authService
-                  .identity()
-                  .then((res) => res.data)
-                  .catch(() => null)
-            : null;
-
-        setIdentity(identity);
-
-        return identity;
-    }, [authService, token]);
-
-    const fetchIdentity2FA = useCallback(async () => {
-        const identity2FAState = token
-            ? await identity2FAService
-                  .status()
-                  .then((res) => res.data.data)
-                  .catch(() => null)
-            : null;
-
-        setIdentity2FAState(identity2FAState);
-
-        return identity2FAState;
-    }, [identity2FAService, token]);
-
-    const updateIdentity = useCallback(async () => {
-        const identity = await fetchIdentity();
-        const identity2FAState = await fetchIdentity2FA();
-
-        return { identity, identity2FAState };
-    }, [fetchIdentity, fetchIdentity2FA]);
-
-    useEffect(() => {
-        localStorage.active_account = token;
-    }, [token]);
 
     useEffect(() => {
         if (token && !identity) {
@@ -182,7 +147,15 @@ const AuthProvider = ({ children }: { children: React.ReactElement }) => {
         events.subscribe('api-response:401', callback);
 
         return () => events.unsubscribe('api-response:401', callback);
-    }, [fetchIdentity2FA, navigateState, route?.state?.name, setProgress, updateIdentity, last401ErrorThreshold]);
+    }, [
+        fetchIdentity2FA,
+        navigateState,
+        route?.state?.name,
+        setIdentity,
+        setProgress,
+        updateIdentity,
+        last401ErrorThreshold,
+    ]);
 
     return (
         <Provider
