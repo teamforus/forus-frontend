@@ -17,7 +17,7 @@ export default {
 
     state: {
         answer_needed: 'Meer informatie van u nodig',
-        expired: 'Expired',
+        expired: 'Verlopen',
     },
 
     clarifications: {

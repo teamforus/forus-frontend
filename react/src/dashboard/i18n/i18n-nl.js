@@ -1600,7 +1600,7 @@ export default {
             pending: 'Beoordelaar nodig',
             assigned: 'In behandeling',
             resolved: 'Afgehandeld',
-            expired: 'Expired',
+            expired: 'Verlopen',
         },
         person: {
             relations: {
@@ -1650,7 +1650,7 @@ export default {
             closed: 'Gesloten',
         },
         states: {
-            expired: 'Expired',
+            expired: 'Verlopen',
             clarification_requested: 'Extra info nodig',
             assigned: 'In behandeling',
             waiting_assign: 'Beoordelaar nodig',

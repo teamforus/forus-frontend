@@ -21,6 +21,6 @@ export default {
         created_at: 'Ingediend op:',
     },
     state: {
-        expired: 'Expired',
+        expired: 'Verlopen',
     },
 };
