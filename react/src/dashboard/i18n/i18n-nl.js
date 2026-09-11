@@ -1577,6 +1577,7 @@ export default {
             yes: 'Ja',
             no_group: 'Overige gegevens',
             warning: 'Melding',
+            expire_at: 'Expire at',
         },
         tooltips: {
             id: 'Uniek ID van de aanvraag.',
@@ -1599,6 +1600,7 @@ export default {
             pending: 'Beoordelaar nodig',
             assigned: 'In behandeling',
             resolved: 'Afgehandeld',
+            expired: 'Verlopen',
         },
         person: {
             relations: {
@@ -1646,6 +1648,12 @@ export default {
             pending: 'Wachten',
             answered: 'Beantwoord',
             closed: 'Gesloten',
+        },
+        states: {
+            expired: 'Verlopen',
+            clarification_requested: 'Extra info nodig',
+            assigned: 'In behandeling',
+            waiting_assign: 'Beoordelaar nodig',
         },
         missed_records: {
             labels: {

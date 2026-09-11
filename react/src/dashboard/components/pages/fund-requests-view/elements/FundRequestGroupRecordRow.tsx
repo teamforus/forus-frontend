@@ -204,7 +204,7 @@ export default function FundRequestGroupRecordRow({
                 </td>
 
                 <td>
-                    {record.clarifications.length > 0 ? (
+                    {!fundRequest.expired && record.clarifications.length > 0 ? (
                         <Label type={stateLabelType}>
                             {translate(
                                 `validation_requests.clarification_states.${record.clarifications[record.clarifications.length - 1].state}`,
@@ -216,7 +216,7 @@ export default function FundRequestGroupRecordRow({
                 </td>
 
                 <td className="td-narrow text-right">
-                    {fundRequest.is_assigned ? (
+                    {fundRequest.is_assigned && !fundRequest.expired ? (
                         <TableRowActions
                             dataDusk={`fundRequestRecordMenuBtn${record.id}`}
                             content={(e) => (
@@ -272,7 +272,8 @@ export default function FundRequestGroupRecordRow({
                     <td className="collapse-content" colSpan={7}>
                         <FundRequestRecordTabs
                             fundRequestRecord={record}
-                            canManageClarifications={fundRequest.is_assigned}
+                            canManageClarifications={fundRequest.is_assigned && !fundRequest.expired}
+                            expired={fundRequest.expired}
                             editClarification={(clarification) => clarifyRecord(record, clarification)}
                             closeClarification={(clarification) => closeClarification(clarification)}
                         />

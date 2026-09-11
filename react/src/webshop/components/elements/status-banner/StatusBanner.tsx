@@ -8,7 +8,7 @@ export default function StatusBanner({
     children,
     dusk = null,
 }: {
-    type?: 'default' | 'primary' | 'warning' | 'danger' | 'pending' | 'success';
+    type?: 'default' | 'primary' | 'warning' | 'danger' | 'pending' | 'success' | 'expired';
     borderType?: 'dashed' | 'none' | 'solid';
     className?: string;
     children: ReactNode | ReactNode[];
@@ -21,6 +21,7 @@ export default function StatusBanner({
                 'block block-status-banner',
                 type === 'default' && 'block-status-banner-default',
                 type === 'primary' && 'block-status-banner-primary',
+                type === 'expired' && 'block-status-banner-default',
                 type === 'pending' && 'block-status-banner-pending',
                 type === 'warning' && 'block-status-banner-warning',
                 type === 'danger' && 'block-status-banner-danger',
@@ -35,6 +36,7 @@ export default function StatusBanner({
                     'mdi',
                     'flex-vertical',
                     'flex-start',
+                    type === 'expired' && 'mdi-clock-alert-outline',
                     type === 'warning' && 'mdi-exclamation-thick',
                     type === 'success' && 'mdi-check-bold',
                     type === 'danger' && 'mdi-minus-thick',
