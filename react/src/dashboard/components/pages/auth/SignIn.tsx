@@ -13,16 +13,26 @@ import { ResponseError } from '../../../props/ApiResponses';
 import useTranslate from '../../../hooks/useTranslate';
 import { makeQrCodeContent } from '../../../helpers/utils';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import { useIdentityProviderAuthService } from '../../../services/IdentityProviderAuthService';
+import usePushDanger from '../../../hooks/usePushDanger';
+import useIsSponsorPanel from '../../../hooks/useIsSponsorPanel';
+import useAppConfigs from '../../../hooks/useAppConfigs';
 
 export default function SignIn() {
-    const [timer, setTimer] = useState(null);
-    const [qrValue, setQrValue] = useState<{ type: 'auth_token'; value: string }>(null);
+    const navigate = useNavigate();
+    const assetUrl = useAssetUrl();
+    const translate = useTranslate();
+    const appConfigs = useAppConfigs();
+    const pushDanger = usePushDanger();
+    const isSponsorPanel = useIsSponsorPanel();
     const { token, setToken } = useContext(authContext);
 
-    const assetUrl = useAssetUrl();
-    const navigate = useNavigate();
-    const translate = useTranslate();
     const identityService = useIdentityService();
+    const identityProviderAuthService = useIdentityProviderAuthService();
+
+    const [timer, setTimer] = useState(null);
+    const [entraLoading, setEntraLoading] = useState(false);
+    const [qrValue, setQrValue] = useState<{ type: 'auth_token'; value: string }>(null);
 
     const signInForm = useFormBuilder({ email: '' }, async (values) => {
         return identityService
@@ -55,6 +65,21 @@ export default function SignIn() {
             checkAccessTokenStatus('token', res.data.access_token);
         }, console.error);
     }, [checkAccessTokenStatus, identityService]);
+
+    const startEntra = useCallback(() => {
+        setEntraLoading(true);
+
+        identityProviderAuthService
+            .startLogin()
+            .then((response) => window.location.assign(response.data.data.redirect_url))
+            .catch(() =>
+                pushDanger(
+                    translate('organizations_identity_provider_entra.ui.sign_in'),
+                    translate('organizations_identity_provider_entra.ui.sign_in_failed'),
+                ),
+            )
+            .finally(() => setEntraLoading(false));
+    }, [identityProviderAuthService, pushDanger, translate]);
 
     useEffect(() => {
         return () => window.clearTimeout(timer);
@@ -104,6 +129,19 @@ export default function SignIn() {
                                 </div>
                             </form>
                         </div>
+
+                        {isSponsorPanel && appConfigs?.entra_dashboard_login_available && (
+                            <div className="block-login-form">
+                                <button
+                                    className="button button-primary"
+                                    type="button"
+                                    disabled={entraLoading}
+                                    onClick={startEntra}>
+                                    <em className="mdi mdi-microsoft" />{' '}
+                                    {translate('organizations_identity_provider_entra.ui.sign_in')}
+                                </button>
+                            </div>
+                        )}
 
                         <div className="block-login-me_app">
                             <div className="qr_code-container">

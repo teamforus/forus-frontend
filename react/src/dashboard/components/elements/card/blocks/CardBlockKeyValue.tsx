@@ -6,7 +6,7 @@ export default function CardBlockKeyValue({
     size = 'sm',
     items,
 }: {
-    size?: 'sm' | 'md';
+    size?: 'sm' | 'md' | 'lg';
     items: Array<{ label: string; value: ReactNode | ReactNode[] }>;
 }) {
     return (
@@ -16,6 +16,7 @@ export default function CardBlockKeyValue({
                 'card-block-keyvalue',
                 size === 'sm' && 'card-block-keyvalue-sm',
                 size === 'md' && 'card-block-keyvalue-md',
+                size === 'lg' && 'card-block-keyvalue-lg',
             )}>
             {items?.map((item, index) => (
                 <div className="keyvalue-item" key={index}>
