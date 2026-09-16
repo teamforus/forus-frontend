@@ -15,6 +15,7 @@ export default function StartOptions({
     onEmail,
     onQr,
     onDigid,
+    onEntra,
 }: {
     title: string;
     loginTitle: string;
@@ -24,6 +25,7 @@ export default function StartOptions({
     onEmail: () => void;
     onQr: () => void;
     onDigid: () => void;
+    onEntra: () => void;
 }) {
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
@@ -58,6 +60,15 @@ export default function StartOptions({
                     onClick: onQr,
                     alt: '',
                 },
+                entra: {
+                    icon: null,
+                    title: translate('auth.options.entra.title'),
+                    description: translate('auth.options.entra.description'),
+                    titleDusk: null,
+                    descriptionDusk: null,
+                    onClick: onEntra,
+                    alt: '',
+                },
             }[option];
 
             return (
@@ -69,11 +80,15 @@ export default function StartOptions({
                     onClick={optionConfig.onClick}
                     role="button">
                     <div className="auth-option-media">
-                        <img
-                            className="auth-option-media-img"
-                            src={assetUrl(optionConfig.icon)}
-                            alt={optionConfig.alt}
-                        />
+                        {option === 'entra' ? (
+                            <em className="mdi mdi-microsoft" aria-hidden="true" />
+                        ) : (
+                            <img
+                                className="auth-option-media-img"
+                                src={assetUrl(optionConfig.icon)}
+                                alt={optionConfig.alt}
+                            />
+                        )}
                     </div>
                     <div className="auth-option-details">
                         <div className="auth-option-title" data-dusk={optionConfig.titleDusk}>
@@ -86,7 +101,7 @@ export default function StartOptions({
                 </div>
             );
         },
-        [assetUrl, onDigid, onEmail, onQr, translate],
+        [assetUrl, onDigid, onEmail, onEntra, onQr, translate],
     );
 
     return (

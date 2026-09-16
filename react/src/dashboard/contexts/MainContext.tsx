@@ -5,7 +5,7 @@ import EnvDataProp from '../../props/EnvData';
 import { AppConfigProp, useConfigService } from '../services/ConfigService';
 import { useOrganizationService } from '../services/OrganizationService';
 import useAuthIdentity from '../hooks/useAuthIdentity';
-import { useNavigateState } from '../modules/state_router/Router';
+import { useNavigateState, useStateRoutes } from '../modules/state_router/Router';
 import { DashboardRoutes } from '../modules/state_router/RouterBuilder';
 
 interface AuthMemoProps {
@@ -26,21 +26,23 @@ const mainContext = createContext<AuthMemoProps>(null);
 const { Provider } = mainContext;
 
 const MainProvider = ({ children }: { children: React.ReactElement }) => {
-    const [envData, setEnvData] = useState<EnvDataProp>(null);
-    const [appConfigs, setAppConfigs] = useState(null);
+    const { route } = useStateRoutes();
     const authIdentity = useAuthIdentity();
     const navigateState = useNavigateState();
-
-    const [organizations, setOrganizations] = useState<Array<Organization>>(null);
-    const [activeOrganization, setActiveOrganization] = useState<Organization>(null);
 
     const configService = useConfigService();
     const organizationService = useOrganizationService();
 
+    const [appConfigs, setAppConfigs] = useState(null);
+    const [envData, setEnvData] = useState<EnvDataProp>(null);
+    const [organizations, setOrganizations] = useState<Array<Organization>>(null);
+    const [activeOrganization, setActiveOrganization] = useState<Organization>(null);
+
     const clearAll = useCallback(() => {
-        setOrganizations([]);
+        organizationService.clearActiveId();
+        setOrganizations(null);
         setActiveOrganization(null);
-    }, []);
+    }, [organizationService]);
 
     const fetchOrganizations = useCallback(async () => {
         if (envData && authIdentity) {
@@ -83,18 +85,23 @@ const MainProvider = ({ children }: { children: React.ReactElement }) => {
     }, [configService, envData?.type]);
 
     useEffect(() => {
-        if (organizations) {
-            const organization = organizations.find(
-                (organization: Organization) => organization.id == organizationService.getActiveId(),
-            );
+        if (authIdentity && organizations) {
+            const activeOrganizationId = organizationService.getActiveId();
+            const organization = organizations.find((item: Organization) => item.id == activeOrganizationId);
 
             setActiveOrganization(organization);
 
-            if (organizations.length > 0 && !organization) {
-                return navigateState(DashboardRoutes.ORGANIZATIONS);
+            if (
+                !organization &&
+                (activeOrganizationId || organizations.length > 0) &&
+                route.state?.name !== DashboardRoutes.ENTRA_AUTH &&
+                route.state?.name !== DashboardRoutes.SECURITY_LINKED_ACCOUNTS
+            ) {
+                organizationService.clearActiveId();
+                navigateState(DashboardRoutes.ORGANIZATIONS);
             }
         }
-    }, [organizationService, organizations, navigateState]);
+    }, [authIdentity, navigateState, organizationService, organizations, route.state]);
 
     useEffect(() => {
         fetchOrganizations().then();

@@ -32,6 +32,9 @@ import ProviderFunds from '../components/pages/provider-funds/ProviderFunds';
 import Feedback from '../components/pages/feedback/Feedback';
 import NotFound from '../components/pages_system/NotFound';
 import OrganizationsSecurity from '../components/pages/organizations-security/OrganizationsSecurity';
+import OrganizationIdentityProviderEntra from '../components/pages/organizations-identity-provider-entra/OrganizationIdentityProviderEntra';
+import OrganizationIdentityProviderConnection from '../components/pages/organizations-identity-provider-entra/OrganizationIdentityProviderConnection';
+import SecurityIdentityProviderLinks from '../components/pages/identity-security/SecurityIdentityProviderLinks';
 import OrganizationsView from '../components/pages/organizations-view/OrganizationsView';
 import OrganizationsNotifications from '../components/pages/organizations-notifications/OrganizationsNotifications';
 import PreferencesEmails from '../components/pages/identity-preferences/PreferencesEmails';
@@ -107,6 +110,7 @@ import ImplementationTermsAndPrivacy from '../components/pages/implementations-e
 import PrevalidationRequests from '../components/pages/person-prevalidations/PrevalidationRequests';
 import FundProductLimits from '../components/pages/fund-product-limits/FundProductLimits';
 import PrevalidationRequestsView from '../components/pages/prevalidation-requests-view/PrevalidationRequestsView';
+import EntraAuthLink from '../components/pages/auth/EntraAuthLink';
 
 const router = new RouterBuilder();
 
@@ -133,6 +137,12 @@ router.state(DashboardRoutes.SIGN_OUT, <SignOut />, {
 router.state(DashboardRoutes.AUTH_2FA, <Auth2FA />, {
     path: `/tweefactorauthenticatie`,
     altPath: `/auth-2fa`,
+    layout: LayoutType.landingClear,
+    protected: false,
+});
+
+router.state(DashboardRoutes.ENTRA_AUTH, <EntraAuthLink />, {
+    path: `/auth/entra`,
     layout: LayoutType.landingClear,
     protected: false,
 });
@@ -525,6 +535,18 @@ router.state(DashboardRoutes.ORGANIZATION_SECURITY, <OrganizationsSecurity />, {
     altPath: `/organizations/:organizationId/security`,
 });
 
+router.state(DashboardRoutes.ORGANIZATION_IDENTITY_PROVIDERS, <OrganizationIdentityProviderEntra />, {
+    path: `/organisaties/:organizationId/single-sign-on`,
+    altPath: `/organizations/:organizationId/single-sign-on`,
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
+});
+
+router.state(DashboardRoutes.ORGANIZATION_IDENTITY_PROVIDER_CONNECTION, <OrganizationIdentityProviderConnection />, {
+    path: `/organisaties/:organizationId/single-sign-on/connections/:connectionUid`,
+    altPath: `/organizations/:organizationId/single-sign-on/connections/:connectionUid`,
+    fallbackState: DashboardRoutes.ORGANIZATION_IDENTITY_PROVIDERS,
+});
+
 router.state(DashboardRoutes.ORGANIZATION_NO_PERMISSIONS, <OrganizationsNoPermissions />, {
     path: `/organisaties/:organizationId/geen-rechten`,
     altPath: `/organizations/:organizationId/no-permissions`,
@@ -693,6 +715,11 @@ router.state(DashboardRoutes.SECURITY_2FA, <Security2FA />, {
 router.state(DashboardRoutes.SECURITY_SESSIONS, <SecuritySessions />, {
     path: `/beveiliging/sessies`,
     altPath: `/security/sessions`,
+});
+
+router.state(DashboardRoutes.SECURITY_LINKED_ACCOUNTS, <SecurityIdentityProviderLinks />, {
+    path: `/beveiliging/gekoppelde-accounts`,
+    altPath: `/security/linked-accounts`,
 });
 
 router.state(DashboardRoutes.REDIRECT, <Redirect />, {

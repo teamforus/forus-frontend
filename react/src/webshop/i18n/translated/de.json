@@ -148,12 +148,20 @@
             "qr": {
                 "description": "Scannen eines QR-Codes mit der <u>Me-App</u>",
                 "title": "Ich-App"
+            },
+            "entra": {
+                "description": "Melden Sie sich mit Ihrem Arbeitskonto an",
+                "title": "Microsoft"
             }
         },
         "push": {
             "link_used": {
                 "title": "Dieser Link wurde bereits verwendet oder ist ungültig."
-            }
+            },
+            "entra_failed": {
+                "title": "Die Anmeldung mit Microsoft ist fehlgeschlagen. Bitte versuchen Sie es erneut."
+            },
+            "message_with_reference": "{{message}} ({{reference}})"
         },
         "setup_2fa_title": "Einrichten der Zwei-Faktor-Authentifizierung",
         "2fa_title": "Zwei-Faktor-Authentifizierung",
@@ -299,7 +307,8 @@
             "digid_uid_not_found": "Diese BSN-Nummer ist im System unbekannt, starten Sie Ihre Bewerbung, um ein Konto zu erstellen.",
             "digid_uid_used": "Es wurde eine andere E-Mail-Adresse für diese BSN-Nummer registriert. Um sich bei Ihrem Konto anzumelden, müssen Sie die bei uns registrierte E-Mail-Adresse verwenden.<br/><br/> Sie wissen nicht mehr, welche E-Mail-Adresse das ist, oder haben eine neue Adresse? <br/> Dann stellen Sie Ihr Konto wieder her, indem Sie <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">hier</a> oder auf die Schaltfläche unten klicken.</br>",
             "digid_unknown_error": "Bei der Kommunikation mit DigiD ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut. Sollte der Fehler weiterhin bestehen, besuchen Sie bitte die Website https://www.digid.nl/, um die neuesten Informationen zu erhalten.",
-            "unknown_error": "Bei der Kommunikation mit DigiD ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut. Sollte der Fehler weiterhin bestehen, besuchen Sie bitte die Website https://www.digid.nl/, um die neuesten Informationen zu erhalten."
+            "unknown_error": "Bei der Kommunikation mit DigiD ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut. Sollte der Fehler weiterhin bestehen, besuchen Sie bitte die Website https://www.digid.nl/, um die neuesten Informationen zu erhalten.",
+            "entra_login_failed": "Die Anmeldung mit Microsoft konnte nicht gestartet werden. Bitte versuchen Sie es später erneut."
         },
         "start_button": "Konto wiederherstellen",
         "titles": {
@@ -323,7 +332,8 @@
             "digid_uid_not_found": "Diese BSN-Nummer ist im System unbekannt",
             "digid_uid_used": "BSN-Nummer bereits verwendet.",
             "digid_unknown_error": "Bei der Kommunikation mit DigiD ist ein Fehler aufgetreten.",
-            "unknown_error": "Unbekannte Fehlermeldung"
+            "unknown_error": "Unbekannte Fehlermeldung",
+            "entra_login_failed": "Die Anmeldung mit Microsoft ist fehlgeschlagen"
         }
     },
     "expired_identity": {
@@ -821,7 +831,7 @@
                 "title": "Schemata"
             },
             "potjeswijzer": {
-                "title": "Gemeindekasse"
+                "title": "Töpfchen"
             }
         },
         "header": {
@@ -907,6 +917,9 @@
             "potjeswijzer": {
                 "description": "Auch unsere Partner bieten verschiedene Förderprogramme für Einwohner an. Haben Sie ein geringes Einkommen? Dann ist möglicherweise eine zusätzliche Unterstützung möglich.",
                 "title": "Partner von Potjes"
+            },
+            "eemsdelta": {
+                "title": "Partner"
             }
         }
     },
@@ -2003,7 +2016,10 @@
         },
         "header": {
             "title": "PDF-Muster"
-        }
+        },
+        "loading": "Die PDF-Vorschau wird geladen.",
+        "page_alt": "PDF-Seite {{page}}",
+        "unavailable": "Es ist keine PDF-Vorschau verfügbar."
     },
     "popup_auth": {
         "buttons": {
@@ -3240,7 +3256,7 @@
                 "activate": "Anfrage"
             },
             "potjeswijzer": {
-                "activate": "Gemeindekasse"
+                "activate": "Töpfchen"
             }
         },
         "items": {
@@ -3249,7 +3265,8 @@
                 "funds": "Erläuterung Bewohner"
             },
             "eemsdelta": {
-                "funds": "Schemata"
+                "funds": "Schemata",
+                "partner_funds": "Partner"
             },
             "explanation": "Erläuterung",
             "geertruidenberg": {
@@ -3305,11 +3322,11 @@
             "funds": "Regelungen",
             "partner_funds": "Sozialpartner",
             "potjeswijzer": {
-                "funds": "Gemeindekasse",
-                "partner_funds": "Partner von Potjes"
+                "partner_funds": "Partner von Potjes",
+                "funds": "Töpfchen"
             },
             "westerkwartier": {
-                "funds": "Gemeindekasse"
+                "funds": "Töpfchen"
             }
         },
         "user_menu": {
@@ -3631,6 +3648,11 @@
         },
         "goereeoverflakkee": {
             "funds": "Schemata"
+        },
+        "potjeswijzer": {
+            "funds": "Töpfchen",
+            "funds_kindpakket": "Kinderpaket",
+            "partner_funds": "Partner von Potjes"
         }
     },
     "cookie_banner": {

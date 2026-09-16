@@ -5,6 +5,7 @@ const digiDefaultMessage = [
 
 export default {
     titles: {
+        entra_login_failed: 'Inloggen met Microsoft is mislukt',
         unknown_error: 'Onbekende foutmelding',
         digid_api_0000: 'Er is een fout opgetreden tijdens het aanvragen.',
         digid_uid_used: 'BSN-nummer al gebruikt.',
@@ -29,6 +30,7 @@ export default {
         digid_010c: 'Foutmelding', // 'DigiD - temporarily unavailable',
     },
     messages: {
+        entra_login_failed: 'Inloggen met Microsoft kon niet worden gestart. Probeer het later opnieuw.',
         unknown_error: [
             'Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals. Indien deze fout blijft aanhouden,',
             ' kijk dan op de website https://www.digid.nl/ voor de laatste informatie.',

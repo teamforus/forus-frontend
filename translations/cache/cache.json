@@ -452,6 +452,14 @@
         "E-mailadres"
     ],
     [
+        "auth.options.entra.description",
+        "Log in met uw werkaccount"
+    ],
+    [
+        "auth.options.entra.title",
+        "Microsoft"
+    ],
+    [
         "auth.options.qr.description",
         "Scan een QR-code met de&nbsp;<u>Me app</u>"
     ],
@@ -464,8 +472,16 @@
         "Ik heb de <a tabIndex=\"3\" target=\"_blank\" href=\"{{ link_url }}\">privacyverklaring</a> gelezen"
     ],
     [
+        "auth.push.entra_failed.title",
+        "Inloggen met Microsoft is mislukt. Probeer het opnieuw."
+    ],
+    [
         "auth.push.link_used.title",
         "Deze link is reeds gebruikt of ongeldig."
+    ],
+    [
+        "auth.push.message_with_reference",
+        "{{message}} ({{reference}})"
     ],
     [
         "auth.setup_2fa_title",
@@ -868,6 +884,10 @@
         "Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals. Indien deze fout blijft aanhouden,, kijk dan op de website https://www.digid.nl/ voor de laatste informatie."
     ],
     [
+        "error.messages.entra_login_failed",
+        "Inloggen met Microsoft kon niet worden gestart. Probeer het later opnieuw."
+    ],
+    [
         "error.messages.unknown_error",
         "Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals. Indien deze fout blijft aanhouden,, kijk dan op de website https://www.digid.nl/ voor de laatste informatie."
     ],
@@ -954,6 +974,10 @@
     [
         "error.titles.digid_unknown_error",
         "Er is een fout opgetreden in de communicatie met DigiD."
+    ],
+    [
+        "error.titles.entra_login_failed",
+        "Inloggen met Microsoft is mislukt"
     ],
     [
         "error.titles.unknown_error",
@@ -2105,7 +2129,7 @@
     ],
     [
         "funds.funds.potjeswijzer.title",
-        "Potjes gemeente"
+        "Potjes"
     ],
     [
         "funds.funds.schagen.title",
@@ -2226,6 +2250,10 @@
     [
         "funds.partners.berkelland.title",
         "Activeren"
+    ],
+    [
+        "funds.partners.eemsdelta.title",
+        "Partners"
     ],
     [
         "funds.partners.fijnder.description",
@@ -5308,6 +5336,18 @@
         "Regelingen"
     ],
     [
+        "navbar.potjeswijzer.funds",
+        "Potjes"
+    ],
+    [
+        "navbar.potjeswijzer.funds_kindpakket",
+        "Kindpakket"
+    ],
+    [
+        "navbar.potjeswijzer.partner_funds",
+        "Potjes partners"
+    ],
+    [
         "navbar.vergoedingen.funds",
         "Alle vergoedingen"
     ],
@@ -5778,6 +5818,18 @@
     [
         "pdf_preview.header.title",
         "PDF-voorbeeld"
+    ],
+    [
+        "pdf_preview.loading",
+        "PDF-voorbeeld wordt geladen."
+    ],
+    [
+        "pdf_preview.page_alt",
+        "PDF-pagina {{page}}"
+    ],
+    [
+        "pdf_preview.unavailable",
+        "Geen PDF-voorbeeld beschikbaar."
     ],
     [
         "physical_cards.breadcrumbs.home",
@@ -9017,7 +9069,7 @@
     ],
     [
         "top_navbar.buttons.potjeswijzer.activate",
-        "Potjes gemeente"
+        "Potjes"
     ],
     [
         "top_navbar.buttons.products",
@@ -9070,6 +9122,10 @@
     [
         "top_navbar.items.eemsdelta.funds",
         "Regelingen"
+    ],
+    [
+        "top_navbar.items.eemsdelta.partner_funds",
+        "Partners"
     ],
     [
         "top_navbar.items.explanation",
@@ -9137,7 +9193,7 @@
     ],
     [
         "top_navbar.items.potjeswijzer.funds",
-        "Potjes gemeente"
+        "Potjes"
     ],
     [
         "top_navbar.items.potjeswijzer.partner_funds",
@@ -9181,7 +9237,7 @@
     ],
     [
         "top_navbar.items.westerkwartier.funds",
-        "Potjes gemeente"
+        "Potjes"
     ],
     [
         "top_navbar.language.prefix",

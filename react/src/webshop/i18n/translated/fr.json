@@ -148,12 +148,20 @@
             "qr": {
                 "description": "Scanner un code QR avec l'application <u>Me</u>",
                 "title": "Mon application"
+            },
+            "entra": {
+                "description": "Connectez-vous avec votre compte professionnel",
+                "title": "Microsoft"
             }
         },
         "push": {
             "link_used": {
                 "title": "Ce lien a déjà été utilisé ou n'est pas valide."
-            }
+            },
+            "entra_failed": {
+                "title": "La connexion avec Microsoft a échoué. Veuillez réessayer."
+            },
+            "message_with_reference": "{{message}} ({{reference}})"
         },
         "setup_2fa_title": "Mise en place de l'authentification à deux facteurs",
         "2fa_title": "Authentification à deux facteurs",
@@ -299,7 +307,8 @@
             "digid_uid_not_found": "Ce numéro BSN n'est pas connu dans le système, commencez votre application pour créer un compte.",
             "digid_uid_used": "Une autre adresse e-mail a été enregistrée pour ce numéro BSN. Pour vous connecter à votre compte, vous devez utiliser l'adresse électronique que vous avez enregistrée.<br/><br/> Vous ne vous souvenez plus de cette adresse e-mail ou vous en avez une nouvelle ? <br/> Restaurez votre compte en cliquant <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">ici</a> ou sur le bouton ci-dessous.</br>",
             "digid_unknown_error": "Une erreur s'est produite dans la communication avec DigiD. Veuillez réessayer plus tard. Si cette erreur persiste, veuillez consulter le site web https://www.digid.nl/ pour obtenir les informations les plus récentes.",
-            "unknown_error": "Une erreur s'est produite dans la communication avec DigiD. Veuillez réessayer plus tard. Si cette erreur persiste, veuillez consulter le site web https://www.digid.nl/ pour obtenir les informations les plus récentes."
+            "unknown_error": "Une erreur s'est produite dans la communication avec DigiD. Veuillez réessayer plus tard. Si cette erreur persiste, veuillez consulter le site web https://www.digid.nl/ pour obtenir les informations les plus récentes.",
+            "entra_login_failed": "La connexion via Microsoft n'a pas pu être établie. Veuillez réessayer plus tard."
         },
         "start_button": "Restaurer le compte",
         "titles": {
@@ -323,7 +332,8 @@
             "digid_uid_not_found": "Ce numéro BSN est inconnu dans le système",
             "digid_uid_used": "Numéro BSN déjà utilisé.",
             "digid_unknown_error": "Une erreur s'est produite dans la communication avec DigiD.",
-            "unknown_error": "Message d'erreur inconnu"
+            "unknown_error": "Message d'erreur inconnu",
+            "entra_login_failed": "La connexion avec Microsoft a échoué"
         }
     },
     "expired_identity": {
@@ -821,7 +831,7 @@
                 "title": "Régimes"
             },
             "potjeswijzer": {
-                "title": "Caisses communales"
+                "title": "Petits pots"
             }
         },
         "header": {
@@ -907,6 +917,9 @@
             "potjeswijzer": {
                 "description": "Nos partenaires proposent également différentes aides financières aux habitants. Vous disposez d'un faible revenu ? Dans ce cas, vous pouvez bénéficier d'une aide supplémentaire.",
                 "title": "Partenaires de Potjes"
+            },
+            "eemsdelta": {
+                "title": "Partenaires"
             }
         }
     },
@@ -2003,7 +2016,10 @@
         },
         "header": {
             "title": "Échantillon PDF"
-        }
+        },
+        "loading": "L'aperçu du fichier PDF est en cours de chargement.",
+        "page_alt": "Page PDF {{page}}",
+        "unavailable": "Aucun aperçu PDF n'est disponible."
     },
     "popup_auth": {
         "buttons": {
@@ -3240,7 +3256,7 @@
                 "activate": "Demande"
             },
             "potjeswijzer": {
-                "activate": "Caisses communales"
+                "activate": "Petits pots"
             }
         },
         "items": {
@@ -3249,7 +3265,8 @@
                 "funds": "Explication des résidents"
             },
             "eemsdelta": {
-                "funds": "Régimes"
+                "funds": "Régimes",
+                "partner_funds": "Partenaires"
             },
             "explanation": "Explication",
             "geertruidenberg": {
@@ -3305,11 +3322,11 @@
             "funds": "Dispositions",
             "partner_funds": "Partenaires sociaux",
             "potjeswijzer": {
-                "funds": "Caisses communales",
-                "partner_funds": "Partenaires de Potjes"
+                "partner_funds": "Partenaires de Potjes",
+                "funds": "Petits pots"
             },
             "westerkwartier": {
-                "funds": "Caisses communales"
+                "funds": "Petits pots"
             }
         },
         "user_menu": {
@@ -3631,6 +3648,11 @@
         },
         "goereeoverflakkee": {
             "funds": "Régimes"
+        },
+        "potjeswijzer": {
+            "funds": "Petits pots",
+            "funds_kindpakket": "Kit pour enfants",
+            "partner_funds": "Partenaires de Potjes"
         }
     },
     "cookie_banner": {
