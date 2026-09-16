@@ -86,7 +86,7 @@ export default {
             funds: 'Regelingen',
         },
         gelrepas: {
-            title: 'Uitleg per gemeente',
+            funds: 'Uitleg per gemeente',
         },
     },
     buttons: {
