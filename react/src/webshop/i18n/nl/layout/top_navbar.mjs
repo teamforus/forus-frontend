@@ -85,6 +85,9 @@ export default {
         tilburg: {
             funds: 'Regelingen',
         },
+        gelrepas: {
+            funds: 'Uitleg per gemeente',
+        },
     },
     buttons: {
         westerkwartier: {
