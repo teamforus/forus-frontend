@@ -1,19 +1,19 @@
-@use "sass:color";
+@use 'sass:color';
 
-@use "style-webshop-general-vars";
-@use "./includes/fonts/nunito-sans";
+@use 'style-webshop-general-vars';
+@use './includes/fonts/roboto';
 
 // do not use these scss variables outside this file
-$primaryColor: #1065a9;
-$primaryColorLight: #6e6d6d;
+$primaryColor: #003865;
+$primaryColorLight: #016596;
 
 :root {
     --zoom: 100%;
     --zoom-mobile: 100%;
 
     --border-color: #dddddd;
-    --border-radius: 8px;
-    --box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+    --border-radius: 0;
+    --box-shadow: none;
 
     --color-primary: #{$primaryColor};
     --color-primary-light: #{$primaryColorLight};
@@ -28,17 +28,17 @@ $primaryColorLight: #6e6d6d;
 
     --navbar-menu-gap: 22px;
     --navbar-menu-order: 1;
-    --navbar-menu-background: #{$primaryColor};
+    --navbar-menu-background: #ffffff;
 
     --navbar-search-gap: 20px;
     --navbar-search-order: 2;
     --navbar-search-padding: 20px 0px;
     --navbar-search-background: #ffffff;
-    --navbar-search-border-bottom: 1px solid var(--border-color);
+    --navbar-search-border-bottom: 1px solid #e5e5e5;
 
     --navbar-menu-item-font: 400 18px/21px var(--base-font);
-    --navbar-menu-item-color: #ffffff;
-    --navbar-menu-item-color-hover: #ffffff;
+    --navbar-menu-item-color: #003866;
+    --navbar-menu-item-color-hover: #003866;
     --navbar-menu-item-padding: 16px 0;
     --navbar-menu-item-background: transparent;
     --navbar-menu-item-background-hover: transparent;
@@ -48,7 +48,7 @@ $primaryColorLight: #6e6d6d;
 
     --navbar-auth-font: 600 16px/20px var(--base-font);
 
-    --navbar-logo-height: 50px;
+    --navbar-logo-height: 80px;
 
     // Banner
     --banner-title-font: 700 48px/64px var(--base-font);
@@ -69,8 +69,8 @@ $primaryColorLight: #6e6d6d;
     // navbar (auth) (default button)
     --tc-auth-menu: #305dfb;
     --tc-auth-btn: #fff;
-    --btn-auth-bg: #E6494F;
-    --btn-auth-border: #E6494F;
+    --btn-auth-bg: #e6494f;
+    --btn-auth-border: #e6494f;
     --auth-avater-bg: #305dfb;
     --auth-avater-svg: #fff;
 
@@ -94,7 +94,7 @@ $primaryColorLight: #6e6d6d;
     --header-banner-pane-banner-border-radius: initial;
 
     // base font
-    --base-font: 'NunitoSans', arial, sans-serif;
+    --base-font: Roboto, arial, sans-serif;
 
     // text color
     --tc: #282b39;
@@ -113,7 +113,7 @@ $primaryColorLight: #6e6d6d;
     --bc: #d13b3b;
 
     // background color
-    --body-background: #fff;
+    --body-background: #fefcfb;
 
     // footer color
     --footer_padding: 0;
@@ -126,10 +126,10 @@ $primaryColorLight: #6e6d6d;
     --footer_social_border_color: var(--footer_color);
     --footer_social_border_radius: var(--border-radius);
 
-    --footer-copyright-color: #545457;
-    --footer-copyright-font: 400 14px/30px var(--base-font);
-    --footer-copyright-background: #fff;
-    --footer-copyright-border-color: var(--border-color);
+    --footer-copyright-color: #ffffff;
+    --footer-copyright-font: 700 14px/30px var(--base-font);
+    --footer-copyright-background: #003865;
+    --footer-copyright-border-color: #003865;
     --footer-copyright-padding: 40px;
 
     // not displayed
@@ -240,7 +240,7 @@ $primaryColorLight: #6e6d6d;
     --button-primary-hover-color: #fff;
     --button-primary-hover-border: 1px solid #0A3D6;
     --button-primary-hover-decoration: none;
-    --button-primary-hover-background: #0A3D65;
+    --button-primary-hover-background: #026596;
 
     --button-primary-outline-color: var(--color-primary);
     --button-primary-outline-border: 1px solid var(--color-primary);
@@ -335,6 +335,11 @@ $primaryColorLight: #6e6d6d;
     --voucher-card-action-hover-background: var(--color-primary);
     --voucher-card-action-hover-border-color: var(--color-primary);
 
+    // Voucher
+    --voucher-details-color: #ffffff;
+    --voucher-details-background: #003866;
+    --voucher-actions-background: #00a2e0;
+
     // Products
     --products-title-color: var(--tc);
     --products-title-hover-color: var(--tc);
@@ -345,7 +350,7 @@ $primaryColorLight: #6e6d6d;
     --product-title-color: var(--tc);
 
     // Map
-    --map-title-color: #0B0E12;
+    --map-title-color: #0b0e12;
     --map-title-font: 700 40px var(--heading-font-family);
 
     // Sections
@@ -362,7 +367,7 @@ $primaryColorLight: #6e6d6d;
     --section-faq-padding: 30px 0;
     --section-faq-background: var(--section-background);
     --section-footer-padding: 35px 0;
-    --section-footer-background: #{$primaryColor};
+    --section-footer-background: #016596;
     --section-pre-check-padding: 0 0 30px;
     --section-pre-check-background: var(--section-background);
     --section-profile-padding: var(--section-padding);

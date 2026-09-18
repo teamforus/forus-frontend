@@ -25,6 +25,8 @@ export default function CmsLinkPanelsBlockNext({ block }: { block: Implementatio
                 const itemValuesHtml = item.values_html || {};
                 const buttonText = stringValue(itemValues.button_text);
                 const buttonLink = stringValue(itemValues.button_link);
+                const buttonTextColor = stringValue(itemValues.button_text_color);
+                const titleColor = stringValue(itemValues.title_color);
 
                 return {
                     id: item.id,
@@ -35,6 +37,8 @@ export default function CmsLinkPanelsBlockNext({ block }: { block: Implementatio
                     buttonLink,
                     buttonTargetBlank: valueIsTrue(itemValues.button_target_blank),
                     hasButton: Boolean(buttonText && buttonLink),
+                    buttonStyle: buttonTextColor ? { color: buttonTextColor } : undefined,
+                    titleStyle: titleColor ? { color: titleColor } : undefined,
                 };
             })
             .filter((panel) => panel.title || panel.description || panel.linksHtml || panel.hasButton);
@@ -67,7 +71,9 @@ export default function CmsLinkPanelsBlockNext({ block }: { block: Implementatio
                         {panels.map((panel) => (
                             <div className="cms-link-panels-panel" key={panel.id}>
                                 {panel.title && (
-                                    <PanelTitleTag className="cms-link-panels-panel-title">{panel.title}</PanelTitleTag>
+                                    <PanelTitleTag className="cms-link-panels-panel-title" style={panel.titleStyle}>
+                                        {panel.title}
+                                    </PanelTitleTag>
                                 )}
                                 {panel.description && (
                                     <p className="cms-link-panels-panel-description">{panel.description}</p>
@@ -80,7 +86,8 @@ export default function CmsLinkPanelsBlockNext({ block }: { block: Implementatio
                                         className="cms-link-panels-panel-button"
                                         href={panel.buttonLink}
                                         target={panel.buttonTargetBlank ? '_blank' : undefined}
-                                        rel={panel.buttonTargetBlank ? 'noreferrer' : undefined}>
+                                        rel={panel.buttonTargetBlank ? 'noreferrer' : undefined}
+                                        style={panel.buttonStyle}>
                                         {panel.buttonText}
                                     </a>
                                 )}
