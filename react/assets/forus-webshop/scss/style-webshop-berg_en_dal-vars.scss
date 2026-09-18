@@ -333,6 +333,9 @@ $primaryColorLight: #1B8761;
     --voucher-card-action-hover-background: #15694B;
     --voucher-card-action-hover-border-color: #15694B;
 
+    // Voucher
+    --voucher-actions-background: var(--color-primary);
+
     // Products
     --products-title-color: var(--tc);
     --products-title-hover-color: var(--tc);
