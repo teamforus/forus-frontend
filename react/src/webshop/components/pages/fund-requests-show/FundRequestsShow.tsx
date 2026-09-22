@@ -112,26 +112,34 @@ export default function FundRequestsShow() {
                         <div className="card-section">
                             <div className="fund-request-summary">
                                 <div className="fund-request-summary-status">
-                                    {fundRequest.state === 'pending' && !hasNotAnswered && (
-                                        <StatusBanner type="pending">{fundRequest.state_locale}</StatusBanner>
-                                    )}
-
-                                    {fundRequest.state === 'pending' && hasNotAnswered && (
-                                        <StatusBanner type="warning">
-                                            {translate('fund_request.state.answer_needed')}
+                                    {fundRequest.expired ? (
+                                        <StatusBanner type="expired">
+                                            {translate('fund_request.state.expired')}
                                         </StatusBanner>
-                                    )}
+                                    ) : (
+                                        <>
+                                            {fundRequest.state === 'pending' && !hasNotAnswered && (
+                                                <StatusBanner type="pending">{fundRequest.state_locale}</StatusBanner>
+                                            )}
 
-                                    {fundRequest.state === 'approved' && (
-                                        <StatusBanner type="success">{fundRequest.state_locale}</StatusBanner>
-                                    )}
+                                            {fundRequest.state === 'pending' && hasNotAnswered && (
+                                                <StatusBanner type="warning">
+                                                    {translate('fund_request.state.answer_needed')}
+                                                </StatusBanner>
+                                            )}
 
-                                    {fundRequest.state === 'disregarded' && (
-                                        <StatusBanner type="danger">{fundRequest.state_locale}</StatusBanner>
-                                    )}
+                                            {fundRequest.state === 'approved' && (
+                                                <StatusBanner type="success">{fundRequest.state_locale}</StatusBanner>
+                                            )}
 
-                                    {fundRequest.state === 'declined' && (
-                                        <StatusBanner type="default">{fundRequest.state_locale}</StatusBanner>
+                                            {fundRequest.state === 'disregarded' && (
+                                                <StatusBanner type="danger">{fundRequest.state_locale}</StatusBanner>
+                                            )}
+
+                                            {fundRequest.state === 'declined' && (
+                                                <StatusBanner type="default">{fundRequest.state_locale}</StatusBanner>
+                                            )}
+                                        </>
                                     )}
                                 </div>
 

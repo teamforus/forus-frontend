@@ -1135,7 +1135,8 @@
             "title": "BSN onayının süresi doldu"
         },
         "state": {
-            "answer_needed": "Sizden daha fazla bilgiye ihtiyacımız var"
+            "answer_needed": "Sizden daha fazla bilgiye ihtiyacımız var",
+            "expired": "Süresi dolmuş"
         }
     },
     "fund": {
@@ -1236,7 +1237,10 @@
             "archive": "Arşiv",
             "all_funds": "Tüm krediler..."
         },
-        "title": "İstek"
+        "title": "İstek",
+        "state": {
+            "expired": "Süresi dolmuş"
+        }
     },
     "funds": {
         "breadcrumbs": {

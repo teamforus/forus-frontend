@@ -94,7 +94,11 @@ export default function FundRequestClarificationsBlock({
                                 </div>
 
                                 <div className="fund-request-clarification-actions">
-                                    {item?.clarificationsPending?.length > 0 ? (
+                                    {fundRequest.expired ? (
+                                        <Label type="default" nowrap={true}>
+                                            {translate('fund_request.state.expired')}
+                                        </Label>
+                                    ) : item?.clarificationsPending?.length > 0 ? (
                                         <Label type="warning" nowrap={true}>
                                             {translate('fund_request.clarifications.info_pending')}
                                         </Label>

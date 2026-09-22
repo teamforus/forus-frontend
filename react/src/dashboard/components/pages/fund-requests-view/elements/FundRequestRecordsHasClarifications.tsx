@@ -82,20 +82,26 @@ export default function FundRequestRecordsHasClarifications({
                                         <td>{translate(`validation_requests.sources.${record.source}`)}</td>
 
                                         <td>
-                                            <Label
-                                                type={
-                                                    record.clarifications[record.clarifications.length - 1].state ==
-                                                    'pending'
-                                                        ? 'default'
-                                                        : record.clarifications[record.clarifications.length - 1]
-                                                                .state == 'closed'
-                                                          ? 'primary-light'
-                                                          : 'success'
-                                                }>
-                                                {translate(
-                                                    `validation_requests.clarification_states.${record.clarifications[record.clarifications.length - 1].state}`,
-                                                )}
-                                            </Label>
+                                            {fundRequest.expired ? (
+                                                <Label type="default">
+                                                    {translate('validation_requests.states.expired')}
+                                                </Label>
+                                            ) : (
+                                                <Label
+                                                    type={
+                                                        record.clarifications[record.clarifications.length - 1].state ==
+                                                        'pending'
+                                                            ? 'default'
+                                                            : record.clarifications[record.clarifications.length - 1]
+                                                                    .state == 'closed'
+                                                              ? 'primary-light'
+                                                              : 'success'
+                                                    }>
+                                                    {translate(
+                                                        `validation_requests.clarification_states.${record.clarifications[record.clarifications.length - 1].state}`,
+                                                    )}
+                                                </Label>
+                                            )}
                                         </td>
 
                                         <td className="td-narrow text-right"></td>

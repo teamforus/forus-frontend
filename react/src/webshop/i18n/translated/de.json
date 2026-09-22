@@ -721,7 +721,8 @@
             "title": "BSN-Bestätigung abgelaufen"
         },
         "state": {
-            "answer_needed": "Wir benötigen weitere Informationen von Ihnen"
+            "answer_needed": "Wir benötigen weitere Informationen von Ihnen",
+            "expired": "Abgelaufen"
         }
     },
     "fund_requests": {
@@ -745,7 +746,10 @@
             "archive": "Archiv",
             "all_funds": "Alle Credits..."
         },
-        "title": "Anfrage"
+        "title": "Anfrage",
+        "state": {
+            "expired": "Abgelaufen"
+        }
     },
     "fund": {
         "breadcrumbs": {
