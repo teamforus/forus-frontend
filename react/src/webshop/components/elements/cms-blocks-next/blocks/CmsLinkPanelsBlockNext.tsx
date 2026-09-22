@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { CSSProperties, useMemo } from 'react';
 import classNames from 'classnames';
 import Markdown from '../../markdown/Markdown';
 import Section from '../../sections/Section';
@@ -12,7 +12,11 @@ export default function CmsLinkPanelsBlockNext({ block }: { block: Implementatio
     const values = block.values || {};
     const valuesHtml = block.values_html || {};
     const title = stringValue(values.section_title);
+    const titleColor = stringValue(values.section_title_color);
     const descriptionHtml = valuesHtml.section_description || '';
+    const descriptionColor = stringValue(values.section_description_color);
+    const separatorEnabled = valueIsTrue(values.separator_enabled);
+    const separatorColor = stringValue(values.separator_color);
     const columnsValue = Number(values.columns || 2);
     const columns = columnOptions.includes(columnsValue) ? columnsValue : 2;
     const PanelTitleTag = title ? 'h3' : 'h2';
@@ -56,12 +60,28 @@ export default function CmsLinkPanelsBlockNext({ block }: { block: Implementatio
                     columns === 1 && 'block-cms-link-panels-1-column',
                     columns === 2 && 'block-cms-link-panels-2-columns',
                     columns === 3 && 'block-cms-link-panels-3-columns',
-                )}>
+                    separatorEnabled && 'block-cms-link-panels-separated',
+                )}
+                style={
+                    separatorEnabled && separatorColor
+                        ? ({ '--cms-link-panels-separator-color': separatorColor } as CSSProperties)
+                        : undefined
+                }>
                 {(title || descriptionHtml) && (
                     <div className="cms-link-panels-header">
-                        {title && <h2 className="cms-link-panels-title">{title}</h2>}
+                        {title && (
+                            <h2
+                                className="cms-link-panels-title"
+                                style={titleColor ? { color: titleColor } : undefined}>
+                                {title}
+                            </h2>
+                        )}
                         {descriptionHtml && (
-                            <Markdown className="cms-link-panels-description" content={descriptionHtml} />
+                            <Markdown
+                                className="cms-link-panels-description"
+                                content={descriptionHtml}
+                                textColor={descriptionColor}
+                            />
                         )}
                     </div>
                 )}

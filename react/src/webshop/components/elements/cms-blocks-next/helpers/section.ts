@@ -15,12 +15,6 @@ export function cmsSectionClassName(values: Record<string, ImplementationCmsBloc
 
 export function cmsSectionStyle(values: Record<string, ImplementationCmsBlockValue> = {}): CSSProperties | undefined {
     const sectionBackgroundColor = stringValue(values.section_background_color);
-    const sectionTextColor = stringValue(values.section_text_color);
-    const sectionSeparatorColor = stringValue(values.section_separator_color);
 
-    return {
-        ...(sectionBackgroundColor ? { backgroundColor: sectionBackgroundColor } : {}),
-        ...(sectionTextColor ? { color: sectionTextColor } : {}),
-        ...(sectionSeparatorColor ? ({ '--cms-link-panel-line-color': sectionSeparatorColor } as CSSProperties) : {}),
-    };
+    return sectionBackgroundColor ? { backgroundColor: sectionBackgroundColor } : undefined;
 }

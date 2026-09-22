@@ -44,7 +44,6 @@
 
     .cms-link-panels-panel-description {
         margin: 0;
-        padding-right: 50px;
         font: 400 16px/24px var(--base-font);
     }
 
@@ -96,48 +95,68 @@
     &.block-cms-link-panels-2-columns {
         .cms-link-panels-items {
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            column-gap: 160px;
-            row-gap: 80px;
-
-            & > :nth-child(2n + 2) {
-                position: relative;
-            }
-
-            & > :nth-child(2n + 2)::before {
-                content: '';
-                position: absolute;
-                left: -80px;
-                top: 0;
-                bottom: 0;
-                width: 2px;
-                background: #ffffff;
-                background: var(--cms-link-panel-line-color, #ffffff);
-            }
         }
     }
 
     &.block-cms-link-panels-3-columns {
         .cms-link-panels-items {
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            column-gap: 160px;
+        }
+    }
+
+    &.block-cms-link-panels-2-columns,
+    &.block-cms-link-panels-3-columns {
+        .cms-link-panels-items {
+            column-gap: 80px;
             row-gap: 80px;
+        }
+    }
 
-            & > :nth-child(3n + 2),
-            & > :nth-child(3n + 3) {
+    &.block-cms-link-panels-separated {
+        .cms-link-panels-items {
+            column-gap: 160px;
+
+            & > .cms-link-panels-panel {
                 position: relative;
-            }
 
-            & > :nth-child(3n + 2)::before,
-            & > :nth-child(3n + 3)::before {
-                content: '';
-                position: absolute;
-                left: -80px;
-                top: 0;
-                bottom: 0;
-                width: 2px;
-                background: var(--cms-link-panel-line-color, #ffffff);
+                &::before {
+                    position: absolute;
+                    left: -80px;
+                    top: 0;
+                    bottom: 0;
+                    width: 2px;
+                    background: var(--cms-link-panels-separator-color, #ffffff);
+                    transform: translateX(-50%);
+                }
             }
         }
+
+        &.block-cms-link-panels-2-columns {
+            .cms-link-panels-items {
+                & > :nth-child(2n + 2)::before {
+                    content: '';
+                }
+            }
+        }
+
+        &.block-cms-link-panels-3-columns {
+            .cms-link-panels-items {
+                & > :nth-child(3n + 2)::before,
+                & > :nth-child(3n + 3)::before {
+                    content: '';
+                }
+            }
+        }
+    }
+
+    .section-cms-next-spacing-none &,
+    .section-cms-next-spacing-no-top & {
+        padding-top: 0;
+    }
+
+    .section-cms-next-spacing-none &,
+    .section-cms-next-spacing-no-bottom & {
+        padding-bottom: 0;
     }
 
     @media screen and (max-width: 1000px) {
@@ -148,7 +167,7 @@
                 row-gap: 60px;
 
                 & > :nth-child(n)::before {
-                    content: none;
+                    display: none;
                 }
             }
         }

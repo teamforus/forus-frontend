@@ -48,7 +48,7 @@
 
         .voucher-details {
             display: flex;
-            background: var(--voucher-details-background, #fff);
+            background: var(--voucher-details-background);
             flex-direction: column;
             flex: 0 0 calc(50% - calc(var(--gap) / 2));
             border-radius: min(calc(var(--border-radius) * 2), 16px);
@@ -64,36 +64,36 @@
 
                 .voucher-details-info-fund {
                     font: 700 22px/28px var(--base-font);
-                    color: var(--voucher-details-color, #222222);
+                    color: var(--voucher-details-color);
                 }
 
                 .voucher-details-info-sponsor {
                     font: 600 15px/20px var(--base-font);
-                    color: var(--voucher-details-color, #282b39);
+                    color: var(--voucher-details-sponsor-color);
                 }
 
                 .voucher-details-info-date {
                     font: 500 14px/20px var(--base-font);
-                    color: var(--voucher-details-color, #595959);
+                    color: var(--voucher-details-date-color);
                 }
 
                 .voucher-details-info-amount {
                     font: 700 22px/30px var(--base-font);
-                    color: var(--voucher-details-color, #222222);
+                    color: var(--voucher-details-color);
                 }
             }
 
             .voucher-details-records {
                 display: flex;
                 flex-direction: column;
-                background: var(--voucher-details-background, #fbfbfb);
+                background: var(--voucher-details-records-background);
                 padding: 32px;
-                border-top: 1px solid var(--voucher-details-background, var(--border-color));
+                border-top: 1px solid var(--voucher-details-records-border-color);
                 gap: 20px;
 
                 .voucher-details-records-title {
                     font: 700 16px/20px var(--base-font);
-                    color: var(--voucher-details-color, #222222);
+                    color: var(--voucher-details-color);
                 }
 
                 .voucher-details-records-list {
@@ -110,14 +110,14 @@
                             display: flex;
                             flex: 0 0 calc(50% - 10px);
                             font: 500 16px/20px var(--base-font);
-                            color: var(--voucher-details-color, #595959);
+                            color: var(--voucher-details-records-label-color);
                         }
 
                         .voucher-details-records-item-value {
                             display: flex;
                             flex: 0 0 calc(50% - 10px);
                             font: 600 16px/20px var(--base-font);
-                            color: var(--voucher-details-color, #222222);
+                            color: var(--voucher-details-color);
                         }
                     }
                 }

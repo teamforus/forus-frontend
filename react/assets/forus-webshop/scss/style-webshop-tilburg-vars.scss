@@ -337,7 +337,12 @@ $primaryColorLight: #016596;
 
     // Voucher
     --voucher-details-color: #ffffff;
+    --voucher-details-sponsor-color: var(--voucher-details-color);
+    --voucher-details-date-color: var(--voucher-details-color);
+    --voucher-details-records-label-color: var(--voucher-details-color);
     --voucher-details-background: #003866;
+    --voucher-details-records-background: var(--voucher-details-background);
+    --voucher-details-records-border-color: var(--voucher-details-background);
     --voucher-actions-background: #00a2e0;
 
     // Products
