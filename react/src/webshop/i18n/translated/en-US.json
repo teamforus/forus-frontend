@@ -910,7 +910,8 @@
             "title": "BSN confirmation expired"
         },
         "state": {
-            "answer_needed": "We need more information from you"
+            "answer_needed": "We need more information from you",
+            "expired": "Expired"
         }
     },
     "fund_requests": {
@@ -934,7 +935,10 @@
             "archive": "Archive",
             "all_funds": "All credits..."
         },
-        "title": "Request"
+        "title": "Request",
+        "state": {
+            "expired": "Expired"
+        }
     },
     "fund": {
         "breadcrumbs": {
