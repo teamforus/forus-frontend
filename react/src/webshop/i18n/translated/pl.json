@@ -148,12 +148,20 @@
             "qr": {
                 "description": "Zeskanuj kod QR za pomocą aplikacji <u>Me</u>",
                 "title": "Moja aplikacja"
+            },
+            "entra": {
+                "description": "Zaloguj się na swoje konto służbowe",
+                "title": "Microsoft"
             }
         },
         "push": {
             "link_used": {
                 "title": "Ten link został już użyty lub jest nieprawidłowy."
-            }
+            },
+            "entra_failed": {
+                "title": "Logowanie za pomocą konta Microsoft nie powiodło się. Spróbuj ponownie."
+            },
+            "message_with_reference": "{{message}} ({{reference}})"
         },
         "setup_2fa_title": "Konfigurowanie uwierzytelniania dwuskładnikowego",
         "2fa_title": "Uwierzytelnianie dwuskładnikowe",
@@ -299,7 +307,8 @@
             "digid_uid_not_found": "Ten numer BSN jest nieznany w systemie, uruchom aplikację, aby utworzyć konto.",
             "digid_uid_used": "Dla tego numeru BSN zarejestrowano inny adres e-mail. Aby zalogować się na swoje konto, należy użyć zarejestrowanego adresu e-mail.<br/><br/> Nie pamiętasz, który to adres e-mail lub masz nowy? <br/> Przywróć swoje konto, klikając <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">tutaj</a> lub przycisk poniżej.</br>",
             "digid_unknown_error": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
-            "unknown_error": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje."
+            "unknown_error": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
+            "entra_login_failed": "Nie udało się uruchomić logowania za pomocą konta Microsoft. Spróbuj ponownie później."
         },
         "start_button": "Przywracanie konta",
         "titles": {
@@ -323,7 +332,8 @@
             "digid_uid_not_found": "Ten numer BSN jest nieznany w systemie",
             "digid_uid_used": "Numer BSN został już użyty.",
             "digid_unknown_error": "Wystąpił błąd w komunikacji z DigiD.",
-            "unknown_error": "Nieznany komunikat o błędzie"
+            "unknown_error": "Nieznany komunikat o błędzie",
+            "entra_login_failed": "Logowanie za pomocą konta Microsoft nie powiodło się"
         }
     },
     "expired_identity": {
@@ -821,7 +831,7 @@
                 "title": "Programy"
             },
             "potjeswijzer": {
-                "title": "Fundusze gminne"
+                "title": "Słoiczki"
             }
         },
         "header": {
@@ -907,6 +917,9 @@
             "potjeswijzer": {
                 "description": "Również nasi partnerzy oferują mieszkańcom różne formy pomocy. Czy Państwa dochody są niskie? W takim razie mogą Państwo liczyć na dodatkowe wsparcie.",
                 "title": "Partnerzy Potjes"
+            },
+            "eemsdelta": {
+                "title": "Partnerzy"
             }
         }
     },
@@ -2003,7 +2016,10 @@
         },
         "header": {
             "title": "Próbka PDF"
-        }
+        },
+        "loading": "Ładowanie podglądu pliku PDF.",
+        "page_alt": "Strona PDF {{page}}",
+        "unavailable": "Nie ma dostępnego podglądu w formacie PDF."
     },
     "popup_auth": {
         "buttons": {
@@ -3240,7 +3256,7 @@
                 "activate": "Żądanie"
             },
             "potjeswijzer": {
-                "activate": "Fundusze gminne"
+                "activate": "Słoiczki"
             }
         },
         "items": {
@@ -3249,7 +3265,8 @@
                 "funds": "Wyjaśnienie mieszkańców"
             },
             "eemsdelta": {
-                "funds": "Programy"
+                "funds": "Programy",
+                "partner_funds": "Partnerzy"
             },
             "explanation": "Wyjaśnienie",
             "geertruidenberg": {
@@ -3305,11 +3322,11 @@
             "funds": "Przepisy",
             "partner_funds": "Partnerzy społeczni",
             "potjeswijzer": {
-                "funds": "Fundusze gminne",
-                "partner_funds": "Partnerzy Potjes"
+                "partner_funds": "Partnerzy Potjes",
+                "funds": "Słoiczki"
             },
             "westerkwartier": {
-                "funds": "Fundusze gminne"
+                "funds": "Słoiczki"
             }
         },
         "user_menu": {
@@ -3631,6 +3648,11 @@
         },
         "goereeoverflakkee": {
             "funds": "Programy"
+        },
+        "potjeswijzer": {
+            "funds": "Słoiczki",
+            "funds_kindpakket": "Zestaw dla dzieci",
+            "partner_funds": "Partnerzy Potjes"
         }
     },
     "cookie_banner": {
