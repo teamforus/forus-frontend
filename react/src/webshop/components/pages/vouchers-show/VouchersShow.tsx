@@ -174,7 +174,7 @@ export default function VouchersShow() {
                                                 <div className="voucher-details-info-sponsor">
                                                     {voucher?.product
                                                         ? voucher?.product?.organization?.name
-                                                        : voucher?.fund?.name}
+                                                        : voucher?.fund?.organization?.name}
                                                 </div>
                                                 <div className="voucher-details-info-date">
                                                     {translate('voucher.details.valid_until', {
