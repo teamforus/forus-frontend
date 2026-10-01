@@ -5,6 +5,12 @@ export default {
     '2fa_title': 'Tweefactorauthenticatie',
     logout: 'Uitloggen',
     back: 'Terug',
+    header: {
+        digid: {
+            title: 'Inloggen met DigiD',
+            description: 'In welke gemeente woon je?',
+        },
+    },
     options: {
         qr: {
             title: 'Me app',

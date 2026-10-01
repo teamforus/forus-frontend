@@ -46,6 +46,7 @@ import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import FundCriteriaGroup from '../../../../dashboard/props/models/FundCriteriaGroup';
 import FundRequestPersonBsnApiWarning from './elements/FundRequestPersonBsnApiWarning';
 import useFundApply from '../../../hooks/useFundApply';
+import { useTvsService } from '../../../services/TvsService';
 
 export type LocalCriterion = FundCriterion & {
     input_value?: string;
@@ -88,12 +89,14 @@ export default function FundRequest() {
     const fetchAuthIdentity = useFetchAuthIdentity();
 
     const fundService = useFundService();
+    const tvsService = useTvsService();
     const digIdService = useDigiDService();
     const helperService = useHelperService();
     const voucherService = useVoucherService();
     const recordTypeService = useRecordTypeService();
     const fundRequestService = useFundRequestService();
 
+    const digidUseTvs = appConfigs?.digid_tvs;
     const { from } = useStateParams<{ from?: string }>();
     const [step, setStep] = useState<number>(null);
     const [submitInProgress, setSubmitInProgress] = useState(false);
@@ -133,7 +136,11 @@ export default function FundRequest() {
     const bsnIsKnown = useMemo(() => !!authIdentity?.bsn, [authIdentity]);
     const emailSetupShow = useMemo(() => !authIdentity?.email, [authIdentity]);
 
-    const digidAvailable = useMemo(() => appConfigs?.digid, [appConfigs]);
+    const digidAvailable = useMemo(
+        () => (appConfigs?.digid_tvs ? appConfigs?.digid && fund?.organization?.tvs_configured : appConfigs?.digid),
+        [appConfigs?.digid, appConfigs?.digid_tvs, fund?.organization?.tvs_configured],
+    );
+
     const digidMandatory = useMemo(() => appConfigs?.digid_mandatory, [appConfigs]);
 
     const shouldAddContactInfo = useMemo(
@@ -395,6 +402,21 @@ export default function FundRequest() {
                 });
         }
     }, [digIdService, fund?.id, navigateState, pushDanger, fetchAuthIdentity, translate]);
+
+    const startTvs = useCallback(async () => {
+        if ((await fetchAuthIdentity())?.identity) {
+            tvsService
+                .startFundRequest(fund.organization_id, fund.id)
+                .then((res) => (document.location = res.data.redirect_url))
+                .catch((err: ResponseError) => {
+                    if (err.status === 403 && err.data.message) {
+                        return pushDanger(translate('push.error'), err.data.message);
+                    }
+
+                    navigateState(WebshopRoutes.ERROR, { errorCode: err.headers['error-code'] });
+                });
+        }
+    }, [fetchAuthIdentity, tvsService, fund, navigateState, pushDanger, translate]);
 
     const transformInvalidCriteria = useCallback(
         function (item: FundCriterion): LocalCriterion {
@@ -946,7 +968,9 @@ export default function FundRequest() {
                                         </div>
                                         <div className="sign_up-options">
                                             {digidAvailable && (
-                                                <div className="sign_up-option" onClick={startDigId}>
+                                                <div
+                                                    className="sign_up-option"
+                                                    onClick={() => (digidUseTvs ? startTvs() : startDigId())}>
                                                     <div className="sign_up-option-media">
                                                         <img
                                                             className="sign_up-option-media-img"

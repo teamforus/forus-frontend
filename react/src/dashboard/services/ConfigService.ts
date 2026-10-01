@@ -151,6 +151,7 @@ export type AppConfigProp = {
         info_description_html: string;
     };
     digid: boolean;
+    digid_tvs: boolean;
     bsn_confirmation_offset?: number;
     digid_sign_up_allowed: boolean;
     digid_mandatory: boolean;

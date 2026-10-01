@@ -45,6 +45,7 @@ import usePayoutTransactionService from '../../../services/PayoutTransactionServ
 import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFundApply from '../../../hooks/useFundApply';
+import { useTvsService } from '../../../services/TvsService';
 
 export default function FundActivate() {
     const { id } = useParams();
@@ -59,6 +60,7 @@ export default function FundActivate() {
     const authIdentity = useAuthIdentity();
 
     const fundService = useFundService();
+    const tvsService = useTvsService();
     const digIdService = useDigiDService();
     const voucherService = useVoucherService();
     const identityService = useIdentityService();
@@ -78,6 +80,7 @@ export default function FundActivate() {
         digid_success: StringParam,
     });
 
+    const digidUseTvs = appConfigs?.digid_tvs;
     const [fund, setFund] = useState<FundsListItemModel>(null);
     const [payouts, setPayouts] = useState<Array<PayoutTransaction>>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
@@ -143,11 +146,27 @@ export default function FundActivate() {
         [digIdService, navigateState, pushDanger, translate],
     );
 
+    const startTvs = useCallback(
+        (fund: Fund) => {
+            tvsService
+                .startFundRequest(fund.organization_id, fund.id)
+                .then((res) => (document.location = res.data.redirect_url))
+                .catch((err: ResponseError) => {
+                    if (err.status === 403 && err.data.message) {
+                        return pushDanger(translate('push.error'), err.data.message);
+                    }
+
+                    navigateState(WebshopRoutes.ERROR, { errorCode: err.headers['error-code'] });
+                });
+        },
+        [tvsService, navigateState, pushDanger, translate],
+    );
+
     const startBsnVerification = useCallback(
         (fund: Fund) => {
-            return startDigId(fund);
+            return digidUseTvs ? startTvs(fund) : startDigId(fund);
         },
-        [startDigId],
+        [digidUseTvs, startDigId, startTvs],
     );
 
     const applyFund = useFundApply({
@@ -448,7 +467,7 @@ export default function FundActivate() {
                 options.push('code');
             }
 
-            if (appConfigs.digid) {
+            if (appConfigs.digid && (!appConfigs.digid_tvs || fund.organization?.tvs_configured)) {
                 options.push('digid');
             }
 
