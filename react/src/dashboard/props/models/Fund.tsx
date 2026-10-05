@@ -165,6 +165,8 @@ export default interface Fund {
     help_description?: string;
     help_description_html?: string;
     help_enabled?: boolean;
+    fund_request_intro?: string;
+    fund_request_intro_html?: string;
     allow_provider_sign_up?: boolean;
     outcome_type?: 'voucher' | 'payout';
     fund_request_physical_card_enable?: boolean;

@@ -39,6 +39,7 @@ export default function Home() {
 
     const [digidResponse] = useQueryParams({
         digid_error: StringParam,
+        wallet_error: StringParam,
     });
 
     const stateParams = useStateParams<{
@@ -62,6 +63,10 @@ export default function Home() {
     useEffect(() => {
         if (digidResponse?.digid_error) {
             navigateState(WebshopRoutes.ERROR, { errorCode: 'digid_' + digidResponse?.digid_error });
+        }
+
+        if (digidResponse?.wallet_error) {
+            navigateState(WebshopRoutes.ERROR, { errorCode: 'wallet_' + digidResponse?.wallet_error });
         }
     }, [digidResponse, navigateState]);
 

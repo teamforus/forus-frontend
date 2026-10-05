@@ -55,6 +55,7 @@ import EventLogs from '../components/pages/eventLogs/EventLogs';
 import ImplementationFunds from '../components/pages/implementation-funds/ImplementationFunds';
 import ImplementationEmail from '../components/pages/implementations-edit/ImplementationEmail';
 import ImplementationDigid from '../components/pages/implementations-edit/ImplementationDigid';
+import ImplementationWallets from '../components/pages/implementations-edit/ImplementationWallets';
 import ImplementationAuthPage from '../components/pages/implementations-edit/ImplementationAuthPage';
 import ImplementationCookies from '../components/pages/implementations-edit/ImplementationCookies';
 import FundBackofficeEdit from '../components/pages/fund-backoffice-edit/FundBackofficeEdit';
@@ -444,6 +445,12 @@ router.state(DashboardRoutes.IMPLEMENTATION_TRANSLATIONS, <ImplementationTransla
 router.state(DashboardRoutes.IMPLEMENTATION_DIGID, <ImplementationDigid />, {
     path: `/organisaties/:organizationId/implementaties/:id/digid`,
     altPath: `/organizations/:organizationId/implementations/:id/digid`,
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
+});
+
+router.state(DashboardRoutes.IMPLEMENTATION_WALLETS, <ImplementationWallets />, {
+    path: `/organisaties/:organizationId/implementaties/:id/wallets`,
+    altPath: `/organizations/:organizationId/implementations/:id/wallets`,
     fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 

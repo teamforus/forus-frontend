@@ -13,6 +13,8 @@ export default interface Fund extends FundBase {
     taken_by_partner_pending_fund_request?: boolean;
     auto_validation?: boolean;
     bsn_confirmation_time?: number;
+    wallet_disclosure_flow_id?: number | null;
+    fund_request_intro_html?: string;
     criteria_steps?: Array<FundCriteriaStep>;
     criteria_groups?: Array<FundCriteriaGroup>;
     email_required?: boolean;

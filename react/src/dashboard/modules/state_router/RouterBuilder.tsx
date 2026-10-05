@@ -60,6 +60,7 @@ export enum DashboardRoutes {
     IMPLEMENTATION_COOKIES = 'implementations-cookies',
     IMPLEMENTATION_TRANSLATIONS = 'implementations-translations',
     IMPLEMENTATION_DIGID = 'implementations-digid',
+    IMPLEMENTATION_WALLETS = 'implementations-wallets',
     IMPLEMENTATION_AUTH_PAGE = 'implementations-auth-page',
     IMPLEMENTATION_SOCIAL_MEDIA = 'implementations-social-media',
     IMPLEMENTATION_NOTIFICATIONS = 'implementation-notifications',

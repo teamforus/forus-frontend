@@ -12,6 +12,7 @@ import { useFundService } from '../../../../../services/FundService';
 import usePushSuccess from '../../../../../hooks/usePushSuccess';
 import usePushApiError from '../../../../../hooks/usePushApiError';
 import FormPane from '../../../../elements/forms/elements/FormPane';
+import FormGroup from '../../../../elements/forms/elements/FormGroup';
 
 export default function FundFormConfigsCard({
     fund,
@@ -28,6 +29,8 @@ export default function FundFormConfigsCard({
     const fundService = useFundService();
 
     const form = useFormBuilder<{
+        fund_request_intro: string;
+        fund_request_intro_html: string;
         help_title: string;
         help_block_text: string;
         help_button_text: string;
@@ -44,6 +47,8 @@ export default function FundFormConfigsCard({
         help_enabled: boolean;
     }>(
         {
+            fund_request_intro: '',
+            fund_request_intro_html: '',
             help_title: '',
             help_block_text: '',
             help_button_text: '',
@@ -64,9 +69,9 @@ export default function FundFormConfigsCard({
 
             fundService
                 .update(fund.organization.id, fund.id, values)
-                .then(() => {
+                .then((res) => {
                     pushSuccess('Opgeslagen!');
-                    setFund(fund);
+                    setFund(res.data.data);
                     form.setErrors({});
                 })
                 .catch((err: ResponseError) => {
@@ -85,6 +90,8 @@ export default function FundFormConfigsCard({
     useEffect(() => {
         if (fund) {
             updateForm({
+                fund_request_intro: fund.fund_request_intro,
+                fund_request_intro_html: fund.fund_request_intro_html,
                 help_title: fund.help_title,
                 help_block_text: fund.help_block_text,
                 help_button_text: fund.help_button_text,
@@ -327,6 +334,20 @@ export default function FundFormConfigsCard({
                                     </div>
                                 </div>
                             </div>
+                        </FormPane>
+
+                        <FormPane title={translate('fund_request_configurations.titles.introduction')}>
+                            <FormGroup
+                                label={translate('fund_request_configurations.labels.introduction')}
+                                hint={translate('fund_request_configurations.hints.introduction')}
+                                error={form.errors?.fund_request_intro}
+                                input={() => (
+                                    <MarkdownEditor
+                                        value={form.values.fund_request_intro_html ?? ''}
+                                        onChange={(intro) => form.update({ fund_request_intro: intro })}
+                                    />
+                                )}
+                            />
                         </FormPane>
                     </div>
                 </div>

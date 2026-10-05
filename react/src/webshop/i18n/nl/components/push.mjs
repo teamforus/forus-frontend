@@ -6,6 +6,7 @@ export default {
     fund_activation: {
         success: '{{fund_name}} tegoed geactiveerd!',
         digid_success: 'Ingelogd met DigiD.',
+        wallet_success: 'Ingelogd met ID-Wallet.',
     },
     preferences_emails: {
         verification_resent: 'Verificatie e-mail opnieuw verstuurd!',

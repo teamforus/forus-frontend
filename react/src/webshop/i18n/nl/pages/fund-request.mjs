@@ -71,6 +71,9 @@ export default {
                 title: 'DigiD',
                 description: 'Log opnieuw in met DigiD om opnieuw te beginnen.',
             },
+            wallet: {
+                description: 'Gebruik {{flow_name}} om opnieuw te beginnen.',
+            },
         },
     },
 
@@ -125,6 +128,22 @@ export default {
             none: 'Geen',
         },
         fund_request_email_setup: {
+            wallet_email: {
+                header: 'Bevestig uw e-mailadres',
+                title: 'Wilt u onderstaand e-mailadres voor uw account gebruiken?',
+                description:
+                    'We sturen berichten over uw account naar dit e-mailadres. Bijvoorbeeld over uw tegoed en uitgaven.',
+                label: 'E-mailadres',
+                confirm: 'Bevestig en doorgaan',
+                use_another: 'Gebruik een ander e-mailadres',
+                skip: 'Verder zonder e-mailadres',
+                skip_title: 'U wilt geen e-mailadres gebruiken',
+                use_email: 'Gebruik wel een e-mailadres',
+                privacy:
+                    'Ik heb de <a target="_blank" href="{{ link_url }}">privacyverklaring</a> gelezen en ga akkoord.',
+                unavailable: 'This email address cannot be used. Enter another email address to continue.',
+                failed: 'Your email address could not be confirmed. Please try again.',
+            },
             email_sent_screen: 'Er is een e-mail verstuurd',
             email_sent: 'E-mail verstuurd',
             sign_up_with_email: 'Aanmelden met e-mailadres',

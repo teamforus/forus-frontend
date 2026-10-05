@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { StringParam, useQueryParams } from 'use-query-params';
 import { useIdentityService } from '../../../../dashboard/services/IdentityService';
 import { authContext } from '../../../contexts/AuthContext';
@@ -10,8 +10,27 @@ import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import { useIdentityProviderAuthService } from '../../../../dashboard/services/IdentityProviderAuthService';
 import { consumeIdentityProviderHandoff } from '../../../../dashboard/helpers/identityProviderHandoff';
 import { ResponseError } from '../../../../dashboard/props/ApiResponses';
+import { useWalletService } from '../../../services/WalletService';
 
 export default function AuthLink() {
+    const [walletCallback] = useState(() => {
+        const hash = window.location.hash;
+        const params = new URLSearchParams(hash.slice(hash.lastIndexOf('#') + 1));
+
+        if (params.has('wallet_ticket')) {
+            window.history.replaceState(
+                window.history.state,
+                '',
+                window.location.href.slice(0, window.location.href.lastIndexOf('#')),
+            );
+        }
+
+        return params;
+    });
+
+    const walletStarted = useRef(false);
+    const walletService = useWalletService();
+
     const { setToken } = useContext(authContext);
     const { onAuthRedirect, handleAuthTarget } = useAuthService();
     const identityService = useIdentityService();
@@ -32,6 +51,31 @@ export default function AuthLink() {
     const [callbackErrorReference] = useState(() => consumeIdentityProviderHandoff('entra_error_ref'));
 
     useEffect(() => {
+        if (walletCallback.has('wallet_ticket') && !query.token) {
+            if (!walletStarted.current) {
+                walletStarted.current = true;
+
+                const fundId = sessionStorage.getItem(`wallet_${walletCallback.get('wallet_session')}_fund`);
+
+                walletService
+                    .complete(walletCallback.get('wallet_session'), walletCallback.get('wallet_ticket'))
+                    .catch(() => {
+                        if (fundId) {
+                            return navigateState(
+                                WebshopRoutes.FUND_ACTIVATE,
+                                { id: fundId },
+                                { wallet_error: 'session_expired' },
+                                { replace: true },
+                            );
+                        }
+
+                        navigateState(WebshopRoutes.ERROR, { errorCode: 'wallet_session_expired' });
+                    });
+            }
+
+            return;
+        }
+
         if (callbackError) {
             identityProviderAuthService.clearBrowserToken(sessionUid);
 
@@ -82,6 +126,8 @@ export default function AuthLink() {
                 navigateState(WebshopRoutes.HOME);
             });
     }, [
+        walletCallback,
+        walletService,
         callbackError,
         callbackErrorReference,
         exchangeToken,

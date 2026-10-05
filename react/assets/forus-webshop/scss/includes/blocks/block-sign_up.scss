@@ -238,6 +238,10 @@
                     font: 700 22px/32px var(--base-font);
                     margin: 0;
                 }
+
+                &.sign_up-pane-heading-marginless {
+                    margin: 0;
+                }
             }
 
             .sign_up-pane-text {
@@ -996,6 +1000,11 @@
 
             &:hover {
                 background-color: #f4f5f7;
+            }
+
+            &.sign_up-option-action {
+                color: inherit;
+                text-align: start;
             }
         }
 

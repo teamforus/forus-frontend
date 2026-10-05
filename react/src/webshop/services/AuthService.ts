@@ -58,10 +58,30 @@ export function useAuthService() {
 
             if (target && target[0] == 'fundRequest') {
                 if (target[1]) {
+                    navigateState(WebshopRoutes.FUND_REQUEST_SHOW, { id: target[1] });
+                } else {
+                    navigateState(WebshopRoutes.START);
+                }
+
+                return true;
+            }
+
+            if (target && target[0] == 'fundActivate') {
+                if (target[1]) {
+                    navigateState(WebshopRoutes.FUND_ACTIVATE, { id: target[1] });
+                } else {
+                    navigateState(WebshopRoutes.START);
+                }
+
+                return true;
+            }
+
+            if (target && target[0] == 'fundApply') {
+                if (target[1]) {
                     navigateState(
                         WebshopRoutes.FUND_REQUEST,
                         { id: target[1] },
-                        {},
+                        target[2] ? { wallet_disclosure: target[2] } : {},
                         { state: { from: WebshopRoutes.FUND_ACTIVATE } },
                     );
                 } else {
@@ -71,12 +91,16 @@ export function useAuthService() {
             }
 
             if (target && target[0] == 'voucher') {
-                navigateState(WebshopRoutes.VOUCHER, { number: target[1] });
+                if (target[1]) {
+                    navigateState(WebshopRoutes.VOUCHER, { number: target[1] });
+                } else {
+                    navigateState(WebshopRoutes.START);
+                }
                 return true;
             }
 
             if (target && target[0] == 'requestClarification') {
-                if (target[1]) {
+                if (target[1] && target[2] && target[3]) {
                     navigateState(WebshopRoutes.FUND_REQUEST_CLARIFICATION, {
                         fund_id: target[1],
                         request_id: target[2],

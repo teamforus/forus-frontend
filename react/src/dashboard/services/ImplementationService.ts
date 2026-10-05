@@ -60,6 +60,13 @@ export class ImplementationService<T = Implementation> {
     }
 
     /**
+     * Update wallet by id
+     */
+    public updateWallets(organizationId: number, id: number, data: object): Promise<ApiResponseSingle<T>> {
+        return this.apiRequest.patch(`${this.prefix}/${organizationId}/implementations/${id}/wallets`, data);
+    }
+
+    /**
      * Update auth page by id
      */
     public updateAuthPage(organizationId: number, id: number, data: object): Promise<ApiResponseSingle<T>> {

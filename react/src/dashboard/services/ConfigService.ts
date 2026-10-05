@@ -5,8 +5,9 @@ import Announcement from '../props/models/Announcement';
 import Media from '../props/models/Media';
 import ImplementationPage from '../../webshop/props/models/ImplementationPage';
 import Language from '../props/models/Language';
+import type { WalletFlow, WalletProvider } from '../props/models/WalletFlow';
 
-export type AuthPageLoginOption = 'email' | 'digid' | 'qr' | 'entra';
+export type AuthPageLoginOption = 'email' | 'digid' | 'wallet' | 'qr' | 'entra';
 
 export type AppConfigProp = {
     entra_dashboard_login_available: boolean;
@@ -142,6 +143,13 @@ export type AppConfigProp = {
     has_physical_cards: boolean;
     has_payouts: boolean;
     announcements: Array<Announcement>;
+    wallet: boolean;
+    wallet_config: {
+        default_provider: WalletProvider | null;
+        providers: Array<WalletProvider>;
+        flows: Array<WalletFlow>;
+    };
+    wallet_disclosure_flows?: Array<WalletFlow>;
     auth_page?: {
         title: string;
         login_title: string;

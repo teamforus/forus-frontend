@@ -1,9 +1,10 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useParams } from 'react-router';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import useEnvData from '../../../hooks/useEnvData';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import { useDigiDService } from '../../../services/DigiDService';
+import { useWalletService } from '../../../services/WalletService';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import FundsListItemModel from '../../../services/types/FundsListItemModel';
 import { ResponseError } from '../../../../dashboard/props/ApiResponses';
@@ -44,7 +45,9 @@ import TranslateHtml from '../../../../dashboard/components/elements/translate-h
 import usePayoutTransactionService from '../../../services/PayoutTransactionService';
 import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import type { WalletFlow } from '../../../../dashboard/props/models/WalletFlow';
 import useFundApply from '../../../hooks/useFundApply';
+import Markdown from '../../elements/markdown/Markdown';
 
 export default function FundActivate() {
     const { id } = useParams();
@@ -60,6 +63,7 @@ export default function FundActivate() {
 
     const fundService = useFundService();
     const digIdService = useDigiDService();
+    const walletService = useWalletService();
     const voucherService = useVoucherService();
     const identityService = useIdentityService();
     const fundRequestService = useFundRequestService();
@@ -76,7 +80,14 @@ export default function FundActivate() {
     const [digidResponse, setDigidResponse] = useQueryParams({
         digid_error: StringParam,
         digid_success: StringParam,
+        wallet_error: StringParam,
+        wallet_success: StringParam,
+        disclosure_success: StringParam,
+        wallet_disclosure: StringParam,
     });
+
+    const handledDisclosureResponse = useRef<string>(null);
+    const introSeenFundId = useRef<number>(null);
 
     const [fund, setFund] = useState<FundsListItemModel>(null);
     const [payouts, setPayouts] = useState<Array<PayoutTransaction>>(null);
@@ -98,6 +109,24 @@ export default function FundActivate() {
     const [options, setOptions] = useState(null);
 
     const [fetchingData, setFetchingData] = useState(false);
+    const [bsnVerificationMethod, setBsnVerificationMethod] = useState<'digid' | 'wallet'>('digid');
+    const [bsnVerificationWalletFlow, setBsnVerificationWalletFlow] = useState<WalletFlow>(null);
+
+    const walletFlows = useMemo(() => {
+        return appConfigs?.wallet ? appConfigs.wallet_config?.flows || [] : [];
+    }, [appConfigs]);
+
+    const disclosureFlow = useMemo(() => {
+        return appConfigs?.wallet_disclosure_flows?.find((flow) => flow.id === fund?.wallet_disclosure_flow_id);
+    }, [appConfigs?.wallet_disclosure_flows, fund?.wallet_disclosure_flow_id]);
+
+    const walletOptions = useMemo(() => {
+        if (!fund?.wallet_disclosure_flow_id) {
+            return walletFlows;
+        }
+
+        return disclosureFlow ? (walletFlows.length > 0 ? walletFlows : [disclosureFlow]) : [];
+    }, [disclosureFlow, fund?.wallet_disclosure_flow_id, walletFlows]);
 
     const getTimeToSkipDigid = useCallback(
         (identity: Identity, fund: Fund, witOffset = true) => {
@@ -133,21 +162,77 @@ export default function FundActivate() {
                 .startFundRequest(fund.id)
                 .then((res) => (document.location = res.data.redirect_url))
                 .catch((err: ResponseError) => {
+                    if (fund.wallet_disclosure_flow_id) {
+                        setFetchingData(false);
+                        setState('select');
+                        return pushDanger(translate('push.error'), translate('fund_activate.disclosure.failed'));
+                    }
+
                     if (err.status === 403 && err.data.message) {
                         return pushDanger(translate('push.error'), err.data.message);
                     }
 
-                    navigateState(WebshopRoutes.ERROR, { errorCode: err.headers['error-code'] });
+                    navigateState(WebshopRoutes.ERROR, {
+                        errorCode: err.headers['error-code'] || 'digid_unknown_error',
+                    });
                 });
         },
         [digIdService, navigateState, pushDanger, translate],
     );
 
-    const startBsnVerification = useCallback(
-        (fund: Fund) => {
-            return startDigId(fund);
+    const startWallet = useCallback(
+        (fund: Fund, flow: WalletFlow) => {
+            if (!flow) {
+                setFetchingData(false);
+
+                if (fund.wallet_disclosure_flow_id) {
+                    pushDanger(translate('push.error'), translate('fund_activate.disclosure.failed'));
+                }
+
+                return;
+            }
+
+            walletService
+                .startFundRequest(fund.id, flow, !!fund.wallet_disclosure_flow_id)
+                .then((res) => (document.location = res.data.redirect_url))
+                .catch((err: ResponseError) => {
+                    setFetchingData(false);
+
+                    if (fund.wallet_disclosure_flow_id) {
+                        return pushDanger(translate('push.error'), translate('fund_activate.disclosure.failed'));
+                    }
+
+                    if (err.status === 403 && err.data.message) {
+                        return pushDanger(translate('push.error'), err.data.message);
+                    }
+
+                    navigateState(WebshopRoutes.ERROR, {
+                        errorCode: walletService.errorCode(err),
+                    });
+                });
         },
-        [startDigId],
+        [navigateState, walletService, pushDanger, translate],
+    );
+
+    const startFundDisclosure = useCallback(
+        (fund: Fund) => {
+            walletService
+                .startFundDisclosure(fund.id)
+                .then((res) => window.location.assign(res.data.redirect_url))
+                .catch(() => {
+                    setFetchingData(false);
+                    setState('select');
+                    pushDanger(translate('push.error'), translate('fund_activate.disclosure.failed'));
+                });
+        },
+        [walletService, pushDanger, translate],
+    );
+
+    const startBsnVerification = useCallback(
+        (fund: Fund, method = bsnVerificationMethod, flow = bsnVerificationWalletFlow || walletFlows[0]) => {
+            return method === 'wallet' ? startWallet(fund, flow) : startDigId(fund);
+        },
+        [bsnVerificationMethod, bsnVerificationWalletFlow, walletFlows, startDigId, startWallet],
     );
 
     const applyFund = useFundApply({
@@ -216,84 +301,115 @@ export default function FundActivate() {
     }, [appConfigs, authIdentity, fund]);
 
     const checkFund = useCallback(
-        (fromVerification = false) => {
+        (fromVerification = false, method = bsnVerificationMethod, flow = bsnVerificationWalletFlow) => {
             if (fetchingData) {
                 return;
             }
 
             setFetchingData(true);
 
-            identityService.identity().then((res) => {
-                const identity = res.data;
-                const timeToSkipBsn = getTimeToSkipDigid(identity, fund);
+            identityService
+                .identity()
+                .then((res) => {
+                    const identity = res.data;
+                    const timeToSkipBsn = getTimeToSkipDigid(identity, fund);
 
-                if (!fromVerification && (timeToSkipBsn === null || timeToSkipBsn <= 0)) {
-                    return startBsnVerification(fund);
-                }
-
-                fundService
-                    .check(fund.id)
-                    .then((res) => {
-                        const { backoffice, prevalidations } = res.data;
-                        const { vouchers, prevalidation_vouchers } = res.data;
-
-                        const { backoffice_fallback, backoffice_redirect } = backoffice || {};
-                        const { backoffice_error, backoffice_error_key } = backoffice || {};
-
-                        // Backoffice not responding and fallback is disabled
-                        if (backoffice && backoffice_error && !backoffice_fallback) {
-                            return setState(`backoffice_error_${backoffice_error_key || 'not_eligible'}`);
+                    if (fund.wallet_disclosure_flow_id) {
+                        if (
+                            !fromVerification &&
+                            (!identity.bsn || (fund.bsn_confirmation_time !== null && timeToSkipBsn <= 0))
+                        ) {
+                            return startBsnVerification(fund, method, flow);
                         }
 
-                        // Fund requesting is not available after successful BSN verification
-                        if (!prevalidations && !vouchers && !prevalidation_vouchers.length && !fundRequestIsAvailable) {
-                            return setState('error_not_available');
-                        }
+                        return startFundDisclosure(fund);
+                    }
 
-                        // User is not eligible and has to be redirected
-                        if (backoffice_redirect) {
-                            return (document.location = backoffice_redirect);
-                        }
+                    if (!fromVerification && (timeToSkipBsn === null || timeToSkipBsn <= 0)) {
+                        return startBsnVerification(fund, method, flow);
+                    }
 
-                        if (prevalidation_vouchers.length > 0) {
-                            return prevalidation_vouchers.length > 1
-                                ? navigateState(WebshopRoutes.VOUCHERS)
-                                : navigateState(WebshopRoutes.VOUCHER, prevalidation_vouchers[0]);
-                        }
+                    fundService
+                        .check(fund.id)
+                        .then((res) => {
+                            const { backoffice, prevalidations } = res.data;
+                            const { vouchers, prevalidation_vouchers } = res.data;
 
-                        navigateState(
-                            WebshopRoutes.FUND_REQUEST,
-                            { id: fund.id },
-                            {},
-                            { state: { from: 'fund-activate' } },
-                        );
-                    })
-                    .catch((err: ResponseError) => {
-                        if (err.status === 403 && err.data.message) {
-                            pushDanger(translate('push.error'), err.data.message);
-                        }
+                            const { backoffice_fallback, backoffice_redirect } = backoffice || {};
+                            const { backoffice_error, backoffice_error_key } = backoffice || {};
 
-                        if (err.data?.meta || err.status == 429) {
-                            openModal((modal) => (
-                                <ModalNotification
-                                    modal={modal}
-                                    type={'info'}
-                                    header={err.data.meta.title}
-                                    description={err.data.meta.message}
-                                />
-                            ));
-                        }
+                            // Backoffice not responding and fallback is disabled
+                            if (backoffice && backoffice_error && !backoffice_fallback) {
+                                return setState(`backoffice_error_${backoffice_error_key || 'not_eligible'}`);
+                            }
 
-                        setDigidResponse({
-                            digid_error: null,
-                            digid_success: null,
-                        });
-                        setState('select');
-                    })
-                    .finally(() => setFetchingData(false));
-            });
+                            // Fund requesting is not available after successful BSN verification
+                            if (
+                                !prevalidations &&
+                                !vouchers &&
+                                !prevalidation_vouchers.length &&
+                                !fundRequestIsAvailable
+                            ) {
+                                return setState('error_not_available');
+                            }
+
+                            // User is not eligible and has to be redirected
+                            if (backoffice_redirect) {
+                                return (document.location = backoffice_redirect);
+                            }
+
+                            if (prevalidation_vouchers.length > 0) {
+                                return prevalidation_vouchers.length > 1
+                                    ? navigateState(WebshopRoutes.VOUCHERS)
+                                    : navigateState(WebshopRoutes.VOUCHER, prevalidation_vouchers[0]);
+                            }
+
+                            navigateState(
+                                WebshopRoutes.FUND_REQUEST,
+                                { id: fund.id },
+                                {},
+                                { state: { from: 'fund-activate' } },
+                            );
+                        })
+                        .catch((err: ResponseError) => {
+                            if (err.status === 403 && err.data.message) {
+                                pushDanger(translate('push.error'), err.data.message);
+                            }
+
+                            if (err.data?.meta || err.status == 429) {
+                                openModal((modal) => (
+                                    <ModalNotification
+                                        modal={modal}
+                                        type={'info'}
+                                        header={err.data.meta.title}
+                                        description={err.data.meta.message}
+                                    />
+                                ));
+                            }
+
+                            setDigidResponse({
+                                digid_error: null,
+                                digid_success: null,
+                                wallet_error: null,
+                                wallet_success: null,
+                            });
+                            setState('select');
+                        })
+                        .finally(() => setFetchingData(false));
+                })
+                .catch((err: ResponseError) => {
+                    setFetchingData(false);
+                    pushDanger(
+                        translate('push.error'),
+                        fund.wallet_disclosure_flow_id
+                            ? translate('fund_activate.disclosure.failed')
+                            : err.data.message,
+                    );
+                });
         },
         [
+            bsnVerificationWalletFlow,
+            bsnVerificationMethod,
             translate,
             fetchingData,
             fund,
@@ -306,6 +422,7 @@ export default function FundActivate() {
             pushDanger,
             setDigidResponse,
             startBsnVerification,
+            startFundDisclosure,
         ],
     );
 
@@ -317,38 +434,114 @@ export default function FundActivate() {
     }, [skipBsnLimit, skipBsnLimitSoft]);
 
     const selectBsnVerificationOption = useCallback(
-        (fund: Fund) => {
+        (fund: Fund, method: 'digid' | 'wallet', flow?: WalletFlow) => {
+            setBsnVerificationMethod(method);
+            setBsnVerificationWalletFlow(method === 'wallet' ? flow : null);
+
             const hasCustomCriteria = ['IIT', 'bus_2020', 'meedoen'].includes(fund.key);
             const autoValidation = fund.auto_validation;
 
             //- Show custom criteria screen
-            if (autoValidation && hasCustomCriteria) {
-                return getTimeToSkip().timeToSkipBsnSoft > 0 ? setState('digid') : startBsnVerification(fund);
+            if (!fund.wallet_disclosure_flow_id && autoValidation && hasCustomCriteria) {
+                return getTimeToSkip().timeToSkipBsnSoft > 0
+                    ? setState('digid')
+                    : startBsnVerification(fund, method, flow);
             }
 
-            checkFund(false);
+            checkFund(false, method, flow);
         },
         [checkFund, startBsnVerification, getTimeToSkip],
     );
 
     const selectDigiDOption = useCallback(
-        (fund: Fund) => selectBsnVerificationOption(fund),
+        (fund: Fund) => selectBsnVerificationOption(fund, 'digid'),
         [selectBsnVerificationOption],
     );
 
+    const selectWalletOption = useCallback(
+        (fund: Fund, flow = bsnVerificationWalletFlow || walletFlows[0]) =>
+            selectBsnVerificationOption(fund, 'wallet', flow?.id === disclosureFlow?.id ? walletFlows[0] : flow),
+        [bsnVerificationWalletFlow, disclosureFlow, walletFlows, selectBsnVerificationOption],
+    );
+
     const confirmCriteria = useCallback(() => {
-        checkFund(false);
-    }, [checkFund]);
+        checkFund(false, bsnVerificationMethod, bsnVerificationWalletFlow);
+    }, [bsnVerificationMethod, bsnVerificationWalletFlow, checkFund]);
 
     const handleDigiDResponse = useCallback(() => {
-        const { digid_success, digid_error } = digidResponse;
+        const { digid_success, digid_error, wallet_success, wallet_error, disclosure_success, wallet_disclosure } =
+            digidResponse;
 
-        if ((!digid_success && !digid_error) || !fund) {
+        if ((!digid_success && !digid_error && !wallet_success && !wallet_error && !disclosure_success) || !fund) {
+            return;
+        }
+
+        introSeenFundId.current = fund.id;
+
+        if (fund.wallet_disclosure_flow_id) {
+            const responseKey = JSON.stringify([fund.id, digidResponse]);
+
+            if (handledDisclosureResponse.current === responseKey) {
+                return;
+            }
+
+            handledDisclosureResponse.current = responseKey;
+
+            if (!wallet_error && !digid_error && disclosure_success && wallet_disclosure) {
+                return navigateState(
+                    WebshopRoutes.FUND_REQUEST,
+                    { id: fund.id },
+                    { wallet_disclosure },
+                    { replace: true, state: { from: 'fund-activate' } },
+                );
+            }
+
+            setDigidResponse(
+                {
+                    digid_error: undefined,
+                    digid_success: undefined,
+                    wallet_error: undefined,
+                    wallet_success: undefined,
+                    disclosure_success: undefined,
+                    wallet_disclosure: undefined,
+                },
+                'replaceIn',
+            );
+
+            if (digid_error || wallet_error) {
+                setState('select');
+
+                if (wallet_error === 'disclosure_cancelled') {
+                    pushInfo(
+                        translate('fund_activate.disclosure.cancelled_title'),
+                        translate('fund_activate.disclosure.cancelled'),
+                    );
+                } else {
+                    pushDanger(
+                        translate('push.error'),
+                        translate(
+                            wallet_error === 'disclosure_invalid'
+                                ? 'fund_activate.disclosure.invalid'
+                                : 'fund_activate.disclosure.failed',
+                        ),
+                    );
+                }
+
+                return;
+            }
+
+            if (wallet_success || digid_success) {
+                checkFund(true);
+            }
+
             return;
         }
 
         // got verification error, abort
-        if (digid_error) {
+        if (digid_error || wallet_error) {
+            const errorProvider = wallet_error ? 'wallet' : 'digid';
+            const error = wallet_error || digid_error;
+
             const custom404Link = {
                 name: 'fund-activate',
                 params: { id: fund.id },
@@ -359,7 +552,7 @@ export default function FundActivate() {
 
             navigateState(
                 WebshopRoutes.ERROR,
-                { errorCode: `digid_${digid_error}` },
+                { errorCode: `${errorProvider}_${error}` },
                 {},
                 {
                     state: {
@@ -371,19 +564,40 @@ export default function FundActivate() {
         }
 
         // BSN verification flow
-        if (digid_success == 'signed_up' || digid_success == 'signed_in') {
-            pushSuccess(translate('push.success'), translate('push.fund_activation.digid_success'));
+        if (
+            digid_success == 'signed_up' ||
+            digid_success == 'signed_in' ||
+            wallet_success == 'signed_up' ||
+            wallet_success == 'signed_in'
+        ) {
+            const method = wallet_success ? 'wallet' : 'digid';
+
+            pushSuccess(translate('push.success'), translate(`push.fund_activation.${method}_success`));
 
             window.setTimeout(() => {
-                selectDigiDOption(fund);
+                method === 'wallet' ? selectWalletOption(fund) : selectDigiDOption(fund);
 
                 setDigidResponse({
                     digid_error: null,
                     digid_success: null,
+                    wallet_error: null,
+                    wallet_success: null,
                 });
             }, 1000);
         }
-    }, [digidResponse, fund, navigateState, pushSuccess, selectDigiDOption, setDigidResponse, translate]);
+    }, [
+        digidResponse,
+        checkFund,
+        fund,
+        navigateState,
+        pushSuccess,
+        pushInfo,
+        pushDanger,
+        selectDigiDOption,
+        selectWalletOption,
+        setDigidResponse,
+        translate,
+    ]);
 
     const fetchFund = useCallback(
         (id: number) => {
@@ -452,13 +666,23 @@ export default function FundActivate() {
                 options.push('digid');
             }
 
-            if (!appConfigs.digid && !appConfigs.digid_mandatory && fund.allow_fund_requests) {
+            if (walletOptions.length > 0) {
+                options.push('wallet');
+            }
+
+            if (
+                !appConfigs.digid &&
+                walletOptions.length === 0 &&
+                !fund.wallet_disclosure_flow_id &&
+                !appConfigs.digid_mandatory &&
+                fund.allow_fund_requests
+            ) {
                 options.push('request');
             }
 
             return options;
         },
-        [appConfigs],
+        [appConfigs, walletOptions],
     );
 
     const initState = useCallback(
@@ -478,11 +702,15 @@ export default function FundActivate() {
                 return navigateState(WebshopRoutes.FUNDS);
             }
 
+            if (fund.fund_request_intro_html && introSeenFundId.current !== fund.id) {
+                return setState('intro');
+            }
+
             if (options[0] === 'request') {
                 return navigateState(WebshopRoutes.FUND_REQUEST, fund, {}, { state: { from: 'fund-activate' } });
             }
 
-            if (options.length === 1 && options[0] !== 'digid') {
+            if (options.length === 1 && !['digid', 'wallet'].includes(options[0])) {
                 return setState(options[0]);
             }
 
@@ -557,7 +785,7 @@ export default function FundActivate() {
         }
 
         // All the criteria are meet, request the voucher
-        if (fund.criteria.filter((criterion) => !criterion.is_valid).length == 0) {
+        if (!fund.wallet_disclosure_flow_id && fund.criteria.filter((criterion) => !criterion.is_valid).length == 0) {
             applyFund(fund);
         }
     }, [applyFund, fund, navigateState, vouchersActive, fundRequests, payoutsActive]);
@@ -577,7 +805,7 @@ export default function FundActivate() {
         }
     }, [setTitle, translate, fund]);
 
-    if (digidResponse?.digid_success) {
+    if (digidResponse?.digid_success || digidResponse?.wallet_success || digidResponse?.disclosure_success) {
         return <BlockShowcase />;
     }
 
@@ -586,12 +814,50 @@ export default function FundActivate() {
             {fund && vouchers && appConfigs && (
                 <div className="block block-sign_up">
                     <div className="block-wrapper">
-                        {state && state != 'select' && state != 'digid' && state != 'code' && (
+                        {state && !['intro', 'select', 'digid', 'code'].includes(state) && (
                             <h1 className="block-title">
                                 {translate('fund_request.sign_up.header.main', {
                                     fund_name: startCase(fund.name || ''),
                                 })}
                             </h1>
+                        )}
+
+                        {state === 'intro' && (
+                            <div className="sign_up-pane">
+                                <div className="sign_up-pane-header">
+                                    <h2 className="sign_up-pane-header-title">
+                                        {translate('fund_request.sign_up.header.main', {
+                                            fund_name: startCase(fund.name || ''),
+                                        })}
+                                    </h2>
+                                </div>
+                                <div className="sign_up-pane-body">
+                                    <Markdown content={fund.fund_request_intro_html} />
+                                </div>
+                                <SignUpFooter
+                                    startActions={
+                                        <StateNavLink
+                                            name={WebshopRoutes.FUND}
+                                            params={{ id: fund.id }}
+                                            className="button button-text button-text-padless">
+                                            <em className="mdi mdi-chevron-left" aria-hidden="true" />
+                                            {translate('fund_activate.cards.back')}
+                                        </StateNavLink>
+                                    }
+                                    endActions={
+                                        <button
+                                            type="button"
+                                            className="button button-text button-text-padless"
+                                            onClick={() => {
+                                                introSeenFundId.current = fund.id;
+                                                initState(fund);
+                                            }}>
+                                            {translate('fund_activate.intro.continue')}
+                                            <em className="mdi mdi-chevron-right icon-right" aria-hidden="true" />
+                                        </button>
+                                    }
+                                />
+                            </div>
                         )}
 
                         {state == 'select' && (
@@ -663,6 +929,39 @@ export default function FundActivate() {
                                                 </div>
                                             </div>
                                         )}
+
+                                        {(options?.includes('wallet') ? walletOptions : []).map((flow) => (
+                                            <div
+                                                key={flow.key}
+                                                data-dusk="walletOption"
+                                                className="sign_up-option"
+                                                onClick={() => selectWalletOption(fund, flow)}
+                                                onKeyDown={clickOnKeyEnter}
+                                                tabIndex={0}>
+                                                <div className="sign_up-option-media">
+                                                    <img
+                                                        className="sign_up-option-media-img"
+                                                        src={assetUrl(
+                                                            `/assets/img/icon-auth/icon-auth-${flow.id === disclosureFlow?.id ? 'openid' : flow.key}.svg`,
+                                                        )}
+                                                        alt={`logo ${flow.name}`}
+                                                    />
+                                                </div>
+                                                <div className="sign_up-option-details">
+                                                    <div className="sign_up-option-title">{flow.name}</div>
+                                                    <div className="sign_up-option-description">
+                                                        {translate(
+                                                            fund.wallet_disclosure_flow_id
+                                                                ? 'fund_activate.options.wallet.disclosure_description'
+                                                                : 'fund_activate.options.wallet.description',
+                                                            {
+                                                                flow_name: flow.name,
+                                                            },
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
 
                                         {options?.includes('request') && (
                                             <StateNavLink
