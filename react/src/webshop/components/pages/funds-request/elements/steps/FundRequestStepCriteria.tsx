@@ -33,6 +33,7 @@ export default function FundRequestStepCriteria({
     setCriterion,
     groups,
     prefills,
+    onWalletDisclosureInvalid,
 }: {
     fund: Fund;
     step: number;
@@ -51,6 +52,7 @@ export default function FundRequestStepCriteria({
     setCriterion: (index: number, update: Partial<LocalCriterion>) => void;
     groups: Array<FundCriteriaGroup & { criteria: Array<LocalCriterion> }>;
     prefills: Prefills;
+    onWalletDisclosureInvalid: () => void;
 }) {
     const translate = useTranslate();
     const setProgress = useSetProgress();
@@ -80,10 +82,31 @@ export default function FundRequestStepCriteria({
             return fundRequestService
                 .storeValidate(fund.id, formDataBuild(criteria))
                 .then((): false => false)
-                .catch((err: ResponseError) => err.data.errors)
+                .catch((err: ResponseError) => {
+                    if (
+                        fund.wallet_disclosure_flow_id &&
+                        (err.status !== 422 || err.data.errors?.wallet_disclosure_id)
+                    ) {
+                        onWalletDisclosureInvalid();
+                        return {
+                            wallet_disclosure_id:
+                                err.data?.message || translate('fund_activate.disclosure.unavailable'),
+                        };
+                    }
+
+                    return err.data.errors;
+                })
                 .finally(() => setSubmitInProgress(false));
         },
-        [formDataBuild, fund.id, fundRequestService, setSubmitInProgress, submitInProgress],
+        [
+            formDataBuild,
+            fund,
+            fundRequestService,
+            onWalletDisclosureInvalid,
+            setSubmitInProgress,
+            submitInProgress,
+            translate,
+        ],
     );
 
     // Submit criteria record
@@ -97,6 +120,10 @@ export default function FundRequestStepCriteria({
 
             validateCriteria(items)
                 .then((errors) => {
+                    if (errors && errors['wallet_disclosure_id']) {
+                        return;
+                    }
+
                     const indexes = uniq(
                         Object.keys(errors || {})
                             .filter((err) => err.startsWith('records.'))
@@ -115,6 +142,10 @@ export default function FundRequestStepCriteria({
                         return onNextStep();
                     }
 
+                    const submittedItems = fund.wallet_disclosure_flow_id
+                        ? items.filter((item) => item.fill_type !== 'prefill')
+                        : items;
+
                     const errorsList: Array<{ id: number; errors: { [key: string]: string | string[] } }> =
                         indexes.reduce((list, index) => {
                             const errorsPrefix = `records.${index}.`;
@@ -130,7 +161,7 @@ export default function FundRequestStepCriteria({
                                 };
                             }, {});
 
-                            return [...list, { id: items[index].id, errors: errorsList }];
+                            return [...list, { id: submittedItems[index].id, errors: errorsList }];
                         }, []);
 
                     items.forEach((item) => {
@@ -147,7 +178,7 @@ export default function FundRequestStepCriteria({
                 })
                 .finally(() => setProgress(100));
         },
-        [onNextStep, setProgress, setCriterion, validateCriteria, setErrors],
+        [fund.wallet_disclosure_flow_id, onNextStep, setProgress, setCriterion, validateCriteria, setErrors],
     );
 
     return (

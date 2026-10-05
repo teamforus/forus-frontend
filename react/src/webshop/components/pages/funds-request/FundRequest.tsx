@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import Fund from '../../../props/models/Fund';
 import { useFundRequestService } from '../../../services/FundRequestService';
 import { ResponseError } from '../../../../dashboard/props/ApiResponses';
@@ -8,6 +8,7 @@ import { useNavigateState, useStateParams } from '../../../modules/state_router/
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import { currencyFormat } from '../../../../dashboard/helpers/string';
 import { useDigiDService } from '../../../services/DigiDService';
+import { useWalletService } from '../../../services/WalletService';
 import Voucher from '../../../../dashboard/props/models/Voucher';
 import { useHelperService } from '../../../../dashboard/services/HelperService';
 import FundsListItemModel from '../../../services/types/FundsListItemModel';
@@ -45,7 +46,10 @@ import FundRequestStepPhysicalCardRequestAddress from './elements/steps/FundRequ
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import FundCriteriaGroup from '../../../../dashboard/props/models/FundCriteriaGroup';
 import FundRequestPersonBsnApiWarning from './elements/FundRequestPersonBsnApiWarning';
+import type { WalletFlow } from '../../../../dashboard/props/models/WalletFlow';
 import useFundApply from '../../../hooks/useFundApply';
+import { StringParam, useQueryParam } from 'use-query-params';
+import WalletDisclosure from '../../../props/models/WalletDisclosure';
 
 export type LocalCriterion = FundCriterion & {
     input_value?: string;
@@ -89,12 +93,15 @@ export default function FundRequest() {
 
     const fundService = useFundService();
     const digIdService = useDigiDService();
+    const walletService = useWalletService();
     const helperService = useHelperService();
     const voucherService = useVoucherService();
     const recordTypeService = useRecordTypeService();
     const fundRequestService = useFundRequestService();
 
     const { from } = useStateParams<{ from?: string }>();
+    const [walletDisclosure] = useQueryParam('wallet_disclosure', StringParam);
+    const [walletPrefills, setWalletPrefills] = useState<WalletDisclosure>(null);
     const [step, setStep] = useState<number>(null);
     const [submitInProgress, setSubmitInProgress] = useState(false);
     const [errorReason, setErrorReason] = useState<string>(null);
@@ -135,6 +142,9 @@ export default function FundRequest() {
 
     const digidAvailable = useMemo(() => appConfigs?.digid, [appConfigs]);
     const digidMandatory = useMemo(() => appConfigs?.digid_mandatory, [appConfigs]);
+    const walletFlows = useMemo(() => {
+        return appConfigs?.wallet ? appConfigs.wallet_config?.flows || [] : [];
+    }, [appConfigs]);
 
     const shouldAddContactInfo = useMemo(
         () => !authIdentity?.email && fund?.contact_info_enabled,
@@ -162,6 +172,7 @@ export default function FundRequest() {
             fund &&
             authIdentity &&
             fund.allow_fund_request_prefill &&
+            !fund.wallet_disclosure_flow_id &&
             fund.organization.has_person_bsn_api,
         [authIdentity, bsnIsKnown, fund],
     );
@@ -261,8 +272,13 @@ export default function FundRequest() {
 
     const formDataBuild = useCallback(
         (criteria: Array<LocalCriterion>): object => {
+            if (fund?.wallet_disclosure_flow_id) {
+                criteria = criteria.filter((criterion) => criterion.fill_type !== 'prefill');
+            }
+
             return {
                 contact_information: contactInformation,
+                ...(fund?.wallet_disclosure_flow_id ? { wallet_disclosure_id: walletDisclosure } : {}),
                 ...(address && Object.keys(address).length > 0 ? { physical_card_request_address: address } : {}),
                 records: criteria.map((criterion) => {
                     const { id, value, operator, input_value = '', files_uid = [] } = criterion;
@@ -277,14 +293,33 @@ export default function FundRequest() {
                             '<=': () => value,
                         }[operator] || null;
 
-                    return fund?.auto_validation
+                    return fund?.auto_validation && !fund.wallet_disclosure_flow_id
                         ? { files: [], value: makeValue ? makeValue() : null, fund_criterion_id: id }
                         : { files: files_uid, value: input_value, fund_criterion_id: id };
                 }),
             };
         },
-        [contactInformation, fund?.auto_validation, address],
+        [contactInformation, fund?.auto_validation, fund?.wallet_disclosure_flow_id, walletDisclosure, address],
     );
+
+    const restartWalletDisclosure = useCallback(() => {
+        pushDanger(translate('push.error'), translate('fund_activate.disclosure.unavailable'));
+        navigateState(WebshopRoutes.FUND_ACTIVATE, { id: fund.id }, {}, { replace: true });
+    }, [fund?.id, navigateState, pushDanger, translate]);
+
+    const confirmWalletEmail = useCallback(async () => {
+        await walletService.confirmDisclosureEmail(fund.id, walletPrefills.id).catch((err: ResponseError) => {
+            if (err.status === 404) {
+                restartWalletDisclosure();
+            }
+
+            throw err;
+        });
+
+        if (!(await fetchAuthIdentity())?.identity?.email) {
+            throw new Error(translate('fund_request.sign_up.fund_request_email_setup.wallet_email.failed'));
+        }
+    }, [fetchAuthIdentity, fund?.id, restartWalletDisclosure, translate, walletPrefills?.id, walletService]);
 
     const applyFund = useFundApply({
         onApplied: (voucher, fund) => {
@@ -317,7 +352,7 @@ export default function FundRequest() {
                         : navigateState(WebshopRoutes.VOUCHER, active_vouchers[0]);
                 }
 
-                if (fund.auto_validation) {
+                if (fund.auto_validation && !fund.wallet_disclosure_flow_id) {
                     return applyFund(fund);
                 }
 
@@ -326,6 +361,10 @@ export default function FundRequest() {
                 setFinishError(false);
             })
             .catch((err: ResponseError) => {
+                if (fund.wallet_disclosure_flow_id && (err.status !== 422 || err.data.errors?.wallet_disclosure_id)) {
+                    return restartWalletDisclosure();
+                }
+
                 setFinishError(true);
                 setErrorReason(err.data.message);
                 setSubmitInProgress(false);
@@ -347,6 +386,7 @@ export default function FundRequest() {
         submitInProgress,
         shouldRequestRecord,
         navigateState,
+        restartWalletDisclosure,
     ]);
 
     const criterionTitle = useCallback(
@@ -391,10 +431,36 @@ export default function FundRequest() {
                         return pushDanger(translate('push.error'), err.data.message);
                     }
 
-                    navigateState(WebshopRoutes.ERROR, { errorCode: err.headers['error-code'] });
+                    navigateState(WebshopRoutes.ERROR, {
+                        errorCode: err.headers['error-code'] || 'digid_unknown_error',
+                    });
                 });
         }
     }, [digIdService, fund?.id, navigateState, pushDanger, fetchAuthIdentity, translate]);
+
+    const startWallet = useCallback(
+        async (flow: WalletFlow) => {
+            if (!flow) {
+                return;
+            }
+
+            if ((await fetchAuthIdentity())?.identity) {
+                walletService
+                    .startFundRequest(fund.id, flow)
+                    .then((res) => (document.location = res.data.redirect_url))
+                    .catch((err) => {
+                        if (err.status === 403 && err.data.message) {
+                            return pushDanger(translate('push.error'), err.data.message);
+                        }
+
+                        navigateState(WebshopRoutes.ERROR, {
+                            errorCode: walletService.errorCode(err),
+                        });
+                    });
+            }
+        },
+        [fetchAuthIdentity, fund?.id, navigateState, walletService, pushDanger, translate],
+    );
 
     const transformInvalidCriteria = useCallback(
         function (item: FundCriterion): LocalCriterion {
@@ -424,12 +490,13 @@ export default function FundRequest() {
             return null;
         }
 
-        const hideOverview = fund.auto_validation && !shouldAddContactInfo;
+        const autoValidation = fund.auto_validation && !fund.wallet_disclosure_flow_id;
+        const hideOverview = autoValidation && !shouldAddContactInfo;
         const criteriaStepsList = criteriaSteps.map((step) => step.uid);
 
         const criteriaStepsKeys = [
-            fund.auto_validation ? 'confirm_criteria' : null,
-            ...(fund.auto_validation ? [] : criteriaStepsList),
+            autoValidation ? 'confirm_criteria' : null,
+            ...(autoValidation ? [] : criteriaStepsList),
             shouldAddContactInfo ? 'contact_information' : null,
             fund.fund_request_physical_card_enable && fund.fund_request_physical_card_type_id
                 ? 'physical_card_request_address'
@@ -439,7 +506,7 @@ export default function FundRequest() {
 
         const steps = [
             emailSetupShow ? 'email_setup' : null,
-            !fund.auto_validation ? 'criteria' : null,
+            !autoValidation ? 'criteria' : null,
             ...criteriaStepsKeys.filter((step) => step),
             'done',
         ].filter((step) => step);
@@ -465,7 +532,7 @@ export default function FundRequest() {
     }, [setStepByName, steps, submitRequest]);
 
     const submitContactInformation = useCallback(
-        (e: React.FormEvent) => {
+        (e: ChangeEvent) => {
             e?.preventDefault();
             e?.stopPropagation();
 
@@ -568,6 +635,33 @@ export default function FundRequest() {
     }, [fetchFund]);
 
     useEffect(() => {
+        setWalletPrefills(null);
+
+        if (!fund?.wallet_disclosure_flow_id || !walletDisclosure) {
+            return;
+        }
+
+        let cancelled = false;
+
+        walletService
+            .disclosure(fund.id, walletDisclosure)
+            .then((res) => {
+                if (!cancelled) {
+                    setWalletPrefills(res.data.data);
+                }
+            })
+            .catch(() => {
+                if (!cancelled) {
+                    restartWalletDisclosure();
+                }
+            });
+
+        return () => {
+            cancelled = true;
+        };
+    }, [fund?.id, fund?.wallet_disclosure_flow_id, walletDisclosure, walletService, restartWalletDisclosure]);
+
+    useEffect(() => {
         fetchRecordTypes();
     }, [fetchRecordTypes]);
 
@@ -609,7 +703,12 @@ export default function FundRequest() {
         const pendingRequests = fundRequests.filter((request) => request.state === 'pending');
         const invalidCriteria = fund.criteria.filter((criterion) => !criterion.is_valid);
         const pendingCriteria = fund.criteria
-            .filter((criterion) => !criterion.is_valid || !criterion.has_record)
+            .filter(
+                (criterion) =>
+                    (fund.wallet_disclosure_flow_id && criterion.fill_type === 'prefill') ||
+                    !criterion.is_valid ||
+                    !criterion.has_record,
+            )
             .map((criterion) => ({ ...criterion, requested: true }));
 
         // Voucher already received, go to the voucher
@@ -618,8 +717,12 @@ export default function FundRequest() {
         }
 
         // Hot linking is not allowed
-        if (from !== WebshopRoutes.FUND_ACTIVATE) {
+        if (from !== WebshopRoutes.FUND_ACTIVATE || (fund.wallet_disclosure_flow_id && !walletDisclosure)) {
             return navigateState(WebshopRoutes.FUND_ACTIVATE, { id: fund.id });
+        }
+
+        if (fund.wallet_disclosure_flow_id && !walletPrefills) {
+            return;
         }
 
         // The user is not authenticated and have to go back to sign-up page
@@ -638,16 +741,26 @@ export default function FundRequest() {
         }
 
         // All the criteria are meet, request the voucher
-        if (invalidCriteria.length == 0) {
+        if (!fund.wallet_disclosure_flow_id && invalidCriteria.length == 0) {
             return goToActivationComponent();
         }
 
-        setPendingCriteria(pendingCriteria.map((criterion) => transformInvalidCriteria(criterion)));
+        setPendingCriteria(
+            pendingCriteria.map((criterion) => ({
+                ...transformInvalidCriteria(criterion),
+                ...(fund.wallet_disclosure_flow_id && criterion.fill_type === 'prefill'
+                    ? {
+                          input_value: walletPrefills.records[criterion.record_type_key] ?? '',
+                      }
+                    : {}),
+            })),
+        );
 
         checkPersonBsnApiRecords();
 
         setAutoSubmit(
-            digidAvailable &&
+            !fund.wallet_disclosure_flow_id &&
+                (digidAvailable || walletFlows.length > 0) &&
                 fund.auto_validation &&
                 invalidCriteria?.length > 0 &&
                 ['IIT', 'bus_2020', 'meedoen'].includes(fund.key),
@@ -656,7 +769,10 @@ export default function FundRequest() {
         bsnIsKnown,
         transformInvalidCriteria,
         digidAvailable,
+        walletFlows,
         from,
+        walletDisclosure,
+        walletPrefills,
         fund,
         fundRequestIsAvailable,
         fundRequests,
@@ -675,13 +791,22 @@ export default function FundRequest() {
             .map((item) => {
                 const defaultValue = fundService.getCriterionControlDefaultValue(item.record_type, item.operator);
 
-                if (shouldRequestRecord(item) && !item.requested && personPrefills && item.fill_type === 'prefill') {
+                if (
+                    shouldRequestRecord(item) &&
+                    !item.requested &&
+                    (personPrefills || walletPrefills) &&
+                    item.fill_type === 'prefill'
+                ) {
                     addedData.push(item.record_type_key);
-                    const prefillItem = personPrefills.person.filter(
+                    const prefillItem = personPrefills?.person.filter(
                         (prefill) => prefill.record_type_key === item.record_type_key,
                     )[0];
 
-                    item.input_value = prefillItem ? prefillItem.value : item.input_value;
+                    item.input_value = walletPrefills
+                        ? (walletPrefills.records[item.record_type_key] ?? '')
+                        : prefillItem
+                          ? prefillItem.value
+                          : item.input_value;
                 }
 
                 if (!shouldRequestRecord(item) && item.input_value != defaultValue) {
@@ -715,7 +840,7 @@ export default function FundRequest() {
         if (Object.keys(removedData).length > 0 || addedData.length > 0) {
             setPendingCriteria([...criteria]);
         }
-    }, [fundService, pendingCriteria, personPrefills, shouldRequestRecord]);
+    }, [fundService, pendingCriteria, personPrefills, walletPrefills, shouldRequestRecord]);
 
     useEffect(() => {
         if (autoSubmit && steps?.[step] == 'confirm_criteria' && !autoSubmitted) {
@@ -733,7 +858,8 @@ export default function FundRequest() {
         !vouchers ||
         !fundRequests ||
         (steps[step] == 'confirm_criteria' && autoSubmit) ||
-        (hasPersonBsnApi && !personPrefills)
+        (hasPersonBsnApi && !personPrefills) ||
+        (fund?.wallet_disclosure_flow_id && !walletPrefills)
     ) {
         return <BlockShowcase />;
     }
@@ -746,6 +872,16 @@ export default function FundRequest() {
                         {steps[step] == 'email_setup' && (
                             <FundRequestStepEmailSetup
                                 fund={fund}
+                                walletDisclosureId={walletPrefills?.id}
+                                walletEmail={
+                                    walletPrefills
+                                        ? {
+                                              email: walletPrefills.email,
+                                              can_use_email: walletPrefills.can_use_email,
+                                              onConfirm: confirmWalletEmail,
+                                          }
+                                        : undefined
+                                }
                                 step={step}
                                 prevStep={prevStep}
                                 nextStep={nextStep}
@@ -787,6 +923,7 @@ export default function FundRequest() {
                                         groups={criterionStep.groups}
                                         uploaderTemplate={criterionStep.uploaderTemplate}
                                         formDataBuild={formDataBuild}
+                                        onWalletDisclosureInvalid={restartWalletDisclosure}
                                         prefills={personPrefills}
                                         setCriterion={(id, update) => {
                                             setPendingCriteria((criteria) => {
@@ -968,6 +1105,33 @@ export default function FundRequest() {
                                                     </div>
                                                 </div>
                                             )}
+
+                                            {walletFlows.map((flow) => (
+                                                <button
+                                                    key={flow.key}
+                                                    type="button"
+                                                    className="sign_up-option sign_up-option-action"
+                                                    onClick={() => startWallet(flow)}>
+                                                    <span className="sign_up-option-media">
+                                                        <img
+                                                            className="sign_up-option-media-img"
+                                                            src={assetUrl(
+                                                                `/assets/img/icon-auth/icon-auth-${flow.key}.svg`,
+                                                            )}
+                                                            alt={`logo ${flow.name}`}
+                                                        />
+                                                    </span>
+                                                    <span className="sign_up-option-details">
+                                                        <span className="sign_up-option-title">{flow.name}</span>
+                                                        <span className="sign_up-option-description">
+                                                            {translate(
+                                                                'fund_request.digid_expired.sign_in.wallet.description',
+                                                                { flow_name: flow.name },
+                                                            )}
+                                                        </span>
+                                                    </span>
+                                                </button>
+                                            ))}
                                         </div>
                                     </div>
                                     <br />

@@ -31,8 +31,8 @@ export class DigiDService<T = Tag> {
         return this.start({ fund_id, request: 'fund_request' });
     }
 
-    public startAuthRestore() {
-        return this.start({ request: 'auth' });
+    public startAuthRestore(target: string | null = null) {
+        return this.start({ request: 'auth', target });
     }
 }
 

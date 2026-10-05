@@ -9,11 +9,6 @@ import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import ModalIdentityProxyExpired from '../../modals/ModalIdentityProxyExpired';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
-const targetVoucher = 'voucher';
-const targetFundRequest = 'fundRequest';
-const targetProductReservation = 'productReservation';
-const targetRequestClarification = 'requestClarification';
-
 export default function IdentityRestore({ confirmation = false }: { confirmation: boolean }) {
     const tokenParam = useParams().token;
 
@@ -31,58 +26,7 @@ export default function IdentityRestore({ confirmation = false }: { confirmation
     const token = confirmation ? tokenParam : query.token;
     const identityService = useIdentityService();
     const navigateState = useNavigateState();
-    const { onAuthRedirect } = useAuthService();
-
-    const handleAuthTarget = useCallback(
-        (target: Array<string>) => {
-            if (target[0] == targetFundRequest) {
-                if (target?.[1]) {
-                    navigateState(WebshopRoutes.FUND_REQUEST_SHOW, { id: target[1] });
-                } else {
-                    navigateState(WebshopRoutes.START);
-                }
-
-                return true;
-            }
-
-            if (target[0] == targetVoucher) {
-                if (target?.[1]) {
-                    navigateState(WebshopRoutes.VOUCHER, { number: target[1] });
-                } else {
-                    navigateState(WebshopRoutes.START);
-                }
-
-                return true;
-            }
-
-            if (target[0] == targetRequestClarification) {
-                if (target?.[1] && target?.[2] && target?.[3]) {
-                    navigateState(WebshopRoutes.FUND_REQUEST_CLARIFICATION, {
-                        fund_id: target[1],
-                        request_id: target[2],
-                        clarification_id: target[3],
-                    });
-                } else {
-                    navigateState(WebshopRoutes.START);
-                }
-
-                return true;
-            }
-
-            if (target[0] == targetProductReservation) {
-                if (target?.[1]) {
-                    navigateState(WebshopRoutes.PRODUCT, { id: target[1] });
-                } else {
-                    navigateState(WebshopRoutes.START);
-                }
-
-                return true;
-            }
-
-            return false;
-        },
-        [navigateState],
-    );
+    const { onAuthRedirect, handleAuthTarget } = useAuthService();
 
     const exchangeToken = useCallback(
         (token: string, target: string) => {
@@ -94,7 +38,7 @@ export default function IdentityRestore({ confirmation = false }: { confirmation
                 .then((res) => {
                     setToken(res.data.access_token);
 
-                    if (typeof target != 'string' || !handleAuthTarget(target.split('-'))) {
+                    if (!handleAuthTarget(target)) {
                         onAuthRedirect().then();
                     }
                 })

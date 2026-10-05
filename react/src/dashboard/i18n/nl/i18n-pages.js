@@ -13,6 +13,7 @@ import provider_funds from './pages/provider-funds';
 import fund_unsubscriptions from './pages/fund-unsubscriptions';
 import bi_connection from './pages/bi-connection';
 import organization_contacts from './pages/organization-contacts';
+import organizations_identity_provider_entra from './pages/organizations-identity-provider-entra';
 import organization_translations from './pages/organization-translations';
 import offices from './pages/offices';
 import reservation_settings from './pages/reservations-settings';
@@ -61,6 +62,7 @@ export default {
     fund_unsubscriptions,
     bi_connection,
     organization_contacts,
+    organizations_identity_provider_entra,
     organization_translations,
     offices,
     reservation_settings,

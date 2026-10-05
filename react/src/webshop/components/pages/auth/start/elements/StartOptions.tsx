@@ -5,31 +5,64 @@ import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 import TranslateHtml from '../../../../../../dashboard/components/elements/translate-html/TranslateHtml';
 import { clickOnKeyEnter } from '../../../../../../dashboard/helpers/wcag';
 import type { AuthPageLoginOption } from '../../../../../../dashboard/services/ConfigService';
+import type { WalletFlow } from '../../../../../../dashboard/props/models/WalletFlow';
 
 export default function StartOptions({
     title,
     loginTitle,
     authOptions,
+    walletFlows,
     loading,
     authInfo,
     onEmail,
     onQr,
     onDigid,
+    onEntra,
+    onWallet,
 }: {
     title: string;
     loginTitle: string;
     authOptions: Array<AuthPageLoginOption>;
+    walletFlows: Array<WalletFlow>;
     loading: boolean;
     authInfo: React.ReactNode;
     onEmail: () => void;
     onQr: () => void;
     onDigid: () => void;
+    onEntra: () => void;
+    onWallet: (flow: WalletFlow) => void;
 }) {
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
 
     const renderOption = useCallback(
         (option: AuthPageLoginOption) => {
+            if (option === 'wallet') {
+                return walletFlows.map((flow) => (
+                    <div
+                        key={`wallet_${flow.key}`}
+                        className="auth-option"
+                        tabIndex={0}
+                        onKeyDown={clickOnKeyEnter}
+                        onClick={() => onWallet(flow)}
+                        role="button">
+                        <div className="auth-option-media">
+                            <img
+                                className="auth-option-media-img"
+                                src={assetUrl(`/assets/img/icon-auth/icon-auth-${flow.key}.svg`)}
+                                alt={`logo ${flow.name}`}
+                            />
+                        </div>
+                        <div className="auth-option-details">
+                            <div className="auth-option-title">{flow.name}</div>
+                            <div className="auth-option-description">
+                                {translate('auth.options.wallet.description', { flow_name: flow.name })}
+                            </div>
+                        </div>
+                    </div>
+                ));
+            }
+
             const optionConfig = {
                 email: {
                     icon: '/assets/img/icon-auth/icon-auth-mail.svg',
@@ -58,6 +91,15 @@ export default function StartOptions({
                     onClick: onQr,
                     alt: '',
                 },
+                entra: {
+                    icon: null,
+                    title: translate('auth.options.entra.title'),
+                    description: translate('auth.options.entra.description'),
+                    titleDusk: null,
+                    descriptionDusk: null,
+                    onClick: onEntra,
+                    alt: '',
+                },
             }[option];
 
             return (
@@ -69,11 +111,15 @@ export default function StartOptions({
                     onClick={optionConfig.onClick}
                     role="button">
                     <div className="auth-option-media">
-                        <img
-                            className="auth-option-media-img"
-                            src={assetUrl(optionConfig.icon)}
-                            alt={optionConfig.alt}
-                        />
+                        {option === 'entra' ? (
+                            <em className="mdi mdi-microsoft" aria-hidden="true" />
+                        ) : (
+                            <img
+                                className="auth-option-media-img"
+                                src={assetUrl(optionConfig.icon)}
+                                alt={optionConfig.alt}
+                            />
+                        )}
                     </div>
                     <div className="auth-option-details">
                         <div className="auth-option-title" data-dusk={optionConfig.titleDusk}>
@@ -86,7 +132,7 @@ export default function StartOptions({
                 </div>
             );
         },
-        [assetUrl, onDigid, onEmail, onQr, translate],
+        [assetUrl, onDigid, onEmail, onEntra, onQr, onWallet, walletFlows, translate],
     );
 
     return (

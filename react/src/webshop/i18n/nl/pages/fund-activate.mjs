@@ -1,4 +1,7 @@
 export default {
+    intro: {
+        continue: 'Aan de slag',
+    },
     header: {
         title: 'Bevestig uw inkomen',
         vergoedingen: {
@@ -15,10 +18,22 @@ export default {
             title: 'DigiD',
             description: 'Open het DigiD inlogscherm',
         },
+        wallet: {
+            description: 'Gebruik {{flow_name}} om in te loggen',
+            disclosure_description: 'Use your ID-Wallet to retrieve your details for this application',
+        },
         request: {
             title: 'Ik wil een tegoed aanvragen',
             description: 'Doorloop het aanvraagformulier om een tegoed aan te vragen',
         },
+    },
+
+    disclosure: {
+        cancelled_title: 'Data retrieval cancelled',
+        cancelled: 'You cancelled the request for your details. Select ID-Wallet to try again.',
+        invalid: 'The shared details are incomplete or invalid. Check your ID-Wallet and try again.',
+        failed: 'Your details could not be retrieved. Try again using your ID-Wallet.',
+        unavailable: 'Your wallet details are no longer valid for this application. Retrieve your details again.',
     },
 
     cards: {

@@ -114,10 +114,24 @@ const AuthProvider = ({ children }: { children: React.ReactElement }) => {
         }
 
         if (!token && route?.state?.protected) {
-            navigateState(WebshopRoutes.START);
+            navigateState(WebshopRoutes.START, null, null, {
+                state:
+                    route.state.name === WebshopRoutes.FUND_ACTIVATE
+                        ? { target: `fundActivate-${route.params.id}` }
+                        : null,
+            });
             return;
         }
-    }, [updateIdentity, token, navigateState, signOut, identity, route?.state?.name, route?.state?.protected]);
+    }, [
+        updateIdentity,
+        token,
+        navigateState,
+        signOut,
+        identity,
+        route?.state?.name,
+        route?.state?.protected,
+        route.params?.id,
+    ]);
 
     useEffect(() => {
         const callback = (

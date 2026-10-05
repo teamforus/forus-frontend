@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcaseProfile';
 import RecordType from '../../../../dashboard/props/models/RecordType';
@@ -15,6 +15,13 @@ import IdentityAddressCard from './cards/IdentityAddressCard';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import ProfileBankAccountsCard from './cards/ProfileBankAccountsCard';
 import BlockKeyValueList from '../../elements/block-key-value-list/BlockKeyValueList';
+import useAppConfigs from '../../../hooks/useAppConfigs';
+import useAuthIdentity from '../../../hooks/useAuthIdentity';
+import { useWalletService } from '../../../services/WalletService';
+import usePushSuccess from '../../../../dashboard/hooks/usePushSuccess';
+import usePushDanger from '../../../../dashboard/hooks/usePushDanger';
+import { StringParam, useQueryParams } from 'use-query-params';
+import { WalletFlow } from '../../../../dashboard/props/models/WalletFlow';
 
 export default function Profile() {
     const translate = useTranslate();
@@ -25,6 +32,50 @@ export default function Profile() {
     const profileService = useProfileService();
 
     const [recordTypes, setRecordTypes] = useState<Array<RecordType>>(null);
+    const [disclosurePending, setDisclosurePending] = useState(false);
+
+    const appConfigs = useAppConfigs();
+    const identity = useAuthIdentity();
+    const walletService = useWalletService();
+    const pushSuccess = usePushSuccess();
+    const pushDanger = usePushDanger();
+    const disclosureHandled = useRef(false);
+    const [disclosureResult, setDisclosureResult] = useQueryParams({
+        disclosure_success: StringParam,
+        wallet_error: StringParam,
+    });
+
+    const disclosureFlows = appConfigs?.wallet_disclosure_flows;
+
+    const startDisclosure = useCallback(
+        (flow: WalletFlow) => {
+            setDisclosurePending(true);
+
+            walletService
+                .startDisclosure(flow)
+                .then((res) => window.location.assign(res.data.redirect_url))
+                .catch(() => {
+                    setDisclosurePending(false);
+                    pushDanger(translate('push.error'), translate('profile.disclosure.failed'));
+                });
+        },
+        [walletService, pushDanger, translate],
+    );
+
+    useEffect(() => {
+        if (disclosureHandled.current || (!disclosureResult.disclosure_success && !disclosureResult.wallet_error)) {
+            return;
+        }
+
+        disclosureHandled.current = true;
+        setDisclosureResult({ disclosure_success: undefined, wallet_error: undefined }, 'replaceIn');
+
+        if (disclosureResult.wallet_error) {
+            pushDanger(translate('push.error'), translate('profile.disclosure.failed'));
+        } else {
+            pushSuccess(translate('push.success'), translate('profile.disclosure.success'));
+        }
+    }, [disclosureResult, setDisclosureResult, pushDanger, pushSuccess, translate]);
 
     const fetchProfile = useCallback(() => {
         profileService.profile().then((res) => setProfile(res.data));
@@ -74,6 +125,26 @@ export default function Profile() {
             }>
             {profile && (
                 <Fragment>
+                    {identity && disclosureFlows?.length > 0 && (
+                        <div className="card">
+                            <div className="card-section">
+                                <div className="button-group">
+                                    {disclosureFlows.map((flow) => (
+                                        <button
+                                            key={flow.id}
+                                            type="button"
+                                            className="button button-primary"
+                                            disabled={disclosurePending}
+                                            onClick={() => startDisclosure(flow)}>
+                                            {translate('profile.disclosure.button')}
+                                            {disclosureFlows.length > 1 && ` (${flow.name})`}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
                     <div className="card">
                         <div className="card-header flex">
                             <h2 className="card-title flex flex-grow">{translate('profile.personal.title')}</h2>

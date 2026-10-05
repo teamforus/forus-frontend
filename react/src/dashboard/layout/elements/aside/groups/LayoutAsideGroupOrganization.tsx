@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Organization, { Permission } from '../../../../props/models/Organization';
 import LayoutAsideNavGroup from '../elements/LayoutAsideNavGroup';
 import { IconOrganization, IconOrganizationActive } from '../icons/LayoutAsideIcons';
 import { hasPermission } from '../../../../helpers/utils';
 import useEnvData from '../../../../hooks/useEnvData';
+import useAppConfigs from '../../../../hooks/useAppConfigs';
+import useTranslate from '../../../../hooks/useTranslate';
 import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder';
+import { authContext } from '../../../../contexts/AuthContext';
 
 export default function LayoutAsideGroupOrganization({
     organization,
@@ -16,6 +19,9 @@ export default function LayoutAsideGroupOrganization({
     setPinnedGroups: React.Dispatch<React.SetStateAction<Array<string>>>;
 }) {
     const envData = useEnvData();
+    const appConfigs = useAppConfigs();
+    const translate = useTranslate();
+    const { identity } = useContext(authContext);
 
     return (
         <LayoutAsideNavGroup
@@ -34,6 +40,16 @@ export default function LayoutAsideGroupOrganization({
                     stateParams: { organizationId: organization?.id },
                     show: hasPermission(organization, Permission.MANAGE_EMPLOYEES),
                     dusk: 'employeesPage',
+                },
+                {
+                    id: 'organization-identity-providers',
+                    name: translate('organizations_identity_provider_entra.ui.title'),
+                    state: DashboardRoutes.ORGANIZATION_IDENTITY_PROVIDERS,
+                    stateParams: { organizationId: organization?.id },
+                    show:
+                        appConfigs?.entra_dashboard_login_available &&
+                        organization?.allow_identity_providers === 'sso' &&
+                        organization.identity_address === identity?.address,
                 },
                 {
                     id: 'organization-security',

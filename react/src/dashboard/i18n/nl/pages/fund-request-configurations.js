@@ -1,9 +1,11 @@
 export default {
     titles: {
+        introduction: 'Introductie aanvraag',
         main_information: 'Hulp informatie in aanvraagformulier',
         contact_details: 'Contactinformatie',
     },
     labels: {
+        introduction: 'Introductietekst',
         enable_help_modal: 'Toon hulpknop in het aanvraagformulier',
         banner_text: 'Banner tekst',
         banner_text_placeholder: 'Banner tekst',
@@ -25,6 +27,10 @@ export default {
         website_placeholder: 'https://',
         chat: 'Link naar chat',
         chat_placeholder: 'https://',
+    },
+    hints: {
+        introduction:
+            'Deze tekst verschijnt voordat de aanvrager een aanvraagmethode kiest. Laat het veld leeg om deze stap over te slaan.',
     },
     buttons: {
         cancel: 'Annuleren',

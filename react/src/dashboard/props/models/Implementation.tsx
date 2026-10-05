@@ -2,6 +2,7 @@ import Media from './Media';
 import Announcement from './Announcement';
 import ImplementationPage from './ImplementationPage';
 import Language from './Language';
+import type { WalletFlow } from './WalletFlow';
 
 export default interface Implementation {
     id: number;
@@ -28,6 +29,11 @@ export default interface Implementation {
     email_from_address?: string;
     digid_enabled?: boolean;
     digid_available?: boolean;
+    wallet_enabled?: boolean;
+    wallet_configured?: boolean;
+    wallet_available?: boolean;
+    wallet_flows?: Array<WalletFlow>;
+    wallet_flow_options?: Array<WalletFlow>;
     digid_app_id?: string;
     digid_shared_secret?: string;
     digid_a_select_server?: string;
@@ -85,7 +91,11 @@ export default interface Implementation {
     auth_page_login_title?: string;
     auth_page_login_email?: boolean;
     auth_page_login_digid?: boolean;
+    auth_page_login_wallet?: boolean;
     auth_page_login_qr?: boolean;
+    entra_login_enabled?: boolean;
+    entra_login_configured?: boolean;
+    entra_login_available?: boolean;
     auth_page_info_enabled?: boolean;
     auth_page_info_title?: string;
     auth_page_info_description?: string;

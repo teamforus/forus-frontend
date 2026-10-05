@@ -5,6 +5,18 @@ const digiDefaultMessage = [
 
 export default {
     titles: {
+        wallet_not_enabled: 'ID-Wallet is niet beschikbaar',
+        wallet_invalid_request: 'Ongeldig verzoek',
+        wallet_session_expired: 'Sessie verlopen',
+        wallet_callback_failed: 'Inloggen mislukt',
+        wallet_missing_claims: 'Ontbrekende gegevens',
+        wallet_uid_used: 'BSN-nummer al gebruikt.',
+        wallet_uid_dont_match: 'Er is al een BSN-nummer bekend bij dit profiel',
+        wallet_uid_not_found: 'Dit BSN-nummer is onbekend in het systeem',
+        wallet_unknown_session_type: 'Onbekende sessie',
+        wallet_unknown_error: 'Onbekende foutmelding',
+
+        entra_login_failed: 'Inloggen met Microsoft is mislukt',
         unknown_error: 'Onbekende foutmelding',
         digid_api_0000: 'Er is een fout opgetreden tijdens het aanvragen.',
         digid_uid_used: 'BSN-nummer al gebruikt.',
@@ -29,6 +41,30 @@ export default {
         digid_010c: 'Foutmelding', // 'DigiD - temporarily unavailable',
     },
     messages: {
+        wallet_not_enabled: 'ID-Wallet is niet ingeschakeld voor deze implementatie.',
+        wallet_invalid_request: 'Het ID-Wallet verzoek is ongeldig. Probeer het opnieuw.',
+        wallet_session_expired: 'De ID-Wallet sessie is verlopen. Probeer opnieuw in te loggen.',
+        wallet_callback_failed: 'De ID-Wallet login kon niet worden afgerond. Probeer het opnieuw.',
+        wallet_missing_claims: 'De ID-Wallet login leverde onvoldoende gegevens op. Probeer het opnieuw.',
+        wallet_uid_used: [
+            'Voor dit BSN nummer is een ander e-mailadres geregistreerd.',
+            'Om in te loggen op uw account moet u het e-mailadres gebruiken wat bij ons geregistreerd staat.<br/><br/>',
+            'Weet u niet meer welk e-mailadres dit is of heeft u een nieuw e-mailadres? <br/> Herstel dan uw account door',
+            '<a href="{{ url_webshop_start_logout }}" class="sign_up-pane-link">hier</a> te klikken of de knop hieronder.</br>',
+        ].join(' '),
+        wallet_uid_dont_match: [
+            'Het BSN nummer dat u met ID-Wallet heeft bevestigd verschilt van het BSN-nummer dat aan dit profiel',
+            'is gekoppeld',
+            'start een nieuwe aanvraag.',
+        ].join(' '),
+        wallet_uid_not_found: [
+            'Dit BSN-nummer is onbekend in het systeem',
+            'start uw aanvraag om een account aan te maken.',
+        ].join(' '),
+        wallet_unknown_session_type: 'De ID-Wallet sessie heeft een onbekend type. Probeer het opnieuw.',
+        wallet_unknown_error:
+            'Er is een fout opgetreden tijdens het inloggen met ID-Wallet. Probeer het later opnieuw.',
+        entra_login_failed: 'Inloggen met Microsoft kon niet worden gestart. Probeer het later opnieuw.',
         unknown_error: [
             'Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals. Indien deze fout blijft aanhouden,',
             ' kijk dan op de website https://www.digid.nl/ voor de laatste informatie.',

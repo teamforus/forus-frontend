@@ -1,4 +1,9 @@
 export default {
+    disclosure: {
+        button: 'Fetch details',
+        success: 'The details have been received. Your profile has not been changed.',
+        failed: 'The details could not be fetched. Please try again.',
+    },
     title: 'Gegevens',
     breadcrumbs: {
         home: 'Home',

@@ -21,14 +21,21 @@ import CheckboxControl from '../../elements/forms/controls/CheckboxControl';
 import ToggleControl from '../../elements/forms/controls/ToggleControl';
 import MarkdownEditor from '../../elements/forms/markdown-editor/MarkdownEditor';
 
-type AuthPageLoginOptionField = 'auth_page_login_email' | 'auth_page_login_digid' | 'auth_page_login_qr';
+type AuthPageLoginOptionField =
+    | 'auth_page_login_email'
+    | 'auth_page_login_digid'
+    | 'auth_page_login_wallet'
+    | 'auth_page_login_qr'
+    | 'entra_login_enabled';
 
 type AuthPageFormValues = {
     auth_page_title: string;
     auth_page_login_title: string;
     auth_page_login_email: boolean;
     auth_page_login_digid: boolean;
+    auth_page_login_wallet: boolean;
     auth_page_login_qr: boolean;
+    entra_login_enabled: boolean;
     auth_page_info_enabled: boolean;
     auth_page_info_title: string;
     auth_page_info_description: string;
@@ -54,7 +61,9 @@ export default function ImplementationAuthPage() {
             auth_page_login_title: '',
             auth_page_login_email: true,
             auth_page_login_digid: true,
+            auth_page_login_wallet: false,
             auth_page_login_qr: true,
+            entra_login_enabled: false,
             auth_page_info_enabled: false,
             auth_page_info_title: '',
             auth_page_info_description: '',
@@ -100,13 +109,39 @@ export default function ImplementationAuthPage() {
                 available: !!implementation?.digid_available,
             },
             {
+                key: 'auth_page_login_wallet' as AuthPageLoginOptionField,
+                label: translate('implementation_auth_page.options.wallet'),
+                tooltip: implementation?.wallet_available
+                    ? translate('implementation_auth_page.tooltips.wallet')
+                    : translate('implementation_auth_page.tooltips.wallet_disabled'),
+                available: !!implementation?.wallet_available,
+            },
+            ...(implementation?.entra_login_configured
+                ? [
+                      {
+                          key: 'entra_login_enabled' as AuthPageLoginOptionField,
+                          label: translate('implementation_auth_page.options.entra'),
+                          tooltip: implementation.entra_login_available
+                              ? translate('implementation_auth_page.tooltips.entra')
+                              : translate('implementation_auth_page.tooltips.entra_disabled'),
+                          available: implementation.entra_login_available,
+                      },
+                  ]
+                : []),
+            {
                 key: 'auth_page_login_qr' as AuthPageLoginOptionField,
                 label: translate('implementation_auth_page.options.qr'),
                 tooltip: translate('implementation_auth_page.tooltips.qr'),
                 available: true,
             },
         ];
-    }, [implementation?.digid_available, translate]);
+    }, [
+        implementation?.digid_available,
+        implementation?.wallet_available,
+        implementation?.entra_login_available,
+        implementation?.entra_login_configured,
+        translate,
+    ]);
 
     const availableLoginOptions = useMemo(() => {
         return loginOptions.filter((option) => option.available);
@@ -140,7 +175,9 @@ export default function ImplementationAuthPage() {
                 auth_page_login_title: implementation.auth_page_login_title || '',
                 auth_page_login_email: !!implementation.auth_page_login_email,
                 auth_page_login_digid: !!implementation.auth_page_login_digid,
+                auth_page_login_wallet: !!implementation.auth_page_login_wallet,
                 auth_page_login_qr: !!implementation.auth_page_login_qr,
+                entra_login_enabled: !!implementation.entra_login_enabled,
                 auth_page_info_enabled: !!implementation.auth_page_info_enabled,
                 auth_page_info_title: implementation.auth_page_info_title || '',
                 auth_page_info_description: implementation.auth_page_info_description || '',

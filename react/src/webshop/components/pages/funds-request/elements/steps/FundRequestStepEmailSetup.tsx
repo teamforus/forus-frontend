@@ -23,6 +23,8 @@ export default function FundRequestStepEmailSetup({
     nextStep,
     progress,
     bsnWarning,
+    walletEmail,
+    walletDisclosureId,
 }: {
     fund: Fund;
     step: number;
@@ -30,6 +32,12 @@ export default function FundRequestStepEmailSetup({
     nextStep: () => void;
     progress: React.ReactElement;
     bsnWarning: React.ReactElement;
+    walletDisclosureId?: number;
+    walletEmail?: {
+        email: string | null;
+        can_use_email: boolean;
+        onConfirm: () => Promise<void>;
+    };
 }) {
     const assetUrl = useAssetUrl();
     const appConfigs = useAppConfigs();
@@ -43,6 +51,10 @@ export default function FundRequestStepEmailSetup({
     const [skipEmail, setSkipEmail] = useState(false);
     const [emailSubmitted, setEmailSubmitted] = useState(false);
     const [disableSubmitBtn, setDisableSubmitBtn] = useState(false);
+    const [manualEmail, setManualEmail] = useState(false);
+    const [walletEmailUnavailable, setWalletEmailUnavailable] = useState(false);
+
+    const showWalletEmail = walletEmail?.email && walletEmail.can_use_email && !manualEmail;
     const emailSetupRequired = useMemo(() => fund?.email_required, [fund?.email_required]);
 
     const hasPrivacy = useMemo(() => {
@@ -60,8 +72,37 @@ export default function FundRequestStepEmailSetup({
             terms: false,
         },
         (values) => {
+            if ((hasPrivacy && !values.privacy) || (hasTerms && !values.terms)) {
+                emailForm.setIsLocked(false);
+                return;
+            }
+
+            if (showWalletEmail) {
+                if (skipEmail && !emailSetupRequired) {
+                    emailForm.setIsLocked(false);
+                    nextStep();
+                    return;
+                }
+
+                emailForm.setErrors({});
+
+                return walletEmail
+                    .onConfirm()
+                    .catch((res) => {
+                        if (res?.status === 422) {
+                            setWalletEmailUnavailable(true);
+                            setManualEmail(true);
+                        } else {
+                            emailForm.setErrors({
+                                email: [translate('fund_request.sign_up.fund_request_email_setup.wallet_email.failed')],
+                            });
+                        }
+                    })
+                    .finally(() => emailForm.setIsLocked(false));
+            }
+
             identityEmailsService
-                .store(values.email, { target: `fundRequest-${fund.id}` })
+                .store(values.email, { target: ['fundApply', fund.id, walletDisclosureId].filter(Boolean).join('-') })
                 .then(() => setEmailSubmitted(true))
                 .catch((res) => {
                     emailForm.setErrors(res.status === 429 ? { email: [res.data.message] } : res.data.errors);
@@ -118,7 +159,9 @@ export default function FundRequestStepEmailSetup({
                 <div className="sign_up-pane">
                     <div className="sign_up-pane-header">
                         <h2 className="sign_up-pane-header-title">
-                            {translate('fund_request.sign_up.fund_request_email_setup.sign_up_with_email')}
+                            {showWalletEmail
+                                ? translate('fund_request.sign_up.fund_request_email_setup.wallet_email.header')
+                                : translate('fund_request.sign_up.fund_request_email_setup.sign_up_with_email')}
                         </h2>
                     </div>
                     <div className="sign_up-pane-body">
@@ -128,37 +171,143 @@ export default function FundRequestStepEmailSetup({
                                     {translate('fund_request.sign_up.fund_request_email_setup.email_required')}
                                 </p>
                             )}
-                            <div className="form-group">
-                                <div className="row">
-                                    <div className="col col-lg-9">
-                                        <label className="form-label" htmlFor="email">
-                                            {translate('popup_auth.input.mail')}
-                                        </label>
-                                        <UIControlText
-                                            type={'email'}
-                                            value={emailForm.values.email}
-                                            onChangeValue={(email) => {
-                                                emailForm.update({ email });
-                                            }}
-                                            tabIndex={0}
-                                            autoComplete={'email'}
-                                            dataDusk="fundRequestEmailInput"
-                                        />
-                                        <FormError error={emailForm.errors.email} />
+                            {(walletEmailUnavailable || (walletEmail?.email && !walletEmail.can_use_email)) && (
+                                <p className="sign_up-pane-text" role="status">
+                                    {translate(
+                                        'fund_request.sign_up.fund_request_email_setup.wallet_email.unavailable',
+                                    )}
+                                </p>
+                            )}
+
+                            {showWalletEmail && skipEmail ? (
+                                <div className="form-group">
+                                    <h3 className="sign_up-pane-heading">
+                                        {translate(
+                                            'fund_request.sign_up.fund_request_email_setup.wallet_email.skip_title',
+                                        )}
+                                    </h3>
+                                    <div className="sign_up-info">
+                                        <div className="sign_up-info-title">
+                                            <div className="sign_up-info-title-icon">
+                                                <div className="mdi mdi-information-outline" aria-hidden="true" />
+                                            </div>
+                                            <div className="sign_up-info-description">
+                                                <strong>
+                                                    {translate(
+                                                        'fund_request.sign_up.fund_request_email_setup.warning',
+                                                    )}{' '}
+                                                </strong>
+                                                {translate(
+                                                    'fund_request.sign_up.fund_request_email_setup.no_email_info',
+                                                )}
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="col col-lg-3">
-                                        <div className="form-label hide-sm">&nbsp;</div>
-                                        <button
-                                            className="button button-primary button-fill"
-                                            disabled={disableSubmitBtn}
-                                            type="submit"
-                                            tabIndex={0}
-                                            data-dusk="fundRequestEmailSubmit">
-                                            {translate('popup_auth.buttons.submit')}
-                                        </button>
+                                    <button
+                                        type="button"
+                                        className="sign_up-pane-link sign_up-pane-link-button text-primary"
+                                        disabled={emailForm.isLocked}
+                                        onClick={() => setSkipEmail(false)}>
+                                        {translate(
+                                            'fund_request.sign_up.fund_request_email_setup.wallet_email.use_email',
+                                        )}
+                                    </button>
+                                </div>
+                            ) : showWalletEmail ? (
+                                <div className="form-group">
+                                    <h3 className="sign_up-pane-heading sign_up-pane-heading-marginless">
+                                        {translate('fund_request.sign_up.fund_request_email_setup.wallet_email.title')}
+                                    </h3>
+                                    <p className="sign_up-pane-text">
+                                        {translate(
+                                            'fund_request.sign_up.fund_request_email_setup.wallet_email.description',
+                                        )}
+                                    </p>
+                                    <div className="preview-item-panel">
+                                        <div className="preview-item-values">
+                                            <div className="preview-item-values-item">
+                                                <div className="preview-item-values-item-label">
+                                                    {translate(
+                                                        'fund_request.sign_up.fund_request_email_setup.wallet_email.label',
+                                                    )}
+                                                </div>
+                                                <div className="preview-item-values-item-value">
+                                                    {walletEmail.email}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <FormError error={emailForm.errors.email} />
+                                    <div className="flex flex-gap">
+                                        <span>
+                                            <button
+                                                type="button"
+                                                className="sign_up-pane-link sign_up-pane-link-button text-primary"
+                                                disabled={emailForm.isLocked}
+                                                onClick={() => {
+                                                    setManualEmail(true);
+                                                    setSkipEmail(false);
+                                                    emailForm.setErrors({});
+                                                }}>
+                                                {translate(
+                                                    'fund_request.sign_up.fund_request_email_setup.wallet_email.use_another',
+                                                )}
+                                            </button>
+                                        </span>
+                                        {!emailSetupRequired && (
+                                            <Fragment>
+                                                <span className="flex flex-vertical flex-center" aria-hidden="true">
+                                                    |
+                                                </span>
+                                                <button
+                                                    type="button"
+                                                    className="sign_up-pane-link sign_up-pane-link-button text-muted"
+                                                    disabled={emailForm.isLocked}
+                                                    onClick={() => {
+                                                        setSkipEmail(true);
+                                                        emailForm.setErrors({});
+                                                    }}>
+                                                    {translate(
+                                                        'fund_request.sign_up.fund_request_email_setup.wallet_email.skip',
+                                                    )}
+                                                </button>
+                                            </Fragment>
+                                        )}
                                     </div>
                                 </div>
-                            </div>
+                            ) : (
+                                <div className="form-group">
+                                    <div className="row">
+                                        <div className="col col-lg-9">
+                                            <label className="form-label" htmlFor="email">
+                                                {translate('popup_auth.input.mail')}
+                                            </label>
+                                            <UIControlText
+                                                type={'email'}
+                                                value={emailForm.values.email}
+                                                onChangeValue={(email) => {
+                                                    emailForm.update({ email });
+                                                }}
+                                                tabIndex={0}
+                                                autoComplete={'email'}
+                                                dataDusk="fundRequestEmailInput"
+                                            />
+                                            <FormError error={emailForm.errors.email} />
+                                        </div>
+                                        <div className="col col-lg-3">
+                                            <div className="form-label hide-sm">&nbsp;</div>
+                                            <button
+                                                className="button button-primary button-fill"
+                                                disabled={disableSubmitBtn || emailForm.isLocked}
+                                                type="submit"
+                                                tabIndex={0}
+                                                data-dusk="fundRequestEmailSubmit">
+                                                {translate('popup_auth.buttons.submit')}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
 
                             <div className="flex flex-vertical flex-gap">
                                 <div className="flex flex-vertical">
@@ -176,6 +325,7 @@ export default function FundRequestStepEmailSetup({
                                                     }}>
                                                     <input
                                                         type="checkbox"
+                                                        required={Boolean(showWalletEmail)}
                                                         checked={emailForm.values.privacy}
                                                         onChange={(e) => {
                                                             emailForm.update({ privacy: e.target.checked });
@@ -186,9 +336,14 @@ export default function FundRequestStepEmailSetup({
                                                     <BindLinksInside onKeyDown={(e) => e.stopPropagation()}>
                                                         <strong>
                                                             <TranslateHtml
-                                                                i18n={'auth.privacy_link.text'}
+                                                                i18n={
+                                                                    showWalletEmail
+                                                                        ? 'fund_request.sign_up.fund_request_email_setup.wallet_email.privacy'
+                                                                        : 'auth.privacy_link.text'
+                                                                }
                                                                 values={{ link_url: privacyUrl }}
                                                             />
+                                                            {showWalletEmail && <span className="text-danger"> *</span>}
                                                         </strong>
                                                     </BindLinksInside>
                                                 </label>
@@ -231,7 +386,20 @@ export default function FundRequestStepEmailSetup({
                                     ) : null}
                                 </div>
 
-                                {!emailSetupRequired && (
+                                {showWalletEmail && (
+                                    <div>
+                                        <button
+                                            type="submit"
+                                            className="button button-primary"
+                                            disabled={disableSubmitBtn || emailForm.isLocked}>
+                                            {translate(
+                                                'fund_request.sign_up.fund_request_email_setup.wallet_email.confirm',
+                                            )}
+                                        </button>
+                                    </div>
+                                )}
+
+                                {!showWalletEmail && !emailSetupRequired && (
                                     <Fragment>
                                         {skipEmail ? (
                                             <div className="sign_up-info">
@@ -258,9 +426,9 @@ export default function FundRequestStepEmailSetup({
                                                         <button
                                                             type="button"
                                                             className="text-primary-light sign_up-pane-link sign_up-pane-link-button"
-                                                            aria-disabled={disableSubmitBtn}
+                                                            aria-disabled={disableSubmitBtn || emailForm.isLocked}
                                                             onClick={() => nextStep()}
-                                                            disabled={disableSubmitBtn}
+                                                            disabled={disableSubmitBtn || emailForm.isLocked}
                                                             data-dusk="fundRequestContinueWithoutEmail">
                                                             {translate(
                                                                 'fund_request.sign_up.fund_request_email_setup.continue_without_email_link',
@@ -274,9 +442,9 @@ export default function FundRequestStepEmailSetup({
                                             <button
                                                 type="button"
                                                 className="sign_up-pane-link sign_up-pane-link-button"
-                                                aria-disabled={disableSubmitBtn}
+                                                aria-disabled={disableSubmitBtn || emailForm.isLocked}
                                                 onClick={() => setSkipEmail(true)}
-                                                disabled={disableSubmitBtn}
+                                                disabled={disableSubmitBtn || emailForm.isLocked}
                                                 data-dusk="fundRequestSkipEmail">
                                                 {translate(
                                                     'fund_request.sign_up.fund_request_email_setup.no_email_link',

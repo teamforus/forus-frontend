@@ -8,6 +8,8 @@ import { useIdentityService } from '../../../../../dashboard/services/IdentitySe
 import useSetProgress from '../../../../../dashboard/hooks/useSetProgress';
 import { BooleanParam, useQueryParams } from 'use-query-params';
 import { useDigiDService } from '../../../../services/DigiDService';
+import { useWalletService } from '../../../../services/WalletService';
+import type { WalletFlow } from '../../../../../dashboard/props/models/WalletFlow';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import FormError from '../../../../../dashboard/components/elements/forms/errors/FormError';
 import useAppConfigs from '../../../../hooks/useAppConfigs';
@@ -23,6 +25,7 @@ import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 import StartOptions from './elements/StartOptions';
 import StartEmail from './elements/StartEmail';
 import StartQrCode from './elements/StartQrCode';
+import { useIdentityProviderAuthService } from '../../../../../dashboard/services/IdentityProviderAuthService';
 
 export default function Start() {
     const { token, signOut, setToken } = useContext(authContext);
@@ -45,21 +48,24 @@ export default function Start() {
     const [qrValue, setQrValue] = useState<{ type: 'auth_token'; value: string }>(null);
     const [emailValue, setEmailValue] = useState(null);
 
-    const [{ reset, logout, email, digid }, setQueryParams] = useQueryParams(
+    const [{ reset, logout, email, digid, wallet }, setQueryParams] = useQueryParams(
         {
             reset: BooleanParam,
             logout: BooleanParam,
             email: BooleanParam,
             digid: BooleanParam,
+            wallet: BooleanParam,
         },
         {
             updateType: 'replace',
         },
     );
 
-    const { onAuthRedirect } = useAuthService();
+    const { onAuthRedirect, handleAuthTarget } = useAuthService();
     const digIdService = useDigiDService();
+    const walletService = useWalletService();
     const identityService = useIdentityService();
+    const identityProviderAuthService = useIdentityProviderAuthService();
 
     const [disableSubmitBtn, setDisableSubmitBtn] = useState(false);
     const [authEmailSent, setAuthEmailSent] = useState<boolean>(false);
@@ -67,6 +73,10 @@ export default function Start() {
     const signedIn = useMemo(() => !!token, [token]);
     const authPageTitle = appConfigs?.auth_page?.title || translate('auth.title');
     const authPageLoginTitle = appConfigs?.auth_page?.login_title || '';
+
+    const walletFlows = useMemo(() => {
+        return appConfigs?.wallet ? appConfigs.wallet_config?.flows || [] : [];
+    }, [appConfigs]);
 
     const authOptions = useMemo(() => {
         const options = appConfigs?.auth_page?.login_options || [];
@@ -78,9 +88,13 @@ export default function Start() {
                     return appConfigs?.digid;
                 }
 
+                if (option === 'wallet') {
+                    return walletFlows.length > 0;
+                }
+
                 return true;
             });
-    }, [appConfigs?.auth_page?.login_options, appConfigs?.digid]);
+    }, [appConfigs?.auth_page?.login_options, appConfigs?.digid, walletFlows]);
 
     const hasEmailOnlyAuth = useMemo(() => {
         return authOptions.length === 1 && authOptions[0] === 'email';
@@ -142,14 +156,55 @@ export default function Start() {
         setProgress(0);
 
         digIdService
-            .startAuthRestore()
+            .startAuthRestore(target || null)
             .then((res) => (document.location = res.data.redirect_url))
             .catch((res: ResponseError) => navigateState(WebshopRoutes.ERROR, { errorCode: res.headers['error-code'] }))
             .finally(() => {
                 setLoading(false);
                 setProgress(100);
             });
-    }, [digIdService, navigateState, setProgress]);
+    }, [digIdService, navigateState, setProgress, target]);
+
+    const startEntra = useCallback(() => {
+        setLoading(true);
+        setProgress(0);
+
+        identityProviderAuthService
+            .startLogin(target || null)
+            .then((res) => window.location.assign(res.data.data.redirect_url))
+            .catch(() => navigateState(WebshopRoutes.ERROR, { errorCode: 'entra_login_failed' }))
+            .finally(() => {
+                setLoading(false);
+                setProgress(100);
+            });
+    }, [identityProviderAuthService, navigateState, setProgress, target]);
+
+    const startWallet = useCallback(
+        (flow?: WalletFlow) => {
+            const walletFlow = flow || walletFlows[0];
+
+            if (!walletFlow) {
+                return;
+            }
+
+            setLoading(true);
+            setProgress(0);
+
+            walletService
+                .startAuth(target || null, walletFlow)
+                .then((res) => (document.location = res.data.redirect_url))
+                .catch((res: ResponseError) => {
+                    navigateState(WebshopRoutes.ERROR, {
+                        errorCode: walletService.errorCode(res),
+                    });
+                })
+                .finally(() => {
+                    setLoading(false);
+                    setProgress(100);
+                });
+        },
+        [navigateState, walletFlows, walletService, setProgress, target],
+    );
 
     const showStart = useCallback(() => {
         setState('start');
@@ -213,7 +268,11 @@ export default function Start() {
             startDigId();
         }
 
-        if (!digid && email && authOptions.includes('email')) {
+        if (!digid && wallet) {
+            startWallet();
+        }
+
+        if (!digid && !wallet && email && authOptions.includes('email')) {
             setAuthEmailSent(false);
             authFormReset();
             setState('email');
@@ -224,8 +283,21 @@ export default function Start() {
             setState('start');
         }
 
-        setQueryParams({ logout: null, email: null, digid: null, reset: null });
-    }, [appConfigs, reset, logout, email, authOptions, digid, setQueryParams, signOut, startDigId, authFormReset]);
+        setQueryParams({ logout: null, email: null, digid: null, wallet: null, reset: null });
+    }, [
+        appConfigs,
+        reset,
+        logout,
+        email,
+        authOptions,
+        digid,
+        wallet,
+        setQueryParams,
+        signOut,
+        startDigId,
+        startWallet,
+        authFormReset,
+    ]);
 
     useEffect(() => {
         if (appConfigs && hasEmailOnlyAuth && state === 'start') {
@@ -234,10 +306,10 @@ export default function Start() {
     }, [appConfigs, hasEmailOnlyAuth, state]);
 
     useEffect(() => {
-        if (signedIn) {
+        if (signedIn && !handleAuthTarget(target)) {
             onAuthRedirect().then();
         }
-    }, [onAuthRedirect, signedIn]);
+    }, [handleAuthTarget, onAuthRedirect, signedIn, target]);
 
     useEffect(() => {
         if (authPageTitle) {
@@ -395,11 +467,14 @@ export default function Start() {
                                 title={authPageTitle}
                                 loginTitle={authPageLoginTitle}
                                 authOptions={authOptions}
+                                walletFlows={walletFlows}
                                 loading={loading}
                                 authInfo={authInfo}
                                 onEmail={showEmail}
                                 onQr={showQr}
                                 onDigid={startDigId}
+                                onWallet={startWallet}
+                                onEntra={startEntra}
                             />
                         )}
 

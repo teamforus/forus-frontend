@@ -6,6 +6,8 @@ import usePushSuccess from '../../dashboard/hooks/usePushSuccess';
 import useTranslate from '../../dashboard/hooks/useTranslate';
 import Fund from '../props/models/Fund';
 import { useFundService } from '../services/FundService';
+import { useNavigateState } from '../modules/state_router/Router';
+import { WebshopRoutes } from '../modules/state_router/RouterBuilder';
 
 type UseFundApplyOptions = {
     onApplied?: (voucher: Voucher, fund: Fund) => void;
@@ -21,6 +23,7 @@ export default function useFundApply({
     showSuccessPush = true,
 }: UseFundApplyOptions = {}) {
     const translate = useTranslate();
+    const navigateState = useNavigateState();
 
     const fundService = useFundService();
 
@@ -34,6 +37,10 @@ export default function useFundApply({
 
     return useCallback(
         (fund: Fund) => {
+            if (fund.wallet_disclosure_flow_id) {
+                return navigateState(WebshopRoutes.FUND_ACTIVATE, { id: fund.id });
+            }
+
             if (applyingFund.current) {
                 return;
             }
@@ -70,6 +77,6 @@ export default function useFundApply({
                     applyingFund.current = false;
                 });
         },
-        [fundService, pushDanger, pushSuccess, translate],
+        [fundService, navigateState, pushDanger, pushSuccess, translate],
     );
 }
