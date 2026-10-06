@@ -91,6 +91,7 @@ import maps from './nl/directives/google-map.mjs';
 import profile_menu from './nl/directives/profile-menu.mjs';
 import top_navbar_search from './nl/directives/top-navbar-search.mjs';
 import paginator from './nl/directives/paginator.mjs';
+import block_decision_tree from './nl/directives/block-decision-tree.mjs';
 
 // blocks
 import block_exception from './nl/blocks/block-exception.mjs';
@@ -529,6 +530,7 @@ export default {
     block_funds: block_funds,
     block_notifications: block_notifications,
     block_providers: block_providers,
+    block_decision_tree: block_decision_tree,
     empty_block: empty_block,
     fund_criterion: fund_criterion,
     maps: maps,
