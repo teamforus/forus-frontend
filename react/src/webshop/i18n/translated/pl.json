@@ -721,7 +721,8 @@
             "title": "Potwierdzenie BSN straciło ważność"
         },
         "state": {
-            "answer_needed": "Potrzebujemy od Państwa dodatkowych informacji"
+            "answer_needed": "Potrzebujemy od Państwa dodatkowych informacji",
+            "expired": "Wygasłe"
         }
     },
     "fund_requests": {
@@ -745,7 +746,10 @@
             "archive": "Archiwum",
             "all_funds": "Wszystkie kredyty..."
         },
-        "title": "Żądanie"
+        "title": "Żądanie",
+        "state": {
+            "expired": "Wygasłe"
+        }
     },
     "fund": {
         "breadcrumbs": {

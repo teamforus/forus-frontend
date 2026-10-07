@@ -68,6 +68,8 @@ export default interface FundRequest {
     created_at_locale?: string | null;
     resolved_at?: string | null;
     resolved_at_locale?: string | null;
+    expire_at?: string | null;
+    expire_at_locale?: string | null;
     payouts?: Array<PayoutTransaction>;
     vouchers?: Array<Voucher>;
     current_period?: boolean;
@@ -75,4 +77,5 @@ export default interface FundRequest {
     identity_id?: number;
     missed_records?: Array<FundRequestMissedRecord>;
     missing_records_approved?: boolean;
+    expired?: boolean;
 }

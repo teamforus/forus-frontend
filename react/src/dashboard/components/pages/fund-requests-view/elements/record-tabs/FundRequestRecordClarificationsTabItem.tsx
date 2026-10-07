@@ -6,12 +6,14 @@ import FundRequestClarification from '../../../../../props/models/FundRequestCla
 
 export default function FundRequestRecordClarificationsTabItem({
     index,
+    expired,
     clarification,
     canManageClarifications,
     editClarification,
     closeClarification,
 }: {
     index: number;
+    expired: boolean;
     clarification: FundRequestClarification;
     canManageClarifications: boolean;
     editClarification: () => void;
@@ -153,7 +155,7 @@ export default function FundRequestRecordClarificationsTabItem({
                     </div>
                 )}
 
-                {clarification.state === 'pending' && (
+                {clarification.state === 'pending' && !expired && (
                     <>
                         <div className="clarification-item-section">
                             <div className="clarification-item-section-header">

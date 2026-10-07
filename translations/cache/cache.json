@@ -1928,6 +1928,10 @@
         "Meer informatie van u nodig"
     ],
     [
+        "fund_request.state.expired",
+        "Verlopen"
+    ],
+    [
         "fund_request.steps.info_label",
         "Informatie over aanvraag"
     ],
@@ -1994,6 +1998,10 @@
     [
         "fund_requests.filters.archive",
         "Archief"
+    ],
+    [
+        "fund_requests.state.expired",
+        "Verlopen"
     ],
     [
         "fund_requests.title",

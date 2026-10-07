@@ -721,7 +721,8 @@
             "title": "Confirmation du BSN expirée"
         },
         "state": {
-            "answer_needed": "Nous avons besoin de plus d'informations de votre part"
+            "answer_needed": "Nous avons besoin de plus d'informations de votre part",
+            "expired": "Expiré"
         }
     },
     "fund_requests": {
@@ -745,7 +746,10 @@
             "archive": "Archives",
             "all_funds": "Tous les crédits..."
         },
-        "title": "Demande"
+        "title": "Demande",
+        "state": {
+            "expired": "Expiré"
+        }
     },
     "fund": {
         "breadcrumbs": {

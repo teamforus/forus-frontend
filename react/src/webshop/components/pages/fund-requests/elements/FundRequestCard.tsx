@@ -42,15 +42,29 @@ export default function FundRequestCard({ fundRequest }: { fundRequest: FundRequ
                         </div>
                     </div>
                     <div className="fund-request-overview">
-                        {fundRequest.state === 'pending' && <Label type="warning">{fundRequest.state_locale}</Label>}
-                        {fundRequest.state === 'approved' && <Label type="success">{fundRequest.state_locale}</Label>}
-                        {fundRequest.state === 'declined' && <Label type="default">{fundRequest.state_locale}</Label>}
-                        {fundRequest.state === 'disregarded' && <Label type="danger">{fundRequest.state_locale}</Label>}
+                        {fundRequest.expired ? (
+                            <Label type="default">{translate('fund_requests.state.expired')}</Label>
+                        ) : (
+                            <>
+                                {fundRequest.state === 'pending' && (
+                                    <Label type="warning">{fundRequest.state_locale}</Label>
+                                )}
+                                {fundRequest.state === 'approved' && (
+                                    <Label type="success">{fundRequest.state_locale}</Label>
+                                )}
+                                {fundRequest.state === 'declined' && (
+                                    <Label type="default">{fundRequest.state_locale}</Label>
+                                )}
+                                {fundRequest.state === 'disregarded' && (
+                                    <Label type="danger">{fundRequest.state_locale}</Label>
+                                )}
+                            </>
+                        )}
                     </div>
                 </div>
                 <div className="fund-request-values">
                     <div className="fund-request-values-label">
-                        {notAnsweredCount > 0 && (
+                        {!fundRequest.expired && notAnsweredCount > 0 && (
                             <Label type="primary" size="xl">
                                 <span className="label-blink" aria-hidden="true" />
                                 {translate('fund_requests.card.questions_count', { count: notAnsweredCount })}
@@ -69,7 +83,7 @@ export default function FundRequestCard({ fundRequest }: { fundRequest: FundRequ
                     <div className="fund-request-value">{fundRequest.created_at_locale}</div>
                 </div>
                 <div className="fund-request-values-label">
-                    {notAnsweredCount > 0 && (
+                    {!fundRequest.expired && notAnsweredCount > 0 && (
                         <Label type="primary" size="xl">
                             <span className="label-blink" aria-hidden="true" />
                             {translate('fund_requests.card.questions_count', { count: notAnsweredCount })}
