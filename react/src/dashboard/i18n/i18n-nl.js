@@ -1577,7 +1577,7 @@ export default {
             yes: 'Ja',
             no_group: 'Overige gegevens',
             warning: 'Melding',
-            expire_at: 'Expire at',
+            expire_at: 'Verloopt op',
         },
         tooltips: {
             id: 'Uniek ID van de aanvraag.',
