@@ -152,6 +152,7 @@ export type AppConfigProp = {
     };
     digid: boolean;
     digid_tvs: boolean;
+    digid_tvs_organizations: Array<{ id: number; name: string; logo_url: string | null }>;
     bsn_confirmation_offset?: number;
     digid_sign_up_allowed: boolean;
     digid_mandatory: boolean;

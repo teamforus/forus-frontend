@@ -1,16 +1,21 @@
 import React from 'react';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 import { clickOnKeyEnter } from '../../../../../../dashboard/helpers/wcag';
+import { AppConfigProp } from '../../../../../../dashboard/services/ConfigService';
+import useAssetUrl from '../../../../../hooks/useAssetUrl';
 
 export default function StartTvs({
-    tvsForm,
+    organizations,
     authInfo,
     onBack,
+    onSelect,
 }: {
-    tvsForm: React.ReactNode;
+    organizations?: AppConfigProp['digid_tvs_organizations'];
     authInfo: React.ReactNode;
     onBack: () => void;
+    onSelect: (organizationId: number) => void;
 }) {
+    const assetUrl = useAssetUrl();
     const translate = useTranslate();
 
     return (
@@ -25,7 +30,32 @@ export default function StartTvs({
                                 <h2 className="auth-text">
                                     <div className="auth-heading">{translate('auth.header.digid.description')}</div>
                                 </h2>
-                                {tvsForm}
+                                <div className="auth-options">
+                                    {organizations?.map((organization) => (
+                                        <div
+                                            key={organization.id}
+                                            className="auth-option"
+                                            tabIndex={0}
+                                            onKeyDown={clickOnKeyEnter}
+                                            aria-label={organization.name}
+                                            onClick={() => onSelect(organization.id)}
+                                            role="button">
+                                            <div className="auth-option-media">
+                                                <img
+                                                    className="auth-option-media-img"
+                                                    src={
+                                                        organization.logo_url ||
+                                                        assetUrl('/assets/img/placeholders/organization-thumbnail.png')
+                                                    }
+                                                    alt={organization.name}
+                                                />
+                                            </div>
+                                            <div className="auth-option-details">
+                                                <div className="auth-option-title">{organization.name}</div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>

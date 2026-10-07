@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { authContext } from '../../../../contexts/AuthContext';
-import { useNavigateState, useStateHref, useStateParams } from '../../../../modules/state_router/Router';
+import { useStateHref, useStateParams } from '../../../../modules/state_router/Router';
 import { useAuthService } from '../../../../services/AuthService';
 import useFormBuilder from '../../../../../dashboard/hooks/useFormBuilder';
 import { ResponseError } from '../../../../../dashboard/props/ApiResponses';
@@ -23,11 +23,9 @@ import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 import StartOptions from './elements/StartOptions';
 import StartEmail from './elements/StartEmail';
 import StartQrCode from './elements/StartQrCode';
-import { useTvsService } from '../../../../services/TvsService';
+import { DigiDConnection } from '../../../../services/digid/types';
 import StartTvs from './elements/StartTvs';
-import { useOrganizationService } from '../../../../../dashboard/services/OrganizationService';
-import Organization from '../../../../../dashboard/props/models/Organization';
-import useAssetUrl from '../../../../hooks/useAssetUrl';
+import useStartDigId from '../../../../hooks/useStartDigId';
 
 export default function Start() {
     const { token, signOut, setToken } = useContext(authContext);
@@ -37,8 +35,7 @@ export default function Start() {
     const setTitle = useSetTitle();
     const translate = useTranslate();
     const setProgress = useSetProgress();
-    const navigateState = useNavigateState();
-    const assetUrl = useAssetUrl();
+    const startAuthentication = useStartDigId();
 
     const termsUrl = useStateHref(WebshopRoutes.TERMS_AND_CONDITIONS);
     const privacyUrl = useStateHref(WebshopRoutes.PRIVACY);
@@ -50,8 +47,6 @@ export default function Start() {
 
     const [qrValue, setQrValue] = useState<{ type: 'auth_token'; value: string }>(null);
     const [emailValue, setEmailValue] = useState(null);
-
-    const [organizations, setOrganizations] = useState<Organization[]>(null);
 
     const [{ reset, logout, email, digid }, setQueryParams] = useQueryParams(
         {
@@ -67,9 +62,7 @@ export default function Start() {
 
     const { onAuthRedirect } = useAuthService();
     const digIdService = useDigiDService();
-    const tvsService = useTvsService();
     const identityService = useIdentityService();
-    const organizationService = useOrganizationService();
 
     const [disableSubmitBtn, setDisableSubmitBtn] = useState(false);
     const [authEmailSent, setAuthEmailSent] = useState<boolean>(false);
@@ -96,10 +89,6 @@ export default function Start() {
     const hasEmailOnlyAuth = useMemo(() => {
         return authOptions.length === 1 && authOptions[0] === 'email';
     }, [authOptions]);
-
-    const hasTvsAuth = useMemo(() => {
-        return authOptions.find((option) => option === 'digid') && appConfigs?.digid_tvs;
-    }, [appConfigs?.digid_tvs, authOptions]);
 
     const hasEmailBackTarget = useMemo(() => {
         return authOptions.some((option) => option !== 'email');
@@ -152,37 +141,19 @@ export default function Start() {
 
     const { reset: authFormReset } = authForm;
 
-    const startDigId = useCallback(() => {
-        setLoading(true);
-        setProgress(0);
-
-        digIdService
-            .startAuthRestore()
-            .then((res) => (document.location = res.data.redirect_url))
-            .catch((res: ResponseError) => navigateState(WebshopRoutes.ERROR, { errorCode: res.headers['error-code'] }))
-            .finally(() => {
-                setLoading(false);
-                setProgress(100);
-            });
-    }, [digIdService, navigateState, setProgress]);
-
-    const startTvs = useCallback(
-        (organization_id: number) => {
+    const startDigId = useCallback(
+        (connection: DigiDConnection) => {
             setLoading(true);
             setProgress(0);
 
-            tvsService
-                .startAuthRestore(organization_id)
-                .then((res) => (document.location = res.data.redirect_url))
-                .catch((res: ResponseError) =>
-                    navigateState(WebshopRoutes.ERROR, { errorCode: res.headers['error-code'] }),
-                )
-                .finally(() => {
-                    setLoading(false);
-                    setProgress(100);
-                });
+            return startAuthentication(() => {
+                return digIdService.startAuthRestore(connection);
+            }).finally(() => {
+                setLoading(false);
+                setProgress(100);
+            });
         },
-        [tvsService, navigateState, setProgress],
+        [digIdService, setProgress, startAuthentication],
     );
 
     const showStart = useCallback(() => {
@@ -219,21 +190,6 @@ export default function Start() {
         }, console.error);
     }, [checkAccessTokenStatus, identityService]);
 
-    const fetchOrganizations = useCallback(() => {
-        setProgress(0);
-
-        organizationService
-            .list({ type: 'sponsor', per_page: 500 })
-            .then((res) => setOrganizations(res.data.data.filter((organization) => organization.tvs_configured)))
-            .finally(() => setProgress(100));
-    }, [organizationService, setProgress]);
-
-    useEffect(() => {
-        if (hasTvsAuth) {
-            fetchOrganizations();
-        }
-    }, [fetchOrganizations, hasTvsAuth]);
-
     useEffect(() => {
         if (state == 'qr' && !qrValue) {
             loadQrCode();
@@ -258,8 +214,12 @@ export default function Start() {
             signOut(null, false, true, false);
         }
 
-        if (digid) {
-            digidUseTvs ? setState('tvs') : startDigId();
+        if (digid && appConfigs.digid) {
+            if (digidUseTvs) {
+                setState(authOptions.includes('digid') ? 'tvs' : 'start');
+            } else {
+                void startDigId({ transport: 'digid' });
+            }
         }
 
         if (!digid && email && authOptions.includes('email')) {
@@ -434,40 +394,6 @@ export default function Start() {
         [authForm, disableSubmitBtn, privacyCheckbox, termsCheckbox, translate],
     );
 
-    const tvsForm = useCallback(
-        () => (
-            <div className="auth-options">
-                {organizations?.map((organization) => {
-                    return (
-                        <div
-                            key={organization.id}
-                            className="auth-option"
-                            tabIndex={0}
-                            onKeyDown={clickOnKeyEnter}
-                            aria-label={organization.name}
-                            onClick={() => startTvs(organization.id)}
-                            role="button">
-                            <div className="auth-option-media">
-                                <img
-                                    className="auth-option-media-img"
-                                    src={
-                                        organization?.logo?.sizes?.thumbnail ||
-                                        assetUrl('/assets/img/placeholders/organization-thumbnail.png')
-                                    }
-                                    alt={organization.name}
-                                />
-                            </div>
-                            <div className="auth-option-details">
-                                <div className="auth-option-title">{organization.name}</div>
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
-        ),
-        [assetUrl, organizations, startTvs],
-    );
-
     const authPageInfoTitle = appConfigs?.auth_page?.info_title;
     const authPageInfoDescriptionHtml = appConfigs?.auth_page?.info_description_html;
     const showAuthInfo = !!appConfigs?.auth_page?.info_enabled && !!(authPageInfoTitle || authPageInfoDescriptionHtml);
@@ -494,7 +420,7 @@ export default function Start() {
                                 authInfo={authInfo}
                                 onEmail={showEmail}
                                 onQr={showQr}
-                                onDigid={() => (digidUseTvs ? setState('tvs') : startDigId())}
+                                onDigid={() => (digidUseTvs ? setState('tvs') : startDigId({ transport: 'digid' }))}
                             />
                         )}
 
@@ -511,7 +437,14 @@ export default function Start() {
                             />
                         )}
 
-                        {state == 'tvs' && <StartTvs tvsForm={tvsForm()} authInfo={authInfo} onBack={showStart} />}
+                        {state == 'tvs' && (
+                            <StartTvs
+                                organizations={appConfigs?.digid_tvs_organizations}
+                                authInfo={authInfo}
+                                onBack={showStart}
+                                onSelect={(organization_id) => startDigId({ transport: 'tvs', organization_id })}
+                            />
+                        )}
 
                         {state == 'qr' && (
                             <StartQrCode
