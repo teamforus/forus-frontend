@@ -20,7 +20,8 @@ export default {
         connection_details: 'Koppelingsgegevens',
         title: 'Eenmalig inloggen',
         pause_title: 'Microsoft Entra pauzeren',
-        pause_confirm: 'Hiermee stopt het inloggen met Microsoft totdat de koppeling wordt hervat.',
+        pause_confirm:
+            'Hiermee blokkeert u het inloggen met Microsoft en beëindigt u bestaande Forus-sessies via deze koppeling. Na hervatten moeten gebruikers opnieuw inloggen.',
         pause: 'Koppeling pauzeren',
         keep_active: 'Actief houden',
         paused_message: 'De Microsoft Entra-koppeling is gepauzeerd.',
@@ -30,8 +31,8 @@ export default {
         resumed_message: 'De Microsoft Entra-koppeling is hervat.',
         setup_description: 'Koppel Microsoft Entra zodat medewerkers kunnen inloggen met hun organisatieaccount.',
         connect: 'Entra koppelen',
-        events_title: 'Recente gebeurtenissen',
-        events_empty: 'Er zijn nog geen gebeurtenissen vastgelegd.',
+        events_title: 'SSO-gebeurtenissen',
+        events_empty: 'Geen gebeurtenissen gevonden.',
         connection_title: 'Entra-koppeling',
         tenant_id: 'Tenant-ID',
         connected_at: 'Gekoppeld op',
@@ -46,6 +47,10 @@ export default {
         not_selected: 'Niet geselecteerd',
         view_details: 'Details bekijken',
         resume: 'Koppeling hervatten',
+        resume_title: 'Microsoft Entra hervatten',
+        resume_confirm: 'Hiermee maakt u inloggen met Microsoft weer mogelijk. Gebruikers moeten opnieuw inloggen.',
+        resume_description:
+            'Inloggen met Microsoft is tijdelijk niet mogelijk. Bestaande Forus-sessies via deze koppeling zijn beëindigd. Na hervatten moeten gebruikers opnieuw inloggen.',
         active: 'Actief',
         paused: 'Gepauzeerd',
         disconnected: 'Ontkoppeld',
@@ -66,6 +71,46 @@ export default {
         disconnect_confirm:
             'Hiermee verwijdert u Microsoft-accountkoppelingen en trekt u sessies in die via deze koppeling zijn aangemaakt. Lokale accounts, medewerkers, rollen en de koppelingsgeschiedenis blijven behouden. Na opnieuw koppelen moeten medewerkers hun Microsoft-account opnieuw koppelen.',
         with_reference: '{{message}} Referentie: {{reference}}.',
+    },
+    provisioning: {
+        title: 'Aanvragersprovisioning',
+        pause_confirm:
+            'Hiermee blokkeert u het inloggen met Microsoft en beëindigt u bestaande Forus-sessies via deze koppeling. Na hervatten moeten gebruikers opnieuw inloggen.\nTegoeden van via SCIM aangemaakte aanvragers blijven bruikbaar. Aanvragersprovisioning via SCIM blijft doorgaan.',
+        resume_description:
+            'Inloggen met Microsoft is tijdelijk niet mogelijk. Bestaande Forus-sessies via deze koppeling zijn beëindigd. Na hervatten moeten gebruikers opnieuw inloggen. Tegoeden van via SCIM aangemaakte aanvragers blijven bruikbaar. Aanvragersprovisioning via SCIM blijft doorgaan.',
+        setup: 'Gebruik in Microsoft Entra een aparte bedrijfsapplicatie voor aanvragersprovisioning. Vul bij Provisioning de onderstaande URL in als Tenant URL en het token als Secret Token. Dit staat los van de app voor Microsoft-inloggen.',
+        endpoint: 'SCIM-endpoint',
+        endpoint_info: 'Kopieer deze URL naar het veld Tenant URL in de provisioning-instellingen van Entra.',
+        credential_status: 'Tokenstatus',
+        configured: 'Ingesteld',
+        revoked: 'Ingetrokken',
+        last_used: 'Laatst gebruikt',
+        new_token: 'Nieuw geheim token',
+        token_info: 'Kopieer dit token naar het veld Secret Token in de provisioning-instellingen van Entra.',
+        token_once: 'Kopieer dit token nu en sla het op in Entra. Het wordt niet opnieuw getoond.',
+        create: 'Geheim token aanmaken',
+        rotate: 'Geheim token vervangen',
+        revoke: 'Geheim token intrekken',
+        rotate_confirm:
+            'Het huidige token wordt direct ingetrokken. Provisioning stopt totdat u het nieuwe token in Entra opslaat. Bestaande accounts en tegoeden blijven ongewijzigd.',
+        revoke_confirm:
+            'Entra kan hierna geen aanvragers meer aanmaken of bijwerken. Bestaande accounts en tegoeden blijven ongewijzigd. U kunt later een nieuw token aanmaken.',
+        token_created: 'Het nieuwe provisioning-token is aangemaakt. Kopieer het nu naar Entra.',
+        token_revoked: 'Het provisioning-token is ingetrokken.',
+    },
+    events: {
+        provisioning_title: 'Provisioning-gebeurtenissen',
+        all_outcomes: 'Alle resultaten',
+        details_title: 'Gebeurtenisdetails',
+        account: 'Account',
+        external_id: 'Entra-object-ID',
+        profile_id: 'Profiel-ID',
+        requested_fields: 'Aangevraagde velden',
+        result: 'Verwerkingsresultaat',
+        next_action: 'Vervolgactie',
+        diagnostic_id: 'Diagnostische referentie',
+        copy_reference: 'Referentie kopiëren',
+        close: 'Sluiten',
     },
     errors: {
         entra_admin_role_required:

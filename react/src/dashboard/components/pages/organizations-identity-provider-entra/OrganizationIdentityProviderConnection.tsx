@@ -74,11 +74,22 @@ export default function OrganizationIdentityProviderConnection() {
             <EntraConnectionCard connection={connection} readOnly={true} />
 
             <EntraEventsCard
-                key={connection.uid}
+                key={`${organization.id}:${connection.uid}:sso`}
+                category="sso"
                 organizationId={organization.id}
                 connectionUid={connection.uid}
                 refreshKey={0}
             />
+
+            {organization.allow_identity_provider_requester_provisioning && (
+                <EntraEventsCard
+                    key={`${organization.id}:${connection.uid}:requester_provisioning`}
+                    category="requester_provisioning"
+                    organizationId={organization.id}
+                    connectionUid={connection.uid}
+                    refreshKey={0}
+                />
+            )}
         </div>
     );
 }

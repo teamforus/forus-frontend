@@ -23,6 +23,7 @@ export default function EntraConnectionCard({
     onResume,
     onDisconnect,
     readOnly = false,
+    requesterProvisioningAllowed = false,
 }: {
     busy?: boolean;
     connection: IdentityProviderConnection;
@@ -30,6 +31,7 @@ export default function EntraConnectionCard({
     onResume?: () => void;
     onDisconnect?: () => void;
     readOnly?: boolean;
+    requesterProvisioningAllowed?: boolean;
 }) {
     const translate = useTranslate();
     return (
@@ -88,10 +90,25 @@ export default function EntraConnectionCard({
                         },
                     ]}
                 />
+
+                {!readOnly && connection.status === 'paused' && (
+                    <div className="block block-info-box block-info-box-dashed">
+                        <div className="info-box-icon mdi mdi-information-outline" aria-hidden="true" />
+                        <div className="info-box-content">
+                            {requesterProvisioningAllowed
+                                ? translate('organizations_identity_provider_entra.provisioning.resume_description')
+                                : translate('organizations_identity_provider_entra.ui.resume_description')}
+                        </div>
+                    </div>
+                )}
             </div>
 
             {!readOnly && connection.status !== 'disconnected' && (
                 <div className="card-footer card-footer-primary">
+                    {!connection.can_disconnect && connection.disconnect_disabled_reason && (
+                        <div className="card-text">{connection.disconnect_disabled_reason}</div>
+                    )}
+
                     <div className="button-group flex-end flex-gap-sm">
                         {connection.status === 'enabled' && (
                             <button type="button" className="button button-default" disabled={busy} onClick={onPause}>
@@ -107,7 +124,11 @@ export default function EntraConnectionCard({
                             </button>
                         )}
 
-                        <button type="button" className="button button-danger" disabled={busy} onClick={onDisconnect}>
+                        <button
+                            type="button"
+                            className="button button-danger"
+                            disabled={busy || !connection.can_disconnect}
+                            onClick={onDisconnect}>
                             {translate('organizations_identity_provider_entra.ui.disconnect')}
                         </button>
                     </div>

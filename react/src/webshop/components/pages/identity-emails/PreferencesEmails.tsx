@@ -15,13 +15,17 @@ import BlockShowcaseProfile from '../../elements/block-showcase/BlockShowcasePro
 import Auth2FARestriction from '../../elements/auth2fa-restriction/Auth2FARestriction';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import Label from '../../elements/label/Label';
+import useAuthIdentity from '../../../hooks/useAuthIdentity';
+import { useNavigateState } from '../../../modules/state_router/Router';
 
 export default function PreferencesEmails() {
     const translate = useTranslate();
     const setProgress = useSetProgress();
     const pushSuccess = usePushSuccess();
+    const navigateState = useNavigateState();
 
     const appConfigs = useAppConfigs();
+    const authIdentity = useAuthIdentity();
     const auth2FAState = useAuthIdentity2FAState();
     const auth2faRestricted = useMemo(() => auth2FAState?.restrictions?.emails?.restricted, [auth2FAState]);
 
@@ -126,14 +130,27 @@ export default function PreferencesEmails() {
     }, [form]);
 
     useEffect(() => {
+        if (!authIdentity) {
+            return;
+        }
+
+        if (!authIdentity.can_manage_emails) {
+            navigateState(WebshopRoutes.VOUCHERS, {}, {}, { replace: true });
+            return;
+        }
+
         if (auth2FAState && !auth2FAState?.restrictions?.emails?.restricted) {
             fetchEmails();
         }
-    }, [auth2FAState, fetchEmails]);
+    }, [authIdentity, auth2FAState, fetchEmails, navigateState]);
 
     useEffect(() => {
         return () => window.clearTimeout(emailDisableTimeout);
     }, [emailDisableTimeout]);
+
+    if (!authIdentity?.can_manage_emails) {
+        return null;
+    }
 
     return (
         <BlockShowcaseProfile

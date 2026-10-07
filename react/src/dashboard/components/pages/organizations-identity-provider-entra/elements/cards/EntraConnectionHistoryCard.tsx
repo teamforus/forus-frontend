@@ -70,7 +70,7 @@ export default function EntraConnectionHistoryCard({
                         name={DashboardRoutes.ORGANIZATION_IDENTITY_PROVIDER_CONNECTION}
                         params={{ organizationId, connectionUid: connection.uid }}
                         customElement="tr"
-                        className="tr-clickable">
+                        className="tr-clickable tr-narrow">
                         <td>{connection.tenant_id}</td>
                         <td>{connection.consented_at_locale || <TableEmptyValue />}</td>
                         <td>{connection.disconnected_at_locale || <TableEmptyValue />}</td>

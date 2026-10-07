@@ -11,6 +11,7 @@ export default {
         digid_uid_used: 'BSN-nummer al gebruikt.',
         digid_uid_dont_match: 'Er is al een BSN-nummer bekend bij dit profiel',
         digid_uid_not_found: 'Dit BSN-nummer is onbekend in het systeem',
+        digid_managed_requester: 'Log in met Microsoft',
 
         digid_unknown_error: 'Er is een fout opgetreden in de communicatie met DigiD.',
         digid_0001: 'Foutmelding', // 'DigiD - Unavailable',
@@ -31,6 +32,8 @@ export default {
     },
     messages: {
         entra_login_failed: 'Inloggen met Microsoft kon niet worden gestart. Probeer het later opnieuw.',
+        digid_managed_requester:
+            'Uw account wordt beheerd via Microsoft Entra. Log in met Microsoft op de webshop van uw organisatie.',
         unknown_error: [
             'Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals. Indien deze fout blijft aanhouden,',
             ' kijk dan op de website https://www.digid.nl/ voor de laatste informatie.',

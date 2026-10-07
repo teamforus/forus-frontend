@@ -1,5 +1,5 @@
 import useTranslate from '../../../../hooks/useTranslate';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { ResponseError } from '../../../../props/ApiResponses';
 import usePushApiError from '../../../../hooks/usePushApiError';
 import usePushSuccess from '../../../../hooks/usePushSuccess';
@@ -19,8 +19,14 @@ export default function useIdentityProviderAction() {
 
     const [busy, setBusy] = useState(false);
 
+    const mountedRef = useRef(false);
+
     const runAction = useCallback(
         <T>(request: () => Promise<T>, options: IdentityProviderActionOptions<T> = {}) => {
+            if (!mountedRef.current) {
+                return Promise.resolve();
+            }
+
             const {
                 onError,
                 onSuccess,
@@ -33,6 +39,10 @@ export default function useIdentityProviderAction() {
             return Promise.resolve()
                 .then(request)
                 .then((response) => {
+                    if (!mountedRef.current) {
+                        return;
+                    }
+
                     onSuccess?.(response);
 
                     if (successMessage) {
@@ -40,16 +50,30 @@ export default function useIdentityProviderAction() {
                     }
                 })
                 .catch((error: ResponseError) => {
+                    if (!mountedRef.current) {
+                        return;
+                    }
+
                     pushApiError(error);
                     onError?.(error);
                 })
                 .finally(() => {
-                    setBusy(false);
-                    setProgress(100);
+                    if (mountedRef.current) {
+                        setBusy(false);
+                        setProgress(100);
+                    }
                 });
         },
         [pushApiError, pushSuccess, setProgress, translate],
     );
+
+    useEffect(() => {
+        mountedRef.current = true;
+
+        return () => {
+            mountedRef.current = false;
+        };
+    }, []);
 
     return { busy, runAction };
 }

@@ -231,15 +231,17 @@ export const TopNavbarDesktopMenuUser = () => {
                                 </StateNavLink>
                             )}
 
-                            <StateNavLink
-                                id="identity_emails"
-                                name={WebshopRoutes.IDENTITY_EMAILS}
-                                className="auth-user-menu-item"
-                                dataDusk="btnUserEmails"
-                                tabIndex={0}>
-                                <em className="mdi mdi-at" />
-                                {translate('top_navbar.user_menu.preferences_emails')}
-                            </StateNavLink>
+                            {authIdentity.can_manage_emails && (
+                                <StateNavLink
+                                    id="identity_emails"
+                                    name={WebshopRoutes.IDENTITY_EMAILS}
+                                    className="auth-user-menu-item"
+                                    dataDusk="btnUserEmails"
+                                    tabIndex={0}>
+                                    <em className="mdi mdi-at" />
+                                    {translate('top_navbar.user_menu.preferences_emails')}
+                                </StateNavLink>
+                            )}
 
                             {(envData.config.flags.show2FAMenu || auth2faState?.required) && (
                                 <StateNavLink

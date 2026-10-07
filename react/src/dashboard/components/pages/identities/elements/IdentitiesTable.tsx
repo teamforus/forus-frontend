@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import useActiveOrganization from '../../../../hooks/useActiveOrganization';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
@@ -19,7 +19,7 @@ import { dateFormat, dateParse } from '../../../../helpers/dates';
 import IdentitiesTableRowItems from './IdentitiesTableRowItems';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import useFetchSponsorIdentities from '../hooks/useFetchSponsorIdentities';
-import { ProfileRecordType } from '../../../../props/models/Sponsor/SponsorIdentity';
+import { IdentityProviderStatusFilter, ProfileRecordType } from '../../../../props/models/Sponsor/SponsorIdentity';
 import RecordType from '../../../../props/models/RecordType';
 import { useRecordTypeService } from '../../../../services/RecordTypeService';
 import useEditProfileRecords from '../../identitities-show/hooks/useEditProfileRecords';
@@ -47,19 +47,30 @@ export default function IdentitiesTable() {
         { key: null, name: 'Alle' },
     ]);
 
-    const { filter, filterValues, filterUpdate, loading, identities, fetchIdentities, paginatorKey } =
+    const { filter, filterValues, filterUpdate, requestFilters, loading, identities, fetchIdentities, paginatorKey } =
         useFetchSponsorIdentities(activeOrganization);
 
     const { setShow } = filter;
+
+    const identityProviderOptions = useMemo(
+        () => [
+            { key: null, name: translate('identities.entra.all') },
+            { key: 'managed', name: translate('identities.entra.managed') },
+            { key: 'active', name: translate('identities.entra.managed_active') },
+            { key: 'disabled', name: translate('identities.entra.managed_disabled') },
+            { key: 'unmanaged', name: translate('identities.entra.unmanaged') },
+        ],
+        [translate],
+    );
 
     const exportIdentities = useCallback(() => {
         setShow(false);
 
         identityExporter.exportData(activeOrganization.id, {
-            ...filter.activeValues,
+            ...requestFilters,
             per_page: null,
         });
-    }, [activeOrganization.id, filter.activeValues, identityExporter, setShow]);
+    }, [activeOrganization.id, requestFilters, identityExporter, setShow]);
 
     const fetchFunds = useCallback(() => {
         setProgress(0);
@@ -177,6 +188,23 @@ export default function IdentitiesTable() {
                                 />
                             </FilterItemToggle>
 
+                            {activeOrganization.allow_identity_provider_requester_provisioning && (
+                                <FilterItemToggle
+                                    label={translate('identities.labels.identity_provider_status')}
+                                    show={true}>
+                                    <SelectControl
+                                        className="select-control-filter-panel"
+                                        propKey="key"
+                                        options={identityProviderOptions}
+                                        value={filterValues.identity_provider_status}
+                                        allowSearch={false}
+                                        onChange={(identity_provider_status: IdentityProviderStatusFilter | null) =>
+                                            filterUpdate({ identity_provider_status, page: 1 })
+                                        }
+                                    />
+                                </FilterItemToggle>
+                            )}
+
                             <FilterItemToggle label={translate('sponsor_products.filters.birth_date_from')}>
                                 <DatePickerControl
                                     value={dateParse(filterValues.birth_date_from)}
@@ -277,7 +305,12 @@ export default function IdentitiesTable() {
                 empty={identities?.meta?.total == 0}
                 emptyTitle={'Geen personen gevonden'}
                 columns={sponsorIdentitiesService.getColumns(activeOrganization)}
-                tableOptions={{ filter, sortable: true, hasTooltips: true }}
+                tableOptions={{
+                    filter,
+                    sortable: true,
+                    sortableExclude: ['identity_provider_status'],
+                    hasTooltips: true,
+                }}
                 paginator={{ key: paginatorKey, data: identities, filterValues, filterUpdate }}>
                 {identities?.data?.map((identity) => (
                     <StateNavLink

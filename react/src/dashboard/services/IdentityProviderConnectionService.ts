@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
-import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig, ResponseSimple } from '../props/ApiResponses';
 import type IdentityProviderConnection from '../props/models/IdentityProvider/IdentityProviderConnection';
-import type IdentityProviderEvent from '../props/models/IdentityProvider/IdentityProviderEvent';
+import IdentityProviderEvent, {
+    IdentityProviderEventCategory,
+} from '../props/models/IdentityProvider/IdentityProviderEvent';
 import type IdentityProviderConnectionHistory from '../props/models/IdentityProvider/IdentityProviderConnectionHistory';
+import type IdentityProviderScimCredential from '../props/models/IdentityProvider/IdentityProviderScimCredential';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class IdentityProviderConnectionService {
@@ -18,12 +21,16 @@ export class IdentityProviderConnectionService {
         ];
     }
 
-    public getEventsColumns(): Array<ConfigurableTableColumn> {
+    public getEventsColumns(category: IdentityProviderEventCategory): Array<ConfigurableTableColumn> {
         return [
             { key: 'created_at', label: 'organizations_identity_provider_entra.ui.created_at' },
             { key: 'event_type', label: 'organizations_identity_provider_entra.ui.event' },
+            ...(category === 'requester_provisioning'
+                ? [{ key: 'account', label: 'organizations_identity_provider_entra.events.account' }]
+                : []),
             { key: 'outcome', label: 'organizations_identity_provider_entra.ui.outcome' },
             { key: 'error_code', label: 'organizations_identity_provider_entra.ui.error' },
+            { key: 'actions', label: '' },
         ];
     }
 
@@ -82,6 +89,25 @@ export class IdentityProviderConnectionService {
 
     public startConsent(organizationId: number): Promise<ApiResponseSingle<{ redirect_url: string }>> {
         return this.apiRequest.post(`/platform/organizations/${organizationId}/identity-providers/entra/consent`);
+    }
+
+    public issueScimCredential(
+        organizationId: number,
+        connectionUid: string,
+    ): Promise<ApiResponseSingle<IdentityProviderScimCredential & { token: string }>> {
+        return this.apiRequest.post(
+            `/platform/organizations/${organizationId}/identity-providers/entra/connections/${connectionUid}/scim-credentials`,
+        );
+    }
+
+    public revokeScimCredential(
+        organizationId: number,
+        connectionUid: string,
+        credentialUid: string,
+    ): Promise<ResponseSimple<null>> {
+        return this.apiRequest.delete(
+            `/platform/organizations/${organizationId}/identity-providers/entra/connections/${connectionUid}/scim-credentials/${credentialUid}`,
+        );
     }
 
     public pause(

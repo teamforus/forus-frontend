@@ -42,6 +42,7 @@ export default {
     history: {
         title: '{{count}} keer bewerkt',
         modified_by: 'Gewijzigd door',
+        entra: 'Microsoft Entra',
         you: 'jou',
         from: 'van',
         to: 'naar',

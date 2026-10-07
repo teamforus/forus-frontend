@@ -136,13 +136,15 @@ export default function ProfileMenu({ className }: { className?: string }) {
                 </StateNavLink>
             )}
 
-            <StateNavLink
-                className="profile-menu-item"
-                name={WebshopRoutes.IDENTITY_EMAILS}
-                aria-current={navigateState?.name == WebshopRoutes.IDENTITY_EMAILS ? 'page' : null}>
-                {translate('profile_menu.buttons.email_settings')}
-                <em className="mdi mdi-arrow-right" aria-hidden="true" />
-            </StateNavLink>
+            {authIdentity?.can_manage_emails && (
+                <StateNavLink
+                    className="profile-menu-item"
+                    name={WebshopRoutes.IDENTITY_EMAILS}
+                    aria-current={navigateState?.name == WebshopRoutes.IDENTITY_EMAILS ? 'page' : null}>
+                    {translate('profile_menu.buttons.email_settings')}
+                    <em className="mdi mdi-arrow-right" aria-hidden="true" />
+                </StateNavLink>
+            )}
 
             {(envData.config.flags.show2FAMenu || auth2FAState?.required) && (
                 <StateNavLink

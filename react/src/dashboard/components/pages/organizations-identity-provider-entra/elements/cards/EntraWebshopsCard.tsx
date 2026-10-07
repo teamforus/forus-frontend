@@ -44,7 +44,7 @@ export default function EntraWebshopsCard({
                             </thead>
                             <tbody>
                                 {webshops.length === 0 && (
-                                    <tr>
+                                    <tr className="tr-narrow">
                                         <td colSpan={4}>
                                             {translate('organizations_identity_provider_entra.ui.webshops_empty')}
                                         </td>
@@ -57,7 +57,7 @@ export default function EntraWebshopsCard({
                                         name={DashboardRoutes.IMPLEMENTATION_AUTH_PAGE}
                                         params={{ id: webshop.id, organizationId }}
                                         customElement="tr"
-                                        className="tr-clickable">
+                                        className="tr-clickable tr-narrow">
                                         <td className="text-strong">{webshop.name}</td>
                                         <td>{webshop.url_webshop || <TableEmptyValue />}</td>
                                         <td>

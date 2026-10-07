@@ -47,8 +47,8 @@ export default function LayoutAsideGroupOrganization({
                     state: DashboardRoutes.ORGANIZATION_IDENTITY_PROVIDERS,
                     stateParams: { organizationId: organization?.id },
                     show:
+                        organization?.allow_identity_providers &&
                         appConfigs?.entra_dashboard_login_available &&
-                        organization?.allow_identity_providers === 'sso' &&
                         organization.identity_address === identity?.address,
                 },
                 {

@@ -5,6 +5,7 @@ export default {
     labels: {
         id: 'ID',
         type: 'Type',
+        identity_provider_status: 'Entra-beheer',
         given_name: 'Voornaam',
         family_name: 'Achternaam',
         email: 'E-mail adres',
@@ -31,6 +32,7 @@ export default {
         relation_living_together: 'Samenwonend',
     },
     tooltips: {
+        identity_provider_status: 'Accountstatus voor aanvragers die deze organisatie via Microsoft Entra beheert.',
         id: 'Dit is een unieke identificatiecode die automatisch wordt gegenereerd voor elke persoon in het systeem. Het helpt om elke persoon individueel te identificeren.',
         type: 'Het type persoon geeft weer hoe de persoon is aangemaakt. Gaat het om een standaard persoon, dan is de persoon via het reguliere proces in het systeem gekomen. Gaat het om een handmatig aangemaakt persoon, dan is de persoon door een medewerker in het systeem gezet.',
         given_name:
@@ -61,6 +63,19 @@ export default {
             'De samenstelling van het huishouden, inclusief het aantal en de relaties van personen die samenwonen.',
         street: 'De officiële, door de gemeente vastgestelde naam van een straat.',
         created_at: 'Gemaakt op',
+    },
+    entra: {
+        managed_by: 'Beheerd door',
+        account_status: 'Accountstatus',
+        provider_name: 'Microsoft Entra',
+        management_description: 'Het e-mailadres en de toegang tot dit account worden beheerd via Microsoft Entra.',
+        all: 'Alle',
+        managed: 'Beheerd via Entra',
+        managed_active: 'Beheerd via Entra: actief',
+        managed_disabled: 'Beheerd via Entra: uitgeschakeld',
+        unmanaged: 'Niet beheerd via Entra',
+        active: 'Actief',
+        disabled: 'Uitgeschakeld',
     },
     bank_accounts: {
         labels: {
