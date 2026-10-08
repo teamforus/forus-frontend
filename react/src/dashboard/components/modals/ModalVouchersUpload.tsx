@@ -778,6 +778,10 @@ export default function ModalVouchersUpload({
                             }
                         })
                         .catch((res: ResponseError) => {
+                            setLoading(false);
+                            setCsvProgress(1);
+                            resolve(false);
+
                             if (res.status == 422 && res.data.errors) {
                                 return pushDanger(
                                     'Het is niet gelukt om het gekozen bestand te verwerken.',
@@ -785,9 +789,6 @@ export default function ModalVouchersUpload({
                                 );
                             }
 
-                            setLoading(false);
-                            setCsvProgress(1);
-                            resolve(false);
                             pushDanger(
                                 'Er is een onbekende fout opgetreden tijdens het uploaden van CSV.',
                                 'Controleer de CSV op problemen, vernieuw de pagina en probeer het opnieuw.',

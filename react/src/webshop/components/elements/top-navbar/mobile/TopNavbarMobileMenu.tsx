@@ -309,7 +309,7 @@ export default function TopNavbarMobileMenu() {
                         </StateNavLink>
                     )}
 
-                    {authIdentity && (
+                    {authIdentity?.can_manage_emails && (
                         <StateNavLink
                             className="mobile-menu-item"
                             name={WebshopRoutes.IDENTITY_EMAILS}

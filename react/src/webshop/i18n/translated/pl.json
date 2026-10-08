@@ -148,12 +148,20 @@
             "qr": {
                 "description": "Zeskanuj kod QR za pomocą aplikacji <u>Me</u>",
                 "title": "Moja aplikacja"
+            },
+            "entra": {
+                "title": "Zaloguj się za pomocą konta Microsoft",
+                "description": "Użyj swojego konta służbowego"
             }
         },
         "push": {
             "link_used": {
                 "title": "Ten link został już użyty lub jest nieprawidłowy."
-            }
+            },
+            "entra_failed": {
+                "title": "Logowanie za pomocą konta Microsoft nie powiodło się. Spróbuj ponownie."
+            },
+            "message_with_reference": "{{message}} ({{reference}})"
         },
         "setup_2fa_title": "Konfigurowanie uwierzytelniania dwuskładnikowego",
         "2fa_title": "Uwierzytelnianie dwuskładnikowe",
@@ -299,7 +307,9 @@
             "digid_uid_not_found": "Ten numer BSN jest nieznany w systemie, uruchom aplikację, aby utworzyć konto.",
             "digid_uid_used": "Dla tego numeru BSN zarejestrowano inny adres e-mail. Aby zalogować się na swoje konto, należy użyć zarejestrowanego adresu e-mail.<br/><br/> Nie pamiętasz, który to adres e-mail lub masz nowy? <br/> Przywróć swoje konto, klikając <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">tutaj</a> lub przycisk poniżej.</br>",
             "digid_unknown_error": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
-            "unknown_error": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje."
+            "unknown_error": "Wystąpił błąd w komunikacji z DigiD. Spróbuj ponownie później. Jeśli błąd będzie się powtarzał, sprawdź stronę https://www.digid.nl/, aby uzyskać najnowsze informacje.",
+            "entra_login_failed": "Nie udało się uruchomić logowania za pomocą konta Microsoft. Spróbuj ponownie później.",
+            "digid_managed_requester": "Twoje konto jest zarządzane za pośrednictwem usługi Microsoft Entra. Zaloguj się za pomocą konta Microsoft w sklepie internetowym swojej organizacji."
         },
         "start_button": "Przywracanie konta",
         "titles": {
@@ -323,7 +333,9 @@
             "digid_uid_not_found": "Ten numer BSN jest nieznany w systemie",
             "digid_uid_used": "Numer BSN został już użyty.",
             "digid_unknown_error": "Wystąpił błąd w komunikacji z DigiD.",
-            "unknown_error": "Nieznany komunikat o błędzie"
+            "unknown_error": "Nieznany komunikat o błędzie",
+            "entra_login_failed": "Logowanie za pomocą konta Microsoft nie powiodło się",
+            "digid_managed_requester": "Zaloguj się za pomocą konta Microsoft"
         }
     },
     "expired_identity": {
@@ -834,6 +846,9 @@
             },
             "potjeswijzer": {
                 "title": "Słoiczki"
+            },
+            "gelrepas": {
+                "title": "Wyjaśnienia w podziale na gminy"
             }
         },
         "header": {
@@ -2568,7 +2583,8 @@
             "from": "z",
             "modified_by": "Zmodyfikowany przez",
             "to": "do",
-            "you": "ty"
+            "you": "ty",
+            "entra": "Microsoft Entra"
         },
         "personal": {
             "bsn": "BSN",
@@ -3329,6 +3345,9 @@
             },
             "westerkwartier": {
                 "funds": "Słoiczki"
+            },
+            "gelrepas": {
+                "funds": "Wyjaśnienia w podziale na gminy"
             }
         },
         "user_menu": {

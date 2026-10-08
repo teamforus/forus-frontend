@@ -33,6 +33,7 @@ import useThumbnailUrl from '../../hooks/useThumbnailUrl';
 import useAuthIdentity2FAState from '../../hooks/useAuthIdentity2FAState';
 import { DashboardRoutes } from '../../modules/state_router/RouterBuilder';
 import classNames from 'classnames';
+import useTranslate from '../../hooks/useTranslate';
 
 interface IdentityMenuItemProps {
     url?: string;
@@ -72,6 +73,7 @@ export const LayoutHeader = () => {
     const authIdentity = useAuthIdentity();
     const authIdentity2FAState = useAuthIdentity2FAState();
     const assetUrl = useAssetUrl();
+    const translate = useTranslate();
     const thumbnailUrl = useThumbnailUrl();
 
     const { envData, organizations, activeOrganization } = useContext(mainContext);
@@ -210,6 +212,15 @@ export const LayoutHeader = () => {
                                         <IdentityMenuItem
                                             name="Beveiliging"
                                             url={getStateRouteUrl(DashboardRoutes.SECURITY_2FA)}
+                                            icon={<IconSecurity />}
+                                        />
+                                    )}
+
+                                    {(authIdentity.has_identity_provider_links ||
+                                        authIdentity.can_link_identity_provider) && (
+                                        <IdentityMenuItem
+                                            name={translate('organizations_identity_provider_entra.ui.linked_accounts')}
+                                            url={getStateRouteUrl(DashboardRoutes.SECURITY_LINKED_ACCOUNTS)}
                                             icon={<IconSecurity />}
                                         />
                                     )}

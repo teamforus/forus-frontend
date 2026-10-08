@@ -18,12 +18,20 @@
             "qr": {
                 "description": "<u>Me</u> uygulaması ile bir QR kodu tarayın",
                 "title": "Benim uygulamam"
+            },
+            "entra": {
+                "title": "Microsoft ile giriş yap",
+                "description": "İş hesabınızı kullanın"
             }
         },
         "push": {
             "link_used": {
                 "title": "Bu bağlantı zaten kullanılmış veya geçersiz."
-            }
+            },
+            "entra_failed": {
+                "title": "Microsoft ile oturum açma işlemi başarısız oldu. Lütfen tekrar deneyin."
+            },
+            "message_with_reference": "{{message}} ({{reference}})"
         },
         "setup_2fa_title": "İki faktörlü kimlik doğrulamayı ayarlama",
         "2fa_title": "İki faktörlü kimlik doğrulama",
@@ -750,6 +758,9 @@
             },
             "westerkwartier": {
                 "funds": "Kavanozlar"
+            },
+            "gelrepas": {
+                "funds": "Belediye bazında açıklama"
             }
         },
         "user_menu": {
@@ -1299,6 +1310,9 @@
             },
             "potjeswijzer": {
                 "title": "Kavanozlar"
+            },
+            "gelrepas": {
+                "title": "Belediye bazında açıklama"
             }
         },
         "header": {
@@ -2371,7 +2385,9 @@
             "digid_uid_not_found": "Bu BSN numarası sistemde bilinmiyor, bir hesap oluşturmak için başvurunuzu başlatın.",
             "digid_uid_used": "Bu BSN numarası için farklı bir e-posta adresi kaydedilmiştir. Hesabınıza giriş yapmak için bize kayıtlı e-posta adresini kullanmanız gerekmektedir.<br/><br/> Bunun hangi e-posta adresi olduğunu hatırlayamıyor musunuz veya yeni bir e-posta adresiniz mi var? <br/> O zaman <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">buraya</a> veya aşağıdaki düğmeye tıklayarak hesabınızı geri yükleyin.</br>",
             "digid_unknown_error": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
-            "unknown_error": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin."
+            "unknown_error": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
+            "entra_login_failed": "Microsoft ile oturum açma işlemi başlatılamadı. Lütfen daha sonra tekrar deneyin.",
+            "digid_managed_requester": "Hesabınız Microsoft Entra üzerinden yönetilmektedir. Kurumunuzun web mağazasına Microsoft hesabınızla giriş yapın."
         },
         "start_button": "Hesabı geri yükle",
         "titles": {
@@ -2395,7 +2411,9 @@
             "digid_uid_not_found": "Bu BSN numarası sistemde bilinmiyor",
             "digid_uid_used": "BSN numarası zaten kullanılıyor.",
             "digid_unknown_error": "DigiD ile iletişimde bir hata oluştu.",
-            "unknown_error": "Bilinmeyen hata mesajı"
+            "unknown_error": "Bilinmeyen hata mesajı",
+            "entra_login_failed": "Microsoft ile oturum açma işlemi başarısız oldu",
+            "digid_managed_requester": "Microsoft ile giriş yapın"
         }
     },
     "payouts": {
@@ -2679,7 +2697,8 @@
             "from": "itibaren",
             "modified_by": "Tarafından değiştirildi",
             "to": "için",
-            "you": "sen"
+            "you": "sen",
+            "entra": "Microsoft Entra"
         },
         "personal": {
             "bsn": "BSN",

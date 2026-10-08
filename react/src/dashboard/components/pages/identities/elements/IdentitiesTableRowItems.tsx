@@ -4,6 +4,8 @@ import TableDateTime from '../../../elements/tables/elements/TableDateTime';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import TableDateOnly from '../../../elements/tables/elements/TableDateOnly';
 import Organization from '../../../../props/models/Organization';
+import Label from '../../../elements/label/Label';
+import useTranslate from '../../../../hooks/useTranslate';
 
 export default function IdentitiesTableRowItems({
     actions = null,
@@ -14,10 +16,25 @@ export default function IdentitiesTableRowItems({
     identity: SponsorIdentity;
     organization: Organization;
 }) {
+    const translate = useTranslate();
+
     return (
         <Fragment>
             <td>{identity.id}</td>
             <td>{identity?.type_locale || <TableEmptyValue />}</td>
+            {organization.allow_identity_provider_requester_provisioning && (
+                <td>
+                    {identity.identity_provider_management ? (
+                        <Label type={identity.identity_provider_management.status === 'active' ? 'success' : 'default'}>
+                            {identity.identity_provider_management.status === 'active'
+                                ? translate('identities.entra.active')
+                                : translate('identities.entra.disabled')}
+                        </Label>
+                    ) : (
+                        <TableEmptyValue />
+                    )}
+                </td>
+            )}
             <td>{identity?.records?.given_name?.[0]?.value_locale || <TableEmptyValue />}</td>
             <td>{identity?.records?.family_name?.[0]?.value_locale || <TableEmptyValue />}</td>
             <td>{identity.email || <TableEmptyValue />}</td>

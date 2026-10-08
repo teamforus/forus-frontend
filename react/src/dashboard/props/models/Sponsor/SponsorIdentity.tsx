@@ -27,6 +27,7 @@ export type ProfileRecord = {
     key: string;
     name: string;
     timestamp: number;
+    source?: string | null;
     employee?: {
         id: number;
         email: string;
@@ -65,6 +66,8 @@ export type ProfileRecordType =
 export type ProfileRecords = { [key in ProfileRecordType]: RecordType };
 export type ProfileRecordValues = { [key in ProfileRecordType]: string };
 
+export type IdentityProviderStatusFilter = 'managed' | 'active' | 'disabled' | 'unmanaged';
+
 export default interface SponsorIdentity {
     id: number;
     bsn?: string;
@@ -72,6 +75,10 @@ export default interface SponsorIdentity {
     type_locale?: string;
     email?: string;
     email_verified?: Array<string>;
+    identity_provider_management?: {
+        provider: string;
+        status: 'active' | 'disabled';
+    } | null;
     employee_id?: number;
     employee_email?: string;
     address?: string;

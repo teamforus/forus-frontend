@@ -15,6 +15,7 @@ export default function StartOptions({
     onEmail,
     onQr,
     onDigid,
+    onEntra,
 }: {
     title: string;
     loginTitle: string;
@@ -24,6 +25,7 @@ export default function StartOptions({
     onEmail: () => void;
     onQr: () => void;
     onDigid: () => void;
+    onEntra: () => void;
 }) {
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
@@ -58,6 +60,15 @@ export default function StartOptions({
                     onClick: onQr,
                     alt: '',
                 },
+                entra: {
+                    icon: '/assets/img/icon-auth/icon-auth-microsoft.svg',
+                    title: translate('auth.options.entra.title'),
+                    description: translate('auth.options.entra.description'),
+                    titleDusk: null,
+                    descriptionDusk: null,
+                    onClick: onEntra,
+                    alt: '',
+                },
             }[option];
 
             return (
@@ -86,7 +97,7 @@ export default function StartOptions({
                 </div>
             );
         },
-        [assetUrl, onDigid, onEmail, onQr, translate],
+        [assetUrl, onDigid, onEmail, onEntra, onQr, translate],
     );
 
     return (
