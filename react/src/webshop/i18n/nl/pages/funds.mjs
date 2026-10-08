@@ -61,6 +61,9 @@ export default {
         fijnder: {
             title: 'Regelingen',
         },
+        gelrepas: {
+            title: 'Uitleg per gemeente',
+        },
     },
     partners: {
         potjeswijzer: {

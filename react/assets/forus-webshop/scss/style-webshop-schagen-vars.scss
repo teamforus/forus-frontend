@@ -339,6 +339,16 @@ $primaryColorLight: #1c8fd7;
     --voucher-card-action-hover-background: var(--color-primary);
     --voucher-card-action-hover-border-color: var(--color-primary);
 
+    // Voucher
+    --voucher-details-color: #222222;
+    --voucher-details-sponsor-color: #282b39;
+    --voucher-details-date-color: #595959;
+    --voucher-details-records-label-color: #595959;
+    --voucher-details-background: #ffffff;
+    --voucher-details-records-background: #fbfbfb;
+    --voucher-details-records-border-color: var(--border-color);
+    --voucher-actions-background: var(--color-primary);
+
     // Products
     --products-title-color: var(--tc);
     --products-title-hover-color: var(--tc);

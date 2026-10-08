@@ -85,7 +85,7 @@ const MainProvider = ({ children }: { children: React.ReactElement }) => {
     useEffect(() => {
         if (organizations) {
             const organization = organizations.find(
-                (organization: Organization) => organization.id == organizationService.active(),
+                (organization: Organization) => organization.id == organizationService.getActiveId(),
             );
 
             setActiveOrganization(organization);

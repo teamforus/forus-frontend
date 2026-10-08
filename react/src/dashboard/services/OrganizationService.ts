@@ -48,11 +48,11 @@ export class OrganizationService<T = Organization> {
         return this.apiRequest.patch<ApiResponseSingle<T>>(`${this.prefix}/${id}/bank-fields`, data);
     }
 
-    public use(id?: number): void {
-        localStorage.setItem('active_organization', id?.toString());
+    public setActiveId(id: number): void {
+        localStorage.setItem('active_organization', id.toString());
     }
 
-    public active(): number | null {
+    public getActiveId(): number | null {
         const id = parseInt(localStorage.getItem('active_organization') || null);
 
         return isNaN(id) ? null : id;

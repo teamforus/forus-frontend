@@ -16,6 +16,7 @@ export default function LoaderTableCard({
     children,
     columns,
     paginator,
+    tableFooter,
     tableOptions,
     dusk,
 }: {
@@ -32,6 +33,7 @@ export default function LoaderTableCard({
         filterValues: FilterModel;
         filterUpdate: FilterSetter;
     };
+    tableFooter?: ReactNode;
     tableOptions?: LoaderTableCardSectionOptions;
     dusk?: string;
 }) {
@@ -56,6 +58,8 @@ export default function LoaderTableCard({
                 <LoaderTableCardSection columns={columns} options={tableOptions} dusk={dusk}>
                     {children}
                 </LoaderTableCardSection>
+
+                {tableFooter}
 
                 {paginator?.data?.meta && (
                     <div className="card-section">

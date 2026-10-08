@@ -16,7 +16,7 @@ export default function OrganizationsView() {
             const organization = organizations.find((organization) => organization.id == parseInt(id));
 
             if (organization) {
-                organizationService.use(organization?.id);
+                organizationService.setActiveId(organization.id);
                 setActiveOrganization(organization);
             }
 

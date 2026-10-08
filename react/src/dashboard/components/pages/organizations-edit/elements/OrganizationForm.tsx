@@ -128,7 +128,7 @@ export default function OrganizationForm() {
                     navigateState(DashboardRoutes.ORGANIZATIONS);
                     pushSuccess('Gelukt!');
                     fetchOrganizations().then(() => {
-                        organizationService.use(res.data.data.id);
+                        organizationService.setActiveId(res.data.data.id);
                         updateActiveOrganization(res.data.data);
                     });
                 })
