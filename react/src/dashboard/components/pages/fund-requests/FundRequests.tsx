@@ -82,6 +82,7 @@ export default function FundRequests() {
             { key: 'pending', label: translate('validation_requests.tabs.pending', { total: totals?.pending }) },
             { key: 'assigned', label: translate('validation_requests.tabs.assigned', { total: totals?.assigned }) },
             { key: 'resolved', label: translate('validation_requests.tabs.resolved', { total: totals?.resolved }) },
+            { key: 'expired', label: translate('validation_requests.tabs.expired', { total: totals?.expired }) },
         ],
         [totals, translate],
     );
