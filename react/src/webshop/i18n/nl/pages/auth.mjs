@@ -7,8 +7,8 @@ export default {
     back: 'Terug',
     options: {
         entra: {
-            title: 'Microsoft',
-            description: 'Log in met uw werkaccount',
+            title: 'Inloggen met Microsoft',
+            description: 'Gebruik uw werkaccount',
         },
         qr: {
             title: 'Me app',

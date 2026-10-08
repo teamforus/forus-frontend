@@ -309,6 +309,9 @@
             },
             "westerkwartier": {
                 "funds": "Jars"
+            },
+            "gelrepas": {
+                "funds": "Explanation by municipality"
             }
         },
         "user_menu": {
@@ -371,8 +374,8 @@
                 "title": "Me app"
             },
             "entra": {
-                "description": "Log in with your work account",
-                "title": "Microsoft"
+                "title": "Sign in with Microsoft",
+                "description": "Use your work account"
             }
         },
         "push": {
@@ -1031,6 +1034,9 @@
             },
             "potjeswijzer": {
                 "title": "Jars"
+            },
+            "gelrepas": {
+                "title": "Explanation by municipality"
             }
         },
         "header": {
@@ -2080,7 +2086,8 @@
             "digid_uid_used": "A different email address is registered for this BSN number. To login to your account, you must use the email address registered with us.<br/><br/> Can't remember which email address this is or do you have a new one? <br/> Then restore your account by clicking <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">here</a> or the button below.</br>",
             "digid_unknown_error": "An error occurred in communication with DigiD. Please try again later. If this error persists, please check the website https://www.digid.nl/ for the latest information.",
             "unknown_error": "An error occurred in communication with DigiD. Please try again later. If this error persists, please check the website https://www.digid.nl/ for the latest information.",
-            "entra_login_failed": "Signing in with Microsoft could not be initiated. Please try again later."
+            "entra_login_failed": "Signing in with Microsoft could not be initiated. Please try again later.",
+            "digid_managed_requester": "Your account is managed through Microsoft Entra. Sign in with Microsoft to your organization's online store."
         },
         "start_button": "Restore account",
         "titles": {
@@ -2105,7 +2112,8 @@
             "digid_uid_used": "BSN number already used.",
             "digid_unknown_error": "An error occurred in communication with DigiD.",
             "unknown_error": "Unknown error message",
-            "entra_login_failed": "Signing in with Microsoft failed"
+            "entra_login_failed": "Signing in with Microsoft failed",
+            "digid_managed_requester": "Sign in with Microsoft"
         }
     },
     "payouts": {
@@ -2389,7 +2397,8 @@
             "from": "from",
             "modified_by": "Modified by",
             "to": "to",
-            "you": "you"
+            "you": "you",
+            "entra": "Microsoft Entra"
         },
         "personal": {
             "bsn": "BSN",

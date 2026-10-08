@@ -61,7 +61,7 @@ export default function StartOptions({
                     alt: '',
                 },
                 entra: {
-                    icon: null,
+                    icon: '/assets/img/icon-auth/icon-auth-microsoft.svg',
                     title: translate('auth.options.entra.title'),
                     description: translate('auth.options.entra.description'),
                     titleDusk: null,
@@ -80,15 +80,11 @@ export default function StartOptions({
                     onClick={optionConfig.onClick}
                     role="button">
                     <div className="auth-option-media">
-                        {option === 'entra' ? (
-                            <em className="mdi mdi-microsoft" aria-hidden="true" />
-                        ) : (
-                            <img
-                                className="auth-option-media-img"
-                                src={assetUrl(optionConfig.icon)}
-                                alt={optionConfig.alt}
-                            />
-                        )}
+                        <img
+                            className="auth-option-media-img"
+                            src={assetUrl(optionConfig.icon)}
+                            alt={optionConfig.alt}
+                        />
                     </div>
                     <div className="auth-option-details">
                         <div className="auth-option-title" data-dusk={optionConfig.titleDusk}>

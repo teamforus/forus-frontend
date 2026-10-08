@@ -133,11 +133,15 @@ export default function SignIn() {
                         {isSponsorPanel && appConfigs?.entra_dashboard_login_available && (
                             <div className="block-login-form">
                                 <button
-                                    className="button button-primary"
+                                    className="block-login-microsoft-button"
                                     type="button"
                                     disabled={entraLoading}
                                     onClick={startEntra}>
-                                    <em className="mdi mdi-microsoft" />{' '}
+                                    <img
+                                        className="block-login-microsoft-button-icon"
+                                        src={assetUrl('/assets/img/microsoft-logo.svg')}
+                                        alt=""
+                                    />
                                     {translate('organizations_identity_provider_entra.ui.sign_in')}
                                 </button>
                             </div>

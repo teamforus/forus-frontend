@@ -150,8 +150,8 @@
                 "title": "Ich-App"
             },
             "entra": {
-                "description": "Melden Sie sich mit Ihrem Arbeitskonto an",
-                "title": "Microsoft"
+                "title": "Mit Microsoft anmelden",
+                "description": "Verwenden Sie Ihr Arbeitskonto"
             }
         },
         "push": {
@@ -308,7 +308,8 @@
             "digid_uid_used": "Es wurde eine andere E-Mail-Adresse für diese BSN-Nummer registriert. Um sich bei Ihrem Konto anzumelden, müssen Sie die bei uns registrierte E-Mail-Adresse verwenden.<br/><br/> Sie wissen nicht mehr, welche E-Mail-Adresse das ist, oder haben eine neue Adresse? <br/> Dann stellen Sie Ihr Konto wieder her, indem Sie <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">hier</a> oder auf die Schaltfläche unten klicken.</br>",
             "digid_unknown_error": "Bei der Kommunikation mit DigiD ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut. Sollte der Fehler weiterhin bestehen, besuchen Sie bitte die Website https://www.digid.nl/, um die neuesten Informationen zu erhalten.",
             "unknown_error": "Bei der Kommunikation mit DigiD ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut. Sollte der Fehler weiterhin bestehen, besuchen Sie bitte die Website https://www.digid.nl/, um die neuesten Informationen zu erhalten.",
-            "entra_login_failed": "Die Anmeldung mit Microsoft konnte nicht gestartet werden. Bitte versuchen Sie es später erneut."
+            "entra_login_failed": "Die Anmeldung mit Microsoft konnte nicht gestartet werden. Bitte versuchen Sie es später erneut.",
+            "digid_managed_requester": "Ihr Konto wird über Microsoft Entra verwaltet. Melden Sie sich mit Ihrem Microsoft-Konto im Webshop Ihrer Organisation an."
         },
         "start_button": "Konto wiederherstellen",
         "titles": {
@@ -333,7 +334,8 @@
             "digid_uid_used": "BSN-Nummer bereits verwendet.",
             "digid_unknown_error": "Bei der Kommunikation mit DigiD ist ein Fehler aufgetreten.",
             "unknown_error": "Unbekannte Fehlermeldung",
-            "entra_login_failed": "Die Anmeldung mit Microsoft ist fehlgeschlagen"
+            "entra_login_failed": "Die Anmeldung mit Microsoft ist fehlgeschlagen",
+            "digid_managed_requester": "Mit Microsoft anmelden"
         }
     },
     "expired_identity": {
@@ -844,6 +846,9 @@
             },
             "potjeswijzer": {
                 "title": "Töpfchen"
+            },
+            "gelrepas": {
+                "title": "Erläuterungen nach Gemeinden"
             }
         },
         "header": {
@@ -2578,7 +2583,8 @@
             "from": "von",
             "modified_by": "Geändert von",
             "to": "zu",
-            "you": "Sie"
+            "you": "Sie",
+            "entra": "Microsoft Entra"
         },
         "personal": {
             "bsn": "BSN",
@@ -3339,6 +3345,9 @@
             },
             "westerkwartier": {
                 "funds": "Töpfchen"
+            },
+            "gelrepas": {
+                "funds": "Erläuterungen nach Gemeinden"
             }
         },
         "user_menu": {

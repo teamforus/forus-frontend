@@ -20,8 +20,8 @@
                 "title": "Benim uygulamam"
             },
             "entra": {
-                "description": "İş hesabınızla giriş yapın",
-                "title": "Microsoft"
+                "title": "Microsoft ile giriş yap",
+                "description": "İş hesabınızı kullanın"
             }
         },
         "push": {
@@ -758,6 +758,9 @@
             },
             "westerkwartier": {
                 "funds": "Kavanozlar"
+            },
+            "gelrepas": {
+                "funds": "Belediye bazında açıklama"
             }
         },
         "user_menu": {
@@ -1307,6 +1310,9 @@
             },
             "potjeswijzer": {
                 "title": "Kavanozlar"
+            },
+            "gelrepas": {
+                "title": "Belediye bazında açıklama"
             }
         },
         "header": {
@@ -2380,7 +2386,8 @@
             "digid_uid_used": "Bu BSN numarası için farklı bir e-posta adresi kaydedilmiştir. Hesabınıza giriş yapmak için bize kayıtlı e-posta adresini kullanmanız gerekmektedir.<br/><br/> Bunun hangi e-posta adresi olduğunu hatırlayamıyor musunuz veya yeni bir e-posta adresiniz mi var? <br/> O zaman <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">buraya</a> veya aşağıdaki düğmeye tıklayarak hesabınızı geri yükleyin.</br>",
             "digid_unknown_error": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
             "unknown_error": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
-            "entra_login_failed": "Microsoft ile oturum açma işlemi başlatılamadı. Lütfen daha sonra tekrar deneyin."
+            "entra_login_failed": "Microsoft ile oturum açma işlemi başlatılamadı. Lütfen daha sonra tekrar deneyin.",
+            "digid_managed_requester": "Hesabınız Microsoft Entra üzerinden yönetilmektedir. Kurumunuzun web mağazasına Microsoft hesabınızla giriş yapın."
         },
         "start_button": "Hesabı geri yükle",
         "titles": {
@@ -2405,7 +2412,8 @@
             "digid_uid_used": "BSN numarası zaten kullanılıyor.",
             "digid_unknown_error": "DigiD ile iletişimde bir hata oluştu.",
             "unknown_error": "Bilinmeyen hata mesajı",
-            "entra_login_failed": "Microsoft ile oturum açma işlemi başarısız oldu"
+            "entra_login_failed": "Microsoft ile oturum açma işlemi başarısız oldu",
+            "digid_managed_requester": "Microsoft ile giriş yapın"
         }
     },
     "payouts": {
@@ -2689,7 +2697,8 @@
             "from": "itibaren",
             "modified_by": "Tarafından değiştirildi",
             "to": "için",
-            "you": "sen"
+            "you": "sen",
+            "entra": "Microsoft Entra"
         },
         "personal": {
             "bsn": "BSN",
