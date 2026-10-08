@@ -2,15 +2,19 @@ import React, { useCallback, useMemo, useState } from 'react';
 import FundRequest from '../../../props/models/FundRequest';
 import FundRequestClarification from '../../../props/models/FundRequestClarification';
 import Label, { LabelType } from '../label/Label';
+import useTranslate from '../../../hooks/useTranslate';
 
 export default function FundRequestStateLabel({ fundRequest }: { fundRequest: FundRequest }) {
+    const translate = useTranslate();
+
     const [stateLabels] = useState<Record<string, { type: LabelType; icon: string }>>({
         pending: { type: 'primary-light', icon: 'circle-outline' },
         declined: { type: 'danger', icon: 'circle-off-outline' },
         approved: { type: 'success', icon: 'circle-slice-8' },
         approved_partly: { type: 'success', icon: 'circle-slice-4' },
         disregarded: { type: 'default', icon: 'circle-outline' },
-        assigned: { type: 'default', icon: 'circle-outline' },
+        assigned: { type: 'primary', icon: 'circle-outline' },
+        expired: { type: 'default', icon: 'circle-outline' },
         clarification_requested: { type: 'warning', icon: 'circle-outline' },
     });
 
@@ -25,32 +29,29 @@ export default function FundRequestStateLabel({ fundRequest }: { fundRequest: Fu
     }, [fundRequest.records, hasPendingClarifications]);
 
     const localState = useMemo(() => {
+        if (fundRequest.expired) {
+            return { key: 'expired', label: translate('validation_requests.states.expired') };
+        }
+
         if (fundRequest.state == 'pending' && fundRequest.employee) {
             return hasRecordsWithPendingClarifications
-                ? { key: 'clarification_requested', label: 'Extra info nodig' }
-                : { key: 'assigned', label: 'In behandeling' };
+                ? {
+                      key: 'clarification_requested',
+                      label: translate('validation_requests.states.clarification_requested'),
+                  }
+                : { key: 'assigned', label: translate('validation_requests.states.assigned') };
         }
 
         return {
             key: fundRequest.state,
             label:
                 !fundRequest.employee && fundRequest.state == 'pending'
-                    ? 'Beoordelaar nodig'
+                    ? translate('validation_requests.states.waiting_assign')
                     : fundRequest.state_locale,
         };
-    }, [fundRequest, hasRecordsWithPendingClarifications]);
+    }, [fundRequest, hasRecordsWithPendingClarifications, translate]);
 
-    return fundRequest.state == 'pending' && fundRequest.employee ? (
-        hasRecordsWithPendingClarifications ? (
-            <Label type={stateLabels.clarification_requested?.type} icon={stateLabels.clarification_requested?.icon}>
-                Extra info nodig
-            </Label>
-        ) : (
-            <Label type="primary" icon="circle-outline">
-                In behandeling
-            </Label>
-        )
-    ) : (
+    return (
         <Label type={stateLabels[localState.key]?.type} icon={stateLabels[localState.key]?.icon}>
             {localState.label}
         </Label>

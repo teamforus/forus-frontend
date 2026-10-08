@@ -672,8 +672,10 @@
         },
         "details": {
             "created_at": "Submitted on:",
-            "fund_name": "Fund name:",
-            "status": "Status Request:"
+            "status": "Status Request:",
+            "fund_name": "Regulation:",
+            "last_answered": "Last updated:",
+            "number": "Application Number:"
         },
         "fund_not_active": "The fund you are trying to apply for is not active.",
         "invalid_endpoint": "No access to this application",
@@ -683,7 +685,6 @@
         },
         "record": {
             "answer": "Answered",
-            "cancel_btn": "Cancel",
             "new": "new message",
             "new_message": "New request",
             "send_btn": "Send",
@@ -835,12 +836,16 @@
             "provide_info": "Answer the question",
             "subtitle": "The application is not yet complete. Additional information is needed. Please review the question below and click the button to respond.",
             "title": "Open questions ({{ count }})",
-            "info_responded_count": "{{count}} message"
+            "info_responded_count": "{{count}} message",
+            "info_pending": "Need an answer"
         },
         "labels": {
             "question_from": "Question from {{ name }}",
             "date": "Date:",
-            "question": "Question asked"
+            "question": "Question asked",
+            "closed_by_sponsor": "Closed by {{ sponsor_name }}",
+            "edited": "Edited",
+            "your_answer": "Your answer:"
         },
         "records": {
             "title": "My information ({{ count }})",
@@ -911,6 +916,10 @@
                 }
             },
             "title": "BSN confirmation expired"
+        },
+        "state": {
+            "answer_needed": "We need more information from you",
+            "expired": "Expired"
         }
     },
     "fund_requests": {
@@ -934,7 +943,10 @@
             "archive": "Archive",
             "all_funds": "All credits..."
         },
-        "title": "Request"
+        "title": "Request",
+        "state": {
+            "expired": "Expired"
+        }
     },
     "fund": {
         "breadcrumbs": {
@@ -3871,5 +3883,10 @@
             "default": "Go to the homepage",
             "isd": "ISD Intermunicipal Social Service Brabantse Wal"
         }
+    },
+    "confirm_fund_request_clarification_submit": {
+        "confirm_btn": "Send",
+        "description": "Make sure you've answered all the questions and attached all the supporting documents.",
+        "title": "Is the answer complete?"
     }
 }

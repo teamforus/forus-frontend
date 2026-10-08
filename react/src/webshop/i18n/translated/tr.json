@@ -897,8 +897,10 @@
         },
         "details": {
             "created_at": "Gönderilme tarihi:",
-            "fund_name": "Fon adı:",
-            "status": "Durum Talebi:"
+            "status": "Durum Talebi:",
+            "fund_name": "Düzenleme:",
+            "last_answered": "Son güncelleme:",
+            "number": "Başvuru numarası:"
         },
         "fund_not_active": "Başvurmaya çalıştığınız fon aktif değil.",
         "invalid_endpoint": "Bu uygulamaya erişim yok",
@@ -908,7 +910,6 @@
         },
         "record": {
             "answer": "Cevaplandı",
-            "cancel_btn": "İptal",
             "new": "yeni mesaj",
             "new_message": "Yeni istek",
             "send_btn": "Gönder",
@@ -1060,12 +1061,16 @@
             "provide_info": "Soruyu cevaplayın",
             "subtitle": "Başvuru henüz tamamlanmamıştır. Ek bilgiye ihtiyaç vardır. Lütfen aşağıdaki soruyu inceleyin ve yanıtlamak için düğmeye tıklayın.",
             "title": "Açık sorular ({{ count }})",
-            "info_responded_count": "{{count}} mesaj"
+            "info_responded_count": "{{count}} mesaj",
+            "info_pending": "Cevap gerekiyor"
         },
         "labels": {
             "question_from": "Bir soru {{ name }}",
             "date": "Tarih:",
-            "question": "Soru soruldu"
+            "question": "Soru soruldu",
+            "closed_by_sponsor": "Kapatıldı: {{ sponsor_name }}",
+            "edited": "Düzenlendi",
+            "your_answer": "Cevabınız:"
         },
         "records": {
             "title": "Bilgilerim ({{ count }})",
@@ -1136,6 +1141,10 @@
                 }
             },
             "title": "BSN onayının süresi doldu"
+        },
+        "state": {
+            "answer_needed": "Sizden daha fazla bilgiye ihtiyacımız var",
+            "expired": "Süresi dolmuş"
         }
     },
     "fund": {
@@ -1236,7 +1245,10 @@
             "archive": "Arşiv",
             "all_funds": "Tüm krediler..."
         },
-        "title": "İstek"
+        "title": "İstek",
+        "state": {
+            "expired": "Süresi dolmuş"
+        }
     },
     "funds": {
         "breadcrumbs": {
@@ -3652,7 +3664,7 @@
         "potjeswijzer": {
             "funds": "Kavanozlar",
             "funds_kindpakket": "Çocuk Paketi",
-            "partner_funds": "Potjes iş ortakları"
+            "partner_funds": "Potjes ortakları"
         }
     },
     "cookie_banner": {
@@ -3871,5 +3883,10 @@
             "default": "Ana sayfaya git",
             "isd": "ISD Belediyeler Arası Sosyal Hizmet Brabantse Wal"
         }
+    },
+    "confirm_fund_request_clarification_submit": {
+        "confirm_btn": "Gönder",
+        "description": "Tüm soruları yanıtladığını ve tüm destekleyici belgeleri eklediğini kontrol et.",
+        "title": "Cevap tam mı?"
     }
 }

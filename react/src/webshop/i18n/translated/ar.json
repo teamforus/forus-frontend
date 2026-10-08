@@ -918,8 +918,10 @@
         },
         "details": {
             "created_at": "تم التقديم في:",
-            "fund_name": "اسم الصندوق:",
-            "status": "طلب الحالة:"
+            "status": "طلب الحالة:",
+            "fund_name": "اللائحة:",
+            "last_answered": "آخر تحديث:",
+            "number": "رقم الطلب:"
         },
         "fund_not_active": "الصندوق الذي تحاول التقدم بطلب للحصول عليه غير نشط.",
         "invalid_endpoint": "لا يوجد وصول إلى هذا التطبيق",
@@ -929,7 +931,6 @@
         },
         "record": {
             "answer": "تمت الإجابة",
-            "cancel_btn": "إلغاء",
             "new": "رسالة جديدة",
             "new_message": "طلب جديد",
             "send_btn": "إرسال",
@@ -1081,12 +1082,16 @@
             "provide_info": "أجب عن السؤال",
             "subtitle": "لم يكتمل الطلب بعد. هناك حاجة إلى معلومات إضافية. يرجى مراجعة السؤال أدناه والنقر على الزر للرد.",
             "title": "الأسئلة المفتوحة ({{ count }})",
-            "info_responded_count": "{{count}} الرسالة"
+            "info_responded_count": "{{count}} الرسالة",
+            "info_pending": "مطلوب رد"
         },
         "labels": {
             "question_from": "سؤال من {{ name }}",
             "date": "التاريخ:",
-            "question": "السؤال المطروح"
+            "question": "السؤال المطروح",
+            "closed_by_sponsor": "أغلقه {{ sponsor_name }}",
+            "edited": "تم التعديل",
+            "your_answer": "إجابتك:"
         },
         "records": {
             "title": "بياناتي ({{ count }})",
@@ -1157,6 +1162,10 @@
                 }
             },
             "title": "انتهت صلاحية تأكيد BSN"
+        },
+        "state": {
+            "answer_needed": "نحتاج إلى مزيد من المعلومات منك",
+            "expired": "منتهية الصلاحية"
         }
     },
     "fund_requests": {
@@ -1180,7 +1189,10 @@
             "archive": "الأرشيف",
             "all_funds": "جميع الائتمانات..."
         },
-        "title": "الطلب"
+        "title": "الطلب",
+        "state": {
+            "expired": "منتهية الصلاحية"
+        }
     },
     "fund": {
         "breadcrumbs": {
@@ -3363,7 +3375,7 @@
         },
         "loading": "يتم تحميل معاينة ملف PDF.",
         "page_alt": "صفحة PDF {{page}}",
-        "unavailable": "لا يتوفر نموذج PDF."
+        "unavailable": "لا يتوفر نموذج ملف PDF."
     },
     "popup_auth": {
         "buttons": {
@@ -3871,5 +3883,10 @@
             "default": "انتقل إلى الصفحة الرئيسية",
             "isd": "دائرة الخدمات الاجتماعية المشتركة بين البلديات ISD برابانتس وال"
         }
+    },
+    "confirm_fund_request_clarification_submit": {
+        "confirm_btn": "إرسال",
+        "description": "تأكد من أنك قد أجبت على جميع الأسئلة وأرفقت جميع المستندات الداعمة.",
+        "title": "هل الإجابة كاملة؟"
     }
 }

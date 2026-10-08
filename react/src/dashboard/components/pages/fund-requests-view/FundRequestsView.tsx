@@ -113,6 +113,7 @@ export default function FundRequestsView() {
         }
 
         const { state, allowed_employees, employee } = fundRequest;
+        const isExpired = fundRequest.expired;
         const isPending = state == 'pending';
         const isDisregarded = state == 'disregarded';
 
@@ -190,9 +191,10 @@ export default function FundRequestsView() {
             can_resign: isPending && isAssigned,
             can_resign_as_supervisor: isPending && employee && isValidatorsSupervisor,
             has_actions:
-                (isPending && isAssigned) ||
-                (isAssigned && isDisregarded) ||
-                (!isAssigned && isDisregarded && fundRequest.replaced),
+                !isExpired &&
+                ((isPending && isAssigned) ||
+                    (isAssigned && isDisregarded) ||
+                    (!isAssigned && isDisregarded && fundRequest.replaced)),
         };
     }, [activeOrganization.bsn_enabled, authIdentity?.address, fundRequest, isValidatorsSupervisor]);
 
@@ -555,42 +557,44 @@ export default function FundRequestsView() {
                                 </div>
                             )}
 
-                            <div className="button-group">
-                                {fundRequestMeta.is_assignable && (
-                                    <button
-                                        className={classNames(
-                                            'button',
-                                            fundRequestMeta.is_assignable_as_supervisor
-                                                ? 'button-default'
-                                                : 'button-primary',
-                                        )}
-                                        data-dusk="fundRequestAssignBtn"
-                                        onClick={() => assignRequest()}>
-                                        <em className="mdi mdi-account-plus icon-start" />
-                                        {translate('validation_requests.buttons.assign_to_me')}
-                                    </button>
-                                )}
+                            {!fundRequestMeta.expired && (
+                                <div className="button-group">
+                                    {fundRequestMeta.is_assignable && (
+                                        <button
+                                            className={classNames(
+                                                'button',
+                                                fundRequestMeta.is_assignable_as_supervisor
+                                                    ? 'button-default'
+                                                    : 'button-primary',
+                                            )}
+                                            data-dusk="fundRequestAssignBtn"
+                                            onClick={() => assignRequest()}>
+                                            <em className="mdi mdi-account-plus icon-start" />
+                                            {translate('validation_requests.buttons.assign_to_me')}
+                                        </button>
+                                    )}
 
-                                {fundRequestMeta.is_assignable_as_supervisor && (
-                                    <button
-                                        className="button button-primary"
-                                        onClick={assignRequestAsSupervisor}
-                                        data-dusk="fundRequestAssignAsSupervisorBtn">
-                                        <em className="mdi mdi-account-details-outline icon-start" />
-                                        {translate('validation_requests.buttons.assign')}
-                                    </button>
-                                )}
+                                    {fundRequestMeta.is_assignable_as_supervisor && (
+                                        <button
+                                            className="button button-primary"
+                                            onClick={assignRequestAsSupervisor}
+                                            data-dusk="fundRequestAssignAsSupervisorBtn">
+                                            <em className="mdi mdi-account-details-outline icon-start" />
+                                            {translate('validation_requests.buttons.assign')}
+                                        </button>
+                                    )}
 
-                                {(fundRequestMeta.can_resign || fundRequestMeta.can_resign_as_supervisor) && (
-                                    <button
-                                        className="button button-default"
-                                        onClick={requestResign}
-                                        data-dusk="fundRequestResignBtn">
-                                        <em className="mdi mdi-close icon-start" />
-                                        {translate('validation_requests.buttons.resign')}
-                                    </button>
-                                )}
-                            </div>
+                                    {(fundRequestMeta.can_resign || fundRequestMeta.can_resign_as_supervisor) && (
+                                        <button
+                                            className="button button-default"
+                                            onClick={requestResign}
+                                            data-dusk="fundRequestResignBtn">
+                                            <em className="mdi mdi-close icon-start" />
+                                            {translate('validation_requests.buttons.resign')}
+                                        </button>
+                                    )}
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>
@@ -673,6 +677,10 @@ export default function FundRequestsView() {
                             label={translate('validation_requests.labels.bsn')}
                             className={classNames(fundRequestMeta.bsn ? 'text-black' : 'text-muted')}>
                             {fundRequestMeta.bsn || 'Geen BSN'}
+                        </KeyValueItem>
+
+                        <KeyValueItem label={translate('validation_requests.labels.expire_at')}>
+                            {fundRequestMeta.expire_at_locale}
                         </KeyValueItem>
 
                         {(hasWarningMissedRecords || hasInfoMissedRecords) && (
@@ -819,7 +827,7 @@ export default function FundRequestsView() {
                                 )}
                             </button>
 
-                            {fundRequestMeta.can_add_partner_bsn && (
+                            {!fundRequestMeta.expired && fundRequestMeta.can_add_partner_bsn && (
                                 <button
                                     className="button button-primary button-sm"
                                     data-dusk="addPartnerBsnBtn"

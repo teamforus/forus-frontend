@@ -692,6 +692,18 @@
         "Goedkeuren"
     ],
     [
+        "confirm_fund_request_clarification_submit.confirm_btn",
+        "Versturen"
+    ],
+    [
+        "confirm_fund_request_clarification_submit.description",
+        "Controleer of je alle vragen hebt beantwoord en alle bewijsstukken hebt toegevoegd."
+    ],
+    [
+        "confirm_fund_request_clarification_submit.title",
+        "Is het antwoord compleet?"
+    ],
+    [
         "confirm_reimbursement_destroy.confirm_btn",
         "Bevestigen"
     ],
@@ -1368,6 +1380,10 @@
         "Dit tegoed is al geactiveerd"
     ],
     [
+        "fund_request.clarifications.info_pending",
+        "Antwoord nodig"
+    ],
+    [
         "fund_request.clarifications.info_requested",
         "Extra vraag gesteld"
     ],
@@ -1401,7 +1417,15 @@
     ],
     [
         "fund_request.details.fund_name",
-        "Naam van het fonds:"
+        "Regeling:"
+    ],
+    [
+        "fund_request.details.last_answered",
+        "Laatst aangepast:"
+    ],
+    [
+        "fund_request.details.number",
+        "Aanvraagummer:"
     ],
     [
         "fund_request.details.status",
@@ -1432,8 +1456,16 @@
         "Geen toegang tot deze aanvraag"
     ],
     [
+        "fund_request.labels.closed_by_sponsor",
+        "Gesloten door {{ sponsor_name }}"
+    ],
+    [
         "fund_request.labels.date",
         "Datum:"
+    ],
+    [
+        "fund_request.labels.edited",
+        "Edited"
     ],
     [
         "fund_request.labels.question",
@@ -1442,6 +1474,10 @@
     [
         "fund_request.labels.question_from",
         "Vraag van {{ name }}"
+    ],
+    [
+        "fund_request.labels.your_answer",
+        "Uw antwoord:"
     ],
     [
         "fund_request.modal.title",
@@ -1538,10 +1574,6 @@
     [
         "fund_request.record.answer_question_label",
         "Beantwoord de vraag"
-    ],
-    [
-        "fund_request.record.cancel_btn",
-        "Annuleer"
     ],
     [
         "fund_request.record.my_answer",
@@ -1916,6 +1948,14 @@
         "Er wordt gekeken of u al aan voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan."
     ],
     [
+        "fund_request.state.answer_needed",
+        "Meer informatie van u nodig"
+    ],
+    [
+        "fund_request.state.expired",
+        "Verlopen"
+    ],
+    [
         "fund_request.steps.info_label",
         "Informatie over aanvraag"
     ],
@@ -1982,6 +2022,10 @@
     [
         "fund_requests.filters.archive",
         "Archief"
+    ],
+    [
+        "fund_requests.state.expired",
+        "Verlopen"
     ],
     [
         "fund_requests.title",
