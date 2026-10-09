@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { authContext } from '../../../../contexts/AuthContext';
-import { useNavigateState, useStateHref, useStateParams } from '../../../../modules/state_router/Router';
+import { useStateHref, useStateParams } from '../../../../modules/state_router/Router';
 import { useAuthService } from '../../../../services/AuthService';
 import useFormBuilder from '../../../../../dashboard/hooks/useFormBuilder';
 import { ResponseError } from '../../../../../dashboard/props/ApiResponses';
@@ -23,6 +23,9 @@ import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 import StartOptions from './elements/StartOptions';
 import StartEmail from './elements/StartEmail';
 import StartQrCode from './elements/StartQrCode';
+import { DigiDConnection } from '../../../../services/digid/types';
+import StartTvs from './elements/StartTvs';
+import useStartDigId from '../../../../hooks/useStartDigId';
 
 export default function Start() {
     const { token, signOut, setToken } = useContext(authContext);
@@ -32,7 +35,7 @@ export default function Start() {
     const setTitle = useSetTitle();
     const translate = useTranslate();
     const setProgress = useSetProgress();
-    const navigateState = useNavigateState();
+    const startAuthentication = useStartDigId();
 
     const termsUrl = useStateHref(WebshopRoutes.TERMS_AND_CONDITIONS);
     const privacyUrl = useStateHref(WebshopRoutes.PRIVACY);
@@ -67,6 +70,7 @@ export default function Start() {
     const signedIn = useMemo(() => !!token, [token]);
     const authPageTitle = appConfigs?.auth_page?.title || translate('auth.title');
     const authPageLoginTitle = appConfigs?.auth_page?.login_title || '';
+    const digidUseTvs = appConfigs?.digid_tvs;
 
     const authOptions = useMemo(() => {
         const options = appConfigs?.auth_page?.login_options || [];
@@ -137,19 +141,20 @@ export default function Start() {
 
     const { reset: authFormReset } = authForm;
 
-    const startDigId = useCallback(() => {
-        setLoading(true);
-        setProgress(0);
+    const startDigId = useCallback(
+        (connection: DigiDConnection) => {
+            setLoading(true);
+            setProgress(0);
 
-        digIdService
-            .startAuthRestore()
-            .then((res) => (document.location = res.data.redirect_url))
-            .catch((res: ResponseError) => navigateState(WebshopRoutes.ERROR, { errorCode: res.headers['error-code'] }))
-            .finally(() => {
+            return startAuthentication(() => {
+                return digIdService.startAuthRestore(connection);
+            }).finally(() => {
                 setLoading(false);
                 setProgress(100);
             });
-    }, [digIdService, navigateState, setProgress]);
+        },
+        [digIdService, setProgress, startAuthentication],
+    );
 
     const showStart = useCallback(() => {
         setState('start');
@@ -209,8 +214,12 @@ export default function Start() {
             signOut(null, false, true, false);
         }
 
-        if (digid) {
-            startDigId();
+        if (digid && appConfigs.digid) {
+            if (digidUseTvs) {
+                setState(authOptions.includes('digid') ? 'tvs' : 'start');
+            } else {
+                void startDigId({ transport: 'digid' });
+            }
         }
 
         if (!digid && email && authOptions.includes('email')) {
@@ -225,7 +234,19 @@ export default function Start() {
         }
 
         setQueryParams({ logout: null, email: null, digid: null, reset: null });
-    }, [appConfigs, reset, logout, email, authOptions, digid, setQueryParams, signOut, startDigId, authFormReset]);
+    }, [
+        appConfigs,
+        reset,
+        logout,
+        email,
+        authOptions,
+        digid,
+        setQueryParams,
+        signOut,
+        startDigId,
+        authFormReset,
+        digidUseTvs,
+    ]);
 
     useEffect(() => {
         if (appConfigs && hasEmailOnlyAuth && state === 'start') {
@@ -399,7 +420,7 @@ export default function Start() {
                                 authInfo={authInfo}
                                 onEmail={showEmail}
                                 onQr={showQr}
-                                onDigid={startDigId}
+                                onDigid={() => (digidUseTvs ? setState('tvs') : startDigId({ transport: 'digid' }))}
                             />
                         )}
 
@@ -413,6 +434,15 @@ export default function Start() {
                                 emailValue={emailValue}
                                 authInfo={authInfo}
                                 onBack={showStart}
+                            />
+                        )}
+
+                        {state == 'tvs' && (
+                            <StartTvs
+                                organizations={appConfigs?.digid_tvs_organizations}
+                                authInfo={authInfo}
+                                onBack={showStart}
+                                onSelect={(organization_id) => startDigId({ transport: 'tvs', organization_id })}
                             />
                         )}
 

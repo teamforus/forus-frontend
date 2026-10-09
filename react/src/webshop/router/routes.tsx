@@ -39,6 +39,7 @@ import Auth2FA from '../components/pages/auth/Auth2FA';
 import ProvidersOffice from '../components/pages/providers-office/ProvidersOffice';
 import Search from '../components/pages/search/Search';
 import AuthLink from '../components/pages/auth/AuthLink';
+import DigiDComplete from '../components/pages/auth/DigiDComplete';
 import FundRequest from '../components/pages/funds-request/FundRequest';
 import FundActivate from '../components/pages/funds-activate/FundActivate';
 import FundsPreCheck from '../components/pages/funds-pre-check/FundsPreCheck';
@@ -312,6 +313,11 @@ router.state(WebshopRoutes.REDIRECT, <Redirect />, {
 
 router.state(WebshopRoutes.AUTH_LINK, <AuthLink />, {
     path: `/auth-link`,
+    protected: false,
+});
+
+router.state(WebshopRoutes.DIGID_COMPLETE, <DigiDComplete />, {
+    path: `/digid-complete`,
     protected: false,
 });
 
