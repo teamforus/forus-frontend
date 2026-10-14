@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { MouseEventHandler, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { mainContext } from '../../contexts/MainContext';
 import { strLimit } from '../../helpers/string';
 
@@ -66,7 +66,13 @@ const IdentityMenuItem = ({ url, href, name, icon, dusk, active, onClick }: Iden
     );
 };
 
-export const LayoutHeader = () => {
+export const LayoutHeader = ({
+    sidebarOpen = false,
+    onSidebarToggle = null,
+}: {
+    sidebarOpen?: boolean;
+    onSidebarToggle?: () => void;
+}) => {
     const openModal = useOpenModal();
     const appConfigs = useAppConfigs();
     const authIdentity = useAuthIdentity();
@@ -77,6 +83,7 @@ export const LayoutHeader = () => {
     const { envData, organizations, activeOrganization } = useContext(mainContext);
     const { route } = useStateRoutes();
 
+    const headerRef = useRef<HTMLElement>(null);
     const [showIdentityMenu, setShowIdentityMenu] = useState(false);
     const [organizationAnnouncements, setOrganizationAnnouncements] = useState<Array<Announcement>>(null);
 
@@ -106,6 +113,25 @@ export const LayoutHeader = () => {
     );
 
     useEffect(() => {
+        const header = headerRef.current;
+
+        if (!header) {
+            return;
+        }
+
+        const updateHeight = () => {
+            document.documentElement.style.setProperty('--app-header-height', `${header.offsetHeight}px`);
+        };
+
+        const observer = new ResizeObserver(updateHeight);
+
+        updateHeight();
+        observer.observe(header);
+
+        return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
         if (!activeOrganization?.id) {
             return;
         }
@@ -116,11 +142,24 @@ export const LayoutHeader = () => {
     }, [activeOrganization?.id, announcementService]);
 
     return (
-        <header className="app app-header">
+        <header className="app app-header" ref={headerRef}>
             {/* Announcements */}
             {announcements?.length > 0 && <Announcements announcements={announcements} />}
 
             <div className="app-header-row">
+                {onSidebarToggle && (
+                    <button
+                        type="button"
+                        className={classNames('header-sidebar-toggle', sidebarOpen && 'header-sidebar-toggle-active')}
+                        aria-label={sidebarOpen ? 'Menu sluiten' : 'Menu openen'}
+                        aria-expanded={sidebarOpen}
+                        data-dusk="headerSidebarToggle"
+                        onClick={onSidebarToggle}>
+                        <em className={classNames('mdi', sidebarOpen ? 'mdi-close' : 'mdi-menu')} />
+                        <span className="header-item-label">{sidebarOpen ? 'Sluiten' : 'Menu'}</span>
+                    </button>
+                )}
+
                 {!activeOrganization && (
                     <a href="" className="header-logo">
                         <img alt="Logo" className="header-logo-img" src={assetUrl('/assets/img/logo.svg')} />
@@ -157,11 +196,15 @@ export const LayoutHeader = () => {
                 {authIdentity && (
                     <div className="header-auth">
                         <div
-                            className="auth-user"
+                            className={classNames('auth-user', showIdentityMenu && 'auth-user-active')}
                             data-dusk="userProfile"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 setShowIdentityMenu(!showIdentityMenu);
+
+                                if (!showIdentityMenu && sidebarOpen) {
+                                    onSidebarToggle?.();
+                                }
                             }}>
                             <div className="auth-user-details">
                                 <div className="auth-user-name" data-dusk="identityEmail">
@@ -176,6 +219,8 @@ export const LayoutHeader = () => {
                                 className="auth-user-img"
                             />
 
+                            <span className="header-item-label">{roles[envData.client_type]}</span>
+
                             <div className="auth-user-caret">
                                 <em
                                     className={classNames(
@@ -189,6 +234,25 @@ export const LayoutHeader = () => {
                                 <ClickOutside
                                     onClickOutside={() => setShowIdentityMenu(false)}
                                     className="auth-user-menu">
+                                    <div className="auth-user-menu-identity">
+                                        <img
+                                            src={
+                                                activeOrganization?.logo?.sizes?.thumbnail ||
+                                                thumbnailUrl('organization')
+                                            }
+                                            alt=""
+                                            className="auth-user-menu-identity-img"
+                                        />
+                                        <div className="auth-user-menu-identity-details">
+                                            <div className="auth-user-menu-identity-role">
+                                                {roles[envData.client_type]}
+                                            </div>
+                                            <div className="auth-user-menu-identity-name">
+                                                {authIdentity.email || authIdentity.address}
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     {activeOrganization && (
                                         <IdentityMenuItem
                                             name={'E-mail instellingen'}

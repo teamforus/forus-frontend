@@ -132,3 +132,54 @@
         }
     }
 }
+
+@media screen and (max-width: 767px) {
+    .block.block-export-options {
+        .export-section {
+            .export-options {
+                flex-wrap: wrap;
+                gap: 10px;
+
+                & > table {
+                    display: block;
+
+                    & > tbody {
+                        display: grid;
+                        grid-template-columns: repeat(
+                            auto-fill,
+                            minmax(
+                                max(
+                                    140px,
+                                    calc(
+                                        (100% - (var(--export-fields-per-row, 1) - 1) * 10px) /
+                                            var(--export-fields-per-row, 1)
+                                    )
+                                ),
+                                1fr
+                            )
+                        );
+                        gap: 4px 10px;
+
+                        & > tr {
+                            display: contents;
+
+                            & > td {
+                                display: block;
+                                min-width: 0;
+                            }
+                        }
+                    }
+                }
+
+                .export-option {
+                    flex: 1 1 140px;
+                    margin-right: 0;
+
+                    .export-option-label {
+                        padding-right: 38px;
+                    }
+                }
+            }
+        }
+    }
+}

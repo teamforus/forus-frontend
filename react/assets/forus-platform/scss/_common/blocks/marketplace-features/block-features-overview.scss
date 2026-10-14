@@ -137,6 +137,25 @@
         .overview-details {
             padding: 20px 25px;
         }
+
+        .overview-list {
+            min-width: 0;
+            padding-left: 10px;
+            padding-right: 10px;
+
+            .overview-list-wrapper {
+                max-width: 100%;
+
+                .overview-list-col {
+                    flex: 1 1 0;
+                    min-width: 0;
+
+                    .overview-list-item {
+                        max-width: 100%;
+                    }
+                }
+            }
+        }
     }
 
     @media screen and (max-width: 650px) {

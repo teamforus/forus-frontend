@@ -27,6 +27,9 @@ export const Layout = ({ children }: { children: React.ReactElement }) => {
     const pageScrollRef = useRef<HTMLDivElement>(null);
 
     const [libraries] = useState(['places'] as Libraries);
+    const [showSidebar, setShowSidebar] = useState(false);
+
+    const hasSidebar = layout == LayoutType.dashboard && !!activeOrganization;
 
     const isReady = useMemo(() => {
         return !route.state?.protected || (authIdentity && activeOrganization);
@@ -34,7 +37,28 @@ export const Layout = ({ children }: { children: React.ReactElement }) => {
 
     useEffect(() => {
         pageScrollRef?.current?.scrollTo({ top: 0 });
+        setShowSidebar(false);
     }, [route?.pathname]);
+
+    useEffect(() => {
+        if (!showSidebar) {
+            return;
+        }
+
+        // the sidebar is a drawer only on small screens, close it when the screen becomes wide
+        const media = window.matchMedia('(min-width: 1001px)');
+        const onMediaChange = () => media.matches && setShowSidebar(false);
+        const onKeyDown = (e: KeyboardEvent) => e.key === 'Escape' && setShowSidebar(false);
+
+        onMediaChange();
+        media.addEventListener('change', onMediaChange);
+        window.addEventListener('keydown', onKeyDown);
+
+        return () => {
+            media.removeEventListener('change', onMediaChange);
+            window.removeEventListener('keydown', onKeyDown);
+        };
+    }, [showSidebar]);
 
     if (!envData?.config) {
         return null;
@@ -49,6 +73,7 @@ export const Layout = ({ children }: { children: React.ReactElement }) => {
                 <div
                     className={classNames(
                         'app',
+                        showSidebar && 'app-sidebar-shown',
                         route?.state?.name == 'sign-in' && 'landing-root',
                         [LayoutType.landingClearNew].includes(layout) && 'signup-layout signup-layout-new',
                     )}
@@ -61,10 +86,15 @@ export const Layout = ({ children }: { children: React.ReactElement }) => {
                     }}>
                     <LoadingBar />
 
-                    {[LayoutType.dashboard, LayoutType.landing].includes(layout) && <LayoutHeader />}
+                    {[LayoutType.dashboard, LayoutType.landing].includes(layout) && (
+                        <LayoutHeader
+                            sidebarOpen={showSidebar}
+                            onSidebarToggle={hasSidebar ? () => setShowSidebar((show) => !show) : null}
+                        />
+                    )}
 
                     <div className="app app-container">
-                        {layout == LayoutType.dashboard && activeOrganization && <LayoutAside />}
+                        {hasSidebar && <LayoutAside open={showSidebar} onClose={() => setShowSidebar(false)} />}
 
                         {isReady && (
                             <section className="app app-content">

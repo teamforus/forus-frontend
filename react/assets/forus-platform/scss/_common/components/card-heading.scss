@@ -36,3 +36,27 @@
         }
     }
 }
+
+@media screen and (max-width: 1000px) {
+    .card-heading {
+        &.flex-row,
+        &.flex {
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        & > .flex {
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        &.flex-row > .flex-col {
+            flex: 1 1 100%;
+            min-width: 0;
+        }
+
+        .block-label-tabs {
+            margin-left: 0;
+        }
+    }
+}

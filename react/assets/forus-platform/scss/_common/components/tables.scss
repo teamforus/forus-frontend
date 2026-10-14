@@ -667,3 +667,34 @@
         overflow: auto;
     }
 }
+
+@media screen and (max-width: 767px) {
+    .table-wrapper table.table.table-summary {
+        display: block;
+        table-layout: auto;
+
+        & > tbody {
+            display: block;
+
+            & > tr {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+
+                & > td {
+                    display: block;
+                    min-width: 0;
+                    border-bottom: none;
+                    white-space: normal;
+                }
+
+                & > td,
+                & > td:first-child,
+                & > td:last-child {
+                    padding-left: 16px;
+                    padding-right: 8px;
+                }
+            }
+        }
+    }
+}
+

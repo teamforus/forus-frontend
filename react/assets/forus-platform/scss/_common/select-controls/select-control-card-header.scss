@@ -34,3 +34,10 @@
         }
     }
 }
+
+@media screen and (max-width: 1000px) {
+    .card .card-header .select-control.select-control-card-header {
+        width: 100% !important;
+        min-width: 0;
+    }
+}

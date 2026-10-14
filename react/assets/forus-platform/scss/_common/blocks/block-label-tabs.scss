@@ -129,3 +129,31 @@
         margin-left: 0;
     }
 }
+
+@media screen and (max-width: 1000px) {
+    .block.block-label-tabs {
+        max-width: 100%;
+        flex-wrap: wrap;
+        white-space: normal;
+
+        .label-tab-set {
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-right: 0;
+        }
+
+        .label-tab {
+            border-right: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            white-space: nowrap;
+
+            &.active {
+                border-color: var(--color-primary);
+            }
+
+            &.label-tab-text {
+                border: none;
+            }
+        }
+    }
+}

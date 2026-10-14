@@ -201,3 +201,13 @@
         }
     }
 }
+
+@media screen and (max-width: 1000px) {
+    .block.block-markdownable {
+        .note-editor {
+            .note-toolbar {
+                flex-wrap: wrap;
+            }
+        }
+    }
+}

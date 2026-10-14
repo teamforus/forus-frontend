@@ -32,3 +32,24 @@
         }
     }
 }
+
+@media screen and (max-width: 767px) {
+    .block.block-translation-stats {
+        flex-direction: column;
+        gap: 16px;
+
+        .translation-stats-col {
+            flex: 0 0 auto;
+            min-width: 0;
+
+            .translation-stats-col-label {
+                display: flex;
+                flex-direction: column;
+
+                .translation-stats-col-label-period {
+                    justify-content: flex-start;
+                }
+            }
+        }
+    }
+}

@@ -204,3 +204,35 @@
         }
     }
 }
+
+@media screen and (max-width: 1000px) {
+    .block.block-financial-dashboard {
+        .financial-filters {
+            margin-right: 0;
+
+            .filter-dropdowns {
+                flex-wrap: wrap;
+                row-gap: 8px;
+
+                .filter-dropdown {
+                    .filter-dropdown-menu {
+                        top: auto;
+                        left: 0;
+                        right: 0;
+                        width: auto;
+                        margin-top: 8px;
+                    }
+                }
+            }
+        }
+
+        .financial-totals {
+            flex-direction: column;
+            gap: 16px;
+
+            .financial-totals-col {
+                margin-right: 0;
+            }
+        }
+    }
+}

@@ -15,6 +15,7 @@
         .fund-media {
             display: flex;
             flex: 0 0 190px;
+            align-items: flex-start;
 
             .fund-media-img {
                 display: block;
@@ -65,6 +66,25 @@
 
             .fund-media {
                 flex: 0 0 150px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .block.block-fund {
+        .fund-overview {
+            flex-direction: column;
+            gap: 16px;
+
+            .fund-media {
+                flex: 0 0 auto;
+                width: 100%;
+                max-width: 190px;
+            }
+
+            .fund-details {
+                min-width: 0;
             }
         }
     }

@@ -85,6 +85,15 @@ export default function HeaderNotifications({ organization }: { organization: Or
                     ) : (
                         <div className="mdi mdi-bell-outline" />
                     )}
+
+                    {/* count badge and label are shown on mobile only */}
+                    {parseInt(notifications?.meta?.total_unseen?.toString()) > 0 && (
+                        <span className="notifications-icon-count">
+                            {Math.min(parseInt(notifications.meta.total_unseen.toString()), 99)}
+                        </span>
+                    )}
+
+                    <span className="header-item-label">Notificaties</span>
                 </div>
             </div>
 
