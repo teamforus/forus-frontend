@@ -6,7 +6,9 @@ import IdentityProviderEvent, {
     IdentityProviderEventCategory,
 } from '../props/models/IdentityProvider/IdentityProviderEvent';
 import type IdentityProviderConnectionHistory from '../props/models/IdentityProvider/IdentityProviderConnectionHistory';
-import type IdentityProviderScimCredential from '../props/models/IdentityProvider/IdentityProviderScimCredential';
+import IdentityProviderScimCredential, {
+    IdentityProviderAccountType,
+} from '../props/models/IdentityProvider/IdentityProviderScimCredential';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
 export class IdentityProviderConnectionService {
@@ -25,7 +27,7 @@ export class IdentityProviderConnectionService {
         return [
             { key: 'created_at', label: 'organizations_identity_provider_entra.ui.created_at' },
             { key: 'event_type', label: 'organizations_identity_provider_entra.ui.event' },
-            ...(category === 'requester_provisioning'
+            ...(category === 'employee_provisioning' || category === 'requester_provisioning'
                 ? [{ key: 'account', label: 'organizations_identity_provider_entra.events.account' }]
                 : []),
             { key: 'outcome', label: 'organizations_identity_provider_entra.ui.outcome' },
@@ -94,9 +96,11 @@ export class IdentityProviderConnectionService {
     public issueScimCredential(
         organizationId: number,
         connectionUid: string,
+        accountType: IdentityProviderAccountType,
     ): Promise<ApiResponseSingle<IdentityProviderScimCredential & { token: string }>> {
         return this.apiRequest.post(
             `/platform/organizations/${organizationId}/identity-providers/entra/connections/${connectionUid}/scim-credentials`,
+            { account_type: accountType },
         );
     }
 

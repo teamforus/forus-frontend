@@ -18,6 +18,12 @@ import useOpenModal from '../../../../../hooks/useOpenModal';
 import EntraEventDetailsModal from '../modals/EntraEventDetailsModal';
 import { outcomeLabels, outcomeTypes } from '../../constants';
 
+const categoryTitles: Record<IdentityProviderEventCategory, string> = {
+    sso: 'organizations_identity_provider_entra.ui.events_title',
+    employee_provisioning: 'organizations_identity_provider_entra.events.employee_provisioning_title',
+    requester_provisioning: 'organizations_identity_provider_entra.events.provisioning_title',
+};
+
 export default function EntraEventsCard({
     organizationId,
     connectionUid,
@@ -30,16 +36,24 @@ export default function EntraEventsCard({
     category: IdentityProviderEventCategory;
 }) {
     const translate = useTranslate();
-    const pushApiError = usePushApiError();
     const openModal = useOpenModal();
+    const pushApiError = usePushApiError();
 
     const paginatorService = usePaginatorService();
     const identityProviderConnectionService = useIdentityProviderConnectionService();
 
-    const [paginatorKey] = useState(
-        category === 'sso' ? 'identity_provider_events_sso' : 'identity_provider_events_requester_provisioning',
-    );
+    const [paginatorKey] = useState(`identity_provider_events_${category}`);
     const [events, setEvents] = useState<PaginationData<IdentityProviderEvent>>(null);
+
+    const outcomeOptions = useMemo(() => {
+        return [
+            { value: null, name: translate('organizations_identity_provider_entra.events.all_outcomes') },
+            { value: 'success', name: translate('organizations_identity_provider_entra.ui.successful') },
+            { value: 'failure', name: translate('organizations_identity_provider_entra.ui.failed') },
+        ];
+    }, [translate]);
+
+    const provisioning = category === 'employee_provisioning' || category === 'requester_provisioning';
 
     const runLatestRequest = useLatestRequestWithProgress();
 
@@ -49,19 +63,10 @@ export default function EntraEventsCard({
         outcome: null as 'success' | 'failure' | null,
     });
 
-    const provisioning = category === 'requester_provisioning';
-
-    const outcomeOptions = useMemo(
-        () => [
-            { value: null, name: translate('organizations_identity_provider_entra.events.all_outcomes') },
-            { value: 'success', name: translate('organizations_identity_provider_entra.ui.successful') },
-            { value: 'failure', name: translate('organizations_identity_provider_entra.ui.failed') },
-        ],
-        [translate],
-    );
-
     const showEvent = useCallback(
-        (event: IdentityProviderEvent) => openModal((modal) => <EntraEventDetailsModal modal={modal} event={event} />),
+        (event: IdentityProviderEvent) => {
+            return openModal((modal) => <EntraEventDetailsModal modal={modal} event={event} />);
+        },
         [openModal],
     );
 
@@ -96,11 +101,7 @@ export default function EntraEventsCard({
     return (
         <div className="card card-collapsed">
             <div className="card-header">
-                <div className="card-title flex flex-grow">
-                    {provisioning
-                        ? translate('organizations_identity_provider_entra.events.provisioning_title')
-                        : translate('organizations_identity_provider_entra.ui.events_title')}
-                </div>
+                <div className="card-title flex flex-grow">{translate(categoryTitles[category])}</div>
                 <div className="card-header-filters">
                     <div className="block block-inline-filters">
                         <div className="form">

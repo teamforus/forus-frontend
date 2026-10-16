@@ -23,7 +23,7 @@ export default function EntraConnectionCard({
     onResume,
     onDisconnect,
     readOnly = false,
-    requesterProvisioningAllowed = false,
+    provisioningAllowed = false,
 }: {
     busy?: boolean;
     connection: IdentityProviderConnection;
@@ -31,9 +31,10 @@ export default function EntraConnectionCard({
     onResume?: () => void;
     onDisconnect?: () => void;
     readOnly?: boolean;
-    requesterProvisioningAllowed?: boolean;
+    provisioningAllowed?: boolean;
 }) {
     const translate = useTranslate();
+
     return (
         <div className="card card-collapsed">
             <div className="card-header">
@@ -95,20 +96,26 @@ export default function EntraConnectionCard({
                     <div className="block block-info-box block-info-box-dashed">
                         <div className="info-box-icon mdi mdi-information-outline" aria-hidden="true" />
                         <div className="info-box-content">
-                            {requesterProvisioningAllowed
+                            {provisioningAllowed
                                 ? translate('organizations_identity_provider_entra.provisioning.resume_description')
                                 : translate('organizations_identity_provider_entra.ui.resume_description')}
                         </div>
                     </div>
                 )}
+
+                {!readOnly &&
+                    connection.status !== 'disconnected' &&
+                    !connection.can_disconnect &&
+                    connection.disconnect_disabled_reason && (
+                        <div className="block block-info-box block-info-box-default block-info-box-dashed">
+                            <div className="info-box-icon mdi mdi-alert-outline" aria-hidden="true" />
+                            <div className="info-box-content">{connection.disconnect_disabled_reason}</div>
+                        </div>
+                    )}
             </div>
 
             {!readOnly && connection.status !== 'disconnected' && (
                 <div className="card-footer card-footer-primary">
-                    {!connection.can_disconnect && connection.disconnect_disabled_reason && (
-                        <div className="card-text">{connection.disconnect_disabled_reason}</div>
-                    )}
-
                     <div className="button-group flex-end flex-gap-sm">
                         {connection.status === 'enabled' && (
                             <button type="button" className="button button-default" disabled={busy} onClick={onPause}>

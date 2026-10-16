@@ -32,12 +32,18 @@ export default function EntraAuthLink() {
         if (!exchangeToken || callbackError) {
             identityProviderAuthService.clearBrowserToken(sessionUid);
 
+            const dashboardRoleMissing = callbackError === 'dashboard_role_missing';
+
             pushDanger(
-                translate('organizations_identity_provider_entra.ui.sign_in'),
-                appendIdentityProviderDiagnosticReference(
-                    translate('organizations_identity_provider_entra.ui.sign_in_failed'),
-                    callbackErrorReference,
-                ),
+                dashboardRoleMissing
+                    ? translate('organizations_identity_provider_entra.ui.dashboard_role_missing_title')
+                    : translate('organizations_identity_provider_entra.ui.sign_in'),
+                dashboardRoleMissing
+                    ? translate('organizations_identity_provider_entra.ui.dashboard_role_missing')
+                    : appendIdentityProviderDiagnosticReference(
+                          translate('organizations_identity_provider_entra.ui.sign_in_failed'),
+                          callbackErrorReference,
+                      ),
             );
 
             navigate(getStateRouteUrl(DashboardRoutes.SIGN_IN), { replace: true });

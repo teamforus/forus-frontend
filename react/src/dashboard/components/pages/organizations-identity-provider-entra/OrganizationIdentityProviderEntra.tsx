@@ -36,6 +36,7 @@ export default function OrganizationIdentityProviderEntra() {
     const callbackErrorHandledRef = useRef(false);
 
     const ssoAllowed = activeOrganization?.allow_identity_providers;
+    const employeeProvisioningAllowed = !!activeOrganization?.allow_identity_provider_employee_provisioning;
     const requesterProvisioningAllowed = !!activeOrganization?.allow_identity_provider_requester_provisioning;
 
     const runLatestRequest = useLatestRequestWithProgress();
@@ -103,9 +104,15 @@ export default function OrganizationIdentityProviderEntra() {
 
             {connection ? (
                 <EntraConnectionManagementState
-                    key={`${activeOrganization.id}:${connection.uid}:${requesterProvisioningAllowed}`}
+                    key={[
+                        activeOrganization.id,
+                        connection.uid,
+                        employeeProvisioningAllowed,
+                        requesterProvisioningAllowed,
+                    ].join(':')}
                     connection={connection}
                     organizationId={activeOrganization.id}
+                    employeeProvisioningAllowed={employeeProvisioningAllowed}
                     requesterProvisioningAllowed={requesterProvisioningAllowed}
                     onConnectionChange={(connection) => {
                         setConnection(connection);

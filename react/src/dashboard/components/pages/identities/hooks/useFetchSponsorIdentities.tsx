@@ -10,18 +10,15 @@ import usePushApiError from '../../../../hooks/usePushApiError';
 import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function useFetchSponsorIdentities(organization: Organization, extraFilters?: { household_id: number }) {
-    const [loading, setLoading] = useState(false);
     const pushApiError = usePushApiError();
-    const runLatestRequest = useLatestRequestWithProgress();
-
-    const [identities, setIdentities] = useState<PaginationData<SponsorIdentity>>(null);
-    const [extra] = useState(extraFilters ?? []);
 
     const paginatorService = usePaginatorService();
     const sponsorIdentitiesService = useSponsorIdentitiesService();
 
+    const [extra] = useState(extraFilters ?? []);
     const [paginatorKey] = useState('identities');
-    const requesterProvisioningAllowed = !!organization.allow_identity_provider_requester_provisioning;
+    const [loading, setLoading] = useState(false);
+    const [identities, setIdentities] = useState<PaginationData<SponsorIdentity>>(null);
 
     const [states] = useState([
         { key: null, name: 'Alle' },
@@ -29,9 +26,14 @@ export default function useFetchSponsorIdentities(organization: Organization, ex
         { key: 'success', name: 'Voltooid' },
     ]);
 
+    const showProfileStatus = organization.show_identity_provider_profile_status;
+
+    const runLatestRequest = useLatestRequestWithProgress();
+
     const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
         q: string;
         state: string;
+        type?: SponsorIdentity['type'] | null;
         page?: number;
         city?: string;
         has_bsn?: number;
@@ -52,6 +54,7 @@ export default function useFetchSponsorIdentities(organization: Organization, ex
         {
             q: '',
             state: states[0].key,
+            type: null,
             fund_id: null,
             identity_provider_status: null,
             page: 1,
@@ -74,6 +77,7 @@ export default function useFetchSponsorIdentities(organization: Organization, ex
             queryParams: {
                 q: StringParam,
                 state: StringParam,
+                type: createEnumParam<SponsorIdentity['type']>(['voucher', 'profile', 'employee']),
                 page: NumberParam,
                 city: StringParam,
                 has_bsn: NumberParam,
@@ -99,16 +103,15 @@ export default function useFetchSponsorIdentities(organization: Organization, ex
         },
     );
 
-    const requestFilters = useMemo(
-        () => ({
+    const requestFilters = useMemo(() => {
+        return {
             ...filterValuesActive,
             ...extra,
-            ...(!requesterProvisioningAllowed && filterValuesActive.identity_provider_status
+            ...(!showProfileStatus && filterValuesActive.identity_provider_status
                 ? { identity_provider_status: null, page: 1 }
                 : {}),
-        }),
-        [extra, filterValuesActive, requesterProvisioningAllowed],
-    );
+        };
+    }, [extra, filterValuesActive, showProfileStatus]);
 
     const fetchIdentities = useCallback(() => {
         runLatestRequest((config) => sponsorIdentitiesService.list(organization.id, requestFilters, config), {
@@ -120,10 +123,10 @@ export default function useFetchSponsorIdentities(organization: Organization, ex
     }, [runLatestRequest, sponsorIdentitiesService, organization.id, requestFilters, pushApiError]);
 
     useEffect(() => {
-        if (!requesterProvisioningAllowed && filterValues.identity_provider_status) {
+        if (!showProfileStatus && filterValues.identity_provider_status) {
             filterUpdate({ identity_provider_status: null, page: 1 });
         }
-    }, [requesterProvisioningAllowed, filterValues.identity_provider_status, filterUpdate]);
+    }, [showProfileStatus, filterValues.identity_provider_status, filterUpdate]);
 
     return { filter, filterValues, filterUpdate, requestFilters, loading, identities, fetchIdentities, paginatorKey };
 }

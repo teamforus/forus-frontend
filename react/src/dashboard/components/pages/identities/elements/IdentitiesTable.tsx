@@ -19,7 +19,10 @@ import { dateFormat, dateParse } from '../../../../helpers/dates';
 import IdentitiesTableRowItems from './IdentitiesTableRowItems';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import useFetchSponsorIdentities from '../hooks/useFetchSponsorIdentities';
-import { IdentityProviderStatusFilter, ProfileRecordType } from '../../../../props/models/Sponsor/SponsorIdentity';
+import SponsorIdentity, {
+    IdentityProviderStatusFilter,
+    ProfileRecordType,
+} from '../../../../props/models/Sponsor/SponsorIdentity';
 import RecordType from '../../../../props/models/RecordType';
 import { useRecordTypeService } from '../../../../services/RecordTypeService';
 import useEditProfileRecords from '../../identitities-show/hooks/useEditProfileRecords';
@@ -51,6 +54,15 @@ export default function IdentitiesTable() {
         useFetchSponsorIdentities(activeOrganization);
 
     const { setShow } = filter;
+
+    const typeOptions = useMemo(() => {
+        return [
+            { key: null, name: translate('identities.types.all') },
+            { key: 'voucher', name: translate('identities.types.voucher') },
+            { key: 'profile', name: translate('identities.types.profile') },
+            { key: 'employee', name: translate('identities.types.employee') },
+        ];
+    }, [translate]);
 
     const identityProviderOptions = useMemo(
         () => [
@@ -188,7 +200,18 @@ export default function IdentitiesTable() {
                                 />
                             </FilterItemToggle>
 
-                            {activeOrganization.allow_identity_provider_requester_provisioning && (
+                            <FilterItemToggle label={translate('identities.labels.type')} show={true}>
+                                <SelectControl
+                                    className="select-control-filter-panel"
+                                    propKey="key"
+                                    options={typeOptions}
+                                    value={filterValues.type}
+                                    allowSearch={false}
+                                    onChange={(type: SponsorIdentity['type'] | null) => filterUpdate({ type, page: 1 })}
+                                />
+                            </FilterItemToggle>
+
+                            {activeOrganization.show_identity_provider_profile_status && (
                                 <FilterItemToggle
                                     label={translate('identities.labels.identity_provider_status')}
                                     show={true}>

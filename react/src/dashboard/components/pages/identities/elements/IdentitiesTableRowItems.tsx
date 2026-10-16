@@ -22,7 +22,7 @@ export default function IdentitiesTableRowItems({
         <Fragment>
             <td>{identity.id}</td>
             <td>{identity?.type_locale || <TableEmptyValue />}</td>
-            {organization.allow_identity_provider_requester_provisioning && (
+            {organization.show_identity_provider_profile_status && (
                 <td>
                     {identity.identity_provider_management ? (
                         <Label type={identity.identity_provider_management.status === 'active' ? 'success' : 'default'}>

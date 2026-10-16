@@ -32,7 +32,7 @@ export default {
         relation_living_together: 'Samenwonend',
     },
     tooltips: {
-        identity_provider_status: 'Accountstatus voor aanvragers die deze organisatie via Microsoft Entra beheert.',
+        identity_provider_status: 'Status van accounts die deze organisatie via Microsoft Entra beheert.',
         id: 'Dit is een unieke identificatiecode die automatisch wordt gegenereerd voor elke persoon in het systeem. Het helpt om elke persoon individueel te identificeren.',
         type: 'Het type persoon geeft weer hoe de persoon is aangemaakt. Gaat het om een standaard persoon, dan is de persoon via het reguliere proces in het systeem gekomen. Gaat het om een handmatig aangemaakt persoon, dan is de persoon door een medewerker in het systeem gezet.',
         given_name:
@@ -63,6 +63,12 @@ export default {
             'De samenstelling van het huishouden, inclusief het aantal en de relaties van personen die samenwonen.',
         street: 'De officiële, door de gemeente vastgestelde naam van een straat.',
         created_at: 'Gemaakt op',
+    },
+    types: {
+        all: 'Alle',
+        voucher: 'Standaard',
+        profile: 'Handmatig',
+        employee: 'Medewerker',
     },
     entra: {
         managed_by: 'Beheerd door',

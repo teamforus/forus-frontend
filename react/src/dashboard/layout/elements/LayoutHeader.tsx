@@ -191,7 +191,7 @@ export const LayoutHeader = () => {
                                 <ClickOutside
                                     onClickOutside={() => setShowIdentityMenu(false)}
                                     className="auth-user-menu">
-                                    {activeOrganization && (
+                                    {activeOrganization && authIdentity.can_manage_emails && (
                                         <IdentityMenuItem
                                             name={'E-mail instellingen'}
                                             url={getStateRouteUrl(DashboardRoutes.PREFERENCE_EMAILS)}

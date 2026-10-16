@@ -1,3 +1,5 @@
+export type IdentityProviderAccountType = 'requester' | 'employee';
+
 export default interface IdentityProviderScimCredential {
     uid: string;
     created_at: string;

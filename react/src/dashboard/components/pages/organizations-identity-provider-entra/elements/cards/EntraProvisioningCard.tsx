@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import useTranslate from '../../../../../hooks/useTranslate';
 import type IdentityProviderConnection from '../../../../../props/models/IdentityProvider/IdentityProviderConnection';
+import type IdentityProviderScimCredential from '../../../../../props/models/IdentityProvider/IdentityProviderScimCredential';
 import CardBlockKeyValue from '../../../../elements/card/blocks/CardBlockKeyValue';
 import FormGroup from '../../../../elements/forms/elements/FormGroup';
 import FormGroupInfo from '../../../../elements/forms/elements/FormGroupInfo';
@@ -9,6 +10,9 @@ import Label from '../../../../elements/label/Label';
 
 export default function EntraProvisioningCard({
     connection,
+    credential,
+    title,
+    description,
     credentialRevoked,
     token,
     busy,
@@ -16,6 +20,9 @@ export default function EntraProvisioningCard({
     onRevoke,
 }: {
     connection: IdentityProviderConnection;
+    credential: IdentityProviderScimCredential | null;
+    title: string;
+    description: string;
     credentialRevoked: boolean;
     token: string | null;
     busy: boolean;
@@ -23,19 +30,17 @@ export default function EntraProvisioningCard({
     onRevoke: () => void;
 }) {
     const translate = useTranslate();
-    const credential = connection.scim_credential;
+
     const configured = credential && !credential.revoked_at && !credentialRevoked;
 
     return (
         <div className="card card-collapsed">
             <div className="card-header">
-                <div className="card-title">
-                    {translate('organizations_identity_provider_entra.provisioning.title')}
-                </div>
+                <div className="card-title">{title}</div>
             </div>
 
             <div className="card-section form">
-                <div className="card-text">{translate('organizations_identity_provider_entra.provisioning.setup')}</div>
+                <div className="card-text">{description}</div>
 
                 <FormGroup
                     label={translate('organizations_identity_provider_entra.provisioning.endpoint')}

@@ -5,6 +5,7 @@ import useIdentityProviderAction from '../../hooks/useIdentityProviderAction';
 import { ApiResponseSingle, ResponseError } from '../../../../../props/ApiResponses';
 import usePushApiError from '../../../../../hooks/usePushApiError';
 import type IdentityProviderConnection from '../../../../../props/models/IdentityProvider/IdentityProviderConnection';
+import type { IdentityProviderAccountType } from '../../../../../props/models/IdentityProvider/IdentityProviderScimCredential';
 import { useIdentityProviderConnectionService } from '../../../../../services/IdentityProviderConnectionService';
 import EntraConnectionCard from '../cards/EntraConnectionCard';
 import EntraEventsCard from '../cards/EntraEventsCard';
@@ -13,128 +14,165 @@ import EntraProvisioningCard from '../cards/EntraProvisioningCard';
 
 type ConnectionActionResponse = ApiResponseSingle<IdentityProviderConnection>;
 
+const credentialKeys = {
+    requester: 'scim_credential_requester',
+    employee: 'scim_credential_employee',
+} as const;
+
 export default function EntraConnectionManagementState({
     connection,
     onConnectionChange,
     organizationId,
+    employeeProvisioningAllowed,
     requesterProvisioningAllowed,
 }: {
     connection: IdentityProviderConnection;
     onConnectionChange: (connection: IdentityProviderConnection | null) => void;
     organizationId: number;
+    employeeProvisioningAllowed: boolean;
     requesterProvisioningAllowed: boolean;
 }) {
     const translate = useTranslate();
-    const confirmDangerAction = useConfirmDangerAction();
     const pushApiError = usePushApiError();
+    const confirmDangerAction = useConfirmDangerAction();
 
     const identityProviderConnectionService = useIdentityProviderConnectionService();
 
     const [eventsRefreshKey, setEventsRefreshKey] = useState(0);
-    const [scimToken, setScimToken] = useState<string | null>(null);
-    const [revokedCredentialUid, setRevokedCredentialUid] = useState<string | null>(null);
 
-    const credentialRevoked = !!connection.scim_credential && connection.scim_credential.uid === revokedCredentialUid;
+    const [scimTokens, setScimTokens] = useState<Record<IdentityProviderAccountType, string | null>>({
+        requester: null,
+        employee: null,
+    });
+
+    const [revokedCredentialUids, setRevokedCredentialUids] = useState<
+        Record<IdentityProviderAccountType, string | null>
+    >({
+        requester: null,
+        employee: null,
+    });
 
     const mountedRef = useRef(false);
 
+    const provisioningAllowed = employeeProvisioningAllowed || requesterProvisioningAllowed;
+
     const { busy, runAction } = useIdentityProviderAction();
 
-    const issueScimCredential = useCallback(async () => {
-        if (connection.scim_credential && !connection.scim_credential.revoked_at && !credentialRevoked) {
+    const issueScimCredential = useCallback(
+        async (accountType: IdentityProviderAccountType) => {
+            const credentialKey = credentialKeys[accountType];
+            const credential = connection[credentialKey];
+            const credentialRevoked = credential?.uid === revokedCredentialUids[accountType];
+
+            if (credential && !credential.revoked_at && !credentialRevoked) {
+                const confirmed = await confirmDangerAction(
+                    translate('organizations_identity_provider_entra.provisioning.rotate'),
+                    accountType === 'employee'
+                        ? translate('organizations_identity_provider_entra.employee_provisioning.rotate_confirm')
+                        : translate('organizations_identity_provider_entra.provisioning.rotate_confirm'),
+                    translate('organizations_identity_provider_entra.provisioning.rotate'),
+                    translate('organizations_identity_provider_entra.ui.cancel'),
+                );
+
+                if (!confirmed) {
+                    return;
+                }
+            }
+
+            if (!mountedRef.current) {
+                return;
+            }
+
+            setScimTokens((values) => ({ ...values, [accountType]: null }));
+
+            runAction(
+                () =>
+                    identityProviderConnectionService.issueScimCredential(organizationId, connection.uid, accountType),
+                {
+                    successMessage: translate('organizations_identity_provider_entra.provisioning.token_created'),
+                    onSuccess: (response) => {
+                        const { token, ...credential } = response.data.data;
+
+                        setScimTokens((values) => ({ ...values, [accountType]: token }));
+                        onConnectionChange({ ...connection, [credentialKey]: credential });
+                        setEventsRefreshKey((value) => value + 1);
+                    },
+                },
+            ).then();
+        },
+        [
+            connection,
+            revokedCredentialUids,
+            confirmDangerAction,
+            identityProviderConnectionService,
+            onConnectionChange,
+            organizationId,
+            runAction,
+            translate,
+        ],
+    );
+
+    const revokeScimCredential = useCallback(
+        async (accountType: IdentityProviderAccountType) => {
+            const credential = connection[credentialKeys[accountType]];
+
             const confirmed = await confirmDangerAction(
-                translate('organizations_identity_provider_entra.provisioning.rotate'),
-                translate('organizations_identity_provider_entra.provisioning.rotate_confirm'),
-                translate('organizations_identity_provider_entra.provisioning.rotate'),
+                translate('organizations_identity_provider_entra.provisioning.revoke'),
+                accountType === 'employee'
+                    ? translate('organizations_identity_provider_entra.employee_provisioning.revoke_confirm')
+                    : translate('organizations_identity_provider_entra.provisioning.revoke_confirm'),
+                translate('organizations_identity_provider_entra.provisioning.revoke'),
                 translate('organizations_identity_provider_entra.ui.cancel'),
             );
 
-            if (!confirmed) {
+            if (!confirmed || !mountedRef.current) {
                 return;
             }
-        }
 
-        if (!mountedRef.current) {
-            return;
-        }
+            runAction(
+                async () => {
+                    await identityProviderConnectionService.revokeScimCredential(
+                        organizationId,
+                        connection.uid,
+                        credential.uid,
+                    );
 
-        setScimToken(null);
-
-        runAction(() => identityProviderConnectionService.issueScimCredential(organizationId, connection.uid), {
-            successMessage: translate('organizations_identity_provider_entra.provisioning.token_created'),
-            onSuccess: (response) => {
-                const { token, ...credential } = response.data.data;
-
-                setScimToken(token);
-                onConnectionChange({ ...connection, scim_credential: credential });
-                setEventsRefreshKey((value) => value + 1);
-            },
-        }).then();
-    }, [
-        connection,
-        credentialRevoked,
-        confirmDangerAction,
-        identityProviderConnectionService,
-        onConnectionChange,
-        organizationId,
-        runAction,
-        translate,
-    ]);
-
-    const revokeScimCredential = useCallback(async () => {
-        const confirmed = await confirmDangerAction(
-            translate('organizations_identity_provider_entra.provisioning.revoke'),
-            translate('organizations_identity_provider_entra.provisioning.revoke_confirm'),
-            translate('organizations_identity_provider_entra.provisioning.revoke'),
-            translate('organizations_identity_provider_entra.ui.cancel'),
-        );
-
-        if (!confirmed || !mountedRef.current) {
-            return;
-        }
-
-        runAction(
-            async () => {
-                await identityProviderConnectionService.revokeScimCredential(
-                    organizationId,
-                    connection.uid,
-                    connection.scim_credential.uid,
-                );
-
-                if (!mountedRef.current) {
-                    return;
-                }
-
-                setScimToken(null);
-                setRevokedCredentialUid(connection.scim_credential.uid);
-                setEventsRefreshKey((value) => value + 1);
-
-                try {
-                    const response = await identityProviderConnectionService.read(organizationId, connection.uid);
-
-                    if (mountedRef.current) {
-                        onConnectionChange(response.data.data);
+                    if (!mountedRef.current) {
+                        return;
                     }
-                } catch (error) {
-                    if (mountedRef.current) {
-                        pushApiError(error as ResponseError);
+
+                    setScimTokens((values) => ({ ...values, [accountType]: null }));
+                    setRevokedCredentialUids((values) => ({ ...values, [accountType]: credential.uid }));
+                    setEventsRefreshKey((value) => value + 1);
+
+                    try {
+                        const response = await identityProviderConnectionService.read(organizationId, connection.uid);
+
+                        if (mountedRef.current) {
+                            onConnectionChange(response.data.data);
+                        }
+                    } catch (error) {
+                        if (mountedRef.current) {
+                            pushApiError(error as ResponseError);
+                        }
                     }
-                }
-            },
-            {
-                successMessage: translate('organizations_identity_provider_entra.provisioning.token_revoked'),
-            },
-        ).then();
-    }, [
-        connection,
-        confirmDangerAction,
-        identityProviderConnectionService,
-        onConnectionChange,
-        organizationId,
-        pushApiError,
-        runAction,
-        translate,
-    ]);
+                },
+                {
+                    successMessage: translate('organizations_identity_provider_entra.provisioning.token_revoked'),
+                },
+            ).then();
+        },
+        [
+            connection,
+            confirmDangerAction,
+            identityProviderConnectionService,
+            onConnectionChange,
+            organizationId,
+            pushApiError,
+            runAction,
+            translate,
+        ],
+    );
 
     const runConnectionAction = useCallback(
         (request: () => Promise<ConnectionActionResponse>, successMessage: string) => {
@@ -152,7 +190,7 @@ export default function EntraConnectionManagementState({
     const pauseConnection = useCallback(() => {
         confirmDangerAction(
             translate('organizations_identity_provider_entra.ui.pause_title'),
-            requesterProvisioningAllowed
+            provisioningAllowed
                 ? translate('organizations_identity_provider_entra.provisioning.pause_confirm')
                 : translate('organizations_identity_provider_entra.ui.pause_confirm'),
             translate('organizations_identity_provider_entra.ui.pause'),
@@ -170,7 +208,7 @@ export default function EntraConnectionManagementState({
         connection.uid,
         identityProviderConnectionService,
         organizationId,
-        requesterProvisioningAllowed,
+        provisioningAllowed,
         runConnectionAction,
         translate,
     ]);
@@ -234,7 +272,7 @@ export default function EntraConnectionManagementState({
             <EntraConnectionCard
                 busy={busy}
                 connection={connection}
-                requesterProvisioningAllowed={requesterProvisioningAllowed}
+                provisioningAllowed={provisioningAllowed}
                 onPause={pauseConnection}
                 onDisconnect={disconnectConnection}
                 onResume={resumeConnection}
@@ -250,15 +288,44 @@ export default function EntraConnectionManagementState({
                 refreshKey={eventsRefreshKey}
             />
 
+            {employeeProvisioningAllowed && (
+                <>
+                    <EntraProvisioningCard
+                        connection={connection}
+                        credential={connection.scim_credential_employee}
+                        title={translate('organizations_identity_provider_entra.employee_provisioning.title')}
+                        description={translate('organizations_identity_provider_entra.employee_provisioning.setup')}
+                        credentialRevoked={connection.scim_credential_employee?.uid === revokedCredentialUids.employee}
+                        token={scimTokens.employee}
+                        busy={busy}
+                        onIssue={() => issueScimCredential('employee')}
+                        onRevoke={() => revokeScimCredential('employee')}
+                    />
+
+                    <EntraEventsCard
+                        key={`${connection.uid}:employee_provisioning`}
+                        category="employee_provisioning"
+                        organizationId={organizationId}
+                        connectionUid={connection.uid}
+                        refreshKey={eventsRefreshKey}
+                    />
+                </>
+            )}
+
             {requesterProvisioningAllowed && (
                 <>
                     <EntraProvisioningCard
                         connection={connection}
-                        credentialRevoked={credentialRevoked}
-                        token={scimToken}
+                        credential={connection.scim_credential_requester}
+                        title={translate('organizations_identity_provider_entra.provisioning.title')}
+                        description={translate('organizations_identity_provider_entra.provisioning.setup')}
+                        credentialRevoked={
+                            connection.scim_credential_requester?.uid === revokedCredentialUids.requester
+                        }
+                        token={scimTokens.requester}
                         busy={busy}
-                        onIssue={issueScimCredential}
-                        onRevoke={revokeScimCredential}
+                        onIssue={() => issueScimCredential('requester')}
+                        onRevoke={() => revokeScimCredential('requester')}
                     />
 
                     <EntraEventsCard

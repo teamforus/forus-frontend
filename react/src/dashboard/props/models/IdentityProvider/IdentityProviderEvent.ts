@@ -1,4 +1,4 @@
-export type IdentityProviderEventCategory = 'sso' | 'requester_provisioning';
+export type IdentityProviderEventCategory = 'sso' | 'employee_provisioning' | 'requester_provisioning';
 
 export default interface IdentityProviderEvent {
     id: number;

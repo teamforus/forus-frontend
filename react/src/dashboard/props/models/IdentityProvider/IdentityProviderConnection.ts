@@ -21,7 +21,8 @@ export default interface IdentityProviderConnection {
     can_disconnect: boolean;
     disconnect_disabled_reason: string | null;
     scim_url: string;
-    scim_credential: IdentityProviderScimCredential | null;
+    scim_credential_employee: IdentityProviderScimCredential | null;
+    scim_credential_requester: IdentityProviderScimCredential | null;
     webshops: Array<IdentityProviderWebshop>;
     last_auth_success_at?: string;
     last_auth_success_at_locale?: string;

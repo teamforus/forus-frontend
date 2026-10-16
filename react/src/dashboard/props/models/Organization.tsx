@@ -111,6 +111,8 @@ export default interface Organization {
     allow_fund_request_record_edit: boolean;
     allow_bi_connection: boolean;
     allow_identity_providers?: boolean;
+    show_identity_provider_profile_status?: boolean;
+    allow_identity_provider_employee_provisioning?: boolean;
     allow_identity_provider_requester_provisioning?: boolean;
     allow_physical_cards: boolean;
     allow_product_updates: boolean;

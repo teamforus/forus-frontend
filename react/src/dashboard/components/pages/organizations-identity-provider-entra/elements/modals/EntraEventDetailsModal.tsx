@@ -10,7 +10,8 @@ import { outcomeLabels, outcomeTypes } from '../../constants';
 
 export default function EntraEventDetailsModal({ modal, event }: { modal: ModalState; event: IdentityProviderEvent }) {
     const translate = useTranslate();
-    const provisioning = event.category === 'requester_provisioning';
+
+    const provisioning = event.category === 'employee_provisioning' || event.category === 'requester_provisioning';
 
     return (
         <Modal
@@ -53,7 +54,7 @@ export default function EntraEventDetailsModal({ modal, event }: { modal: ModalS
                               },
                           ]
                         : []),
-                    ...(provisioning && event.profile_id !== null
+                    ...(event.category === 'requester_provisioning' && event.profile_id !== null
                         ? [
                               {
                                   label: translate('organizations_identity_provider_entra.events.profile_id'),

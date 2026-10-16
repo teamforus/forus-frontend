@@ -81,6 +81,16 @@ export default function OrganizationIdentityProviderConnection() {
                 refreshKey={0}
             />
 
+            {organization.allow_identity_provider_employee_provisioning && (
+                <EntraEventsCard
+                    key={`${organization.id}:${connection.uid}:employee_provisioning`}
+                    category="employee_provisioning"
+                    organizationId={organization.id}
+                    connectionUid={connection.uid}
+                    refreshKey={0}
+                />
+            )}
+
             {organization.allow_identity_provider_requester_provisioning && (
                 <EntraEventsCard
                     key={`${organization.id}:${connection.uid}:requester_provisioning`}

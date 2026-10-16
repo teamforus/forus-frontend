@@ -40,7 +40,7 @@ export default function LayoutAsideGroupPersonal({
                 {
                     name: 'E-mail instellingen',
                     state: DashboardRoutes.PREFERENCE_EMAILS,
-                    show: !!organization,
+                    show: !!organization && !!identity?.can_manage_emails,
                 },
                 {
                     name: 'Beveiliging',

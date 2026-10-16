@@ -3,6 +3,9 @@ export default {
         linked_accounts: 'Gekoppelde accounts',
         sign_in: 'Inloggen met Microsoft',
         sign_in_failed: 'Inloggen met Microsoft is mislukt.',
+        dashboard_role_missing_title: 'Nog geen toegang',
+        dashboard_role_missing:
+            'U heeft nog geen rechten voor dit dashboard. Vraag de beheerder van uw organisatie om u de benodigde rechten te geven.',
         link_failed_title: 'Account koppelen mislukt',
         link_failed: 'Het inlogaccount kon niet worden gekoppeld.',
         link_title: 'Een inlogaccount koppelen',
@@ -75,10 +78,10 @@ export default {
     provisioning: {
         title: 'Aanvragersprovisioning',
         pause_confirm:
-            'Hiermee blokkeert u het inloggen met Microsoft en beëindigt u bestaande Forus-sessies via deze koppeling. Na hervatten moeten gebruikers opnieuw inloggen.\nTegoeden van via SCIM aangemaakte aanvragers blijven bruikbaar. Aanvragersprovisioning via SCIM blijft doorgaan.',
+            'Hiermee blokkeert u het inloggen met Microsoft en beëindigt u bestaande Forus-sessies via deze koppeling. Na hervatten moeten gebruikers opnieuw inloggen.\nTegoeden van via SCIM beheerde accounts blijven bruikbaar. Provisioning via SCIM blijft doorgaan.',
         resume_description:
-            'Inloggen met Microsoft is tijdelijk niet mogelijk. Bestaande Forus-sessies via deze koppeling zijn beëindigd. Na hervatten moeten gebruikers opnieuw inloggen. Tegoeden van via SCIM aangemaakte aanvragers blijven bruikbaar. Aanvragersprovisioning via SCIM blijft doorgaan.',
-        setup: 'Gebruik in Microsoft Entra een aparte bedrijfsapplicatie voor aanvragersprovisioning. Vul bij Provisioning de onderstaande URL in als Tenant URL en het token als Secret Token. Dit staat los van de app voor Microsoft-inloggen.',
+            'Inloggen met Microsoft is tijdelijk niet mogelijk. Bestaande Forus-sessies via deze koppeling zijn beëindigd. Na hervatten moeten gebruikers opnieuw inloggen. Tegoeden van via SCIM beheerde accounts blijven bruikbaar. Provisioning via SCIM blijft doorgaan.',
+        setup: 'Stel aanvragersprovisioning in Microsoft Entra in met de onderstaande URL als Tenant URL en het token als Secret Token.',
         endpoint: 'SCIM-endpoint',
         endpoint_info: 'Kopieer deze URL naar het veld Tenant URL in de provisioning-instellingen van Entra.',
         credential_status: 'Tokenstatus',
@@ -92,14 +95,23 @@ export default {
         rotate: 'Geheim token vervangen',
         revoke: 'Geheim token intrekken',
         rotate_confirm:
-            'Het huidige token wordt direct ingetrokken. Provisioning stopt totdat u het nieuwe token in Entra opslaat. Bestaande accounts en tegoeden blijven ongewijzigd.',
+            'Het huidige token voor aanvragersprovisioning wordt direct ingetrokken. Aanvragersprovisioning stopt totdat u het nieuwe token in Entra opslaat. Medewerkersprovisioning, bestaande accounts en tegoeden blijven ongewijzigd.',
         revoke_confirm:
-            'Entra kan hierna geen aanvragers meer aanmaken of bijwerken. Bestaande accounts en tegoeden blijven ongewijzigd. U kunt later een nieuw token aanmaken.',
+            'Entra kan hierna geen aanvragers meer aanmaken of bijwerken. Medewerkersprovisioning, bestaande accounts en tegoeden blijven ongewijzigd. U kunt later een nieuw token aanmaken.',
         token_created: 'Het nieuwe provisioning-token is aangemaakt. Kopieer het nu naar Entra.',
         token_revoked: 'Het provisioning-token is ingetrokken.',
     },
+    employee_provisioning: {
+        title: 'Medewerkersprovisioning',
+        setup: 'Stel medewerkersprovisioning in Microsoft Entra in met de onderstaande URL als Tenant URL en het token als Secret Token.',
+        rotate_confirm:
+            'Het huidige token voor medewerkersprovisioning wordt direct ingetrokken. Medewerkersprovisioning stopt totdat u het nieuwe token in Entra opslaat. Aanvragersprovisioning, bestaande accounts en tegoeden blijven ongewijzigd.',
+        revoke_confirm:
+            'Entra kan hierna geen medewerkers meer aanmaken of bijwerken. Aanvragersprovisioning, bestaande accounts en tegoeden blijven ongewijzigd. U kunt later een nieuw token aanmaken.',
+    },
     events: {
-        provisioning_title: 'Provisioning-gebeurtenissen',
+        provisioning_title: 'Gebeurtenissen aanvragersprovisioning',
+        employee_provisioning_title: 'Gebeurtenissen medewerkersprovisioning',
         all_outcomes: 'Alle resultaten',
         details_title: 'Gebeurtenisdetails',
         account: 'Account',
