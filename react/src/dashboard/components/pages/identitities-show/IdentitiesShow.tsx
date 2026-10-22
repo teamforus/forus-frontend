@@ -28,8 +28,11 @@ import BlockCardNotes from '../../elements/block-card-notes/BlockCardNotes';
 import Note from '../../../props/models/Note';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import { RequestConfig } from '../../../props/ApiResponses';
+import useTranslate from '../../../hooks/useTranslate';
+import Label from '../../elements/label/Label';
 
 export default function IdentitiesShow() {
+    const translate = useTranslate();
     const setProgress = useSetProgress();
     const activeOrganization = useActiveOrganization();
 
@@ -39,6 +42,7 @@ export default function IdentitiesShow() {
 
     const identityId = parseInt(useParams().id);
     const [identity, setIdentity] = useState<SponsorIdentity>(null);
+    const identityProviderManagement = identity?.identity_provider_management;
 
     const otherEmails = useMemo(() => {
         return identity?.email_verified ? identity?.email_verified : [];
@@ -201,11 +205,34 @@ export default function IdentitiesShow() {
                         { label: 'Accountnummer', value: identity?.id },
                         identity?.type_locale ? { label: 'Account type', value: identity?.type_locale } : null,
                         identity?.employee_email ? { label: 'Aangemaakt door', value: identity?.employee_email } : null,
+                        identityProviderManagement
+                            ? {
+                                  label: translate('identities.entra.managed_by'),
+                                  value: translate('identities.entra.provider_name'),
+                              }
+                            : null,
+                        identityProviderManagement
+                            ? {
+                                  label: translate('identities.entra.account_status'),
+                                  value: (
+                                      <Label
+                                          type={identityProviderManagement.status === 'active' ? 'success' : 'default'}>
+                                          {identityProviderManagement.status === 'active'
+                                              ? translate('identities.entra.active')
+                                              : translate('identities.entra.disabled')}
+                                      </Label>
+                                  ),
+                              }
+                            : null,
                         { label: 'Aangemaakt op', value: identity?.created_at_locale },
                         { label: 'Laatste inlog', value: identity?.last_login_at_locale },
                         { label: 'Laatste handeling', value: identity?.last_activity_at_locale },
                     ].filter((item) => item !== null)}
                 />
+
+                {identityProviderManagement && (
+                    <div className="card-text">{translate('identities.entra.management_description')}</div>
+                )}
             </Card>
 
             <Card
