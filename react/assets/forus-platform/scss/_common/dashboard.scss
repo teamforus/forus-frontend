@@ -12,6 +12,7 @@
 
 // components
 @use 'components/app.scss';
+@use 'components/header-dropdown.scss';
 @use 'components/card-heading.scss';
 @use 'components/card.scss';
 @use 'components/signup-layout.scss';
@@ -43,6 +44,8 @@
 @use 'blocks/block-sessions';
 @use 'blocks/block-breadcrumbs';
 @use 'blocks/block-notifications';
+@use 'blocks/block-header-notifications';
+@use 'blocks/block-header-account';
 @use 'blocks/block-app_download.scss';
 @use 'blocks/block-app_links.scss';
 @use 'blocks/block-timeframe.scss';

@@ -1,5 +1,19 @@
 @use "../includes/helpers";
 
+@mixin keyvalue-item-stacked {
+    margin: 0 0 12px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    .keyvalue-key {
+        margin-bottom: 6px;
+    }
+
+    &:not(:last-child):not(:last-of-type) .keyvalue-key:after {
+        display: none;
+    }
+}
+
 .card-block.card-block-keyvalue {
     margin-bottom: 10px;
     @include helpers.cf();
@@ -298,5 +312,59 @@
 
     &:last-child {
         margin-bottom: 0;
+    }
+
+    @media screen and (max-width: 1000px) {
+        &.card-block-keyvalue-horizontal {
+            .keyvalue-item[class*='col-xs-12'] {
+                @include keyvalue-item-stacked;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        &:not(.card-block-keyvalue-horizontal) {
+            .keyvalue-item {
+                .keyvalue-key {
+                    float: none;
+                    width: 100%;
+                    padding-right: 0;
+
+                    &.text-right {
+                        text-align: left;
+                    }
+                }
+
+                .keyvalue-value {
+                    float: none;
+                    width: 100%;
+
+                    & > .col {
+                        padding-left: 0;
+                        padding-right: 0;
+                    }
+                }
+
+                &.flex {
+                    flex-direction: column;
+                    gap: 4px;
+                }
+            }
+        }
+
+        &.card-block-keyvalue-horizontal {
+            display: flex;
+            flex-wrap: wrap;
+
+            .keyvalue-item:not([class*='col-xs-']) {
+                float: none;
+                width: 50%;
+                @include keyvalue-item-stacked;
+            }
+        }
     }
 }

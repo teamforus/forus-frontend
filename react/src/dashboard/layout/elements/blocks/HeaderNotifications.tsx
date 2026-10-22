@@ -1,43 +1,104 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Organization from '../../../props/models/Organization';
 import { useNotificationService } from '../../../services/NotificationService';
-import ClickOutside from '../../../modules/click-outside/ClickOutside';
-import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { PaginationData } from '../../../props/ApiResponses';
 import Notification from '../../../props/models/Notification';
 import useEnvData from '../../../hooks/useEnvData';
+import usePushApiError from '../../../hooks/usePushApiError';
 import classNames from 'classnames';
-import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useFDTargetObserverRef from '../../../modules/frame_director/hooks/useFDTargetObserverRef';
+import HeaderDropdown from './HeaderDropdown';
+import HeaderNotificationsPanel from './HeaderNotificationsPanel';
 
-export default function HeaderNotifications({ organization }: { organization: Organization }) {
+export default function HeaderNotifications({
+    organization,
+    sidebarOpen,
+    onSidebarToggle,
+}: {
+    organization: Organization;
+    sidebarOpen: boolean;
+    onSidebarToggle?: () => void;
+}) {
     const envData = useEnvData();
-    const [notifications, setNotifications] = useState<PaginationData<Notification>>(null);
-    const [showNotifications, setShowNotifications] = useState(false);
+    const pushApiError = usePushApiError();
     const notificationService = useNotificationService();
+
     const [setReadTimeoutDelay] = useState(2500);
+    const [readReady, setReadReady] = useState(false);
+    const [showNotifications, setShowNotifications] = useState(false);
+    const [notifications, setNotifications] = useState<PaginationData<Notification>>(null);
+
+    const requestRef = useRef(0);
+    const notificationRef = useRef<HTMLButtonElement>(null);
+
+    const unseenCount = parseInt(notifications?.meta?.total_unseen?.toString()) || 0;
 
     const fetchNotifications = useCallback(
         (mark_read = false, seenIds = []) => {
+            const requestId = ++requestRef.current;
+
+            setReadReady(false);
+
             notificationService
                 .list({ organization_id: organization?.id, seen: 0, per_page: 100, mark_read: mark_read ? 1 : 0 })
                 .then((res) => {
+                    if (requestId !== requestRef.current) {
+                        return;
+                    }
+
                     res.data.data = res.data.data.map((item) => ({
                         ...item,
                         seen: item.seen || seenIds.includes(item.id),
                     }));
 
                     setNotifications(res.data);
+                    setReadReady(true);
+                })
+                .catch((error) => {
+                    if (requestId === requestRef.current) {
+                        pushApiError(error);
+                    }
                 });
         },
-        [notificationService, organization],
+        [notificationService, organization, pushApiError],
     );
+
+    const closeNotifications = useCallback(() => {
+        setShowNotifications(false);
+    }, []);
+
+    const notificationContent = useMemo(() => {
+        return (
+            <HeaderNotificationsPanel
+                organizationId={organization.id}
+                notifications={notifications}
+                onClose={closeNotifications}
+            />
+        );
+    }, [closeNotifications, notifications, organization.id]);
+
+    useFDTargetObserverRef({
+        targetRef: notificationRef,
+        show: showNotifications,
+        contentContainer: HeaderDropdown,
+        content: notificationContent,
+        close: closeNotifications,
+        position: 'bottom',
+        align: 'end',
+    });
+
+    useEffect(() => {
+        if (sidebarOpen) {
+            setShowNotifications(false);
+        }
+    }, [sidebarOpen]);
 
     useEffect(() => {
         fetchNotifications();
     }, [fetchNotifications]);
 
     useEffect(() => {
-        if (notifications && showNotifications) {
+        if (notifications && showNotifications && readReady) {
             const timeout = window.setTimeout(() => {
                 fetchNotifications(
                     true,
@@ -47,93 +108,44 @@ export default function HeaderNotifications({ organization }: { organization: Or
 
             return () => window.clearTimeout(timeout);
         }
-    }, [showNotifications, fetchNotifications, setReadTimeoutDelay, notifications]);
+    }, [showNotifications, fetchNotifications, setReadTimeoutDelay, notifications, readReady]);
 
     return (
-        <div className={classNames('notifications', showNotifications && 'active')}>
-            <div className="notifications-icons flex">
-                {/* Help link */}
-                {envData?.config?.help_link && (
-                    <a
-                        href={envData?.config?.help_link}
-                        className="notifications-icon notifications-icon-help"
-                        target={'_blank'}
-                        rel="noreferrer">
-                        <em className="mdi mdi-help" />
-                    </a>
-                )}
-
-                {/* Notifications */}
-                <div
-                    className={classNames(
-                        'notifications-icon',
-                        parseInt(notifications?.meta?.total_unseen?.toString()) > 0
-                            ? 'notifications-icon-updates'
-                            : null,
-                    )}
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        setShowNotifications(!showNotifications);
-
-                        if (!showNotifications) {
-                            setNotifications(null);
-                            fetchNotifications(false);
-                        }
-                    }}>
-                    {parseInt(notifications?.meta?.total_unseen?.toString()) > 0 ? (
-                        <div className="mdi mdi-bell" />
-                    ) : (
-                        <div className="mdi mdi-bell-outline" />
-                    )}
-                </div>
-            </div>
-
-            {/* Notifications dropdown */}
-            {showNotifications && (
-                <ClickOutside onClickOutside={() => setShowNotifications(false)} className="notifications-menu">
-                    <div className="notifications-menu-inner">
-                        <div className="arrow-box">
-                            <em className="arrow" />
-                        </div>
-                        <div className="notifications-menu-header">
-                            Nieuwe notificaties
-                            {parseInt(notifications?.meta?.total_unseen?.toString()) > 0 && (
-                                <span>{` (${notifications.meta.total_unseen} nieuw)`}</span>
-                            )}
-                            <StateNavLink
-                                name={DashboardRoutes.ORGANIZATION_NOTIFICATIONS}
-                                params={{ organizationId: organization.id }}
-                                onClick={() => setShowNotifications(false)}
-                                className="notifications-menu-header-link">
-                                Bekijk alles
-                                <em className="mdi mdi-arrow-right" aria-hidden="true" />
-                            </StateNavLink>
-                        </div>
-                        <div className="notifications-menu-body">
-                            {notifications?.data.map((notification) => (
-                                <div
-                                    key={notification.id}
-                                    className={classNames(
-                                        'notifications-menu-item',
-                                        notification.seen ? null : 'notifications-menu-item-new',
-                                    )}>
-                                    <div className="notifications-menu-item-details">
-                                        <div className="notifications-menu-item-title">{notification.title}</div>
-                                        <div className="notifications-menu-item-text">{notification.description}</div>
-                                        <div className="notifications-menu-item-date">
-                                            <em className="mdi mdi-clock-outline" />
-                                            {notification.created_at_locale}
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                            {(!notifications || notifications?.data.length == 0) && (
-                                <div className="notifications-menu-empty">Geen nieuwe notificaties</div>
-                            )}
-                        </div>
-                    </div>
-                </ClickOutside>
+        <div className="header-actions">
+            {envData?.config?.help_link && (
+                <a
+                    href={envData.config.help_link}
+                    className="header-action header-action-help"
+                    target="_blank"
+                    rel="noreferrer">
+                    <em className="mdi mdi-help" />
+                </a>
             )}
+
+            <button
+                ref={notificationRef}
+                type="button"
+                aria-label="Notificaties"
+                aria-expanded={showNotifications}
+                className={classNames('header-action', showNotifications && 'active', unseenCount > 0 && 'unread')}
+                onClick={(event) => {
+                    event.stopPropagation();
+                    setShowNotifications(!showNotifications);
+
+                    if (!showNotifications) {
+                        fetchNotifications(false);
+
+                        if (sidebarOpen) {
+                            onSidebarToggle?.();
+                        }
+                    }
+                }}>
+                <em className={classNames('mdi', unseenCount > 0 ? 'mdi-bell' : 'mdi-bell-outline')} />
+
+                {unseenCount > 0 && <span className="header-action-count">{Math.min(unseenCount, 99)}</span>}
+
+                <span className="header-action-label">Notificaties</span>
+            </button>
         </div>
     );
 }

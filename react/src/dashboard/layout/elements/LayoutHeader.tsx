@@ -1,24 +1,12 @@
-import React, { MouseEventHandler, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { mainContext } from '../../contexts/MainContext';
 import { strLimit } from '../../helpers/string';
 
-import IconEmail from '../../../../assets/forus-platform/resources/_platform-common/assets/img/menu/icon-dropdown-email.svg';
-import IconNotifications from '../../../../assets/forus-platform/resources/_platform-common/assets/img/menu/icon-dropdown-notifications.svg';
-import IconSecurity from '../../../../assets/forus-platform/resources/_platform-common/assets/img/menu/icon-dropdown-security.svg';
-import IconSessions from '../../../../assets/forus-platform/resources/_platform-common/assets/img/menu/icon-dropdown-sessions.svg';
-import IconAuthorizeDevice from '../../../../assets/forus-platform/resources/_platform-common/assets/img/menu/icon-dropdown-authorize-device.svg';
-import IconSignOut from '../../../../assets/forus-platform/resources/_platform-common/assets/img/menu/icon-dropdown-sign-out.svg';
-
-import IconValidator from '../../../../assets/forus-platform/resources/_platform-common/assets/img/menu/icon-dropdown-validator.svg';
-import IconProvider from '../../../../assets/forus-platform/resources/_platform-common/assets/img/menu/icon-dropdown-provider.svg';
-import IconSponsor from '../../../../assets/forus-platform/resources/_platform-common/assets/img/menu/icon-dropdown-sponsor.svg';
-
-import ClickOutside from '../../modules/click-outside/ClickOutside';
 import { Announcements } from '../../components/elements/announcements/Accouncements';
 import { useOrganizationService } from '../../services/OrganizationService';
 import SelectControl from '../../components/elements/select-control/SelectControl';
 import { getStateRouteUrl, useStateRoutes } from '../../modules/state_router/Router';
-import { NavLink, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import HeaderNotifications from './blocks/HeaderNotifications';
 import SelectControlOptionsOrganization from '../../components/elements/select-control/templates/SelectControlOptionsOrganization';
 import ModalAuthPincode from '../../components/modals/ModalAuthPincode';
@@ -31,66 +19,43 @@ import useOpenModal from '../../hooks/useOpenModal';
 import useAssetUrl from '../../hooks/useAssetUrl';
 import useThumbnailUrl from '../../hooks/useThumbnailUrl';
 import useAuthIdentity2FAState from '../../hooks/useAuthIdentity2FAState';
-import { DashboardRoutes } from '../../modules/state_router/RouterBuilder';
 import classNames from 'classnames';
-import useTranslate from '../../hooks/useTranslate';
+import useFDTargetObserverRef from '../../modules/frame_director/hooks/useFDTargetObserverRef';
+import HeaderDropdown from './blocks/HeaderDropdown';
+import HeaderAccountPanel from './blocks/HeaderAccountPanel';
 
-interface IdentityMenuItemProps {
-    url?: string;
-    href?: string;
-    name: string;
-    icon: React.ReactElement;
-    dusk?: string;
-    active?: boolean;
-    onClick?: MouseEventHandler<HTMLElement>;
-}
-
-const IdentityMenuItem = ({ url, href, name, icon, dusk, active, onClick }: IdentityMenuItemProps) => {
-    if (url) {
-        return (
-            <NavLink to={url} data-dusk={dusk} className={() => classNames('auth-user-menu-item', active && 'active')}>
-                <div className="auth-user-menu-item-icon">{icon}</div>
-                {name}
-            </NavLink>
-        );
-    }
-
-    return (
-        <a
-            href={href}
-            data-dusk={dusk}
-            className={classNames('auth-user-menu-item', active && 'active')}
-            onClick={onClick}>
-            <div className="auth-user-menu-item-icon">{icon}</div>
-            {name}
-        </a>
-    );
-};
-
-export const LayoutHeader = () => {
+export const LayoutHeader = ({
+    sidebarOpen = false,
+    onSidebarToggle = null,
+}: {
+    sidebarOpen?: boolean;
+    onSidebarToggle?: () => void;
+}) => {
     const openModal = useOpenModal();
     const appConfigs = useAppConfigs();
     const authIdentity = useAuthIdentity();
     const authIdentity2FAState = useAuthIdentity2FAState();
     const assetUrl = useAssetUrl();
-    const translate = useTranslate();
     const thumbnailUrl = useThumbnailUrl();
 
     const { envData, organizations, activeOrganization } = useContext(mainContext);
     const { route } = useStateRoutes();
+    const navigate = useNavigate();
+
+    const organizationService = useOrganizationService();
+    const announcementService = useAnnouncementService();
 
     const [showIdentityMenu, setShowIdentityMenu] = useState(false);
     const [organizationAnnouncements, setOrganizationAnnouncements] = useState<Array<Announcement>>(null);
-
-    const navigate = useNavigate();
-    const organizationService = useOrganizationService();
-    const announcementService = useAnnouncementService();
 
     const [roles] = useState({
         sponsor: 'Sponsor',
         provider: 'Aanbieder',
         validator: 'Beoordelaar',
     });
+
+    const headerRef = useRef<HTMLElement>(null);
+    const accountRef = useRef<HTMLButtonElement>(null);
 
     const announcements = useMemo(() => {
         return [...(organizationAnnouncements || []), ...(appConfigs?.announcements || [])];
@@ -107,6 +72,79 @@ export const LayoutHeader = () => {
         [openModal],
     );
 
+    const closeAccount = useCallback(() => {
+        setShowIdentityMenu(false);
+    }, []);
+
+    const accountContent = useMemo(() => {
+        if (!authIdentity || !appConfigs) {
+            return null;
+        }
+
+        return (
+            <HeaderAccountPanel
+                identity={authIdentity?.email || authIdentity?.address}
+                logo={activeOrganization?.logo?.sizes?.thumbnail || thumbnailUrl('organization')}
+                role={roles[envData.client_type]}
+                clientType={envData.client_type}
+                hasOrganization={!!activeOrganization}
+                canManageEmails={!!authIdentity.can_manage_emails}
+                showLinkedAccounts={
+                    !!(authIdentity.has_identity_provider_links || authIdentity.can_link_identity_provider)
+                }
+                showSecurity={!!(activeOrganization?.allow_2fa_restrictions || authIdentity2FAState?.required)}
+                fronts={appConfigs.fronts}
+                onAuthorize={openAuthPincodeModal}
+                onClose={closeAccount}
+            />
+        );
+    }, [
+        activeOrganization,
+        appConfigs,
+        authIdentity,
+        authIdentity2FAState?.required,
+        closeAccount,
+        envData.client_type,
+        openAuthPincodeModal,
+        roles,
+        thumbnailUrl,
+    ]);
+
+    useFDTargetObserverRef({
+        targetRef: accountRef,
+        show: showIdentityMenu,
+        contentContainer: HeaderDropdown,
+        content: accountContent,
+        close: closeAccount,
+        position: 'bottom',
+        align: 'end',
+    });
+
+    useEffect(() => {
+        if (sidebarOpen || !authIdentity) {
+            setShowIdentityMenu(false);
+        }
+    }, [authIdentity, sidebarOpen]);
+
+    useEffect(() => {
+        const header = headerRef.current;
+
+        if (!header) {
+            return;
+        }
+
+        const updateHeight = () => {
+            document.documentElement.style.setProperty('--app-header-height', `${header.offsetHeight}px`);
+        };
+
+        const observer = new ResizeObserver(updateHeight);
+
+        updateHeight();
+        observer.observe(header);
+
+        return () => observer.disconnect();
+    }, []);
+
     useEffect(() => {
         if (!activeOrganization?.id) {
             return;
@@ -118,166 +156,108 @@ export const LayoutHeader = () => {
     }, [activeOrganization?.id, announcementService]);
 
     return (
-        <header className="app app-header">
+        <header className="app app-header" ref={headerRef}>
             {/* Announcements */}
             {announcements?.length > 0 && <Announcements announcements={announcements} />}
 
             <div className="app-header-row">
-                {!activeOrganization && (
-                    <a href="" className="header-logo">
-                        <img alt="Logo" className="header-logo-img" src={assetUrl('/assets/img/logo.svg')} />
-                    </a>
-                )}
-
-                {activeOrganization && (
-                    <div className="header-organization-switcher form">
-                        {organizations && (
-                            <SelectControl
-                                value={activeOrganization}
-                                options={organizations}
-                                allowSearch={true}
-                                onChange={(value: Organization) => {
-                                    organizationService.setActiveId(value.id);
-
-                                    navigate(
-                                        getStateRouteUrl(route.state.fallbackState || route.state.name, {
-                                            ...route.params,
-                                            organizationId: value.id,
-                                        }),
-                                    );
-                                }}
-                                optionsComponent={SelectControlOptionsOrganization}
-                            />
-                        )}
+                {onSidebarToggle && (
+                    <div className="app-header-row-item app-header-row-item-menu">
+                        <button
+                            type="button"
+                            className={classNames('header-action', sidebarOpen && 'active')}
+                            aria-label={sidebarOpen ? 'Menu sluiten' : 'Menu openen'}
+                            aria-expanded={sidebarOpen}
+                            data-dusk="headerSidebarToggle"
+                            onClick={onSidebarToggle}>
+                            <em className={classNames('mdi', sidebarOpen ? 'mdi-close' : 'mdi-menu')} />
+                            <span className="header-action-label">{sidebarOpen ? 'Sluiten' : 'Menu'}</span>
+                        </button>
                     </div>
                 )}
 
-                <div className="flex-grow">&nbsp;</div>
+                <div className="app-header-row-item app-header-row-item-grow">
+                    {!activeOrganization && (
+                        <a href="" className="header-logo">
+                            <img alt="Logo" className="header-logo-img" src={assetUrl('/assets/img/logo.svg')} />
+                        </a>
+                    )}
 
-                {activeOrganization && <HeaderNotifications organization={activeOrganization} />}
+                    {activeOrganization && (
+                        <div className="header-organization-switcher form">
+                            {organizations && (
+                                <SelectControl
+                                    value={activeOrganization}
+                                    options={organizations}
+                                    allowSearch={true}
+                                    onChange={(value: Organization) => {
+                                        organizationService.setActiveId(value.id);
+
+                                        navigate(
+                                            getStateRouteUrl(route.state.fallbackState || route.state.name, {
+                                                ...route.params,
+                                                organizationId: value.id,
+                                            }),
+                                        );
+                                    }}
+                                    optionsComponent={SelectControlOptionsOrganization}
+                                />
+                            )}
+                        </div>
+                    )}
+                </div>
+
+                {activeOrganization && (
+                    <div className="app-header-row-item">
+                        <HeaderNotifications
+                            organization={activeOrganization}
+                            sidebarOpen={sidebarOpen}
+                            onSidebarToggle={onSidebarToggle}
+                        />
+                    </div>
+                )}
 
                 {authIdentity && (
-                    <div className="header-auth">
-                        <div
-                            className="auth-user"
-                            data-dusk="userProfile"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setShowIdentityMenu(!showIdentityMenu);
-                            }}>
-                            <div className="auth-user-details">
-                                <div className="auth-user-name" data-dusk="identityEmail">
-                                    {strLimit(authIdentity.email || authIdentity.address, 32)}
-                                </div>
-                                <div className="auth-user-role">{roles[envData.client_type]}</div>
-                            </div>
+                    <div className="app-header-row-item">
+                        <div className="header-auth">
+                            <button
+                                ref={accountRef}
+                                type="button"
+                                aria-expanded={showIdentityMenu}
+                                className={classNames('header-action header-action-auth', showIdentityMenu && 'active')}
+                                data-dusk="userProfile"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setShowIdentityMenu(!showIdentityMenu);
 
-                            <img
-                                src={activeOrganization?.logo?.sizes?.thumbnail || thumbnailUrl('organization')}
-                                alt="Organization logo"
-                                className="auth-user-img"
-                            />
+                                    if (!showIdentityMenu && sidebarOpen) {
+                                        onSidebarToggle?.();
+                                    }
+                                }}>
+                                <span className="auth-user-details">
+                                    <span className="auth-user-name" data-dusk="identityEmail">
+                                        {strLimit(authIdentity.email || authIdentity.address, 32)}
+                                    </span>
+                                    <span className="auth-user-role">{roles[envData.client_type]}</span>
+                                </span>
 
-                            <div className="auth-user-caret">
-                                <em
-                                    className={classNames(
-                                        'mdi',
-                                        showIdentityMenu ? 'mdi-chevron-up' : 'mdi-chevron-down',
-                                    )}
+                                <img
+                                    src={activeOrganization?.logo?.sizes?.thumbnail || thumbnailUrl('organization')}
+                                    alt="Organization logo"
+                                    className="auth-user-img"
                                 />
-                            </div>
 
-                            {showIdentityMenu && (
-                                <ClickOutside
-                                    onClickOutside={() => setShowIdentityMenu(false)}
-                                    className="auth-user-menu">
-                                    {activeOrganization && authIdentity.can_manage_emails && (
-                                        <IdentityMenuItem
-                                            name={'E-mail instellingen'}
-                                            url={getStateRouteUrl(DashboardRoutes.PREFERENCE_EMAILS)}
-                                            dusk={'btnUserEmails'}
-                                            icon={<IconEmail />}
-                                        />
-                                    )}
+                                <span className="header-action-label">{roles[envData.client_type]}</span>
 
-                                    {activeOrganization && (
-                                        <IdentityMenuItem
-                                            name={'Notificatievoorkeuren'}
-                                            url={getStateRouteUrl(DashboardRoutes.PREFERENCE_NOTIFICATIONS)}
-                                            icon={<IconNotifications />}
-                                        />
-                                    )}
-
-                                    {(activeOrganization?.allow_2fa_restrictions || authIdentity2FAState?.required) && (
-                                        <IdentityMenuItem
-                                            name="Beveiliging"
-                                            url={getStateRouteUrl(DashboardRoutes.SECURITY_2FA)}
-                                            icon={<IconSecurity />}
-                                        />
-                                    )}
-
-                                    {(authIdentity.has_identity_provider_links ||
-                                        authIdentity.can_link_identity_provider) && (
-                                        <IdentityMenuItem
-                                            name={translate('organizations_identity_provider_entra.ui.linked_accounts')}
-                                            url={getStateRouteUrl(DashboardRoutes.SECURITY_LINKED_ACCOUNTS)}
-                                            icon={<IconSecurity />}
-                                        />
-                                    )}
-
-                                    {activeOrganization && (
-                                        <IdentityMenuItem
-                                            name="Sessies"
-                                            url={getStateRouteUrl(DashboardRoutes.SECURITY_SESSIONS)}
-                                            icon={<IconSessions />}
-                                        />
-                                    )}
-
-                                    {activeOrganization && <div className="auth-user-menu-sep" />}
-
-                                    {activeOrganization && (
-                                        <IdentityMenuItem
-                                            name="Autoriseer apparaat"
-                                            onClick={openAuthPincodeModal}
-                                            icon={<IconAuthorizeDevice />}
-                                        />
-                                    )}
-
-                                    {activeOrganization && <div className="auth-user-menu-sep" />}
-
-                                    <div className="auth-user-menu-title">Kies je rol</div>
-
-                                    <IdentityMenuItem
-                                        name="Beoordelaar"
-                                        active={envData.client_type == 'validator'}
-                                        href={appConfigs.fronts.url_validator}
-                                        icon={<IconValidator />}
+                                <span className="auth-user-caret">
+                                    <em
+                                        className={classNames(
+                                            'mdi',
+                                            showIdentityMenu ? 'mdi-chevron-up' : 'mdi-chevron-down',
+                                        )}
                                     />
-
-                                    <IdentityMenuItem
-                                        name="Sponsor"
-                                        active={envData.client_type == 'sponsor'}
-                                        href={appConfigs.fronts.url_sponsor}
-                                        icon={<IconSponsor />}
-                                    />
-
-                                    <IdentityMenuItem
-                                        name="Aanbieder"
-                                        active={envData.client_type == 'provider'}
-                                        href={appConfigs.fronts.url_provider}
-                                        icon={<IconProvider />}
-                                    />
-
-                                    {activeOrganization && <div className="auth-user-menu-sep" />}
-
-                                    <IdentityMenuItem
-                                        name="Uitloggen"
-                                        url={getStateRouteUrl(DashboardRoutes.SIGN_OUT)}
-                                        dusk={'btnUserLogout'}
-                                        icon={<IconSignOut />}
-                                    />
-                                </ClickOutside>
-                            )}
+                                </span>
+                            </button>
                         </div>
                     </div>
                 )}

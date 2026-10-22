@@ -43,4 +43,15 @@
         padding: 15px 0 0;
         justify-content: center;
     }
+
+    @media screen and (max-width: 1000px) {
+        .empty-title {
+            font: 700 15px / 24px var(--base-font);
+        }
+
+        .empty-details {
+            font: 500 13px/20px var(--base-font);
+            margin: 0;
+        }
+    }
 }
