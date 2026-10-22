@@ -78,10 +78,8 @@
             border-bottom: none;
         }
     }
-}
 
-@media screen and (max-width: 767px) {
-    .block.block-user_emails {
+    @media screen and (max-width: 767px) {
         .user_email-item {
             flex-wrap: wrap;
 

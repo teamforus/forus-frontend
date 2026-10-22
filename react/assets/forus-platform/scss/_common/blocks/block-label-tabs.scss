@@ -128,10 +128,8 @@
     &:first-child {
         margin-left: 0;
     }
-}
 
-@media screen and (max-width: 1000px) {
-    .block.block-label-tabs {
+    @media screen and (max-width: 1000px) {
         max-width: 100%;
         flex-wrap: wrap;
         white-space: normal;

@@ -131,10 +131,8 @@
             margin-bottom: 0;
         }
     }
-}
 
-@media screen and (max-width: 767px) {
-    .block.block-export-options {
+    @media screen and (max-width: 767px) {
         .export-section {
             .export-options {
                 flex-wrap: wrap;

@@ -216,10 +216,8 @@
             }
         }
     }
-}
 
-@media screen and (max-width: 767px) {
-    .block.block-banner-editor {
+    @media screen and (max-width: 767px) {
         .banner-editor-controls {
             flex-wrap: wrap;
             column-gap: 15px;
@@ -229,6 +227,7 @@
 
             .banner-editor-control {
                 position: static;
+                padding: 6px 0;
 
                 .banner-editor-control-label {
                     white-space: nowrap;

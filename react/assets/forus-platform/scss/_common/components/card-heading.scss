@@ -35,10 +35,8 @@
             color: #d91d46;
         }
     }
-}
 
-@media screen and (max-width: 1000px) {
-    .card-heading {
+    @media screen and (max-width: 1000px) {
         &.flex-row,
         &.flex {
             flex-wrap: wrap;

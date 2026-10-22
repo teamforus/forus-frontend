@@ -69,10 +69,8 @@
             }
         }
     }
-}
 
-@media screen and (max-width: 767px) {
-    .block.block-fund {
+    @media screen and (max-width: 767px) {
         .fund-overview {
             flex-direction: column;
             gap: 16px;

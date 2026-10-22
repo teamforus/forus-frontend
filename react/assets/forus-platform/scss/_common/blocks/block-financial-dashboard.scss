@@ -203,10 +203,8 @@
             border-radius: 25px;
         }
     }
-}
 
-@media screen and (max-width: 1000px) {
-    .block.block-financial-dashboard {
+    @media screen and (max-width: 1000px) {
         .financial-filters {
             margin-right: 0;
 

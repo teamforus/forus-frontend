@@ -31,10 +31,8 @@
             font: 600 18px/26px var(--base-font);
         }
     }
-}
 
-@media screen and (max-width: 767px) {
-    .block.block-translation-stats {
+    @media screen and (max-width: 767px) {
         flex-direction: column;
         gap: 16px;
 

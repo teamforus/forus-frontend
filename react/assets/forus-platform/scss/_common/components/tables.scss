@@ -666,32 +666,32 @@
     @media screen and (max-width: 1000px) {
         overflow: auto;
     }
-}
 
-@media screen and (max-width: 767px) {
-    .table-wrapper table.table.table-summary {
-        display: block;
-        table-layout: auto;
-
-        & > tbody {
+    @media screen and (max-width: 767px) {
+        table.table.table-summary {
             display: block;
+            table-layout: auto;
 
-            & > tr {
-                display: grid;
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+            & > tbody {
+                display: block;
 
-                & > td {
-                    display: block;
-                    min-width: 0;
-                    border-bottom: none;
-                    white-space: normal;
-                }
+                & > tr {
+                    display: grid;
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
 
-                & > td,
-                & > td:first-child,
-                & > td:last-child {
-                    padding-left: 16px;
-                    padding-right: 8px;
+                    & > td {
+                        display: block;
+                        min-width: 0;
+                        border-bottom: none;
+                        white-space: normal;
+                    }
+
+                    & > td,
+                    & > td:first-child,
+                    & > td:last-child {
+                        padding-left: 16px;
+                        padding-right: 8px;
+                    }
                 }
             }
         }

@@ -30,10 +30,8 @@
             }
         }
     }
-}
 
-@media screen and (max-width: 767px) {
-    .block.block-breadcrumbs {
+    @media screen and (max-width: 767px) {
         flex-wrap: wrap;
         row-gap: 4px;
 

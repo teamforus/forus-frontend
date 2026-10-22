@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { LayoutHeader } from './elements/LayoutHeader';
 import { LayoutAside } from './elements/LayoutAside';
 import { useStateRoutes } from '../modules/state_router/Router';
@@ -25,40 +25,61 @@ export const Layout = ({ children }: { children: React.ReactElement }) => {
     const authIdentity = useAuthIdentity();
     const activeOrganization = useActiveOrganization();
     const pageScrollRef = useRef<HTMLDivElement>(null);
+    const containerScrollRef = useRef<HTMLDivElement>(null);
 
     const [libraries] = useState(['places'] as Libraries);
     const [showSidebar, setShowSidebar] = useState(false);
-
-    const hasSidebar = layout == LayoutType.dashboard && !!activeOrganization;
+    const [animateSidebar, setAnimateSidebar] = useState(false);
 
     const isReady = useMemo(() => {
         return !route.state?.protected || (authIdentity && activeOrganization);
     }, [authIdentity, activeOrganization, route.state]);
 
+    const hasSidebar = layout == LayoutType.dashboard && !!activeOrganization;
+
+    const changeSidebar = useCallback(
+        (open: boolean) => {
+            if (open === showSidebar) {
+                return;
+            }
+
+            setAnimateSidebar(window.matchMedia('(max-width: 1000px)').matches);
+            setShowSidebar(open);
+        },
+        [showSidebar],
+    );
+
     useEffect(() => {
         pageScrollRef?.current?.scrollTo({ top: 0 });
+        containerScrollRef.current?.scrollTo({ top: 0 });
+        setAnimateSidebar(false);
         setShowSidebar(false);
     }, [route?.pathname]);
+
+    useEffect(() => {
+        const media = window.matchMedia('(max-width: 1000px)');
+        const onBreakpointChange = () => setAnimateSidebar(false);
+
+        media.addEventListener('change', onBreakpointChange);
+
+        return () => {
+            media.removeEventListener('change', onBreakpointChange);
+        };
+    }, []);
 
     useEffect(() => {
         if (!showSidebar) {
             return;
         }
 
-        // the sidebar is a drawer only on small screens, close it when the screen becomes wide
-        const media = window.matchMedia('(min-width: 1001px)');
-        const onMediaChange = () => media.matches && setShowSidebar(false);
-        const onKeyDown = (e: KeyboardEvent) => e.key === 'Escape' && setShowSidebar(false);
+        const onKeyDown = (e: KeyboardEvent) => e.key === 'Escape' && changeSidebar(false);
 
-        onMediaChange();
-        media.addEventListener('change', onMediaChange);
         window.addEventListener('keydown', onKeyDown);
 
         return () => {
-            media.removeEventListener('change', onMediaChange);
             window.removeEventListener('keydown', onKeyDown);
         };
-    }, [showSidebar]);
+    }, [changeSidebar, showSidebar]);
 
     if (!envData?.config) {
         return null;
@@ -72,29 +93,31 @@ export const Layout = ({ children }: { children: React.ReactElement }) => {
             <ErrorBoundaryHandler type={'main'} front={'dashboard'}>
                 <div
                     className={classNames(
-                        'app',
+                        'app app-root',
+                        modals.length > 0 && 'app-modals-shown',
                         showSidebar && 'app-sidebar-shown',
                         route?.state?.name == 'sign-in' && 'landing-root',
                         [LayoutType.landingClearNew].includes(layout) && 'signup-layout signup-layout-new',
                     )}
-                    ref={pageScrollRef}
-                    style={{
-                        width: '100%',
-                        height: '100%',
-                        position: 'fixed',
-                        overflow: modals.length > 0 ? 'hidden' : 'auto',
-                    }}>
+                    ref={pageScrollRef}>
                     <LoadingBar />
 
                     {[LayoutType.dashboard, LayoutType.landing].includes(layout) && (
                         <LayoutHeader
                             sidebarOpen={showSidebar}
-                            onSidebarToggle={hasSidebar ? () => setShowSidebar((show) => !show) : null}
+                            onSidebarToggle={hasSidebar ? () => changeSidebar(!showSidebar) : null}
                         />
                     )}
 
-                    <div className="app app-container">
-                        {hasSidebar && <LayoutAside open={showSidebar} onClose={() => setShowSidebar(false)} />}
+                    <div className="app app-container" ref={containerScrollRef}>
+                        {hasSidebar && (
+                            <LayoutAside
+                                open={showSidebar}
+                                animating={animateSidebar}
+                                onClose={() => changeSidebar(false)}
+                                onAnimationEnd={() => setAnimateSidebar(false)}
+                            />
+                        )}
 
                         {isReady && (
                             <section className="app app-content">
@@ -111,9 +134,11 @@ export const Layout = ({ children }: { children: React.ReactElement }) => {
                         )}
                     </div>
 
-                    <Modals focusExclusions={'.frame-director'} />
-                    <PushNotifications />
-                    <Toasts />
+                    <div className="app-overlays">
+                        <Modals focusExclusions={'.frame-director'} />
+                        <PushNotifications />
+                        <Toasts />
+                    </div>
                 </div>
 
                 <Printable />

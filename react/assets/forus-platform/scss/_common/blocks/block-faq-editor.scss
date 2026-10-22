@@ -71,10 +71,8 @@
             padding: 0 0 0;
         }
     }
-}
 
-@media screen and (max-width: 767px) {
-    .block.block-faq-editor {
+    @media screen and (max-width: 767px) {
         .question-item {
             .question-header {
                 flex-wrap: wrap;

@@ -199,7 +199,6 @@ export default function ModalExportDataSelect({
                                             className="export-options"
                                             style={
                                                 {
-                                                    // max columns of the mobile grid, same as the desktop table
                                                     '--export-fields-per-row': section.fieldsPerRow || 1,
                                                 } as React.CSSProperties
                                             }>

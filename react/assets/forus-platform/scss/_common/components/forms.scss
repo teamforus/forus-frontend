@@ -468,10 +468,6 @@
         &.form-hint-margin-less {
             margin-bottom: 0;
         }
-
-        & + .form-hint {
-            margin-top: 5px;
-        }
     }
 
     .form-actions {
@@ -743,10 +739,8 @@
         font: 600 14px/20px var(--base-font);
         color: #151b26;
     }
-}
 
-@media screen and (max-width: 1000px) {
-    .form {
+    @media screen and (max-width: 1000px) {
         .form-group.tooltipped {
             .block-form_tooltip {
                 top: 10px;

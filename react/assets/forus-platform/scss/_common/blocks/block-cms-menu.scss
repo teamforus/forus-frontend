@@ -74,10 +74,8 @@
             }
         }
     }
-}
 
-@media screen and (max-width: 767px) {
-    .block.block-cms-menu {
+    @media screen and (max-width: 767px) {
         grid-template-columns: minmax(0, 1fr);
         gap: 16px;
     }

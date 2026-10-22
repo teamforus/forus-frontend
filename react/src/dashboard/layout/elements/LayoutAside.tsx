@@ -6,7 +6,17 @@ import LayoutAsideValidator from './aside/LayoutAsideValidator';
 import LayoutAsideSponsor from './aside/LayoutAsideSponsor';
 import LayoutAsideProvider from './aside/LayoutAsideProvider';
 
-export const LayoutAside = ({ open = false, onClose }: { open?: boolean; onClose?: () => void }) => {
+export const LayoutAside = ({
+    open = false,
+    animating = false,
+    onClose,
+    onAnimationEnd,
+}: {
+    open?: boolean;
+    animating?: boolean;
+    onClose?: () => void;
+    onAnimationEnd?: () => void;
+}) => {
     const envData = useEnvData();
     const activeOrganization = useActiveOrganization();
 
@@ -14,18 +24,13 @@ export const LayoutAside = ({ open = false, onClose }: { open?: boolean; onClose
         <Fragment>
             {open && <div className="app-sidebar-backdrop" onClick={onClose} />}
 
-            <aside className={classNames('app', 'app-sidebar', open && 'app-sidebar-open')}>
-                <div className="sidebar-drawer-header">
-                    <button
-                        type="button"
-                        className="sidebar-drawer-close"
-                        aria-label="Menu sluiten"
-                        data-dusk="sidebarDrawerClose"
-                        onClick={onClose}>
-                        <em className="mdi mdi-close" />
-                    </button>
-                </div>
-
+            <aside
+                className={classNames('app', 'app-sidebar', open && 'app-sidebar-open', animating && 'animating')}
+                onTransitionEnd={(event) => {
+                    if (event.target === event.currentTarget && event.propertyName === 'transform') {
+                        onAnimationEnd?.();
+                    }
+                }}>
                 {activeOrganization && envData.client_type == 'sponsor' && (
                     <LayoutAsideSponsor organization={activeOrganization} />
                 )}

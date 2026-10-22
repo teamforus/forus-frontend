@@ -101,10 +101,8 @@
     .connection-actions {
         display: flex;
     }
-}
 
-@media screen and (max-width: 767px) {
-    .block.block-payment-connection {
+    @media screen and (max-width: 767px) {
         gap: 12px;
 
         .connection-content {
