@@ -52,6 +52,10 @@ export class OrganizationService<T = Organization> {
         localStorage.setItem('active_organization', id.toString());
     }
 
+    public clearActiveId(): void {
+        localStorage.removeItem('active_organization');
+    }
+
     public getActiveId(): number | null {
         const id = parseInt(localStorage.getItem('active_organization') || null);
 

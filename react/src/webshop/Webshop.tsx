@@ -2,7 +2,7 @@ import { ModalsProvider } from '../dashboard/modules/modals/context/ModalContext
 import { AuthProvider } from './contexts/AuthContext';
 import React, { ReactNode, useContext, useEffect, useState } from 'react';
 import { Layout } from './layout/Layout';
-import { HashRouter, Route, Routes, BrowserRouter } from 'react-router';
+import { HashRouter, Route, Routes, BrowserRouter, useMatch } from 'react-router';
 import EnvDataProp from '../props/EnvData';
 import { MainProvider, mainContext } from './contexts/MainContext';
 import i18n from 'i18next';
@@ -11,7 +11,8 @@ import { QueryParamProvider } from 'use-query-params';
 import { PushNotificationsProvider } from '../dashboard/modules/push_notifications/context/PushNotificationsContext';
 import { LoadingBarProvider } from '../dashboard/modules/loading_bar/context/LoadingBarContext';
 import ApiRequestService from '../dashboard/services/ApiRequestService';
-import { getRoutes } from './modules/state_router/Router';
+import { getRoutes, getStateRouteUrl } from './modules/state_router/Router';
+import { WebshopRoutes } from './modules/state_router/RouterBuilder';
 import EnvDataWebshopProp from '../props/EnvDataWebshopProp';
 import { LoadScript } from '@react-google-maps/api';
 import { PrintableProvider } from '../dashboard/modules/printable/context/PrintableContext';
@@ -89,6 +90,37 @@ function RouterSelector({ children, envData }: { envData: EnvDataProp; children:
     return <BrowserRouter basename={`/${envData.webRoot}`}>{children}</BrowserRouter>;
 }
 
+function ExternalScriptsBoundary({
+    children,
+    envData,
+    cookiesAccepted,
+}: {
+    children: React.ReactElement;
+    envData: EnvDataWebshopProp;
+    cookiesAccepted: boolean;
+}) {
+    const callbackPath = getStateRouteUrl(WebshopRoutes.AUTH_LINK);
+    const callbackRoute = useMatch(callbackPath);
+    const legacyCallbackRoute = useMatch(`/!${callbackPath}`);
+
+    if (callbackRoute || (envData.useHashRouter && legacyCallbackRoute)) {
+        return children;
+    }
+
+    return (
+        <>
+            <LoadScript googleMapsApiKey={envData.config.google_maps_api_key} language={'nl'} loadingElement={<></>}>
+                {children}
+            </LoadScript>
+
+            <AwsRumScript awsRum={envData.config?.aws_rum} cookiesAccepted={cookiesAccepted} />
+            <MatomoScript envData={envData} cookiesAccepted={cookiesAccepted} />
+            <SiteImproveAnalytics envData={envData} cookiesAccepted={cookiesAccepted} />
+            <ReadSpeakerScript envData={envData} />
+        </>
+    );
+}
+
 /**
  * Dashboard
  * @param envData
@@ -114,21 +146,21 @@ export default function Webshop({ envData }: { envData: EnvDataWebshopProp }): R
 
     return (
         <FrameDirectorProvider>
-            <LoadScript googleMapsApiKey={envData.config.google_maps_api_key} language={'nl'} loadingElement={<></>}>
-                <PushNotificationsProvider
-                    groups={{
-                        webshop: {
-                            defaultDismissTimeout: 15,
-                            showConfig: true,
-                        },
-                        bookmarks: {
-                            maxCount: 1,
-                            className: 'block-push-notifications-bookmarks',
-                            showConfig: true,
-                            defaultDismissTimeout: null,
-                        },
-                    }}>
-                    <RouterSelector envData={envData as unknown as EnvDataProp}>
+            <PushNotificationsProvider
+                groups={{
+                    webshop: {
+                        defaultDismissTimeout: 15,
+                        showConfig: true,
+                    },
+                    bookmarks: {
+                        maxCount: 1,
+                        className: 'block-push-notifications-bookmarks',
+                        showConfig: true,
+                        defaultDismissTimeout: null,
+                    },
+                }}>
+                <RouterSelector envData={envData as unknown as EnvDataProp}>
+                    <ExternalScriptsBoundary envData={envData} cookiesAccepted={allowOptionalCookies}>
                         <LayoutProvider>
                             <LoadingBarProvider>
                                 <PrintableProvider>
@@ -147,16 +179,11 @@ export default function Webshop({ envData }: { envData: EnvDataWebshopProp }): R
                                 </PrintableProvider>
                             </LoadingBarProvider>
                         </LayoutProvider>
+                    </ExternalScriptsBoundary>
 
-                        <CookieBanner envData={envData} setAllowOptionalCookies={setAllowOptionalCookies} />
-                        <AwsRumScript awsRum={envData.config?.aws_rum} cookiesAccepted={allowOptionalCookies} />
-                        <MatomoScript envData={envData} cookiesAccepted={allowOptionalCookies} />
-                        <SiteImproveAnalytics envData={envData} cookiesAccepted={allowOptionalCookies} />
-
-                        <ReadSpeakerScript envData={envData} />
-                    </RouterSelector>
-                </PushNotificationsProvider>
-            </LoadScript>
+                    <CookieBanner envData={envData} setAllowOptionalCookies={setAllowOptionalCookies} />
+                </RouterSelector>
+            </PushNotificationsProvider>
         </FrameDirectorProvider>
     );
 }

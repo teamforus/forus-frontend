@@ -15,6 +15,7 @@ export default function ModalNotification({
     buttonCancel,
     buttonSubmit,
     buttons,
+    dusk = 'modalNotification',
 }: {
     modal: ModalState;
     icon?: string;
@@ -25,6 +26,7 @@ export default function ModalNotification({
     buttonCancel?: ModalButton;
     buttonSubmit?: ModalButton;
     buttons?: Array<ModalButton>;
+    dusk?: string;
 }) {
     const assetUrl = useAssetUrl();
     const getIcon = useCallback((icon: string) => assetUrl('./assets/img/modal/' + icon + '.png'), [assetUrl]);
@@ -34,11 +36,17 @@ export default function ModalNotification({
             size={'lg'}
             modal={modal}
             className={classNames('modal-notification', className)}
-            dusk="modalNotification"
+            dusk={dusk}
             footer={
                 <Fragment>
                     {buttonClose && (
-                        <ModalButton button={buttonClose} disabled={modal.processing} text="Sluiten" type="default" />
+                        <ModalButton
+                            button={buttonClose}
+                            disabled={modal.processing}
+                            text="Sluiten"
+                            type="default"
+                            dusk="closeBtn"
+                        />
                     )}
 
                     {buttonCancel && (
@@ -47,6 +55,7 @@ export default function ModalNotification({
                             disabled={modal.processing}
                             text="Annuleren"
                             type="default"
+                            dusk="cancelBtn"
                         />
                     )}
 
