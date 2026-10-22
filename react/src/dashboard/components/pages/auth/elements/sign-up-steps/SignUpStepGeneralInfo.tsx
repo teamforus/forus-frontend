@@ -15,7 +15,7 @@ export default function SignUpStepGeneralInfo({
     const translate = useTranslate();
 
     return (
-        <div className="sign_up-pane">
+        <div className="sign_up-pane" data-dusk="stepGeneral">
             <div className="sign_up-pane-header">{translate(`sign_up_${panelType}.header.title_step_1`)}</div>
 
             <div
@@ -41,6 +41,7 @@ export default function SignUpStepGeneralInfo({
                         type="button"
                         className="button button-text button-text-padless"
                         onClick={onStepNext}
+                        data-dusk="nextBtn"
                         tabIndex={0}>
                         {translate(`sign_up_${panelType}.buttons.next`)}
                         <em className="mdi mdi-chevron-right icon-right" />

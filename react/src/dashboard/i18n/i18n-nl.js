@@ -1464,6 +1464,7 @@ export default {
     organization_employees: {
         labels: {
             email: 'E-mailadres',
+            identity_provider_management: 'Accountbeheer',
             branch_name_id: 'Vestigingnaam & ID',
             branch_number: 'Vestigingsnummer',
             roles: 'Rollen',
@@ -1475,12 +1476,23 @@ export default {
         },
         tooltips: {
             email: 'Het e-mailadres van de medewerker.',
+            identity_provider_management:
+                'Geeft aan of het account via Microsoft Entra wordt beheerd en wat de provisioningstatus is.',
             branch_name_id:
                 'Een naam en een unieke ID die door de organisatie aan een vestiging wordt toegewezen voor interne administratieve doeleinden.',
             branch_number: 'Uniek 12-cijferig nummer toegekend door de KvK. Verschilt van het KVK-nummer.',
             auth_2fa: 'De status of tweefactorauthenticatie is ingesteld (Ja/Nee).',
             created_at: 'Aangemaakt op',
             last_activity: 'Laatste handeling',
+        },
+        management: {
+            entra: 'Microsoft Entra',
+            manual: 'Handmatig',
+            active: 'Actief',
+            disabled: 'Uitgeschakeld',
+            deleted: 'Verwijderd uit provisioning',
+            edit_info:
+                'Het e-mailadres en de accountstatus worden beheerd via Microsoft Entra. Rollen en een eventuele vestiging kunt u hier aanpassen. Verwijderen gebeurt via provisioning.',
         },
         buttons: {
             adjust: 'Aanpassen',

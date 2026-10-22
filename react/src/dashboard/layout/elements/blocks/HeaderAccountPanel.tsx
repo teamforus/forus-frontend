@@ -1,6 +1,7 @@
 import React, { MouseEventHandler } from 'react';
 import { NavLink } from 'react-router';
 import classNames from 'classnames';
+import useTranslate from '../../../hooks/useTranslate';
 import { getStateRouteUrl } from '../../../modules/state_router/Router';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import IconEmail from '../../../../../assets/forus-platform/resources/_platform-common/assets/img/menu/icon-dropdown-email.svg';
@@ -68,6 +69,8 @@ export default function HeaderAccountPanel({
     role,
     clientType,
     hasOrganization,
+    canManageEmails,
+    showLinkedAccounts,
     showSecurity,
     fronts,
     onAuthorize,
@@ -78,11 +81,15 @@ export default function HeaderAccountPanel({
     role: string;
     clientType: string;
     hasOrganization: boolean;
+    canManageEmails: boolean;
+    showLinkedAccounts: boolean;
     showSecurity: boolean;
     fronts: { url_validator: string; url_sponsor: string; url_provider: string };
     onAuthorize: MouseEventHandler<HTMLElement>;
     onClose: () => void;
 }) {
+    const translate = useTranslate();
+
     return (
         <div className="block block-header-account">
             <div className="header-account-identity">
@@ -94,7 +101,7 @@ export default function HeaderAccountPanel({
             </div>
 
             <div className="header-account-items">
-                {hasOrganization && (
+                {hasOrganization && canManageEmails && (
                     <IdentityMenuItem
                         onClose={onClose}
                         name={'E-mail instellingen'}
@@ -118,6 +125,15 @@ export default function HeaderAccountPanel({
                         onClose={onClose}
                         name="Beveiliging"
                         url={getStateRouteUrl(DashboardRoutes.SECURITY_2FA)}
+                        icon={<IconSecurity />}
+                    />
+                )}
+
+                {showLinkedAccounts && (
+                    <IdentityMenuItem
+                        onClose={onClose}
+                        name={translate('organizations_identity_provider_entra.ui.linked_accounts')}
+                        url={getStateRouteUrl(DashboardRoutes.SECURITY_LINKED_ACCOUNTS)}
                         icon={<IconSecurity />}
                     />
                 )}

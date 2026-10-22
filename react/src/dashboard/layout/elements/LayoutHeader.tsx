@@ -88,6 +88,10 @@ export const LayoutHeader = ({
                 role={roles[envData.client_type]}
                 clientType={envData.client_type}
                 hasOrganization={!!activeOrganization}
+                canManageEmails={!!authIdentity.can_manage_emails}
+                showLinkedAccounts={
+                    !!(authIdentity.has_identity_provider_links || authIdentity.can_link_identity_provider)
+                }
                 showSecurity={!!(activeOrganization?.allow_2fa_restrictions || authIdentity2FAState?.required)}
                 fronts={appConfigs.fronts}
                 onAuthorize={openAuthPincodeModal}

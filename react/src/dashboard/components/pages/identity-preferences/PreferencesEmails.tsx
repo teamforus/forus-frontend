@@ -13,15 +13,23 @@ import usePushSuccess from '../../../hooks/usePushSuccess';
 import useAuthIdentity2FAState from '../../../hooks/useAuthIdentity2FAState';
 import Auth2FARestriction from '../../elements/auth2fa-restriction/Auth2FARestriction';
 import Label from '../../elements/label/Label';
+import useAuthIdentity from '../../../hooks/useAuthIdentity';
+import { useNavigateState } from '../../../modules/state_router/Router';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function PreferencesEmails() {
+    const authIdentity = useAuthIdentity();
+    const navigateState = useNavigateState();
+
     const openModal = useOpenModal();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
 
+    const identityEmailService = useIdentityEmailsService();
+
     const [showForm, setShowForm] = useState(false);
     const [emails, setEmails] = useState<PaginationData<IdentityEmail>>(null);
-    const identityEmailService = useIdentityEmailsService();
+
     const auth2FAState = useAuthIdentity2FAState();
 
     const form = useFormBuilder({ email: '' }, (values) => {
@@ -136,10 +144,23 @@ export default function PreferencesEmails() {
     }, [form]);
 
     useEffect(() => {
+        if (!authIdentity) {
+            return;
+        }
+
+        if (!authIdentity.can_manage_emails) {
+            navigateState(DashboardRoutes.ORGANIZATIONS, {}, {}, { replace: true });
+            return;
+        }
+
         if (auth2FAState && !auth2FAState?.restrictions?.emails?.restricted) {
             fetchEmails();
         }
-    }, [auth2FAState, fetchEmails]);
+    }, [authIdentity, auth2FAState, fetchEmails, navigateState]);
+
+    if (!authIdentity?.can_manage_emails) {
+        return null;
+    }
 
     if (auth2FAState?.restrictions?.emails?.restricted !== false) {
         return (
