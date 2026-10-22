@@ -6,9 +6,10 @@ import Media from '../props/models/Media';
 import ImplementationPage from '../../webshop/props/models/ImplementationPage';
 import Language from '../props/models/Language';
 
-export type AuthPageLoginOption = 'email' | 'digid' | 'qr';
+export type AuthPageLoginOption = 'email' | 'digid' | 'qr' | 'entra';
 
 export type AppConfigProp = {
+    entra_dashboard_login_available: boolean;
     add_money: boolean;
     validationRequests: boolean;
     event_permissions: {
