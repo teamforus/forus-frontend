@@ -3,7 +3,6 @@ import Fund from '../../../props/models/Fund';
 import { useFundRequestService } from '../../../services/FundRequestService';
 import { ResponseError } from '../../../../dashboard/props/ApiResponses';
 import usePushSuccess from '../../../../dashboard/hooks/usePushSuccess';
-import usePushDanger from '../../../../dashboard/hooks/usePushDanger';
 import { useNavigateState, useStateParams } from '../../../modules/state_router/Router';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import { currencyFormat } from '../../../../dashboard/helpers/string';
@@ -46,6 +45,8 @@ import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import FundCriteriaGroup from '../../../../dashboard/props/models/FundCriteriaGroup';
 import FundRequestPersonBsnApiWarning from './elements/FundRequestPersonBsnApiWarning';
 import useFundApply from '../../../hooks/useFundApply';
+import useStartDigId from '../../../hooks/useStartDigId';
+import isFundDigIdAvailable from '../../../helpers/isFundDigIdAvailable';
 
 export type LocalCriterion = FundCriterion & {
     input_value?: string;
@@ -81,11 +82,11 @@ export default function FundRequest() {
 
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
-    const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const navigateState = useNavigateState();
     const setProgress = useSetProgress();
     const fetchAuthIdentity = useFetchAuthIdentity();
+    const startAuthentication = useStartDigId();
 
     const fundService = useFundService();
     const digIdService = useDigiDService();
@@ -94,6 +95,7 @@ export default function FundRequest() {
     const recordTypeService = useRecordTypeService();
     const fundRequestService = useFundRequestService();
 
+    const digidUseTvs = appConfigs?.digid_tvs;
     const { from } = useStateParams<{ from?: string }>();
     const [step, setStep] = useState<number>(null);
     const [submitInProgress, setSubmitInProgress] = useState(false);
@@ -133,7 +135,10 @@ export default function FundRequest() {
     const bsnIsKnown = useMemo(() => !!authIdentity?.bsn, [authIdentity]);
     const emailSetupShow = useMemo(() => !authIdentity?.email, [authIdentity]);
 
-    const digidAvailable = useMemo(() => appConfigs?.digid, [appConfigs]);
+    const digidAvailable = useMemo(() => {
+        return isFundDigIdAvailable(appConfigs, fund?.organization?.tvs_configured);
+    }, [appConfigs, fund?.organization?.tvs_configured]);
+
     const digidMandatory = useMemo(() => appConfigs?.digid_mandatory, [appConfigs]);
 
     const shouldAddContactInfo = useMemo(
@@ -381,20 +386,16 @@ export default function FundRequest() {
     );
 
     // Start digid sign-in
-    const startDigId = useCallback(async () => {
+    const startBsnVerification = useCallback(async () => {
         if ((await fetchAuthIdentity())?.identity) {
-            digIdService
-                .startFundRequest(fund.id)
-                .then((res) => (document.location = res.data.redirect_url))
-                .catch((err) => {
-                    if (err.status === 403 && err.data.message) {
-                        return pushDanger(translate('push.error'), err.data.message);
-                    }
-
-                    navigateState(WebshopRoutes.ERROR, { errorCode: err.headers['error-code'] });
-                });
+            return startAuthentication(() => {
+                return digIdService.startFundRequest(
+                    fund.id,
+                    digidUseTvs ? { transport: 'tvs', organization_id: fund.organization_id } : { transport: 'digid' },
+                );
+            });
         }
-    }, [digIdService, fund?.id, navigateState, pushDanger, fetchAuthIdentity, translate]);
+    }, [digIdService, digidUseTvs, fetchAuthIdentity, fund, startAuthentication]);
 
     const transformInvalidCriteria = useCallback(
         function (item: FundCriterion): LocalCriterion {
@@ -946,7 +947,7 @@ export default function FundRequest() {
                                         </div>
                                         <div className="sign_up-options">
                                             {digidAvailable && (
-                                                <div className="sign_up-option" onClick={startDigId}>
+                                                <div className="sign_up-option" onClick={startBsnVerification}>
                                                     <div className="sign_up-option-media">
                                                         <img
                                                             className="sign_up-option-media-img"
