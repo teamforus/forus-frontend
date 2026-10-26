@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useParams } from 'react-router';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import { useNavigateState, useStateParams } from '../../../modules/state_router/Router';
@@ -42,6 +42,8 @@ import ModalVoucherPayout from '../../modals/ModalVoucherPayout';
 import useIsPayoutInfoProduct from './hooks/useIsPayoutInfoProduct';
 import useBankAccountsForPayout from '../../../hooks/useBankAccountsForPayout';
 import usePayoutButtonVouchers from '../../../hooks/usePayoutButtonVouchers';
+import useProductFundsMeta from './hooks/useProductFundsMeta';
+import useReserveProduct from './hooks/useReserveProduct';
 
 export default function ProductsShow() {
     const { id } = useParams();
@@ -77,6 +79,21 @@ export default function ProductsShow() {
     const { showBack } = useStateParams<{ showBack: boolean }>();
     const price = useProductPriceMinLocale(product);
     const fundsRef = useRef<HTMLDivElement>(null);
+
+    const reserveProduct = useReserveProduct(product);
+    const productFundsMeta = useProductFundsMeta(product, funds, vouchers, payouts);
+
+    const reservableFunds = useMemo(() => {
+        return productFundsMeta?.funds.filter((fund) => fund.meta.isReservationAvailable) || [];
+    }, [productFundsMeta?.funds]);
+
+    const onBuyNow = useCallback(() => {
+        if (reservableFunds.length === 1) {
+            return reserveProduct(reservableFunds[0]);
+        }
+
+        fundsRef?.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [reservableFunds, reserveProduct]);
 
     const toggleBookmark = useCallback(
         async (e: React.MouseEvent, product: Product) => {
@@ -254,10 +271,9 @@ export default function ProductsShow() {
                                                 <button
                                                     type="button"
                                                     className="button button-primary button-fill"
-                                                    onClick={() => {
-                                                        fundsRef?.current?.scrollIntoView({ behavior: 'smooth' });
-                                                    }}
-                                                    aria-label={translate('product.labels.buy_now')}>
+                                                    onClick={onBuyNow}
+                                                    aria-label={translate('product.labels.buy_now')}
+                                                    aria-haspopup={reservableFunds.length === 1 ? 'dialog' : undefined}>
                                                     {translate('product.labels.buy_now')}
                                                 </button>
                                             )}

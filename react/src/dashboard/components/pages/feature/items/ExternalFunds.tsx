@@ -97,8 +97,8 @@ export default function ExternalFunds({
                     <div className="card-info-details">
                         <span>
                             Mocht u nog vragen hebben of wilt u aanvullende informatie dan kunt u ons bellen op:{' '}
-                            <strong>+31 (0) 85 004 33 87</strong> of contact opnemen via e-mail{' '}
-                            <strong>info@forus.io</strong>
+                            <strong className="nowrap">+31 (0) 85 004 33 87</strong> of contact opnemen via e-mail{' '}
+                            <strong className="nowrap">info@forus.io</strong>
                         </span>
                     </div>
                 </div>

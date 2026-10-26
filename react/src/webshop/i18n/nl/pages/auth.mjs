@@ -12,6 +12,10 @@ export default {
         },
     },
     options: {
+        entra: {
+            title: 'Inloggen met Microsoft',
+            description: 'Gebruik uw werkaccount',
+        },
         qr: {
             title: 'Me app',
             description: 'Scan een QR-code met de&nbsp;<u>Me app</u>',
@@ -34,6 +38,10 @@ export default {
     },
 
     push: {
+        message_with_reference: '{{message}} ({{reference}})',
+        entra_failed: {
+            title: 'Inloggen met Microsoft is mislukt. Probeer het opnieuw.',
+        },
         link_used: {
             title: 'Deze link is reeds gebruikt of ongeldig.',
         },
