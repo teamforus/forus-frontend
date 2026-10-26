@@ -275,7 +275,7 @@ export default function PreferencesEmails() {
                 <div className="card-section card-section-primary">
                     <div className="card-heading">Voeg een e-mailadres toe</div>
                     <form onSubmit={form.submit} data-dusk="identityNewEmailForm" className="form row">
-                        <div className="col col-lg-6 form-group">
+                        <div className="col col-lg-6 col-xs-12 form-group">
                             <div className="form-label form-label-required">E-mailadres</div>
                             <div className="flex-row">
                                 <div className="flex-col flex-grow">
