@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { authContext } from '../../../../contexts/AuthContext';
-import { useStateHref, useStateParams } from '../../../../modules/state_router/Router';
+import { useNavigateState, useStateHref, useStateParams } from '../../../../modules/state_router/Router';
 import { useAuthService } from '../../../../services/AuthService';
 import useFormBuilder from '../../../../../dashboard/hooks/useFormBuilder';
 import { ResponseError } from '../../../../../dashboard/props/ApiResponses';
@@ -36,6 +36,7 @@ export default function Start() {
     const setTitle = useSetTitle();
     const translate = useTranslate();
     const setProgress = useSetProgress();
+    const navigateState = useNavigateState();
     const startAuthentication = useStartDigId();
 
     const termsUrl = useStateHref(WebshopRoutes.TERMS_AND_CONDITIONS);
