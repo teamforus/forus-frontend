@@ -1,0 +1,81 @@
+.block.block-cms-decision-tree {
+    text-align: center;
+
+    .cms-decision-tree-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+
+        .cms-decision-tree-header {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+
+            .cms-decision-tree-title {
+                margin: 0;
+                color: var(--decision-tree-title-color, #1a1a1a);
+                font: 700 40px/54px var(--base-font);
+            }
+
+            .cms-decision-tree-description {
+                margin: 0;
+                color: #222;
+                font: 400 18px/24px var(--base-font);
+            }
+        }
+
+        .decision-tree {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+
+            .decision-tree-step {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                color: #222;
+
+                .decision-tree-step-title {
+                    color: var(--decision-tree-title-color, #1a1a1a);
+                    font: 400 24px/30px var(--base-font);
+                    margin: 0;
+                }
+
+                .decision-tree-step-description {
+                    font: 400 18px/24px var(--base-font);
+                }
+
+                .decision-tree-step-options {
+                    display: flex;
+                    flex-wrap: wrap;
+                    flex-direction: row;
+                    gap: 20px;
+                    justify-content: center;
+                    justify-items: center;
+                }
+            }
+
+            .decision-tree-result {
+                padding: 30px;
+                border-radius: var(--border-radius);
+
+                .decision-tree-result-title {
+                    color: var(--decision-tree-title-color, #1a1a1a);
+                    font: 400 24px/30px var(--base-font);
+                }
+
+                .decision-tree-result-description {
+                    font: 400 18px/24px var(--base-font);
+                }
+
+                &.decision-tree-result-eligible {
+                    background: #fff;
+                }
+
+                &.decision-tree-result-not-eligible {
+                    background: #fff;
+                }
+            }
+        }
+    }
+}
