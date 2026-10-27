@@ -179,6 +179,7 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
         const list = [
             'id',
             'type',
+            organization.show_identity_provider_profile_status ? 'identity_provider_status' : null,
             'given_name',
             'family_name',
             'email',

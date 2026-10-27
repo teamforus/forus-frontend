@@ -178,7 +178,9 @@ export default function ProviderOrganizationOverview({
             </div>
 
             {properties?.map((list, index: number) => (
-                <div key={index} className="card-section card-section-primary card-section-narrow">
+                <div
+                    key={index}
+                    className="card-section card-section-primary card-section-narrow card-section-listing-list">
                     <div className="flex-row flex-grow">
                         {list.map((property, index) => (
                             <div key={index} className="flex-col">
@@ -199,7 +201,7 @@ export default function ProviderOrganizationOverview({
             ))}
 
             {fundProvider && (
-                <div className="card-section card-section-primary card-section-narrow form">
+                <div className="card-section card-section-primary card-section-narrow card-section-listing-toggles form">
                     <div className="row">
                         <div className="col">
                             <div className="flex-row">

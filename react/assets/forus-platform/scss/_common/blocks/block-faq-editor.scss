@@ -71,4 +71,22 @@
             padding: 0 0 0;
         }
     }
+
+    @media screen and (max-width: 767px) {
+        .question-item {
+            .question-header {
+                flex-wrap: wrap;
+
+                .question-title {
+                    min-width: 0;
+                }
+
+                .question-actions {
+                    flex: 1 1 100%;
+                    justify-content: flex-end;
+                    padding: 8px 0 0;
+                }
+            }
+        }
+    }
 }

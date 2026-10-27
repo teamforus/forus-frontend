@@ -23,6 +23,7 @@ import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 import StartOptions from './elements/StartOptions';
 import StartEmail from './elements/StartEmail';
 import StartQrCode from './elements/StartQrCode';
+import { useIdentityProviderAuthService } from '../../../../../dashboard/services/IdentityProviderAuthService';
 
 export default function Start() {
     const { token, signOut, setToken } = useContext(authContext);
@@ -60,6 +61,7 @@ export default function Start() {
     const { onAuthRedirect } = useAuthService();
     const digIdService = useDigiDService();
     const identityService = useIdentityService();
+    const identityProviderAuthService = useIdentityProviderAuthService();
 
     const [disableSubmitBtn, setDisableSubmitBtn] = useState(false);
     const [authEmailSent, setAuthEmailSent] = useState<boolean>(false);
@@ -150,6 +152,20 @@ export default function Start() {
                 setProgress(100);
             });
     }, [digIdService, navigateState, setProgress]);
+
+    const startEntra = useCallback(() => {
+        setLoading(true);
+        setProgress(0);
+
+        identityProviderAuthService
+            .startLogin(target || null)
+            .then((res) => window.location.assign(res.data.data.redirect_url))
+            .catch(() => navigateState(WebshopRoutes.ERROR, { errorCode: 'entra_login_failed' }))
+            .finally(() => {
+                setLoading(false);
+                setProgress(100);
+            });
+    }, [identityProviderAuthService, navigateState, setProgress, target]);
 
     const showStart = useCallback(() => {
         setState('start');
@@ -400,6 +416,7 @@ export default function Start() {
                                 onEmail={showEmail}
                                 onQr={showQr}
                                 onDigid={startDigId}
+                                onEntra={startEntra}
                             />
                         )}
 

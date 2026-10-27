@@ -14,4 +14,15 @@
         color: #414141;
         margin: 0 2px;
     }
+
+    @media screen and (max-width: 1000px) {
+        &:not(.table *) {
+            flex-wrap: wrap;
+            gap: 10px;
+
+            & > .button:not(:last-child) {
+                margin-right: 0;
+            }
+        }
+    }
 }
