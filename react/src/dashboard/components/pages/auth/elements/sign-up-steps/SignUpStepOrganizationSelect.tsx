@@ -59,7 +59,7 @@ export default function SignUpStepOrganizationSelect({
     }, [loadOrganizations, onOrganizationAdd]);
 
     return (
-        <div className="sign_up-pane">
+        <div className="sign_up-pane" data-dusk="stepSelectOrganization">
             <div className="sign_up-pane-header">
                 {translate(`sign_up_${panelType}.header.title_step_${panelType == 'sponsor' ? 3 : 4}`)}
             </div>
@@ -70,9 +70,10 @@ export default function SignUpStepOrganizationSelect({
                 </div>
                 <br />
                 <div className="sign_up-organizations">
-                    {organizationsList?.map((organization) => (
+                    {organizationsList?.map((organization, index) => (
                         <div
                             key={organization.id}
+                            data-dusk={`organizationItem${index}`}
                             className={classNames(
                                 'sign_up-organization',
                                 organization.id == selectedOrganization?.id && 'active',
@@ -101,7 +102,7 @@ export default function SignUpStepOrganizationSelect({
             </div>
 
             <div className="sign_up-pane-body visible-md visible-lg">
-                <div className="button button-primary-outline" onClick={addOrganization}>
+                <div className="button button-primary-outline" onClick={addOrganization} data-dusk="addOrganizationBtn">
                     <div className="mdi mdi-plus-circle-outline icon-start" />
                     {translate(`sign_up_${panelType}.buttons.organization_add`)}
                 </div>
@@ -113,6 +114,7 @@ export default function SignUpStepOrganizationSelect({
                         className="button button-text button-text-padless"
                         type={'button'}
                         onClick={back}
+                        data-dusk="previousBtn"
                         tabIndex={0}>
                         <em className="mdi mdi-chevron-left icon-lefts" />
                         {translate(`sign_up_${panelType}.buttons.back`)}

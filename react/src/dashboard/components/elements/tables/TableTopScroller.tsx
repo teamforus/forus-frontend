@@ -4,7 +4,7 @@ import classNames from 'classnames';
 export default function TableTopScroller({
     children,
     onScroll = null,
-    scrollableRootSelector = '.app',
+    scrollableRootSelector = '.app-root, .app-container',
 }: {
     children: ReactElement | ReactElement[];
     onScroll?: () => void;
@@ -39,16 +39,16 @@ export default function TableTopScroller({
     }, [handlePositionChange, handleResize]);
 
     useEffect(() => {
-        const appRoot = document.querySelector(scrollableRootSelector);
+        const scrollableRoots = document.querySelectorAll(scrollableRootSelector);
 
-        if (!appRoot) {
+        if (!scrollableRoots.length) {
             return;
         }
 
         updateState();
 
         window.addEventListener('resize', updateState);
-        appRoot.addEventListener('scroll', updateState);
+        scrollableRoots.forEach((element) => element.addEventListener('scroll', updateState));
 
         const observer = new MutationObserver(updateState);
 
@@ -60,7 +60,7 @@ export default function TableTopScroller({
             };
 
             observer.observe(tableScrollWrapperRef.current, options);
-            observer.observe(appRoot, options);
+            scrollableRoots.forEach((element) => observer.observe(element, options));
             observer.observe(document.body, options);
         }
 
@@ -68,7 +68,7 @@ export default function TableTopScroller({
         return () => {
             observer.disconnect();
             window.removeEventListener('resize', updateState);
-            appRoot.removeEventListener('scroll', updateState);
+            scrollableRoots.forEach((element) => element.removeEventListener('scroll', updateState));
         };
     }, [scrollableRootSelector, updateState]);
 

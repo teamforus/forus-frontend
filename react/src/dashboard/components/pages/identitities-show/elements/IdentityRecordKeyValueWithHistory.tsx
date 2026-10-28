@@ -2,9 +2,11 @@ import { ProfileRecord } from '../../../../props/models/Sponsor/SponsorIdentity'
 import React, { useState } from 'react';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import classNames from 'classnames';
+import useTranslate from '../../../../hooks/useTranslate';
 
 export default function IdentityRecordKeyValueWithHistory({ records }: { records: Array<ProfileRecord> }) {
     const [show, setShow] = useState(false);
+    const translate = useTranslate();
 
     return (
         <div className={'keyvalue-value-history'}>
@@ -24,7 +26,11 @@ export default function IdentityRecordKeyValueWithHistory({ records }: { records
                             <em className="mdi mdi-clock-outline" />
                             {'Gewijzigd door '}
                             <strong className={classNames('text-strong', item.employee && 'text-primary')}>
-                                {item.employee ? item.employee?.email || `Medewerker[${item.employee?.id}]` : 'User'}
+                                {item.source === 'entra'
+                                    ? translate('identities.entra.provider_name')
+                                    : item.employee
+                                      ? item.employee?.email || `Medewerker[${item.employee?.id}]`
+                                      : 'User'}
                             </strong>{' '}
                             {`${item.created_at_locale} • van `}
                             <strong>{`'${records[index + 1]?.value_locale || ''}'`}</strong>

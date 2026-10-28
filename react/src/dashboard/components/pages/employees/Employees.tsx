@@ -30,6 +30,13 @@ import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
 import { NumberParam, StringParam } from 'use-query-params';
 import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
+import Label from '../../elements/label/Label';
+
+const managementStatusLabels = {
+    active: 'organization_employees.management.active',
+    disabled: 'organization_employees.management.disabled',
+    deleted: 'organization_employees.management.deleted',
+};
 
 export default function Employees() {
     const isProviderPanel = useIsProviderPanel();
@@ -49,10 +56,14 @@ export default function Employees() {
     const employeeService = useEmployeeService();
     const paginatorService = usePaginatorService();
 
-    const [loading, setLoading] = useState<boolean>(false);
-    const [employees, setEmployees] = useState<PaginationData<Employee>>(null);
     const [paginatorKey] = useState('employees');
-    const [adminEmployees, setAdminEmployees] = useState([]);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [adminEmployees, setAdminEmployees] = useState<Array<Employee>>([]);
+    const [employees, setEmployees] = useState<PaginationData<Employee>>(null);
+
+    const showIdentityProviderManagement =
+        activeOrganization.allow_identity_provider_employee_provisioning ||
+        employees?.data.some((employee) => !!employee.identity_provider_management);
 
     const [filterValues, filterValuesActive, filterUpdate] = useFilterNext<{
         q: string;
@@ -87,7 +98,11 @@ export default function Employees() {
             .list(activeOrganization.id, { role: 'admin', per_page: 1000 })
             .then((res) =>
                 setAdminEmployees(
-                    res.data.data.filter((item) => item.identity_address !== activeOrganization.identity_address),
+                    res.data.data.filter(
+                        (item) =>
+                            item.identity_address !== activeOrganization.identity_address &&
+                            !item.identity_provider_management,
+                    ),
                 ),
             )
             .catch(pushApiError);
@@ -255,7 +270,7 @@ export default function Employees() {
                 loading={loading}
                 empty={employees?.meta?.total == 0}
                 emptyTitle={'Geen medewerkers gevonden'}
-                columns={employeeService.getColumns(isProviderPanel)}
+                columns={employeeService.getColumns(isProviderPanel, showIdentityProviderManagement)}
                 paginator={{ key: paginatorKey, data: employees, filterValues, filterUpdate }}>
                 {employees?.data?.map((employee: Employee) => (
                     <tr key={employee.id} data-dusk={`tableEmployeeRow${employee.id}`}>
@@ -273,6 +288,31 @@ export default function Employees() {
                                 </div>
                             )}
                         </td>
+                        {showIdentityProviderManagement && (
+                            <td>
+                                {employee.identity_provider_management ? (
+                                    <>
+                                        <div className="text-muted text-md">
+                                            {translate('organization_employees.management.entra')}
+                                        </div>
+                                        <Label
+                                            type={
+                                                employee.identity_provider_management.status === 'active'
+                                                    ? 'success'
+                                                    : 'default'
+                                            }>
+                                            {translate(
+                                                managementStatusLabels[employee.identity_provider_management.status],
+                                            )}
+                                        </Label>
+                                    </>
+                                ) : (
+                                    <span className="text-muted">
+                                        {translate('organization_employees.management.manual')}
+                                    </span>
+                                )}
+                            </td>
+                        )}
                         {isProviderPanel && (
                             <Fragment>
                                 <td>
@@ -343,17 +383,18 @@ export default function Employees() {
                                                 </a>
                                             )}
 
-                                            {authIdentity.address !== employee.identity_address && (
-                                                <a
-                                                    className="dropdown-item"
-                                                    data-dusk={`btnEmployeeDelete${employee.id}`}
-                                                    onClick={() => {
-                                                        deleteEmployee(employee);
-                                                        e.close();
-                                                    }}>
-                                                    {translate('organization_employees.buttons.delete')}
-                                                </a>
-                                            )}
+                                            {authIdentity.address !== employee.identity_address &&
+                                                !employee.identity_provider_management && (
+                                                    <a
+                                                        className="dropdown-item"
+                                                        data-dusk={`btnEmployeeDelete${employee.id}`}
+                                                        onClick={() => {
+                                                            deleteEmployee(employee);
+                                                            e.close();
+                                                        }}>
+                                                        {translate('organization_employees.buttons.delete')}
+                                                    </a>
+                                                )}
                                         </div>
                                     )}
                                 />
