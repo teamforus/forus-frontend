@@ -2,10 +2,11 @@
 
 @use 'style-webshop-general-vars';
 @use './includes/fonts/roboto';
+@use './includes/fonts/gothic';
 
 // do not use these scss variables outside this file
 $primaryColor: #003865;
-$primaryColorLight: #016596;
+$primaryColorLight: #00a2e0;
 
 :root {
     --zoom: 100%;
@@ -97,14 +98,14 @@ $primaryColorLight: #016596;
     --base-font: Roboto, arial, sans-serif;
 
     // text color
-    --tc: #282b39;
+    --tc: #003865;
     --htc: var(--tc);
     --tc-var: inherit;
     --tc-link: #004d93;
     --tc-muted: #595959;
 
     // heading font
-    --heading-font-family: var(--base-font);
+    --heading-font-family: Trade Gothic LT Pro, arial, sans-serif;
     --heading-font: 700 40px/60px var(--heading-font-family);
     --heading-color: var(--tc);
     --heading-pane-font: 700 22px/30px var(--heading-font-family);
@@ -291,7 +292,7 @@ $primaryColorLight: #016596;
     --showcase-aside-button-hover-border: 1px solid var(--color-primary);
     --showcase-aside-button-hover-background: var(--color-primary);
 
-    --showcase-title-font: 600 18px/30px var(--heading-font-family);
+    --showcase-title-font: 700 18px/30px var(--heading-font-family);
     --showcase-title-color: var(--tc);
     --showcase-title-count-color: #fff;
     --showcase-title-count-background: var(--color-primary);
