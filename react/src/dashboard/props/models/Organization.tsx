@@ -121,6 +121,7 @@ export default interface Organization {
     allow_pre_checks?: boolean;
     allow_payouts?: boolean;
     allow_profiles?: boolean;
+    allow_requester_imports?: boolean;
     allow_profiles_create?: boolean;
     allow_profiles_relations?: boolean;
     allow_profiles_households?: boolean;

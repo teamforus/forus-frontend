@@ -45,6 +45,7 @@ import OrganizationsNoPermissions from '../components/pages/organizations-no-per
 import PaymentMethods from '../components/pages/payment-methods/PaymentMethods';
 import MolliePrivacy from '../components/pages/mollie-privacy/MolliePrivacy';
 import Reimbursements from '../components/pages/reimbursements/Reimbursements';
+import RequesterImports from '../components/pages/requester-imports/RequesterImports';
 import ReimbursementsView from '../components/pages/reimbursements-view/ReimbursementsView';
 import BankConnections from '../components/pages/bank-connections/BankConnections';
 import ExtraPayments from '../components/pages/extra-payments/ExtraPayments';
@@ -338,6 +339,11 @@ router.state(DashboardRoutes.PHYSICAL_CARD_TYPE, <PhysicalCardTypesShow />, {
 router.state(DashboardRoutes.REIMBURSEMENTS, <Reimbursements />, {
     path: `/organisaties/:organizationId/declaraties`,
     altPath: `/organizations/:organizationId/reimbursements`,
+});
+
+router.state(DashboardRoutes.REQUESTER_IMPORTS, <RequesterImports />, {
+    path: `/organisaties/:organizationId/requester-imports`,
+    altPath: `/organizations/:organizationId/requester-imports`,
 });
 
 router.state(DashboardRoutes.REIMBURSEMENT, <ReimbursementsView />, {

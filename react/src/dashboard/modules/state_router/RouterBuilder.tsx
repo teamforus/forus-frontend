@@ -41,6 +41,7 @@ export enum DashboardRoutes {
     PHYSICAL_CARDS = 'physical-cards',
     PHYSICAL_CARD_TYPE = 'physical-card-types-show',
     REIMBURSEMENTS = 'reimbursements',
+    REQUESTER_IMPORTS = 'requester-imports',
     REIMBURSEMENT = 'reimbursements-view',
     REIMBURSEMENT_CATEGORIES = 'reimbursement-categories',
     EXTRA_PAYMENTS = 'extra-payments',

@@ -9,6 +9,7 @@ export default interface RecordType {
     control_type: 'text' | 'select' | 'checkbox' | 'date' | 'number' | 'step' | 'currency';
     system: boolean;
     criteria: boolean;
+    requester_imports?: boolean;
     name: string;
     validations: Array<'date' | 'email' | 'iban' | 'min' | 'max'>;
     options: Array<RecordTypeOption>;

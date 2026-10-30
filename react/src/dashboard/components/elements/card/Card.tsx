@@ -27,18 +27,20 @@ export default function Card({
         <div className={classNames('card', className)} data-dusk={dusk}>
             <div className="card-header">
                 <div className="card-title flex flex-grow">{title}</div>
-                <div className="card-header-actions">
+                <div className="card-header-filters">
                     {buttons && (
-                        <div className="button-group">
-                            {buttons
-                                ?.filter((button) => button)
-                                ?.map((button, index) => (
-                                    <Button key={index} {...button} size={'sm'} />
-                                ))}
+                        <div className="card-header-actions">
+                            <div className="button-group">
+                                {buttons
+                                    ?.filter((button) => button)
+                                    ?.map((button, index) => (
+                                        <Button key={index} {...button} size={'sm'} />
+                                    ))}
+                            </div>
                         </div>
                     )}
+                    {filters && <div className="block block-inline-filters">{filters}</div>}
                 </div>
-                <div className="block block-inline-filters">{filters}</div>
             </div>
 
             <div className="card-body">{section ? <div className={'card-section'}>{children}</div> : children}</div>
