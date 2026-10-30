@@ -378,7 +378,8 @@ export default function FundProductLimits() {
                             </div>
                         </td>
                         <td>{row.type_locale}</td>
-                        <td>{row.limit}</td>
+                        <td>{row.limit_by_locale}</td>
+                        <td>{row.limit_locale}</td>
                         <td>
                             <TableDateTime value={row.created_at_locale} />
                         </td>
