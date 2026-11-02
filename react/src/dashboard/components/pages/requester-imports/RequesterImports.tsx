@@ -22,6 +22,7 @@ import InfoBox from '../../elements/info-box/InfoBox';
 import { Button } from '../../elements/button/Button';
 import ModalRequesterImportsUpload from './modals/ModalRequesterImportsUpload/ModalRequesterImportsUpload';
 import ModalRequesterImportEdit from './modals/ModalRequesterImportEdit';
+import ModalRequesterImportsSync from './modals/ModalRequesterImportsSync/ModalRequesterImportsSync';
 import RequesterImportsTable from './elements/RequesterImportsTable';
 
 export default function RequesterImports() {
@@ -115,6 +116,16 @@ function RequesterImportsContent({ organization }: { organization: Organization 
         [openModal, recordTypes],
     );
 
+    const openSync = useCallback(() => {
+        openModal((modal) => (
+            <ModalRequesterImportsSync
+                modal={modal}
+                organizationId={organization.id}
+                onChanged={() => setRefresh((value) => value + 1)}
+            />
+        ));
+    }, [openModal, organization.id]);
+
     useEffect(() => {
         fetchRows();
     }, [fetchRows, refresh]);
@@ -133,6 +144,12 @@ function RequesterImportsContent({ organization }: { organization: Organization 
                 className="form"
                 section={false}
                 buttons={[
+                    {
+                        text: translate('requester_imports.buttons.sync'),
+                        icon: 'sync',
+                        type: 'default',
+                        onClick: openSync,
+                    },
                     {
                         text: translate('requester_imports.buttons.import'),
                         icon: 'upload',

@@ -8,6 +8,25 @@ export type RequesterImportOutcome =
     | { index: number; status: 'created' | 'updated' | 'unchanged'; id: number }
     | { index: number; status: 'failed'; code: string; errors?: Record<string, string[]>; diagnostic_id?: string };
 
+export type RequesterImportSyncOutcome =
+    | {
+          id: number;
+          bsn: string;
+          profile_id: number;
+          identity_id: number;
+          status: 'created' | 'updated' | 'unchanged';
+          records_synced: number;
+          records_updated: number;
+      }
+    | {
+          id: number;
+          bsn: string;
+          status: 'failed';
+          code: string;
+          errors: Record<string, string[]>;
+          diagnostic_id: string;
+      };
+
 export default interface RequesterImportRow {
     id: number;
     organization_id: number;

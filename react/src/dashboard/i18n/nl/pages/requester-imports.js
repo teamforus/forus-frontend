@@ -36,6 +36,7 @@ export default {
         actions: 'Actions',
     },
     buttons: {
+        sync: 'Synchronize profiles',
         import: 'Import CSV',
         edit: 'Edit',
         save: 'Save',
@@ -47,6 +48,27 @@ export default {
         close: 'Close',
         stop: 'Stop after current batch',
         retry_remaining: 'Retry failed and unsubmitted rows',
+    },
+    sync: {
+        title: 'Synchronize profiles',
+        scope: 'This synchronizes all local requester records in this organization. Search filters and pagination do not limit the operation.',
+        default_description: 'By default, only fields changed locally since their last successful sync are applied.',
+        update_all: 'Update all stored fields',
+        update_all_description:
+            'When selected, all eligible local values are reapplied, including empty values. This can overwrite later changes made directly to profiles.',
+        results_title: 'Profile synchronization results',
+        running: 'Synchronizing profiles. Keep this window open until results are available.',
+        unknown:
+            'The result could not be confirmed. Some profiles may have been synchronized. Close this window and check profiles before starting another sync.',
+        rejected: 'Synchronization was not started. Check your access and try again.',
+        retry: 'Retry synchronization',
+        retry_description:
+            'Successful changes are kept. Retry runs all organization rows again after confirmation. By default, previously synchronized fields are left unchanged.',
+        empty: 'There are no local requester records to synchronize.',
+        profile: 'Profile',
+        view_profile: 'View profile',
+        fields_updated: 'Fields updated',
+        row_failed: 'This profile could not be synchronized. Use the reference when requesting help.',
     },
     status: {
         parsing: 'Reading file…',

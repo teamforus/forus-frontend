@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import ApiResponse, { RequestConfig, ResponseSimple } from '../props/ApiResponses';
-import RequesterImportRow, { RequesterImportInput, RequesterImportOutcome } from '../props/models/RequesterImportRow';
+import RequesterImportRow, {
+    RequesterImportInput,
+    RequesterImportOutcome,
+    RequesterImportSyncOutcome,
+} from '../props/models/RequesterImportRow';
 
 export class RequesterImportService {
     public constructor(protected apiRequest = new ApiRequestService()) {}
@@ -46,6 +50,15 @@ export class RequesterImportService {
     ): Promise<ResponseSimple<{ data: RequesterImportRow }>> {
         return this.apiRequest.patch(`/platform/organizations/${organizationId}/sponsor/requester-imports/${rowId}`, {
             records,
+        });
+    }
+
+    public sync(
+        organizationId: number,
+        updateAll = false,
+    ): Promise<ResponseSimple<{ data: RequesterImportSyncOutcome[] }>> {
+        return this.apiRequest.post(`/platform/organizations/${organizationId}/sponsor/requester-imports/sync`, {
+            update_all: updateAll,
         });
     }
 }
