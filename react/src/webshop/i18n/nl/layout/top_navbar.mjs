@@ -31,7 +31,7 @@ export default {
             close: 'Sluiten',
         },
         westerkwartier: {
-            funds: 'Potjes',
+            funds: 'Potjes gemeente',
         },
         groningen: {
             funds: 'Aanvragen',
@@ -47,8 +47,8 @@ export default {
             funds: 'Regelingen',
         },
         potjeswijzer: {
-            funds: 'Potjes',
-            partner_funds: 'Potjes partners',
+            funds: 'Potjes gemeente',
+            partner_funds: 'Overige potjes',
         },
         vergoedingen: {
             funds: 'Vergoedingen',
@@ -107,7 +107,7 @@ export default {
             activate: 'Aanvragen',
         },
         potjeswijzer: {
-            activate: 'Potjes',
+            activate: 'Potjes gemeente',
         },
         vergoedingen: {
             activate: 'Vergoedingen',
@@ -173,7 +173,7 @@ export default {
                     funds: 'Regelingen',
                 },
                 potjeswijzer: {
-                    funds: 'Potjes',
+                    funds: 'Potjes gemeente',
                 },
                 berkelland: {
                     funds: 'Activeren',
