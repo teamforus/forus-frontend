@@ -49,6 +49,7 @@ export default {
         potjeswijzer: {
             funds: 'Potjes gemeente',
             partner_funds: 'Overige potjes',
+            explanation: 'Contact',
         },
         vergoedingen: {
             funds: 'Vergoedingen',
