@@ -5,7 +5,7 @@ export default {
         partners_description: '',
         subtitle: '',
         potjeswijzer: {
-            title: 'Potjes',
+            title: 'Potjes gemeente',
             subtitle:
                 'Hieronder ziet u een deel van de potjes die u kan aanvragen. Bent u benieuwd welke er nog meer zijn? Neem dan contact op met: xxxx',
         },
@@ -35,7 +35,7 @@ export default {
     },
     funds: {
         potjeswijzer: {
-            title: 'Potjes',
+            title: 'Potjes gemeente',
         },
         berkelland: {
             title: 'Activeren',
@@ -67,7 +67,7 @@ export default {
     },
     partners: {
         potjeswijzer: {
-            title: 'Potjes partners',
+            title: 'Overige potjes',
             description:
                 'Ook onze partners bieden verschillende potjes voor inwoners. Heeft u een klein inkomen? Dan is er een extraatje mogelijk.',
         },
