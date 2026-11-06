@@ -1,0 +1,235 @@
+.block.block-header-account {
+    border: 1px solid #f3f4f5;
+    background: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 30px rgba(#000, 0.1);
+    width: 220px;
+    padding: 10px;
+    cursor: default;
+
+    .header-account-identity {
+        display: none;
+    }
+
+    .header-account-items {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .header-account-title {
+        text-transform: uppercase;
+        color: #646f79;
+        font: 600 11px/13px var(--base-font);
+        padding: 10px 0 10px 2px;
+    }
+
+    .header-account-sep {
+        border-top: 1px solid #f3f4f5;
+        margin: 10px -10px 10px;
+    }
+
+    .header-account-item {
+        display: flex;
+        align-items: center;
+        padding: 0;
+        font: 500 13px/36px var(--base-font);
+        letter-spacing: -0.312px;
+        color: #151b26;
+        transition: 0.4s;
+
+        .header-account-item-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 32px;
+            width: 32px;
+            height: 36px;
+            margin-right: 4px;
+
+            svg,
+            img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+                object-position: center;
+                transition: 0.4s;
+
+                path {
+                    transition: 0.4s;
+                }
+            }
+
+            svg {
+                width: 32px;
+                height: 32px;
+            }
+        }
+
+        .header-account-item-label {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        &:hover {
+            text-decoration: none;
+            background: #f6f8f9;
+            color: #004195;
+
+            .header-account-item-icon {
+                svg {
+                    path {
+                        fill: #134478;
+                    }
+                }
+            }
+        }
+
+        &.active {
+            padding-right: 30px;
+            position: relative;
+            color: #004195;
+
+            .header-account-item-icon {
+                svg {
+                    path {
+                        fill: #134478;
+                    }
+                }
+            }
+
+            &::after {
+                content: '';
+                background-image: assetUrl('img/icon-check.svg');
+                background-position: center;
+                background-size: contain;
+                background-repeat: no-repeat;
+                width: 20px;
+                height: 20px;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translate(0, -50%);
+            }
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        --header-account-gutter: 10px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+        min-height: 100%;
+        padding: 0 var(--header-account-gutter) 24px;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+
+        .header-account-identity {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+
+            .header-account-identity-img {
+                flex: 0 0 48px;
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                border: 1px solid var(--border-color);
+                background: #fff;
+            }
+
+            .header-account-identity-details {
+                display: flex;
+                flex-direction: column;
+                min-width: 0;
+            }
+
+            .header-account-identity-role {
+                font: 400 12px/18px var(--base-font);
+                color: #646f79;
+            }
+
+            .header-account-identity-name {
+                font: 600 14px/20px var(--base-font);
+                color: #151b26;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                left: calc(-1 * var(--header-account-gutter));
+                right: calc(-1 * var(--header-account-gutter));
+                bottom: 0;
+                height: 1px;
+                background: var(--border-color);
+            }
+        }
+
+        .header-account-sep {
+            margin: 4px 0;
+        }
+
+        .header-account-title {
+            padding: 10px 4px;
+            color: #151b26;
+            font: 600 12px/16px var(--base-font);
+        }
+
+        .header-account-item {
+            gap: 8px;
+            padding: 8px 10px;
+            border-radius: var(--border-radius);
+            font: 500 14px/20px var(--base-font);
+
+            .header-account-item-icon {
+                margin: -5px -5px;
+            }
+
+            &.active {
+                background: var(--color-primary);
+                color: #fff;
+                padding-right: 44px;
+
+                .header-account-item-icon {
+                    svg path {
+                        fill: #fff;
+                    }
+                }
+
+                &::after {
+                    content: '\F012C';
+                    right: 14px;
+                    background: none;
+                    color: #fff;
+                    font: normal 20px/20px 'Material Design Icons';
+                }
+
+                &:hover {
+                    background: var(--color-primary);
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: 1001px) {
+        display: flex;
+        flex-direction: column;
+        max-height: var(--header-dropdown-max-height, none);
+        padding: 0;
+
+        .header-account-items {
+            min-height: 0;
+            padding: 10px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+    }
+}

@@ -6,10 +6,18 @@ import FundRequestClarification from '../../../../../props/models/FundRequestCla
 
 export default function FundRequestRecordClarificationsTabItem({
     index,
+    expired,
     clarification,
+    canManageClarifications,
+    editClarification,
+    closeClarification,
 }: {
     index: number;
+    expired: boolean;
     clarification: FundRequestClarification;
+    canManageClarifications: boolean;
+    editClarification: () => void;
+    closeClarification: () => void;
 }) {
     function splitDateTime(dt?: string) {
         if (dt) {
@@ -29,8 +37,8 @@ export default function FundRequestRecordClarificationsTabItem({
     }, [clarification.created_at_locale]);
 
     const responded = useMemo(() => {
-        return splitDateTime(clarification.answered_at_locale);
-    }, [clarification.answered_at_locale]);
+        return splitDateTime(clarification.resolved_at_locale);
+    }, [clarification.resolved_at_locale]);
 
     const requirements = useMemo(() => {
         if (clarification.text_requirement !== 'no' && clarification.files_requirement !== 'no') {
@@ -58,9 +66,9 @@ export default function FundRequestRecordClarificationsTabItem({
                         <div
                             className={classNames(
                                 'clarification-item-section-header-label',
-                                clarification.answered_at
-                                    ? 'clarification-item-section-header-label-question-responded'
-                                    : 'clarification-item-section-header-label-question-pending',
+                                clarification.state === 'pending'
+                                    ? 'clarification-item-section-header-label-question-pending'
+                                    : 'clarification-item-section-header-label-question-responded',
                             )}>
                             <em className="mdi mdi-help-circle" />
                             Vraag
@@ -80,8 +88,8 @@ export default function FundRequestRecordClarificationsTabItem({
                 </div>
 
                 {/* Response */}
-                <div className="clarification-item-section">
-                    {clarification.answered_at ? (
+                {clarification.state === 'answered' && (
+                    <div className="clarification-item-section">
                         <div className="clarification-item-section-header">
                             <div
                                 className={classNames(
@@ -96,24 +104,7 @@ export default function FundRequestRecordClarificationsTabItem({
                                 <strong>{responded.time}</strong>
                             </div>
                         </div>
-                    ) : (
-                        <div className="clarification-item-section-header">
-                            <div
-                                className={classNames(
-                                    'clarification-item-section-header-label',
-                                    'clarification-item-section-header-label-answer-pending',
-                                )}>
-                                <em className="mdi mdi-timer-sand" />
-                                Wachten
-                            </div>
-                            <div className="clarification-item-section-header-title">
-                                <strong>De aanvrager</strong> heeft het aanvulverzoek ontvangen, maar nog niet
-                                beantwoord.
-                            </div>
-                        </div>
-                    )}
 
-                    {clarification?.answered_at && (
                         <div className="clarification-item-section-body">
                             {clarification?.answer && (
                                 <div className="clarification-item-section-body-group clarification-item-section-body-group-with-title">
@@ -136,14 +127,73 @@ export default function FundRequestRecordClarificationsTabItem({
                                     <FundRequestRecordAttachmentsTab
                                         attachments={clarification.files.map((file) => ({
                                             file,
-                                            date: clarification.answered_at_locale,
+                                            date: clarification.resolved_at_locale,
                                         }))}
                                     />
                                 </div>
                             )}
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
+
+                {clarification.state === 'closed' && (
+                    <div className="clarification-item-section">
+                        <div className="clarification-item-section-header">
+                            <div
+                                className={classNames(
+                                    'clarification-item-section-header-label',
+                                    'clarification-item-section-header-label-answer-responded',
+                                )}>
+                                <em className="mdi mdi-check-circle" />
+                                Gesloten door sponsor
+                            </div>
+                            <div className="clarification-item-section-header-title">
+                                Antwoord gekregen op <strong>{responded.date}</strong> om{' '}
+                                <strong>{responded.time}</strong>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {clarification.state === 'pending' && !expired && (
+                    <>
+                        <div className="clarification-item-section">
+                            <div className="clarification-item-section-header">
+                                <div
+                                    className={classNames(
+                                        'clarification-item-section-header-label',
+                                        'clarification-item-section-header-label-answer-pending',
+                                    )}>
+                                    <em className="mdi mdi-timer-sand" />
+                                    Wachten
+                                </div>
+                                <div className="clarification-item-section-header-title">
+                                    <strong>De aanvrager</strong> heeft het aanvulverzoek ontvangen, maar nog niet
+                                    beantwoord.
+                                </div>
+                            </div>
+                        </div>
+
+                        {canManageClarifications && (
+                            <div className="clarification-item-section">
+                                <div className="flex">
+                                    <button
+                                        className="button button-primary button-sm"
+                                        onClick={() => editClarification()}>
+                                        <em className="mdi mdi-pencil-outline icon-start" aria-hidden="true" />
+                                        Wijzigen
+                                    </button>
+                                    <button
+                                        className="button button-default button-sm"
+                                        onClick={() => closeClarification()}>
+                                        <em className="mdi mdi-close icon-start" aria-hidden="true" />
+                                        Sluiten
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </>
+                )}
             </div>
         </div>
     );

@@ -86,6 +86,9 @@ export default interface Implementation {
     auth_page_login_email?: boolean;
     auth_page_login_digid?: boolean;
     auth_page_login_qr?: boolean;
+    entra_login_enabled?: boolean;
+    entra_login_configured?: boolean;
+    entra_login_available?: boolean;
     auth_page_info_enabled?: boolean;
     auth_page_info_title?: string;
     auth_page_info_description?: string;

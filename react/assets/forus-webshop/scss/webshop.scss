@@ -134,8 +134,6 @@
 @use 'includes/blocks/block-pincode';
 @use 'includes/blocks/block-fund-request';
 @use 'includes/blocks/block-fund-requests';
-@use 'includes/blocks/block-fund-request-conversations';
-@use 'includes/blocks/block-fund-request-clarifications';
 @use 'includes/blocks/block-products';
 @use 'includes/blocks/block-products-list';
 @use 'includes/blocks/block-products-icons-info';
@@ -154,6 +152,7 @@
 @use 'includes/blocks/block-product-category-filter';
 @use 'includes/blocks/block-product-categories';
 @use 'includes/blocks/block-pdf-preview-pages';
+@use 'includes/blocks/block-status-banner';
 
 // MODALS
 @use 'includes/modals/modal';

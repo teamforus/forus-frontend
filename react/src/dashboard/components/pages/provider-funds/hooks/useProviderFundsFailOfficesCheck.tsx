@@ -13,6 +13,7 @@ export default function useProviderFundsFailOfficesCheck() {
                 modal={modal}
                 title={translate('provider_funds.available.error_apply.title')}
                 description={translate('provider_funds.available.error_apply.description')}
+                dusk="modalProviderFundApplyNoOffices"
                 buttonCancel={{
                     text: translate('modal.buttons.cancel'),
                     onClick: modal.close,

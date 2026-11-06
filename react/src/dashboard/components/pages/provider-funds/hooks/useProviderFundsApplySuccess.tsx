@@ -14,6 +14,7 @@ export default function useProviderFundsApplySuccess() {
                 title={translate('provider_funds.available.applied_for_fund.title')}
                 description={translate('provider_funds.available.applied_for_fund.description')}
                 icon={'fund_applied'}
+                dusk="modalProviderFundApplied"
                 buttonSubmit={{
                     text: translate('modal.buttons.confirm'),
                     onClick: modal.close,

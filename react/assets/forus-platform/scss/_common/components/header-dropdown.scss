@@ -1,0 +1,24 @@
+.header-dropdown {
+    visibility: hidden;
+    pointer-events: none;
+
+    &.ready {
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    @media screen and (max-width: 1000px) {
+        position: fixed;
+        top: var(--app-header-height, 57px);
+        right: 0;
+        bottom: 0;
+        left: 0;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        background: #fff;
+    }
+
+    @media screen and (min-width: 1001px) {
+        --header-dropdown-max-height: max(0px, calc(100dvh - var(--header-dropdown-top) - 8px));
+    }
+}

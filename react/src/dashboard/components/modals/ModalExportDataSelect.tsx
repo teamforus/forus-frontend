@@ -195,7 +195,13 @@ export default function ModalExportDataSelect({
                                         )}
                                     </div>
                                     {section.type === 'checkbox' && !section.collapsed && (
-                                        <div className="export-options">
+                                        <div
+                                            className="export-options"
+                                            style={
+                                                {
+                                                    '--export-fields-per-row': section.fieldsPerRow || 1,
+                                                } as React.CSSProperties
+                                            }>
                                             <table>
                                                 <tbody>
                                                     {section.fieldsView?.map((row, index) => (

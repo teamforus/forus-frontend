@@ -201,7 +201,7 @@ export default function SignUpSponsor() {
                 )}
 
                 {step == STEP_SIGNUP_FINISHED && (
-                    <div className="finish-screen">
+                    <div className="finish-screen" data-dusk="stepFinished">
                         <SignUpProgress step={step} infoSteps={INFO_STEPS} shownSteps={shownSteps} />
 
                         <div className="sign_up-pane">
@@ -218,7 +218,10 @@ export default function SignUpSponsor() {
                                 <br />
                                 <br />
                                 <div className="text-center">
-                                    <div className="button button-primary-variant" onClick={finish}>
+                                    <div
+                                        className="button button-primary-variant"
+                                        onClick={finish}
+                                        data-dusk="finishBtn">
                                         {translate('sign_up_sponsor.buttons.go_to_dashboard')}
                                     </div>
                                 </div>

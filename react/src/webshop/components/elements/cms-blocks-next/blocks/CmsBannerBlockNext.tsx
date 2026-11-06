@@ -32,6 +32,7 @@ export default function CmsBannerBlockNext({ block }: { block: ImplementationCms
     const labelTextColor = stringValue(values.label_text_color);
     const buttonColor = stringValue(values.button_color);
     const buttonTextColor = stringValue(values.button_text_color);
+    const borderHidden = valueIsTrue(values.section_border_hidden);
 
     const contentStyle = useMemo<CSSProperties | undefined>(() => {
         const style: CSSProperties = {};
@@ -132,6 +133,8 @@ export default function CmsBannerBlockNext({ block }: { block: ImplementationCms
         layout === 'image_overlay_right' && 'block-cms-banner-overlay-right',
     );
 
+    const blockStyle: CSSProperties | undefined = borderHidden ? { border: 'none' } : undefined;
+
     const blockContent = isOverlay ? (
         <Fragment>
             <div className="cms-banner-media">
@@ -161,11 +164,14 @@ export default function CmsBannerBlockNext({ block }: { block: ImplementationCms
                     href={url}
                     target={targetBlank ? '_blank' : '_self'}
                     rel={targetBlank ? 'noreferrer' : undefined}
-                    aria-label={linkLabel || undefined}>
+                    aria-label={linkLabel || undefined}
+                    style={blockStyle}>
                     {blockContent}
                 </a>
             ) : (
-                <div className={blockClassName}>{blockContent}</div>
+                <div className={blockClassName} style={blockStyle}>
+                    {blockContent}
+                </div>
             )}
         </Section>
     );

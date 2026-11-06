@@ -5,6 +5,10 @@ export default interface Employee {
     email?: string;
     identity_address: string;
     is_2fa_configured: boolean;
+    identity_provider_management: {
+        provider: string;
+        status: 'active' | 'disabled' | 'deleted';
+    } | null;
     organization_id: number;
     organization: {
         id: number;

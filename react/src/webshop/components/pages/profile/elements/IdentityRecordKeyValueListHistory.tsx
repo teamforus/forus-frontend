@@ -29,7 +29,11 @@ export default function IdentityRecordKeyValueListHistory({ records }: { records
                             <div>
                                 {translate('profile.history.modified_by')}{' '}
                                 <strong className="text-strong">
-                                    {item.sponsor ? item.sponsor_name : translate('profile.history.you')}
+                                    {item.source === 'entra'
+                                        ? translate('profile.history.entra')
+                                        : item.sponsor
+                                          ? item.sponsor_name
+                                          : translate('profile.history.you')}
                                 </strong>{' '}
                             </div>
                             <div>{`${item.created_at_locale}`}</div>

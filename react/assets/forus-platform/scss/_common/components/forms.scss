@@ -502,6 +502,11 @@
                 transform: translate(0, -50%);
                 z-index: 5;
                 padding: 0;
+
+                &:hover,
+                &:focus-within {
+                    z-index: 6;
+                }
             }
 
             &.tooltipped-inner {
@@ -733,5 +738,32 @@
     .form-title {
         font: 600 14px/20px var(--base-font);
         color: #151b26;
+    }
+
+    @media screen and (max-width: 1000px) {
+        .form-group.tooltipped {
+            .block-form_tooltip {
+                top: 10px;
+                right: 0;
+
+                .tooltip:not(.tooltip-bottom) {
+                    top: 100%;
+                    right: 0;
+                    left: auto;
+                    margin-top: 8px;
+                    transform: none;
+
+                    &:before,
+                    &:after {
+                        display: none;
+                    }
+                }
+            }
+
+            & > .form-label,
+            & > .checkbox {
+                padding-right: 28px;
+            }
+        }
     }
 }

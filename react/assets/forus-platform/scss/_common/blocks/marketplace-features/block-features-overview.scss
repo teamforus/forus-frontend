@@ -127,15 +127,38 @@
 
     @media screen and (max-width: 1400px) {
         .overview-details {
+            padding: 30px 40px;
+
             .overview-details-title {
                 font: 600 24px/34px var(--base-font);
+            }
+        }
+
+        .overview-list {
+            .overview-list-wrapper {
+                scale: 0.9;
             }
         }
     }
 
     @media screen and (max-width: 1000px) {
-        .overview-details {
-            padding: 20px 25px;
+        .overview-list {
+            min-width: 0;
+            padding-left: 10px;
+            padding-right: 10px;
+
+            .overview-list-wrapper {
+                max-width: 100%;
+
+                .overview-list-col {
+                    flex: 1 1 0;
+                    min-width: 0;
+
+                    .overview-list-item {
+                        max-width: 100%;
+                    }
+                }
+            }
         }
     }
 

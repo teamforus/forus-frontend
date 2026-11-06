@@ -88,13 +88,13 @@ export default function SignUpStepProfileCreate({ panelType }: { panelType: 'spo
     }, [hasApp, identityService, progressStorage, setToken]);
 
     return (
-        <div className="sign_up-pane">
+        <div className="sign_up-pane" data-dusk="stepCreateProfile">
             <div className="sign_up-pane-header">
                 {translate(`sign_up_${panelType}.header.title_step_${panelType == 'sponsor' ? 2 : 3}`)}
             </div>
 
             {!authEmailSent && !hasApp && (
-                <div className="sign_up-pane-body">
+                <div className="sign_up-pane-body" data-dusk="emailForm">
                     {panelType === 'validator' && (
                         <div className="sign_up-pane-heading">
                             {translate(`sign_up_validator.header.subtitle_step_3`)}
@@ -114,6 +114,7 @@ export default function SignUpStepProfileCreate({ panelType }: { panelType: 'spo
                                         placeholder={'e-mail@e-mail.nl'}
                                         autoComplete={'email'}
                                         type="email"
+                                        dataDusk="emailInput"
                                     />
                                     <FormError
                                         error={formSignUp.errors?.email || formSignUp.errors?.['records.primary_email']}
@@ -126,6 +127,7 @@ export default function SignUpStepProfileCreate({ panelType }: { panelType: 'spo
                                     <label className="form-label">&nbsp;</label>
                                     <button
                                         type="submit"
+                                        data-dusk="emailFormSubmit"
                                         className={classNames(
                                             'button',
                                             'button-primary',
@@ -199,7 +201,7 @@ export default function SignUpStepProfileCreate({ panelType }: { panelType: 'spo
             )}
 
             {authEmailSent && (
-                <div className="sign_up-pane-body text-center">
+                <div className="sign_up-pane-body text-center" data-dusk="authEmailSent">
                     <div className="sign_up-pane-media">
                         <img src={assetUrl('/assets/img/email_confirmed.svg')} alt={''} />
                     </div>

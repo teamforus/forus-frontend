@@ -5,20 +5,16 @@ import Product from '../../../../props/models/Product';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import useEnvData from '../../../../hooks/useEnvData';
 import useShowTakenByPartnerModal from '../../../../services/helpers/useShowTakenByPartnerModal';
-import useAppConfigs from '../../../../hooks/useAppConfigs';
 import useAuthIdentity from '../../../../hooks/useAuthIdentity';
 import { useFundService } from '../../../../services/FundService';
 import { useNavigateState } from '../../../../modules/state_router/Router';
-import { useProductService } from '../../../../services/ProductService';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
-import useOpenModal from '../../../../../dashboard/hooks/useOpenModal';
-import ModalProductReserve from '../../../modals/modal-product-reserve/ModalProductReserve';
-import useFetchAuthIdentity from '../../../../hooks/useFetchAuthIdentity';
-import useFundMetaBuilder from '../../../../hooks/meta/useFundMetaBuilder';
 import PayoutTransaction from '../../../../../dashboard/props/models/PayoutTransaction';
 import classNames from 'classnames';
 import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
+import useProductFundsMeta from '../hooks/useProductFundsMeta';
+import useReserveProduct from '../hooks/useReserveProduct';
 
 export default function ProductFunds({
     product,
@@ -32,43 +28,19 @@ export default function ProductFunds({
     vouchers: Array<Voucher>;
 }) {
     const envData = useEnvData();
-    const appConfigs = useAppConfigs();
 
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
-    const openModal = useOpenModal();
     const navigateState = useNavigateState();
-    const fetchAuthIdentity = useFetchAuthIdentity();
 
     const authIdentity = useAuthIdentity();
     const showTakenByPartnerModal = useShowTakenByPartnerModal();
 
     const fundService = useFundService();
-    const productService = useProductService();
+    const reserveProduct = useReserveProduct(product);
+    const productMeta = useProductFundsMeta(product, funds, vouchers, payouts);
 
     const onlyAvailableFunds = useMemo(() => envData?.config?.flags?.productDetailsOnlyAvailableFunds, [envData]);
-    const fundMetaBuilder = useFundMetaBuilder();
-
-    const productMeta = useMemo(() => {
-        if (!product || !funds || !vouchers) {
-            return null;
-        }
-
-        const meta = productService.checkEligibility(product, vouchers);
-
-        return {
-            ...meta,
-            funds: meta.funds.map((productFund) => ({
-                ...productFund,
-                ...fundMetaBuilder(
-                    { ...funds.find((fund) => fund.id == productFund.id), ...productFund },
-                    payouts,
-                    vouchers,
-                    appConfigs,
-                ),
-            })),
-        };
-    }, [product, funds, vouchers, productService, fundMetaBuilder, payouts, appConfigs]);
 
     const listFunds = useMemo(() => {
         return productMeta?.funds.filter((fund) => !onlyAvailableFunds || fund.meta.isReservationAvailable);
@@ -88,22 +60,6 @@ export default function ProductFunds({
             });
         },
         [fundService, navigateState, showTakenByPartnerModal],
-    );
-
-    const reserveProduct = useCallback(
-        (fund: Fund & { meta: { reservableVouchers: Voucher[] } }) => {
-            fetchAuthIdentity().then(() => {
-                openModal((modal) => (
-                    <ModalProductReserve
-                        fund={fund}
-                        modal={modal}
-                        product={product}
-                        vouchers={fund.meta.reservableVouchers}
-                    />
-                ));
-            });
-        },
-        [fetchAuthIdentity, openModal, product],
     );
 
     if (productMeta?.funds?.length === 0) {

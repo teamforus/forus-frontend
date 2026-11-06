@@ -18,12 +18,20 @@
             "qr": {
                 "description": "<u>Me</u> uygulaması ile bir QR kodu tarayın",
                 "title": "Benim uygulamam"
+            },
+            "entra": {
+                "title": "Microsoft ile giriş yap",
+                "description": "İş hesabınızı kullanın"
             }
         },
         "push": {
             "link_used": {
                 "title": "Bu bağlantı zaten kullanılmış veya geçersiz."
-            }
+            },
+            "entra_failed": {
+                "title": "Microsoft ile oturum açma işlemi başarısız oldu. Lütfen tekrar deneyin."
+            },
+            "message_with_reference": "{{message}} ({{reference}})"
         },
         "setup_2fa_title": "İki faktörlü kimlik doğrulamayı ayarlama",
         "2fa_title": "İki faktörlü kimlik doğrulama",
@@ -679,7 +687,7 @@
                 "activate": "İstek"
             },
             "potjeswijzer": {
-                "activate": "Belediye kasaları"
+                "activate": "Kavanozlar"
             }
         },
         "items": {
@@ -688,7 +696,8 @@
                 "funds": "Açıklama sakinleri"
             },
             "eemsdelta": {
-                "funds": "Şemalar"
+                "funds": "Şemalar",
+                "partner_funds": "Ortaklar"
             },
             "explanation": "Açıklama",
             "geertruidenberg": {
@@ -744,11 +753,14 @@
             "funds": "Düzenlemeler",
             "partner_funds": "Sosyal taraflar",
             "potjeswijzer": {
-                "funds": "Belediye kasaları",
-                "partner_funds": "Potjes ortakları"
+                "partner_funds": "Potjes ortakları",
+                "funds": "Kavanozlar"
             },
             "westerkwartier": {
-                "funds": "Belediye kasaları"
+                "funds": "Kavanozlar"
+            },
+            "gelrepas": {
+                "funds": "Belediye bazında açıklama"
             }
         },
         "user_menu": {
@@ -888,8 +900,10 @@
         },
         "details": {
             "created_at": "Gönderilme tarihi:",
-            "fund_name": "Fon adı:",
-            "status": "Durum Talebi:"
+            "status": "Durum Talebi:",
+            "fund_name": "Düzenleme:",
+            "last_answered": "Son güncelleme:",
+            "number": "Başvuru numarası:"
         },
         "fund_not_active": "Başvurmaya çalıştığınız fon aktif değil.",
         "invalid_endpoint": "Bu uygulamaya erişim yok",
@@ -899,7 +913,6 @@
         },
         "record": {
             "answer": "Cevaplandı",
-            "cancel_btn": "İptal",
             "new": "yeni mesaj",
             "new_message": "Yeni istek",
             "send_btn": "Gönder",
@@ -1051,12 +1064,16 @@
             "provide_info": "Soruyu cevaplayın",
             "subtitle": "Başvuru henüz tamamlanmamıştır. Ek bilgiye ihtiyaç vardır. Lütfen aşağıdaki soruyu inceleyin ve yanıtlamak için düğmeye tıklayın.",
             "title": "Açık sorular ({{ count }})",
-            "info_responded_count": "{{count}} mesaj"
+            "info_responded_count": "{{count}} mesaj",
+            "info_pending": "Cevap gerekiyor"
         },
         "labels": {
             "question_from": "Bir soru {{ name }}",
             "date": "Tarih:",
-            "question": "Soru soruldu"
+            "question": "Soru soruldu",
+            "closed_by_sponsor": "Kapatıldı: {{ sponsor_name }}",
+            "edited": "Düzenlendi",
+            "your_answer": "Cevabınız:"
         },
         "records": {
             "title": "Bilgilerim ({{ count }})",
@@ -1127,6 +1144,10 @@
                 }
             },
             "title": "BSN onayının süresi doldu"
+        },
+        "state": {
+            "answer_needed": "Sizden daha fazla bilgiye ihtiyacımız var",
+            "expired": "Süresi dolmuş"
         }
     },
     "fund": {
@@ -1227,7 +1248,10 @@
             "archive": "Arşiv",
             "all_funds": "Tüm krediler..."
         },
-        "title": "İstek"
+        "title": "İstek",
+        "state": {
+            "expired": "Süresi dolmuş"
+        }
     },
     "funds": {
         "breadcrumbs": {
@@ -1285,7 +1309,10 @@
                 "title": "Şemalar"
             },
             "potjeswijzer": {
-                "title": "Belediye kasaları"
+                "title": "Kavanozlar"
+            },
+            "gelrepas": {
+                "title": "Belediye bazında açıklama"
             }
         },
         "header": {
@@ -1371,6 +1398,9 @@
             "potjeswijzer": {
                 "description": "Ortaklarımız da bölge sakinleri için çeşitli yardım fonları sunmaktadır. Geliriniz düşük mü? O halde ek bir yardım alabilirsiniz.",
                 "title": "Potjes ortakları"
+            },
+            "eemsdelta": {
+                "title": "Ortaklar"
             }
         }
     },
@@ -2355,7 +2385,9 @@
             "digid_uid_not_found": "Bu BSN numarası sistemde bilinmiyor, bir hesap oluşturmak için başvurunuzu başlatın.",
             "digid_uid_used": "Bu BSN numarası için farklı bir e-posta adresi kaydedilmiştir. Hesabınıza giriş yapmak için bize kayıtlı e-posta adresini kullanmanız gerekmektedir.<br/><br/> Bunun hangi e-posta adresi olduğunu hatırlayamıyor musunuz veya yeni bir e-posta adresiniz mi var? <br/> O zaman <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">buraya</a> veya aşağıdaki düğmeye tıklayarak hesabınızı geri yükleyin.</br>",
             "digid_unknown_error": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
-            "unknown_error": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin."
+            "unknown_error": "DigiD ile iletişimde bir hata oluştu. Lütfen daha sonra tekrar deneyin. Bu hata devam ederse, lütfen en son bilgiler için https://www.digid.nl/ web sitesini kontrol edin.",
+            "entra_login_failed": "Microsoft ile oturum açma işlemi başlatılamadı. Lütfen daha sonra tekrar deneyin.",
+            "digid_managed_requester": "Hesabınız Microsoft Entra üzerinden yönetilmektedir. Kurumunuzun web mağazasına Microsoft hesabınızla giriş yapın."
         },
         "start_button": "Hesabı geri yükle",
         "titles": {
@@ -2379,7 +2411,9 @@
             "digid_uid_not_found": "Bu BSN numarası sistemde bilinmiyor",
             "digid_uid_used": "BSN numarası zaten kullanılıyor.",
             "digid_unknown_error": "DigiD ile iletişimde bir hata oluştu.",
-            "unknown_error": "Bilinmeyen hata mesajı"
+            "unknown_error": "Bilinmeyen hata mesajı",
+            "entra_login_failed": "Microsoft ile oturum açma işlemi başarısız oldu",
+            "digid_managed_requester": "Microsoft ile giriş yapın"
         }
     },
     "payouts": {
@@ -2663,7 +2697,8 @@
             "from": "itibaren",
             "modified_by": "Tarafından değiştirildi",
             "to": "için",
-            "you": "sen"
+            "you": "sen",
+            "entra": "Microsoft Entra"
         },
         "personal": {
             "bsn": "BSN",
@@ -3346,7 +3381,10 @@
         },
         "header": {
             "title": "PDF örneği"
-        }
+        },
+        "loading": "PDF önizlemesi yükleniyor.",
+        "page_alt": "PDF sayfası {{page}}",
+        "unavailable": "PDF önizlemesi mevcut değil."
     },
     "popup_auth": {
         "buttons": {
@@ -3631,6 +3669,11 @@
         },
         "goereeoverflakkee": {
             "funds": "Şemalar"
+        },
+        "potjeswijzer": {
+            "funds": "Kavanozlar",
+            "funds_kindpakket": "Çocuk Paketi",
+            "partner_funds": "Potjes ortakları"
         }
     },
     "cookie_banner": {
@@ -3849,5 +3892,10 @@
             "default": "Ana sayfaya git",
             "isd": "ISD Belediyeler Arası Sosyal Hizmet Brabantse Wal"
         }
+    },
+    "confirm_fund_request_clarification_submit": {
+        "confirm_btn": "Gönder",
+        "description": "Tüm soruları yanıtladığını ve tüm destekleyici belgeleri eklediğini kontrol et.",
+        "title": "Cevap tam mı?"
     }
 }

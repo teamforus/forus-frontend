@@ -238,7 +238,7 @@
                 "activate": "Request"
             },
             "potjeswijzer": {
-                "activate": "Municipal funds"
+                "activate": "Jars"
             }
         },
         "items": {
@@ -247,7 +247,8 @@
                 "funds": "Explanation residents"
             },
             "eemsdelta": {
-                "funds": "Regulations"
+                "funds": "Regulations",
+                "partner_funds": "Partners"
             },
             "explanation": "Explanation",
             "geertruidenberg": {
@@ -303,11 +304,14 @@
             "funds": "Regulations",
             "partner_funds": "Social partners",
             "potjeswijzer": {
-                "funds": "Municipal funds",
-                "partner_funds": "Potjes Partners"
+                "partner_funds": "Potjes Partners",
+                "funds": "Jars"
             },
             "westerkwartier": {
-                "funds": "Municipal funds"
+                "funds": "Jars"
+            },
+            "gelrepas": {
+                "funds": "Explanation by municipality"
             }
         },
         "user_menu": {
@@ -368,12 +372,20 @@
             "qr": {
                 "description": "Scan a QR code with the <u>Me</u> app",
                 "title": "Me app"
+            },
+            "entra": {
+                "title": "Sign in with Microsoft",
+                "description": "Use your work account"
             }
         },
         "push": {
             "link_used": {
                 "title": "This link has already been used or is invalid."
-            }
+            },
+            "entra_failed": {
+                "title": "Signing in with Microsoft failed. Please try again."
+            },
+            "message_with_reference": "{{message}} ({{reference}})"
         },
         "setup_2fa_title": "Setting up two-factor authentication",
         "2fa_title": "Two-factor authentication",
@@ -663,8 +675,10 @@
         },
         "details": {
             "created_at": "Submitted on:",
-            "fund_name": "Fund name:",
-            "status": "Status Request:"
+            "status": "Status Request:",
+            "fund_name": "Regulation:",
+            "last_answered": "Last updated:",
+            "number": "Application Number:"
         },
         "fund_not_active": "The fund you are trying to apply for is not active.",
         "invalid_endpoint": "No access to this application",
@@ -674,7 +688,6 @@
         },
         "record": {
             "answer": "Answered",
-            "cancel_btn": "Cancel",
             "new": "new message",
             "new_message": "New request",
             "send_btn": "Send",
@@ -826,12 +839,16 @@
             "provide_info": "Answer the question",
             "subtitle": "The application is not yet complete. Additional information is needed. Please review the question below and click the button to respond.",
             "title": "Open questions ({{ count }})",
-            "info_responded_count": "{{count}} message"
+            "info_responded_count": "{{count}} message",
+            "info_pending": "Need an answer"
         },
         "labels": {
             "question_from": "Question from {{ name }}",
             "date": "Date:",
-            "question": "Question asked"
+            "question": "Question asked",
+            "closed_by_sponsor": "Closed by {{ sponsor_name }}",
+            "edited": "Edited",
+            "your_answer": "Your answer:"
         },
         "records": {
             "title": "My information ({{ count }})",
@@ -902,6 +919,10 @@
                 }
             },
             "title": "BSN confirmation expired"
+        },
+        "state": {
+            "answer_needed": "We need more information from you",
+            "expired": "Expired"
         }
     },
     "fund_requests": {
@@ -925,7 +946,10 @@
             "archive": "Archive",
             "all_funds": "All credits..."
         },
-        "title": "Request"
+        "title": "Request",
+        "state": {
+            "expired": "Expired"
+        }
     },
     "fund": {
         "breadcrumbs": {
@@ -1009,7 +1033,10 @@
                 "title": "Regulations"
             },
             "potjeswijzer": {
-                "title": "Municipal funds"
+                "title": "Jars"
+            },
+            "gelrepas": {
+                "title": "Explanation by municipality"
             }
         },
         "header": {
@@ -1095,6 +1122,9 @@
             "potjeswijzer": {
                 "description": "Our partners also offer various assistance programs for residents. Do you have a low income? If so, you may be eligible for additional assistance.",
                 "title": "Potjes Partners"
+            },
+            "eemsdelta": {
+                "title": "Partners"
             }
         }
     },
@@ -2055,7 +2085,9 @@
             "digid_uid_not_found": "This BSN number is unknown in the system, please start your application to create an account.",
             "digid_uid_used": "A different email address is registered for this BSN number. To login to your account, you must use the email address registered with us.<br/><br/> Can't remember which email address this is or do you have a new one? <br/> Then restore your account by clicking <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">here</a> or the button below.</br>",
             "digid_unknown_error": "An error occurred in communication with DigiD. Please try again later. If this error persists, please check the website https://www.digid.nl/ for the latest information.",
-            "unknown_error": "An error occurred in communication with DigiD. Please try again later. If this error persists, please check the website https://www.digid.nl/ for the latest information."
+            "unknown_error": "An error occurred in communication with DigiD. Please try again later. If this error persists, please check the website https://www.digid.nl/ for the latest information.",
+            "entra_login_failed": "Signing in with Microsoft could not be initiated. Please try again later.",
+            "digid_managed_requester": "Your account is managed through Microsoft Entra. Sign in with Microsoft to your organization's online store."
         },
         "start_button": "Restore account",
         "titles": {
@@ -2079,7 +2111,9 @@
             "digid_uid_not_found": "This BSN number is unknown in the system",
             "digid_uid_used": "BSN number already used.",
             "digid_unknown_error": "An error occurred in communication with DigiD.",
-            "unknown_error": "Unknown error message"
+            "unknown_error": "Unknown error message",
+            "entra_login_failed": "Signing in with Microsoft failed",
+            "digid_managed_requester": "Sign in with Microsoft"
         }
     },
     "payouts": {
@@ -2363,7 +2397,8 @@
             "from": "from",
             "modified_by": "Modified by",
             "to": "to",
-            "you": "you"
+            "you": "you",
+            "entra": "Microsoft Entra"
         },
         "personal": {
             "bsn": "BSN",
@@ -2663,7 +2698,10 @@
         },
         "buttons": {
             "close": "Close"
-        }
+        },
+        "loading": "Loading PDF preview.",
+        "page_alt": "PDF page {{page}}",
+        "unavailable": "No PDF preview available."
     },
     "popup_auth": {
         "buttons": {
@@ -3631,6 +3669,11 @@
         },
         "goereeoverflakkee": {
             "funds": "Regulations"
+        },
+        "potjeswijzer": {
+            "funds": "Jars",
+            "funds_kindpakket": "Kids' Package",
+            "partner_funds": "Potjes Partners"
         }
     },
     "cookie_banner": {
@@ -3849,5 +3892,10 @@
             "default": "Go to the homepage",
             "isd": "ISD Intermunicipal Social Service Brabantse Wal"
         }
+    },
+    "confirm_fund_request_clarification_submit": {
+        "confirm_btn": "Send",
+        "description": "Make sure you've answered all the questions and attached all the supporting documents.",
+        "title": "Is the answer complete?"
     }
 }

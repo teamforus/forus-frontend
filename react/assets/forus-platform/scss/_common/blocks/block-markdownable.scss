@@ -200,4 +200,12 @@
             }
         }
     }
+
+    @media screen and (max-width: 1000px) {
+        .note-editor {
+            .note-toolbar {
+                flex-wrap: wrap;
+            }
+        }
+    }
 }
