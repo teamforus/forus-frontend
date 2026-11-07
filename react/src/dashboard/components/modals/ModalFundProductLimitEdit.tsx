@@ -53,20 +53,27 @@ export default function ModalFundProductLimitEdit({
         { id: 'only_selected', name: translate('modals.modal_fund_product_limit_edit.labels.type_only_selected') },
     ]);
 
+    const [limitByOptions] = useState<Array<{ id: FundProductLimit['limit_by']; name: string }>>([
+        { id: 'products', name: translate('modals.modal_fund_product_limit_edit.labels.limit_by_products') },
+        { id: 'amount', name: translate('modals.modal_fund_product_limit_edit.labels.limit_by_amount') },
+    ]);
+
     const form = useFormBuilder(
         fundProductLimit
             ? {
                   fund_id: fundProductLimit.fund_id,
                   type: fundProductLimit.type,
                   state: fundProductLimit.state,
-                  limit: fundProductLimit.limit,
+                  limit_by: fundProductLimit.limit_by,
+                  limit: fundProductLimit.limit.toString(),
                   products: fundProductLimit.products.map((p) => p.id),
               }
             : {
                   fund_id: fundId || funds[0]?.id,
                   type: 'all_except_selected',
                   state: 'active',
-                  limit: 1,
+                  limit_by: 'products',
+                  limit: '1',
                   products: [],
               },
         (values) => {
@@ -193,8 +200,25 @@ export default function ModalFundProductLimitEdit({
 
                     <FormGroup
                         required={true}
-                        label={translate('modals.modal_fund_product_limit_edit.labels.limit')}
-                        info={translate('modals.modal_fund_product_limit_edit.info.limit')}
+                        label={translate('modals.modal_fund_product_limit_edit.labels.limit_by')}
+                        info={translate('modals.modal_fund_product_limit_edit.info.limit_by')}
+                        error={form.errors?.limit_by}
+                        input={(id) => (
+                            <SelectControl
+                                id={id}
+                                value={form.values.limit_by}
+                                propKey="id"
+                                options={limitByOptions}
+                                allowSearch={false}
+                                onChange={(limit_by: FundProductLimit['limit_by']) => form.update({ limit_by })}
+                            />
+                        )}
+                    />
+
+                    <FormGroup
+                        required={true}
+                        label={translate(`modals.modal_fund_product_limit_edit.labels.limit_${form.values.limit_by}`)}
+                        info={translate(`modals.modal_fund_product_limit_edit.info.limit_${form.values.limit_by}`)}
                         error={form.errors?.limit}
                         input={(id) => (
                             <input
@@ -202,8 +226,11 @@ export default function ModalFundProductLimitEdit({
                                 id={id}
                                 className="form-control"
                                 value={form.values.limit}
-                                placeholder={translate('modals.modal_fund_product_limit_edit.placeholders.limit')}
-                                onChange={(e) => form.update({ limit: Number(e.target.value) })}
+                                step={form.values.limit_by === 'amount' ? '0.01' : '1'}
+                                placeholder={translate(
+                                    `modals.modal_fund_product_limit_edit.placeholders.limit_${form.values.limit_by}`,
+                                )}
+                                onChange={(e) => form.update({ limit: e.target.value })}
                             />
                         )}
                     />

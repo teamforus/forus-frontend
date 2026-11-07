@@ -38,7 +38,7 @@ export class FundProductLimitService<T = FundProductLimit> {
     }
 
     public getColumns(): Array<ConfigurableTableColumn> {
-        const list = ['id', 'fund', 'type', 'limit', 'created_at', 'state'].filter((item) => item);
+        const list = ['id', 'fund', 'type', 'limit_by', 'limit', 'created_at', 'state'].filter((item) => item);
 
         return list.map((key) => ({
             key,
