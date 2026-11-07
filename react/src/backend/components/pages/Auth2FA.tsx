@@ -13,10 +13,12 @@ export default function Auth2FA({
     type,
     mobile,
     exchangeToken,
+    destinationClientType,
 }: {
     type?: string;
     mobile: boolean;
     exchangeToken?: string;
+    destinationClientType?: string;
 }) {
     const [step, setStep] = useState(null);
     const [state, setState] = useState(null);
@@ -87,7 +89,7 @@ export default function Auth2FA({
 
     const initPinCode = useCallback(() => {
         if (mobile) {
-            identityService.storeShared2FA().then((res) => {
+            identityService.storeShared2FA(destinationClientType).then((res) => {
                 setState('app');
                 setRedirectUrl(res.data.redirect_url);
 
@@ -100,7 +102,7 @@ export default function Auth2FA({
         } else {
             setState('pin_code');
         }
-    }, [identityService, mobile]);
+    }, [destinationClientType, identityService, mobile]);
 
     const onReady = useCallback(() => {
         identity2FAService.status().then(

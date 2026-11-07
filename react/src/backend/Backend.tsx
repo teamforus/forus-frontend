@@ -33,11 +33,11 @@ const Layout = ({ envData, children }: { envData: EnvDataBackend; children: Reac
 export default function Backend(): React.ReactElement {
     const params = document.getElementById('params');
     const mobile = params.dataset.mobile === 'true';
-    const { exchangeToken, type, apiUrl } = params.dataset;
+    const { exchangeToken, type, apiUrl, clientType, clientKey } = params.dataset;
 
     const envData = useMemo(
         () => ({
-            client_key: 'general',
+            client_key: clientKey || 'general',
             client_type: 'pin_code-auth',
             name: 'Backend general',
             type: 'backend',
@@ -46,7 +46,7 @@ export default function Backend(): React.ReactElement {
                 api_url: apiUrl,
             },
         }),
-        [apiUrl],
+        [apiUrl, clientKey],
     );
 
     ApiRequestService.setHost(apiUrl);
@@ -59,7 +59,12 @@ export default function Backend(): React.ReactElement {
                     <MainProvider>
                         <AuthProvider>
                             <Layout envData={envData}>
-                                <Auth2FA mobile={mobile} exchangeToken={exchangeToken} type={type} />
+                                <Auth2FA
+                                    mobile={mobile}
+                                    exchangeToken={exchangeToken}
+                                    type={type}
+                                    destinationClientType={clientType}
+                                />
                                 <Modals focusExclusions={'.frame-director'} />
                                 <PushNotifications />
                             </Layout>
