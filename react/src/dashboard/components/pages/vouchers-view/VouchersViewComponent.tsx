@@ -21,6 +21,7 @@ import usePushSuccess from '../../../hooks/usePushSuccess';
 import usePushDanger from '../../../hooks/usePushDanger';
 import { ApiResponseSingle, ResponseError } from '../../../props/ApiResponses';
 import VoucherRecordsCard from './elements/VoucherRecordsCard';
+import VoucherPhysicalCardRequestsCard from './elements/VoucherPhysicalCardRequestsCard';
 import VoucherTransactionsCard from './elements/VoucherTransactionsCard';
 import EventLogsTable from '../../elements/tables/EventLogsTable';
 import ModalOrderPhysicalCard from '../../modals/ModalOrderPhysicalCard';
@@ -658,6 +659,10 @@ export default function VouchersViewComponent() {
 
             {voucher.fund.allow_voucher_records && (
                 <VoucherRecordsCard voucher={voucher} organization={activeOrganization} />
+            )}
+
+            {voucher.fund.allow_physical_cards && (
+                <VoucherPhysicalCardRequestsCard voucher={voucher} organization={activeOrganization} />
             )}
 
             <EventLogsTable

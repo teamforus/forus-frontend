@@ -39,6 +39,8 @@ export default function ModalOrderPhysicalCard({
     }, [voucher?.fund?.fund_physical_card_types]);
 
     const form = useFormBuilder<{
+        first_name: string;
+        last_name: string;
         address: string;
         house: string;
         house_addition: string;
@@ -47,6 +49,8 @@ export default function ModalOrderPhysicalCard({
         fund_physical_card_type_id?: number;
     }>(
         {
+            first_name: '',
+            last_name: '',
             address: '',
             house: '',
             house_addition: '',
@@ -82,15 +86,21 @@ export default function ModalOrderPhysicalCard({
             physicalCardsRequestService
                 .validate(voucher.fund.organization_id, voucher.address, form.values)
                 .then(() => {
-                    const { address, house, house_addition, postcode, city } = form.values;
+                    const { first_name, last_name, address, house, house_addition, postcode, city } = form.values;
 
                     form.setErrors(null);
                     setState('confirmation');
 
-                    setAddressPreview([
-                        [address, house, house_addition].filter((value) => value).join(' '),
-                        [postcode, city].filter((value) => value).join(' '),
-                    ]);
+                    setAddressPreview(
+                        [
+                            [first_name, last_name]
+                                .map((value) => value?.trim())
+                                .filter((value) => value)
+                                .join(' '),
+                            [address, house, house_addition].filter((value) => value).join(' '),
+                            [postcode, city].filter((value) => value).join(' '),
+                        ].filter((line) => line),
+                    );
                 })
                 .catch((err: ResponseError) => {
                     form.setErrors(err.data.errors);
@@ -142,6 +152,44 @@ export default function ModalOrderPhysicalCard({
                                         onChange={(fund_physical_card_type_id?: number) => {
                                             form.update({ fund_physical_card_type_id });
                                         }}
+                                    />
+                                )}
+                            />
+
+                            <FormGroup
+                                label={translate(
+                                    'modals.modal_physical_card_order.modal_section.request_new_card.first_name',
+                                )}
+                                error={form.errors?.first_name}
+                                input={(id) => (
+                                    <input
+                                        className="form-control"
+                                        id={id}
+                                        defaultValue={form.values.first_name}
+                                        placeholder={translate(
+                                            'modals.modal_physical_card_order.modal_section.request_new_card.first_name_placeholder',
+                                        )}
+                                        onChange={(e) => form.update({ first_name: e.target.value })}
+                                        autoComplete="given-name"
+                                    />
+                                )}
+                            />
+
+                            <FormGroup
+                                label={translate(
+                                    'modals.modal_physical_card_order.modal_section.request_new_card.last_name',
+                                )}
+                                error={form.errors?.last_name}
+                                input={(id) => (
+                                    <input
+                                        className="form-control"
+                                        id={id}
+                                        defaultValue={form.values.last_name}
+                                        placeholder={translate(
+                                            'modals.modal_physical_card_order.modal_section.request_new_card.last_name_placeholder',
+                                        )}
+                                        onChange={(e) => form.update({ last_name: e.target.value })}
+                                        autoComplete="family-name"
                                     />
                                 )}
                             />
@@ -325,8 +373,9 @@ export default function ModalOrderPhysicalCard({
                                     )}
                                     <br />
                                     <br />
-                                    <div>{addressPreview[0]}</div>
-                                    <div>{addressPreview[1]}</div>
+                                    {addressPreview.map((line, index) => (
+                                        <div key={index}>{line}</div>
+                                    ))}
                                     <br />
                                 </div>
                             </div>

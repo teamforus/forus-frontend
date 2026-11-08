@@ -10,6 +10,7 @@ export default interface PhysicalCardType {
     code_prefix?: string;
     code_blocks?: number;
     code_block_size?: number;
+    send_to_dcp?: boolean;
     organization_id?: number;
     physical_cards_count: number;
     funds_count: number;

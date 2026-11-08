@@ -115,6 +115,7 @@ export default interface Organization {
     allow_identity_provider_employee_provisioning?: boolean;
     allow_identity_provider_requester_provisioning?: boolean;
     allow_physical_cards: boolean;
+    has_dcp?: boolean;
     allow_product_updates: boolean;
     auth_2fa_policy: 'optional' | 'required' | 'restrict_features';
     auth_2fa_remember_ip?: boolean;

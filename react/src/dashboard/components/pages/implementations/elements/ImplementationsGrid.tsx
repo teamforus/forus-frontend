@@ -37,6 +37,7 @@ export default function ImplementationsGrid() {
         const canManageImplementationCms = hasPermission(activeOrganization, Permission.MANAGE_IMPLEMENTATION_CMS);
         const showTranslations = activeOrganization.allow_translations && canManageImplementation;
         const showPreCheck = activeOrganization.allow_pre_checks && canManageImplementation;
+        const showDCP = activeOrganization.allow_physical_cards && canManageImplementation;
 
         const allSections: GridSection[] = [
             {
@@ -135,6 +136,15 @@ export default function ImplementationsGrid() {
                         description: 'Beheer de DigiD gegevens en instellingen die horen bij de koppeling.',
                         state: DashboardRoutes.IMPLEMENTATION_DIGID,
                     },
+                    showDCP
+                        ? {
+                              key: 'dcp-settings',
+                              icon: 'mdi-card-account-details-outline',
+                              name: translate('implementation_dcp.menu.name'),
+                              description: translate('implementation_dcp.menu.description'),
+                              state: DashboardRoutes.IMPLEMENTATION_DCP,
+                          }
+                        : null,
                     canManageImplementationCms
                         ? {
                               key: 'auth-page-settings',

@@ -240,6 +240,15 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                             hasPermission(organization, [Permission.MANAGE_VOUCHERS, Permission.VIEW_VOUCHERS]) &&
                             organization.allow_physical_cards,
                     },
+                    {
+                        id: 'dcp_orders',
+                        name: 'DCP bestellingen',
+                        state: DashboardRoutes.DCP_ORDERS,
+                        stateParams: { organizationId: organization?.id },
+                        show:
+                            hasPermission(organization, [Permission.MANAGE_VOUCHERS, Permission.VIEW_VOUCHERS]) &&
+                            organization.has_dcp,
+                    },
                 ]}
             />
 
