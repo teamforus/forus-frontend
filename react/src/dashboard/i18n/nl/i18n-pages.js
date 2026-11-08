@@ -8,6 +8,10 @@ import households from './pages/households';
 import transactions from './pages/transactions';
 import payouts from './pages/payouts';
 import voucher_records from './pages/voucher-records';
+import voucher_physical_card_requests from './pages/voucher-physical-card-requests';
+import dcp_order_bulks from './pages/dcp-order-bulks';
+import dcp_orders from './pages/dcp-orders';
+import dcp_orders_view from './pages/dcp-orders-view';
 import financial_dashboard_transaction from './pages/transaction';
 import provider_funds from './pages/provider-funds';
 import fund_unsubscriptions from './pages/fund-unsubscriptions';
@@ -28,6 +32,7 @@ import product_edit from './pages/product-edit';
 import bank_connections from './pages/bank-connections';
 import implementation_config from './pages/implementation-config';
 import implementation_auth_page from './pages/implementation-auth-page';
+import implementation_dcp from './pages/implementation-dcp';
 import finance_providers from './pages/finance-providers';
 import email_logs from './pages/email-logs';
 import implementation_pages from './pages/implementation-pages';
@@ -57,6 +62,10 @@ export default {
     transactions,
     payouts,
     voucher_records,
+    voucher_physical_card_requests,
+    dcp_order_bulks,
+    dcp_orders,
+    dcp_orders_view,
     financial_dashboard_transaction,
     provider_funds,
     fund_unsubscriptions,
@@ -77,6 +86,7 @@ export default {
     bank_connections,
     implementation_config,
     implementation_auth_page,
+    implementation_dcp,
     finance_providers,
     email_logs,
     implementation_pages,

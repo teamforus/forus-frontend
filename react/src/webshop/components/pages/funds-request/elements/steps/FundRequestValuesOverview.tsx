@@ -26,6 +26,8 @@ export default function FundRequestValuesOverview({
 }: {
     fund: Fund;
     address: {
+        first_name?: string;
+        last_name?: string;
         street?: string;
         house_nr?: string;
         house_nr_addition?: string;

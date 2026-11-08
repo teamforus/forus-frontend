@@ -13,6 +13,7 @@ import PhotoSelector from '../elements/photo-selector/PhotoSelector';
 import Media from '../../props/models/Media';
 import { useMediaService } from '../../services/MediaService';
 import Organization from '../../props/models/Organization';
+import ToggleControl from '../elements/forms/controls/ToggleControl';
 
 export default function ModalMakePhysicalCardTypeEdit({
     modal,
@@ -38,17 +39,21 @@ export default function ModalMakePhysicalCardTypeEdit({
     const mediaService = useMediaService();
     const physicalCardTypeService = usePhysicalCardTypeService();
 
+    const showDCP = !!organization?.has_dcp || !!physicalCardType?.send_to_dcp;
+
     const form = useFormBuilder<{
         name: string;
         description: string;
         code_blocks: string;
         code_block_size: string;
+        send_to_dcp: boolean;
     }>(
         {
             name: physicalCardType?.name || '',
             description: physicalCardType?.description || '',
             code_blocks: physicalCardType?.code_blocks?.toString() || '4',
             code_block_size: physicalCardType?.code_block_size?.toString() || '4',
+            send_to_dcp: !!physicalCardType?.send_to_dcp,
         },
         (values) => {
             uploadMedia().then((media_uid: string) => {
@@ -56,7 +61,7 @@ export default function ModalMakePhysicalCardTypeEdit({
                 setProgress(0);
 
                 const data = {
-                    ...values,
+                    ...(showDCP ? values : { ...values, send_to_dcp: undefined }),
                     media_uid,
                     code_blocks: parseInt(values.code_blocks),
                     code_block_size: parseInt(values.code_block_size),
@@ -206,6 +211,21 @@ export default function ModalMakePhysicalCardTypeEdit({
                             />
                         </div>
                     </div>
+
+                    {showDCP && (
+                        <FormGroup
+                            label={'Bestellen via DCP'}
+                            error={form.errors?.send_to_dcp}
+                            input={(id) => (
+                                <ToggleControl
+                                    id={id}
+                                    checked={form.values.send_to_dcp}
+                                    title={form.values.send_to_dcp ? 'Aan' : 'Uit'}
+                                    onChange={(_, checked) => form.update({ send_to_dcp: checked })}
+                                />
+                            )}
+                        />
+                    )}
                 </FormPane>
             </div>
         </Modal>

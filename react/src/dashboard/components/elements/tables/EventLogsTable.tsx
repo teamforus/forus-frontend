@@ -62,7 +62,10 @@ export default function EventLogsTable({
             { key: 'employees', title: 'Medewerker' },
             { key: 'bank_connection', title: 'Bank integratie' },
             { key: 'voucher', title: 'Tegoeden' },
-        ].filter((item) => hasPermission(organization, permissionsMap[item.key]));
+            organization.has_dcp ? { key: 'dcp_order', title: 'DCP bestellingen' } : null,
+        ]
+            .filter((item) => item)
+            .filter((item) => hasPermission(organization, permissionsMap[item.key]));
     }, [organization, permissionsMap]);
 
     const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{

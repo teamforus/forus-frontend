@@ -168,6 +168,8 @@ export default {
             heading: 'Voer uw adres in',
             description: 'We sturen uw fysieke kaart naar het door u opgegeven adres zodra deze klaar is voor gebruik.',
             labels: {
+                first_name: 'Voornaam',
+                last_name: 'Achternaam',
                 street: 'Straat',
                 house_nr: 'Huisnummer',
                 house_nr_addition: 'Huisnummertoevoeging',

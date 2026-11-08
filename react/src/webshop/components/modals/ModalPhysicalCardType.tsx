@@ -98,6 +98,8 @@ export default function ModalPhysicalCardType({
     );
 
     const requestPhysicalCardForm = useFormBuilder<{
+        first_name?: string;
+        last_name?: string;
         address?: string;
         house?: string;
         house_addition?: string;
@@ -106,6 +108,8 @@ export default function ModalPhysicalCardType({
         fund_physical_card_type_id?: number;
     }>(
         {
+            first_name: '',
+            last_name: '',
             address: '',
             house: '',
             house_addition: '',
@@ -132,12 +136,17 @@ export default function ModalPhysicalCardType({
     );
 
     const addressPreview = useCallback(() => {
-        const { address, house, house_addition, postcode, city } = requestPhysicalCardForm.values;
+        const { first_name, last_name, address, house, house_addition, postcode, city } =
+            requestPhysicalCardForm.values;
 
         return [
+            [first_name, last_name]
+                .map((value) => value?.trim())
+                .filter((value) => value)
+                .join(' '),
             [address, house, house_addition].filter((value) => value).join(' '),
             [postcode, city].filter((value) => value).join(' '),
-        ];
+        ].filter((row) => row);
     }, [requestPhysicalCardForm.values]);
 
     const updateRequestPhysicalCardForm = requestPhysicalCardForm.update;
@@ -426,6 +435,48 @@ export default function ModalPhysicalCardType({
 
                         {prefersPlasticCard && (
                             <div className="modal-section">
+                                <div className="row">
+                                    <div className="form-group col col-xs-12 col-xl-6">
+                                        <label
+                                            className="form-label"
+                                            htmlFor="modal_physical_card.modal_section.request_new_card.first_name">
+                                            {translate('modal_physical_card.modal_section.request_new_card.first_name')}
+                                        </label>
+                                        <input
+                                            className="form-control"
+                                            id="modal_physical_card.modal_section.request_new_card.first_name"
+                                            value={requestPhysicalCardForm.values.first_name}
+                                            onChange={(e) => {
+                                                requestPhysicalCardForm.update({ first_name: e.target.value });
+                                            }}
+                                            autoComplete="given-name"
+                                            aria-label={translate(
+                                                'modal_physical_card.modal_section.request_new_card.first_name',
+                                            )}
+                                        />
+                                        <FormError error={requestPhysicalCardForm.errors?.first_name} />
+                                    </div>
+                                    <div className="form-group col col-xs-12 col-xl-6">
+                                        <label
+                                            className="form-label"
+                                            htmlFor="modal_physical_card.modal_section.request_new_card.last_name">
+                                            {translate('modal_physical_card.modal_section.request_new_card.last_name')}
+                                        </label>
+                                        <input
+                                            className="form-control"
+                                            id="modal_physical_card.modal_section.request_new_card.last_name"
+                                            value={requestPhysicalCardForm.values.last_name}
+                                            onChange={(e) => {
+                                                requestPhysicalCardForm.update({ last_name: e.target.value });
+                                            }}
+                                            autoComplete="family-name"
+                                            aria-label={translate(
+                                                'modal_physical_card.modal_section.request_new_card.last_name',
+                                            )}
+                                        />
+                                        <FormError error={requestPhysicalCardForm.errors?.last_name} />
+                                    </div>
+                                </div>
                                 <div className="row">
                                     <div className="form-group col col-xs-12 col-xl-12">
                                         <label

@@ -55,6 +55,7 @@ import EventLogs from '../components/pages/eventLogs/EventLogs';
 import ImplementationFunds from '../components/pages/implementation-funds/ImplementationFunds';
 import ImplementationEmail from '../components/pages/implementations-edit/ImplementationEmail';
 import ImplementationDigid from '../components/pages/implementations-edit/ImplementationDigid';
+import ImplementationDCP from '../components/pages/implementations-edit/ImplementationDCP';
 import ImplementationAuthPage from '../components/pages/implementations-edit/ImplementationAuthPage';
 import ImplementationCookies from '../components/pages/implementations-edit/ImplementationCookies';
 import FundBackofficeEdit from '../components/pages/fund-backoffice-edit/FundBackofficeEdit';
@@ -98,6 +99,9 @@ import OrganizationsTranslations from '../components/pages/organizations-transla
 import FundForms from '../components/pages/fund-forms/FundForms';
 import FundFormsView from '../components/pages/fund-forms-view/FundFormsView';
 import PhysicalCards from '../components/pages/physical-cards/PhysicalCards';
+import DCPOrders from '../components/pages/dcp-orders/DCPOrders';
+import DCPOrdersView from '../components/pages/dcp-orders-view/DCPOrdersView';
+import DCPOrderBulksView from '../components/pages/dcp-order-bulks-view/DCPOrderBulksView';
 import PhysicalCardTypesShow from '../components/pages/physical-cards/PhysicalCardTypesShow';
 import Implementations from '../components/pages/implementations/Implementations';
 import ImplementationView from '../components/pages/implementations/ImplementationView';
@@ -330,6 +334,21 @@ router.state(DashboardRoutes.PHYSICAL_CARDS, <PhysicalCards />, {
     altPath: `/organizations/:organizationId/physical-cards`,
 });
 
+router.state(DashboardRoutes.DCP_ORDERS, <DCPOrders />, {
+    path: `/organisaties/:organizationId/dcp-bestellingen`,
+    altPath: `/organizations/:organizationId/dcp-orders`,
+});
+
+router.state(DashboardRoutes.DCP_ORDER, <DCPOrdersView />, {
+    path: `/organisaties/:organizationId/dcp-bestellingen/:id`,
+    altPath: `/organizations/:organizationId/dcp-orders/:id`,
+});
+
+router.state(DashboardRoutes.DCP_ORDER_BULK, <DCPOrderBulksView />, {
+    path: `/organisaties/:organizationId/dcp-bestellingen/bulks/:id`,
+    altPath: `/organizations/:organizationId/dcp-orders/bulks/:id`,
+});
+
 router.state(DashboardRoutes.PHYSICAL_CARD_TYPE, <PhysicalCardTypesShow />, {
     path: `/organisaties/:organizationId/fysieke-passen-types/:id`,
     altPath: `/organizations/:organizationId/physical-cards-types/:id`,
@@ -444,6 +463,12 @@ router.state(DashboardRoutes.IMPLEMENTATION_TRANSLATIONS, <ImplementationTransla
 router.state(DashboardRoutes.IMPLEMENTATION_DIGID, <ImplementationDigid />, {
     path: `/organisaties/:organizationId/implementaties/:id/digid`,
     altPath: `/organizations/:organizationId/implementations/:id/digid`,
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
+});
+
+router.state(DashboardRoutes.IMPLEMENTATION_DCP, <ImplementationDCP />, {
+    path: `/organisaties/:organizationId/implementaties/:id/dcp`,
+    altPath: `/organizations/:organizationId/implementations/:id/dcp`,
     fallbackState: DashboardRoutes.ORGANIZATIONS,
 });
 

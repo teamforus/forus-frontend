@@ -14,6 +14,8 @@ export default function FundRequestStepPhysicalCardRequestAddress({
     onSubmit,
 }: {
     errors: {
+        'physical_card_request_address.first_name'?: string;
+        'physical_card_request_address.last_name'?: string;
         'physical_card_request_address.street'?: string;
         'physical_card_request_address.house_nr'?: string;
         'physical_card_request_address.house_nr_addition'?: string;
@@ -21,6 +23,8 @@ export default function FundRequestStepPhysicalCardRequestAddress({
         'physical_card_request_address.city'?: string;
     };
     address: {
+        first_name?: string;
+        last_name?: string;
         street?: string;
         house_nr?: string;
         house_nr_addition?: string;
@@ -28,6 +32,8 @@ export default function FundRequestStepPhysicalCardRequestAddress({
         city?: string;
     };
     setAddress: (address: {
+        first_name?: string;
+        last_name?: string;
         street?: string;
         house_nr?: string;
         house_nr_addition?: string;
@@ -70,6 +76,40 @@ export default function FundRequestStepPhysicalCardRequestAddress({
                             </div>
                         </div>
 
+                        <div className="row">
+                            <div className="col col-xs-12 col-lg-6 form-group">
+                                <label className="form-label" htmlFor="application_address_first_name">
+                                    {translate(
+                                        'fund_request.sign_up.fund_request_physical_card_request.labels.first_name',
+                                    )}
+                                </label>
+                                <input
+                                    className="form-control"
+                                    id="application_address_first_name"
+                                    type="text"
+                                    value={address.first_name || ''}
+                                    onChange={(e) => setAddress({ first_name: e.target.value })}
+                                    autoComplete="given-name"
+                                />
+                                <FormError error={errors?.['physical_card_request_address.first_name']} />
+                            </div>
+                            <div className="col col-xs-12 col-lg-6 form-group">
+                                <label className="form-label" htmlFor="application_address_last_name">
+                                    {translate(
+                                        'fund_request.sign_up.fund_request_physical_card_request.labels.last_name',
+                                    )}
+                                </label>
+                                <input
+                                    className="form-control"
+                                    id="application_address_last_name"
+                                    type="text"
+                                    value={address.last_name || ''}
+                                    onChange={(e) => setAddress({ last_name: e.target.value })}
+                                    autoComplete="family-name"
+                                />
+                                <FormError error={errors?.['physical_card_request_address.last_name']} />
+                            </div>
+                        </div>
                         <div className="row">
                             <div className="col col-xs-12 col-lg-6 form-group">
                                 <label className="form-label form-label-required" htmlFor="application_address_street">

@@ -233,6 +233,24 @@ export default function Implementations() {
                                                     </StateNavLink>
                                                 )}
 
+                                                {activeOrganization.allow_physical_cards &&
+                                                    hasPermission(
+                                                        activeOrganization,
+                                                        Permission.MANAGE_IMPLEMENTATION,
+                                                    ) && (
+                                                        <StateNavLink
+                                                            name={DashboardRoutes.IMPLEMENTATION_DCP}
+                                                            params={{
+                                                                id: implementation.id,
+                                                                organizationId: activeOrganization.id,
+                                                            }}
+                                                            className="dropdown-item"
+                                                            onClick={e.close}>
+                                                            <em className="mdi mdi-card-account-details-outline icon-start" />
+                                                            {translate('implementation_dcp.menu.name')}
+                                                        </StateNavLink>
+                                                    )}
+
                                                 {hasPermission(
                                                     activeOrganization,
                                                     Permission.MANAGE_IMPLEMENTATION_CMS,

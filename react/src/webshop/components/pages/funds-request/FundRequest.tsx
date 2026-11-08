@@ -110,6 +110,8 @@ export default function FundRequest() {
     const [contactInformationError, setContactInformationError] = useState(null);
 
     const [address, setAddress] = useState<{
+        first_name?: string;
+        last_name?: string;
         street?: string;
         house_nr?: string;
         house_nr_addition?: string;

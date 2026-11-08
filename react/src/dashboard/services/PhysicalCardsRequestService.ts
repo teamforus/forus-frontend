@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
-import PhysicalCard from '../props/models/PhysicalCard';
-import { ApiResponseSingle } from '../props/ApiResponses';
+import PhysicalCardRequest from '../props/models/PhysicalCardRequest';
+import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiResponses';
+import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
-export class PhysicalCardsRequestService<T = PhysicalCard> {
+export class PhysicalCardsRequestService<T = PhysicalCardRequest> {
     /**
      * @param apiRequest
      */
@@ -15,6 +16,22 @@ export class PhysicalCardsRequestService<T = PhysicalCard> {
      * @param data
      */
     public prefix = '/platform/organizations';
+
+    /**
+     * Fetch list
+     */
+    public list(
+        organizationId: number,
+        voucherAddress: string,
+        data: object = {},
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<T>> {
+        return this.apiRequest.get(
+            `${this.prefix}/${organizationId}/sponsor/vouchers/${voucherAddress}/physical-card-requests`,
+            data,
+            config,
+        );
+    }
 
     /**
      * Store
@@ -34,6 +51,29 @@ export class PhysicalCardsRequestService<T = PhysicalCard> {
             `${this.prefix}/${organizationId}/sponsor/vouchers/${voucherAddress}/physical-card-requests/validate`,
             data,
         );
+    }
+
+    public getColumns(showDCP = true): Array<ConfigurableTableColumn> {
+        const list = [
+            'id',
+            'name',
+            'address',
+            'physical_card_type',
+            'created_at',
+            ...(showDCP ? ['dcp_order_id'] : []),
+            'card_code',
+            ...(showDCP ? ['dcp_state', 'shipped_at'] : []),
+        ];
+
+        return list.map((key) => ({
+            key,
+            label: `voucher_physical_card_requests.labels.${key}`,
+            tooltip: {
+                key: key,
+                title: `voucher_physical_card_requests.labels.${key}`,
+                description: `voucher_physical_card_requests.tooltips.${key}`,
+            },
+        }));
     }
 }
 export function usePhysicalCardsRequestService(): PhysicalCardsRequestService {
