@@ -37,8 +37,8 @@ export default {
         payment_option_ideal: 'Online bijbetalen (iDEAL | Wero)',
         payment_option_link: 'Lees meer over de betaalmogelijkheden',
 
-        buy_now: 'Koop nu!',
-        login_to_order: 'Log in om te bestellen',
+        buy_now: 'Kies dit aanbod',
+        login_to_order: 'Log in en bekijk mijn tegoed',
         dont_have_voucher: 'Nog geen tegoed?',
         request_one_now: 'Doe een aanvraag',
         duration_of_promotion: 'Looptijd',
