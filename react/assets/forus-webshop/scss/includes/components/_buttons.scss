@@ -72,14 +72,14 @@
 
     &.button-dark {
         display: inline-block;
-        color: #fff;
-        background: #282b39;
-        border: 1px solid #282b39;
+        color: var(--button-dark-color);
+        background: var(--button-dark-background);
+        border: var(--button-dark-border);
 
         &:hover {
-            color: #fff;
-            background: #646f79;
-            border-color: #646f79;
+            color: var(--button-dark-hover-color);
+            background: var(--button-dark-hover-background);
+            border: var(--button-dark-hover-border);
 
             img {
                 filter: brightness(5);

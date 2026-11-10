@@ -251,6 +251,13 @@ $primaryColorLight: #627c18;
     --button-primary-outline-hover-decoration: none;
     --button-primary-outline-hover-background: var(--color-primary);
 
+    --button-dark-color: #fff;
+    --button-dark-border: 1px solid #282b39;
+    --button-dark-background: #282b39;
+    --button-dark-hover-color: #fff;
+    --button-dark-hover-border: 1px solid #646f79;
+    --button-dark-hover-background: #646f79;
+
     --button-read_more-color: var(--button-primary-color);
     --button-read_more-border: var(--button-primary-border);
     --button-read_more-decoration: var(--button-primary-decoration);
@@ -296,6 +303,8 @@ $primaryColorLight: #627c18;
     --showcase-title-count-color: #0b0e12;
     --showcase-title-count-background: #e5e5e5;
     --showcase-title-count-border-radius: calc(var(--border-radius) / 2);
+
+    --showcase-splash-shape-bg: var(--color-primary);
 
     // Breadcrumbs
     --breadcrumb-size: 16px;
@@ -353,6 +362,13 @@ $primaryColorLight: #627c18;
     // Product
     --product-title-font: 500 24px/36px var(--base-font);
     --product-title-color: #0b0e12;
+    --product-props-background: #f5f5f5;
+    --product-props-separator-height: 0px;
+    --product-props-separator-color: transparent;
+    --product-prop-item-title-color: #222222;
+
+    // Panel group
+    --panel-header-title-color: var(--tc);
 
     // Map
     --map-title-color: #0b0e12;

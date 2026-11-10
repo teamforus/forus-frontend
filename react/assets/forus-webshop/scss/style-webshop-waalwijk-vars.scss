@@ -1,7 +1,7 @@
 @use "sass:color";
 
 @use "style-webshop-general-vars";
-@use "./includes/fonts/lato";
+@use "./includes/fonts/roboto";
 
 $primaryColor: #2a2a7f;
 $primaryColorLight: #2a2a7f;
@@ -61,7 +61,7 @@ $primaryColorLight: #2a2a7f;
     --wrapper-padding: 20px;
 
     // Outline
-    --focus-outline: 2px solid #315efd;
+    --focus-outline: 2px solid #2a2a7f;
     --focus-outline-offset: 2px;
     --focus-box-shadow: 0 0 0 3px white;
 
@@ -75,11 +75,11 @@ $primaryColorLight: #2a2a7f;
 
     // navbar (start modal primary)
     --tc-start-btn: #fff;
-    --btn-start-bg: #ed7c20;
+    --btn-start-bg: #2a2a7f;
     --btn-start-btn: #ed7c20;
     --btn-start-border: transparent;
     --btn-user-avatar-icon-color: #ffffff;
-    --btn-user-avatar-border-color: #ed7c20;
+    --btn-user-avatar-border-color: #2a2a7f;
 
     // header background
     --bg-values: url("../img/splash-top-b.jpg") no-repeat center 100%;
@@ -93,7 +93,7 @@ $primaryColorLight: #2a2a7f;
     --header-banner-pane-banner-border-radius: initial;
 
     // base font
-    --base-font: "Lato", "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+    --base-font: Roboto, Verdana, arial;
 
     // text color
     --tc: #1a1919;
@@ -125,9 +125,9 @@ $primaryColorLight: #2a2a7f;
     --footer_social_border_color: var(--footer_color);
     --footer_social_border_radius: var(--border-radius);
 
-    --footer-copyright-color: var(--footer_color_link);
+    --footer-copyright-color: #333333;
     --footer-copyright-font: 400 14px/30px var(--base-font);
-    --footer-copyright-background: #2f2d80;
+    --footer-copyright-background: #ffffff;
     --footer-copyright-border-color: var(--border-color);
     --footer-copyright-padding: 40px;
 
@@ -250,6 +250,13 @@ $primaryColorLight: #2a2a7f;
     --button-primary-outline-hover-decoration: none;
     --button-primary-outline-hover-background: var(--color-primary);
 
+    --button-dark-color: #fff;
+    --button-dark-border: 1px solid var(--color-primary);
+    --button-dark-background: var(--color-primary);
+    --button-dark-hover-color: #fff;
+    --button-dark-hover-border: 1px solid var(--color-primary-light);
+    --button-dark-hover-background: var(--color-primary-light);
+
     --button-read_more-color: var(--button-primary-color);
     --button-read_more-border: var(--button-primary-border);
     --button-read_more-decoration: var(--button-primary-decoration);
@@ -295,6 +302,8 @@ $primaryColorLight: #2a2a7f;
     --showcase-title-count-color: #fff;
     --showcase-title-count-background: var(--color-primary);
     --showcase-title-count-border-radius: calc(var(--border-radius) / 2);
+
+    --showcase-splash-shape-bg: #ffffff;
 
     // Breadcrumbs
     --breadcrumb-size: 16px;
@@ -352,6 +361,13 @@ $primaryColorLight: #2a2a7f;
     // Product
     --product-title-font: 700 22px/28px var(--heading-font-family);
     --product-title-color: var(--tc);
+    --product-props-background: #2a2a7f1a;
+    --product-props-separator-height: 12px;
+    --product-props-separator-color: #aebc21;
+    --product-prop-item-title-color: #2a2a7f;
+
+    // Panel group
+    --panel-header-title-color: #2a2a7f;
 
     // Map
     --map-title-color: #0B0E12;
