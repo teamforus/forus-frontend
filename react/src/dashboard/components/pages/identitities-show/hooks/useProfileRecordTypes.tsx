@@ -1,33 +1,54 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ProfileRecords, ProfileRecordType } from '../../../../props/models/Sponsor/SponsorIdentity';
+import { useEffect, useMemo, useState } from 'react';
 import RecordType from '../../../../props/models/RecordType';
-import useSetProgress from '../../../../hooks/useSetProgress';
+import usePushApiError from '../../../../hooks/usePushApiError';
 import { useRecordTypeService } from '../../../../services/RecordTypeService';
+import usePushDanger from '../../../../hooks/usePushDanger';
+import useTranslate from '../../../../hooks/useTranslate';
 
-export default function useProfileRecordTypes() {
-    const setProgress = useSetProgress();
+export default function useProfileRecordTypes(organizationId: number) {
+    const translate = useTranslate();
+    const pushDanger = usePushDanger();
+    const pushApiError = usePushApiError();
+
     const recordTypeService = useRecordTypeService();
 
-    const [recordTypes, setRecordTypes] = useState<Array<RecordType & { key: ProfileRecordType }>>(null);
+    const [catalog, setCatalog] = useState<{ organizationId: number; types: RecordType<string>[] }>(null);
+
+    const recordTypes = catalog?.organizationId === organizationId ? catalog.types : null;
 
     const recordTypesByKey = useMemo(() => {
-        return recordTypes?.reduce((map, recordType) => {
-            return { ...map, [recordType.key]: recordType };
-        }, {}) as ProfileRecords;
+        return Object.fromEntries((recordTypes || []).map((type) => [type.key, type]));
     }, [recordTypes]);
 
-    const fetchRecordTypes = useCallback(() => {
-        setProgress(0);
+    useEffect(() => {
+        let active = true;
+
+        setCatalog(null);
 
         recordTypeService
-            .list<RecordType & { key: ProfileRecordType }>()
-            .then((res) => setRecordTypes(res.data))
-            .finally(() => setProgress(100));
-    }, [recordTypeService, setProgress]);
+            .list<RecordType<string>>({ organization_id: organizationId })
+            .then((response) => {
+                if (active) {
+                    setCatalog({ organizationId, types: response.data });
 
-    useEffect(() => {
-        fetchRecordTypes();
-    }, [fetchRecordTypes]);
+                    if (response.data.length === 1000) {
+                        pushDanger(
+                            translate('errors.api.title.default'),
+                            translate('identities.profile_groups.limit_reached'),
+                        );
+                    }
+                }
+            })
+            .catch((error) => {
+                if (active) {
+                    pushApiError(error);
+                }
+            });
+
+        return () => {
+            active = false;
+        };
+    }, [organizationId, pushApiError, pushDanger, recordTypeService, translate]);
 
     return {
         recordTypes,

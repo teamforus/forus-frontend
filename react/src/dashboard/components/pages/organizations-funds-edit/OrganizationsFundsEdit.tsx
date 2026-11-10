@@ -46,6 +46,8 @@ import usePushApiError from '../../../hooks/usePushApiError';
 import FormGroup from '../../elements/forms/elements/FormGroup';
 import { Permission } from '../../../props/models/Organization';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import FormulaConditions from '../../elements/formula-conditions/FormulaConditions';
+import InfoBox from '../../elements/info-box/InfoBox';
 
 export default function OrganizationsFundsEdit() {
     const { fundId } = useParams();
@@ -1012,7 +1014,7 @@ export default function OrganizationsFundsEdit() {
                                         </div>
 
                                         <div className="flex-row">
-                                            <div className="flex-col flex-grow">
+                                            <div className="flex-col flex-grow flex flex-vertical flex-gap">
                                                 <div className="flex-row flex-grow">
                                                     <div className="flex-col flex-col-4">
                                                         <SelectControl
@@ -1069,11 +1071,19 @@ export default function OrganizationsFundsEdit() {
                                                         />
                                                     </div>
                                                 </div>
+
+                                                {formulaProduct.conditions?.length > 0 && (
+                                                    <InfoBox>
+                                                        <FormulaConditions conditions={formulaProduct.conditions} />
+                                                    </InfoBox>
+                                                )}
                                             </div>
 
                                             <div className="flex-col">
-                                                <div
+                                                <button
+                                                    type="button"
                                                     className="button button-primary button-icon"
+                                                    disabled={formulaProduct.conditions?.length > 0}
                                                     onClick={() => {
                                                         form.values.formula_products.splice(index, 1);
                                                         updateForm({
@@ -1081,7 +1091,7 @@ export default function OrganizationsFundsEdit() {
                                                         });
                                                     }}>
                                                     <em className="mdi mdi-close" />
-                                                </div>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

@@ -10,6 +10,7 @@ export default function Modal({
     headerIcon,
     body,
     bodyOverflowVisible = false,
+    processing = false,
     head,
     children,
     className,
@@ -27,6 +28,7 @@ export default function Modal({
     head?: ReactNode | ReactNode[];
     body?: ReactNode | ReactNode[];
     bodyOverflowVisible?: boolean;
+    processing?: boolean;
     footer?: ReactNode | ReactNode[];
     footerClassName?: string;
     onSubmit?: SubmitEventHandler<HTMLFormElement>;
@@ -78,13 +80,21 @@ export default function Modal({
                           </div>
                       )}
 
-                {body ? (
-                    body
-                ) : (
-                    <div className={classNames('modal-body', bodyOverflowVisible && 'modal-body-visible')}>
-                        <div className={classNames('modal-section')}>{children}</div>
-                    </div>
-                )}
+                <div className="modal-body-container">
+                    {body ? (
+                        body
+                    ) : (
+                        <div className={classNames('modal-body', bodyOverflowVisible && 'modal-body-visible')}>
+                            <div className={classNames('modal-section')}>{children}</div>
+                        </div>
+                    )}
+
+                    {processing && (
+                        <div className="modal-processing">
+                            <em className="mdi mdi-loading mdi-spin" />
+                        </div>
+                    )}
+                </div>
 
                 {footer && <div className={classNames('modal-footer', footerClassName)}>{footer}</div>}
             </ModalWindow>

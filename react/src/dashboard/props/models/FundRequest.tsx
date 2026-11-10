@@ -24,6 +24,17 @@ export interface FundRequestFormula {
     }>;
 }
 
+export interface FundRequestProfileCopyPreview {
+    profile_id: number | null;
+    records: Array<{
+        record_type_key: string;
+        record_type_name: string;
+        current_value: string | null;
+        application_value: string | null;
+        action: 'add' | 'update' | 'unchanged' | 'not_copied';
+    }>;
+}
+
 export interface FundRequestRecordGroup {
     id: number;
     title: string;

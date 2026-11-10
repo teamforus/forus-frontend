@@ -409,6 +409,7 @@
                         .mdi {
                             display: flex;
                             width: 24px;
+                            height: 21px;
                         }
                     }
 
@@ -591,7 +592,7 @@
             }
 
             &.tr-narrow {
-                td {
+                > td:not(.td-paddless) {
                     padding-top: 5px;
                     padding-bottom: 5px;
                 }
@@ -599,8 +600,8 @@
 
             &.tr-collapsed {
                 td {
-                    padding-top: 0px;
-                    padding-bottom: 0px;
+                    padding-top: 0;
+                    padding-bottom: 0;
                 }
             }
 

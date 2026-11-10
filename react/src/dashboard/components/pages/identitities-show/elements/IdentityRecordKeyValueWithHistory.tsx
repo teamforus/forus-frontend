@@ -3,15 +3,28 @@ import React, { useState } from 'react';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import classNames from 'classnames';
 import useTranslate from '../../../../hooks/useTranslate';
+import BlockInlineEdit from '../../../elements/block-inline-copy/BlockInlineEdit';
 
-export default function IdentityRecordKeyValueWithHistory({ records }: { records: Array<ProfileRecord> }) {
+export default function IdentityRecordKeyValueWithHistory({
+    records,
+    onEdit,
+}: {
+    records: Array<ProfileRecord>;
+    onEdit?: () => void;
+}) {
     const [show, setShow] = useState(false);
     const translate = useTranslate();
 
     return (
-        <div className={'keyvalue-value-history'}>
+        <div className="keyvalue-value-history">
             <div className="keyvalue-value-history-header">
-                <span>{records?.[0]?.value_locale || <TableEmptyValue />}</span>
+                {onEdit ? (
+                    <BlockInlineEdit onClick={onEdit}>
+                        {records?.[0]?.value_locale || <TableEmptyValue />}
+                    </BlockInlineEdit>
+                ) : (
+                    <span>{records?.[0]?.value_locale || <TableEmptyValue />}</span>
+                )}
                 {records?.length > 1 && (
                     <span className="keyvalue-value-history-toggle" onClick={() => setShow(!show)}>
                         {`${records?.length} keer bewerkt`}

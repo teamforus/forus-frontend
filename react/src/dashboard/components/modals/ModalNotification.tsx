@@ -14,7 +14,9 @@ export default function ModalNotification({
     buttonClose,
     buttonCancel,
     buttonSubmit,
+    submitDisabled = false,
     buttons,
+    children,
     dusk = 'modalNotification',
 }: {
     modal: ModalState;
@@ -25,7 +27,9 @@ export default function ModalNotification({
     buttonClose?: ModalButton;
     buttonCancel?: ModalButton;
     buttonSubmit?: ModalButton;
+    submitDisabled?: boolean;
     buttons?: Array<ModalButton>;
+    children?: ReactNode;
     dusk?: string;
 }) {
     const assetUrl = useAssetUrl();
@@ -37,6 +41,7 @@ export default function ModalNotification({
             modal={modal}
             className={classNames('modal-notification', className)}
             dusk={dusk}
+            processing={Boolean(modal.processing)}
             footer={
                 <Fragment>
                     {buttonClose && (
@@ -62,7 +67,7 @@ export default function ModalNotification({
                     {buttonSubmit && (
                         <ModalButton
                             button={buttonSubmit}
-                            disabled={modal.processing}
+                            disabled={modal.processing || submitDisabled}
                             text="Bevestigen"
                             type="primary"
                             dusk="submitBtn"
@@ -74,12 +79,6 @@ export default function ModalNotification({
                     ))}
                 </Fragment>
             }>
-            {modal?.processing && (
-                <div className={'modal-processing'}>
-                    <em className="mdi mdi-loading mdi-spin" />
-                </div>
-            )}
-
             {icon && (
                 <div className="modal-icon-rounded">
                     <img src={getIcon(icon)} alt="Icon" />
@@ -95,6 +94,8 @@ export default function ModalNotification({
                     ))}
                 </div>
             )}
+
+            {children}
         </Modal>
     );
 }

@@ -82,7 +82,7 @@ export default interface SponsorIdentity {
     employee_id?: number;
     employee_email?: string;
     address?: string;
-    records?: { [key in ProfileRecordType]: Array<ProfileRecord> };
+    records?: { [key: string]: Array<ProfileRecord> };
     profile?: {
         id: number;
         identity_id: number;
