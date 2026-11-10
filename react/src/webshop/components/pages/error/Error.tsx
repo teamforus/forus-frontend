@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import { useParams } from 'react-router';
-import { snakeCase } from 'lodash';
 import { getStateRouteUrl, useStateParams } from '../../../modules/state_router/Router';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import TranslateHtml from '../../../../dashboard/components/elements/translate-html/TranslateHtml';
@@ -14,7 +13,7 @@ export default function Error() {
     const translate = useTranslate();
 
     const errorCode = useMemo(() => {
-        return snakeCase(params.errorCode || '');
+        return (params.errorCode || '').toLowerCase();
     }, [params?.errorCode]);
 
     const transParams = useMemo(() => {

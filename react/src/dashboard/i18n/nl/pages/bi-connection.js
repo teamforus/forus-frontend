@@ -9,7 +9,7 @@ export default {
         option_disabled: 'Uitgeschakeld',
         parameter: 'URL-parameter',
         data_types: 'Exportgegevens selecteren',
-        header_key: 'Hoofdertag',
+        header_key: 'Sleutelcode',
         header_name: 'Naam van de header',
         expiration_period: 'Vervalperiode',
         token_placeholder: 'Een toegangstoken wordt gegenereerd zodra de instellingen zijn opgeslagen.',
