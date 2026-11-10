@@ -210,7 +210,15 @@ export default function ModalFundProductLimitEdit({
                                 propKey="id"
                                 options={limitByOptions}
                                 allowSearch={false}
-                                onChange={(limit_by: FundProductLimit['limit_by']) => form.update({ limit_by })}
+                                onChange={(limit_by: FundProductLimit['limit_by']) =>
+                                    form.update({
+                                        limit_by,
+                                        limit:
+                                            limit_by === 'products'
+                                                ? form.values.limit.replace(/\.0+$/, '')
+                                                : form.values.limit,
+                                    })
+                                }
                             />
                         )}
                     />
