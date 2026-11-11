@@ -45,6 +45,8 @@ export enum DashboardRoutes {
     REQUESTER_IMPORTS = 'requester-imports',
     REQUESTER_IMPORTS_UPLOAD = 'requester-imports-upload',
     REQUESTER_IMPORTS_SYNC = 'requester-imports-sync',
+    VOUCHER_PASSES = 'voucher-passes',
+    VOUCHER_PASSES_UPLOAD = 'voucher-passes-upload',
     REIMBURSEMENT = 'reimbursements-view',
     REIMBURSEMENT_CATEGORIES = 'reimbursement-categories',
     EXTRA_PAYMENTS = 'extra-payments',

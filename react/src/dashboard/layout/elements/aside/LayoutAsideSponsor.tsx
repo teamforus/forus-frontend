@@ -1,6 +1,7 @@
 import React from 'react';
 import { hasPermission } from '../../../helpers/utils';
 import useCanManageRequesterImports from '../../../hooks/permissions/useCanManageRequesterImports';
+import useCanManageVoucherPasses from '../../../hooks/permissions/useCanManageVoucherPasses';
 import useTranslate from '../../../hooks/useTranslate';
 import Organization, { Permission } from '../../../props/models/Organization';
 import LayoutAsideNavGroup from './elements/LayoutAsideNavGroup';
@@ -36,6 +37,7 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
     const translate = useTranslate();
     const appConfigs = useAppConfigs();
     const isSponsorPanel = useIsSponsorPanel();
+    const canManageVoucherPasses = useCanManageVoucherPasses();
     const canManageRequesterImports = useCanManageRequesterImports();
 
     const [pinnedGroups, setPinnedGroups] = usePinnedMenuGroups('pinnedMenuGroupsSponsor');
@@ -234,6 +236,14 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         stateParams: { organizationId: organization?.id },
                         show: canManageRequesterImports,
                         dusk: 'requesterImportsPage',
+                    },
+                    {
+                        id: 'voucher_passes',
+                        name: translate('voucher_passes.title'),
+                        state: DashboardRoutes.VOUCHER_PASSES,
+                        stateParams: { organizationId: organization?.id },
+                        show: canManageVoucherPasses,
+                        dusk: 'voucherPassesPage',
                     },
                     {
                         id: 'payouts',

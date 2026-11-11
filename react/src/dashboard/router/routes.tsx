@@ -48,6 +48,8 @@ import Reimbursements from '../components/pages/reimbursements/Reimbursements';
 import RequesterImports from '../components/pages/requester-imports/RequesterImports';
 import RequesterImportsUpload from '../components/pages/requester-imports-upload/RequesterImportsUpload';
 import RequesterImportsSync from '../components/pages/requester-imports-sync/RequesterImportsSync';
+import VoucherPasses from '../components/pages/voucher-passes/VoucherPasses';
+import VoucherPassesUpload from '../components/pages/voucher-passes-upload/VoucherPassesUpload';
 import VouchersFromProfiles from '../components/pages/vouchers-from-profiles/VouchersFromProfiles';
 import ReimbursementsView from '../components/pages/reimbursements-view/ReimbursementsView';
 import BankConnections from '../components/pages/bank-connections/BankConnections';
@@ -353,6 +355,17 @@ router.state(DashboardRoutes.REIMBURSEMENTS, <Reimbursements />, {
 router.state(DashboardRoutes.REQUESTER_IMPORTS, <RequesterImports />, {
     path: `/organisaties/:organizationId/requester-imports`,
     altPath: `/organizations/:organizationId/requester-imports`,
+});
+
+router.state(DashboardRoutes.VOUCHER_PASSES, <VoucherPasses />, {
+    path: `/organisaties/:organizationId/voucher-passes`,
+    altPath: `/organizations/:organizationId/voucher-passes`,
+});
+
+router.state(DashboardRoutes.VOUCHER_PASSES_UPLOAD, <VoucherPassesUpload />, {
+    path: `/organisaties/:organizationId/voucher-passes/upload`,
+    altPath: `/organizations/:organizationId/voucher-passes/upload`,
+    fallbackState: DashboardRoutes.VOUCHER_PASSES,
 });
 
 router.state(DashboardRoutes.REQUESTER_IMPORTS_UPLOAD, <RequesterImportsUpload />, {

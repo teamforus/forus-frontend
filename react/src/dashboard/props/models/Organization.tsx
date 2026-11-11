@@ -123,6 +123,7 @@ export default interface Organization {
     allow_payouts?: boolean;
     allow_profiles?: boolean;
     allow_requester_imports?: boolean;
+    allow_voucher_passes?: boolean;
     allow_vouchers_from_profiles?: boolean;
     allow_profiles_create?: boolean;
     allow_profiles_relations?: boolean;
