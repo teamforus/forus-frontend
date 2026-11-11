@@ -27,6 +27,7 @@ export default {
             requester_count: 'Aanvragers',
             implementation: 'Implementatie',
             status: 'Status',
+            available: 'Beschikbaar',
             actions: 'Actie',
             sponsor: 'Sponsor',
         },
@@ -36,6 +37,7 @@ export default {
             requester_count: 'Aantal inwoners met een aanvraag.',
             implementation: 'Gekoppelde implementatie/webshop.',
             status: 'Status van het fonds.',
+            available: 'Beschikbaar',
             sponsor: 'Sponsor',
         },
         filters: {

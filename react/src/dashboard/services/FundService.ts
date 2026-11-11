@@ -357,7 +357,7 @@ export class FundService<T = Fund> {
     }
 
     public getColumnsProductFunds(): Array<ConfigurableTableColumn> {
-        const list = ['name', 'implementation', 'status'].filter((item) => item);
+        const list = ['name', 'implementation', 'status', 'available'].filter((item) => item);
 
         return list.map((key) => ({
             key,
