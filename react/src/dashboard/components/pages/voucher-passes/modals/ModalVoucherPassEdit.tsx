@@ -156,7 +156,7 @@ export default function ModalVoucherPassEdit({
                                 key={field}
                                 label={translate(`voucher_passes.fields.${field}`)}
                                 error={form.errors[field]}
-                                required={field === 'print_label' || field === 'target_bsn'}
+                                required={field === 'target_bsn'}
                                 hint={field === 'external_id' ? translate('voucher_passes.uid_hint') : null}
                                 input={(id) => (
                                     <input

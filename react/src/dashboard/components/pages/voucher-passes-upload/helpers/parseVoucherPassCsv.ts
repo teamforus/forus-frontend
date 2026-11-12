@@ -34,8 +34,8 @@ export function parseVoucherPassCsv(
         headers.add(header);
     }
 
-    for (const column of columns.keys()) {
-        if (!headers.has(column)) {
+    for (const [column, { key }] of columns) {
+        if (key !== 'print_label' && !headers.has(column)) {
             result.errors.push({ column, message: translate('voucher_passes.errors.missing_header', { column }) });
         }
     }
@@ -110,6 +110,8 @@ export function parseVoucherPassCsv(
                 return [key, definition.normalize === 'bsn' ? normalizeBsn(value) : value || null];
             }),
         ) as unknown as VoucherPassInput;
+
+        values.print_label = values.print_label ?? '';
 
         if (values.external_id !== null) {
             if (uids.has(values.external_id)) {

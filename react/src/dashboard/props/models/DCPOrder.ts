@@ -20,7 +20,7 @@ export interface DCPOrderListMeta {
 
 export interface DCPCardData {
     key: string;
-    printedCardType: string;
+    printedCardType?: string;
     printedFirstName: string;
     printedLastName: string;
     printedDateOfBirth: string;
