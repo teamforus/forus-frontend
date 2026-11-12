@@ -1,4 +1,32 @@
 export default {
+    batch_progress: {
+        elapsed: 'Elapsed: {{duration}}',
+        remaining: 'Estimated remaining: about {{duration}}',
+        hours: '{{hours}}h {{minutes}}m {{seconds}}s',
+        minutes: '{{minutes}}m {{seconds}}s',
+        seconds: '{{seconds}}s',
+    },
+    batch_processing: {
+        download_preview: 'Download preview (JSON)',
+        cancel_preview: 'Cancel preview',
+        stop: 'Stop after current batch',
+        stopping: 'Stopping after current batch…',
+        progress: '{{processed}} of {{total}} items processed.',
+        execution_interrupted: 'Processing stopped. Confirmed results are retained below.',
+        preview_interrupted: 'The estimate is incomplete. Nothing can be confirmed from this preview.',
+        uncertain: 'The outcome of this batch is unknown. Some changes may have been saved:',
+        preview_unconfirmed: 'No complete preview was received for this batch:',
+        rejected: 'This batch was rejected before processing:',
+        unsubmitted: 'Not submitted: {{count}} items. Show IDs.',
+        missing: 'No result returned: {{count}} items. Show IDs.',
+        checking_candidates: 'Processing finished. Checking for new candidates.',
+        candidate_check_failed: 'Processing finished, but checking for new candidates failed. Results are retained.',
+        new_candidates: '{{count}} new candidates were not included. Start a new preview to include them. Show IDs.',
+        row_ids: 'Requester row IDs: {{ids}}',
+        profile_ids: 'Fund #{{fund}} · Profile IDs: {{ids}}',
+        interrupted: 'Processing stopped',
+        request_failed: 'The request could not be completed.',
+    },
     organization_funds: {
         title: 'Fondsen',
         buttons: {

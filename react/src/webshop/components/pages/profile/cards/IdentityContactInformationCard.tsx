@@ -41,6 +41,13 @@ export default function IdentityContactInformationCard({
         return profile?.email_verified ? profile?.email_verified : [];
     }, [profile?.email_verified]);
 
+    const editableFields = useMemo(() => {
+        return fields.filter(
+            (field) =>
+                recordTypesByKey?.[field]?.profile_records && recordTypesByKey?.[field]?.profile_requester_editable,
+        );
+    }, [fields, recordTypesByKey]);
+
     const form = useFormBuilder<Partial<ProfileRecordValues>>(
         {
             telephone: '',
@@ -50,7 +57,7 @@ export default function IdentityContactInformationCard({
             setProgress(0);
 
             profileService
-                .update(values)
+                .update(Object.fromEntries(editableFields.map((field) => [field, values[field]])))
                 .then((res) => {
                     setProfile(res.data);
                     setEditContacts(false);
@@ -76,7 +83,7 @@ export default function IdentityContactInformationCard({
         });
     }, [formUpdate, profile.records.mobile, profile.records.telephone]);
 
-    if (editContacts) {
+    if (editContacts && editableFields.length > 0) {
         return (
             <form className="card form form-compact form-compact-flat" onSubmit={form.submit}>
                 <div className="card-header flex">
@@ -128,6 +135,7 @@ export default function IdentityContactInformationCard({
                                 <input
                                     className="form-control"
                                     value={form?.values?.[field] || ''}
+                                    disabled={!editableFields.includes(field)}
                                     onChange={(e) => form.update({ [field]: e.target.value })}
                                     autoComplete="tel"
                                 />
@@ -160,17 +168,19 @@ export default function IdentityContactInformationCard({
         <div className="card">
             <div className="card-header flex">
                 <h2 className="card-title flex flex-grow">{translate('profile.contacts.title')}</h2>
-                <div className="button-group">
-                    <button
-                        className="button button-text button-xs hide-sm"
-                        onClick={() => {
-                            initFormValues();
-                            setEditContacts(true);
-                        }}>
-                        <em className="mdi mdi-pencil-outline" />
-                        {translate('profile.contacts.edit')}
-                    </button>
-                </div>
+                {editableFields.length > 0 && (
+                    <div className="button-group">
+                        <button
+                            className="button button-text button-xs hide-sm"
+                            onClick={() => {
+                                initFormValues();
+                                setEditContacts(true);
+                            }}>
+                            <em className="mdi mdi-pencil-outline" />
+                            {translate('profile.contacts.edit')}
+                        </button>
+                    </div>
+                )}
             </div>
 
             <div className="card-section">
@@ -196,17 +206,19 @@ export default function IdentityContactInformationCard({
                         ]}
                     />
 
-                    <button
-                        className="button button-light button-wide button-xs show-sm"
-                        onClick={() => {
-                            initFormValues();
-                            setEditContacts(true);
-                        }}>
-                        <span className="flex flex-center">
-                            <em className="mdi mdi-pencil-outline" />
-                            {translate('profile.contacts.edit')}
-                        </span>
-                    </button>
+                    {editableFields.length > 0 && (
+                        <button
+                            className="button button-light button-wide button-xs show-sm"
+                            onClick={() => {
+                                initFormValues();
+                                setEditContacts(true);
+                            }}>
+                            <span className="flex flex-center">
+                                <em className="mdi mdi-pencil-outline" />
+                                {translate('profile.contacts.edit')}
+                            </span>
+                        </button>
+                    )}
                 </div>
             </div>
         </div>

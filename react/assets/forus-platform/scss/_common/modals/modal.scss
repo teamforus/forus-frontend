@@ -429,7 +429,26 @@
             }
         }
 
-        .modal-processing {
+        &:last-child {
+            border-bottom: none;
+            border-bottom-left-radius: inherit;
+            border-bottom-right-radius: inherit;
+        }
+    }
+
+    .modal-body-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        border-bottom: 1px solid var(--border-color);
+
+        > .modal-body {
+            border-bottom: none;
+            border-radius: 0;
+        }
+
+        > .modal-processing {
             display: flex;
             background: #f6f9fc;
             flex-direction: column;

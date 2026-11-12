@@ -9,8 +9,13 @@ import FundRequest, { FundRequestFormula } from '../../props/models/FundRequest'
 import { ModalButton } from './elements/ModalButton';
 import { strLimit } from '../../helpers/string';
 import Organization from '../../props/models/Organization';
-import { useFundRequestValidatorService } from '../../services/FundRequestValidatorService';
+import { FundRequestApprovalPayload, useFundRequestValidatorService } from '../../services/FundRequestValidatorService';
 import { ResponseError } from '../../props/ApiResponses';
+import useTranslate from '../../hooks/useTranslate';
+import useFundRequestProfileCopy from '../../hooks/fund-requests/useFundRequestProfileCopy';
+import FundRequestProfileCopyPreview from './fund-request-approve/elements/FundRequestProfileCopyPreview';
+import InfoBox from '../elements/info-box/InfoBox';
+import Modal from './elements/Modal';
 
 type AmountType = 'formula' | 'custom' | 'predefined';
 
@@ -29,6 +34,8 @@ export default function ModalApproveFundRequest({
     fundRequest: FundRequest;
     activeOrganization: Organization;
 }) {
+    const translate = useTranslate();
+
     const fundRequestService = useFundRequestValidatorService();
 
     const amountOptions = useMemo(() => {
@@ -49,12 +56,10 @@ export default function ModalApproveFundRequest({
         }));
     }, [fundRequest]);
 
-    const form = useFormBuilder<{
-        type: AmountType;
-        note?: string;
-        amount: string;
-        fund_amount_preset_id?: number;
-    }>(
+    const { canCopyToProfile, copyToProfile, setCopyToProfile, preview, previewLoading, profileCopyReady, closeModal } =
+        useFundRequestProfileCopy(activeOrganization, fundRequest, modal);
+
+    const form = useFormBuilder<FundRequestApprovalPayload & { type: AmountType }>(
         {
             type: formula?.items?.length > 0 ? 'formula' : amountOptions[0]?.key,
             amount: null,
@@ -65,19 +70,15 @@ export default function ModalApproveFundRequest({
             modal.setProcessing(true);
 
             fundRequestService
-                .approve(
-                    activeOrganization.id,
-                    fundRequest?.id,
-                    type === 'formula'
-                        ? { note }
-                        : {
-                              ...(type === 'predefined' ? { fund_amount_preset_id, note } : {}),
-                              ...(type === 'custom' ? { amount, note } : {}),
-                          },
-                )
+                .approve(activeOrganization.id, fundRequest?.id, {
+                    ...(type === 'formula' ? { note } : {}),
+                    ...(type === 'predefined' ? { fund_amount_preset_id, note } : {}),
+                    ...(type === 'custom' ? { amount, note } : {}),
+                    copy_to_profile: copyToProfile,
+                })
                 .then(() => {
                     modal.setProcessing(false);
-                    modal.close();
+                    closeModal();
                     onDone?.();
                 })
                 .catch((err: ResponseError) => {
@@ -87,7 +88,7 @@ export default function ModalApproveFundRequest({
                         form.setErrors(err.data.errors);
                         form.setIsLocked(false);
                     } else {
-                        modal.close();
+                        closeModal();
                         onError?.(err);
                     }
                 });
@@ -95,223 +96,238 @@ export default function ModalApproveFundRequest({
     );
 
     return (
-        <div
-            className={classNames('modal', 'modal-lg', 'modal-animated', modal.loading && 'modal-loading')}
-            data-dusk="modalApproveFundRequest">
-            <div className="modal-backdrop" onClick={modal.close} />
-            <form className="modal-window" onSubmit={form.submit}>
-                <div className="modal-close mdi mdi-close" onClick={modal.close} data-dusk="closeBtn" />
-                <div className="modal-header">
-                    <div className="modal-title">Aanvraag keuren en te ontvangen zaken vaststellen</div>
+        <Modal
+            modal={{ ...modal, close: closeModal }}
+            size="lg"
+            dusk="modalApproveFundRequest"
+            processing={Boolean(modal.processing)}
+            onSubmit={(event) => {
+                if (modal.processing || !profileCopyReady) {
+                    event.preventDefault();
+                    return;
+                }
+
+                form.submit(event);
+            }}
+            head={
+                <>
+                    <div className="modal-close mdi mdi-close" onClick={closeModal} data-dusk="closeBtn" />
+                    <div className="modal-header">
+                        <div className="modal-title">Aanvraag keuren en te ontvangen zaken vaststellen</div>
+                    </div>
+                </>
+            }
+            footerClassName="flex-horizontal flex-center"
+            footer={
+                <div className="button-groups">
+                    <ModalButton
+                        button={{ onClick: closeModal }}
+                        disabled={modal.processing}
+                        text="Sluiten"
+                        type="default"
+                    />
+                    <button
+                        type="submit"
+                        disabled={modal.processing || !profileCopyReady}
+                        className={'button button-primary'}
+                        data-dusk="submitBtn">
+                        Bevestigen
+                    </button>
                 </div>
-                <div className="modal-body form">
-                    {modal?.processing && (
-                        <div className={'modal-processing'}>
-                            <em className="mdi mdi-loading mdi-spin" />
-                        </div>
-                    )}
-
-                    <div className="modal-section">
-                        <div className="block block-approve-fund-request">
-                            <div className="approve-request-title">
-                                Weet u zeker dat u de gegevens wilt goedkeuren en dat de uit te keren tegoeden en
-                                betalingen correct zijn?
-                                <div className="approve-request-description">
-                                    Een beoordeling kan niet ongedaan worden gemaakt en de aanvrager ontvangt bericht
-                                    over het besluit.
-                                </div>
+            }>
+            <div className="block block-approve-fund-request">
+                <div className="approve-request-title">
+                    Weet u zeker dat u de gegevens wilt goedkeuren en dat de uit te keren tegoeden en betalingen correct
+                    zijn?
+                    <div className="approve-request-description">
+                        Een beoordeling kan niet ongedaan worden gemaakt en de aanvrager ontvangt bericht over het
+                        besluit.
+                    </div>
+                </div>
+                {formula && [...formula.items, ...formula.products].length > 0 && (
+                    <div className="approve-request-formula">
+                        <div className="approve-request-formula-header">Rekenregels</div>
+                        <div className="approve-request-formula-body">
+                            <div className="table-wrapper">
+                                <table className="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Soort</th>
+                                            <th>Type</th>
+                                            <th>Ontvangt</th>
+                                            <th>Aantal</th>
+                                            <th className={'text-right'}>Resultaat</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {[...formula.items, ...formula.products].map((item, index) => (
+                                            <tr key={index}>
+                                                <td>{item.record}</td>
+                                                <td>{item.type}</td>
+                                                <td title={item.value}>{strLimit(item.value)}</td>
+                                                <td>{item.count}</td>
+                                                <td className={'text-right'} title={item.total}>
+                                                    {strLimit(item.total)}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
-                            {formula && [...formula.items, ...formula.products].length > 0 && (
-                                <div className="approve-request-formula">
-                                    <div className="approve-request-formula-header">Rekenregels</div>
-                                    <div className="approve-request-formula-body">
-                                        <div className="table-wrapper">
-                                            <table className="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Soort</th>
-                                                        <th>Type</th>
-                                                        <th>Ontvangt</th>
-                                                        <th>Aantal</th>
-                                                        <th className={'text-right'}>Resultaat</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {[...formula.items, ...formula.products].map((item, index) => (
-                                                        <tr key={index}>
-                                                            <td>{item.record}</td>
-                                                            <td>{item.type}</td>
-                                                            <td title={item.value}>{strLimit(item.value)}</td>
-                                                            <td>{item.count}</td>
-                                                            <td className={'text-right'} title={item.total}>
-                                                                {strLimit(item.total)}
-                                                            </td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                        </div>
 
-                                    <div className="approve-request-formula-footer">
-                                        {formula.products.length > 0 && (
-                                            <div className="approve-request-formula-totals">
-                                                <div className="approve-request-formula-totals-label">
-                                                    Totaal aantal tegoeden
-                                                </div>
-                                                <div
-                                                    className={classNames(
-                                                        'approve-request-formula-totals-value',
-                                                        form.values.type !== 'formula' &&
-                                                            'text-line-through text-muted',
-                                                    )}>
-                                                    {formula.total_products}
-                                                </div>
-                                            </div>
-                                        )}
-                                        <div className="approve-request-formula-totals">
-                                            <div className="approve-request-formula-totals-label">
-                                                {amountOptions?.length > 0 && (
-                                                    <CheckboxControl
-                                                        dusk="toggleRequestAmountType"
-                                                        className={classNames(
-                                                            'checkbox-narrow',
-                                                            'approve-request-formula-totals-checkbox',
-                                                        )}
-                                                        checked={form.values.type === 'formula'}
-                                                        onChange={(e) => {
-                                                            form.update({
-                                                                type: e.target.checked
-                                                                    ? 'formula'
-                                                                    : amountOptions?.[0]?.key,
-                                                            });
-                                                        }}
-                                                        title={
-                                                            'Gebruik de berekende uitkomst op basis van de rekenregels.'
-                                                        }
-                                                    />
-                                                )}
-                                            </div>
-                                            <div
-                                                className={classNames(
-                                                    'approve-request-formula-totals-value',
-                                                    form.values.type !== 'formula' && 'text-line-through text-muted',
-                                                )}>
-                                                {formula.total_amount}
-                                            </div>
-                                        </div>
+                        <div className="approve-request-formula-footer">
+                            {formula.products.length > 0 && (
+                                <div className="approve-request-formula-totals">
+                                    <div className="approve-request-formula-totals-label">Totaal aantal tegoeden</div>
+                                    <div
+                                        className={classNames(
+                                            'approve-request-formula-totals-value',
+                                            form.values.type !== 'formula' && 'text-line-through text-muted',
+                                        )}>
+                                        {formula.total_products}
                                     </div>
                                 </div>
                             )}
-                            <div className="form flex flex-vertical flex-gap">
-                                {form.values.type !== 'formula' && (
-                                    <div className="row">
-                                        {amountOptions.length > 1 && (
-                                            <div className="col col-xs-12 col-lg-6">
-                                                <FormGroup
-                                                    label={'Toewijzingsmethode'}
-                                                    error={form.errors.type}
-                                                    input={(id) => (
-                                                        <SelectControl
-                                                            id={id}
-                                                            propKey={'key'}
-                                                            propValue={'name'}
-                                                            options={amountOptions}
-                                                            value={form.values.type}
-                                                            dusk="amountOptionsSelect"
-                                                            onChange={(type: AmountType) => form.update({ type })}
-                                                        />
-                                                    )}
-                                                />
-                                            </div>
-                                        )}
-                                        <div
+                            <div className="approve-request-formula-totals">
+                                <div className="approve-request-formula-totals-label">
+                                    {amountOptions?.length > 0 && (
+                                        <CheckboxControl
+                                            dusk="toggleRequestAmountType"
                                             className={classNames(
-                                                'col col-xs-12',
-                                                amountOptions.length > 1 ? 'col-lg-6' : 'col-lg-12',
-                                            )}>
-                                            <FormGroup
-                                                label={
-                                                    form.values.type === 'predefined'
-                                                        ? 'Categorie en bedrag'
-                                                        : 'Vrij bedrag'
-                                                }
-                                                error={form.errors.fund_amount_preset_id || form.errors.amount}
-                                                input={(id) =>
-                                                    form.values.type === 'predefined' ? (
-                                                        <SelectControl
-                                                            id={id}
-                                                            propKey={'id'}
-                                                            propValue={'label'}
-                                                            options={amountValueOptions}
-                                                            value={form.values.fund_amount_preset_id}
-                                                            dusk="amountValueOptionsSelect"
-                                                            onChange={(amount_option_id: number) => {
-                                                                form.update({
-                                                                    fund_amount_preset_id: amount_option_id,
-                                                                });
-                                                            }}
-                                                        />
-                                                    ) : (
-                                                        <input
-                                                            id={id}
-                                                            type={'number'}
-                                                            className="form-control"
-                                                            placeholder={'Amount'}
-                                                            value={form.values.amount || ''}
-                                                            step=".01"
-                                                            min={fundRequest.fund.custom_amount_min}
-                                                            max={fundRequest.fund.custom_amount_max}
-                                                            data-dusk="amountCustomInput"
-                                                            onChange={(e) => form.update({ amount: e.target.value })}
-                                                        />
-                                                    )
-                                                }
-                                            />
-                                        </div>
-                                    </div>
-                                )}
-
-                                <FormGroup
-                                    label={'Voeg een notitie toe'}
-                                    input={(id) => (
-                                        <textarea
-                                            id={id}
-                                            value={form.values.note || ''}
-                                            placeholder={'Notitie'}
-                                            className={'form-control'}
-                                            onChange={(e) => form.update({ note: e.target.value })}
+                                                'checkbox-narrow',
+                                                'approve-request-formula-totals-checkbox',
+                                            )}
+                                            checked={form.values.type === 'formula'}
+                                            onChange={(e) => {
+                                                form.update({
+                                                    type: e.target.checked ? 'formula' : amountOptions?.[0]?.key,
+                                                });
+                                            }}
+                                            title={'Gebruik de berekende uitkomst op basis van de rekenregels.'}
                                         />
                                     )}
-                                />
-                            </div>
-                            <div className="block block-info">
-                                <em className="mdi mdi-information block-info-icon" />
-                                Door middel van de bovenstaande instelling kunnen de uit te keren bedragen en/of
-                                tegoeden worden vastgesteld.
+                                </div>
+                                <div
+                                    className={classNames(
+                                        'approve-request-formula-totals-value',
+                                        form.values.type !== 'formula' && 'text-line-through text-muted',
+                                    )}>
+                                    {formula.total_amount}
+                                </div>
                             </div>
                         </div>
                     </div>
+                )}
+                <div className="form flex flex-vertical flex-gap">
+                    {form.values.type !== 'formula' && (
+                        <div className="row">
+                            {amountOptions.length > 1 && (
+                                <div className="col col-xs-12 col-lg-6">
+                                    <FormGroup
+                                        label={'Toewijzingsmethode'}
+                                        error={form.errors.type}
+                                        input={(id) => (
+                                            <SelectControl
+                                                id={id}
+                                                propKey={'key'}
+                                                propValue={'name'}
+                                                options={amountOptions}
+                                                value={form.values.type}
+                                                dusk="amountOptionsSelect"
+                                                onChange={(type: AmountType) => form.update({ type })}
+                                            />
+                                        )}
+                                    />
+                                </div>
+                            )}
+                            <div
+                                className={classNames(
+                                    'col col-xs-12',
+                                    amountOptions.length > 1 ? 'col-lg-6' : 'col-lg-12',
+                                )}>
+                                <FormGroup
+                                    label={form.values.type === 'predefined' ? 'Categorie en bedrag' : 'Vrij bedrag'}
+                                    error={form.errors.fund_amount_preset_id || form.errors.amount}
+                                    input={(id) =>
+                                        form.values.type === 'predefined' ? (
+                                            <SelectControl
+                                                id={id}
+                                                propKey={'id'}
+                                                propValue={'label'}
+                                                options={amountValueOptions}
+                                                value={form.values.fund_amount_preset_id}
+                                                dusk="amountValueOptionsSelect"
+                                                onChange={(amount_option_id: number) => {
+                                                    form.update({
+                                                        fund_amount_preset_id: amount_option_id,
+                                                    });
+                                                }}
+                                            />
+                                        ) : (
+                                            <input
+                                                id={id}
+                                                type={'number'}
+                                                className="form-control"
+                                                placeholder={'Amount'}
+                                                value={form.values.amount || ''}
+                                                step=".01"
+                                                min={fundRequest.fund.custom_amount_min}
+                                                max={fundRequest.fund.custom_amount_max}
+                                                data-dusk="amountCustomInput"
+                                                onChange={(e) => form.update({ amount: e.target.value })}
+                                            />
+                                        )
+                                    }
+                                />
+                            </div>
+                        </div>
+                    )}
+
+                    <InfoBox>
+                        <p>
+                            Door middel van de bovenstaande instelling kunnen de uit te keren bedragen en/of tegoeden
+                            worden vastgesteld.
+                        </p>
+                    </InfoBox>
+
+                    <FormGroup
+                        label={'Voeg een notitie toe'}
+                        input={(id) => (
+                            <textarea
+                                id={id}
+                                value={form.values.note || ''}
+                                placeholder={'Notitie'}
+                                className={'form-control'}
+                                onChange={(e) => form.update({ note: e.target.value })}
+                            />
+                        )}
+                    />
+
+                    {canCopyToProfile && (
+                        <FormGroup
+                            error={Object.entries(form.errors)
+                                .filter(([key]) => key === 'copy_to_profile' || key.startsWith('records.'))
+                                .flatMap(([, errors]) => errors)}
+                            input={(id) => (
+                                <CheckboxControl
+                                    id={id}
+                                    checked={copyToProfile}
+                                    disabled={modal.processing}
+                                    dusk="copyToProfile"
+                                    narrow={true}
+                                    onChange={(_, checked) => setCopyToProfile(checked)}
+                                    title={translate('validation_request_details.labels.copy_to_profile')}
+                                />
+                            )}
+                        />
+                    )}
                 </div>
 
-                <div className="modal-footer flex-horizontal flex-center">
-                    <div className="button-groups">
-                        <ModalButton
-                            button={{ onClick: modal.close }}
-                            disabled={modal.processing}
-                            text="Sluiten"
-                            type="default"
-                        />
-                        <button
-                            type="submit"
-                            disabled={modal.processing}
-                            className={'button button-primary'}
-                            data-dusk="submitBtn">
-                            Bevestigen
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
+                {canCopyToProfile && (
+                    <FundRequestProfileCopyPreview enabled={copyToProfile} loading={previewLoading} preview={preview} />
+                )}
+            </div>
+        </Modal>
     );
 }

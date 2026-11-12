@@ -4,6 +4,7 @@ import Fund from '../../../../props/models/Fund';
 import useTranslate from '../../../../hooks/useTranslate';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
 import classNames from 'classnames';
+import FormulaConditions from '../../../elements/formula-conditions/FormulaConditions';
 
 export default function FinancialOverviewFundsBudgetTableItem({ fund }: { fund: Fund }) {
     const translate = useTranslate();
@@ -130,6 +131,8 @@ export default function FinancialOverviewFundsBudgetTableItem({ fund }: { fund: 
                                     <div>
                                         <strong>{currencyFormat(parseFloat(formula.amount))}</strong>
                                     </div>
+
+                                    <FormulaConditions conditions={formula.conditions} />
                                 </div>
                             ))}
                         </td>
