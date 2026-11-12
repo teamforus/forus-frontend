@@ -57,8 +57,8 @@ export default function MultiSelectControl<T = number>({
     }, [options, placeholderOption, value]);
 
     return (
-        <div>
-            <div className="form-group">
+        <div className="flex flex-vertical flex-gap">
+            <div className="form-group" style={{ marginBottom: '0px' }}>
                 <label className="form-label" htmlFor={id}>
                     {label}
                 </label>
@@ -67,18 +67,18 @@ export default function MultiSelectControl<T = number>({
 
             {value?.length > 0 && (
                 <div className="form-group">
-                    <label className="form-label">&nbsp;</label>
-
-                    {value?.map((id) => (
-                        <Label
-                            type="primary"
-                            key={id.toString()}
-                            icon="close"
-                            iconPosition="close"
-                            iconOnClick={() => removeItem(id)}>
-                            {optionsById?.[id.toString()] || ''}
-                        </Label>
-                    ))}
+                    <div className="label-group">
+                        {value?.map((id) => (
+                            <Label
+                                type="primary"
+                                key={id.toString()}
+                                icon="close"
+                                iconPosition="close"
+                                iconOnClick={() => removeItem(id)}>
+                                {optionsById?.[id.toString()] || ''}
+                            </Label>
+                        ))}
+                    </div>
                 </div>
             )}
         </div>

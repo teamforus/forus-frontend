@@ -401,7 +401,9 @@ export class FundService<T = Fund> {
     }
 
     public getFormulasColumns(): Array<ConfigurableTableColumn> {
-        const list = ['id', 'type', 'amount', 'record_type', 'created_at', 'updated_at'].filter((item) => item);
+        const list = ['id', 'type', 'amount', 'conditions', 'record_type', 'created_at', 'updated_at'].filter(
+            (item) => item,
+        );
 
         return list.map((key) => ({
             key,

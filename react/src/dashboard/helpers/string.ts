@@ -92,3 +92,9 @@ export function splitTextIntoLines(text: string, maxSymbolsPerLine: number, maxL
 
     return lines;
 }
+
+export const normalizeBsn = (bsn?: string | null): string | null => {
+    const value = bsn?.trim() || null;
+
+    return /^[0-9]{8}$/.test(value || '') ? value.padStart(9, '0') : value;
+};

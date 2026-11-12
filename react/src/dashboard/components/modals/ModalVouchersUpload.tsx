@@ -4,7 +4,7 @@ import useSetProgress from '../../hooks/useSetProgress';
 import Fund from '../../props/models/Fund';
 import { useFileService } from '../../services/FileService';
 import useVoucherService from '../../services/VoucherService';
-import { currencyFormat, fileSize } from '../../helpers/string';
+import { currencyFormat, fileSize, normalizeBsn } from '../../helpers/string';
 import Papa from 'papaparse';
 import { chunk, groupBy, isEmpty, sortBy, uniq, map, countBy, keyBy, uniqueId } from 'lodash';
 import Organization from '../../props/models/Organization';
@@ -483,8 +483,8 @@ export default function ModalVouchersUpload({
                     .filter((email) => Boolean(email));
 
                 const bsnList = [
-                    ...data.map((voucher) => normalizeValue(voucher.relation_bsn)),
-                    ...data.map((voucher) => normalizeValue(voucher.identity_bsn)),
+                    ...data.map((voucher) => normalizeBsn(voucher.relation_bsn)),
+                    ...data.map((voucher) => normalizeBsn(voucher.identity_bsn)),
                 ]?.filter((bsn) => Boolean(bsn));
 
                 const clientUids = data
@@ -492,7 +492,7 @@ export default function ModalVouchersUpload({
                     .filter((client_uid) => Boolean(client_uid));
 
                 const existingEmails = list.filter((row) => emails.includes(normalizeValue(row.email)));
-                const existingBsn = list.filter((row) => bsnList.includes(normalizeValue(row.bsn)));
+                const existingBsn = list.filter((row) => bsnList.includes(normalizeBsn(row.bsn)));
                 const existingClientUids = list.filter((row) => clientUids.includes(normalizeValue(row.client_uid)));
 
                 if (existingEmails.length === 0 && existingBsn.length === 0 && existingClientUids.length === 0) {
@@ -730,6 +730,7 @@ export default function ModalVouchersUpload({
                     row.note = row.note || defaultNote(row);
                     row.fund_id = row.fund_id || fund.id;
                     row.client_uid = row.client_uid || row.activation_code_uid || null;
+                    row.bsn = normalizeBsn(row.bsn);
                     delete row.activation_code_uid;
 
                     return isEmpty(row) ? null : row;
