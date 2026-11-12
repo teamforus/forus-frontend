@@ -9,6 +9,10 @@ import IdentitiesApiPerson from '../props/models/IdentitiesApiPerson';
 import SponsorProfileRelation from '../props/models/Sponsor/SponsorProfileRelation';
 import Note from '../props/models/Note';
 
+export type SponsorIdentityRecordsPayload = {
+    records: Array<{ record_type_key: string; value: string | null }>;
+};
+
 export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccount, R = SponsorProfileRelation> {
     /**
      * @param apiRequest
@@ -22,7 +26,10 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
      */
     public prefix = '/platform/organizations';
 
-    public store(organizationId: number, data: object = {}): Promise<ApiResponseSingle<T>> {
+    public store(
+        organizationId: number,
+        data: SponsorIdentityRecordsPayload = { records: [] },
+    ): Promise<ApiResponseSingle<T>> {
         return this.apiRequest.post(`${this.prefix}/${organizationId}/sponsor/identities`, data);
     }
 
@@ -34,7 +41,11 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
         return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/identities/${identityId}`);
     }
 
-    public update(organizationId: number, identityId: number, data: object): Promise<ApiResponseSingle<T>> {
+    public update(
+        organizationId: number,
+        identityId: number,
+        data: SponsorIdentityRecordsPayload,
+    ): Promise<ApiResponseSingle<T>> {
         return this.apiRequest.patch(`${this.prefix}/${organizationId}/sponsor/identities/${identityId}`, data);
     }
 
@@ -90,6 +101,7 @@ export class SponsorIdentitiesService<T = SponsorIdentity, B = ProfileBankAccoun
      * @param organizationId
      * @param identityId
      * @param query
+     * @param config
      */
     public listRelations(
         organizationId: number,

@@ -43,7 +43,7 @@ export default function ModalAddProfileRelation({
         return identity?.email_verified ? identity?.email_verified : [];
     }, [identity?.email_verified]);
 
-    const { recordTypesByKey } = useProfileRecordTypes();
+    const { recordTypesByKey } = useProfileRecordTypes(organization.id);
 
     const [types] = useState([
         { value: 'partner', name: 'Partner' },

@@ -15,20 +15,18 @@ import IdentityAddressCard from './cards/IdentityAddressCard';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import ProfileBankAccountsCard from './cards/ProfileBankAccountsCard';
 import BlockKeyValueList from '../../elements/block-key-value-list/BlockKeyValueList';
+import useAppConfigs from '../../../hooks/useAppConfigs';
 
 export default function Profile() {
-    const translate = useTranslate();
-    const setProgress = useSetProgress();
     const [profile, setProfile] = useState<ProfileModel>(null);
-
-    const recordTypeService = useRecordTypeService();
-    const profileService = useProfileService();
-
     const [recordTypes, setRecordTypes] = useState<Array<RecordType>>(null);
 
-    const fetchProfile = useCallback(() => {
-        profileService.profile().then((res) => setProfile(res.data));
-    }, [profileService]);
+    const translate = useTranslate();
+    const appConfigs = useAppConfigs();
+    const setProgress = useSetProgress();
+
+    const profileService = useProfileService();
+    const recordTypeService = useRecordTypeService();
 
     const recordTypesByKey = useMemo(() => {
         return recordTypes?.reduce((map, recordType) => {
@@ -42,14 +40,24 @@ export default function Profile() {
         return birthDate ? Math.max(differenceInYears(new Date(), birthDate), 0) : null;
     }, [profile?.records?.birth_date]);
 
+    const organizationId = appConfigs?.organization_id;
+
+    const fetchProfile = useCallback(() => {
+        profileService.profile().then((res) => setProfile(res.data));
+    }, [profileService]);
+
     const fetchRecordTypes = useCallback(() => {
+        if (!organizationId) {
+            return;
+        }
+
         setProgress(0);
 
         recordTypeService
-            .list<RecordType & { key: ProfileRecordType }>()
+            .list<RecordType & { key: ProfileRecordType }>({ organization_id: organizationId })
             .then((res) => setRecordTypes(res.data))
             .finally(() => setProgress(100));
-    }, [recordTypeService, setProgress]);
+    }, [organizationId, recordTypeService, setProgress]);
 
     useEffect(() => {
         fetchRecordTypes();

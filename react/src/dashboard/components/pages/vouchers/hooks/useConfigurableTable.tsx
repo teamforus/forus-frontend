@@ -10,6 +10,7 @@ export type ConfigurableTableColumn = {
     key: string;
     label: string;
     value?: string;
+    headerClassName?: string;
     tooltip?: { key: string; title: string; description: string };
 };
 
@@ -125,6 +126,7 @@ export default function useConfigurableTable(
                         sortable ? (
                             <ThSortable
                                 key={index}
+                                className={column.headerClassName}
                                 onMouseOver={() => (hasTooltips ? showTableTooltip(column.tooltip?.key) : null)}
                                 onMouseLeave={() => (hasTooltips ? hideTableTooltip() : null)}
                                 filter={filter}
@@ -134,6 +136,7 @@ export default function useConfigurableTable(
                         ) : (
                             <ThSortable
                                 key={index}
+                                className={column.headerClassName}
                                 label={translate(column.label)}
                                 onMouseOver={() => (hasTooltips ? showTableTooltip(column.tooltip?.key) : null)}
                                 onMouseLeave={() => (hasTooltips ? hideTableTooltip() : null)}

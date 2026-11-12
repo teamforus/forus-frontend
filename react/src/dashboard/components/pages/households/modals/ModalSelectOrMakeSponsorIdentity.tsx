@@ -1,15 +1,16 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { ModalState } from '../../../../modules/modals/context/ModalContext';
 import useFormBuilder from '../../../../hooks/useFormBuilder';
 import { PaginationData, ResponseError } from '../../../../props/ApiResponses';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import usePushApiError from '../../../../hooks/usePushApiError';
-import Organization from '../../../../props/models/Organization';
+import Organization, { Permission } from '../../../../props/models/Organization';
+import { hasPermission } from '../../../../helpers/utils';
 import FormPane from '../../../elements/forms/elements/FormPane';
 import FormGroup from '../../../elements/forms/elements/FormGroup';
 import Modal from '../../../modals/elements/Modal';
 import useProfileRecordTypes from '../../identitities-show/hooks/useProfileRecordTypes';
-import SponsorIdentity, { ProfileRecordType } from '../../../../props/models/Sponsor/SponsorIdentity';
+import SponsorIdentity from '../../../../props/models/Sponsor/SponsorIdentity';
 import useSponsorIdentitiesService from '../../../../services/SponsorIdentitesService';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import TableTopScroller from '../../../elements/tables/TableTopScroller';
@@ -19,9 +20,13 @@ import useTableToggles from '../../../../hooks/useTableToggles';
 import classNames from 'classnames';
 import IdentitiesTableRowItems from '../../identities/elements/IdentitiesTableRowItems';
 import Paginator from '../../../../modules/paginator/components/Paginator';
-import ProfileRecordsPersonal from '../../identitities-show/modals/elements/ProfileRecordsPersonal';
+import ProfileRecordGroupFields from '../../identitities-show/modals/elements/ProfileRecordGroupFields';
+import useProfileRecordGroups from '../../identitities-show/hooks/useProfileRecordGroups';
 import Household from '../../../../props/models/Sponsor/Household';
 import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
+import LoadingCard from '../../../elements/loading-card/LoadingCard';
+import mapProfileRecordErrors from '../../identitities-show/helpers/mapProfileRecordErrors';
+import isEditableProfileRecordType from '../../identitities-show/helpers/isEditableProfileRecordType';
 
 export default function ModalSelectOrMakeSponsorIdentity({
     modal,
@@ -43,47 +48,57 @@ export default function ModalSelectOrMakeSponsorIdentity({
     const setProgress = useSetProgress();
     const pushApiError = usePushApiError();
     const runLatestRequest = useLatestRequestWithProgress();
+
     const sponsorIdentitiesService = useSponsorIdentitiesService();
 
     const [action, setAction] = useState<'find' | 'create'>('find');
     const [identities, setIdentities] = useState<PaginationData<SponsorIdentity>>(null);
+
     const { selected, setSelected, toggleAll, toggle } = useTableToggles(multiselect);
-    const { recordTypesByKey } = useProfileRecordTypes();
+    const { recordTypes } = useProfileRecordTypes(organization.id);
 
-    const form = useFormBuilder<Partial<{ [key in ProfileRecordType]: string }>>(
-        {
-            family_name: '',
-            given_name: '',
-            birth_date: '',
-            gender: '',
-            marital_status: '',
-            client_number: '',
-        },
-        (values) => {
-            if (action === 'create') {
-                setProgress(0);
+    const editableTypes = useMemo(() => {
+        return (recordTypes || []).filter((type) => isEditableProfileRecordType(type, organization.id));
+    }, [organization.id, recordTypes]);
 
-                sponsorIdentitiesService
-                    .store(organization?.id, values)
-                    .then((res) => {
-                        setProgress(0);
-                        onDone?.([res?.data?.data]);
-                    })
-                    .catch((res: ResponseError) => {
-                        form.setErrors(res.data.errors);
-                        pushApiError(res);
-                    })
-                    .finally(() => {
-                        setProgress(100);
-                        form.setIsLocked(false);
-                    });
+    const canCreate = useMemo(() => {
+        return (
+            organization.allow_profiles &&
+            organization.allow_profiles_create &&
+            hasPermission(organization, Permission.MANAGE_IDENTITIES)
+        );
+    }, [organization]);
 
-                return;
-            }
+    const groups = useProfileRecordGroups(editableTypes, organization.id);
 
-            onDone(identities.data.filter((identity) => selected.includes(identity.id)));
-        },
-    );
+    const form = useFormBuilder<Record<string, string | null>>({}, (values) => {
+        if (action === 'create') {
+            const records = editableTypes
+                .filter((type) => Object.hasOwn(values, type.key))
+                .map((type) => ({ record_type_key: type.key, value: values[type.key] }));
+
+            setProgress(0);
+
+            sponsorIdentitiesService
+                .store(organization.id, { records })
+                .then((res) => {
+                    setProgress(0);
+                    onDone?.([res?.data?.data]);
+                })
+                .catch((res: ResponseError) => {
+                    form.setErrors(mapProfileRecordErrors(res.data?.errors, records));
+                    pushApiError(res);
+                })
+                .finally(() => {
+                    setProgress(100);
+                    form.setIsLocked(false);
+                });
+
+            return;
+        }
+
+        onDone(identities.data.filter((identity) => selected.includes(identity.id)));
+    });
 
     const [filterValues, filterActiveValues, filterUpdate, filter] = useFilterNext<{
         q: string;
@@ -148,7 +163,11 @@ export default function ModalSelectOrMakeSponsorIdentity({
                     <button
                         type="submit"
                         className="button button-primary"
-                        disabled={(action === 'find' && selected?.length == 0) || form.isLocked}>
+                        disabled={
+                            (action === 'find' && selected?.length == 0) ||
+                            (action === 'create' && !recordTypes) ||
+                            form.isLocked
+                        }>
                         Bevestigen
                     </button>
                 </div>
@@ -157,7 +176,7 @@ export default function ModalSelectOrMakeSponsorIdentity({
                 <div className={'modal-body'}>
                     <div className="modal-section">
                         <div className="flex flex-gap flex-vertical">
-                            {organization?.allow_profiles_create && (
+                            {canCreate && (
                                 <FormPane title={'Zoek of voeg een persoon toe'}>
                                     <div className="block block-export-options">
                                         <div className="export-section">
@@ -215,18 +234,10 @@ export default function ModalSelectOrMakeSponsorIdentity({
                                         )}
                                     />
                                 </FormPane>
+                            ) : !recordTypes ? (
+                                <LoadingCard />
                             ) : (
-                                <ProfileRecordsPersonal
-                                    form={form}
-                                    recordTypes={{
-                                        given_name: recordTypesByKey.given_name,
-                                        family_name: recordTypesByKey.family_name,
-                                        birth_date: recordTypesByKey.birth_date,
-                                        gender: recordTypesByKey.gender,
-                                        marital_status: recordTypesByKey.marital_status,
-                                        client_number: recordTypesByKey.client_number,
-                                    }}
-                                />
+                                <ProfileRecordGroupFields groups={groups} form={form} />
                             )}
                         </div>
                     </div>

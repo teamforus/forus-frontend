@@ -1,6 +1,6 @@
 import BlockKeyValueList from '../../../elements/block-key-value-list/BlockKeyValueList';
 import IdentityRecordKeyValueListHistory from '../elements/IdentityRecordKeyValueListHistory';
-import React, { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import React, { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
 import { ProfileRecords, ProfileRecordValues } from '../../../../../dashboard/props/models/Sponsor/SponsorIdentity';
 import useFormBuilder from '../../../../../dashboard/hooks/useFormBuilder';
 import Profile from '../../../../../dashboard/props/models/Profile';
@@ -31,6 +31,13 @@ export default function IdentityAddressCard({
     const setProgress = useSetProgress();
     const profileService = useProfileService();
 
+    const editableFields = useMemo(() => {
+        return fields.filter(
+            (field) =>
+                recordTypesByKey?.[field]?.profile_records && recordTypesByKey?.[field]?.profile_requester_editable,
+        );
+    }, [fields, recordTypesByKey]);
+
     const form = useFormBuilder<Partial<ProfileRecordValues>>(
         {
             city: '',
@@ -43,7 +50,7 @@ export default function IdentityAddressCard({
             setProgress(0);
 
             profileService
-                .update(values)
+                .update(Object.fromEntries(editableFields.map((field) => [field, values[field]])))
                 .then((res) => {
                     setProfile(res.data);
                     setEditAddress(false);
@@ -79,7 +86,7 @@ export default function IdentityAddressCard({
         profile.records.postal_code,
     ]);
 
-    if (editAddress) {
+    if (editAddress && editableFields.length > 0) {
         return (
             <form className="card form form-compact form-compact-flat" onSubmit={form.submit}>
                 <div className="card-header flex">
@@ -94,6 +101,7 @@ export default function IdentityAddressCard({
                                 <input
                                     className="form-control"
                                     value={form?.values?.[field] || ''}
+                                    disabled={!editableFields.includes(field)}
                                     onChange={(e) => form.update({ [field]: e.target.value })}
                                 />
                                 <FormError error={form.errors?.[field]} />
@@ -141,17 +149,19 @@ export default function IdentityAddressCard({
         <div className="card">
             <div className="card-header flex">
                 <h2 className="card-title flex flex-grow">{translate('profile.address.title')}</h2>
-                <div className="button-group">
-                    <button
-                        className="button button-text button-xs hide-sm"
-                        onClick={() => {
-                            initFormValues();
-                            setEditAddress(true);
-                        }}>
-                        <em className="mdi mdi-pencil-outline" />
-                        {translate('profile.address.edit')}
-                    </button>
-                </div>
+                {editableFields.length > 0 && (
+                    <div className="button-group">
+                        <button
+                            className="button button-text button-xs hide-sm"
+                            onClick={() => {
+                                initFormValues();
+                                setEditAddress(true);
+                            }}>
+                            <em className="mdi mdi-pencil-outline" />
+                            {translate('profile.address.edit')}
+                        </button>
+                    </div>
+                )}
             </div>
 
             <div className="card-section">
@@ -197,17 +207,19 @@ export default function IdentityAddressCard({
                         ]}
                     />
 
-                    <button
-                        className="button button-light button-wide button-xs show-sm"
-                        onClick={() => {
-                            initFormValues();
-                            setEditAddress(true);
-                        }}>
-                        <span className="flex flex-center">
-                            <em className="mdi mdi-pencil-outline" />
-                            {translate('profile.address.edit')}
-                        </span>
-                    </button>
+                    {editableFields.length > 0 && (
+                        <button
+                            className="button button-light button-wide button-xs show-sm"
+                            onClick={() => {
+                                initFormValues();
+                                setEditAddress(true);
+                            }}>
+                            <span className="flex flex-center">
+                                <em className="mdi mdi-pencil-outline" />
+                                {translate('profile.address.edit')}
+                            </span>
+                        </button>
+                    )}
                 </div>
             </div>
         </div>
