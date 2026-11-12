@@ -97,6 +97,7 @@ export default interface Organization {
     bi_connection_token: string;
     bi_connection_url: string;
     has_bank_connection: boolean;
+    has_dcp?: boolean;
     manage_provider_products: boolean;
     backoffice_available: boolean;
     reservations_auto_accept: boolean;

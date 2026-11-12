@@ -86,6 +86,16 @@ function VoucherPassesContent({ organizationId }: { organizationId: number }) {
 
                 <div className="card-header-filters">
                     <div className="block block-inline-filters">
+                        {rows?.meta.can_prepare_dcp === true && (
+                            <StateNavLink
+                                name={DashboardRoutes.VOUCHER_PASSES_DCP}
+                                params={{ organizationId }}
+                                className="button button-default">
+                                <em className="mdi mdi-printer icon-start" />
+                                {translate('dcp_prepare.title')}
+                            </StateNavLink>
+                        )}
+
                         <StateNavLink
                             name={DashboardRoutes.VOUCHER_PASSES_UPLOAD}
                             params={{ organizationId }}

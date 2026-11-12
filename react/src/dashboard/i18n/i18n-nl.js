@@ -45,6 +45,10 @@ export default {
     },
     page_title: 'Platform Forus',
     page_state_titles: {
+        'voucher-passes-dcp': 'Prepare print orders',
+        'dcp-orders': 'Print orders',
+        'dcp-order': 'Print order details',
+        'dcp-order-bulk': 'Print bulk details',
         home: 'Forus platform home',
         organizations: 'Organisaties',
         'organizations-create': 'Organisatie aanmaken',

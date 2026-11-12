@@ -32,11 +32,13 @@ import LayoutAsideGroupHelp from './groups/LayoutAsideGroupHelp';
 import { usePinnedMenuGroups } from './hooks/usePinnedMenuGroups';
 import useIsSponsorPanel from '../../../hooks/useIsSponsorPanel';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useCanManageDCP from '../../../hooks/permissions/useCanManageDCP';
 
 export default function LayoutAsideSponsor({ organization }: { organization: Organization }) {
     const translate = useTranslate();
     const appConfigs = useAppConfigs();
     const isSponsorPanel = useIsSponsorPanel();
+    const canManageDCP = useCanManageDCP();
     const canManageVoucherPasses = useCanManageVoucherPasses();
     const canManageRequesterImports = useCanManageRequesterImports();
 
@@ -244,6 +246,14 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         stateParams: { organizationId: organization?.id },
                         show: canManageVoucherPasses,
                         dusk: 'voucherPassesPage',
+                    },
+                    {
+                        id: 'dcp_orders',
+                        name: translate('dcp.title'),
+                        state: DashboardRoutes.DCP_ORDERS,
+                        stateParams: { organizationId: organization?.id },
+                        show: canManageDCP,
+                        dusk: 'dcpOrdersPage',
                     },
                     {
                         id: 'payouts',
