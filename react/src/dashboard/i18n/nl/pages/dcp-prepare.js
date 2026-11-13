@@ -57,7 +57,7 @@ export default {
                 tagIds: {
                     0: {
                         printedCardType: 'Print label',
-                        printedFirstName: 'Printed first name',
+                        printedFirstName: 'Printed initials',
                         printedLastName: 'Printed last name',
                         printedDateOfBirth: 'Printed birth date',
                         printedCityCode: 'Printed municipality code',
