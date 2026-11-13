@@ -70,7 +70,7 @@ export default {
     },
     printed: {
         printedCardType: 'Print label',
-        printedFirstName: 'First name',
+        printedFirstName: 'Initials',
         printedLastName: 'Last name',
         printedDateOfBirth: 'Birth date',
         printedCityCode: 'Municipality code',
