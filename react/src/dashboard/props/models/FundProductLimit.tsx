@@ -7,7 +7,10 @@ export default interface FundProductLimit {
     state: string;
     type: string;
     type_locale: string;
-    limit: number;
+    limit_by: 'products' | 'amount';
+    limit_by_locale: string;
+    limit: number | string;
+    limit_locale: string;
     products: Array<Product>;
     fund?: Fund;
     created_at_locale?: string;
