@@ -70,6 +70,7 @@ export interface TranslationStats {
 
 export default interface Organization {
     id: number;
+    funds: Array<{ id: number; name: string }>;
     identity_address: string;
     name: string;
     kvk: string;
@@ -96,6 +97,7 @@ export default interface Organization {
     bi_connection_token: string;
     bi_connection_url: string;
     has_bank_connection: boolean;
+    has_dcp?: boolean;
     manage_provider_products: boolean;
     backoffice_available: boolean;
     reservations_auto_accept: boolean;
@@ -121,6 +123,9 @@ export default interface Organization {
     allow_pre_checks?: boolean;
     allow_payouts?: boolean;
     allow_profiles?: boolean;
+    allow_requester_imports?: boolean;
+    allow_voucher_passes?: boolean;
+    allow_vouchers_from_profiles?: boolean;
     allow_profiles_create?: boolean;
     allow_profiles_relations?: boolean;
     allow_profiles_households?: boolean;

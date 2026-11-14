@@ -1,38 +1,33 @@
 import React, { useCallback } from 'react';
-import SponsorIdentity, { ProfileRecordType } from '../../../../props/models/Sponsor/SponsorIdentity';
-import ModalEditProfileRecords, { GroupType } from '../modals/ModalEditProfileRecords';
+import SponsorIdentity from '../../../../props/models/Sponsor/SponsorIdentity';
+import ModalEditProfileRecords from '../modals/ModalEditProfileRecords';
 import useOpenModal from '../../../../hooks/useOpenModal';
 import RecordType from '../../../../props/models/RecordType';
 import Organization from '../../../../props/models/Organization';
 
-export default function useEditProfileRecords(
-    activeOrganization: Organization,
-    recordTypes: Array<RecordType & { key: ProfileRecordType }>,
-) {
+export default function useEditProfileRecords(organization: Organization, recordTypes: RecordType<string>[]) {
     const openModal = useOpenModal();
 
     return useCallback(
         (
-            identity: SponsorIdentity,
+            identity: SponsorIdentity | null,
             title: string,
-            group: GroupType,
-            onDone?: () => void,
-            disabledFields: Array<{ label: string; value: string; key: string }> = [],
+            onDone: () => void,
+            keys?: string[],
+            selectRecord = false,
         ) => {
             openModal((modal) => (
                 <ModalEditProfileRecords
                     modal={modal}
                     title={title}
-                    disabledFields={disabledFields}
-                    onDone={onDone}
                     identity={identity}
-                    group={group}
-                    recordTypes={recordTypes}
-                    organization={activeOrganization}
-                    bodyOverflowVisible={false}
+                    organization={organization}
+                    recordTypes={recordTypes.filter((type) => !keys || keys.includes(type.key))}
+                    selectRecord={selectRecord}
+                    onDone={onDone}
                 />
             ));
         },
-        [openModal, activeOrganization, recordTypes],
+        [openModal, organization, recordTypes],
     );
 }

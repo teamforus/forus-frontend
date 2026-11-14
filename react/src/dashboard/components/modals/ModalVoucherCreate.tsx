@@ -6,6 +6,7 @@ import FormError from '../elements/forms/errors/FormError';
 import SelectControl from '../elements/select-control/SelectControl';
 import DatePickerControl from '../elements/forms/controls/DatePickerControl';
 import { dateFormat, dateParse } from '../../helpers/dates';
+import { normalizeBsn } from '../../helpers/string';
 import VoucherRecordsEditor from '../pages/vouchers/elements/VoucherRecordsEditor';
 import useOpenModal from '../../hooks/useOpenModal';
 import ModalDuplicatesPicker from './ModalDuplicatesPicker';
@@ -128,7 +129,7 @@ export default function ModalVoucherCreate({
                 }[assignType.key],
                 fund_id: fund.id,
                 assign_by_type: assignType.key,
-                bsn: assignType.key == 'bsn' ? values.bsn : null,
+                bsn: assignType.key == 'bsn' ? normalizeBsn(values.bsn) : null,
                 email: assignType.key == 'email' ? values.email : null,
                 records: form.values.records.reduce(
                     (records, record) => ({ ...records, [record.key]: record.value }),
@@ -199,7 +200,7 @@ export default function ModalVoucherCreate({
                         voucherService
                             .index(organization.id, {
                                 type: form.values.type == 'vouchers' ? 'fund_voucher' : 'product_voucher',
-                                bsn: form.values.bsn,
+                                bsn: normalizeBsn(form.values.bsn),
                                 fund_id: fund.id,
                                 source: 'all',
                                 expired: 0,

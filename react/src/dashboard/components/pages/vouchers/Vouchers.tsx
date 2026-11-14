@@ -23,9 +23,13 @@ import VouchersTable from './elements/VouchersTable';
 import { Permission } from '../../../props/models/Organization';
 import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 import usePushApiError from '../../../hooks/usePushApiError';
+import useCanCreateVouchersFromProfiles from '../../../hooks/permissions/useCanCreateVouchersFromProfiles';
+import StateNavLink from '../../../modules/state_router/StateNavLink';
+import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 
 export default function Vouchers() {
     const activeOrganization = useActiveOrganization();
+    const canCreateVouchersFromProfiles = useCanCreateVouchersFromProfiles();
 
     const translate = useTranslate();
 
@@ -239,6 +243,22 @@ export default function Vouchers() {
                 filterValues={filterValues}
                 filterUpdate={filterUpdate}
             />
+
+            {canCreateVouchersFromProfiles && (
+                <div className="card-section">
+                    <div className="flex flex-vertical">
+                        <div className="card-text">{translate('vouchers.from_profiles.scope')}</div>
+                        <StateNavLink
+                            className="button button-primary"
+                            name={DashboardRoutes.VOUCHERS_FROM_PROFILES}
+                            params={{ organizationId: activeOrganization.id }}
+                            dataDusk="openVouchersFromProfilesPageButton">
+                            <em className="mdi mdi-account-multiple icon-start" />
+                            {translate('vouchers.from_profiles.action')}
+                        </StateNavLink>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
