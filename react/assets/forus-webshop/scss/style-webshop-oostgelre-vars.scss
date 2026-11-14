@@ -399,6 +399,16 @@ $primaryColorLight: #660066;
     --cms-funds-link-color: var(--color-primary);
     --cms-funds-link-font: 600 16px/20px var(--base-font);
 
+    // CMS product categories
+    --cms-product-categories-item-color: var(--button-primary-color);
+    --cms-product-categories-item-background: var(--button-primary-background);
+    --cms-product-categories-item-hover-color: var(--button-primary-hover-color);
+    --cms-product-categories-item-hover-background: var(--button-primary-hover-background);
+    --cms-product-categories-item-icon-color: #fff;
+    --cms-product-categories-item-icon-hover-color: var(--cms-product-categories-item-icon-color);
+    --cms-product-categories-item-name-color: #fff;
+    --cms-product-categories-item-name-hover-color: var(--cms-product-categories-item-name-color);
+
     // Section order
     --order-page-voucher-map: 1;
     --order-page-voucher-products: 2;

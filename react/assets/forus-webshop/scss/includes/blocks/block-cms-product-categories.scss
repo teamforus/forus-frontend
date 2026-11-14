@@ -69,9 +69,9 @@
             gap: 5px;
             min-width: 0;
             padding: 25px 10px;
-            color: var(--button-primary-color);
+            color: var(--cms-product-categories-item-color);
             text-decoration: none;
-            background: var(--button-primary-background);
+            background: var(--cms-product-categories-item-background);
             border-radius: min(var(--border-radius), 16px);
             outline: none;
             filter: brightness(1);
@@ -80,7 +80,7 @@
             cursor: pointer;
 
             .cms-product-categories-item-icon {
-                color: #fff;
+                color: var(--cms-product-categories-item-icon-color);
 
                 .mdi {
                     font-size: 50px;
@@ -90,16 +90,24 @@
 
             .cms-product-categories-item-name {
                 margin: 0;
-                color: #fff;
+                color: var(--cms-product-categories-item-name-color);
                 font: 700 15px/22px var(--base-font);
                 letter-spacing: 0;
             }
 
             &:hover,
             &:focus-visible {
-                color: var(--button-primary-hover-color);
-                background: var(--button-primary-hover-background);
+                color: var(--cms-product-categories-item-hover-color);
+                background: var(--cms-product-categories-item-hover-background);
                 box-shadow: var(--button-hover-shadow);
+
+                .cms-product-categories-item-icon {
+                    color: var(--cms-product-categories-item-icon-hover-color);
+                }
+
+                .cms-product-categories-item-name {
+                    color: var(--cms-product-categories-item-name-hover-color);
+                }
             }
         }
 
