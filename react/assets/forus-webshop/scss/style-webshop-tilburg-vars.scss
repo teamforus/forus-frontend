@@ -181,7 +181,7 @@ $primaryColorLight: #00a2e0;
     --dropdown-item-focus-background: #ffffff;
     --dropdown-item-hover-color: #282b39;
     --dropdown-item-hover-background: #f4f4f4;
-    --dropdown-item-active-color: var(--label-set-active-background);
+    --dropdown-item-active-color: var(--color-primary);
     --dropdown-item-active-background: #fff;
 
     // Paginator
@@ -216,9 +216,9 @@ $primaryColorLight: #00a2e0;
     --label-set-color: #272525;
     --label-set-background: #ffffff;
     --label-set-active-color: #ffffff;
-    --label-set-active-background: var(--color-primary);
+    --label-set-active-background: #e2007a;
     --label-set-hover-color: #ffffff;
-    --label-set-hover-background: #{rgba($primaryColor, 0.8)};
+    --label-set-hover-background: #b10060;
     --label-set-focus-color: #272525;
     --label-set-focus-background: #f4f5f7;
     --label-set-focus-border-color: #9e9e9e;
@@ -295,7 +295,7 @@ $primaryColorLight: #00a2e0;
     --showcase-title-font: 700 18px/30px var(--heading-font-family);
     --showcase-title-color: var(--tc);
     --showcase-title-count-color: #fff;
-    --showcase-title-count-background: var(--color-primary);
+    --showcase-title-count-background: #e2007a;
     --showcase-title-count-border-radius: calc(var(--border-radius) / 2);
 
     // Breadcrumbs
@@ -400,6 +400,16 @@ $primaryColorLight: #00a2e0;
 
     --cms-funds-link-color: var(--color-primary);
     --cms-funds-link-font: 600 18px/20px var(--base-font);
+
+    // CMS product categories
+    --cms-product-categories-item-color: var(--button-primary-color);
+    --cms-product-categories-item-background: #e2007a;
+    --cms-product-categories-item-hover-color: var(--button-primary-hover-color);
+    --cms-product-categories-item-hover-background: #b10060;
+    --cms-product-categories-item-icon-color: #fff;
+    --cms-product-categories-item-icon-hover-color: var(--cms-product-categories-item-icon-color);
+    --cms-product-categories-item-name-color: #fff;
+    --cms-product-categories-item-name-hover-color: var(--cms-product-categories-item-name-color);
 
     // Section order
     --order-page-voucher-map: 0;
