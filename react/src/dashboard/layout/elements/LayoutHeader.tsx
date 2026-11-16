@@ -23,6 +23,19 @@ import classNames from 'classnames';
 import useFDTargetObserverRef from '../../modules/frame_director/hooks/useFDTargetObserverRef';
 import HeaderDropdown from './blocks/HeaderDropdown';
 import HeaderAccountPanel from './blocks/HeaderAccountPanel';
+import HeaderSearch from './blocks/header-search/HeaderSearch';
+import { HeaderSearchBlockConfig } from './blocks/header-search/HeaderSearchBlock';
+import useSponsorHeaderSearchBlocks from './blocks/header-search/useSponsorHeaderSearchBlocks';
+import useProviderHeaderSearchBlocks from './blocks/header-search/useProviderHeaderSearchBlocks';
+
+const HEADER_SEARCH_LIMIT = 3;
+
+const useNoHeaderSearchBlocks = (): Array<HeaderSearchBlockConfig> => [];
+
+const headerSearchBlocksHooks = {
+    sponsor: useSponsorHeaderSearchBlocks,
+    provider: useProviderHeaderSearchBlocks,
+};
 
 export const LayoutHeader = ({
     sidebarOpen = false,
@@ -46,6 +59,7 @@ export const LayoutHeader = ({
     const announcementService = useAnnouncementService();
 
     const [showIdentityMenu, setShowIdentityMenu] = useState(false);
+    const [showMobileSearch, setShowMobileSearch] = useState(false);
     const [organizationAnnouncements, setOrganizationAnnouncements] = useState<Array<Announcement>>(null);
 
     const [roles] = useState({
@@ -54,8 +68,13 @@ export const LayoutHeader = ({
         validator: 'Beoordelaar',
     });
 
+    const useHeaderSearchBlocks = headerSearchBlocksHooks[envData.client_type] || useNoHeaderSearchBlocks;
+    const searchBlocks = useHeaderSearchBlocks(activeOrganization);
+    const showSearch = !!activeOrganization && searchBlocks.length > 0;
+
     const headerRef = useRef<HTMLElement>(null);
     const accountRef = useRef<HTMLButtonElement>(null);
+    const searchToggleRef = useRef<HTMLButtonElement>(null);
 
     const announcements = useMemo(() => {
         return [...(organizationAnnouncements || []), ...(appConfigs?.announcements || [])];
@@ -74,6 +93,10 @@ export const LayoutHeader = ({
 
     const closeAccount = useCallback(() => {
         setShowIdentityMenu(false);
+    }, []);
+
+    const closeMobileSearch = useCallback(() => {
+        setShowMobileSearch(false);
     }, []);
 
     const accountContent = useMemo(() => {
@@ -125,6 +148,38 @@ export const LayoutHeader = ({
             setShowIdentityMenu(false);
         }
     }, [authIdentity, sidebarOpen]);
+
+    const mobileSearchContent = useMemo(() => {
+        if (!showSearch) {
+            return null;
+        }
+
+        return (
+            <HeaderSearch
+                blocks={searchBlocks}
+                organizationId={activeOrganization.id}
+                limit={HEADER_SEARCH_LIMIT}
+                mobile={true}
+                onClose={closeMobileSearch}
+            />
+        );
+    }, [activeOrganization?.id, closeMobileSearch, searchBlocks, showSearch]);
+
+    useFDTargetObserverRef({
+        targetRef: searchToggleRef,
+        show: showMobileSearch,
+        contentContainer: HeaderDropdown,
+        content: mobileSearchContent,
+        close: closeMobileSearch,
+        position: 'bottom',
+        align: 'end',
+    });
+
+    useEffect(() => {
+        if (sidebarOpen || !showSearch) {
+            setShowMobileSearch(false);
+        }
+    }, [showSearch, sidebarOpen]);
 
     useEffect(() => {
         const header = headerRef.current;
@@ -205,7 +260,37 @@ export const LayoutHeader = ({
                             )}
                         </div>
                     )}
+
+                    {showSearch && (
+                        <HeaderSearch
+                            blocks={searchBlocks}
+                            organizationId={activeOrganization.id}
+                            limit={HEADER_SEARCH_LIMIT}
+                        />
+                    )}
                 </div>
+
+                {showSearch && (
+                    <div className="app-header-row-item app-header-row-item-search-toggle">
+                        <button
+                            ref={searchToggleRef}
+                            type="button"
+                            className={classNames('header-action', showMobileSearch && 'active')}
+                            aria-label={showMobileSearch ? 'Zoeken sluiten' : 'Zoeken'}
+                            aria-expanded={showMobileSearch}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setShowMobileSearch(!showMobileSearch);
+
+                                if (!showMobileSearch && sidebarOpen) {
+                                    onSidebarToggle?.();
+                                }
+                            }}>
+                            <em className={classNames('mdi', showMobileSearch ? 'mdi-close' : 'mdi-magnify')} />
+                            <span className="header-action-label">Zoeken</span>
+                        </button>
+                    </div>
+                )}
 
                 {activeOrganization && (
                     <div className="app-header-row-item">
