@@ -1,38 +1,28 @@
-import ApiResponse, { ResponseSimple } from '../../dashboard/props/ApiResponses';
+import { ResponseSimple } from '../../dashboard/props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from '../../dashboard/services/ApiRequestService';
-import Tag from '../../dashboard/props/models/Tag';
+import DigiDBrowserService from './digid/DigiDBrowserService';
+import { DigiDConnection, DigiDStartResponse } from './digid/types';
 
-export class DigiDService<T = Tag> {
+export class DigiDService {
     /**
      * @param apiRequest
      */
-    public constructor(protected apiRequest: ApiRequestService<T> = new ApiRequestService<T>()) {}
+    public constructor(protected apiRequest: ApiRequestService = new ApiRequestService()) {}
 
-    /**
-     * Url prefix
-     *
-     * @param data
-     */
-    public prefix = '/platform/digid';
-
-    /**
-     * Fetch list
-     */
-    public list(data: object): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefix}`, data);
+    public start(connection: DigiDConnection, data: object): Promise<ResponseSimple<DigiDStartResponse>> {
+        return new DigiDBrowserService(this.apiRequest).start(connection.transport, {
+            ...data,
+            ...(connection.transport === 'tvs' ? { organization_id: connection.organization_id } : {}),
+        });
     }
 
-    public start(data: object): Promise<ResponseSimple<{ redirect_url: string }>> {
-        return this.apiRequest.post(this.prefix, data);
+    public startFundRequest(fund_id: number, connection: DigiDConnection) {
+        return this.start(connection, { fund_id, request: 'fund_request' });
     }
 
-    public startFundRequest(fund_id: number) {
-        return this.start({ fund_id, request: 'fund_request' });
-    }
-
-    public startAuthRestore() {
-        return this.start({ request: 'auth' });
+    public startAuthRestore(connection: DigiDConnection) {
+        return this.start(connection, { request: 'auth' });
     }
 }
 

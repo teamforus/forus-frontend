@@ -1,5 +1,8 @@
 import React from 'react';
 import { hasPermission } from '../../../helpers/utils';
+import useCanManageRequesterImports from '../../../hooks/permissions/useCanManageRequesterImports';
+import useCanManageVoucherPasses from '../../../hooks/permissions/useCanManageVoucherPasses';
+import useTranslate from '../../../hooks/useTranslate';
 import Organization, { Permission } from '../../../props/models/Organization';
 import LayoutAsideNavGroup from './elements/LayoutAsideNavGroup';
 import useAppConfigs from '../../../hooks/useAppConfigs';
@@ -29,10 +32,15 @@ import LayoutAsideGroupHelp from './groups/LayoutAsideGroupHelp';
 import { usePinnedMenuGroups } from './hooks/usePinnedMenuGroups';
 import useIsSponsorPanel from '../../../hooks/useIsSponsorPanel';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useCanManageDCP from '../../../hooks/permissions/useCanManageDCP';
 
 export default function LayoutAsideSponsor({ organization }: { organization: Organization }) {
+    const translate = useTranslate();
     const appConfigs = useAppConfigs();
     const isSponsorPanel = useIsSponsorPanel();
+    const canManageDCP = useCanManageDCP();
+    const canManageVoucherPasses = useCanManageVoucherPasses();
+    const canManageRequesterImports = useCanManageRequesterImports();
 
     const [pinnedGroups, setPinnedGroups] = usePinnedMenuGroups('pinnedMenuGroupsSponsor');
 
@@ -222,6 +230,30 @@ export default function LayoutAsideSponsor({ organization }: { organization: Org
                         stateParams: { organizationId: organization?.id },
                         show: hasPermission(organization, Permission.MANAGE_REIMBURSEMENTS),
                         dusk: 'reimbursementsPage',
+                    },
+                    {
+                        id: 'requester_imports',
+                        name: translate('requester_imports.title'),
+                        state: DashboardRoutes.REQUESTER_IMPORTS,
+                        stateParams: { organizationId: organization?.id },
+                        show: canManageRequesterImports,
+                        dusk: 'requesterImportsPage',
+                    },
+                    {
+                        id: 'voucher_passes',
+                        name: translate('voucher_passes.title'),
+                        state: DashboardRoutes.VOUCHER_PASSES,
+                        stateParams: { organizationId: organization?.id },
+                        show: canManageVoucherPasses,
+                        dusk: 'voucherPassesPage',
+                    },
+                    {
+                        id: 'dcp_orders',
+                        name: translate('dcp.title'),
+                        state: DashboardRoutes.DCP_ORDERS,
+                        stateParams: { organizationId: organization?.id },
+                        show: canManageDCP,
+                        dusk: 'dcpOrdersPage',
                     },
                     {
                         id: 'payouts',

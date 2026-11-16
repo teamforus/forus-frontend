@@ -3,6 +3,10 @@ import voucher_printable from './pages/voucher-printable';
 import system_notifications from './pages/system-notifications';
 import event_logs from './pages/event-logs';
 import reimbursements from './pages/reimbursements';
+import requester_imports from './pages/requester-imports';
+import voucher_passes from './pages/voucher-passes';
+import dcp from './pages/dcp';
+import dcp_prepare from './pages/dcp-prepare';
 import identities from './pages/identities';
 import households from './pages/households';
 import transactions from './pages/transactions';
@@ -52,6 +56,10 @@ export default {
     system_notifications,
     event_logs,
     reimbursements,
+    requester_imports,
+    voucher_passes,
+    dcp,
+    dcp_prepare,
     identities,
     households,
     transactions,

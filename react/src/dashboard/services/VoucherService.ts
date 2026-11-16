@@ -8,6 +8,27 @@ import Transaction from '../props/models/Transaction';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 import SponsorVoucher from '../props/models/Sponsor/SponsorVoucher';
 
+export interface ProfileVoucherAwardResult {
+    fund_id: number;
+    fund_name: string;
+    profile_id: number;
+    identity_id: number;
+    profile_name: string | null;
+    client_number: string | null;
+    voucher_ids: number[];
+    status: 'created' | 'skipped' | 'failed';
+    message: string;
+    errors: string[];
+    diagnostic_id: string | null;
+}
+
+export interface ProfileVoucherAwardPreviewResult extends Omit<ProfileVoucherAwardResult, 'status' | 'voucher_ids'> {
+    status: 'eligible' | 'skipped' | 'failed';
+    voucher_count: number;
+}
+
+export type ProfileVoucherAwardOutcome = ProfileVoucherAwardResult | ProfileVoucherAwardPreviewResult;
+
 export class VoucherService<T = SponsorVoucher> {
     /**
      * @param apiRequest
@@ -38,6 +59,32 @@ export class VoucherService<T = SponsorVoucher> {
 
     public store(organizationId: number, data: object = {}): Promise<ApiResponseSingle<T>> {
         return this.apiRequest.post(`${this.prefix}/${organizationId}/sponsor/vouchers`, data);
+    }
+
+    public fromProfilesIds(organizationId: number): Promise<ApiResponseSingle<number[]>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/sponsor/vouchers/from-profiles/ids`);
+    }
+
+    public storeFromProfiles(
+        organizationId: number,
+        fundIds: number[],
+        profileIds?: number[],
+    ): Promise<ApiResponseSingle<ProfileVoucherAwardResult[]>> {
+        return this.apiRequest.post(`${this.prefix}/${organizationId}/sponsor/vouchers/from-profiles`, {
+            fund_ids: fundIds,
+            profile_ids: profileIds,
+        });
+    }
+
+    public previewFromProfiles(
+        organizationId: number,
+        fundIds: number[],
+        profileIds?: number[],
+    ): Promise<ApiResponseSingle<ProfileVoucherAwardPreviewResult[]>> {
+        return this.apiRequest.post(`${this.prefix}/${organizationId}/sponsor/vouchers/from-profiles/preview`, {
+            fund_ids: fundIds,
+            profile_ids: profileIds,
+        });
     }
 
     public storeValidate(organizationId: number, data: object = {}): Promise<ApiResponseSingle<null>> {

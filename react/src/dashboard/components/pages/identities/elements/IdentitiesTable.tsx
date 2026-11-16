@@ -19,12 +19,8 @@ import { dateFormat, dateParse } from '../../../../helpers/dates';
 import IdentitiesTableRowItems from './IdentitiesTableRowItems';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import useFetchSponsorIdentities from '../hooks/useFetchSponsorIdentities';
-import SponsorIdentity, {
-    IdentityProviderStatusFilter,
-    ProfileRecordType,
-} from '../../../../props/models/Sponsor/SponsorIdentity';
-import RecordType from '../../../../props/models/RecordType';
-import { useRecordTypeService } from '../../../../services/RecordTypeService';
+import SponsorIdentity, { IdentityProviderStatusFilter } from '../../../../props/models/Sponsor/SponsorIdentity';
+import useProfileRecordTypes from '../../identitities-show/hooks/useProfileRecordTypes';
 import useEditProfileRecords from '../../identitities-show/hooks/useEditProfileRecords';
 import TableRowActionItem from '../../../elements/tables/TableRowActionItem';
 import { hasPermission } from '../../../../helpers/utils';
@@ -75,6 +71,10 @@ export default function IdentitiesTable() {
         [translate],
     );
 
+    const { recordTypes } = useProfileRecordTypes(activeOrganization.id);
+
+    const editProfileRecords = useEditProfileRecords(activeOrganization, recordTypes);
+
     const exportIdentities = useCallback(() => {
         setShow(false);
 
@@ -94,31 +94,12 @@ export default function IdentitiesTable() {
             .finally(() => setProgress(100));
     }, [activeOrganization.id, fundService, setProgress, pushApiError]);
 
-    const [recordTypes, setRecordTypes] = useState<Array<RecordType & { key: ProfileRecordType }>>(null);
-
-    const recordTypeService = useRecordTypeService();
-
-    const editProfileRecords = useEditProfileRecords(activeOrganization, recordTypes);
-
     const createProfile = useCallback(
         (fetchProfiles: () => void) => {
-            editProfileRecords(null, 'Voeg een nieuw persoon toe', 'personal', fetchProfiles);
+            editProfileRecords(null, 'Voeg een nieuw persoon toe', fetchProfiles);
         },
         [editProfileRecords],
     );
-
-    const fetchRecordTypes = useCallback(() => {
-        setProgress(0);
-
-        recordTypeService
-            .list<RecordType & { key: ProfileRecordType }>()
-            .then((res) => setRecordTypes(res.data))
-            .finally(() => setProgress(100));
-    }, [recordTypeService, setProgress]);
-
-    useEffect(() => {
-        fetchRecordTypes();
-    }, [fetchRecordTypes]);
 
     useEffect(() => {
         fetchIdentities();
@@ -141,7 +122,9 @@ export default function IdentitiesTable() {
 
                 <div className={'card-header-filters'}>
                     <div className="block block-inline-filters">
-                        {activeOrganization?.allow_profiles_create &&
+                        {activeOrganization.allow_profiles &&
+                            activeOrganization.allow_profiles_create &&
+                            recordTypes &&
                             hasPermission(activeOrganization, Permission.MANAGE_IDENTITIES) && (
                                 <button
                                     type="button"

@@ -102,8 +102,11 @@ function ExternalScriptsBoundary({
     const callbackPath = getStateRouteUrl(WebshopRoutes.AUTH_LINK);
     const callbackRoute = useMatch(callbackPath);
     const legacyCallbackRoute = useMatch(`/!${callbackPath}`);
+    const completionPath = getStateRouteUrl(WebshopRoutes.DIGID_COMPLETE);
+    const completionRoute = useMatch(completionPath);
+    const legacyCompletionRoute = useMatch(`/!${completionPath}`);
 
-    if (callbackRoute || (envData.useHashRouter && legacyCallbackRoute)) {
+    if (callbackRoute || completionRoute || (envData.useHashRouter && (legacyCallbackRoute || legacyCompletionRoute))) {
         return children;
     }
 

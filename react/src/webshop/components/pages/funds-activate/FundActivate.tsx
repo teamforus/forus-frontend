@@ -45,6 +45,8 @@ import usePayoutTransactionService from '../../../services/PayoutTransactionServ
 import PayoutTransaction from '../../../../dashboard/props/models/PayoutTransaction';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFundApply from '../../../hooks/useFundApply';
+import useStartDigId from '../../../hooks/useStartDigId';
+import isFundDigIdAvailable from '../../../helpers/isFundDigIdAvailable';
 
 export default function FundActivate() {
     const { id } = useParams();
@@ -72,12 +74,14 @@ export default function FundActivate() {
     const pushSuccess = usePushSuccess();
     const navigateState = useNavigateState();
     const fetchAuthIdentity = useFetchAuthIdentity();
+    const startAuthentication = useStartDigId();
 
     const [digidResponse, setDigidResponse] = useQueryParams({
         digid_error: StringParam,
         digid_success: StringParam,
     });
 
+    const digidUseTvs = appConfigs?.digid_tvs;
     const [fund, setFund] = useState<FundsListItemModel>(null);
     const [payouts, setPayouts] = useState<Array<PayoutTransaction>>(null);
     const [vouchers, setVouchers] = useState<Array<Voucher>>(null);
@@ -127,27 +131,16 @@ export default function FundActivate() {
     }, [authIdentity, fund, getTimeToSkipDigid]);
 
     // Start digid sign-in
-    const startDigId = useCallback(
-        (fund: Fund) => {
-            digIdService
-                .startFundRequest(fund.id)
-                .then((res) => (document.location = res.data.redirect_url))
-                .catch((err: ResponseError) => {
-                    if (err.status === 403 && err.data.message) {
-                        return pushDanger(translate('push.error'), err.data.message);
-                    }
-
-                    navigateState(WebshopRoutes.ERROR, { errorCode: err.headers['error-code'] });
-                });
-        },
-        [digIdService, navigateState, pushDanger, translate],
-    );
-
     const startBsnVerification = useCallback(
         (fund: Fund) => {
-            return startDigId(fund);
+            return startAuthentication(() => {
+                return digIdService.startFundRequest(
+                    fund.id,
+                    digidUseTvs ? { transport: 'tvs', organization_id: fund.organization_id } : { transport: 'digid' },
+                );
+            });
         },
-        [startDigId],
+        [digIdService, digidUseTvs, startAuthentication],
     );
 
     const applyFund = useFundApply({
@@ -443,16 +436,17 @@ export default function FundActivate() {
     const getAvailableOptions = useCallback(
         (fund: Fund) => {
             const options = [];
+            const digidAvailable = isFundDigIdAvailable(appConfigs, fund.organization?.tvs_configured);
 
             if (fund.allow_prevalidations) {
                 options.push('code');
             }
 
-            if (appConfigs.digid) {
+            if (digidAvailable) {
                 options.push('digid');
             }
 
-            if (!appConfigs.digid && !appConfigs.digid_mandatory && fund.allow_fund_requests) {
+            if (!digidAvailable && !appConfigs.digid_mandatory && fund.allow_fund_requests) {
                 options.push('request');
             }
 

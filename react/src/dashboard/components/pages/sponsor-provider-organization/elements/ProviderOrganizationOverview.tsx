@@ -207,7 +207,7 @@ export default function ProviderOrganizationOverview({
                             <div className="flex-row">
                                 <div className="flex-col">
                                     <div className="card-block card-block-listing card-block-listing-inline card-block-listing-variant">
-                                        <div className="card-block-listing-label">Accepteer budget</div>
+                                        <div className="card-block-listing-label">QR-code betaling toestaan</div>
                                         <ToggleControl
                                             checked={fundProvider.allow_budget}
                                             disabled={submittingAllow || fundProvider.state != 'accepted'}
@@ -219,7 +219,7 @@ export default function ProviderOrganizationOverview({
                                 </div>
                                 <div className="flex-col">
                                     <div className="card-block card-block-listing card-block-listing-inline card-block-listing-variant">
-                                        <div className="card-block-listing-label">Accepteer aanbiedingen</div>
+                                        <div className="card-block-listing-label">Aanbod automatisch goedkeuren</div>
                                         <ToggleControl
                                             checked={fundProvider.allow_products}
                                             disabled={submittingAllow || fundProvider.state != 'accepted'}
