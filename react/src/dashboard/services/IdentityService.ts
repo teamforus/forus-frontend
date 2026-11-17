@@ -77,8 +77,11 @@ export default class IdentityService<T = Identity> {
         );
     }
 
-    public storeShared2FA() {
-        return this.apiRequest.post<ResponseSimple<{ redirect_url: string }>>(`${this.prefix}/proxy/shared-2fa`);
+    public storeShared2FA(clientType?: string) {
+        return this.apiRequest.post<ResponseSimple<{ redirect_url: string }>>(
+            `${this.prefix}/proxy/shared-2fa`,
+            clientType ? { client_type: clientType } : {},
+        );
     }
 }
 
