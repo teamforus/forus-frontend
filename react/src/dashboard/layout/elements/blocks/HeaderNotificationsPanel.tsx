@@ -37,10 +37,10 @@ export default function HeaderNotificationsPanel({
                     </StateNavLink>
                 </div>
                 <div className="header-notifications-body">
-                    {notifications?.data.map((notification) => (
-                        <div
-                            key={notification.id}
-                            className={classNames('header-notifications-item', !notification.seen && 'unread')}>
+                    {notifications?.data.map((notification) => {
+                        const className = classNames('header-notifications-item', !notification.seen && 'unread');
+
+                        const details = (
                             <div className="header-notifications-item-details">
                                 <div className="header-notifications-item-title">{notification.title}</div>
                                 <div className="header-notifications-item-text">{notification.description}</div>
@@ -49,8 +49,25 @@ export default function HeaderNotificationsPanel({
                                     {notification.created_at_locale}
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        );
+
+                        return notification.route ? (
+                            <StateNavLink
+                                key={notification.id}
+                                name={notification.route.name}
+                                params={notification.route.params}
+                                query={notification.route.query || {}}
+                                activeClass={null}
+                                onClick={onClose}
+                                className={classNames(className, 'header-notifications-item-link')}>
+                                {details}
+                            </StateNavLink>
+                        ) : (
+                            <div key={notification.id} className={className}>
+                                {details}
+                            </div>
+                        );
+                    })}
                     {(!notifications || notifications?.data.length == 0) && (
                         <div className="header-notifications-empty">Geen nieuwe notificaties</div>
                     )}

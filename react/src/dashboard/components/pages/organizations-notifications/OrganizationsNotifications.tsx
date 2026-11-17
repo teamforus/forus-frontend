@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
+import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { PaginationData } from '../../../props/ApiResponses';
 import Notification from '../../../props/models/Notification';
 import { useNotificationService } from '../../../services/NotificationService';
@@ -79,27 +80,48 @@ export default function OrganizationsNotifications() {
 
             <div className="card-section card-section card-section-padless">
                 <div className="block block-notifications">
-                    {notifications.data.map((notification) => (
-                        <div
-                            key={notification.id}
-                            className={classNames('notification-item', !notification.seen && 'notification-item-new')}>
-                            <div className="notification-details">
-                                <div className="notification-title">{notification.title}</div>
-                                <div className="notification-description">
-                                    {notification.description.split('\n').map((description, index) => (
-                                        <div key={index}>{description}</div>
-                                    ))}
-                                </div>
-                            </div>
+                    {notifications.data.map((notification) => {
+                        const className = classNames(
+                            'notification-item',
+                            !notification.seen && 'notification-item-new',
+                        );
 
-                            <div className="notification-actions">
-                                <div className="notification-date">
-                                    <em className="mdi mdi-clock-outline" />
-                                    {notification.created_at_locale}
+                        const content = (
+                            <Fragment>
+                                <div className="notification-details">
+                                    <div className="notification-title">{notification.title}</div>
+                                    <div className="notification-description">
+                                        {notification.description.split('\n').map((description, index) => (
+                                            <div key={index}>{description}</div>
+                                        ))}
+                                    </div>
                                 </div>
+
+                                <div className="notification-actions">
+                                    <div className="notification-date">
+                                        <em className="mdi mdi-clock-outline" />
+                                        {notification.created_at_locale}
+                                    </div>
+                                </div>
+                            </Fragment>
+                        );
+
+                        return notification.route ? (
+                            <StateNavLink
+                                key={notification.id}
+                                name={notification.route.name}
+                                params={notification.route.params}
+                                query={notification.route.query || {}}
+                                activeClass={null}
+                                className={classNames(className, 'notification-item-link')}>
+                                {content}
+                            </StateNavLink>
+                        ) : (
+                            <div key={notification.id} className={className}>
+                                {content}
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
 
