@@ -101,6 +101,16 @@
                 &.unread {
                     background-color: #e4ecf170;
                 }
+
+                &.header-notifications-item-link {
+                    cursor: pointer;
+                    text-decoration: none;
+
+                    &:hover,
+                    &:focus-visible {
+                        background-color: #f3f6f8;
+                    }
+                }
             }
 
             .header-notifications-empty {
