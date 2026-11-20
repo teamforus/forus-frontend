@@ -6,9 +6,10 @@ import Media from '../props/models/Media';
 import ImplementationPage from '../../webshop/props/models/ImplementationPage';
 import Language from '../props/models/Language';
 
-export type AuthPageLoginOption = 'email' | 'digid' | 'qr';
+export type AuthPageLoginOption = 'email' | 'digid' | 'qr' | 'entra';
 
 export type AppConfigProp = {
+    entra_dashboard_login_available: boolean;
     add_money: boolean;
     validationRequests: boolean;
     event_permissions: {
@@ -151,6 +152,8 @@ export type AppConfigProp = {
         info_description_html: string;
     };
     digid: boolean;
+    digid_tvs: boolean;
+    digid_tvs_organizations: Array<{ id: number; name: string; logo_url: string | null }>;
     bsn_confirmation_offset?: number;
     digid_sign_up_allowed: boolean;
     digid_mandatory: boolean;

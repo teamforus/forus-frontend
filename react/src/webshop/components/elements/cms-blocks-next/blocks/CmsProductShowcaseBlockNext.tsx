@@ -13,6 +13,7 @@ import { stringValue } from '../helpers/values';
 import { cmsSectionClassName, cmsSectionStyle } from '../helpers/section';
 
 const productCounts = [3, 6, 9, 12];
+const contentAlignments = ['left', 'center', 'right'];
 
 export default function CmsProductShowcaseBlockNext({ block }: { block: ImplementationCmsBlock }) {
     const values = block.values || {};
@@ -25,6 +26,8 @@ export default function CmsProductShowcaseBlockNext({ block }: { block: Implemen
     const productCountValue = Number(values.product_count || 6);
     const productCount = productCounts.includes(productCountValue) ? productCountValue : 6;
     const buttonText = stringValue(values.button_text);
+    const contentAlignment = stringValue(values.content_alignment) as 'left' | 'center' | 'right' | undefined;
+    const resolvedContentAlignment = contentAlignments.includes(contentAlignment) ? contentAlignment : 'left';
 
     const [products, setProducts] = useState<PaginationData<Product>>(null);
 
@@ -54,7 +57,7 @@ export default function CmsProductShowcaseBlockNext({ block }: { block: Implemen
                 </h2>
             )}
 
-            {descriptionHtml && <Markdown content={descriptionHtml} />}
+            {descriptionHtml && <Markdown align={resolvedContentAlignment} content={descriptionHtml} />}
 
             <ProductsList
                 display="grid"

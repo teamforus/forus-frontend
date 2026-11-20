@@ -452,6 +452,14 @@
         "E-mailadres"
     ],
     [
+        "auth.options.entra.description",
+        "Gebruik uw werkaccount"
+    ],
+    [
+        "auth.options.entra.title",
+        "Inloggen met Microsoft"
+    ],
+    [
         "auth.options.qr.description",
         "Scan een QR-code met de&nbsp;<u>Me app</u>"
     ],
@@ -464,8 +472,16 @@
         "Ik heb de <a tabIndex=\"3\" target=\"_blank\" href=\"{{ link_url }}\">privacyverklaring</a> gelezen"
     ],
     [
+        "auth.push.entra_failed.title",
+        "Inloggen met Microsoft is mislukt. Probeer het opnieuw."
+    ],
+    [
         "auth.push.link_used.title",
         "Deze link is reeds gebruikt of ongeldig."
+    ],
+    [
+        "auth.push.message_with_reference",
+        "{{message}} ({{reference}})"
     ],
     [
         "auth.setup_2fa_title",
@@ -676,6 +692,18 @@
         "Goedkeuren"
     ],
     [
+        "confirm_fund_request_clarification_submit.confirm_btn",
+        "Versturen"
+    ],
+    [
+        "confirm_fund_request_clarification_submit.description",
+        "Controleer of je alle vragen hebt beantwoord en alle bewijsstukken hebt toegevoegd."
+    ],
+    [
+        "confirm_fund_request_clarification_submit.title",
+        "Is het antwoord compleet?"
+    ],
+    [
         "confirm_reimbursement_destroy.confirm_btn",
         "Bevestigen"
     ],
@@ -852,6 +880,10 @@
         "Inloggen bij deze organisatie is niet gelukt. Probeert u het later nog een keer. Lukt het nog steeds niet? Log in bij Mijn DigiD. Zo controleert u of uw DigiD goed werkt. Mogelijk is er een storing bij de organisatie waar u inlogt."
     ],
     [
+        "error.messages.digid_managed_requester",
+        "Uw account wordt beheerd via Microsoft Entra. Log in met Microsoft op de webshop van uw organisatie."
+    ],
+    [
         "error.messages.digid_uid_dont_match",
         "Het BSN nummer dat u opgehaald heeft met DigiD verschilt met het BSN-nummer gekoppelt staat aan dit profiel, start een nieuwe aanvraag."
     ],
@@ -866,6 +898,10 @@
     [
         "error.messages.digid_unknown_error",
         "Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals. Indien deze fout blijft aanhouden,, kijk dan op de website https://www.digid.nl/ voor de laatste informatie."
+    ],
+    [
+        "error.messages.entra_login_failed",
+        "Inloggen met Microsoft kon niet worden gestart. Probeer het later opnieuw."
     ],
     [
         "error.messages.unknown_error",
@@ -940,6 +976,10 @@
         "Onbekende foutmelding"
     ],
     [
+        "error.titles.digid_managed_requester",
+        "Log in met Microsoft"
+    ],
+    [
         "error.titles.digid_uid_dont_match",
         "Er is al een BSN-nummer bekend bij dit profiel"
     ],
@@ -954,6 +994,10 @@
     [
         "error.titles.digid_unknown_error",
         "Er is een fout opgetreden in de communicatie met DigiD."
+    ],
+    [
+        "error.titles.entra_login_failed",
+        "Inloggen met Microsoft is mislukt"
     ],
     [
         "error.titles.unknown_error",
@@ -1344,6 +1388,10 @@
         "Dit tegoed is al geactiveerd"
     ],
     [
+        "fund_request.clarifications.info_pending",
+        "Antwoord nodig"
+    ],
+    [
         "fund_request.clarifications.info_requested",
         "Extra vraag gesteld"
     ],
@@ -1377,7 +1425,15 @@
     ],
     [
         "fund_request.details.fund_name",
-        "Naam van het fonds:"
+        "Regeling:"
+    ],
+    [
+        "fund_request.details.last_answered",
+        "Laatst aangepast:"
+    ],
+    [
+        "fund_request.details.number",
+        "Aanvraagummer:"
     ],
     [
         "fund_request.details.status",
@@ -1408,8 +1464,16 @@
         "Geen toegang tot deze aanvraag"
     ],
     [
+        "fund_request.labels.closed_by_sponsor",
+        "Gesloten door {{ sponsor_name }}"
+    ],
+    [
         "fund_request.labels.date",
         "Datum:"
+    ],
+    [
+        "fund_request.labels.edited",
+        "Edited"
     ],
     [
         "fund_request.labels.question",
@@ -1418,6 +1482,10 @@
     [
         "fund_request.labels.question_from",
         "Vraag van {{ name }}"
+    ],
+    [
+        "fund_request.labels.your_answer",
+        "Uw antwoord:"
     ],
     [
         "fund_request.modal.title",
@@ -1514,10 +1582,6 @@
     [
         "fund_request.record.answer_question_label",
         "Beantwoord de vraag"
-    ],
-    [
-        "fund_request.record.cancel_btn",
-        "Annuleer"
     ],
     [
         "fund_request.record.my_answer",
@@ -1892,6 +1956,14 @@
         "Er wordt gekeken of u al aan voorwaarden voldoet, en u kan tussentijds afbreken en op een ander moment verder gaan."
     ],
     [
+        "fund_request.state.answer_needed",
+        "Meer informatie van u nodig"
+    ],
+    [
+        "fund_request.state.expired",
+        "Verlopen"
+    ],
+    [
         "fund_request.steps.info_label",
         "Informatie over aanvraag"
     ],
@@ -1958,6 +2030,10 @@
     [
         "fund_requests.filters.archive",
         "Archief"
+    ],
+    [
+        "fund_requests.state.expired",
+        "Verlopen"
     ],
     [
         "fund_requests.title",
@@ -2096,6 +2172,10 @@
         "Activeren"
     ],
     [
+        "funds.funds.gelrepas.title",
+        "Uitleg per gemeente"
+    ],
+    [
         "funds.funds.goereeoverflakkee.title",
         "Regelingen"
     ],
@@ -2105,7 +2185,7 @@
     ],
     [
         "funds.funds.potjeswijzer.title",
-        "Potjes gemeente"
+        "Potjes"
     ],
     [
         "funds.funds.schagen.title",
@@ -2226,6 +2306,10 @@
     [
         "funds.partners.berkelland.title",
         "Activeren"
+    ],
+    [
+        "funds.partners.eemsdelta.title",
+        "Partners"
     ],
     [
         "funds.partners.fijnder.description",
@@ -5308,6 +5392,18 @@
         "Regelingen"
     ],
     [
+        "navbar.potjeswijzer.funds",
+        "Potjes"
+    ],
+    [
+        "navbar.potjeswijzer.funds_kindpakket",
+        "Kindpakket"
+    ],
+    [
+        "navbar.potjeswijzer.partner_funds",
+        "Potjes partners"
+    ],
+    [
         "navbar.vergoedingen.funds",
         "Alle vergoedingen"
     ],
@@ -5778,6 +5874,18 @@
     [
         "pdf_preview.header.title",
         "PDF-voorbeeld"
+    ],
+    [
+        "pdf_preview.loading",
+        "PDF-voorbeeld wordt geladen."
+    ],
+    [
+        "pdf_preview.page_alt",
+        "PDF-pagina {{page}}"
+    ],
+    [
+        "pdf_preview.unavailable",
+        "Geen PDF-voorbeeld beschikbaar."
     ],
     [
         "physical_cards.breadcrumbs.home",
@@ -7358,6 +7466,10 @@
     [
         "profile.contacts.title",
         "Contactgegevens aanpassen"
+    ],
+    [
+        "profile.history.entra",
+        "Microsoft Entra"
     ],
     [
         "profile.history.from",
@@ -9017,7 +9129,7 @@
     ],
     [
         "top_navbar.buttons.potjeswijzer.activate",
-        "Potjes gemeente"
+        "Potjes"
     ],
     [
         "top_navbar.buttons.products",
@@ -9072,6 +9184,10 @@
         "Regelingen"
     ],
     [
+        "top_navbar.items.eemsdelta.partner_funds",
+        "Partners"
+    ],
+    [
         "top_navbar.items.explanation",
         "Uitleg"
     ],
@@ -9086,6 +9202,10 @@
     [
         "top_navbar.items.geertruidenberg.funds",
         "Regelingen"
+    ],
+    [
+        "top_navbar.items.gelrepas.funds",
+        "Uitleg per gemeente"
     ],
     [
         "top_navbar.items.groningen.explanation",
@@ -9137,7 +9257,7 @@
     ],
     [
         "top_navbar.items.potjeswijzer.funds",
-        "Potjes gemeente"
+        "Potjes"
     ],
     [
         "top_navbar.items.potjeswijzer.partner_funds",
@@ -9181,7 +9301,7 @@
     ],
     [
         "top_navbar.items.westerkwartier.funds",
-        "Potjes gemeente"
+        "Potjes"
     ],
     [
         "top_navbar.language.prefix",

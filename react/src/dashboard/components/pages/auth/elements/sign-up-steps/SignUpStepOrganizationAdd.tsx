@@ -113,7 +113,7 @@ export default function SignUpStepOrganizationAdd({
     }, [formOrganizationUpdate, progressStorage]);
 
     return (
-        <div className="sign_up-pane">
+        <div className="sign_up-pane" data-dusk="stepOrganizationAdd">
             <form
                 className="form"
                 onSubmit={(e) => {
@@ -133,6 +133,7 @@ export default function SignUpStepOrganizationAdd({
                         <div className="sign_up-pane-col sign_up-pane-col-2">
                             <FormGroup
                                 label={translate('organization_edit.labels.name')}
+                                dusk="name"
                                 error={formOrganization.errors.name}
                                 info={translate('organization_edit.tooltips.name')}
                                 input={(id) => (
@@ -142,12 +143,14 @@ export default function SignUpStepOrganizationAdd({
                                         onChange={(e) => formOrganization.update({ name: e.target.value })}
                                         placeholder={'Bedrijfsnaam'}
                                         autoComplete={'organization'}
+                                        dataDusk="nameInput"
                                     />
                                 )}
                             />
 
                             <FormGroup
                                 label={translate('organization_edit.labels.bank')}
+                                dusk="iban"
                                 error={formOrganization.errors.iban}
                                 info={translate('organization_edit.tooltips.bank')}
                                 input={(id) => (
@@ -155,6 +158,7 @@ export default function SignUpStepOrganizationAdd({
                                         id={id}
                                         value={formOrganization.values.iban}
                                         onChange={(e) => formOrganization.update({ iban: e.target.value })}
+                                        dataDusk="ibanInput"
                                         placeholder={'Voorbeeld: NL123456789B01'}
                                     />
                                 )}
@@ -169,6 +173,7 @@ export default function SignUpStepOrganizationAdd({
                                         id={id}
                                         value={formOrganization.values.iban_confirmation}
                                         onChange={(e) => formOrganization.update({ iban_confirmation: e.target.value })}
+                                        dataDusk="ibanConfirmationInput"
                                         placeholder={'Voorbeeld: NL123456789B01'}
                                     />
                                 )}
@@ -189,11 +194,13 @@ export default function SignUpStepOrganizationAdd({
                         <div className="sign_up-pane-col">
                             <FormGroup
                                 label={translate('organization_edit.labels.mail')}
+                                dusk="email"
                                 input={(id) => (
                                     <div className="row">
                                         <div className="col col-md-8 col-xs-12">
                                             <FormGroupInfo
                                                 error={formOrganization.errors.email}
+                                                duskPrefix="email"
                                                 info={translate('organization_edit.tooltips.email')}>
                                                 <UIControlText
                                                     id={id}
@@ -202,6 +209,7 @@ export default function SignUpStepOrganizationAdd({
                                                     placeholder={'E-mailadres'}
                                                     autoComplete={'email'}
                                                     type="email"
+                                                    dataDusk="emailInput"
                                                 />
                                             </FormGroupInfo>
                                         </div>
@@ -211,6 +219,7 @@ export default function SignUpStepOrganizationAdd({
                                                 name="email_public"
                                                 className="make-public"
                                                 label={translate('organization_edit.labels.make_public')}
+                                                dataDusk="emailPublicCheckbox"
                                                 checked={formOrganization.values.email_public}
                                                 onChange={(e) =>
                                                     formOrganization.update({
@@ -225,11 +234,13 @@ export default function SignUpStepOrganizationAdd({
 
                             <FormGroup
                                 label={translate('organization_edit.labels.phone')}
+                                dusk="phone"
                                 input={(id) => (
                                     <div className="row">
                                         <div className="col col-md-8 col-xs-12">
                                             <FormGroupInfo
                                                 error={formOrganization.errors.phone}
+                                                duskPrefix="phone"
                                                 info={translate('organization_edit.tooltips.phone')}>
                                                 <UIControlText
                                                     id={id}
@@ -237,6 +248,7 @@ export default function SignUpStepOrganizationAdd({
                                                     onChange={(e) => formOrganization.update({ phone: e.target.value })}
                                                     placeholder={'Telefoonnummer'}
                                                     autoComplete={'tel'}
+                                                    dataDusk="phoneInput"
                                                 />
                                             </FormGroupInfo>
                                         </div>
@@ -246,6 +258,7 @@ export default function SignUpStepOrganizationAdd({
                                                 name="phone_public"
                                                 className="make-public"
                                                 label={translate('organization_edit.labels.make_public')}
+                                                dataDusk="phonePublicCheckbox"
                                                 checked={formOrganization.values.phone_public}
                                                 onChange={(e) =>
                                                     formOrganization.update({
@@ -260,11 +273,13 @@ export default function SignUpStepOrganizationAdd({
 
                             <FormGroup
                                 label={translate('organization_edit.labels.website')}
+                                dusk="website"
                                 input={(id) => (
                                     <div className="row">
                                         <div className="col col-md-8 col-xs-12">
                                             <FormGroupInfo
                                                 error={formOrganization.errors.website}
+                                                duskPrefix="website"
                                                 info={translate('organization_edit.tooltips.website')}>
                                                 <UIControlText
                                                     id={id}
@@ -274,6 +289,7 @@ export default function SignUpStepOrganizationAdd({
                                                     }
                                                     placeholder={'Website'}
                                                     autoComplete={'url'}
+                                                    dataDusk="websiteInput"
                                                 />
                                             </FormGroupInfo>
                                         </div>
@@ -283,6 +299,7 @@ export default function SignUpStepOrganizationAdd({
                                                 name="website_public"
                                                 className="make-public"
                                                 label={translate('organization_edit.labels.make_public')}
+                                                dataDusk="websitePublicCheckbox"
                                                 checked={formOrganization.values.website_public}
                                                 onChange={(e) =>
                                                     formOrganization.update({
@@ -318,12 +335,14 @@ export default function SignUpStepOrganizationAdd({
                                                 }
                                                 options={businessTypes || []}
                                                 placeholder={'Selecteer organisatie type...'}
+                                                dusk="businessTypeSelect"
                                             />
                                         )}
                                     />
 
                                     <FormGroup
                                         label={translate('organization_edit.labels.kvk')}
+                                        dusk="kvk"
                                         error={formOrganization.errors.kvk}
                                         info={translate('organization_edit.tooltips.kvk')}
                                         input={(id) => (
@@ -332,6 +351,7 @@ export default function SignUpStepOrganizationAdd({
                                                 value={formOrganization.values.kvk}
                                                 onChange={(e) => formOrganization.update({ kvk: e.target.value })}
                                                 placeholder={'KvK-nummer'}
+                                                dataDusk="kvkInput"
                                             />
                                         )}
                                     />
@@ -347,6 +367,7 @@ export default function SignUpStepOrganizationAdd({
                                                 value={formOrganization.values.btw}
                                                 onChange={(e) => formOrganization.update({ btw: e.target.value })}
                                                 placeholder={'BTW-nummer'}
+                                                dataDusk="btwInput"
                                             />
                                         )}
                                     />
@@ -362,13 +383,14 @@ export default function SignUpStepOrganizationAdd({
                             type={'button'}
                             className="button button-text button-text-padless"
                             onClick={cancelAddOrganization}
+                            data-dusk="previousBtn"
                             tabIndex={0}>
                             <em className="mdi mdi-chevron-left icon-left" />
                             {translate(`sign_up_${panelType}.buttons.back`)}
                         </button>
                     }
                     endActions={
-                        <button type={'submit'} className="button button-text button-text-padless">
+                        <button type={'submit'} className="button button-text button-text-padless" data-dusk="nextBtn">
                             {translate(`sign_up_${panelType}.buttons.next`)}
                             <em className="mdi mdi-chevron-right icon-right" />
                         </button>

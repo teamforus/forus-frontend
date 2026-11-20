@@ -32,6 +32,9 @@ import ProviderFunds from '../components/pages/provider-funds/ProviderFunds';
 import Feedback from '../components/pages/feedback/Feedback';
 import NotFound from '../components/pages_system/NotFound';
 import OrganizationsSecurity from '../components/pages/organizations-security/OrganizationsSecurity';
+import OrganizationIdentityProviderEntra from '../components/pages/organizations-identity-provider-entra/OrganizationIdentityProviderEntra';
+import OrganizationIdentityProviderConnection from '../components/pages/organizations-identity-provider-entra/OrganizationIdentityProviderConnection';
+import SecurityIdentityProviderLinks from '../components/pages/identity-security/SecurityIdentityProviderLinks';
 import OrganizationsView from '../components/pages/organizations-view/OrganizationsView';
 import OrganizationsNotifications from '../components/pages/organizations-notifications/OrganizationsNotifications';
 import PreferencesEmails from '../components/pages/identity-preferences/PreferencesEmails';
@@ -42,6 +45,16 @@ import OrganizationsNoPermissions from '../components/pages/organizations-no-per
 import PaymentMethods from '../components/pages/payment-methods/PaymentMethods';
 import MolliePrivacy from '../components/pages/mollie-privacy/MolliePrivacy';
 import Reimbursements from '../components/pages/reimbursements/Reimbursements';
+import RequesterImports from '../components/pages/requester-imports/RequesterImports';
+import RequesterImportsUpload from '../components/pages/requester-imports-upload/RequesterImportsUpload';
+import RequesterImportsSync from '../components/pages/requester-imports-sync/RequesterImportsSync';
+import VoucherPasses from '../components/pages/voucher-passes/VoucherPasses';
+import VoucherPassesUpload from '../components/pages/voucher-passes-upload/VoucherPassesUpload';
+import VoucherPassesDCP from '../components/pages/voucher-passes-dcp/VoucherPassesDCP';
+import DCPOrders from '../components/pages/dcp-orders/DCPOrders';
+import DCPOrdersView from '../components/pages/dcp-orders-view/DCPOrdersView';
+import DCPOrderBulksView from '../components/pages/dcp-order-bulks-view/DCPOrderBulksView';
+import VouchersFromProfiles from '../components/pages/vouchers-from-profiles/VouchersFromProfiles';
 import ReimbursementsView from '../components/pages/reimbursements-view/ReimbursementsView';
 import BankConnections from '../components/pages/bank-connections/BankConnections';
 import ExtraPayments from '../components/pages/extra-payments/ExtraPayments';
@@ -107,6 +120,7 @@ import ImplementationTermsAndPrivacy from '../components/pages/implementations-e
 import PrevalidationRequests from '../components/pages/person-prevalidations/PrevalidationRequests';
 import FundProductLimits from '../components/pages/fund-product-limits/FundProductLimits';
 import PrevalidationRequestsView from '../components/pages/prevalidation-requests-view/PrevalidationRequestsView';
+import EntraAuthLink from '../components/pages/auth/EntraAuthLink';
 
 const router = new RouterBuilder();
 
@@ -133,6 +147,12 @@ router.state(DashboardRoutes.SIGN_OUT, <SignOut />, {
 router.state(DashboardRoutes.AUTH_2FA, <Auth2FA />, {
     path: `/tweefactorauthenticatie`,
     altPath: `/auth-2fa`,
+    layout: LayoutType.landingClear,
+    protected: false,
+});
+
+router.state(DashboardRoutes.ENTRA_AUTH, <EntraAuthLink />, {
+    path: `/auth/entra`,
     layout: LayoutType.landingClear,
     protected: false,
 });
@@ -309,6 +329,12 @@ router.state(DashboardRoutes.VOUCHERS, <Vouchers />, {
     altPath: `/organizations/:organizationId/vouchers`,
 });
 
+router.state(DashboardRoutes.VOUCHERS_FROM_PROFILES, <VouchersFromProfiles />, {
+    path: `/organisaties/:organizationId/tegoeden/profielen`,
+    altPath: `/organizations/:organizationId/vouchers/from-profiles`,
+    fallbackState: DashboardRoutes.VOUCHERS,
+});
+
 router.state(DashboardRoutes.VOUCHER, <VouchersViewComponent />, {
     path: `/organisaties/:organizationId/tegoeden/:id`,
     altPath: `/organizations/:organizationId/vouchers/:id`,
@@ -328,6 +354,57 @@ router.state(DashboardRoutes.PHYSICAL_CARD_TYPE, <PhysicalCardTypesShow />, {
 router.state(DashboardRoutes.REIMBURSEMENTS, <Reimbursements />, {
     path: `/organisaties/:organizationId/declaraties`,
     altPath: `/organizations/:organizationId/reimbursements`,
+});
+
+router.state(DashboardRoutes.REQUESTER_IMPORTS, <RequesterImports />, {
+    path: `/organisaties/:organizationId/requester-imports`,
+    altPath: `/organizations/:organizationId/requester-imports`,
+});
+
+router.state(DashboardRoutes.DCP_ORDERS, <DCPOrders />, {
+    path: `/organisaties/:organizationId/dcp-orders`,
+    altPath: `/organizations/:organizationId/dcp-orders`,
+});
+
+router.state(DashboardRoutes.DCP_ORDER, <DCPOrdersView />, {
+    path: `/organisaties/:organizationId/dcp-orders/:id`,
+    altPath: `/organizations/:organizationId/dcp-orders/:id`,
+    fallbackState: DashboardRoutes.DCP_ORDERS,
+});
+
+router.state(DashboardRoutes.DCP_ORDER_BULK, <DCPOrderBulksView />, {
+    path: `/organisaties/:organizationId/dcp-orders/bulks/:id`,
+    altPath: `/organizations/:organizationId/dcp-orders/bulks/:id`,
+    fallbackState: DashboardRoutes.DCP_ORDERS,
+});
+
+router.state(DashboardRoutes.VOUCHER_PASSES, <VoucherPasses />, {
+    path: `/organisaties/:organizationId/voucher-passes`,
+    altPath: `/organizations/:organizationId/voucher-passes`,
+});
+
+router.state(DashboardRoutes.VOUCHER_PASSES_UPLOAD, <VoucherPassesUpload />, {
+    path: `/organisaties/:organizationId/voucher-passes/upload`,
+    altPath: `/organizations/:organizationId/voucher-passes/upload`,
+    fallbackState: DashboardRoutes.VOUCHER_PASSES,
+});
+
+router.state(DashboardRoutes.VOUCHER_PASSES_DCP, <VoucherPassesDCP />, {
+    path: `/organisaties/:organizationId/voucher-passes/dcp`,
+    altPath: `/organizations/:organizationId/voucher-passes/dcp`,
+    fallbackState: DashboardRoutes.VOUCHER_PASSES,
+});
+
+router.state(DashboardRoutes.REQUESTER_IMPORTS_UPLOAD, <RequesterImportsUpload />, {
+    path: `/organisaties/:organizationId/requester-imports/upload`,
+    altPath: `/organizations/:organizationId/requester-imports/upload`,
+    fallbackState: DashboardRoutes.REQUESTER_IMPORTS,
+});
+
+router.state(DashboardRoutes.REQUESTER_IMPORTS_SYNC, <RequesterImportsSync />, {
+    path: `/organisaties/:organizationId/requester-imports/sync`,
+    altPath: `/organizations/:organizationId/requester-imports/sync`,
+    fallbackState: DashboardRoutes.REQUESTER_IMPORTS,
 });
 
 router.state(DashboardRoutes.REIMBURSEMENT, <ReimbursementsView />, {
@@ -525,6 +602,18 @@ router.state(DashboardRoutes.ORGANIZATION_SECURITY, <OrganizationsSecurity />, {
     altPath: `/organizations/:organizationId/security`,
 });
 
+router.state(DashboardRoutes.ORGANIZATION_IDENTITY_PROVIDERS, <OrganizationIdentityProviderEntra />, {
+    path: `/organisaties/:organizationId/single-sign-on`,
+    altPath: `/organizations/:organizationId/single-sign-on`,
+    fallbackState: DashboardRoutes.ORGANIZATIONS,
+});
+
+router.state(DashboardRoutes.ORGANIZATION_IDENTITY_PROVIDER_CONNECTION, <OrganizationIdentityProviderConnection />, {
+    path: `/organisaties/:organizationId/single-sign-on/connections/:connectionUid`,
+    altPath: `/organizations/:organizationId/single-sign-on/connections/:connectionUid`,
+    fallbackState: DashboardRoutes.ORGANIZATION_IDENTITY_PROVIDERS,
+});
+
 router.state(DashboardRoutes.ORGANIZATION_NO_PERMISSIONS, <OrganizationsNoPermissions />, {
     path: `/organisaties/:organizationId/geen-rechten`,
     altPath: `/organizations/:organizationId/no-permissions`,
@@ -693,6 +782,11 @@ router.state(DashboardRoutes.SECURITY_2FA, <Security2FA />, {
 router.state(DashboardRoutes.SECURITY_SESSIONS, <SecuritySessions />, {
     path: `/beveiliging/sessies`,
     altPath: `/security/sessions`,
+});
+
+router.state(DashboardRoutes.SECURITY_LINKED_ACCOUNTS, <SecurityIdentityProviderLinks />, {
+    path: `/beveiliging/gekoppelde-accounts`,
+    altPath: `/security/linked-accounts`,
 });
 
 router.state(DashboardRoutes.REDIRECT, <Redirect />, {

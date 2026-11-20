@@ -178,7 +178,9 @@ export default function ProviderOrganizationOverview({
             </div>
 
             {properties?.map((list, index: number) => (
-                <div key={index} className="card-section card-section-primary card-section-narrow">
+                <div
+                    key={index}
+                    className="card-section card-section-primary card-section-narrow card-section-listing-list">
                     <div className="flex-row flex-grow">
                         {list.map((property, index) => (
                             <div key={index} className="flex-col">
@@ -199,13 +201,13 @@ export default function ProviderOrganizationOverview({
             ))}
 
             {fundProvider && (
-                <div className="card-section card-section-primary card-section-narrow form">
+                <div className="card-section card-section-primary card-section-narrow card-section-listing-toggles form">
                     <div className="row">
                         <div className="col">
                             <div className="flex-row">
                                 <div className="flex-col">
                                     <div className="card-block card-block-listing card-block-listing-inline card-block-listing-variant">
-                                        <div className="card-block-listing-label">Accepteer budget</div>
+                                        <div className="card-block-listing-label">QR-code betaling toestaan</div>
                                         <ToggleControl
                                             checked={fundProvider.allow_budget}
                                             disabled={submittingAllow || fundProvider.state != 'accepted'}
@@ -217,7 +219,7 @@ export default function ProviderOrganizationOverview({
                                 </div>
                                 <div className="flex-col">
                                     <div className="card-block card-block-listing card-block-listing-inline card-block-listing-variant">
-                                        <div className="card-block-listing-label">Accepteer aanbiedingen</div>
+                                        <div className="card-block-listing-label">Aanbod automatisch goedkeuren</div>
                                         <ToggleControl
                                             checked={fundProvider.allow_products}
                                             disabled={submittingAllow || fundProvider.state != 'accepted'}

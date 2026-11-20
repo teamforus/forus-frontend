@@ -4,6 +4,7 @@
     gap: 40px;
     width: 100%;
     cursor: default;
+    padding: 30px 0;
 
     .cms-link-panels-header {
         display: flex;
@@ -32,8 +33,6 @@
         flex-direction: column;
         gap: 20px;
         min-width: 0;
-        padding: 0 0 36px;
-        border-bottom: 1px solid #e5e5e5;
     }
 
     .cms-link-panels-panel-title {
@@ -45,7 +44,6 @@
 
     .cms-link-panels-panel-description {
         margin: 0;
-        padding-right: 50px;
         font: 400 16px/24px var(--base-font);
     }
 
@@ -106,9 +104,72 @@
         }
     }
 
-    @media screen and (max-width: 1000px) {
+    &.block-cms-link-panels-2-columns,
+    &.block-cms-link-panels-3-columns {
         .cms-link-panels-items {
-            grid-template-columns: minmax(0, 1fr);
+            column-gap: 80px;
+            row-gap: 80px;
+        }
+    }
+
+    &.block-cms-link-panels-separated {
+        .cms-link-panels-items {
+            column-gap: 160px;
+
+            & > .cms-link-panels-panel {
+                position: relative;
+
+                &::before {
+                    position: absolute;
+                    left: -80px;
+                    top: 0;
+                    bottom: 0;
+                    width: 2px;
+                    background: var(--cms-link-panels-separator-color, #ffffff);
+                    transform: translateX(-50%);
+                }
+            }
+        }
+
+        &.block-cms-link-panels-2-columns {
+            .cms-link-panels-items {
+                & > :nth-child(2n + 2)::before {
+                    content: '';
+                }
+            }
+        }
+
+        &.block-cms-link-panels-3-columns {
+            .cms-link-panels-items {
+                & > :nth-child(3n + 2)::before,
+                & > :nth-child(3n + 3)::before {
+                    content: '';
+                }
+            }
+        }
+    }
+
+    .section-cms-next-spacing-none &,
+    .section-cms-next-spacing-no-top & {
+        padding-top: 0;
+    }
+
+    .section-cms-next-spacing-none &,
+    .section-cms-next-spacing-no-bottom & {
+        padding-bottom: 0;
+    }
+
+    @media screen and (max-width: 1000px) {
+        &.block-cms-link-panels-2-columns,
+        &.block-cms-link-panels-3-columns {
+            .cms-link-panels-items {
+                grid-template-columns: minmax(0, 1fr);
+                row-gap: 60px;
+
+                & > :nth-child(n)::before {
+                    display: none;
+                }
+            }
         }
     }
 }

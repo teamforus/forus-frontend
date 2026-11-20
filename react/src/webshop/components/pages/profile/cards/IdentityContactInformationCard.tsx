@@ -15,6 +15,7 @@ import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import TranslateHtml from '../../../../../dashboard/components/elements/translate-html/TranslateHtml';
 import { getStateRouteUrl } from '../../../../modules/state_router/Router';
 import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
+import useAuthIdentity from '../../../../hooks/useAuthIdentity';
 
 export default function IdentityContactInformationCard({
     profile,
@@ -33,11 +34,19 @@ export default function IdentityContactInformationCard({
     const pushDanger = usePushDanger();
     const pushSuccess = usePushSuccess();
     const setProgress = useSetProgress();
+    const authIdentity = useAuthIdentity();
     const profileService = useProfileService();
 
     const other_emails = useMemo(() => {
         return profile?.email_verified ? profile?.email_verified : [];
     }, [profile?.email_verified]);
+
+    const editableFields = useMemo(() => {
+        return fields.filter(
+            (field) =>
+                recordTypesByKey?.[field]?.profile_records && recordTypesByKey?.[field]?.profile_requester_editable,
+        );
+    }, [fields, recordTypesByKey]);
 
     const form = useFormBuilder<Partial<ProfileRecordValues>>(
         {
@@ -48,7 +57,7 @@ export default function IdentityContactInformationCard({
             setProgress(0);
 
             profileService
-                .update(values)
+                .update(Object.fromEntries(editableFields.map((field) => [field, values[field]])))
                 .then((res) => {
                     setProfile(res.data);
                     setEditContacts(false);
@@ -74,7 +83,7 @@ export default function IdentityContactInformationCard({
         });
     }, [formUpdate, profile.records.mobile, profile.records.telephone]);
 
-    if (editContacts) {
+    if (editContacts && editableFields.length > 0) {
         return (
             <form className="card form form-compact form-compact-flat" onSubmit={form.submit}>
                 <div className="card-header flex">
@@ -109,14 +118,16 @@ export default function IdentityContactInformationCard({
                             </div>
                         ))}
 
-                        <div className="form-group">
-                            <BlockInfoBox>
-                                <TranslateHtml
-                                    i18n={'profile.contacts.extra_email_info'}
-                                    values={{ link_url: getStateRouteUrl(WebshopRoutes.IDENTITY_EMAILS) }}
-                                />
-                            </BlockInfoBox>
-                        </div>
+                        {authIdentity?.can_manage_emails && (
+                            <div className="form-group">
+                                <BlockInfoBox>
+                                    <TranslateHtml
+                                        i18n={'profile.contacts.extra_email_info'}
+                                        values={{ link_url: getStateRouteUrl(WebshopRoutes.IDENTITY_EMAILS) }}
+                                    />
+                                </BlockInfoBox>
+                            </div>
+                        )}
 
                         {fields.map((field, index) => (
                             <div className="form-group" key={index}>
@@ -124,6 +135,7 @@ export default function IdentityContactInformationCard({
                                 <input
                                     className="form-control"
                                     value={form?.values?.[field] || ''}
+                                    disabled={!editableFields.includes(field)}
                                     onChange={(e) => form.update({ [field]: e.target.value })}
                                     autoComplete="tel"
                                 />
@@ -156,17 +168,19 @@ export default function IdentityContactInformationCard({
         <div className="card">
             <div className="card-header flex">
                 <h2 className="card-title flex flex-grow">{translate('profile.contacts.title')}</h2>
-                <div className="button-group">
-                    <button
-                        className="button button-text button-xs hide-sm"
-                        onClick={() => {
-                            initFormValues();
-                            setEditContacts(true);
-                        }}>
-                        <em className="mdi mdi-pencil-outline" />
-                        {translate('profile.contacts.edit')}
-                    </button>
-                </div>
+                {editableFields.length > 0 && (
+                    <div className="button-group">
+                        <button
+                            className="button button-text button-xs hide-sm"
+                            onClick={() => {
+                                initFormValues();
+                                setEditContacts(true);
+                            }}>
+                            <em className="mdi mdi-pencil-outline" />
+                            {translate('profile.contacts.edit')}
+                        </button>
+                    </div>
+                )}
             </div>
 
             <div className="card-section">
@@ -192,17 +206,19 @@ export default function IdentityContactInformationCard({
                         ]}
                     />
 
-                    <button
-                        className="button button-light button-wide button-xs show-sm"
-                        onClick={() => {
-                            initFormValues();
-                            setEditContacts(true);
-                        }}>
-                        <span className="flex flex-center">
-                            <em className="mdi mdi-pencil-outline" />
-                            {translate('profile.contacts.edit')}
-                        </span>
-                    </button>
+                    {editableFields.length > 0 && (
+                        <button
+                            className="button button-light button-wide button-xs show-sm"
+                            onClick={() => {
+                                initFormValues();
+                                setEditContacts(true);
+                            }}>
+                            <span className="flex flex-center">
+                                <em className="mdi mdi-pencil-outline" />
+                                {translate('profile.contacts.edit')}
+                            </span>
+                        </button>
+                    )}
                 </div>
             </div>
         </div>

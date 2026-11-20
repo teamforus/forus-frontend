@@ -155,4 +155,27 @@
         display: flex;
         justify-content: flex-start;
     }
+
+    @media screen and (max-width: 767px) {
+        flex-direction: column;
+        align-items: stretch;
+
+        .product-media-preview {
+            flex: 0 0 auto;
+            width: 100%;
+
+            img {
+                max-height: 220px;
+                object-fit: contain;
+            }
+        }
+
+        .product-media-actions {
+            .button {
+                width: 100%;
+                justify-content: center;
+                white-space: nowrap;
+            }
+        }
+    }
 }

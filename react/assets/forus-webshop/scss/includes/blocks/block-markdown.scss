@@ -1,32 +1,33 @@
 .block.block-markdown {
     text-align: left;
     font: var(--markdown-font);
+    color: var(--markdown-text-color, inherit);
     margin-bottom: 30px;
 
     h1 {
         font: 500 2.5em var(--heading-font-family);
-        color: var(--htc);
+        color: var(--markdown-text-color, var(--htc));
         margin: 30px 0 30px 0;
         text-align: left;
     }
 
     h2 {
         font: 500 2em var(--heading-font-family);
-        color: var(--htc);
+        color: var(--markdown-text-color, var(--htc));
         margin: 30px 0 30px 0;
         text-align: left;
     }
 
     h3 {
         font: 500 1.5em var(--heading-font-family);
-        color: var(--htc);
+        color: var(--markdown-text-color, var(--htc));
         margin: 0 0 0.9em;
         text-align: left;
     }
 
     h4 {
         font: 500 1.25em var(--heading-font-family);
-        color: var(--htc);
+        color: var(--markdown-text-color, var(--htc));
         margin: 0 0 0.9em;
         text-align: left;
     }
@@ -65,7 +66,7 @@
     }
 
     a:not(.button) {
-        color: var(--tc-link);
+        color: var(--markdown-text-color, var(--tc-link));
         transition:
             color 0.4s,
             background-color 0.4s;
@@ -107,7 +108,7 @@
 
         & > caption {
             font: 500 1.25em var(--heading-font-family);
-            color: var(--htc);
+            color: var(--markdown-text-color, var(--htc));
             margin: 0 0 0.9em;
             text-align: left;
         }
@@ -137,7 +138,7 @@
             }
 
             th {
-                color: #646f79;
+                color: var(--markdown-text-color, #646f79);
                 padding-top: 10px;
                 padding-bottom: 10px;
                 font: 700 12px/20px var(--base-font);
@@ -149,8 +150,12 @@
             }
 
             td {
-                color: #444a4f;
+                color: var(--markdown-text-color, #444a4f);
                 font: inherit;
+
+                &::before {
+                    color: var(--markdown-text-color, var(--tc-muted));
+                }
             }
 
             &:last-child {
@@ -210,6 +215,12 @@
 
         * {
             text-align: right !important;
+        }
+    }
+
+    &.block-markdown-custom-color {
+        table {
+            background: transparent;
         }
     }
 

@@ -517,7 +517,7 @@ export default function BiConnection() {
                                     </div>
 
                                     <div className="form-group">
-                                        <div className="form-label">IP-adressen op de witte lijst</div>
+                                        <div className="form-label">Toegestane IP-adressen</div>
 
                                         {ips?.map((ipItem, index: number) => (
                                             <div className="form-group" key={index}>
@@ -587,10 +587,8 @@ export default function BiConnection() {
                                             <InfoBox>
                                                 Het whitelisten van IP-adressen is een veiligheidsmaatregel om de lijst
                                                 van gebruikers te beperken die gegevens van het account kunnen
-                                                downloaden. Bij het gebruik van een zelf gehoste BI-tool of handmatige
-                                                gegevensexport, vraag dan de IT-afdeling om het IP-adres. Bij het
-                                                gebruik van een BI-tool als SaaS-product is het whitelisten van
-                                                IP-adressen niet van toepassing.
+                                                downloaden. Voeg IP-adressen toe die toegang mogen krijgen tot de
+                                                gegevens.
                                             </InfoBox>
                                         </div>
                                     </div>

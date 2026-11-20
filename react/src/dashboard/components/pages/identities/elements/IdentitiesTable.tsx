@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import useActiveOrganization from '../../../../hooks/useActiveOrganization';
 import useSetProgress from '../../../../hooks/useSetProgress';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
@@ -19,9 +19,8 @@ import { dateFormat, dateParse } from '../../../../helpers/dates';
 import IdentitiesTableRowItems from './IdentitiesTableRowItems';
 import TableRowActions from '../../../elements/tables/TableRowActions';
 import useFetchSponsorIdentities from '../hooks/useFetchSponsorIdentities';
-import { ProfileRecordType } from '../../../../props/models/Sponsor/SponsorIdentity';
-import RecordType from '../../../../props/models/RecordType';
-import { useRecordTypeService } from '../../../../services/RecordTypeService';
+import SponsorIdentity, { IdentityProviderStatusFilter } from '../../../../props/models/Sponsor/SponsorIdentity';
+import useProfileRecordTypes from '../../identitities-show/hooks/useProfileRecordTypes';
 import useEditProfileRecords from '../../identitities-show/hooks/useEditProfileRecords';
 import TableRowActionItem from '../../../elements/tables/TableRowActionItem';
 import { hasPermission } from '../../../../helpers/utils';
@@ -47,19 +46,43 @@ export default function IdentitiesTable() {
         { key: null, name: 'Alle' },
     ]);
 
-    const { filter, filterValues, filterUpdate, loading, identities, fetchIdentities, paginatorKey } =
+    const { filter, filterValues, filterUpdate, requestFilters, loading, identities, fetchIdentities, paginatorKey } =
         useFetchSponsorIdentities(activeOrganization);
 
     const { setShow } = filter;
+
+    const typeOptions = useMemo(() => {
+        return [
+            { key: null, name: translate('identities.types.all') },
+            { key: 'voucher', name: translate('identities.types.voucher') },
+            { key: 'profile', name: translate('identities.types.profile') },
+            { key: 'employee', name: translate('identities.types.employee') },
+        ];
+    }, [translate]);
+
+    const identityProviderOptions = useMemo(
+        () => [
+            { key: null, name: translate('identities.entra.all') },
+            { key: 'managed', name: translate('identities.entra.managed') },
+            { key: 'active', name: translate('identities.entra.managed_active') },
+            { key: 'disabled', name: translate('identities.entra.managed_disabled') },
+            { key: 'unmanaged', name: translate('identities.entra.unmanaged') },
+        ],
+        [translate],
+    );
+
+    const { recordTypes } = useProfileRecordTypes(activeOrganization.id);
+
+    const editProfileRecords = useEditProfileRecords(activeOrganization, recordTypes);
 
     const exportIdentities = useCallback(() => {
         setShow(false);
 
         identityExporter.exportData(activeOrganization.id, {
-            ...filter.activeValues,
+            ...requestFilters,
             per_page: null,
         });
-    }, [activeOrganization.id, filter.activeValues, identityExporter, setShow]);
+    }, [activeOrganization.id, requestFilters, identityExporter, setShow]);
 
     const fetchFunds = useCallback(() => {
         setProgress(0);
@@ -71,31 +94,12 @@ export default function IdentitiesTable() {
             .finally(() => setProgress(100));
     }, [activeOrganization.id, fundService, setProgress, pushApiError]);
 
-    const [recordTypes, setRecordTypes] = useState<Array<RecordType & { key: ProfileRecordType }>>(null);
-
-    const recordTypeService = useRecordTypeService();
-
-    const editProfileRecords = useEditProfileRecords(activeOrganization, recordTypes);
-
     const createProfile = useCallback(
         (fetchProfiles: () => void) => {
-            editProfileRecords(null, 'Voeg een nieuw persoon toe', 'personal', fetchProfiles);
+            editProfileRecords(null, 'Voeg een nieuw persoon toe', fetchProfiles);
         },
         [editProfileRecords],
     );
-
-    const fetchRecordTypes = useCallback(() => {
-        setProgress(0);
-
-        recordTypeService
-            .list<RecordType & { key: ProfileRecordType }>()
-            .then((res) => setRecordTypes(res.data))
-            .finally(() => setProgress(100));
-    }, [recordTypeService, setProgress]);
-
-    useEffect(() => {
-        fetchRecordTypes();
-    }, [fetchRecordTypes]);
 
     useEffect(() => {
         fetchIdentities();
@@ -118,7 +122,9 @@ export default function IdentitiesTable() {
 
                 <div className={'card-header-filters'}>
                     <div className="block block-inline-filters">
-                        {activeOrganization?.allow_profiles_create &&
+                        {activeOrganization.allow_profiles &&
+                            activeOrganization.allow_profiles_create &&
+                            recordTypes &&
                             hasPermission(activeOrganization, Permission.MANAGE_IDENTITIES) && (
                                 <button
                                     type="button"
@@ -176,6 +182,34 @@ export default function IdentitiesTable() {
                                     placeholder={translate('payouts.labels.search')}
                                 />
                             </FilterItemToggle>
+
+                            <FilterItemToggle label={translate('identities.labels.type')} show={true}>
+                                <SelectControl
+                                    className="select-control-filter-panel"
+                                    propKey="key"
+                                    options={typeOptions}
+                                    value={filterValues.type}
+                                    allowSearch={false}
+                                    onChange={(type: SponsorIdentity['type'] | null) => filterUpdate({ type, page: 1 })}
+                                />
+                            </FilterItemToggle>
+
+                            {activeOrganization.show_identity_provider_profile_status && (
+                                <FilterItemToggle
+                                    label={translate('identities.labels.identity_provider_status')}
+                                    show={true}>
+                                    <SelectControl
+                                        className="select-control-filter-panel"
+                                        propKey="key"
+                                        options={identityProviderOptions}
+                                        value={filterValues.identity_provider_status}
+                                        allowSearch={false}
+                                        onChange={(identity_provider_status: IdentityProviderStatusFilter | null) =>
+                                            filterUpdate({ identity_provider_status, page: 1 })
+                                        }
+                                    />
+                                </FilterItemToggle>
+                            )}
 
                             <FilterItemToggle label={translate('sponsor_products.filters.birth_date_from')}>
                                 <DatePickerControl
@@ -277,7 +311,12 @@ export default function IdentitiesTable() {
                 empty={identities?.meta?.total == 0}
                 emptyTitle={'Geen personen gevonden'}
                 columns={sponsorIdentitiesService.getColumns(activeOrganization)}
-                tableOptions={{ filter, sortable: true, hasTooltips: true }}
+                tableOptions={{
+                    filter,
+                    sortable: true,
+                    sortableExclude: ['identity_provider_status'],
+                    hasTooltips: true,
+                }}
                 paginator={{ key: paginatorKey, data: identities, filterValues, filterUpdate }}>
                 {identities?.data?.map((identity) => (
                     <StateNavLink

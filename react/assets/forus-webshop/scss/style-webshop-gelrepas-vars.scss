@@ -12,7 +12,7 @@ $primaryColorLight: #d80067;
 
     --border-color: #dce0e0;
     --border-radius: 7px;
-    --box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    --box-shadow: none;
 
     --color-primary: #{$primaryColor};
     --color-primary-light: #{$primaryColorLight};
@@ -33,11 +33,11 @@ $primaryColorLight: #d80067;
     --navbar-search-order: 2;
     --navbar-search-padding: 20px 0px;
     --navbar-search-background: #e4f3ff;
-    --navbar-search-border-bottom: 1px solid var(--border-color);
+    --navbar-search-border-bottom: none;
 
     --navbar-menu-item-font: 400 18px/21px var(--base-font);
-    --navbar-menu-item-color: #1E2024;
-    --navbar-menu-item-color-hover: #0000FF;
+    --navbar-menu-item-color: #1e2024;
+    --navbar-menu-item-color-hover: #0000ff;
     --navbar-menu-item-padding: 16px 0;
     --navbar-menu-item-background: transparent;
     --navbar-menu-item-background-hover: transparent;
@@ -250,6 +250,13 @@ $primaryColorLight: #d80067;
     --button-primary-outline-hover-decoration: none;
     --button-primary-outline-hover-background: var(--color-primary);
 
+    --button-dark-color: #fff;
+    --button-dark-border: 1px solid #282b39;
+    --button-dark-background: #282b39;
+    --button-dark-hover-color: #fff;
+    --button-dark-hover-border: 1px solid #646f79;
+    --button-dark-hover-background: #646f79;
+
     --button-read_more-color: var(--button-primary-color);
     --button-read_more-border: var(--button-primary-border);
     --button-read_more-decoration: var(--button-primary-decoration);
@@ -296,6 +303,8 @@ $primaryColorLight: #d80067;
     --showcase-title-count-background: #0000ff;
     --showcase-title-count-border-radius: calc(var(--border-radius) / 2);
 
+    --showcase-splash-shape-bg: var(--color-primary);
+
     // Breadcrumbs
     --breadcrumb-size: 16px;
     --breadcrumb-color: #0000ff;
@@ -334,6 +343,16 @@ $primaryColorLight: #d80067;
     --voucher-card-action-hover-background: var(--color-primary);
     --voucher-card-action-hover-border-color: var(--color-primary);
 
+    // Voucher
+    --voucher-details-color: #222222;
+    --voucher-details-sponsor-color: var(--voucher-details-color);
+    --voucher-details-date-color: var(--voucher-details-color);
+    --voucher-details-records-label-color: var(--voucher-details-color);
+    --voucher-details-background: #ffd224;
+    --voucher-details-records-background: var(--voucher-details-background);
+    --voucher-details-records-border-color: var(--voucher-details-background);
+    --voucher-actions-background: #0000fe;
+
     // Products
     --products-title-color: var(--tc);
     --products-title-hover-color: var(--tc);
@@ -342,6 +361,13 @@ $primaryColorLight: #d80067;
     // Product
     --product-title-font: 700 22px/28px var(--heading-font-family);
     --product-title-color: var(--tc);
+    --product-props-background: #f5f5f5;
+    --product-props-separator-height: 0px;
+    --product-props-separator-color: transparent;
+    --product-prop-item-title-color: #222222;
+
+    // Panel group
+    --panel-header-title-color: var(--tc);
 
     // Map
     --map-title-color: #0b0e12;
@@ -388,6 +414,16 @@ $primaryColorLight: #d80067;
 
     --cms-funds-link-color: var(--color-primary);
     --cms-funds-link-font: 600 16px/20px var(--base-font);
+
+    // CMS product categories
+    --cms-product-categories-item-color: var(--button-primary-color);
+    --cms-product-categories-item-background: var(--button-primary-background);
+    --cms-product-categories-item-hover-color: var(--button-primary-hover-color);
+    --cms-product-categories-item-hover-background: var(--button-primary-hover-background);
+    --cms-product-categories-item-icon-color: #fff;
+    --cms-product-categories-item-icon-hover-color: var(--cms-product-categories-item-icon-color);
+    --cms-product-categories-item-name-color: #fff;
+    --cms-product-categories-item-name-hover-color: var(--cms-product-categories-item-name-color);
 
     // Section order
     --order-page-voucher-map: 0;

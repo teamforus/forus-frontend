@@ -15,6 +15,7 @@ import classNames from 'classnames';
 import useIsProviderPanel from '../../hooks/useIsProviderPanel';
 import useEnvData from '../../hooks/useEnvData';
 import FormGroup from '../elements/forms/elements/FormGroup';
+import useTranslate from '../../hooks/useTranslate';
 
 export default function ModalEmployeeEdit({
     modal,
@@ -32,6 +33,7 @@ export default function ModalEmployeeEdit({
     organization: Organization;
 }) {
     const envData = useEnvData();
+    const translate = useTranslate();
     const isProviderPanel = useIsProviderPanel();
 
     const roleService = useRoleService();
@@ -151,6 +153,17 @@ export default function ModalEmployeeEdit({
                 <div className="modal-header">{employee ? 'Medewerker aanpassen' : 'Medewerker toevoegen'}</div>
 
                 <div className="modal-body modal-body-visible">
+                    {employee?.identity_provider_management && (
+                        <div className="modal-section">
+                            <div className="block block-info-box block-info-box-dashed">
+                                <div className="info-box-icon mdi mdi-information-outline" aria-hidden="true" />
+                                <div className="info-box-content">
+                                    {translate('organization_employees.management.edit_info')}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
                     <div className="modal-section">
                         {!employee && (
                             <FormGroup

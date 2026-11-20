@@ -1,11 +1,20 @@
 import FundRequestRecord from '../../../../../props/models/FundRequestRecord';
 import React from 'react';
 import FundRequestRecordClarificationsTabItem from './FundRequestRecordClarificationsTabItem';
+import FundRequestClarification from '../../../../../props/models/FundRequestClarification';
 
 export default function FundRequestRecordClarificationsTab({
+    expired,
     fundRequestRecord,
+    canManageClarifications,
+    editClarification,
+    closeClarification,
 }: {
+    expired: boolean;
     fundRequestRecord: FundRequestRecord;
+    canManageClarifications: boolean;
+    editClarification: (clarification: FundRequestClarification) => void;
+    closeClarification: (clarification: FundRequestClarification) => void;
 }) {
     return (
         <div className="block block-request-clarification" data-dusk="clarificationsTabContent">
@@ -14,7 +23,11 @@ export default function FundRequestRecordClarificationsTab({
                 <FundRequestRecordClarificationsTabItem
                     index={index}
                     key={clarification.id}
+                    expired={expired}
                     clarification={clarification}
+                    canManageClarifications={canManageClarifications}
+                    editClarification={() => editClarification(clarification)}
+                    closeClarification={() => closeClarification(clarification)}
                 />
             ))}
         </div>

@@ -9,6 +9,7 @@ import CmsBlocksNext from '../cms-blocks-next/CmsBlocksNext';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import Section from '../sections/Section';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
+import { useNavigateState } from '../../../modules/state_router/Router';
 
 export default function BlockProducts({
     title,
@@ -29,6 +30,7 @@ export default function BlockProducts({
 }) {
     const translate = useTranslate();
     const appConfigs = useAppConfigs();
+    const navigateState = useNavigateState();
     const cmsBlock = showCustomDescription && appConfigs?.pages?.home ? appConfigs?.pages?.block_home_products : null;
 
     return (
@@ -52,10 +54,21 @@ export default function BlockProducts({
                     description={translate(`block_products.labels.subtitle`)}
                     svgIcon="reimbursements"
                     hideLink={true}
+                    button={
+                        showLoadMore
+                            ? {
+                                  text: translate('block_products.buttons.more'),
+                                  icon: 'arrow-right',
+                                  iconEnd: true,
+                                  type: 'primary',
+                                  onClick: () => navigateState(WebshopRoutes.PRODUCTS, {}, filters),
+                              }
+                            : undefined
+                    }
                 />
             )}
 
-            {showLoadMore && (
+            {products?.length > 0 && showLoadMore && (
                 <div className="block block-show-more">
                     <StateNavLink
                         className="button button-primary show-more-button"

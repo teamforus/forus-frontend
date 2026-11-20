@@ -63,9 +63,13 @@ export class EmployeeService<T = Employee> {
         });
     }
 
-    public getColumns(isProviderPanel: boolean): Array<ConfigurableTableColumn> {
+    public getColumns(
+        isProviderPanel: boolean,
+        showIdentityProviderManagement = false,
+    ): Array<ConfigurableTableColumn> {
         const list = [
             'email',
+            showIdentityProviderManagement ? 'identity_provider_management' : null,
             isProviderPanel ? 'branch_name_id' : null,
             isProviderPanel ? 'branch_number' : null,
             'auth_2fa',

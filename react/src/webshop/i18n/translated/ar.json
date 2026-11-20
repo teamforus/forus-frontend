@@ -18,12 +18,20 @@
             "qr": {
                 "description": "امسح رمز الاستجابة السريعة ضوئياً باستخدام تطبيق <u>Me</u>",
                 "title": "تطبيقي"
+            },
+            "entra": {
+                "title": "تسجيل الدخول باستخدام Microsoft",
+                "description": "استخدم حساب العمل الخاص بك"
             }
         },
         "push": {
             "link_used": {
                 "title": "تم استخدام هذا الرابط بالفعل أو أنه غير صالح."
-            }
+            },
+            "entra_failed": {
+                "title": "فشلت عملية تسجيل الدخول باستخدام Microsoft. يرجى المحاولة مرة أخرى."
+            },
+            "message_with_reference": "{{message}} ({{reference}})"
         },
         "setup_2fa_title": "إعداد المصادقة الثنائية",
         "2fa_title": "المصادقة الثنائية",
@@ -679,7 +687,7 @@
                 "activate": "الطلب"
             },
             "potjeswijzer": {
-                "activate": "صناديق البلدية"
+                "activate": "البرطمانات"
             }
         },
         "items": {
@@ -688,7 +696,8 @@
                 "funds": "شرح للمقيمين"
             },
             "eemsdelta": {
-                "funds": "المخططات"
+                "funds": "المخططات",
+                "partner_funds": "الشركاء"
             },
             "explanation": "الشرح",
             "geertruidenberg": {
@@ -744,11 +753,14 @@
             "funds": "اللوائح",
             "partner_funds": "الشركاء الاجتماعيون",
             "potjeswijzer": {
-                "funds": "صناديق البلدية",
-                "partner_funds": "شركاء «بوتجيس»"
+                "partner_funds": "شركاء «بوتجيس»",
+                "funds": "البرطمانات"
             },
             "westerkwartier": {
-                "funds": "صناديق البلدية"
+                "funds": "البرطمانات"
+            },
+            "gelrepas": {
+                "funds": "تفاصيل حسب البلدية"
             }
         },
         "user_menu": {
@@ -909,8 +921,10 @@
         },
         "details": {
             "created_at": "تم التقديم في:",
-            "fund_name": "اسم الصندوق:",
-            "status": "طلب الحالة:"
+            "status": "طلب الحالة:",
+            "fund_name": "اللائحة:",
+            "last_answered": "آخر تحديث:",
+            "number": "رقم الطلب:"
         },
         "fund_not_active": "الصندوق الذي تحاول التقدم بطلب للحصول عليه غير نشط.",
         "invalid_endpoint": "لا يوجد وصول إلى هذا التطبيق",
@@ -920,7 +934,6 @@
         },
         "record": {
             "answer": "تمت الإجابة",
-            "cancel_btn": "إلغاء",
             "new": "رسالة جديدة",
             "new_message": "طلب جديد",
             "send_btn": "إرسال",
@@ -1072,12 +1085,16 @@
             "provide_info": "أجب عن السؤال",
             "subtitle": "لم يكتمل الطلب بعد. هناك حاجة إلى معلومات إضافية. يرجى مراجعة السؤال أدناه والنقر على الزر للرد.",
             "title": "الأسئلة المفتوحة ({{ count }})",
-            "info_responded_count": "{{count}} الرسالة"
+            "info_responded_count": "{{count}} الرسالة",
+            "info_pending": "مطلوب رد"
         },
         "labels": {
             "question_from": "سؤال من {{ name }}",
             "date": "التاريخ:",
-            "question": "السؤال المطروح"
+            "question": "السؤال المطروح",
+            "closed_by_sponsor": "أغلقه {{ sponsor_name }}",
+            "edited": "تم التعديل",
+            "your_answer": "إجابتك:"
         },
         "records": {
             "title": "بياناتي ({{ count }})",
@@ -1148,6 +1165,10 @@
                 }
             },
             "title": "انتهت صلاحية تأكيد BSN"
+        },
+        "state": {
+            "answer_needed": "نحتاج إلى مزيد من المعلومات منك",
+            "expired": "منتهية الصلاحية"
         }
     },
     "fund_requests": {
@@ -1171,7 +1192,10 @@
             "archive": "الأرشيف",
             "all_funds": "جميع الائتمانات..."
         },
-        "title": "الطلب"
+        "title": "الطلب",
+        "state": {
+            "expired": "منتهية الصلاحية"
+        }
     },
     "fund": {
         "breadcrumbs": {
@@ -1285,7 +1309,10 @@
                 "title": "المخططات"
             },
             "potjeswijzer": {
-                "title": "صناديق البلدية"
+                "title": "البرطمانات"
+            },
+            "gelrepas": {
+                "title": "تفاصيل حسب البلدية"
             }
         },
         "header": {
@@ -1371,6 +1398,9 @@
             "potjeswijzer": {
                 "description": "كما يقدم شركاؤنا أيضًا برامج دعم متنوعة للمواطنين. هل دخلكم محدود؟ إذاً، قد تكون هناك إعانة إضافية متاحة لكم.",
                 "title": "شركاء «بوتجيس»"
+            },
+            "eemsdelta": {
+                "title": "الشركاء"
             }
         }
     },
@@ -2355,7 +2385,9 @@
             "digid_uid_not_found": "رقم BSN هذا غير معروف في النظام، ابدأ طلبك لإنشاء حساب.",
             "digid_uid_used": "تم تسجيل عنوان بريد إلكتروني مختلف لهذا الرقم BSN. لتسجيل الدخول إلى حسابك، يجب عليك استخدام عنوان البريد الإلكتروني المسجل لدينا.<br/><br/> لا يمكنك تذكر عنوان البريد الإلكتروني هذا أو هل لديك عنوان بريد إلكتروني جديد؟ <br/> إذن استعد حسابك بالضغط <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">هنا</a> أو الزر أدناه.</br>",
             "digid_unknown_error": "حدث خطأ في الاتصال بـ DigiD. يرجى المحاولة مرة أخرى في وقت لاحق. إذا استمر هذا الخطأ، يرجى مراجعة الموقع الإلكتروني https://www.digid.nl/ للحصول على أحدث المعلومات.",
-            "unknown_error": "حدث خطأ في الاتصال بـ DigiD. يرجى المحاولة مرة أخرى في وقت لاحق. إذا استمر هذا الخطأ، يرجى مراجعة الموقع الإلكتروني https://www.digid.nl/ للحصول على أحدث المعلومات."
+            "unknown_error": "حدث خطأ في الاتصال بـ DigiD. يرجى المحاولة مرة أخرى في وقت لاحق. إذا استمر هذا الخطأ، يرجى مراجعة الموقع الإلكتروني https://www.digid.nl/ للحصول على أحدث المعلومات.",
+            "entra_login_failed": "تعذر بدء عملية تسجيل الدخول باستخدام Microsoft. يرجى إعادة المحاولة لاحقًا.",
+            "digid_managed_requester": "تتم إدارة حسابك عبر Microsoft Entra. قم بتسجيل الدخول باستخدام حساب Microsoft إلى متجر الويب الخاص بمؤسستك."
         },
         "start_button": "استعادة الحساب",
         "titles": {
@@ -2379,7 +2411,9 @@
             "digid_uid_not_found": "رقم BSN هذا غير معروف في النظام",
             "digid_uid_used": "رقم BSN المستخدم بالفعل.",
             "digid_unknown_error": "حدث خطأ في الاتصال مع DigiD.",
-            "unknown_error": "رسالة خطأ غير معروفة"
+            "unknown_error": "رسالة خطأ غير معروفة",
+            "entra_login_failed": "فشل تسجيل الدخول باستخدام Microsoft",
+            "digid_managed_requester": "تسجيل الدخول باستخدام Microsoft"
         }
     },
     "payouts": {
@@ -2663,7 +2697,8 @@
             "from": "من",
             "modified_by": "تم تعديله بواسطة",
             "to": "إلى",
-            "you": "أنت"
+            "you": "أنت",
+            "entra": "مايكروسوفت إنترا"
         },
         "personal": {
             "bsn": "BSN",
@@ -3346,7 +3381,10 @@
         },
         "header": {
             "title": "عينة PDF"
-        }
+        },
+        "loading": "يتم تحميل معاينة ملف PDF.",
+        "page_alt": "صفحة PDF {{page}}",
+        "unavailable": "لا يتوفر نموذج ملف PDF."
     },
     "popup_auth": {
         "buttons": {
@@ -3631,6 +3669,11 @@
         },
         "goereeoverflakkee": {
             "funds": "المخططات"
+        },
+        "potjeswijzer": {
+            "funds": "البرطمانات",
+            "funds_kindpakket": "حزمة الأطفال",
+            "partner_funds": "شركاء Potjes"
         }
     },
     "cookie_banner": {
@@ -3849,5 +3892,10 @@
             "default": "انتقل إلى الصفحة الرئيسية",
             "isd": "دائرة الخدمات الاجتماعية المشتركة بين البلديات ISD برابانتس وال"
         }
+    },
+    "confirm_fund_request_clarification_submit": {
+        "confirm_btn": "إرسال",
+        "description": "تأكد من أنك قد أجبت على جميع الأسئلة وأرفقت جميع المستندات الداعمة.",
+        "title": "هل الإجابة كاملة؟"
     }
 }
