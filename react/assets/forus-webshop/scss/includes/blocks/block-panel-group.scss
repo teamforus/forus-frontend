@@ -38,6 +38,7 @@
             .panel-header-title {
                 display: flex;
                 flex: 1 1 auto;
+                color: var(--panel-header-title-color);
                 font: 700 22px/28px var(--base-font);
                 margin: 0 0;
             }
