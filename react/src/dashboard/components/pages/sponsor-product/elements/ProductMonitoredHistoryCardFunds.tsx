@@ -80,6 +80,17 @@ export default function ProductMonitoredHistoryCardFunds({
                         {fund.state === 'pending' && <Label type="default">{fund.state_locale}</Label>}
                         {fund.state === 'not_applied' && <Label type="warning">{fund.state_locale}</Label>}
                     </td>
+                    <td>
+                        {fund.fund_provider_id ? (
+                            fund.excluded ? (
+                                <Label type="default">Nee</Label>
+                            ) : (
+                                <Label type="success">Ja</Label>
+                            )
+                        ) : (
+                            <TableEmptyValue />
+                        )}
+                    </td>
                     <td className={'table-td-actions text-right'}>
                         <TableRowActions
                             disabled={!fund.fund_provider_id && !(fund.state === 'approved' && fund.url_product)}
