@@ -7,7 +7,7 @@ import useTranslate from '../../../../hooks/useTranslate';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import Organization from '../../../../props/models/Organization';
 import ReservationsTable from '../../reservations/elements/ReservationsTable';
-import Voucher from '../../../../props/models/Voucher';
+import type BaseVoucher from '../../../../../props/models/BaseVoucher';
 import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function VoucherReservationsCard({
@@ -15,7 +15,7 @@ export default function VoucherReservationsCard({
     organization,
     fetchReservationsRef = null,
 }: {
-    voucher: Voucher;
+    voucher: BaseVoucher;
     organization: Organization;
     fetchReservationsRef?: React.MutableRefObject<() => void>;
 }) {

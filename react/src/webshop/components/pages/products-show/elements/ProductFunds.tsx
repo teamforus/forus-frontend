@@ -6,7 +6,6 @@ import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import useEnvData from '../../../../hooks/useEnvData';
 import useShowTakenByPartnerModal from '../../../../services/helpers/useShowTakenByPartnerModal';
 import useAppConfigs from '../../../../hooks/useAppConfigs';
-import useAuthIdentity from '../../../../hooks/useAuthIdentity';
 import { useFundService } from '../../../../services/FundService';
 import { useNavigateState } from '../../../../modules/state_router/Router';
 import { useProductService } from '../../../../services/ProductService';
@@ -40,7 +39,6 @@ export default function ProductFunds({
     const navigateState = useNavigateState();
     const fetchAuthIdentity = useFetchAuthIdentity();
 
-    const authIdentity = useAuthIdentity();
     const showTakenByPartnerModal = useShowTakenByPartnerModal();
 
     const fundService = useFundService();
@@ -132,45 +130,24 @@ export default function ProductFunds({
                             </div>
                             <div className="product-funds-item-details-props">
                                 {/* Price */}
-                                {product.price_type !== 'informational' && (
+                                {fund.user_price.type !== 'informational' && (
                                     <Fragment>
                                         <div className="product-funds-item-details-prop product-funds-item-details-prop-price">
-                                            {(product.price_type === 'regular' || product.price_type === 'free') && (
-                                                <div className="product-funds-item-details-prop-value">
-                                                    {fund.user_price === '0.00'
-                                                        ? translate('product.price.free')
-                                                        : fund.user_price_locale}
-                                                </div>
-                                            )}
-
-                                            {(product.price_type === 'discount_fixed' ||
-                                                product.price_type === 'discount_percentage') && (
-                                                <div className="product-funds-item-details-prop-value">
-                                                    {product.price_discount_locale}
-                                                </div>
-                                            )}
+                                            <div className="product-funds-item-details-prop-value">
+                                                {fund.user_price.value}
+                                            </div>
                                         </div>
                                         <div className="product-funds-item-details-prop-separator" />
                                     </Fragment>
                                 )}
 
                                 {/* Quantity limit */}
-                                {(fund.meta.applicableVouchers?.length > 0
-                                    ? fund.limit_available
-                                    : fund.limit_per_identity) != null && (
+                                {fund.limit != null && (
                                     <Fragment>
                                         <div className="product-funds-item-details-prop">
                                             <em className="mdi mdi-account-multiple" />
 
-                                            {authIdentity
-                                                ? translate('product.labels.quantity_limit', {
-                                                      limit: fund.meta.applicableVouchers.length
-                                                          ? fund.limit_available
-                                                          : fund.limit_per_identity,
-                                                  })
-                                                : translate('product.labels.quantity_limit', {
-                                                      limit: fund.limit_per_identity,
-                                                  })}
+                                            {translate('product.labels.quantity_limit', { limit: fund.limit })}
                                         </div>
                                         <div className="product-funds-item-details-prop-separator" />
                                     </Fragment>

@@ -3,9 +3,9 @@ import { useParams } from 'react-router';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import { useNavigateState, useStateParams } from '../../../modules/state_router/Router';
 import { GoogleMap } from '../../../../dashboard/components/elements/google-map/GoogleMap';
-import Office from '../../../../dashboard/props/models/Office';
 import Provider from '../../../props/models/Provider';
 import Product from '../../../props/models/Product';
+import type { ProductOffice } from '../../../props/models/Product';
 import { useVoucherService } from '../../../services/VoucherService';
 import { useProductService } from '../../../services/ProductService';
 import { useProviderService } from '../../../services/ProviderService';
@@ -335,8 +335,11 @@ export default function ProductsShow() {
                                                 mapGestureHandling={'greedy'}
                                                 mapGestureHandlingMobile={'none'}
                                                 fullscreenPosition={window.google.maps.ControlPosition.TOP_RIGHT}
-                                                markerTemplate={(office: Office) => (
-                                                    <MapMarkerProviderOffice office={office} />
+                                                markerTemplate={(office: ProductOffice) => (
+                                                    <MapMarkerProviderOffice
+                                                        office={office}
+                                                        organization={product.organization}
+                                                    />
                                                 )}
                                             />
                                         </div>

@@ -1,18 +1,17 @@
 import Media from './Media';
-import Product from './Product';
+import type BaseTransaction from '../../../props/models/BaseTransaction';
+import type TinyProduct from '../../../props/models/TinyProduct';
 import Reservation from './Reservation';
 import Voucher from './Voucher';
 import Note from './Note';
 
-export default interface Transaction {
+export default interface Transaction extends BaseTransaction {
     id: number;
     uid: string;
     organization_id: number;
     employee_id?: number;
     product_id?: number;
     address: string;
-    state: 'success' | 'pending' | 'canceled';
-    state_locale: string;
     payment_id?: string;
     iban_final: boolean;
     iban_to_name?: string;
@@ -42,7 +41,7 @@ export default interface Transaction {
         organization_name: string;
     };
     notes?: Array<Note>;
-    product?: Product;
+    product?: TinyProduct | null;
     reservation?: Reservation;
     organization: {
         id: number;

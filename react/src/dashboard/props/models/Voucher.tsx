@@ -4,7 +4,9 @@ import Reservation from './Reservation';
 import PhysicalCard from './PhysicalCard';
 import Media from './Media';
 import OrganizationBasic from './OrganizationBasic';
-import Product from './Product';
+import type BaseTransaction from '../../../props/models/BaseTransaction';
+import type BaseVoucher from '../../../props/models/BaseVoucher';
+import type SmallProduct from '../../../props/models/SmallProduct';
 import Reimbursement from './Reimbursement';
 
 export interface VoucherFundPayoutButtons {
@@ -30,13 +32,11 @@ export interface VoucherProduct {
     organization?: OrganizationBasic;
 }
 
-export interface VoucherTransaction {
+export interface VoucherTransaction extends BaseTransaction {
     id: number;
     organization_id: number;
     product_id?: number;
     address: string;
-    state: 'success' | 'pending' | 'canceled';
-    state_locale: string;
     payment_id?: string;
     target?: 'provider' | 'iban' | 'top_up' | 'payout';
     initiator?: 'provider' | 'sponsor' | 'requester';
@@ -52,7 +52,7 @@ export interface VoucherTransaction {
         name: string;
         logo: Media;
     };
-    product?: Product;
+    product: SmallProduct | null;
     fund: {
         id: number;
         name: string;
@@ -69,8 +69,7 @@ export interface VoucherTransaction {
     reimbursement?: Reimbursement;
 }
 
-export default interface Voucher {
-    id: number;
+export default interface Voucher extends BaseVoucher {
     number?: string;
     address?: string;
     fund_id: number;
@@ -97,8 +96,6 @@ export default interface Voucher {
     offices?: Array<Office>;
     query_product?: {
         reservable?: boolean;
-        reservable_count?: number;
-        reservable_enabled?: boolean;
         reservable_expire_at?: string;
         reservable_expire_at_locale?: string;
     };

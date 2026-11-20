@@ -1,7 +1,7 @@
 import Fund from './Fund';
 import Employee from './Employee';
 import File from './File';
-import Transaction from './Transaction';
+import type { VoucherTransaction } from './Voucher';
 
 export default interface Reimbursement {
     id: number;
@@ -20,7 +20,7 @@ export default interface Reimbursement {
     expired: boolean;
     state: 'pending' | 'approved' | 'declined';
     state_locale: string;
-    voucher_transaction: Transaction;
+    voucher_transaction: VoucherTransaction | null;
     deactivated: boolean;
     employee_id: number;
     resolved: boolean;

@@ -324,7 +324,10 @@ export default function VouchersShow() {
                                                 appConfigs={appConfigs}
                                                 mapPointers={voucherCard.offices}
                                                 markerTemplate={(office: Office) => (
-                                                    <MapMarkerProviderOffice office={office} />
+                                                    <MapMarkerProviderOffice
+                                                        office={office}
+                                                        organization={office.organization}
+                                                    />
                                                 )}
                                                 mapGestureHandling={'greedy'}
                                                 mapGestureHandlingMobile={'none'}

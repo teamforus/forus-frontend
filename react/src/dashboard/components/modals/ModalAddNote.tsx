@@ -27,10 +27,10 @@ export default function ModalAddNote({
     const pushApiError = usePushApiError();
     const setProgress = useSetProgress();
 
-    const form = useFormBuilder({ description: '' }, () => {
+    const form = useFormBuilder({ description: '' }, (values) => {
         setProgress(0);
 
-        return storeNote(form.values)
+        return storeNote(values)
             .then((res) => {
                 onCreated(res?.data?.data);
                 modal.close();

@@ -16,8 +16,7 @@ import { ResponseError } from '../../props/ApiResponses';
 import usePushDanger from '../../hooks/usePushDanger';
 import useSetProgress from '../../hooks/useSetProgress';
 import Record from '../../props/models/Record';
-import Product from '../../props/models/Product';
-import useProductService from '../../services/ProductService';
+import useVoucherProducts from '../../hooks/sponsor-products/useVoucherProducts';
 import ModalNotification from './ModalNotification';
 import SelectControlOptionsFund from '../elements/select-control/templates/SelectControlOptionsFund';
 import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
@@ -49,11 +48,9 @@ export default function ModalVoucherCreate({
     const pushApiError = usePushApiError();
 
     const voucherService = useVoucherService();
-    const productService = useProductService();
 
     const [dateMinLimit] = useState(new Date());
     const [expireAsFund, setExpireAsFund] = useState<boolean>(true);
-    const [products, setProducts] = useState<Array<Partial<Product>>>(null);
     const [showRecordFields, setShowRecordFields] = useState<boolean>(false);
     const [showGeneralFields, setShowGeneralFields] = useState<boolean>(true);
 
@@ -241,6 +238,16 @@ export default function ModalVoucherCreate({
 
     const { update: formUpdate } = form;
 
+    const products = useVoucherProducts(organization.id, form.values.type === 'product_vouchers' ? fund?.id : null);
+
+    const productOptions = useMemo(() => {
+        return products?.map((product) => ({
+            id: product.id,
+            price: product.price,
+            name: product.name + ' (' + product.price_locale + ') van (' + product.organization.name + ')',
+        }));
+    }, [products]);
+
     const normalizeValue = useCallback((value?: string) => {
         return value?.trim() || null;
     }, []);
@@ -380,48 +387,6 @@ export default function ModalVoucherCreate({
         ],
     );
 
-    const fetchProducts = useCallback(() => {
-        productService
-            .listAll({
-                fund_id: fund.id,
-                show_all: 1,
-                simplified: 1,
-                per_page: 1000,
-                order_by: 'name',
-                order_dir: 'asc',
-                free: 1,
-                regular: 1,
-                discount_fixed: 1,
-                discount_percentage: 1,
-            })
-            .then((res) => {
-                setProducts(
-                    res.data.data.map((product) => ({
-                        id: product.id,
-                        price: product.price,
-                        name: product.name + ' (' + product.price_locale + ') van (' + product.organization.name + ')',
-                    })),
-                );
-
-                if (res.data.data.length == 0) {
-                    modal.close();
-
-                    openModal((modal) => (
-                        <ModalNotification
-                            modal={modal}
-                            className={'modal-md'}
-                            title={translate('modals.modal_product_voucher_create.errors.title.no_products')}
-                            description={translate('modals.modal_product_voucher_create.errors.no_products')}
-                            buttonCancel={{
-                                text: translate('modals.modal_product_voucher_create.buttons.close'),
-                                onClick: () => modal.close(),
-                            }}
-                        />
-                    ));
-                }
-            });
-    }, [fund.id, modal, openModal, productService, translate]);
-
     useEffect(() => {
         if (assignType.key !== 'bsn') {
             formUpdate({ bsn: null });
@@ -433,10 +398,22 @@ export default function ModalVoucherCreate({
     }, [assignType.key, formUpdate]);
 
     useEffect(() => {
-        if (form.values.type === 'product_vouchers') {
-            fetchProducts();
+        if (products?.length === 0) {
+            modal.close();
+            openModal((modal) => (
+                <ModalNotification
+                    modal={modal}
+                    className={'modal-md'}
+                    title={translate('modals.modal_product_voucher_create.errors.title.no_products')}
+                    description={translate('modals.modal_product_voucher_create.errors.no_products')}
+                    buttonCancel={{
+                        text: translate('modals.modal_product_voucher_create.buttons.close'),
+                        onClick: () => modal.close(),
+                    }}
+                />
+            ));
         }
-    }, [fetchProducts, form.values.type]);
+    }, [products, modal, openModal, translate]);
 
     useEffect(() => {
         if (expireAsFund) {
@@ -559,7 +536,7 @@ export default function ModalVoucherCreate({
                                                 <SelectControl
                                                     value={form.values.product_id}
                                                     propKey={'id'}
-                                                    options={products}
+                                                    options={productOptions}
                                                     placeholder="Selecteer aanbod..."
                                                     allowSearch={true}
                                                     onChange={(product_id: number) => form.update({ product_id })}

@@ -2,7 +2,7 @@ import Transaction from '../../../../../props/models/Transaction';
 import useTransactionService from '../../../../../services/TransactionService';
 import useProductReservationService from '../../../../../services/ProductReservationService';
 import Reservation from '../../../../../props/models/Reservation';
-import React, { Fragment, useCallback, useEffect, useMemo } from 'react';
+import React, { Fragment, useCallback, useMemo } from 'react';
 import classNames from 'classnames';
 import useEnvData from '../../../../../hooks/useEnvData';
 import useActiveOrganization from '../../../../../hooks/useActiveOrganization';
@@ -105,10 +105,6 @@ export default function TransactionDetailsPane({
             showRejectInfoExtraPaid,
         ],
     );
-
-    useEffect(() => {
-        fetchTransaction().then((res) => setTransaction(res.data.data));
-    }, [fetchTransaction, setTransaction]);
 
     if (!transaction) {
         return <LoadingCard />;

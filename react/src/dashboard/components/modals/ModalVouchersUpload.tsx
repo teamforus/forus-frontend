@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useMemo, useRef, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import useSetProgress from '../../hooks/useSetProgress';
 import Fund from '../../props/models/Fund';
@@ -15,8 +15,7 @@ import { dateFormat } from '../../helpers/dates';
 import useAuthIdentity from '../../hooks/useAuthIdentity';
 import { useHelperService } from '../../services/HelperService';
 import SponsorVoucher from '../../props/models/Sponsor/SponsorVoucher';
-import Product from '../../props/models/Product';
-import useProductService from '../../services/ProductService';
+import useVoucherProducts from '../../hooks/sponsor-products/useVoucherProducts';
 import ModalDuplicatesPicker from './ModalDuplicatesPicker';
 import useOpenModal from '../../hooks/useOpenModal';
 import CSVProgressBar from '../elements/csv-progress-bar/CSVProgressBar';
@@ -85,7 +84,6 @@ export default function ModalVouchersUpload({
 
     const fileService = useFileService();
     const helperService = useHelperService();
-    const productService = useProductService();
     const voucherService = useVoucherService();
 
     const [STEP_SET_UP] = useState(1);
@@ -96,7 +94,6 @@ export default function ModalVouchersUpload({
     const [loading, setLoading] = useState<boolean>(false);
     const [changed, setChanged] = useState<boolean>(false);
     const [csvFile, setCsvFile] = useState<File>(null);
-    const [products, setProducts] = useState<Array<Product>>(null);
     const [hideModal, setHideModal] = useState(false);
     const [isDragOver, setIsDragOver] = useState(false);
     const [dataChunkSize] = useState<number>(50);
@@ -125,12 +122,14 @@ export default function ModalVouchersUpload({
     const abortRef = useRef<boolean>(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
+    const products = useVoucherProducts(organization.id, type === 'product_voucher' ? fund?.id : null);
+
     const productsIds = useMemo(() => {
-        return products?.map((product) => product.id);
+        return sortBy(products?.map((product) => product.id));
     }, [products]);
 
     const productsById = useMemo(() => {
-        return products?.reduce((obj: Array<Product>, product) => ({ ...obj, [product.id]: product }), []);
+        return keyBy(products, 'id');
     }, [products]);
 
     const closeModal = useCallback(() => {
@@ -1010,20 +1009,6 @@ export default function ModalVouchersUpload({
         setIsDragOver(isDragOver);
     }, []);
 
-    const fetchProducts = useCallback(() => {
-        if (type != 'product_voucher') {
-            return;
-        }
-
-        helperService
-            .recursiveLeach((page: number) => productService.listAll({ page, fund_id: fund.id, per_page: 1000 }), 4)
-            .then((data: Array<Product>) => setProducts(sortBy(data, 'id')));
-    }, [fund.id, helperService, productService, type]);
-
-    useEffect(() => {
-        fetchProducts();
-    }, [fetchProducts]);
-
     return (
         <div
             className={classNames(
@@ -1291,6 +1276,7 @@ export default function ModalVouchersUpload({
                             <button
                                 className="button button-primary"
                                 onClick={() => setStep(STEP_UPLOAD)}
+                                disabled={type === 'product_voucher' && !products}
                                 data-dusk={'modalFundSelectSubmit'}>
                                 Bevestigen
                             </button>

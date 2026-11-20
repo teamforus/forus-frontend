@@ -34,11 +34,11 @@ export default function ModalBankAccountRequest({
         ];
     }, [translate]);
 
-    const form = useFormBuilder({ account_type: 'all', iban: '' }, () => {
+    const form = useFormBuilder({ account_type: 'all', iban: '' }, (values) => {
         setProgress(0);
         modal.setProcessing(true);
 
-        return storeBankConnection(bank, { iban: form.values.account_type === 'single' ? form.values.iban : null })
+        return storeBankConnection(bank, { iban: values.account_type === 'single' ? values.iban : null })
             .then((res) => {
                 modal.setProcessing(false);
                 onCreated(res?.data?.data);

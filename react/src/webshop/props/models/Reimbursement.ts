@@ -1,6 +1,6 @@
 import Fund from './Fund';
 import File from '../../../dashboard/props/models/File';
-import Transaction from '../../../dashboard/props/models/Transaction';
+import type { VoucherTransaction } from '../../../dashboard/props/models/Voucher';
 
 export default interface Reimbursement {
     id: number;
@@ -22,7 +22,7 @@ export default interface Reimbursement {
     resolved?: boolean;
     fund?: Fund;
     files?: Array<File>;
-    voucher_transaction?: Transaction;
+    voucher_transaction?: VoucherTransaction | null;
     rejected_at?: string;
     rejected_at_locale?: string;
     resolved_at?: string;

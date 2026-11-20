@@ -53,7 +53,7 @@ export default function ProductMedia({ product }: { product: Product }) {
                             {photos.map((media, i) => (
                                 <div
                                     className={classNames('product-overview-media-item', i === activeIndex && 'active')}
-                                    key={media.uid}
+                                    key={i}
                                     role="button"
                                     tabIndex={0}
                                     aria-current={i === activeIndex ? 'true' : undefined}

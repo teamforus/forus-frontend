@@ -157,7 +157,8 @@ export default function FundActivate() {
 
     const codeForm = useFormBuilder({ code: '' }, (values) => {
         if (!values.code) {
-            return codeForm.setErrors({ code: true });
+            codeForm.setIsLocked(false);
+            return codeForm.setErrors({ code: [translate('popup_auth.input.coding')] });
         }
 
         let code = values.code;

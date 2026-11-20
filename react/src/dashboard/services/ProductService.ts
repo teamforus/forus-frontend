@@ -20,13 +20,6 @@ export class ProductService<T = Product> {
     public prefix = '/platform/organizations';
 
     /**
-     * Url prefix
-     *
-     * @param data
-     */
-    public prefixPublic = '/platform';
-
-    /**
      * Fetch list
      */
     public list(
@@ -35,13 +28,6 @@ export class ProductService<T = Product> {
         config: RequestConfig = {},
     ): Promise<ApiResponse<T, { total_archived: number; total_provider: number; total_sponsor: number }>> {
         return this.apiRequest.get(`${this.prefix}/${organizationId}/products`, data, config);
-    }
-
-    /**
-     * Fetch list
-     */
-    public listAll(data: object = {}): Promise<ApiResponse<T>> {
-        return this.apiRequest.get(`${this.prefixPublic}/products`, data);
     }
 
     /**
@@ -104,13 +90,6 @@ export class ProductService<T = Product> {
      */
     public read(organizationId: number, id: number): Promise<ApiResponseSingle<T>> {
         return this.apiRequest.get(`${this.prefix}/${organizationId}/products/${id}`);
-    }
-
-    /**
-     * Read product
-     */
-    public readPublic(organizationId: number, id: number): Promise<ApiResponseSingle<T>> {
-        return this.apiRequest.get(`${this.prefixPublic}/products/${id}`);
     }
 
     /**

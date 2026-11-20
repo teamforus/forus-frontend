@@ -1,7 +1,7 @@
 import BlockProducts from '../../../elements/block-products/BlockProducts';
 import React, { useCallback, useEffect, useState } from 'react';
 import { PaginationData } from '../../../../../dashboard/props/ApiResponses';
-import Product from '../../../../../dashboard/props/models/Product';
+import Product from '../../../../props/models/Product';
 import { useProductService } from '../../../../services/ProductService';
 import useSetProgress from '../../../../../dashboard/hooks/useSetProgress';
 

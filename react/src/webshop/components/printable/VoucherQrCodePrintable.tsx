@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import Voucher from '../../../dashboard/props/models/Voucher';
+import type Voucher from '../../../dashboard/props/models/Voucher';
+import type SponsorVoucher from '../../../dashboard/props/models/Sponsor/SponsorVoucher';
 import { PrintableState } from '../../../dashboard/modules/printable/context/PrintableContext';
 import useTranslate from '../../../dashboard/hooks/useTranslate';
 import QrCode from '../../../dashboard/components/elements/qr-code/QrCode';
@@ -17,7 +18,7 @@ export default function VoucherQrCodePrintable({
     showConditions = false,
 }: {
     fund?: Partial<Fund>;
-    voucher: Voucher;
+    voucher: Voucher | SponsorVoucher;
     assetUrl: (uri: string) => string;
     printable: PrintableState;
     webshopUrl?: string;

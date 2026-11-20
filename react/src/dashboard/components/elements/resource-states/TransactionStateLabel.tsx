@@ -1,8 +1,7 @@
 import React from 'react';
-import Transaction from '../../../props/models/Transaction';
-import PayoutTransaction from '../../../props/models/PayoutTransaction';
+import type BaseTransaction from '../../../../props/models/BaseTransaction';
 import Label from '../label/Label';
 
-export default function TransactionStateLabel({ transaction }: { transaction: Transaction | PayoutTransaction }) {
+export default function TransactionStateLabel({ transaction }: { transaction: BaseTransaction }) {
     return <Label type={transaction.state == 'success' ? 'success' : 'default'}>{transaction.state_locale}</Label>;
 }

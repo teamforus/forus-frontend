@@ -133,7 +133,7 @@ export default function ImplementationsPageForm({
                   blocks_per_row: blocksPerRow[0].value,
                   description_position: descriptionPositions[0]?.value,
               },
-        async (values) => {
+        async (values): Promise<void> => {
             if (cmsBlockUploads.hasPendingUploads) {
                 pushDanger('Even wachten', 'Wacht tot alle afbeeldingen zijn geüpload.');
 

@@ -6,9 +6,9 @@ import PhysicalCard from '../PhysicalCard';
 import Transaction from '../Transaction';
 import Media from '../Media';
 import Employee from '../Employee';
+import type BaseVoucher from '../../../../props/models/BaseVoucher';
 
-export default interface SponsorVoucher {
-    id: number;
+export default interface SponsorVoucher extends BaseVoucher {
     number?: string;
     address?: string;
     fund_id: number;

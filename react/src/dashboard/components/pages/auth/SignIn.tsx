@@ -24,7 +24,7 @@ export default function SignIn() {
     const translate = useTranslate();
     const identityService = useIdentityService();
 
-    const signInForm = useFormBuilder({ email: '' }, async (values) => {
+    const signInForm = useFormBuilder({ email: '' }, async (values): Promise<void> => {
         return identityService
             .make({ email: values.email?.toString() })
             .then(() => signInForm.setState('success'))

@@ -3,7 +3,6 @@ import Product from '../../../../props/models/Product';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import useAssetUrl from '../../../../hooks/useAssetUrl';
 import useShowProductPaymentOptionsInfoModal from '../../../../hooks/useShowProductPaymentOptionsInfoModal';
-import useProductFeatures from '../../../../hooks/useProductFeatures';
 
 export default function ProductProps({
     product,
@@ -15,7 +14,6 @@ export default function ProductProps({
     const translate = useTranslate();
     const assetUrl = useAssetUrl();
     const showProductIconsInfoModal = useShowProductPaymentOptionsInfoModal();
-    const productFeatures = useProductFeatures(product);
 
     const showProductProps = useMemo(() => {
         return Boolean(
@@ -62,7 +60,7 @@ export default function ProductProps({
                         <h2 className="product-prop-item-title">{translate('product.labels.payment_options_title')}</h2>
                         <div className="product-prop-item-description">
                             <div className="product-prop-item-payment-options">
-                                {productFeatures.feature_scanning_enabled && (
+                                {product.feature_scanning_enabled && (
                                     <div
                                         className="product-prop-item-payment-option"
                                         title={translate('product.labels.payment_option_qr')}
@@ -72,7 +70,7 @@ export default function ProductProps({
                                     </div>
                                 )}
 
-                                {productFeatures.feature_reservations_enabled && (
+                                {product.feature_reservations_enabled && (
                                     <div
                                         className="product-prop-item-payment-option"
                                         title={translate('product.labels.payment_option_reservation')}
@@ -82,7 +80,7 @@ export default function ProductProps({
                                     </div>
                                 )}
 
-                                {productFeatures.feature_reservation_extra_payments_enabled && (
+                                {product.feature_reservation_extra_payments_enabled && (
                                     <div
                                         className="product-prop-item-payment-option"
                                         title={translate('product.labels.payment_option_ideal')}

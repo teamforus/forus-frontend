@@ -82,11 +82,14 @@ export default function ModalEmployeeEdit({
         {
             email: employee?.email || '',
             office_id: employee?.office_id || null,
-            roles: employee?.roles.reduce((list, role) => ({ ...list, [role.id]: 1 }), {}) || {},
+            roles: (employee?.roles || []).reduce<Record<string, number>>(
+                (list, role) => ({ ...list, [role.id]: 1 }),
+                {},
+            ),
         },
         (values) => {
-            const roles = values.roles as object;
-            const data = { ...form.values, roles: Object.keys(roles).filter((key) => roles[key]) };
+            const roles = values.roles;
+            const data = { ...values, roles: Object.keys(roles).filter((key) => roles[key]) };
 
             const promise = employee
                 ? employeeService.update(organization.id, employee.id, data)
@@ -106,7 +109,7 @@ export default function ModalEmployeeEdit({
 
     const onChangeRole = useCallback(
         (checked: boolean, role: Role) => {
-            form.update({ roles: { ...(form.values['roles'] as object), [role.id]: checked ? 1 : 0 } });
+            form.update({ roles: { ...form.values.roles, [role.id]: checked ? 1 : 0 } });
         },
         [form],
     );
@@ -202,7 +205,7 @@ export default function ModalEmployeeEdit({
                                                     id={'role_' + role.id}
                                                     title={role.name}
                                                     tooltip={role.description}
-                                                    checked={form.values.roles[role.id] || false}
+                                                    checked={!!form.values.roles[role.id]}
                                                     onChange={(e) => onChangeRole(e.target.checked, role)}
                                                     className={'checkbox-narrow'}>
                                                     <span className="permission-name">

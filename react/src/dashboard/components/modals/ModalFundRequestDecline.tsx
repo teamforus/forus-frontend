@@ -25,11 +25,11 @@ export default function ModalFundRequestDecline({
     const setProgress = useSetProgress();
     const fundRequestService = useFundRequestValidatorService();
 
-    const form = useFormBuilder({ note: '' }, async () => {
+    const form = useFormBuilder({ note: '' }, async (values) => {
         setProgress(0);
 
         return fundRequestService
-            .decline(organization.id, fundRequest.id, form.values)
+            .decline(organization.id, fundRequest.id, values)
             .then(() => {
                 modal.close();
                 onSubmitted();
@@ -38,7 +38,8 @@ export default function ModalFundRequestDecline({
                 form.setIsLocked(false);
 
                 if (err.status === 422) {
-                    return form.setErrors(err.data.errors);
+                    form.setErrors(err.data.errors);
+                    return;
                 }
 
                 modal.close();

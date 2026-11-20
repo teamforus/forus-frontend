@@ -2,7 +2,7 @@ import React, { ReactNode, useMemo } from 'react';
 import classNames from 'classnames';
 import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
-import { ProductPriceType } from '../../../../../dashboard/props/models/Product';
+import { ProductPriceType } from '../../../../../props/models/BaseProduct';
 import useShowProductPriceTypeOptionsInfoModal from '../../../../hooks/useShowProductPriceTypeOptionsInfoModal';
 import ProductsFilterGroup from './base-group/ProductsFilterGroup';
 import useAppConfigs from '../../../../hooks/useAppConfigs';
