@@ -10,6 +10,7 @@ import CmsProductShowcaseBlockNext from './blocks/CmsProductShowcaseBlockNext';
 import CmsProviderSignUpBlockNext from './blocks/CmsProviderSignUpBlockNext';
 import CmsProvidersMapBlockNext from './blocks/CmsProvidersMapBlockNext';
 import CmsTextBlockNext from './blocks/CmsTextBlockNext';
+import CmsDecisionTreeBlockNext from './blocks/CmsDecisionTreeBlockNext';
 
 export default function CmsBlocksNext({ page }: { page: ImplementationPage }) {
     const cmsBlocks = page.cms_blocks || [];
@@ -61,6 +62,10 @@ export default function CmsBlocksNext({ page }: { page: ImplementationPage }) {
 
                 if (block.block_type_key === 'provider_signup') {
                     return <CmsProviderSignUpBlockNext key={key} block={block} />;
+                }
+
+                if (block.block_type_key === 'decision_tree') {
+                    return <CmsDecisionTreeBlockNext key={key} block={block} />;
                 }
 
                 return null;
