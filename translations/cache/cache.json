@@ -452,6 +452,14 @@
         "E-mailadres"
     ],
     [
+        "auth.options.entra.description",
+        "Gebruik uw werkaccount"
+    ],
+    [
+        "auth.options.entra.title",
+        "Inloggen met Microsoft"
+    ],
+    [
         "auth.options.qr.description",
         "Scan een QR-code met de&nbsp;<u>Me app</u>"
     ],
@@ -464,8 +472,16 @@
         "Ik heb de <a tabIndex=\"3\" target=\"_blank\" href=\"{{ link_url }}\">privacyverklaring</a> gelezen"
     ],
     [
+        "auth.push.entra_failed.title",
+        "Inloggen met Microsoft is mislukt. Probeer het opnieuw."
+    ],
+    [
         "auth.push.link_used.title",
         "Deze link is reeds gebruikt of ongeldig."
+    ],
+    [
+        "auth.push.message_with_reference",
+        "{{message}} ({{reference}})"
     ],
     [
         "auth.setup_2fa_title",
@@ -864,6 +880,10 @@
         "Inloggen bij deze organisatie is niet gelukt. Probeert u het later nog een keer. Lukt het nog steeds niet? Log in bij Mijn DigiD. Zo controleert u of uw DigiD goed werkt. Mogelijk is er een storing bij de organisatie waar u inlogt."
     ],
     [
+        "error.messages.digid_managed_requester",
+        "Uw account wordt beheerd via Microsoft Entra. Log in met Microsoft op de webshop van uw organisatie."
+    ],
+    [
         "error.messages.digid_uid_dont_match",
         "Het BSN nummer dat u opgehaald heeft met DigiD verschilt met het BSN-nummer gekoppelt staat aan dit profiel, start een nieuwe aanvraag."
     ],
@@ -878,6 +898,10 @@
     [
         "error.messages.digid_unknown_error",
         "Er is een fout opgetreden in de communicatie met DigiD. Probeert u het later nogmaals. Indien deze fout blijft aanhouden,, kijk dan op de website https://www.digid.nl/ voor de laatste informatie."
+    ],
+    [
+        "error.messages.entra_login_failed",
+        "Inloggen met Microsoft kon niet worden gestart. Probeer het later opnieuw."
     ],
     [
         "error.messages.unknown_error",
@@ -952,6 +976,10 @@
         "Onbekende foutmelding"
     ],
     [
+        "error.titles.digid_managed_requester",
+        "Log in met Microsoft"
+    ],
+    [
         "error.titles.digid_uid_dont_match",
         "Er is al een BSN-nummer bekend bij dit profiel"
     ],
@@ -966,6 +994,10 @@
     [
         "error.titles.digid_unknown_error",
         "Er is een fout opgetreden in de communicatie met DigiD."
+    ],
+    [
+        "error.titles.entra_login_failed",
+        "Inloggen met Microsoft is mislukt"
     ],
     [
         "error.titles.unknown_error",
@@ -2138,6 +2170,10 @@
     [
         "funds.funds.geertruidenberg.title",
         "Activeren"
+    ],
+    [
+        "funds.funds.gelrepas.title",
+        "Uitleg per gemeente"
     ],
     [
         "funds.funds.goereeoverflakkee.title",
@@ -7432,6 +7468,10 @@
         "Contactgegevens aanpassen"
     ],
     [
+        "profile.history.entra",
+        "Microsoft Entra"
+    ],
+    [
         "profile.history.from",
         "van"
     ],
@@ -9162,6 +9202,10 @@
     [
         "top_navbar.items.geertruidenberg.funds",
         "Regelingen"
+    ],
+    [
+        "top_navbar.items.gelrepas.funds",
+        "Uitleg per gemeente"
     ],
     [
         "top_navbar.items.groningen.explanation",

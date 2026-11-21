@@ -11,9 +11,11 @@ import usePushSuccess from '../../../hooks/usePushSuccess';
 import useTranslate from '../../../hooks/useTranslate';
 import usePushApiError from '../../../hooks/usePushApiError';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
+import useAuthIdentity from '../../../hooks/useAuthIdentity';
 
 export default function PreferencesNotifications() {
     const envData = useEnvData();
+    const authIdentity = useAuthIdentity();
 
     const translate = useTranslate();
     const pushSuccess = usePushSuccess();
@@ -151,7 +153,7 @@ export default function PreferencesNotifications() {
                 </div>
             )}
 
-            {!preferences.email && (
+            {!preferences.email && authIdentity?.can_manage_emails && (
                 <div className="card">
                     <div className="card-header">
                         <div className="card-title">{translate('notification_preferences.title_preferences')}</div>

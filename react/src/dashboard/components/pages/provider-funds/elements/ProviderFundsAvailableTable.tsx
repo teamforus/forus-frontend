@@ -209,6 +209,7 @@ export default function ProviderFundsAvailableTable({
                             <button
                                 type={'button'}
                                 className="button button-primary button-sm"
+                                data-dusk="btnFundsAvailableApplySelected"
                                 onClick={() => applyFunds(selectedMeta?.selected)}>
                                 <em className="mdi mdi-send-circle-outline icon-start" />
                                 {translate('provider_funds.buttons.join')}
@@ -318,6 +319,7 @@ export default function ProviderFundsAvailableTable({
                             <TableCheckboxControl
                                 checked={selected.includes(fund.id)}
                                 onClick={(e) => toggle(e, fund)}
+                                dusk={`tableFundsAvailableCheckbox${fund.id}`}
                             />
                         </td>
 
@@ -356,6 +358,7 @@ export default function ProviderFundsAvailableTable({
                                 {fund.state != 'closed' && (
                                     <button
                                         className="button button-primary button-sm"
+                                        data-dusk={`btnFundAvailableApply${fund.id}`}
                                         onClick={() => applyFunds([fund])}>
                                         <em className="mdi mdi-send-circle-outline icon-start" />
                                         {translate('provider_funds.buttons.join')}

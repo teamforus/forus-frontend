@@ -216,4 +216,48 @@
             }
         }
     }
+
+    @media screen and (max-width: 767px) {
+        .banner-editor-controls {
+            flex-wrap: wrap;
+            column-gap: 15px;
+            row-gap: 0;
+            padding: 0 16px;
+            position: relative;
+
+            .banner-editor-control {
+                position: static;
+                padding: 6px 0;
+
+                .banner-editor-control-label {
+                    white-space: nowrap;
+                }
+
+                .banner-editor-control-value,
+                .banner-editor-control-color {
+                    position: static;
+                }
+
+                .banner-editor-dropdown {
+                    left: 16px;
+                    right: 16px;
+                    width: auto;
+
+                    .banner-editor-dropdown-triangle {
+                        display: none;
+                    }
+
+                    .banner-editor-dropdown-body {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .banner-editor-controls-buttons {
+                flex: 1 1 100%;
+                justify-content: flex-start;
+                padding: 0 0 12px;
+            }
+        }
+    }
 }

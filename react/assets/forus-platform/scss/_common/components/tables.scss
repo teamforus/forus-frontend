@@ -409,6 +409,7 @@
                         .mdi {
                             display: flex;
                             width: 24px;
+                            height: 21px;
                         }
                     }
 
@@ -591,7 +592,7 @@
             }
 
             &.tr-narrow {
-                td {
+                > td:not(.td-paddless) {
                     padding-top: 5px;
                     padding-bottom: 5px;
                 }
@@ -599,8 +600,8 @@
 
             &.tr-collapsed {
                 td {
-                    padding-top: 0px;
-                    padding-bottom: 0px;
+                    padding-top: 0;
+                    padding-bottom: 0;
                 }
             }
 
@@ -666,4 +667,35 @@
     @media screen and (max-width: 1000px) {
         overflow: auto;
     }
+
+    @media screen and (max-width: 767px) {
+        table.table.table-summary {
+            display: block;
+            table-layout: auto;
+
+            & > tbody {
+                display: block;
+
+                & > tr {
+                    display: grid;
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+                    & > td {
+                        display: block;
+                        min-width: 0;
+                        border-bottom: none;
+                        white-space: normal;
+                    }
+
+                    & > td,
+                    & > td:first-child,
+                    & > td:last-child {
+                        padding-left: 16px;
+                        padding-right: 8px;
+                    }
+                }
+            }
+        }
+    }
 }
+

@@ -9,6 +9,7 @@ export default function Card({
     filters,
     children,
     footer,
+    footerType = 'default',
     footerHidden = false,
     dusk = null,
     className = '',
@@ -19,6 +20,7 @@ export default function Card({
     filters?: ReactNode | ReactNode[];
     children: ReactNode | ReactNode[];
     footer?: ReactNode | ReactNode[];
+    footerType?: 'default' | 'primary';
     footerHidden?: boolean;
     dusk?: string;
     className?: string;
@@ -44,7 +46,9 @@ export default function Card({
             <div className="card-body">{section ? <div className={'card-section'}>{children}</div> : children}</div>
 
             {footer && (
-                <div className="card-footer" hidden={footerHidden}>
+                <div
+                    className={classNames('card-footer', footerType === 'primary' && 'card-footer-primary')}
+                    hidden={footerHidden}>
                     {footer}
                 </div>
             )}

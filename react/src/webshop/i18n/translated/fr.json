@@ -148,12 +148,20 @@
             "qr": {
                 "description": "Scanner un code QR avec l'application <u>Me</u>",
                 "title": "Mon application"
+            },
+            "entra": {
+                "title": "Se connecter avec Microsoft",
+                "description": "Utilisez votre compte professionnel"
             }
         },
         "push": {
             "link_used": {
                 "title": "Ce lien a déjà été utilisé ou n'est pas valide."
-            }
+            },
+            "entra_failed": {
+                "title": "La connexion avec Microsoft a échoué. Veuillez réessayer."
+            },
+            "message_with_reference": "{{message}} ({{reference}})"
         },
         "setup_2fa_title": "Mise en place de l'authentification à deux facteurs",
         "2fa_title": "Authentification à deux facteurs",
@@ -299,7 +307,9 @@
             "digid_uid_not_found": "Ce numéro BSN n'est pas connu dans le système, commencez votre application pour créer un compte.",
             "digid_uid_used": "Une autre adresse e-mail a été enregistrée pour ce numéro BSN. Pour vous connecter à votre compte, vous devez utiliser l'adresse électronique que vous avez enregistrée.<br/><br/> Vous ne vous souvenez plus de cette adresse e-mail ou vous en avez une nouvelle ? <br/> Restaurez votre compte en cliquant <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">ici</a> ou sur le bouton ci-dessous.</br>",
             "digid_unknown_error": "Une erreur s'est produite dans la communication avec DigiD. Veuillez réessayer plus tard. Si cette erreur persiste, veuillez consulter le site web https://www.digid.nl/ pour obtenir les informations les plus récentes.",
-            "unknown_error": "Une erreur s'est produite dans la communication avec DigiD. Veuillez réessayer plus tard. Si cette erreur persiste, veuillez consulter le site web https://www.digid.nl/ pour obtenir les informations les plus récentes."
+            "unknown_error": "Une erreur s'est produite dans la communication avec DigiD. Veuillez réessayer plus tard. Si cette erreur persiste, veuillez consulter le site web https://www.digid.nl/ pour obtenir les informations les plus récentes.",
+            "entra_login_failed": "La connexion via Microsoft n'a pas pu être établie. Veuillez réessayer plus tard.",
+            "digid_managed_requester": "Votre compte est géré via Microsoft Entra. Connectez-vous avec votre compte Microsoft à la boutique en ligne de votre organisation."
         },
         "start_button": "Restaurer le compte",
         "titles": {
@@ -323,7 +333,9 @@
             "digid_uid_not_found": "Ce numéro BSN est inconnu dans le système",
             "digid_uid_used": "Numéro BSN déjà utilisé.",
             "digid_unknown_error": "Une erreur s'est produite dans la communication avec DigiD.",
-            "unknown_error": "Message d'erreur inconnu"
+            "unknown_error": "Message d'erreur inconnu",
+            "entra_login_failed": "La connexion avec Microsoft a échoué",
+            "digid_managed_requester": "Se connecter avec Microsoft"
         }
     },
     "expired_identity": {
@@ -834,6 +846,9 @@
             },
             "potjeswijzer": {
                 "title": "Petits pots"
+            },
+            "gelrepas": {
+                "title": "Explications par commune"
             }
         },
         "header": {
@@ -2568,7 +2583,8 @@
             "from": "de",
             "modified_by": "Modifié par",
             "to": "à",
-            "you": "vous"
+            "you": "vous",
+            "entra": "Microsoft Entra"
         },
         "personal": {
             "bsn": "BSN",
@@ -3329,6 +3345,9 @@
             },
             "westerkwartier": {
                 "funds": "Petits pots"
+            },
+            "gelrepas": {
+                "funds": "Explications par commune"
             }
         },
         "user_menu": {

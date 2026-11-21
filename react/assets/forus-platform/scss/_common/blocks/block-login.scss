@@ -69,6 +69,46 @@
                 padding-right: 50px;
             }
 
+            .block-login-microsoft-button {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 12px;
+                max-width: 100%;
+                padding: 15px 20px;
+                border: 1px solid #8c8c8c;
+                border-radius: 8px;
+                background: #fff;
+                color: #222530;
+                font: 600 16px/21px var(--base-font);
+                cursor: pointer;
+                transition:
+                    border-color 0.3s,
+                    background-color 0.3s;
+
+                .block-login-microsoft-button-icon {
+                    display: block;
+                    flex-shrink: 0;
+                    width: 21px;
+                    height: 21px;
+                }
+
+                &:hover:not(:disabled) {
+                    border-color: #222530;
+                    background: #f7f9fc;
+                }
+
+                &:focus-visible {
+                    outline: 2px solid var(--color-primary);
+                    outline-offset: 3px;
+                }
+
+                &:disabled {
+                    opacity: 0.5;
+                    cursor: default;
+                }
+            }
+
             &:last-child {
                 margin-bottom: 0;
             }

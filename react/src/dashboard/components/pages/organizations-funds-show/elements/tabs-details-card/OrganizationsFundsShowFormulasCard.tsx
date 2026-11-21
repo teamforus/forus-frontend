@@ -4,6 +4,7 @@ import TableDateTime from '../../../../elements/tables/elements/TableDateTime';
 import { useFundService } from '../../../../../services/FundService';
 import TableEmptyValue from '../../../../elements/table-empty-value/TableEmptyValue';
 import LoaderTableCard from '../../../../elements/loader-table-card/LoaderTableCard';
+import FormulaConditions from '../../../../elements/formula-conditions/FormulaConditions';
 
 export default function OrganizationsFundsShowFormulasCard({ fund }: { fund: Fund }) {
     const fundService = useFundService();
@@ -18,7 +19,14 @@ export default function OrganizationsFundsShowFormulasCard({ fund }: { fund: Fun
                     <td>{formula.id}</td>
                     <td>{formula.type}</td>
                     <td>{formula.amount_locale}</td>
-                    <td>{formula.record_type_name || '-'}</td>
+                    <td>
+                        {formula.conditions?.length ? (
+                            <FormulaConditions conditions={formula.conditions} />
+                        ) : (
+                            <TableEmptyValue />
+                        )}
+                    </td>
+                    <td>{formula.record_type_name || <TableEmptyValue />}</td>
                     <td>
                         <TableDateTime value={formula.created_at_locale} />
                     </td>

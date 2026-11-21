@@ -14,7 +14,10 @@ export default function ModalNotification({
     buttonClose,
     buttonCancel,
     buttonSubmit,
+    submitDisabled = false,
     buttons,
+    children,
+    dusk = 'modalNotification',
 }: {
     modal: ModalState;
     icon?: string;
@@ -24,7 +27,10 @@ export default function ModalNotification({
     buttonClose?: ModalButton;
     buttonCancel?: ModalButton;
     buttonSubmit?: ModalButton;
+    submitDisabled?: boolean;
     buttons?: Array<ModalButton>;
+    children?: ReactNode;
+    dusk?: string;
 }) {
     const assetUrl = useAssetUrl();
     const getIcon = useCallback((icon: string) => assetUrl('./assets/img/modal/' + icon + '.png'), [assetUrl]);
@@ -34,11 +40,18 @@ export default function ModalNotification({
             size={'lg'}
             modal={modal}
             className={classNames('modal-notification', className)}
-            dusk="modalNotification"
+            dusk={dusk}
+            processing={Boolean(modal.processing)}
             footer={
                 <Fragment>
                     {buttonClose && (
-                        <ModalButton button={buttonClose} disabled={modal.processing} text="Sluiten" type="default" />
+                        <ModalButton
+                            button={buttonClose}
+                            disabled={modal.processing}
+                            text="Sluiten"
+                            type="default"
+                            dusk="closeBtn"
+                        />
                     )}
 
                     {buttonCancel && (
@@ -47,13 +60,14 @@ export default function ModalNotification({
                             disabled={modal.processing}
                             text="Annuleren"
                             type="default"
+                            dusk="cancelBtn"
                         />
                     )}
 
                     {buttonSubmit && (
                         <ModalButton
                             button={buttonSubmit}
-                            disabled={modal.processing}
+                            disabled={modal.processing || submitDisabled}
                             text="Bevestigen"
                             type="primary"
                             dusk="submitBtn"
@@ -65,12 +79,6 @@ export default function ModalNotification({
                     ))}
                 </Fragment>
             }>
-            {modal?.processing && (
-                <div className={'modal-processing'}>
-                    <em className="mdi mdi-loading mdi-spin" />
-                </div>
-            )}
-
             {icon && (
                 <div className="modal-icon-rounded">
                     <img src={getIcon(icon)} alt="Icon" />
@@ -86,6 +94,8 @@ export default function ModalNotification({
                     ))}
                 </div>
             )}
+
+            {children}
         </Modal>
     );
 }

@@ -27,12 +27,15 @@ export default {
     options: {
         email: 'E-mailadres',
         digid: 'DigiD',
+        entra: 'Microsoft Entra',
         qr: 'Me-app',
     },
     tooltips: {
         email: 'Toont de optie om een inloglink per e-mail te ontvangen.',
         digid: 'Toont DigiD als inlogoptie wanneer DigiD beschikbaar is.',
         digid_disabled: 'DigiD is niet beschikbaar voor deze webshop.',
+        entra: 'Toont Microsoft Entra als inlogoptie wanneer de koppeling beschikbaar is.',
+        entra_disabled: 'Microsoft Entra is niet beschikbaar voor deze webshop.',
         qr: 'Toont de optie om in te loggen met de Me-app.',
     },
     placeholders: {

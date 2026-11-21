@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
-import FundRequest, { FundRequestFormula } from '../props/models/FundRequest';
+import FundRequest, { FundRequestFormula, FundRequestProfileCopyPreview } from '../props/models/FundRequest';
 import ApiResponse, { ApiResponseSingle, RequestConfig, ResponseSimple } from '../props/ApiResponses';
 import Note from '../props/models/Note';
 import FundRequestRecord from '../props/models/FundRequestRecord';
@@ -13,6 +13,13 @@ export type FundRequestTotals = {
     assigned: number;
     resolved: number;
     expired: number;
+};
+
+export type FundRequestApprovalPayload = {
+    amount?: string | null;
+    fund_amount_preset_id?: number | null;
+    note?: string | null;
+    copy_to_profile?: boolean;
 };
 
 export class FundRequestValidatorService<T = FundRequest> {
@@ -66,12 +73,19 @@ export class FundRequestValidatorService<T = FundRequest> {
         return this.apiRequest.patch(`${this.prefix}/${organizationId}/fund-requests/${id}/resign`);
     }
 
-    public approve(organizationId: number, id: number, data: object = {}) {
+    public approve(organizationId: number, id: number, data: FundRequestApprovalPayload = {}) {
         return this.apiRequest.patch(`${this.prefix}/${organizationId}/fund-requests/${id}/approve`, data);
     }
 
     public formula(organizationId: number, id: number, data: object = {}): Promise<ResponseSimple<FundRequestFormula>> {
         return this.apiRequest.get(`${this.prefix}/${organizationId}/fund-requests/${id}/formula`, data);
+    }
+
+    public profileCopyPreview(
+        organizationId: number,
+        id: number,
+    ): Promise<ResponseSimple<FundRequestProfileCopyPreview>> {
+        return this.apiRequest.get(`${this.prefix}/${organizationId}/fund-requests/${id}/profile-copy-preview`);
     }
 
     public decline(organizationId: number, id: number, data: object = {}) {

@@ -309,6 +309,9 @@
             },
             "westerkwartier": {
                 "funds": "Jars"
+            },
+            "gelrepas": {
+                "funds": "Explanation by municipality"
             }
         },
         "user_menu": {
@@ -369,12 +372,20 @@
             "qr": {
                 "description": "Scan a QR code with the <u>Me</u> app",
                 "title": "Me app"
+            },
+            "entra": {
+                "title": "Sign in with Microsoft",
+                "description": "Use your work account"
             }
         },
         "push": {
             "link_used": {
                 "title": "This link has already been used or is invalid."
-            }
+            },
+            "entra_failed": {
+                "title": "Signing in with Microsoft failed. Please try again."
+            },
+            "message_with_reference": "{{message}} ({{reference}})"
         },
         "setup_2fa_title": "Setting up two-factor authentication",
         "2fa_title": "Two-factor authentication",
@@ -1023,6 +1034,9 @@
             },
             "potjeswijzer": {
                 "title": "Jars"
+            },
+            "gelrepas": {
+                "title": "Explanation by municipality"
             }
         },
         "header": {
@@ -2071,7 +2085,9 @@
             "digid_uid_not_found": "This BSN number is unknown in the system, please start your application to create an account.",
             "digid_uid_used": "A different email address is registered for this BSN number. To login to your account, you must use the email address registered with us.<br/><br/> Can't remember which email address this is or do you have a new one? <br/> Then restore your account by clicking <a href=\"{{ url_webshop_start_logout }}\" class=\"sign_up-pane-link\">here</a> or the button below.</br>",
             "digid_unknown_error": "An error occurred in communication with DigiD. Please try again later. If this error persists, please check the website https://www.digid.nl/ for the latest information.",
-            "unknown_error": "An error occurred in communication with DigiD. Please try again later. If this error persists, please check the website https://www.digid.nl/ for the latest information."
+            "unknown_error": "An error occurred in communication with DigiD. Please try again later. If this error persists, please check the website https://www.digid.nl/ for the latest information.",
+            "entra_login_failed": "Signing in with Microsoft could not be initiated. Please try again later.",
+            "digid_managed_requester": "Your account is managed through Microsoft Entra. Sign in with Microsoft to your organization's online store."
         },
         "start_button": "Restore account",
         "titles": {
@@ -2095,7 +2111,9 @@
             "digid_uid_not_found": "This BSN number is unknown in the system",
             "digid_uid_used": "BSN number already used.",
             "digid_unknown_error": "An error occurred in communication with DigiD.",
-            "unknown_error": "Unknown error message"
+            "unknown_error": "Unknown error message",
+            "entra_login_failed": "Signing in with Microsoft failed",
+            "digid_managed_requester": "Sign in with Microsoft"
         }
     },
     "payouts": {
@@ -2379,7 +2397,8 @@
             "from": "from",
             "modified_by": "Modified by",
             "to": "to",
-            "you": "you"
+            "you": "you",
+            "entra": "Microsoft Entra"
         },
         "personal": {
             "bsn": "BSN",

@@ -45,6 +45,10 @@ export default {
     },
     page_title: 'Platform Forus',
     page_state_titles: {
+        'voucher-passes-dcp': 'Prepare print orders',
+        'dcp-orders': 'Print orders',
+        'dcp-order': 'Print order details',
+        'dcp-order-bulk': 'Print bulk details',
         home: 'Forus platform home',
         organizations: 'Organisaties',
         'organizations-create': 'Organisatie aanmaken',
@@ -1464,6 +1468,7 @@ export default {
     organization_employees: {
         labels: {
             email: 'E-mailadres',
+            identity_provider_management: 'Accountbeheer',
             branch_name_id: 'Vestigingnaam & ID',
             branch_number: 'Vestigingsnummer',
             roles: 'Rollen',
@@ -1475,12 +1480,23 @@ export default {
         },
         tooltips: {
             email: 'Het e-mailadres van de medewerker.',
+            identity_provider_management:
+                'Geeft aan of het account via Microsoft Entra wordt beheerd en wat de provisioningstatus is.',
             branch_name_id:
                 'Een naam en een unieke ID die door de organisatie aan een vestiging wordt toegewezen voor interne administratieve doeleinden.',
             branch_number: 'Uniek 12-cijferig nummer toegekend door de KvK. Verschilt van het KVK-nummer.',
             auth_2fa: 'De status of tweefactorauthenticatie is ingesteld (Ja/Nee).',
             created_at: 'Aangemaakt op',
             last_activity: 'Laatste handeling',
+        },
+        management: {
+            entra: 'Microsoft Entra',
+            manual: 'Handmatig',
+            active: 'Actief',
+            disabled: 'Uitgeschakeld',
+            deleted: 'Verwijderd uit provisioning',
+            edit_info:
+                'Het e-mailadres en de accountstatus worden beheerd via Microsoft Entra. Rollen en een eventuele vestiging kunt u hier aanpassen. Verwijderen gebeurt via provisioning.',
         },
         buttons: {
             adjust: 'Aanpassen',
@@ -1721,7 +1737,36 @@ export default {
     },
 
     validation_request_details: {
+        profile_copy_preview: {
+            title: 'Profile changes',
+            loading: 'Loading profile changes',
+            estimate:
+                'Estimated changes. Profile values are checked again on approval. ' +
+                'Blank application fields leave existing profile values unchanged.',
+            new_profile: 'A profile will be created on approval.',
+            disabled: 'Application data will not be copied to the profile.',
+            empty: 'No supported application fields are available to copy.',
+            columns: {
+                field: 'Field',
+                current: 'Current profile value',
+                value: 'Application value',
+                action: 'Action',
+            },
+            tooltips: {
+                field: 'The profile field that may receive application data.',
+                current: 'The saved profile value used to determine the change.',
+                value: 'The application value prepared for the profile.',
+                action: 'The expected change when the application is approved.',
+            },
+            actions: {
+                add: 'Add',
+                update: 'Update',
+                unchanged: 'Unchanged',
+                not_copied: 'Not copied',
+            },
+        },
         labels: {
+            copy_to_profile: 'Copy application data to the profile',
             clarification_requests: 'Aanvullingsverzoeken ({{ count }})',
             history: 'Geschiedenis ({{ count }})',
             files: 'Bestanden ({{ count }})',

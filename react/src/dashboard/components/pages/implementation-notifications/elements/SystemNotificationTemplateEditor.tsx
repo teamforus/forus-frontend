@@ -449,6 +449,16 @@ export default function SystemNotificationTemplateEditor({
                                     }}
                                 />
                             </div>
+
+                            {!compose && notification.editable && (
+                                <button
+                                    className="button button-primary button-sm button-flat card-header-actions-mobile"
+                                    type="button"
+                                    onClick={() => editTemplate()}>
+                                    <em className="mdi mdi-pencil-outline icon-start" />
+                                    Bewerken
+                                </button>
+                            )}
                         </div>
                     )}
 
@@ -481,7 +491,7 @@ export default function SystemNotificationTemplateEditor({
                 )}>
                 <form onSubmit={form.submit}>
                     {!compose && notification.editable && !edit && (
-                        <div className="card-section-actions">
+                        <div className="card-section-actions card-section-actions-desktop">
                             <button
                                 className="button button-primary button-sm button-flat"
                                 type="button"
