@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import FundProvider from '../../props/models/FundProvider';
 import Organization from '../../props/models/Organization';
@@ -17,17 +17,6 @@ import Label from '../elements/label/Label';
 import { DashboardRoutes } from '../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../modules/filter_next/useFilterNext';
 import useLatestRequestWithProgress from '../../hooks/useLatestRequestWithProgress';
-
-type LocalProduct = Product & {
-    offer: {
-        allowed?: boolean;
-        amount?: string;
-        user_amount?: string;
-        user_limit?: number;
-        limit_total?: number;
-        limit_total_unlimited?: boolean;
-    };
-};
 
 export default function ModalFundOffers({
     modal,
@@ -55,35 +44,9 @@ export default function ModalFundOffers({
         per_page: paginatorService.getPerPage(paginatorKey),
     });
 
-    const mapOffersAllowedProperty = useCallback(
-        (offers: PaginationData<Product>) => {
-            offers.data.forEach((product: LocalProduct) => {
-                product.offer = {};
-                product.offer.allowed = enabledProducts.indexOf(product.id) !== -1;
-
-                const fund = product.funds.find((fund) => fund.id === providerFund.fund_id);
-
-                if (fund) {
-                    const isSubsidy = fund.payment_type === 'subsidy';
-
-                    product.offer.amount = isSubsidy ? fund.amount_locale : product.price_locale;
-                    product.offer.user_amount = isSubsidy ? fund.price_locale : null;
-                    product.offer.user_limit = fund.limit_per_identity;
-                    product.offer.limit_total = fund.limit_total;
-                    product.offer.limit_total_unlimited = fund.limit_total_unlimited;
-                } else {
-                    product.offer.amount = product.price_locale;
-                    product.offer.user_amount = null;
-                    product.offer.user_limit = null;
-                    product.offer.limit_total = null;
-                    product.offer.limit_total_unlimited = null;
-                }
-            });
-
-            return offers;
-        },
-        [enabledProducts, providerFund.fund_id],
-    );
+    const offerRows = useMemo(() => {
+        return offers?.data.map((product) => ({ product, allowed: enabledProducts.includes(product.id) })) ?? [];
+    }, [offers, enabledProducts]);
 
     useEffect(() => {
         providerFundService.readFundProvider(organization.id, providerFund.id).then((res) => {
@@ -93,9 +56,9 @@ export default function ModalFundOffers({
 
     useEffect(() => {
         runLatestRequest((config) => productService.list(organization.id, filterValuesActive, config), {
-            onSuccess: (res) => setOffers(mapOffersAllowedProperty(res.data)),
+            onSuccess: (res) => setOffers(res.data),
         });
-    }, [filterValuesActive, mapOffersAllowedProperty, organization.id, productService, runLatestRequest]);
+    }, [filterValuesActive, organization.id, productService, runLatestRequest]);
 
     return (
         <div
@@ -130,7 +93,7 @@ export default function ModalFundOffers({
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {offers?.data?.map((product: LocalProduct) => (
+                                        {offerRows.map(({ product, allowed }) => (
                                             <tr key={product.id}>
                                                 <td title={product.name}>
                                                     <StateNavLink
@@ -147,38 +110,16 @@ export default function ModalFundOffers({
                                                 <td>
                                                     <div className="offer-price">{product.price_locale}</div>
                                                 </td>
+                                                <td>{allowed ? product.price_locale : <TableEmptyValue />}</td>
+                                                <td>{allowed ? null : <TableEmptyValue />}</td>
                                                 <td>
-                                                    {product.offer.allowed ? product.offer.amount : <TableEmptyValue />}
+                                                    <TableEmptyValue />
                                                 </td>
-                                                <td>
-                                                    {product.offer.allowed ? (
-                                                        product.offer.user_amount
-                                                    ) : (
-                                                        <TableEmptyValue />
-                                                    )}
-                                                </td>
-                                                <td>
-                                                    {product.offer?.allowed && product.offer?.user_limit ? (
-                                                        product.offer?.user_limit
-                                                    ) : (
-                                                        <TableEmptyValue />
-                                                    )}
-                                                </td>
-                                                <td>
-                                                    {product.offer?.allowed ? (
-                                                        product.offer?.limit_total_unlimited ? (
-                                                            'Onbeperkt'
-                                                        ) : (
-                                                            product.offer?.limit_total
-                                                        )
-                                                    ) : (
-                                                        <TableEmptyValue />
-                                                    )}
-                                                </td>
+                                                <td>{allowed ? null : <TableEmptyValue />}</td>
 
                                                 <td className="text-right">
-                                                    <Label type={product.offer?.allowed ? 'success' : 'default'}>
-                                                        {product.offer?.allowed
+                                                    <Label type={allowed ? 'success' : 'default'}>
+                                                        {allowed
                                                             ? translate(`modals.modal_funds_offers.labels.available`)
                                                             : translate(`modals.modal_funds_offers.labels.rejected`)}
                                                     </Label>

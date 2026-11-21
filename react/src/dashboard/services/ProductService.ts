@@ -1,16 +1,16 @@
 import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
-import Product from '../props/models/Product';
+import ProviderProduct from '../props/models/Product';
 import ProductFund from '../props/models/ProductFund';
 import SponsorProduct from '../props/models/Sponsor/SponsorProduct';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 
-export class ProductService<T = Product> {
+export class ProductService {
     /**
      * @param apiRequest
      */
-    public constructor(protected apiRequest: ApiRequestService<T> = new ApiRequestService<T>()) {}
+    public constructor(protected apiRequest: ApiRequestService = new ApiRequestService()) {}
 
     /**
      * Url prefix
@@ -26,7 +26,9 @@ export class ProductService<T = Product> {
         organizationId: number,
         data: object = {},
         config: RequestConfig = {},
-    ): Promise<ApiResponse<T, { total_archived: number; total_provider: number; total_sponsor: number }>> {
+    ): Promise<
+        ApiResponse<ProviderProduct, { total_archived: number; total_provider: number; total_sponsor: number }>
+    > {
         return this.apiRequest.get(`${this.prefix}/${organizationId}/products`, data, config);
     }
 
@@ -67,28 +69,32 @@ export class ProductService<T = Product> {
     /**
      * Store product
      */
-    public store(organizationId: number, data: object = {}): Promise<ApiResponseSingle<T>> {
+    public store(organizationId: number, data: object = {}): Promise<ApiResponseSingle<ProviderProduct>> {
         return this.apiRequest.post(`${this.prefix}/${organizationId}/products`, data);
     }
 
     /**
      * Update product
      */
-    public update(organizationId: number, id: number, data: object = {}): Promise<ApiResponseSingle<T>> {
+    public update(organizationId: number, id: number, data: object = {}): Promise<ApiResponseSingle<ProviderProduct>> {
         return this.apiRequest.patch(`${this.prefix}/${organizationId}/products/${id}`, data);
     }
 
     /**
      * Update product fund exclusions
      */
-    public updateExclusions(organizationId: number, id: number, data: object = {}): Promise<ApiResponseSingle<T>> {
+    public updateExclusions(
+        organizationId: number,
+        id: number,
+        data: object = {},
+    ): Promise<ApiResponseSingle<ProviderProduct>> {
         return this.apiRequest.patch(`${this.prefix}/${organizationId}/products/${id}/exclusions`, data);
     }
 
     /**
      * Read product
      */
-    public read(organizationId: number, id: number): Promise<ApiResponseSingle<T>> {
+    public read(organizationId: number, id: number): Promise<ApiResponseSingle<ProviderProduct>> {
         return this.apiRequest.get(`${this.prefix}/${organizationId}/products/${id}`);
     }
 
@@ -99,7 +105,7 @@ export class ProductService<T = Product> {
         return this.apiRequest.delete(`${this.prefix}/${organizationId}/products/${id}`);
     }
 
-    public apiResourceToForm(apiResource: Product | SponsorProduct) {
+    public apiResourceToForm(apiResource: ProviderProduct | SponsorProduct) {
         return {
             name: apiResource.name,
             description: apiResource.description,
@@ -172,7 +178,7 @@ export class ProductService<T = Product> {
         }));
     }
 
-    public getFundsColumns(product: Product): Array<ConfigurableTableColumn> {
+    public getFundsColumns(product: ProviderProduct): Array<ConfigurableTableColumn> {
         const list = ['fund', 'approved', !product?.sponsor_organization ? 'fund_exclusion' : null, 'chat'].filter(
             (item) => item,
         );

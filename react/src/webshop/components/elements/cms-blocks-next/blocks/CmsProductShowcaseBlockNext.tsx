@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { PaginationData } from '../../../../../dashboard/props/ApiResponses';
 import Product from '../../../../props/models/Product';
 import ProductsList from '../../lists/products-list/ProductsList';
 import Markdown from '../../markdown/Markdown';
@@ -29,14 +28,14 @@ export default function CmsProductShowcaseBlockNext({ block }: { block: Implemen
     const contentAlignment = stringValue(values.content_alignment) as 'left' | 'center' | 'right' | undefined;
     const resolvedContentAlignment = contentAlignments.includes(contentAlignment) ? contentAlignment : 'left';
 
-    const [products, setProducts] = useState<PaginationData<Product>>(null);
+    const [products, setProducts] = useState<Product[]>(null);
 
     const fetchProducts = useCallback(() => {
         setProgress(0);
 
         productService
             .sample(productCount)
-            .then((res) => setProducts(res.data))
+            .then((res) => setProducts(res.data.data))
             .catch((e) => console.error(e))
             .finally(() => setProgress(100));
     }, [productCount, productService, setProgress]);
@@ -45,7 +44,7 @@ export default function CmsProductShowcaseBlockNext({ block }: { block: Implemen
         fetchProducts();
     }, [fetchProducts]);
 
-    if (!buttonText || !products?.data.length) {
+    if (!buttonText || !products?.length) {
         return null;
     }
 
@@ -61,8 +60,8 @@ export default function CmsProductShowcaseBlockNext({ block }: { block: Implemen
 
             <ProductsList
                 display="grid"
-                products={products.data}
-                setProducts={(list) => setProducts({ ...products, data: list })}
+                products={products}
+                setProducts={setProducts}
                 headerTag={title ? 'h3' : 'h2'}
             />
 

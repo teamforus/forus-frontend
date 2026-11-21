@@ -30,7 +30,7 @@ export default function VoucherProducts({ voucher }: { voucher: Voucher }) {
             setProgress(0);
 
             productService
-                .list({ sample: 1, per_page: 6, fund_id: voucher.fund_id })
+                .list({ sample: 1, per_page: 6, fund_id: voucher.fund.id })
                 .then((res) => setProducts(res.data))
                 .finally(() => setProgress(100));
         },
@@ -38,7 +38,7 @@ export default function VoucherProducts({ voucher }: { voucher: Voucher }) {
     );
 
     useEffect(() => {
-        if (voucher && !voucher.product && !voucher?.fund?.external) {
+        if (voucher && !voucher.product && !voucher.external) {
             fetchProducts(voucher);
         }
     }, [fetchProducts, voucher]);
@@ -47,5 +47,5 @@ export default function VoucherProducts({ voucher }: { voucher: Voucher }) {
         return;
     }
 
-    return <BlockProducts products={products.data} filters={{ fund_ids: [voucher.fund_id] }} />;
+    return <BlockProducts products={products.data} filters={{ fund_ids: [voucher.fund.id] }} />;
 }

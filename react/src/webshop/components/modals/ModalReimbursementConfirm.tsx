@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react';
 import classNames from 'classnames';
 import { ModalState } from '../../../dashboard/modules/modals/context/ModalContext';
-import Reimbursement from '../../props/models/Reimbursement';
-import ReimbursementDetailsCard from '../pages/reimbursements/elements/ReimbursementDetailsCard';
+import ReimbursementDetailsCard, {
+    ReimbursementDetails,
+} from '../pages/reimbursements/elements/ReimbursementDetailsCard';
 import { clickOnKeyEnter } from '../../../dashboard/helpers/wcag';
 import useTranslate from '../../../dashboard/hooks/useTranslate';
 
@@ -13,7 +14,7 @@ export default function ModalReimbursementConfirm({
 }: {
     modal: ModalState;
     onConfirm: () => void;
-    reimbursement: Partial<Reimbursement>;
+    reimbursement: ReimbursementDetails;
 }) {
     const translate = useTranslate();
 

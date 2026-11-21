@@ -1,15 +1,15 @@
-import ApiResponse, { ApiResponseSingle } from '../../dashboard/props/ApiResponses';
+import ApiResponse, { ApiResponseSingle, RequestConfig, ResponseSimple } from '../../dashboard/props/ApiResponses';
 import { useState } from 'react';
 import ApiRequestService from '../../dashboard/services/ApiRequestService';
-import Product from '../props/models/Product';
+import RequesterProduct from '../props/models/Product';
+import type BasicProduct from '../../props/models/BasicProduct';
 import Voucher from '../../dashboard/props/models/Voucher';
-import { getUnixTime, parse } from 'date-fns';
 
-export class ProductService<T = Product> {
+export class ProductService {
     /**
      * @param apiRequest
      */
-    public constructor(protected apiRequest: ApiRequestService<T> = new ApiRequestService<T>()) {}
+    public constructor(protected apiRequest: ApiRequestService = new ApiRequestService()) {}
 
     /**
      * Url prefix
@@ -21,57 +21,45 @@ export class ProductService<T = Product> {
     /**
      * Fetch list
      */
-    public list(data: object = {}, config = {}): Promise<ApiResponse<T, { price_max: number }>> {
+    public list<F extends object>(
+        data: F & { simplified: true | 1 | '1' },
+        config?: RequestConfig,
+    ): Promise<ApiResponse<BasicProduct>>;
+    public list<F extends object>(
+        data?: F & { simplified?: false | 0 | '0' },
+        config?: RequestConfig,
+    ): Promise<ApiResponse<RequesterProduct, { price_max: string }>>;
+    public list<F extends object>(
+        data: F & { simplified: boolean | 0 | 1 | '0' | '1' },
+        config?: RequestConfig,
+    ): Promise<ApiResponse<BasicProduct> | ApiResponse<RequesterProduct, { price_max: string }>>;
+    public list(data: object = {}, config = {}): Promise<ApiResponse<BasicProduct> | ApiResponse<RequesterProduct>> {
         return this.apiRequest.get(`${this.prefix}`, data, config);
     }
 
-    public sample(per_page = 6): Promise<ApiResponse<T>> {
+    public sample(per_page = 6): Promise<ResponseSimple<{ data: RequesterProduct[] }>> {
         return this.apiRequest.get(`${this.prefix}/sample`, { per_page });
     }
 
-    public read(id: number): Promise<ApiResponseSingle<T>> {
-        return this.apiRequest.get(`${this.prefix}/${id}`);
+    public read(id: number, config = {}): Promise<ApiResponseSingle<RequesterProduct>> {
+        return this.apiRequest.get(`${this.prefix}/${id}`, {}, config);
     }
 
-    public bookmark(id: number): Promise<ApiResponseSingle<T>> {
+    public bookmark(id: number): Promise<ApiResponseSingle<RequesterProduct>> {
         return this.apiRequest.post(`${this.prefix}/${id}/bookmark`);
     }
 
-    public removeBookmark(id: number): Promise<ApiResponseSingle<T>> {
+    public removeBookmark(id: number): Promise<ApiResponseSingle<RequesterProduct>> {
         return this.apiRequest.post(`${this.prefix}/${id}/remove-bookmark`);
     }
 
-    protected calcExpireDate(dates: Array<Array<string>>) {
-        const dateParse = (date: string | { date: string }, date_locale: string) => {
-            return date
-                ? {
-                      unix: getUnixTime(parse(typeof date === 'object' ? date.date : date, 'yyyy-MM-dd', new Date())),
-                      locale: date_locale,
-                  }
-                : null;
-        };
-
-        const sortDateLocale = (dates: Array<{ unix?: number; locale?: string }>, asc = true) => {
-            return [...dates].sort((a, b) => {
-                return a.unix == b.unix ? 0 : a.unix < b.unix ? (asc ? -1 : 1) : asc ? 1 : -1;
-            });
-        };
-
-        return (
-            sortDateLocale(
-                dates.filter((date) => date).map((date) => dateParse(date[0], date[1])),
-                true,
-            )[0] || null
-        );
-    }
-
-    public checkEligibility(product: Product, vouchers: Array<Voucher> = []) {
+    public checkEligibility(product: RequesterProduct, vouchers: Array<Voucher> = []) {
         const fundIds = product.funds.map((fund) => fund.id);
         const productAvailable = !product.sold_out && !product.deleted && !product.expired;
 
         // regular active vouchers for product funds
         const regularActiveVouchers = vouchers.filter((voucher) => {
-            return fundIds.indexOf(voucher.fund_id) != -1 && voucher.type === 'regular' && !voucher.expired;
+            return fundIds.indexOf(voucher.fund.id) != -1 && voucher.type === 'regular' && !voucher.expired;
         });
 
         const funds = [...product.funds].map((fund) => {
@@ -87,26 +75,8 @@ export class ProductService<T = Product> {
             const isReservationExtraPaymentAvailable =
                 isReservationAvailable && feature_reservation_extra_payments_enabled;
 
-            const voucherDates = applicableVouchers
-                .map((voucher) =>
-                    voucher.query_product
-                        ? [
-                              voucher.query_product.reservable_expire_at,
-                              voucher.query_product.reservable_expire_at_locale,
-                          ]
-                        : null,
-                )
-                .filter((date) => date);
-
-            const productAndFundDates = [
-                fund.end_at ? [fund.end_at, fund.end_at_locale] : null,
-                product.expire_at ? [product.expire_at, product.expire_at_locale] : null,
-            ].filter((date) => date);
-
-            const shownExpireDate = this.calcExpireDate([...voucherDates, ...productAndFundDates]);
-
             const meta = {
-                ...{ shownExpireDate, applicableVouchers, reservableVouchers },
+                ...{ applicableVouchers, reservableVouchers },
                 ...{ isReservationAvailable, isReservationExtraPaymentAvailable },
             };
 
@@ -151,7 +121,7 @@ export class ProductService<T = Product> {
         ];
     }
 
-    public transformProductAlternativeText(product: Product): string {
+    public transformProductAlternativeText(product: RequesterProduct): string {
         return product.alternative_text || '';
     }
 }

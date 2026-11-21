@@ -276,7 +276,7 @@ export default function VouchersShow() {
                                         <div>
                                             <StateNavLink
                                                 name={WebshopRoutes.FUND}
-                                                params={{ id: voucher?.fund_id }}
+                                                params={{ id: voucher?.fund.id }}
                                                 className="button button-primary button-sm">
                                                 {translate('voucher.fund_details.view')}
                                                 <em className="mdi mdi-arrow-right icon-right" />

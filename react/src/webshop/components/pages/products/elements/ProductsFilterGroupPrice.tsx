@@ -29,6 +29,9 @@ export default function ProductsFilterGroupPrice({
 }) {
     const translate = useTranslate();
 
+    const readPrice = (input: HTMLInputElement) =>
+        input.value === '' ? null : Math.min(Math.max(input.valueAsNumber, 0), toMax);
+
     return (
         <ProductsFilterGroup
             dusk={'productFilterGroupPrice'}
@@ -54,12 +57,9 @@ export default function ProductsFilterGroupPrice({
                                         id={id}
                                         min={0}
                                         max={toMax}
-                                        value={filterValues.from || ''}
-                                        onChange={(e) =>
-                                            filterUpdate({
-                                                from: Math.min(Math.max(parseFloat(e.target.value) || 0, 0), toMax),
-                                            })
-                                        }
+                                        step={0.01}
+                                        value={filterValues.from ?? ''}
+                                        onChange={(e) => filterUpdate({ from: readPrice(e.currentTarget) })}
                                         type="number"
                                         aria-label={translate('products.filters.price_from')}
                                         data-dusk="inputPriceFrom"
@@ -79,13 +79,10 @@ export default function ProductsFilterGroupPrice({
                                         id={id}
                                         min={0}
                                         max={toMax}
-                                        value={filterValues.to || toMax}
+                                        step={0.01}
+                                        value={filterValues.to ?? toMax}
                                         placeholder={translate('products.filters.price_to')}
-                                        onChange={(e) =>
-                                            filterUpdate({
-                                                to: Math.min(Math.max(parseFloat(e.target.value) || toMax, 0), toMax),
-                                            })
-                                        }
+                                        onChange={(e) => filterUpdate({ to: readPrice(e.currentTarget) })}
                                         type="number"
                                         aria-label={translate('products.filters.price_to')}
                                         data-dusk="inputPriceTo"
@@ -101,7 +98,7 @@ export default function ProductsFilterGroupPrice({
                                 min={0}
                                 max={toMax}
                                 from={filterValues.from || 0}
-                                to={filterValues.to || toMax}
+                                to={filterValues.to ?? toMax}
                                 setFrom={(from) => filterUpdate({ from })}
                                 setTo={(to) => filterUpdate({ to })}
                                 prefix={'€ '}

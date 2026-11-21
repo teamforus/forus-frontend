@@ -1,5 +1,6 @@
-import BaseProduct, { ProductFund } from '../../../props/models/BaseProduct';
+import type BaseProduct from '../../../props/models/BaseProduct';
 import type { ProductPriceType } from '../../../props/models/BaseProduct';
+import type ReservationField from '../../../dashboard/props/models/ReservationField';
 
 interface SmallMedia {
     sizes: {
@@ -20,28 +21,40 @@ export interface ProductOffice {
 }
 
 interface UserPrice {
-    type: Exclude<ProductPriceType, 'payout'>;
+    type: ProductPriceType;
     value: string;
 }
 
-export default interface Product extends BaseProduct {
-    funds: Array<ProductFund & { user_price: UserPrice; limit: number | null }>;
+export interface ProductFund {
+    id: number;
+    name: string;
+    logo: SmallMedia | null;
+    user_price: UserPrice;
+    limit: number | null;
+    end_at: string | null;
+    end_at_locale: string | null;
+    expire_at: string;
+    expire_at_locale: string;
+    feature_scanning_enabled: boolean;
+    feature_reservations_enabled: boolean;
+    feature_reservation_extra_payments_enabled: boolean;
+}
+
+export default interface RequesterProduct extends BaseProduct {
+    bookmarked: boolean;
+    price_min: string;
+    price_min_locale: string;
+    funds: ProductFund[];
     feature_scanning_enabled: boolean;
     feature_reservations_enabled: boolean;
     feature_reservation_extra_payments_enabled: boolean;
     photos: SmallMedia[];
     offices: ProductOffice[];
-    reservation?: {
+    reservation: {
         address: 'no' | 'optional' | 'required';
         birth_date: 'no' | 'optional' | 'required';
-        note: 'no' | 'optional';
-        fields: Array<{
-            id?: number;
-            type?: 'text' | 'number' | 'boolean' | 'file';
-            label?: string;
-            required?: boolean;
-            description?: string;
-        }>;
-        phone: 'no';
+        note: 'no' | 'optional' | 'required';
+        fields: Array<Required<ReservationField>>;
+        phone: 'no' | 'optional' | 'required';
     };
 }

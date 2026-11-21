@@ -449,7 +449,7 @@ export default function FundRequest() {
     }, [emailSetupShow, fund, criteriaSteps, shouldAddContactInfo]);
 
     const getFirstActiveFundVoucher = useCallback((fund: Fund, vouchers: Array<Voucher>) => {
-        return vouchers.find((voucher) => !voucher.expired && voucher.fund_id === fund.id);
+        return vouchers.find((voucher) => !voucher.expired && voucher.fund.id === fund.id);
     }, []);
 
     const goToActivationComponent = useCallback(() => {

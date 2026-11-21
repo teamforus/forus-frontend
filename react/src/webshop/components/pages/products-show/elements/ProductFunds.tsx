@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useMemo } from 'react';
 import Fund from '../../../../props/models/Fund';
 import Voucher from '../../../../../dashboard/props/models/Voucher';
-import Product from '../../../../props/models/Product';
+import Product, { ProductFund } from '../../../../props/models/Product';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import useEnvData from '../../../../hooks/useEnvData';
 import useShowTakenByPartnerModal from '../../../../services/helpers/useShowTakenByPartnerModal';
@@ -57,13 +57,13 @@ export default function ProductFunds({
         return {
             ...meta,
             funds: meta.funds.map((productFund) => ({
-                ...productFund,
                 ...fundMetaBuilder(
-                    { ...funds.find((fund) => fund.id == productFund.id), ...productFund },
+                    funds.find((fund) => fund.id == productFund.id),
                     payouts,
                     vouchers,
                     appConfigs,
                 ),
+                ...productFund,
             })),
         };
     }, [product, funds, vouchers, productService, fundMetaBuilder, payouts, appConfigs]);
@@ -73,7 +73,7 @@ export default function ProductFunds({
     }, [onlyAvailableFunds, productMeta?.funds]);
 
     const requestFund = useCallback(
-        (fund: Fund) => {
+        (fund: ProductFund) => {
             fundService.read(fund.id).then((res) => {
                 const fund = res.data.data;
                 const fund_id = fund.id;
@@ -89,7 +89,7 @@ export default function ProductFunds({
     );
 
     const reserveProduct = useCallback(
-        (fund: Fund & { meta: { reservableVouchers: Voucher[] } }) => {
+        (fund: ProductFund & { meta: { reservableVouchers: Voucher[] } }) => {
             fetchAuthIdentity().then(() => {
                 openModal((modal) => (
                     <ModalProductReserve
@@ -157,7 +157,7 @@ export default function ProductFunds({
                                 <div className="product-funds-item-details-prop">
                                     <em className="mdi mdi-calendar" />
                                     {translate('product.labels.expire_by_date', {
-                                        date: fund.meta.shownExpireDate.locale,
+                                        date: fund.expire_at_locale,
                                     })}
                                 </div>
                             </div>

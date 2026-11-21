@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { ModalState } from '../../modules/modals/context/ModalContext';
 import Organization from '../../props/models/Organization';
 import Reservation from '../../props/models/Reservation';
-import Product from '../../props/models/Product';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import useVoucherService from '../../services/VoucherService';
 import useProductReservationService from '../../services/ProductReservationService';
@@ -12,6 +11,12 @@ import FormGroupInfo from '../elements/forms/elements/FormGroupInfo';
 import useTranslate from '../../hooks/useTranslate';
 import classNames from 'classnames';
 import TranslateHtml from '../elements/translate-html/TranslateHtml';
+
+interface ProductOption {
+    id: number | null;
+    name: string;
+    price_locale: string | null;
+}
 
 export default function ModalReservationCreate({
     modal,
@@ -29,8 +34,8 @@ export default function ModalReservationCreate({
     const productReservationService = useProductReservationService();
 
     const [step, setStep] = useState<'voucher' | 'product' | 'overview'>('voucher');
-    const [products, setProducts] = useState<Array<Partial<Product>>>(null);
-    const [product, setProduct] = useState<Partial<Product>>(null);
+    const [product, setProduct] = useState<ProductOption>(null);
+    const [products, setProducts] = useState<ProductOption[]>(null);
 
     const formVouchers = useFormBuilder({ number: '' }, (values) => {
         voucherService
@@ -73,7 +78,7 @@ export default function ModalReservationCreate({
                             formProducts.update({ product_id: null });
                         }
 
-                        setProducts([{ id: null, name: 'Select product...' }, ...res.data.data]);
+                        setProducts([{ id: null, name: 'Select product...', price_locale: null }, ...res.data.data]);
                         setStep('product');
                     })
                     .finally(() => formVouchers.setIsLocked(false));

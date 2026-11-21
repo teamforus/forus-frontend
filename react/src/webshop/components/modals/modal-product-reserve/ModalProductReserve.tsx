@@ -4,13 +4,12 @@ import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import { useNavigateState } from '../../../modules/state_router/Router';
 import { ResponseError } from '../../../../dashboard/props/ApiResponses';
 import usePushDanger from '../../../../dashboard/hooks/usePushDanger';
-import Product from '../../../props/models/Product';
+import Product, { ProductFund } from '../../../props/models/Product';
 import Voucher from '../../../../dashboard/props/models/Voucher';
 import useFormBuilder from '../../../../dashboard/hooks/useFormBuilder';
 import { useProductReservationService } from '../../../services/ProductReservationService';
 import useComposeVoucherCardData from '../../../services/helpers/useComposeVoucherCardData';
 import { useProductService } from '../../../services/ProductService';
-import Fund from '../../../props/models/Fund';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import { startOfDay, addDays, getUnixTime, differenceInDays } from 'date-fns';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
@@ -58,7 +57,7 @@ export default function ModalProductReserve({
     product,
     vouchers,
 }: {
-    fund: Fund;
+    fund: ProductFund;
     modal: ModalState;
     product: Product;
     vouchers: Array<Voucher>;
@@ -110,13 +109,13 @@ export default function ModalProductReserve({
         return productService.checkEligibility(product, vouchers);
     }, [product, productService, vouchers]);
 
-    const fundMeta = useMemo(() => {
-        return productMeta.funds?.find((item) => item.id == fund.id)?.meta;
+    const productFund = useMemo(() => {
+        return productMeta.funds?.find((item) => item.id == fund.id);
     }, [fund?.id, productMeta?.funds]);
 
     const extraPaymentAllowed = useMemo(() => {
-        return fundMeta?.isReservationExtraPaymentAvailable;
-    }, [fundMeta]);
+        return productFund?.meta.isReservationExtraPaymentAvailable;
+    }, [productFund]);
 
     const vouchersList = useMemo(() => {
         return vouchers
@@ -463,7 +462,18 @@ export default function ModalProductReserve({
 
     const transValues = useMemo(() => {
         const reservationExpireDate = getUnixTime(addDays(startOfDay(new Date()), 14));
-        const closestDate = Math.min(reservationExpireDate, fundMeta.shownExpireDate.unix);
+
+        const dates = [
+            product.expire_at,
+            productFund.end_at,
+            ...vouchers.map((v) => v.query_product?.reservable_expire_at),
+        ];
+
+        const closestDate = Math.min(
+            reservationExpireDate,
+            ...dates.filter(Boolean).map((date) => getUnixTime(dateParse(date))),
+        );
+
         const daysToCancel = differenceInDays(closestDate * 1000, startOfDay(new Date()));
 
         return {
@@ -474,7 +484,7 @@ export default function ModalProductReserve({
             fund_name: vouchers[0].fund.name,
             fund: vouchers[0].fund.name,
         };
-    }, [fundMeta?.shownExpireDate?.unix, product.name, product.organization.name, product.price, vouchers]);
+    }, [productFund.end_at, product.expire_at, product.name, product.organization.name, product.price, vouchers]);
 
     const makeControlForCustomField = useCallback(
         (field: Field) => {

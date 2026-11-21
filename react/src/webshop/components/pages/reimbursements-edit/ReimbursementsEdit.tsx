@@ -22,7 +22,6 @@ import { ResponseError } from '../../../../dashboard/props/ApiResponses';
 import BlockVoucherRecords from '../../elements/block-voucher-records/BlockVoucherRecords';
 import File from '../../../../dashboard/props/models/File';
 import ModalReimbursementConfirm from '../../modals/ModalReimbursementConfirm';
-import Fund from '../../../props/models/Fund';
 import useOpenModal from '../../../../dashboard/hooks/useOpenModal';
 import SelectControlOptionsVouchers from '../../elements/select-control/templates/SelectControlOptionsVouchers';
 import Tooltip from '../../elements/tooltip/Tooltip';
@@ -208,7 +207,7 @@ export default function ReimbursementsEdit() {
                     reimbursement={{
                         ...form.values,
                         files: files.map((file) => file),
-                        fund: vouchers.find((voucher) => voucher.id == form.values.voucher_id)?.fund as Fund,
+                        fund: vouchers.find((voucher) => voucher.id == form.values.voucher_id)?.fund,
                     }}
                 />
             ));

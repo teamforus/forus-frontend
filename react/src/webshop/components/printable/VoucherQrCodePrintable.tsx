@@ -5,6 +5,7 @@ import { PrintableState } from '../../../dashboard/modules/printable/context/Pri
 import useTranslate from '../../../dashboard/hooks/useTranslate';
 import QrCode from '../../../dashboard/components/elements/qr-code/QrCode';
 import Fund from '../../../dashboard/props/models/Fund';
+import type Organization from '../../../dashboard/props/models/Organization';
 import OrganizationBasic from '../../../dashboard/props/models/OrganizationBasic';
 import { makeQrCodeContent } from '../../../dashboard/helpers/utils';
 
@@ -22,7 +23,7 @@ export default function VoucherQrCodePrintable({
     assetUrl: (uri: string) => string;
     printable: PrintableState;
     webshopUrl?: string;
-    organization: OrganizationBasic;
+    organization: OrganizationBasic | Organization;
     showConditions?: boolean;
 }) {
     const translate = useTranslate();

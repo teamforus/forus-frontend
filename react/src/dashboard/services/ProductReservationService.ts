@@ -1,14 +1,21 @@
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Papa from 'papaparse';
-import Reservation from '../props/models/Reservation';
-import { ApiResponse, ApiResponseSingle, RequestConfig, ResponseSimple } from '../props/ApiResponses';
+import type { ProviderReservation } from '../props/models/Reservation';
+import type SponsorReservation from '../props/models/Sponsor/SponsorReservation';
+import {
+    ApiResponse,
+    ApiResponseSingle,
+    RequestConfig,
+    ResponseErrorData,
+    ResponseSimple,
+} from '../props/ApiResponses';
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
 import Note from '../props/models/Note';
 import ProviderMessage from '../props/models/ProviderMessage';
 
-export class ProductReservationService<T = Reservation> {
+export class ProductReservationService<T = ProviderReservation> {
     /**
      * @param apiRequest
      */
@@ -29,7 +36,10 @@ export class ProductReservationService<T = Reservation> {
         return this.apiRequest.post(`${this.prefix}/${organization_id}/product-reservations`, { ...data });
     }
 
-    public storeBatch(organization_id: number, data = {}): Promise<ApiResponse<T>> {
+    public storeBatch(
+        organization_id: number,
+        data = {},
+    ): Promise<ResponseSimple<{ reserved: T[]; errors: ResponseErrorData | [] }>> {
         return this.apiRequest.post(`${this.prefix}/${organization_id}/product-reservations/batch`, data);
     }
 
@@ -59,11 +69,11 @@ export class ProductReservationService<T = Reservation> {
         });
     };
 
-    public archive(organization_id: number, id: number) {
+    public archive(organization_id: number, id: number): Promise<ApiResponseSingle<T>> {
         return this.apiRequest.post(`${this.prefix}/${organization_id}/product-reservations/${id}/archive`);
     }
 
-    public unarchive(organization_id: number, id: number) {
+    public unarchive(organization_id: number, id: number): Promise<ApiResponseSingle<T>> {
         return this.apiRequest.post(`${this.prefix}/${organization_id}/product-reservations/${id}/unarchive`);
     }
 
@@ -82,7 +92,11 @@ export class ProductReservationService<T = Reservation> {
         );
     }
 
-    public listSponsor(organization_id: number, data: object, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+    public listSponsor(
+        organization_id: number,
+        data: object,
+        config: RequestConfig = {},
+    ): Promise<ApiResponse<SponsorReservation>> {
         return this.apiRequest.get(`${this.prefix}/${organization_id}/sponsor/product-reservations`, data, config);
     }
 

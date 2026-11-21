@@ -87,7 +87,7 @@ export default function FundActivate() {
     }, [fund?.id, payouts]);
 
     const vouchersActive = useMemo(() => {
-        return vouchers?.filter((voucher) => voucher.fund_id === fund?.id && !voucher.expired);
+        return vouchers?.filter((voucher) => voucher.fund.id === fund?.id && !voucher.expired);
     }, [fund?.id, vouchers]);
 
     const [criteriaChecked, setCriteriaChecked] = useState(false);

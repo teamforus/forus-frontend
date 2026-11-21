@@ -1,6 +1,5 @@
 import BlockProducts from '../../../elements/block-products/BlockProducts';
 import React, { useCallback, useEffect, useState } from 'react';
-import { PaginationData } from '../../../../../dashboard/props/ApiResponses';
 import Product from '../../../../props/models/Product';
 import { useProductService } from '../../../../services/ProductService';
 import useSetProgress from '../../../../../dashboard/hooks/useSetProgress';
@@ -17,14 +16,14 @@ export default function RandomProductsBlock({
     const setProgress = useSetProgress();
     const productService = useProductService();
 
-    const [products, setProducts] = useState<PaginationData<Product>>(null);
+    const [products, setProducts] = useState<Product[]>(null);
 
     const fetchProducts = useCallback(() => {
         setProgress(0);
 
         productService
             .sample(count)
-            .then((res) => setProducts(res.data))
+            .then((res) => setProducts(res.data.data))
             .catch((e) => console.error(e))
             .finally(() => setProgress(100));
     }, [productService, setProgress, count]);
@@ -33,11 +32,11 @@ export default function RandomProductsBlock({
         fetchProducts();
     }, [fetchProducts]);
 
-    return products?.data.length > 0 ? (
+    return products?.length > 0 ? (
         <BlockProducts
             title={title}
-            products={products.data}
-            setProducts={(list) => setProducts({ ...products, data: list })}
+            products={products}
+            setProducts={setProducts}
             display="grid"
             showCustomDescription={showCustomDescription}
         />

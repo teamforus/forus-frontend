@@ -692,6 +692,7 @@ export default function VouchersViewComponent() {
                     />
 
                     <VoucherReservationsCard
+                        key={voucher.id}
                         voucher={voucher}
                         organization={activeOrganization}
                         fetchReservationsRef={reservationsBlock}

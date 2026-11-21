@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 import LoadingCard from '../../../elements/loading-card/LoadingCard';
 import { PaginationData } from '../../../../props/ApiResponses';
 import useProductReservationService from '../../../../services/ProductReservationService';
-import Reservation from '../../../../props/models/Reservation';
+import type SponsorReservation from '../../../../props/models/Sponsor/SponsorReservation';
 import useTranslate from '../../../../hooks/useTranslate';
 import useFilterNext from '../../../../modules/filter_next/useFilterNext';
 import Organization from '../../../../props/models/Organization';
 import ReservationsTable from '../../reservations/elements/ReservationsTable';
-import type BaseVoucher from '../../../../../props/models/BaseVoucher';
+import type SponsorVoucher from '../../../../props/models/Sponsor/SponsorVoucher';
 import useLatestRequestWithProgress from '../../../../hooks/useLatestRequestWithProgress';
 
 export default function VoucherReservationsCard({
@@ -15,7 +15,7 @@ export default function VoucherReservationsCard({
     organization,
     fetchReservationsRef = null,
 }: {
-    voucher: BaseVoucher;
+    voucher: SponsorVoucher;
     organization: Organization;
     fetchReservationsRef?: React.MutableRefObject<() => void>;
 }) {
@@ -26,7 +26,7 @@ export default function VoucherReservationsCard({
 
     const [paginatorKey] = useState('reservations');
     const [loading, setLoading] = useState(true);
-    const [reservations, setReservations] = useState<PaginationData<Reservation>>(null);
+    const [reservations, setReservations] = useState<PaginationData<SponsorReservation>>(null);
 
     const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
         per_page: number;
@@ -77,6 +77,7 @@ export default function VoucherReservationsCard({
                 loading={loading}
                 paginatorKey={paginatorKey}
                 reservations={reservations}
+                physicalCardCode={voucher.physical_card?.code_locale}
                 organization={organization}
                 filter={filter}
                 filterValues={filterValues}

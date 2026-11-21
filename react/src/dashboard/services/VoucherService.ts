@@ -2,7 +2,7 @@ import ApiResponse, { ApiResponseSingle, RequestConfig } from '../props/ApiRespo
 import { useState } from 'react';
 import ApiRequestService from './ApiRequestService';
 import Papa from 'papaparse';
-import Product from '../props/models/Product';
+import type VoucherProviderProduct from '../props/models/VoucherProviderProduct';
 import { ExportFieldProp } from '../components/modals/ModalExportDataSelect';
 import Transaction from '../props/models/Transaction';
 import { ConfigurableTableColumn } from '../components/pages/vouchers/hooks/useConfigurableTable';
@@ -32,7 +32,7 @@ export class VoucherService<T = SponsorVoucher> {
         return this.apiRequest.get(`/platform/provider/vouchers/${address}`);
     }
 
-    public readProviderProducts(address: string, query: object = {}): Promise<ApiResponse<Product>> {
+    public readProviderProducts(address: string, query: object = {}): Promise<ApiResponse<VoucherProviderProduct>> {
         return this.apiRequest.get(`/platform/provider/vouchers/${address}/products`, query);
     }
 

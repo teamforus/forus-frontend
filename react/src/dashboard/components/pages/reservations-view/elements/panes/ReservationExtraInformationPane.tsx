@@ -1,7 +1,7 @@
-import React, { Dispatch, SetStateAction, useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import classNames from 'classnames';
 import Organization from '../../../../../props/models/Organization';
-import Reservation, { ReservationCustomFieldValue } from '../../../../../props/models/Reservation';
+import Reservation, { ProviderReservation, ReservationCustomFieldValue } from '../../../../../props/models/Reservation';
 import KeyValueItem from '../../../../elements/key-value/KeyValueItem';
 import useOpenModal from '../../../../../hooks/useOpenModal';
 import useTranslate from '../../../../../hooks/useTranslate';
@@ -22,7 +22,7 @@ export default function ReservationExtraInformationPane({
     customFields,
     product,
 }: {
-    setReservation?: Dispatch<SetStateAction<Reservation>>;
+    setReservation?: (reservation: ProviderReservation) => void;
     reservation: Reservation;
     organization: Organization;
     customFields: ReservationCustomFieldValue[];

@@ -1,4 +1,4 @@
-import Fund from './Fund';
+import type { InlineFundPhysicalCardType } from './Fund';
 import Office from './Office';
 import Reservation from './Reservation';
 import PhysicalCard from './PhysicalCard';
@@ -13,6 +13,29 @@ export interface VoucherFundPayoutButtons {
     vouchers: boolean;
     payouts: boolean;
     products: boolean;
+}
+
+export interface VoucherFund {
+    id: number;
+    state: 'active' | 'closed' | 'paused' | 'waiting';
+    type: 'budget' | 'subsidies' | 'external';
+    name: string;
+    description_short: string | null;
+    how_it_works_html: string | null;
+    url_webshop: string | null;
+    logo: Media | null;
+    organization: OrganizationBasic;
+    allow_physical_cards: boolean;
+    allow_blocking_vouchers: boolean;
+    fund_physical_card_types: InlineFundPhysicalCardType[];
+    allow_reimbursements: boolean;
+    show_qr_code: boolean;
+    allow_voucher_payouts: boolean;
+    allow_voucher_payout_count: number | null;
+    hide_voucher_amount: boolean;
+    allow_voucher_payout_note: string | null;
+    allow_voucher_payout_buttons: VoucherFundPayoutButtons;
+    voucher_payout_fixed_amount: string | null;
 }
 
 export interface VoucherProduct {
@@ -72,19 +95,20 @@ export interface VoucherTransaction extends BaseTransaction {
 export default interface Voucher extends BaseVoucher {
     number?: string;
     address?: string;
-    fund_id: number;
     expired?: boolean;
-    fund: Fund & {
-        voucher_payout_fixed_amount?: string | null;
-        allow_voucher_payout_buttons?: VoucherFundPayoutButtons;
-        allow_voucher_payout_note?: string;
-    };
+    fund: VoucherFund;
     type?: 'regular' | 'product';
-    state?: string;
-    state_locale?: string;
     timestamp?: number;
     transactions: Array<VoucherTransaction>;
-    product_vouchers?: Array<Voucher>;
+    product_vouchers?: Array<{
+        amount: string;
+        amount_locale: string;
+        timestamp: number;
+        product: VoucherProduct;
+        product_reservation: { id: number; code: string } | null;
+        created_at: string;
+        created_at_locale: string;
+    }>;
     records?: Array<{
         voucher_id: number;
         value_locale: string;
@@ -117,15 +141,9 @@ export default interface Voucher extends BaseVoucher {
     records_title?: string;
     returnable?: boolean;
     last_active_day_locale?: string;
-    created_at?: string;
-    created_at_locale?: string;
     expire_at?: string;
     expire_at_locale?: string;
     requester_payouts_count?: number;
-    fund_request?: {
-        iban: string;
-        iban_name: string;
-    };
     voucher_payout_partial_amounts?: Array<string> | null;
     voucher_payout_partial_amounts_label_type?: 'persons' | null;
     voucher_payout_has_valid_records?: boolean;

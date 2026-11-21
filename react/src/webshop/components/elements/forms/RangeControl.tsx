@@ -22,6 +22,12 @@ export default function RangeControl({
 }) {
     const translate = useTranslate();
     const value: [number, number] = [from ?? min ?? 0, to ?? max ?? 0];
+    // A manually entered fraction must stay selectable when the other handle moves in whole steps.
+    const marks = Object.fromEntries(
+        value
+            .filter((bound) => !Number.isInteger(bound) && bound > min && bound < max)
+            .map((bound) => [bound, { label: bound, style: { display: 'none' } }]),
+    );
 
     const formatAriaValue = (sliderValue: number) => {
         return translate('form.range_control.aria_value', {
@@ -39,11 +45,18 @@ export default function RangeControl({
                 max={max}
                 range
                 value={value}
+                marks={marks}
+                dotStyle={{ display: 'none' }}
                 onChange={(nextValue) => {
                     const [nextFrom, nextTo] = Array.isArray(nextValue) ? nextValue : [nextValue, nextValue];
 
-                    setTo?.(nextTo);
-                    setFrom?.(nextFrom);
+                    if (nextTo !== value[1]) {
+                        setTo?.(nextTo);
+                    }
+
+                    if (nextFrom !== value[0]) {
+                        setFrom?.(nextFrom);
+                    }
                 }}
                 className="range-control-slider"
                 allowCross={false}
