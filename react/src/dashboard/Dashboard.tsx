@@ -21,11 +21,14 @@ import i18nNL from './i18n/i18n-nl';
 import { FrameDirectorProvider } from './modules/frame_director/context/FrameDirectorContext';
 import ProviderNotificationProductRequired from './modules/provider_notification_product_required/ProviderNotificationProductRequired';
 import { setDefaultOptions } from 'date-fns';
-import { nl } from 'date-fns/locale';
+import { nl, enUS } from 'date-fns/locale';
 import { ReactRouter7Adapter } from './modules/state_router/ReactRouter7Adapter';
 import 'react-datepicker/dist/react-datepicker.css';
+import { isValidLocaleString } from './helpers/url';
 
-setDefaultOptions({ weekStartsOn: 1, locale: nl });
+const locale = localStorage.getItem('locale');
+
+setDefaultOptions({ weekStartsOn: 1, locale: locale === 'en' ? enUS : nl });
 
 i18n.use(initReactI18next)
     .init({
@@ -33,7 +36,7 @@ i18n.use(initReactI18next)
             en: { translation: i18nEN },
             nl: { translation: i18nNL },
         },
-        lng: 'nl',
+        lng: isValidLocaleString(locale) ? locale : 'nl',
         fallbackLng: 'nl',
         // https://www.i18next.com/translation-function/interpolation#unescape
         interpolation: { escapeValue: true },
