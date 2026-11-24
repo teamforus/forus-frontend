@@ -2,7 +2,9 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import ClickOutside from '../../../../modules/click-outside/ClickOutside';
 import { useStateRoutes } from '../../../../modules/state_router/Router';
-import HeaderSearchBlock, { HeaderSearchBlockConfig, HeaderSearchBlockState } from './HeaderSearchBlock';
+import HeaderSearchBlock from './HeaderSearchBlock';
+import { HeaderSearchBlockConfig, HeaderSearchBlockState } from './types';
+import BlockEmpty from '../../../../components/elements/block-empty/BlockEmpty';
 
 const SEARCH_DELAY = 1000;
 
@@ -21,18 +23,20 @@ export default function HeaderSearch({
 }) {
     const { route } = useStateRoutes();
 
-    const inputRef = useRef<HTMLInputElement>(null);
-
+    const [value, setValue] = useState('');
+    const [query, setQuery] = useState('');
     const [open, setOpen] = useState(false);
     const [blockStates, setBlockStates] = useState<Record<string, HeaderSearchBlockState>>({});
 
-    const [value, setValue] = useState('');
-    const [query, setQuery] = useState('');
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const states = blocks.map((block) => blockStates[block.key]);
     const loading = !!query && states.some((state) => !state || state === 'loading');
     const empty = !!query && !loading && !states.includes('found');
     const showDropdown = open && !!value.trim() && !!query;
+
+    const inputId = mobile ? 'header_search_mobile' : 'header_search';
+    const resultsId = `${inputId}_results`;
 
     const updateBlockState = useCallback((key: string, state: HeaderSearchBlockState) => {
         setBlockStates((states) => ({ ...states, [key]: state }));
@@ -72,12 +76,22 @@ export default function HeaderSearch({
         clear();
     }, [route?.state?.name, organizationId, clear]);
 
-    const inputId = mobile ? 'header_search_mobile' : 'header_search';
-    const resultsId = `${inputId}_results`;
-
     return (
         <ClickOutside
-            className={classNames('header-search', mobile && 'header-search-mobile')}
+            className={classNames('block block-header-search', mobile && 'block-header-search-mobile')}
+            onBlur={(e) => {
+                if (!e.currentTarget.contains(e.relatedTarget)) {
+                    setOpen(false);
+                }
+            }}
+            onKeyDown={(e) => {
+                if (e.key === 'Escape' && open) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    inputRef.current?.focus();
+                    setOpen(false);
+                }
+            }}
             onClickOutside={() => setOpen(false)}>
             <form
                 className="form header-search-form"
@@ -101,15 +115,14 @@ export default function HeaderSearch({
                     aria-controls={resultsId}
                     data-dusk="headerSearchInput"
                     onFocus={() => setOpen(true)}
+                    onClick={() => setOpen(true)}
                     onChange={(e) => {
+                        if (e.target.value.trim() !== query) {
+                            setQuery('');
+                        }
+
                         setValue(e.target.value);
                         setOpen(true);
-                    }}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Escape') {
-                            e.stopPropagation();
-                            setOpen(false);
-                        }
                     }}
                 />
                 {value && (
@@ -163,13 +176,13 @@ export default function HeaderSearch({
                     )}
 
                     {empty && (
-                        <div className="header-search-empty" data-dusk="headerSearchEmpty">
-                            <div className="header-search-empty-icon" aria-hidden="true">
-                                <em className="mdi mdi-table-off" />
-                            </div>
-                            <div className="header-search-empty-title">Geen resultaten voor &quot;{query}&quot;.</div>
-                            <div className="header-search-empty-description">Probeer een andere zoekterm.</div>
-                        </div>
+                        <BlockEmpty
+                            variant="compact"
+                            imageIconSvg={<em className="mdi mdi-table-off" aria-hidden="true" />}
+                            title={`Geen resultaten voor "${query}".`}
+                            description="Probeer een andere zoekterm."
+                            dataDusk="headerSearchEmpty"
+                        />
                     )}
                 </div>
             )}

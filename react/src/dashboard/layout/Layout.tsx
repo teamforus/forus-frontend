@@ -122,6 +122,7 @@ export const Layout = ({ children }: { children: React.ReactElement }) => {
                     {isReady && (
                         <section className="app app-content">
                             <ErrorBoundaryHandler
+                                key={route.pathname}
                                 type={
                                     [LayoutType.landingClearNew, LayoutType.landingClear].includes(layout)
                                         ? 'main'

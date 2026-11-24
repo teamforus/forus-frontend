@@ -64,7 +64,7 @@ export default function SponsorProducts() {
         to?: string;
         from?: string;
         page?: number;
-        state?: 'approved' | 'pending';
+        state?: 'all' | 'approved' | 'pending';
         fund_id?: number;
         price_min?: string;
         price_max?: string;
@@ -110,6 +110,7 @@ export default function SponsorProducts() {
     const fetchProducts = useCallback(() => {
         const values = {
             ...filterActiveValues,
+            state: filterActiveValues.state === 'all' ? null : filterActiveValues.state,
             date_type: null,
             from: filterActiveValues.date_type === 'created_at' ? filterActiveValues.from : null,
             to: filterActiveValues.date_type === 'created_at' ? filterActiveValues.to : null,
@@ -174,10 +175,11 @@ export default function SponsorProducts() {
                                     ]}
                                 />
 
-                                <BlockLabelTabs
+                                <BlockLabelTabs<typeof filterValues.state>
                                     value={filter.activeValues.state}
-                                    setValue={(state: 'approved' | 'pending') => filter.update({ state })}
+                                    setValue={(state) => filter.update({ state, page: 1 })}
                                     tabs={[
+                                        { value: 'all', label: translate('products.all') },
                                         { value: 'approved', label: 'Geaccepteerd' },
                                         { value: 'pending', label: 'In afwachting' },
                                     ]}

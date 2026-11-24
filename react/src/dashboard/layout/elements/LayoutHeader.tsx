@@ -24,7 +24,8 @@ import useFDTargetObserverRef from '../../modules/frame_director/hooks/useFDTarg
 import HeaderDropdown from './blocks/HeaderDropdown';
 import HeaderAccountPanel from './blocks/HeaderAccountPanel';
 import HeaderSearch from './blocks/header-search/HeaderSearch';
-import { HeaderSearchBlockConfig } from './blocks/header-search/HeaderSearchBlock';
+import useIsMobile from '../../../webshop/hooks/useIsMobile';
+import { HeaderSearchBlockConfig } from './blocks/header-search/types';
 import useSponsorHeaderSearchBlocks from './blocks/header-search/useSponsorHeaderSearchBlocks';
 import useProviderHeaderSearchBlocks from './blocks/header-search/useProviderHeaderSearchBlocks';
 
@@ -54,6 +55,7 @@ export const LayoutHeader = ({
     const { envData, organizations, activeOrganization } = useContext(mainContext);
     const { route } = useStateRoutes();
     const navigate = useNavigate();
+    const isMobile = useIsMobile();
 
     const organizationService = useOrganizationService();
     const announcementService = useAnnouncementService();
@@ -176,10 +178,10 @@ export const LayoutHeader = ({
     });
 
     useEffect(() => {
-        if (sidebarOpen || !showSearch) {
+        if (!isMobile || sidebarOpen || !showSearch) {
             setShowMobileSearch(false);
         }
-    }, [showSearch, sidebarOpen]);
+    }, [isMobile, showSearch, sidebarOpen]);
 
     useEffect(() => {
         const header = headerRef.current;
@@ -231,14 +233,12 @@ export const LayoutHeader = ({
                     </div>
                 )}
 
-                <div className="app-header-row-item app-header-row-item-grow">
-                    {!activeOrganization && (
+                <div className="app-header-row-item app-header-row-item-grow app-header-row-item-gap-lg">
+                    {!activeOrganization ? (
                         <a href="" className="header-logo">
                             <img alt="Logo" className="header-logo-img" src={assetUrl('/assets/img/logo.svg')} />
                         </a>
-                    )}
-
-                    {activeOrganization && (
+                    ) : (
                         <div className="header-organization-switcher form">
                             {organizations && (
                                 <SelectControl

@@ -840,6 +840,7 @@ export default {
 
     products: {
         offers: 'Aanbod',
+        all: 'Alle',
         add: 'Voeg aanbod toe',
         labels: {
             id: 'ID',

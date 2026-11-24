@@ -9,7 +9,8 @@ import { useOrganizationService } from '../../../../services/OrganizationService
 import useProductService from '../../../../services/ProductService';
 import useVoucherService from '../../../../services/VoucherService';
 import { useFundRequestValidatorService } from '../../../../services/FundRequestValidatorService';
-import { HeaderSearchBlockConfig, joinValues } from './HeaderSearchBlock';
+import { HeaderSearchBlockConfig } from './types';
+import { joinValues } from './helpers/joinValues';
 
 export default function useSponsorHeaderSearchBlocks(organization?: Organization): Array<HeaderSearchBlockConfig> {
     const appConfigs = useAppConfigs();
@@ -111,6 +112,7 @@ export default function useSponsorHeaderSearchBlocks(organization?: Organization
                             items: res.data.data.map((provider) => ({
                                 id: provider.id,
                                 title: provider.name,
+                                thumbnailUrl: provider.logo?.sizes?.thumbnail,
                                 subtitle: provider.business_type?.name,
                                 route: {
                                     name: DashboardRoutes.SPONSOR_PROVIDER_ORGANIZATION,
@@ -125,6 +127,7 @@ export default function useSponsorHeaderSearchBlocks(organization?: Organization
                 title: 'Aanbod',
                 icon: 'mdi-tag',
                 listRoute: DashboardRoutes.SPONSOR_PRODUCTS,
+                listQuery: { state: 'all' },
                 show: organization.allow_product_updates && hasPermission(organization, Permission.MANAGE_PROVIDERS),
                 fetch: (query, config) => {
                     return productService.sponsorProducts(organizationId, query, config).then((res) => ({
@@ -132,6 +135,7 @@ export default function useSponsorHeaderSearchBlocks(organization?: Organization
                         items: res.data.data.map((product) => ({
                             id: product.id,
                             title: product.name,
+                            thumbnailUrl: product.photos?.[0]?.sizes?.thumbnail,
                             route: {
                                 name: DashboardRoutes.SPONSOR_PRODUCT,
                                 params: { organizationId, productId: product.id },
@@ -154,6 +158,7 @@ export default function useSponsorHeaderSearchBlocks(organization?: Organization
                             items: res.data.data.map((voucher) => ({
                                 id: voucher.id,
                                 title: `Tegoed #${voucher.id}`,
+                                thumbnailUrl: voucher.product?.photos?.[0]?.sizes?.thumbnail,
                                 subtitle: joinValues([
                                     voucher.number,
                                     voucher.fund?.name,
