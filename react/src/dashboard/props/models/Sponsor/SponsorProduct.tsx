@@ -47,6 +47,7 @@ export interface SponsorProductFundItem {
     implementation?: { id: number; name: string };
     organization_id: number;
     fund_provider_id?: number;
+    excluded: boolean;
     organization_name: string;
     logo: Media;
     url?: string;
