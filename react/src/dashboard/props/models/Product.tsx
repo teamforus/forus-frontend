@@ -1,118 +1,39 @@
-import Office from './Office';
-import Organization from './Organization';
-import Media from './Media';
-import ProductCategory from './ProductCategory';
-import Fund from './Fund';
-import Voucher from './Voucher';
-import ReservationField from './ReservationField';
+import type BaseProduct from '../../../props/models/BaseProduct';
+import type { ReservationPolicy, ReservationToggle } from '../../../props/models/BaseProduct';
+import type Media from './Media';
+import type OrganizationBasic from './OrganizationBasic';
+import type ReservationField from './ReservationField';
 
-export type ProductPriceType =
-    | 'regular'
-    | 'discount_fixed'
-    | 'discount_percentage'
-    | 'free'
-    | 'informational'
-    | 'payout';
+export type ReservationFieldRequirement = 'global' | 'no' | 'optional' | 'required';
+export type ReservationNoteMode = 'global' | 'no' | 'custom';
 
-export default interface Product {
-    id: number;
-    name: string;
-    description: string;
-    description_html: string;
-    product_category_id: number;
-    sold_out: boolean;
-    organization_id: number;
+export default interface ProviderProduct extends BaseProduct {
     qr_enabled: boolean;
     reservation_enabled: boolean;
-    reservation_policy: 'global';
-    alternative_text?: string;
-    photos?: Media[];
-    price: string;
-    price_locale: string;
-    organization: Organization;
+    reservation_policy: ReservationPolicy;
+    description: string;
+    product_category_id: number;
     total_amount: number;
     unlimited_stock: boolean;
     reserved_amount: number;
     sold_amount: number;
-    stock_amount?: number;
-    expire_at: string;
-    expire_at_locale: string;
-    expired: boolean;
-    deleted_at?: string;
-    deleted_at_locale?: string;
-    deleted: boolean;
-    funds: Array<
-        Fund & {
-            organization: {
-                id: number;
-                name: string;
-            };
-            end_at: string;
-            end_at_locale: string;
-            feature_scanning_enabled: boolean;
-            feature_reservations_enabled: boolean;
-            feature_reservation_extra_payments_enabled: boolean;
-            fund_id?: number;
-            limit_total?: number;
-            limit_available?: number;
-            limit_per_identity?: number;
-            limit_total_unlimited?: boolean;
-            price?: string;
-            price_locale?: string;
-            amount?: string;
-            amount_locale?: string;
-            payment_type?: 'subsidy' | 'budget';
-            payment_type_locale?: string;
-            user_price?: string;
-            user_price_locale?: string;
-            vouchers?: Array<Voucher>;
-            fund_providers?: Array<Organization>;
-        }
-    >;
-    offices: Array<Office>;
-    product_category: ProductCategory;
-    bookmarked: boolean;
-    price_type: ProductPriceType;
-    price_discount: string;
-    price_discount_locale: string;
-    price_min?: string;
-    price_min_locale?: string;
-    price_max?: string;
-    price_max_locale?: string;
-    lowest_price?: string;
-    lowest_price_locale?: string;
-    reservation_fields_enabled: boolean;
-    reservation_phone: 'global' | 'no' | 'optional' | 'required';
-    reservation_address: 'global' | 'no' | 'optional' | 'required';
-    reservation_birth_date: 'global' | 'no' | 'optional' | 'required';
-    reservation_note: 'global' | 'no' | 'custom';
-    reservation_note_text: string;
-    reservation_extra_payments: 'global' | 'no' | 'yes';
-    sponsor_organization_id?: number;
-    sponsor_organization?: {
-        id: number;
-        name: string;
-    };
+    stock_amount: number | null;
+    sponsor_organization_id: number | null;
+    sponsor_organization: OrganizationBasic | null;
+    reservation_extra_payments: ReservationToggle;
     unseen_messages: number;
-    excluded_funds: Array<{
-        id: number;
-        name: string;
-        state: 'active' | 'closed' | 'paused' | 'waiting';
-        expire_at: string;
-    }>;
-    is_available?: boolean;
-    ean?: string;
-    sku?: string;
-    updated_at?: string;
-    updated_at_locale?: string;
-    created_at?: string;
-    created_at_locale?: string;
-    reservation_fields_config: 'global' | 'no' | 'yes';
-    reservation_fields: Array<ReservationField>;
-    available_reservation_fields_for_provider: Array<ReservationField>;
-    info_duration?: string;
-    info_when?: string;
-    info_where?: string;
-    info_more_info?: string;
-    info_attention?: string;
+    excluded_funds: Array<{ id: number }>;
+    sku: string | null;
+    ean: string | null;
+    photos: Media[];
+    price_discount: string | null;
+    reservation_fields_enabled: boolean;
+    reservation_phone: ReservationFieldRequirement;
+    reservation_address: ReservationFieldRequirement;
+    reservation_birth_date: ReservationFieldRequirement;
+    reservation_note: ReservationNoteMode;
+    reservation_note_text: string | null;
+    reservation_fields_config: ReservationToggle;
+    reservation_fields: Array<Required<ReservationField>>;
+    available_reservation_fields_for_provider: Array<Required<ReservationField>>;
 }

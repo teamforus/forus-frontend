@@ -3,7 +3,8 @@ import Organization from '../Organization';
 import Media from '../Media';
 import ProductCategory from '../ProductCategory';
 import FundProviderChat from '../FundProviderChat';
-import { ProductPriceType } from '../Product';
+import type { ProductPriceType, ReservationPolicy, ReservationToggle } from '../../../../props/models/BaseProduct';
+import type { ReservationFieldRequirement, ReservationNoteMode } from '../Product';
 
 export interface DealHistoryItem {
     id: number;
@@ -63,7 +64,7 @@ export default interface SponsorProduct {
     organization_id: number;
     qr_enabled: boolean;
     reservation_enabled: boolean;
-    reservation_policy: 'global';
+    reservation_policy: ReservationPolicy;
     alternative_text?: string;
     photos?: Media[];
     price: string;
@@ -86,13 +87,13 @@ export default interface SponsorProduct {
     price_discount: string;
     price_discount_locale: string;
     reservation_fields_enabled?: boolean;
-    reservation_phone: 'global' | 'no' | 'optional' | 'required';
-    reservation_address: 'global' | 'no' | 'optional' | 'required';
-    reservation_birth_date: 'global' | 'no' | 'optional' | 'required';
-    reservation_note: 'global' | 'no' | 'custom';
+    reservation_phone: ReservationFieldRequirement;
+    reservation_address: ReservationFieldRequirement;
+    reservation_birth_date: ReservationFieldRequirement;
+    reservation_note: ReservationNoteMode;
     reservation_note_text: string;
-    reservation_extra_payments: 'global' | 'no' | 'yes';
-    reservation_fields_config?: 'global' | 'no' | 'yes';
+    reservation_extra_payments: ReservationToggle;
+    reservation_fields_config?: ReservationToggle;
     sponsor_organization_id?: number;
     sponsor_organization?: {
         id: number;

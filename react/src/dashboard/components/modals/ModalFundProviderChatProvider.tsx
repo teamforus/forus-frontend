@@ -3,6 +3,7 @@ import { ModalState } from '../../modules/modals/context/ModalContext';
 import useEnvData from '../../hooks/useEnvData';
 import useProductChatService from '../../services/ProductChatService';
 import Organization from '../../props/models/Organization';
+import type OrganizationBasic from '../../props/models/OrganizationBasic';
 import Product from '../../props/models/Product';
 import FundProviderChat from '../../props/models/FundProviderChat';
 import useFormBuilder from '../../hooks/useFormBuilder';
@@ -24,7 +25,7 @@ export default function ModalFundProviderChatProvider({
     className?: string;
     chat: FundProviderChat;
     product: Product;
-    providerOrganization: Organization;
+    providerOrganization: OrganizationBasic;
     sponsorOrganization: Organization;
     onClose: () => void;
 }) {

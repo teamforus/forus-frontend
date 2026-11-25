@@ -3,7 +3,7 @@ import { ModalState } from '../../modules/modals/context/ModalContext';
 import { ModalButton } from './elements/ModalButton';
 import useFormBuilder from '../../hooks/useFormBuilder';
 import FormGroup from '../elements/forms/elements/FormGroup';
-import Reservation from '../../props/models/Reservation';
+import Reservation, { ProviderReservation } from '../../props/models/Reservation';
 import Organization from '../../props/models/Organization';
 import useProductReservationService from '../../services/ProductReservationService';
 import usePushSuccess from '../../hooks/usePushSuccess';
@@ -20,7 +20,7 @@ export default function ModalReservationInvoiceNumberEdit({
     reservation,
 }: {
     modal: ModalState;
-    onDone?: (reservation: Reservation) => void;
+    onDone?: (reservation: ProviderReservation) => void;
     organization: Organization;
     reservation: Reservation;
 }) {

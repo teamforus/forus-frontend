@@ -1,16 +1,41 @@
-import Fund from './Fund';
+import type { InlineFundPhysicalCardType } from './Fund';
 import Office from './Office';
 import Reservation from './Reservation';
 import PhysicalCard from './PhysicalCard';
 import Media from './Media';
 import OrganizationBasic from './OrganizationBasic';
-import Product from './Product';
+import type BaseTransaction from '../../../props/models/BaseTransaction';
+import type BaseVoucher from '../../../props/models/BaseVoucher';
+import type SmallProduct from '../../../props/models/SmallProduct';
 import Reimbursement from './Reimbursement';
 
 export interface VoucherFundPayoutButtons {
     vouchers: boolean;
     payouts: boolean;
     products: boolean;
+}
+
+export interface VoucherFund {
+    id: number;
+    state: 'active' | 'closed' | 'paused' | 'waiting';
+    type: 'budget' | 'subsidies' | 'external';
+    name: string;
+    description_short: string | null;
+    how_it_works_html: string | null;
+    url_webshop: string | null;
+    logo: Media | null;
+    organization: OrganizationBasic;
+    allow_physical_cards: boolean;
+    allow_blocking_vouchers: boolean;
+    fund_physical_card_types: InlineFundPhysicalCardType[];
+    allow_reimbursements: boolean;
+    show_qr_code: boolean;
+    allow_voucher_payouts: boolean;
+    allow_voucher_payout_count: number | null;
+    hide_voucher_amount: boolean;
+    allow_voucher_payout_note: string | null;
+    allow_voucher_payout_buttons: VoucherFundPayoutButtons;
+    voucher_payout_fixed_amount: string | null;
 }
 
 export interface VoucherProduct {
@@ -30,13 +55,11 @@ export interface VoucherProduct {
     organization?: OrganizationBasic;
 }
 
-export interface VoucherTransaction {
+export interface VoucherTransaction extends BaseTransaction {
     id: number;
     organization_id: number;
     product_id?: number;
     address: string;
-    state: 'success' | 'pending' | 'canceled';
-    state_locale: string;
     payment_id?: string;
     target?: 'provider' | 'iban' | 'top_up' | 'payout';
     initiator?: 'provider' | 'sponsor' | 'requester';
@@ -52,7 +75,7 @@ export interface VoucherTransaction {
         name: string;
         logo: Media;
     };
-    product?: Product;
+    product: SmallProduct | null;
     fund: {
         id: number;
         name: string;
@@ -69,23 +92,23 @@ export interface VoucherTransaction {
     reimbursement?: Reimbursement;
 }
 
-export default interface Voucher {
-    id: number;
+export default interface Voucher extends BaseVoucher {
     number?: string;
     address?: string;
-    fund_id: number;
     expired?: boolean;
-    fund: Fund & {
-        voucher_payout_fixed_amount?: string | null;
-        allow_voucher_payout_buttons?: VoucherFundPayoutButtons;
-        allow_voucher_payout_note?: string;
-    };
+    fund: VoucherFund;
     type?: 'regular' | 'product';
-    state?: string;
-    state_locale?: string;
     timestamp?: number;
     transactions: Array<VoucherTransaction>;
-    product_vouchers?: Array<Voucher>;
+    product_vouchers?: Array<{
+        amount: string;
+        amount_locale: string;
+        timestamp: number;
+        product: VoucherProduct;
+        product_reservation: { id: number; code: string } | null;
+        created_at: string;
+        created_at_locale: string;
+    }>;
     records?: Array<{
         voucher_id: number;
         value_locale: string;
@@ -97,8 +120,6 @@ export default interface Voucher {
     offices?: Array<Office>;
     query_product?: {
         reservable?: boolean;
-        reservable_count?: number;
-        reservable_enabled?: boolean;
         reservable_expire_at?: string;
         reservable_expire_at_locale?: string;
     };
@@ -120,15 +141,9 @@ export default interface Voucher {
     records_title?: string;
     returnable?: boolean;
     last_active_day_locale?: string;
-    created_at?: string;
-    created_at_locale?: string;
     expire_at?: string;
     expire_at_locale?: string;
     requester_payouts_count?: number;
-    fund_request?: {
-        iban: string;
-        iban_name: string;
-    };
     voucher_payout_partial_amounts?: Array<string> | null;
     voucher_payout_partial_amounts_label_type?: 'persons' | null;
     voucher_payout_has_valid_records?: boolean;

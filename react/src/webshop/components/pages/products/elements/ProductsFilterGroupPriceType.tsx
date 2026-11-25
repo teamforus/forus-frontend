@@ -2,13 +2,15 @@ import React, { ReactNode, useMemo } from 'react';
 import classNames from 'classnames';
 import { clickOnKeyEnter } from '../../../../../dashboard/helpers/wcag';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
-import { ProductPriceType } from '../../../../../dashboard/props/models/Product';
+import { ProductPriceType } from '../../../../../props/models/BaseProduct';
 import useShowProductPriceTypeOptionsInfoModal from '../../../../hooks/useShowProductPriceTypeOptionsInfoModal';
 import ProductsFilterGroup from './base-group/ProductsFilterGroup';
 import useAppConfigs from '../../../../hooks/useAppConfigs';
 
+type PriceFilter = ProductPriceType | 'payout';
+
 type ProductsFilterOptionsValue = {
-    [key in ProductPriceType]: boolean;
+    [key in PriceFilter]: boolean;
 };
 
 export default function ProductsFilterGroupPriceType({
@@ -25,7 +27,7 @@ export default function ProductsFilterGroupPriceType({
     const translate = useTranslate();
     const showProductIconsInfoModal = useShowProductPriceTypeOptionsInfoModal();
 
-    const options = useMemo<Array<{ value: ProductPriceType; icon: ReactNode; dusk?: string }>>(
+    const options = useMemo<Array<{ value: PriceFilter; icon: ReactNode; dusk?: string }>>(
         () => [
             {
                 value: 'regular',

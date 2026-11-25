@@ -126,7 +126,7 @@ export default function ModalFundProductLimitEdit({
                     (page: number) =>
                         productService.sponsorProducts(
                             organization.id,
-                            { fund_id: form.values.fund_id, per_page: 100, page },
+                            { fund_id: form.values.fund_id, state: 'approved', per_page: 100, page },
                             config,
                         ),
                     4,

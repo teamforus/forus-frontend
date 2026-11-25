@@ -1,12 +1,15 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
+import useEnvData from '../../../hooks/useEnvData';
 import LoadingCard from '../../elements/loading-card/LoadingCard';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import useSetProgress from '../../../hooks/useSetProgress';
 import useOpenModal from '../../../hooks/useOpenModal';
 import { useParams } from 'react-router';
 import { useReimbursementsService } from '../../../services/ReimbursementService';
+import useTransactionService from '../../../services/TransactionService';
 import Reimbursement from '../../../props/models/Reimbursement';
+import type Transaction from '../../../props/models/Transaction';
 import File from '../../../props/models/File';
 import useAuthIdentity from '../../../hooks/useAuthIdentity';
 import usePushSuccess from '../../../hooks/usePushSuccess';
@@ -30,6 +33,7 @@ import classNames from 'classnames';
 export default function ReimbursementsView() {
     const { id } = useParams();
 
+    const envData = useEnvData();
     const authIdentity = useAuthIdentity();
     const activeOrganization = useActiveOrganization();
 
@@ -41,9 +45,16 @@ export default function ReimbursementsView() {
     const pushApiError = usePushApiError();
 
     const fileService = useFileService();
+    const transactionService = useTransactionService();
     const reimbursementService = useReimbursementsService();
 
+    const [transaction, setTransaction] = useState<Transaction>(null);
     const [reimbursement, setReimbursement] = useState<Reimbursement>(null);
+
+    const transactionAddress =
+        reimbursement?.id === Number(id) && hasPermission(activeOrganization, Permission.VIEW_FINANCES)
+            ? reimbursement.voucher_transaction?.address
+            : null;
 
     const fetchReimbursement = useCallback(() => {
         setProgress(0);
@@ -54,6 +65,33 @@ export default function ReimbursementsView() {
             .catch(pushApiError)
             .finally(() => setProgress(100));
     }, [setProgress, reimbursementService, activeOrganization.id, id, pushApiError]);
+
+    const fetchTransaction = useCallback(() => {
+        setTransaction(null);
+
+        if (!transactionAddress) {
+            return;
+        }
+
+        let current = true;
+
+        transactionService
+            .show(envData.client_type, activeOrganization.id, transactionAddress)
+            .then((res) => {
+                if (current) {
+                    setTransaction(res.data.data);
+                }
+            })
+            .catch((err) => {
+                if (current) {
+                    pushApiError(err);
+                }
+            });
+
+        return () => {
+            current = false;
+        };
+    }, [activeOrganization.id, envData.client_type, transactionAddress, transactionService, pushApiError]);
 
     const handleOnReimbursementUpdated = useCallback(
         (promise: Promise<ApiResponseSingle<Reimbursement>>, successMessage: string = null) => {
@@ -134,10 +172,6 @@ export default function ReimbursementsView() {
         ));
     }, [activeOrganization, openModal, reimbursement]);
 
-    const setTransaction = useCallback(() => {
-        fetchReimbursement();
-    }, [fetchReimbursement]);
-
     const fetchNotes = useCallback(
         (query = {}, config: RequestConfig = {}) => {
             return reimbursementService.notes(activeOrganization.id, reimbursement?.id, query, config);
@@ -162,6 +196,10 @@ export default function ReimbursementsView() {
     useEffect(() => {
         fetchReimbursement();
     }, [fetchReimbursement]);
+
+    useEffect(() => {
+        return fetchTransaction();
+    }, [fetchTransaction]);
 
     if (!reimbursement) {
         return <LoadingCard />;
@@ -576,19 +614,21 @@ export default function ReimbursementsView() {
                 </div>
             )}
 
-            {reimbursement.voucher_transaction && hasPermission(activeOrganization, Permission.VIEW_FINANCES) && (
+            {transactionAddress && transaction?.address === transactionAddress && (
                 <div className="card card-wrapped">
                     <div className="card-header">
                         <div className="flex flex-grow card-title">
                             {translate('financial_dashboard_transaction.labels.details')}
                         </div>
                     </div>
+
                     <div className="card-section form">
                         <div className="flex flex-gap flex-vertical form">
                             <TransactionDetailsPane
-                                transaction={reimbursement.voucher_transaction}
+                                transaction={transaction}
                                 setTransaction={setTransaction}
                                 showReservationPageButton={true}
+                                onUpdate={fetchReimbursement}
                             />
                         </div>
                     </div>

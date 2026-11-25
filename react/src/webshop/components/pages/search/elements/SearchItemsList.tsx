@@ -46,7 +46,6 @@ export default function SearchItemsList({
                             product={
                                 {
                                     ...item.resource,
-                                    description: getDescription(item.description_text),
                                     alternative_text: transformProductAlternativeText(item.resource as Product),
                                 } as Product
                             }

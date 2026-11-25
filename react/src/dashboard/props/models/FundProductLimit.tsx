@@ -1,5 +1,4 @@
 import Fund from './Fund';
-import Product from './Product';
 
 export default interface FundProductLimit {
     id: number;
@@ -11,7 +10,7 @@ export default interface FundProductLimit {
     limit_by_locale: string;
     limit: number | string;
     limit_locale: string;
-    products: Array<Product>;
+    products: Array<{ id: number; name: string }>;
     fund?: Fund;
     created_at_locale?: string;
 }

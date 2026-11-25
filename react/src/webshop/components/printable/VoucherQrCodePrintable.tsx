@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
-import Voucher from '../../../dashboard/props/models/Voucher';
+import type Voucher from '../../../dashboard/props/models/Voucher';
+import type SponsorVoucher from '../../../dashboard/props/models/Sponsor/SponsorVoucher';
 import { PrintableState } from '../../../dashboard/modules/printable/context/PrintableContext';
 import useTranslate from '../../../dashboard/hooks/useTranslate';
 import QrCode from '../../../dashboard/components/elements/qr-code/QrCode';
 import Fund from '../../../dashboard/props/models/Fund';
+import type Organization from '../../../dashboard/props/models/Organization';
 import OrganizationBasic from '../../../dashboard/props/models/OrganizationBasic';
 import { makeQrCodeContent } from '../../../dashboard/helpers/utils';
 
@@ -17,11 +19,11 @@ export default function VoucherQrCodePrintable({
     showConditions = false,
 }: {
     fund?: Partial<Fund>;
-    voucher: Voucher;
+    voucher: Voucher | SponsorVoucher;
     assetUrl: (uri: string) => string;
     printable: PrintableState;
     webshopUrl?: string;
-    organization: OrganizationBasic;
+    organization: OrganizationBasic | Organization;
     showConditions?: boolean;
 }) {
     const translate = useTranslate();

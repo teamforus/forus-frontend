@@ -276,7 +276,7 @@ export default function VouchersShow() {
                                         <div>
                                             <StateNavLink
                                                 name={WebshopRoutes.FUND}
-                                                params={{ id: voucher?.fund_id }}
+                                                params={{ id: voucher?.fund.id }}
                                                 className="button button-primary button-sm">
                                                 {translate('voucher.fund_details.view')}
                                                 <em className="mdi mdi-arrow-right icon-right" />
@@ -324,7 +324,10 @@ export default function VouchersShow() {
                                                 appConfigs={appConfigs}
                                                 mapPointers={voucherCard.offices}
                                                 markerTemplate={(office: Office) => (
-                                                    <MapMarkerProviderOffice office={office} />
+                                                    <MapMarkerProviderOffice
+                                                        office={office}
+                                                        organization={office.organization}
+                                                    />
                                                 )}
                                                 mapGestureHandling={'greedy'}
                                                 mapGestureHandlingMobile={'none'}

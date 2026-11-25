@@ -31,7 +31,7 @@ export default function Products() {
 
     const [errors, setErrors] = useState<ResponseErrorData>({});
     const [toMax, setToMax] = useState(0);
-    const [products, setProducts] = useState<PaginationData<Product, { price_max: number }>>(null);
+    const [products, setProducts] = useState<PaginationData<Product, { price_max: string }>>(null);
 
     const {
         countFiltersApplied,
@@ -54,7 +54,7 @@ export default function Products() {
             runLatestRequest((config) => productService.list({ ...query }, config), {
                 onSuccess: (res) => {
                     setProducts(res.data);
-                    setToMax((max) => Math.max(res.data?.meta?.price_max, max));
+                    setToMax((max) => Math.max(Number(res.data.meta.price_max), max));
                 },
                 onError: (e: ResponseError) => setErrors(e.data?.errors),
             });

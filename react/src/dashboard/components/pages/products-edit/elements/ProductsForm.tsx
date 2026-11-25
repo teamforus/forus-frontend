@@ -8,7 +8,8 @@ import useSetProgress from '../../../../hooks/useSetProgress';
 import Organization, { Permission } from '../../../../props/models/Organization';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import MarkdownEditor from '../../../elements/forms/markdown-editor/MarkdownEditor';
-import Product, { ProductPriceType } from '../../../../props/models/Product';
+import Product, { ReservationFieldRequirement, ReservationNoteMode } from '../../../../props/models/Product';
+import type { ProductPriceType, ReservationPolicy, ReservationToggle } from '../../../../../props/models/BaseProduct';
 import useProductService from '../../../../services/ProductService';
 import DatePickerControl from '../../../elements/forms/controls/DatePickerControl';
 import SelectControl from '../../../elements/select-control/SelectControl';
@@ -286,39 +287,46 @@ export default function ProductsForm({
         ean?: string;
         sku?: string;
         name?: string;
-        price?: number;
+        price?: number | '';
         price_type: ProductPriceType;
-        price_discount?: number;
+        price_discount?: number | '' | null;
         expire_at?: string;
-        sold_amount?: number;
-        stock_amount?: number;
-        total_amount?: number;
+        sold_amount?: number | '';
+        stock_amount?: number | '' | null;
+        total_amount?: number | '';
         unlimited_stock?: boolean;
         description?: string;
         description_html?: string;
         alternative_text?: string;
         qr_enabled?: boolean;
         reservation_enabled?: boolean;
+        reservation_fields_enabled?: boolean;
         product_category_id?: number;
-        reservation_phone: 'global' | 'no' | 'optional' | 'required';
-        reservation_address: 'global' | 'no' | 'optional' | 'required';
-        reservation_birth_date: 'global' | 'no' | 'optional' | 'required';
-        reservation_extra_payments: 'global' | 'no' | 'yes';
-        reservation_policy?: 'global' | 'accept' | 'review';
-        reservation_note?: 'global' | 'no' | 'custom';
-        reservation_fields_config?: 'global' | 'yes' | 'no';
+        reservation_phone: ReservationFieldRequirement;
+        reservation_address: ReservationFieldRequirement;
+        reservation_birth_date: ReservationFieldRequirement;
+        reservation_extra_payments: ReservationToggle;
+        reservation_policy?: ReservationPolicy;
+        reservation_note?: ReservationNoteMode;
+        reservation_fields_config?: ReservationToggle;
         reservation_note_text?: string;
-        info_duration?: null;
-        info_when?: null;
-        info_where?: null;
-        info_more_info?: null;
-        info_attention?: null;
+        info_duration?: string | null;
+        info_when?: string | null;
+        info_where?: string | null;
+        info_more_info?: string | null;
+        info_attention?: string | null;
     }>(null, (values) => {
-        if (product && !product.unlimited_stock && form.values.stock_amount < 0) {
+        const stockAmount = values.stock_amount;
+
+        if (product && !product.unlimited_stock && (typeof stockAmount !== 'number' || stockAmount < 0)) {
             form.setIsLocked(false);
 
             return form.setErrors({
-                stock_amount: ['Nog te koop moet minimaal 0 zijn.'],
+                stock_amount: [
+                    typeof stockAmount === 'number'
+                        ? 'Nog te koop moet minimaal 0 zijn.'
+                        : 'Vul de resterende voorraad in.',
+                ],
             });
         }
 
@@ -350,7 +358,10 @@ export default function ProductsForm({
                 }
 
                 if (product) {
-                    const updateValues = { ...valueData, total_amount: values.sold_amount + values.stock_amount };
+                    const updateValues = {
+                        ...valueData,
+                        total_amount: Number(values.sold_amount) + Number(stockAmount),
+                    };
 
                     if (!fundProvider) {
                         promise = productService.update(organization.id, product.id, updateValues);
@@ -1159,7 +1170,7 @@ export default function ProductsForm({
                                                 propKey={'value'}
                                                 allowSearch={false}
                                                 value={form.values.reservation_policy}
-                                                onChange={(reservation_policy: string) => {
+                                                onChange={(reservation_policy: ReservationPolicy) => {
                                                     form.update({ reservation_policy });
                                                 }}
                                                 options={reservationPolicies}
@@ -1183,7 +1194,7 @@ export default function ProductsForm({
                                                 propValue={'label'}
                                                 id={id}
                                                 value={form.values.reservation_note}
-                                                onChange={(reservation_note: string) => {
+                                                onChange={(reservation_note: ReservationNoteMode) => {
                                                     form.update({ reservation_note });
                                                 }}
                                                 options={reservationNoteOptions}
@@ -1251,7 +1262,9 @@ export default function ProductsForm({
                                                                 propKey={'value'}
                                                                 propValue={'label'}
                                                                 value={form.values.reservation_phone}
-                                                                onChange={(reservation_phone: string) => {
+                                                                onChange={(
+                                                                    reservation_phone: ReservationFieldRequirement,
+                                                                ) => {
                                                                     form.update({ reservation_phone });
                                                                 }}
                                                                 options={reservationPhoneOptions}
@@ -1268,7 +1281,9 @@ export default function ProductsForm({
                                                                 propKey={'value'}
                                                                 propValue={'label'}
                                                                 value={form.values.reservation_address}
-                                                                onChange={(reservation_address: string) => {
+                                                                onChange={(
+                                                                    reservation_address: ReservationFieldRequirement,
+                                                                ) => {
                                                                     form.update({ reservation_address });
                                                                 }}
                                                                 options={reservationAddressOptions}
@@ -1285,7 +1300,9 @@ export default function ProductsForm({
                                                                 propKey={'value'}
                                                                 propValue={'label'}
                                                                 value={form.values.reservation_birth_date}
-                                                                onChange={(reservation_birth_date: string) => {
+                                                                onChange={(
+                                                                    reservation_birth_date: ReservationFieldRequirement,
+                                                                ) => {
                                                                     form.update({ reservation_birth_date });
                                                                 }}
                                                                 options={reservationBirthDateOptions}
@@ -1302,7 +1319,9 @@ export default function ProductsForm({
                                                                 propKey={'value'}
                                                                 propValue={'label'}
                                                                 value={form.values.reservation_fields_config}
-                                                                onChange={(reservation_fields_config: string) => {
+                                                                onChange={(
+                                                                    reservation_fields_config: ReservationToggle,
+                                                                ) => {
                                                                     form.update({ reservation_fields_config });
                                                                 }}
                                                                 options={reservationFieldsConfigOptions}
@@ -1341,7 +1360,7 @@ export default function ProductsForm({
                                             propValue={'label'}
                                             disabled={!isEditable}
                                             value={form.values.reservation_extra_payments}
-                                            onChange={(reservation_extra_payments: string) => {
+                                            onChange={(reservation_extra_payments: ReservationToggle) => {
                                                 form.update({ reservation_extra_payments });
                                             }}
                                             options={extraPaymentsOptions}

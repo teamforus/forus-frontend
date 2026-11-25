@@ -448,7 +448,7 @@ export default function SignUpProvider() {
     );
 
     const goToStep = useCallback(
-        (targetStep: string) => {
+        (targetStep: string): void => {
             const movingForward = STEPS.indexOf(targetStep) >= STEPS.indexOf(step);
             const targetStepIndex = STEPS.indexOf(targetStep);
 

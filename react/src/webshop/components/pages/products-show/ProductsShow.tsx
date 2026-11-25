@@ -1,16 +1,16 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useParams } from 'react-router';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import { useNavigateState, useStateParams } from '../../../modules/state_router/Router';
 import { GoogleMap } from '../../../../dashboard/components/elements/google-map/GoogleMap';
-import Office from '../../../../dashboard/props/models/Office';
 import Provider from '../../../props/models/Provider';
 import Product from '../../../props/models/Product';
+import type { ProductOffice } from '../../../props/models/Product';
 import { useVoucherService } from '../../../services/VoucherService';
 import { useProductService } from '../../../services/ProductService';
 import { useProviderService } from '../../../services/ProviderService';
 import Markdown from '../../elements/markdown/Markdown';
-import useAuthIdentity from '../../../hooks/useAuthIdentity';
+import { authContext } from '../../../contexts/AuthContext';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import MapMarkerProviderOffice from '../../elements/map-markers/MapMarkerProviderOffice';
 import useBookmarkProductToggle from '../../../services/helpers/useBookmarkProductToggle';
@@ -19,6 +19,7 @@ import useSetTitle from '../../../hooks/useSetTitle';
 import useEnvData from '../../../hooks/useEnvData';
 import BlockShowcase from '../../elements/block-showcase/BlockShowcase';
 import useSetProgress from '../../../../dashboard/hooks/useSetProgress';
+import useLatestRequestWithProgress from '../../../../dashboard/hooks/useLatestRequestWithProgress';
 import { clickOnKeyEnter } from '../../../../dashboard/helpers/wcag';
 import Fund from '../../../props/models/Fund';
 import { useFundService } from '../../../services/FundService';
@@ -50,7 +51,7 @@ export default function ProductsShow() {
 
     const envData = useEnvData();
     const appConfigs = useAppConfigs();
-    const authIdentity = useAuthIdentity();
+    const { identity: authIdentity, token } = useContext(authContext);
 
     const openModal = useOpenModal();
     const setTitle = useSetTitle();
@@ -58,6 +59,7 @@ export default function ProductsShow() {
     const setProgress = useSetProgress();
     const navigateState = useNavigateState();
     const startFundRequest = useStartFundRequest();
+    const runProductRequest = useLatestRequestWithProgress();
     const bookmarkProductToggle = useBookmarkProductToggle();
 
     const fundService = useFundService();
@@ -115,15 +117,6 @@ export default function ProductsShow() {
         ));
     }, [navigateState, openModal, productPayoutEligibleVouchers]);
 
-    const fetchProduct = useCallback(() => {
-        setProgress(0);
-
-        productService
-            .read(parseInt(id))
-            .then((res) => setProduct(res.data.data))
-            .finally(() => setProgress(100));
-    }, [productService, setProgress, id]);
-
     const fetchProvider = useCallback(() => {
         if (!product?.organization_id) {
             return setProvider(null);
@@ -171,8 +164,11 @@ export default function ProductsShow() {
     }, [fetchFunds]);
 
     useEffect(() => {
-        fetchProduct();
-    }, [fetchProduct]);
+        runProductRequest((config) => productService.read(parseInt(id), config), {
+            onStart: () => setProduct(null),
+            onSuccess: (res) => setProduct(res.data.data),
+        });
+    }, [id, token, productService, runProductRequest]);
 
     useEffect(() => {
         fetchProvider();
@@ -351,8 +347,11 @@ export default function ProductsShow() {
                                                 mapGestureHandling={'greedy'}
                                                 mapGestureHandlingMobile={'none'}
                                                 fullscreenPosition={window.google.maps.ControlPosition.TOP_RIGHT}
-                                                markerTemplate={(office: Office) => (
-                                                    <MapMarkerProviderOffice office={office} />
+                                                markerTemplate={(office: ProductOffice) => (
+                                                    <MapMarkerProviderOffice
+                                                        office={office}
+                                                        organization={product.organization}
+                                                    />
                                                 )}
                                             />
                                         </div>

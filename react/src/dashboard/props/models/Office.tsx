@@ -1,35 +1,23 @@
 import Media from './Media';
-import BusinessType from './BusinessType';
+import type OrganizationBasic from './OrganizationBasic';
 import OfficeSchedule from './OfficeSchedule';
 
 export default interface Office {
     id: number;
     organization_id: number;
     address: string;
-    phone: string;
-    lon: string;
-    lat: string;
-    postcode: string;
-    postcode_number: string;
-    postcode_addition: string;
-    photo?: Media;
-    branch_number?: string;
-    branch_name?: string;
+    phone: string | null;
+    lon: string | null;
+    lat: string | null;
+    postcode: string | null;
+    postcode_number: string | null;
+    postcode_addition: string | null;
+    photo: Media | null;
+    branch_number?: string | null;
+    branch_name?: string | null;
     branch_full_name?: string;
-    branch_id?: string;
+    branch_id?: string | null;
     employees_count?: number;
-    organization: {
-        id: number;
-        name: string;
-        business_type_id: number;
-        email_public: boolean;
-        phone_public: boolean;
-        website_public: boolean;
-        email?: string;
-        phone?: string;
-        website?: string;
-        logo?: Media;
-        business_type: BusinessType;
-    };
+    organization: OrganizationBasic;
     schedule: Array<OfficeSchedule>;
 }

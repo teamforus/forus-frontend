@@ -1,11 +1,9 @@
 import React, { Fragment } from 'react';
 import Product from '../../../../../props/models/Product';
 import useAssetUrl from '../../../../../hooks/useAssetUrl';
-import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
 
-export default function ProductsListItemSearch({ product }: { product?: Product }) {
+export default function ProductsListItemSearch({ product, price }: { product: Product; price: string }) {
     const assetUrl = useAssetUrl();
-    const translate = useTranslate();
 
     return (
         <Fragment>
@@ -20,18 +18,9 @@ export default function ProductsListItemSearch({ product }: { product?: Product 
                     <h2 className="search-title">{product.name}</h2>
                     <div className="search-subtitle">{product.organization.name}</div>
                 </div>
+
                 <div className="search-actions">
-                    <div className="search-price">
-                        {product.price_type === 'regular' &&
-                            product.lowest_price_locale === '0.0' &&
-                            translate('list_blocks.product_item_search.free')}
-
-                        {product.price_type !== 'regular' ? product.price_locale : ''}
-
-                        {product.price_type === 'regular' &&
-                            product.lowest_price_locale !== '0.0' &&
-                            product.lowest_price_locale}
-                    </div>
+                    <div className="search-price">{price}</div>
                 </div>
             </div>
         </Fragment>

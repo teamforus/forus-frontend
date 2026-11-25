@@ -242,7 +242,9 @@ export default function Providers() {
                                     mapPointers={offices}
                                     mapGestureHandling={'greedy'}
                                     mapGestureHandlingMobile={'greedy'}
-                                    markerTemplate={(office: Office) => <MapMarkerProviderOffice office={office} />}
+                                    markerTemplate={(office: Office) => (
+                                        <MapMarkerProviderOffice office={office} organization={office.organization} />
+                                    )}
                                 />
                             )}
                         </div>

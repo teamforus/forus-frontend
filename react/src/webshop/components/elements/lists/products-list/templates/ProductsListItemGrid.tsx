@@ -6,7 +6,6 @@ import useAuthIdentity from '../../../../../hooks/useAuthIdentity';
 import { clickOnKeyEnter } from '../../../../../../dashboard/helpers/wcag';
 import { useProductService } from '../../../../../services/ProductService';
 import useTranslate from '../../../../../../dashboard/hooks/useTranslate';
-import useProductFeatures from '../../../../../hooks/useProductFeatures';
 import useIsPayoutInfoProduct from '../../../../pages/products-show/hooks/useIsPayoutInfoProduct';
 import useAppConfigs from '../../../../../hooks/useAppConfigs';
 
@@ -23,7 +22,6 @@ export default function ProductsListItemGrid({
 }) {
     const appConfigs = useAppConfigs();
     const authIdentity = useAuthIdentity();
-    const productFeatures = useProductFeatures(product);
     const isPayoutInfoProduct = useIsPayoutInfoProduct(product, appConfigs);
 
     const assetUrl = useAssetUrl();
@@ -77,7 +75,7 @@ export default function ProductsListItemGrid({
                     {price}
                 </div>
                 <div className="product-icons">
-                    {productFeatures?.feature_scanning_enabled && (
+                    {product?.feature_scanning_enabled && (
                         <div className="product-icons-item">
                             <em className="mdi mdi-qrcode-scan" aria-hidden="true" />
                             <span className="sr-only">
@@ -85,7 +83,7 @@ export default function ProductsListItemGrid({
                             </span>
                         </div>
                     )}
-                    {productFeatures?.feature_reservations_enabled && (
+                    {product?.feature_reservations_enabled && (
                         <div className="product-icons-item">
                             <em className="mdi mdi-tag-multiple-outline" aria-hidden="true" />
                             <span className="sr-only">
@@ -93,7 +91,7 @@ export default function ProductsListItemGrid({
                             </span>
                         </div>
                     )}
-                    {productFeatures?.feature_reservation_extra_payments_enabled && (
+                    {product?.feature_reservation_extra_payments_enabled && (
                         <div className="product-icons-item">
                             <img src={assetUrl('/assets/img/icon-ideal-wero-square.svg')} alt="" aria-hidden="true" />
                             <span className="sr-only">

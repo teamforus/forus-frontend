@@ -1,9 +1,8 @@
 import Media from './Media';
+import type BaseTransaction from '../../../props/models/BaseTransaction';
 
-export default interface PayoutTransaction {
+export default interface PayoutTransaction extends BaseTransaction {
     id: number;
-    state: 'success' | 'pending' | 'canceled';
-    state_locale: string;
     address: string;
     employee_id?: number;
     upload_batch_id?: number;
