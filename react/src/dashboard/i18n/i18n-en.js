@@ -16,6 +16,9 @@ export default {
 
     // PAGES
     ...pages,
+    products: {
+        all: 'All',
+    },
 
     // MODALS
     modals: {

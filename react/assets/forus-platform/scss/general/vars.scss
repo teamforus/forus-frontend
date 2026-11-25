@@ -52,4 +52,9 @@
     --paginator-button-disabled-color: #bbc1c6;
     --paginator-button-disabled-border: #e5e5e5;
     --paginator-button-disabled-background: #fafafa;
+
+    // Header
+    --header-control-border: 1px solid transparent;
+    --header-control-border-radius: var(--border-radius);
+    --header-control-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

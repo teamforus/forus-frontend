@@ -39,6 +39,7 @@ export default function SponsorProductsTable({
                 name={DashboardRoutes.SPONSOR_PRODUCT}
                 params={{ productId: product?.id, organizationId: activeOrganization.id }}
                 className={'tr-clickable'}
+                dataDusk={`tableSponsorProductRow${product.id}`}
                 customElement={'tr'}>
                 <td title={product.name}>
                     <TableEntityMain

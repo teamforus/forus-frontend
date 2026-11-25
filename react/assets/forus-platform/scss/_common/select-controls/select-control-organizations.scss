@@ -45,9 +45,9 @@
             height: var(--control-height);
             padding: 0 !important;
             background: #ffffff;
-            border: 1px solid #d4d9dd;
-            border-radius: var(--control-border-radius);
-            box-shadow: 0 2px 8px rgba(#000, 0.1);
+            border: var(--header-control-border) !important;
+            border-radius: var(--header-control-border-radius) !important;
+            box-shadow: var(--header-control-box-shadow);
             @include helpers.cf();
 
             .select-control-search-icon-organizations {

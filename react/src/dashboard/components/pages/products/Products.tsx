@@ -57,7 +57,7 @@ export default function Products() {
 
     const [filterValues, filterValuesActive, filterUpdate, filter] = useFilterNext<{
         q: string;
-        source: 'provider' | 'sponsor' | 'archive';
+        source: 'all' | 'provider' | 'sponsor' | 'archive';
         page?: number;
         per_page?: number;
         order_by?: string;
@@ -74,7 +74,7 @@ export default function Products() {
         {
             queryParams: {
                 q: StringParam,
-                source: createEnumParam(['provider', 'sponsor', 'archive']),
+                source: createEnumParam(['all', 'provider', 'sponsor', 'archive']),
                 per_page: NumberParam,
                 page: NumberParam,
                 order_by: StringParam,
@@ -108,6 +108,7 @@ export default function Products() {
     const fetchProducts = useCallback(() => {
         const filters = {
             ...filterValuesActive,
+            source: filterValuesActive.source === 'all' ? null : filterValuesActive.source,
             order_by: filterValuesActive.order_by === 'expired_at' ? 'expire_at' : filterValuesActive.order_by,
         };
 
@@ -126,6 +127,8 @@ export default function Products() {
     if (!products) {
         return <LoadingCard />;
     }
+
+    const totalNonArchived = products.meta.total_provider + products.meta.total_sponsor;
 
     return (
         <div className="card" data-dusk="tableProductContent">
@@ -155,10 +158,11 @@ export default function Products() {
                                 : ``}
                         </StateNavLink>
 
-                        <BlockLabelTabs
+                        <BlockLabelTabs<typeof filterValues.source>
                             value={filterValues.source}
-                            setValue={(value: 'provider' | 'sponsor' | 'archive') => filterUpdate({ source: value })}
+                            setValue={(source) => filterUpdate({ source, page: 1 })}
                             tabs={[
+                                { value: 'all', label: `${translate('products.all')} (${totalNonArchived})` },
                                 { value: 'provider', label: `In uw beheer (${products?.meta?.total_provider})` },
                                 { value: 'sponsor', label: `In beheer van sponsor (${products?.meta?.total_sponsor})` },
                                 { value: 'archive', label: `Archief (${products?.meta?.total_archived})` },
@@ -184,7 +188,7 @@ export default function Products() {
                 loading={loading}
                 empty={products?.meta?.total == 0}
                 emptyTitle={
-                    filterValues.source == 'provider' && filterValuesActive.q
+                    (filterValues.source === 'all' || filterValues.source === 'provider') && filterValuesActive.q
                         ? 'Er zijn geen aanbiedingen gevonden voor de zoekopdracht.'
                         : 'Er zijn momenteel geen aanbiedingen.'
                 }
