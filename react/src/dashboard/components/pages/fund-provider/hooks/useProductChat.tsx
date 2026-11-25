@@ -32,7 +32,7 @@ export default function useProductChat(fund: Fund, fundProvider: FundProvider, o
     );
 
     const makeProductChat = useCallback(
-        (product: SponsorProduct, onClosed: () => void) => {
+        (product: SponsorProduct, onCreated: () => void) => {
             openModal((modal) => (
                 <ModalFundProviderChatMessage
                     modal={modal}
@@ -42,7 +42,7 @@ export default function useProductChat(fund: Fund, fundProvider: FundProvider, o
                     organization={organization}
                     onSubmit={() => {
                         pushSuccess('Opgeslagen!');
-                        onClosed();
+                        onCreated();
                     }}
                 />
             ));

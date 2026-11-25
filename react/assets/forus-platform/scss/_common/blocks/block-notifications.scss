@@ -52,6 +52,16 @@
             background-color: #e4ecf170;
         }
 
+        &.notification-item-link {
+            cursor: pointer;
+            text-decoration: none;
+
+            &:hover,
+            &:focus-visible {
+                background-color: #f3f6f8;
+            }
+        }
+
         &:last-child {
             border-bottom: 0;
         }

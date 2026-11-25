@@ -1,4 +1,5 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { NumberParam, useQueryParam } from 'use-query-params';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
 import { useParams } from 'react-router';
 import SponsorProduct from '../../../props/models/Sponsor/SponsorProduct';
@@ -36,6 +37,9 @@ export default function FundProviderProductView() {
     const [fund, setFund] = useState<Fund>(null);
     const [product, setProduct] = useState<SponsorProduct>(null);
     const [fundProvider, setFundProvider] = useState<FundProvider>(null);
+
+    const chatOpenedRef = useRef(false);
+    const [showChat, setShowChat] = useQueryParam('chat', NumberParam);
 
     const activeDeal = useMemo(() => {
         return product?.deals_history?.find((item) => item.active);
@@ -106,6 +110,22 @@ export default function FundProviderProductView() {
     useEffect(() => {
         fetchProduct();
     }, [fetchProduct]);
+
+    useEffect(() => {
+        if (!showChat || !product || chatOpenedRef.current) {
+            return;
+        }
+
+        setShowChat(undefined, 'replaceIn');
+
+        if (product.fund_provider_product_chat) {
+            chatOpenedRef.current = true;
+            openProductChat(product.fund_provider_product_chat, () => {
+                chatOpenedRef.current = false;
+                fetchFundProvider();
+            });
+        }
+    }, [fetchFundProvider, openProductChat, product, setShowChat, showChat]);
 
     if (!product || !fund || !fundProvider) {
         return <LoadingCard />;

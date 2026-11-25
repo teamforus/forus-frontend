@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router';
 import useTranslate from '../../../hooks/useTranslate';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
@@ -25,7 +25,7 @@ import TableRowActions from '../../elements/tables/TableRowActions';
 import classNames from 'classnames';
 import { DashboardRoutes } from '../../../modules/state_router/RouterBuilder';
 import useFilterNext from '../../../modules/filter_next/useFilterNext';
-import { NumberParam, StringParam } from 'use-query-params';
+import { NumberParam, StringParam, useQueryParam } from 'use-query-params';
 import LoaderTableCard from '../../elements/loader-table-card/LoaderTableCard';
 import useLatestRequestWithProgress from '../../../hooks/useLatestRequestWithProgress';
 
@@ -51,6 +51,9 @@ export default function ProductView() {
     const [funds, setFunds] = useState<PaginationData<ProductFundLocal>>(null);
     const [fundToggles, setFundToggles] = useState({});
     const [paginatorKey] = useState('product_funds');
+
+    const chatOpenedRef = useRef(false);
+    const [chatFundId, setChatFundId] = useQueryParam('chat_fund_id', NumberParam);
 
     const pushSuccess = usePushSuccess();
     const pushApiError = usePushApiError();
@@ -159,22 +162,65 @@ export default function ProductView() {
         );
     }, [fetchChats, filterValuesActive, mapFundsWithChats, product, productService, runLatestRequest]);
 
-    const showTheChat = (fund: ProductFundLocal) => {
-        if (!fund.chat) {
+    const showTheChat = useCallback(
+        (fund: ProductFundLocal) => {
+            if (!fund.chat) {
+                return;
+            }
+
+            openModal(
+                (modal) => (
+                    <ModalFundProviderChatProvider
+                        modal={modal}
+                        chat={fund.chat}
+                        product={product}
+                        providerOrganization={product.organization}
+                        sponsorOrganization={fund.organization}
+                    />
+                ),
+                {
+                    onClosed: () => {
+                        chatOpenedRef.current = false;
+                        fetchFunds();
+                    },
+                },
+            );
+        },
+        [fetchFunds, openModal, product],
+    );
+
+    useLayoutEffect(() => {
+        if (!chatFundId || !product || chatOpenedRef.current) {
             return;
         }
 
-        openModal((modal) => (
-            <ModalFundProviderChatProvider
-                modal={modal}
-                chat={fund.chat}
-                product={product}
-                providerOrganization={product.organization}
-                sponsorOrganization={fund.organization}
-                onClose={() => fetchFunds()}
-            />
-        ));
-    };
+        let isCurrent = true;
+
+        Promise.all([
+            productService.listProductFunds(product.organization_id, product.id, { fund_id: chatFundId }),
+            productChatService.list(product.organization_id, product.id, { fund_id: chatFundId }),
+        ])
+            .then(([res, chats]) => {
+                return mapFundsWithChats(res.data, chats.data).data.find((fund) => fund.id === chatFundId);
+            })
+            .catch(() => null)
+            .then((fund) => {
+                if (!isCurrent) {
+                    return;
+                }
+
+                setChatFundId(undefined, 'replaceIn');
+
+                if (fund?.chat) {
+                    chatOpenedRef.current = true;
+                    showTheChat(fund);
+                }
+            });
+
+        return () => {
+            isCurrent = false;
+        };
+    }, [chatFundId, mapFundsWithChats, product, productChatService, productService, setChatFundId, showTheChat]);
 
     useEffect(() => {
         fetchProduct()
