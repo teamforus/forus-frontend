@@ -2,6 +2,7 @@ import KeyValueItem from '../../../../elements/key-value/KeyValueItem';
 import TranslateHtml from '../../../../elements/translate-html/TranslateHtml';
 import React, { Fragment } from 'react';
 import SponsorProduct from '../../../../../props/models/Sponsor/SponsorProduct';
+import type { ProviderReservationProduct } from '../../../../../props/models/Reservation';
 import Product from '../../../../../props/models/Product';
 import useTranslate from '../../../../../hooks/useTranslate';
 import StateNavLink from '../../../../../modules/state_router/StateNavLink';
@@ -19,7 +20,7 @@ export default function ProductDetailsBlockPropertiesPane({
 }: {
     title?: string;
     showName: boolean;
-    product: SponsorProduct | Product;
+    product: Product | SponsorProduct | ProviderReservationProduct;
     viewType: 'sponsor' | 'provider';
     showStockAndReservations?: boolean;
 }) {

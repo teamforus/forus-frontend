@@ -27,13 +27,13 @@ export default function useProductFundsMeta(
         return {
             ...meta,
             funds: meta.funds.map((productFund) => ({
-                ...productFund,
                 ...fundMetaBuilder(
-                    { ...funds.find((fund) => fund.id == productFund.id), ...productFund },
+                    funds.find((fund) => fund.id == productFund.id),
                     payouts,
                     vouchers,
                     appConfigs,
                 ),
+                ...productFund,
             })),
         };
     }, [product, funds, vouchers, productService, fundMetaBuilder, payouts, appConfigs]);

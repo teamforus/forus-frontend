@@ -1,18 +1,23 @@
 import React, { Fragment, useCallback, useState } from 'react';
 import classNames from 'classnames';
 import Reimbursement from '../../../../props/models/Reimbursement';
+import type { VoucherFund } from '../../../../../dashboard/props/models/Voucher';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import { currencyFormat } from '../../../../../dashboard/helpers/string';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
 import { WebshopRoutes } from '../../../../modules/state_router/RouterBuilder';
 import { getReimbursementPreviewUrl } from '../../../../../dashboard/helpers/filePreview';
 
+export type ReimbursementDetails = Omit<Partial<Reimbursement>, 'fund'> & {
+    fund?: Reimbursement['fund'] | VoucherFund;
+};
+
 export default function ReimbursementDetailsCard({
     compact = false,
     reimbursement,
 }: {
     compact?: boolean;
-    reimbursement: Partial<Reimbursement>;
+    reimbursement: ReimbursementDetails;
 }) {
     const translate = useTranslate();
     const [previewIndex, setPreviewIndex] = useState(0);

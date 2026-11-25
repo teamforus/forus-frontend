@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
-import Fund from '../../../../props/models/Fund';
-import Product from '../../../../props/models/Product';
+import Product, { ProductFund } from '../../../../props/models/Product';
 import Voucher from '../../../../../dashboard/props/models/Voucher';
 import useOpenModal from '../../../../../dashboard/hooks/useOpenModal';
 import useFetchAuthIdentity from '../../../../hooks/useFetchAuthIdentity';
@@ -11,7 +10,7 @@ export default function useReserveProduct(product: Product) {
     const fetchAuthIdentity = useFetchAuthIdentity();
 
     return useCallback(
-        (fund: Fund & { meta: { reservableVouchers: Voucher[] } }) => {
+        (fund: ProductFund & { meta: { reservableVouchers: Voucher[] } }) => {
             fetchAuthIdentity().then(() => {
                 openModal((modal) => (
                     <ModalProductReserve

@@ -1,0 +1,43 @@
+import type BaseTransaction from '../../../../props/models/BaseTransaction';
+import type ExtraPayment from '../ExtraPayment';
+import type { ReservationProduct } from '../Reservation';
+
+export default interface SponsorReservation {
+    id: number;
+    code: string;
+    state: string;
+    state_locale: string;
+    archived: boolean;
+    expired: boolean;
+    canceled: boolean;
+    product: ReservationProduct;
+    voucher_transaction: (BaseTransaction & { id: number; address: string }) | null;
+    amount: string;
+    amount_locale: string;
+    price: string;
+    price_locale: string;
+    price_voucher: string;
+    price_voucher_locale: string;
+    amount_extra: string;
+    amount_extra_locale: string;
+    extra_payment: ExtraPayment | null;
+    extra_payment_expires_in: number | null;
+    identity_email: string | null;
+    first_name: string | null;
+    last_name: string | null;
+    user_note: string | null;
+    phone: string | null;
+    address: string;
+    created_at: string | null;
+    created_at_locale: string | null;
+    accepted_at: string | null;
+    accepted_at_locale: string | null;
+    rejected_at: string | null;
+    rejected_at_locale: string | null;
+    canceled_at: string | null;
+    canceled_at_locale: string | null;
+    expire_at: string;
+    expire_at_locale: string;
+    birth_date: string | null;
+    birth_date_locale: string | null;
+}

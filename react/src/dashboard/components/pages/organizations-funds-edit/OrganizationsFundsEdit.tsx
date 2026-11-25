@@ -25,8 +25,7 @@ import { addDays, addYears } from 'date-fns';
 import { dateFormat, dateParse } from '../../../helpers/dates';
 import useAppConfigs from '../../../hooks/useAppConfigs';
 import FundFormulaProduct from '../../../props/models/FundFormulaProduct';
-import Product from '../../../props/models/Product';
-import useProductService from '../../../services/ProductService';
+import useFundFormulaProducts from '../../../hooks/sponsor-products/useFundFormulaProducts';
 import { parseInt, sortBy, uniqueId } from 'lodash';
 import { useRecordTypeService } from '../../../services/RecordTypeService';
 import { useEmployeeService } from '../../../services/EmployeeService';
@@ -65,7 +64,6 @@ export default function OrganizationsFundsEdit() {
     const tagService = useTagService();
     const fundService = useFundService();
     const mediaService = useMediaService();
-    const productService = useProductService();
     const employeeService = useEmployeeService();
     const recordTypeService = useRecordTypeService();
 
@@ -77,7 +75,6 @@ export default function OrganizationsFundsEdit() {
 
     const [showInfoBlock, setShowInfoBlock] = useState<boolean>(false);
     const [recordTypes, setRecordTypes] = useState<Array<RecordType>>(null);
-    const [products, setProducts] = useState<Array<Partial<Product>>>(null);
     const [fundStates] = useState(fundService.getStates());
     const faqEditorBlock = useRef<(() => Promise<boolean>) | null>(null);
 
@@ -193,7 +190,7 @@ export default function OrganizationsFundsEdit() {
         auto_requests_validation?: boolean;
         allow_provider_sign_up?: boolean;
         criteria?: Array<Partial<FundCriterion>>;
-        notification_amount?: number;
+        notification_amount?: string | null;
         tag_ids?: Array<number>;
         email_required?: boolean;
         contact_info_enabled?: boolean;
@@ -244,7 +241,8 @@ export default function OrganizationsFundsEdit() {
                 await faqEditorBlock.current?.();
             } catch (e) {
                 pushDanger('Error!', typeof e == 'string' ? e : e.message || '');
-                return form.setIsLocked(false);
+                form.setIsLocked(false);
+                return;
             }
 
             const formValues = {
@@ -286,22 +284,33 @@ export default function OrganizationsFundsEdit() {
         );
     }, [activeOrganization, appConfigs.organizations.funds.formula_products, form.values.external_page]);
 
+    const products = useFundFormulaProducts(hasFundFormula ? activeOrganization?.id : null);
+
     const productOptions = useMemo(() => {
-        if (!form.values.formula_products || !Array.isArray(products)) {
+        if (!form.values.formula_products) {
             return [];
         }
 
+        const options = (products || []).map((product) => ({
+            id: product.id,
+            name: `${product.name} - €${product.price} (${product.organization.name})`,
+        }));
+
         const productsUsed = form.values.formula_products.map((item: FundFormulaProduct) => item.product_id);
-        const productsAvailable = products.filter((product) => !productsUsed.includes(product.id));
+        const productsAvailable = options.filter((product) => !productsUsed.includes(product.id));
 
         return form.values.formula_products.map((item: FundFormulaProduct) => {
-            const product = products.find((product) => product.id == item?.product_id);
+            if (!item.product_id) {
+                return sortBy(productsAvailable, 'name');
+            }
 
-            return sortBy(
-                [...productsAvailable, product].filter((item) => item),
-                (product: Product) => product.name,
-            );
-        }, []);
+            const selected = options.find((product) => product.id === item.product_id) ?? {
+                id: item.product_id,
+                name: `#${item.product_id}`,
+            };
+
+            return sortBy([...productsAvailable, selected], 'name');
+        });
     }, [form.values.formula_products, products]);
 
     const fetchFund = useCallback(
@@ -337,23 +346,6 @@ export default function OrganizationsFundsEdit() {
             .finally(() => setProgress(100));
     }, [activeOrganization.id, employeeService, setProgress]);
 
-    const fetchProducts = useCallback(() => {
-        setProgress(0);
-
-        productService
-            .listAll({ per_page: 1000, simplified: 1, unlimited_stock: 1 })
-            .then((res) => {
-                setProducts(
-                    res.data.data.map((product) => ({
-                        id: product.id,
-                        price: product.price,
-                        name: `${product.name} - €${product.price} (${product.organization.name})`,
-                    })),
-                );
-            })
-            .finally(() => setProgress(100));
-    }, [productService, setProgress]);
-
     const fetchRecordTypes = useCallback(() => {
         setProgress(0);
 
@@ -374,7 +366,7 @@ export default function OrganizationsFundsEdit() {
 
     const updateFormFormulaProduct = useCallback(
         (formula_id: number, field_name: string, field_value: string | number) => {
-            const formulaProducts = form.values.formula_products;
+            const formulaProducts = [...form.values.formula_products];
             formulaProducts[formula_id] = {
                 ...formulaProducts[formula_id],
                 [field_name]: field_value,
@@ -405,10 +397,6 @@ export default function OrganizationsFundsEdit() {
             fetchTags();
         }
     }, [fetchTags, fundId]);
-
-    useEffect(() => {
-        fetchProducts();
-    }, [fetchProducts]);
 
     useEffect(() => {
         fetchRecordTypes();
@@ -1085,9 +1073,10 @@ export default function OrganizationsFundsEdit() {
                                                     className="button button-primary button-icon"
                                                     disabled={formulaProduct.conditions?.length > 0}
                                                     onClick={() => {
-                                                        form.values.formula_products.splice(index, 1);
                                                         updateForm({
-                                                            formula_products: form.values.formula_products,
+                                                            formula_products: form.values.formula_products.filter(
+                                                                (_, rowIndex) => rowIndex !== index,
+                                                            ),
                                                         });
                                                     }}>
                                                     <em className="mdi mdi-close" />

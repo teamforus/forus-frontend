@@ -1,5 +1,5 @@
 import ExtraPayment from './ExtraPayment';
-import Product from './Product';
+import type Media from './Media';
 import Transaction from './Transaction';
 import FileModel from './File';
 import ReservationField from './ReservationField';
@@ -9,6 +9,29 @@ export interface ReservationCustomFieldValue {
     value?: string;
     files?: Array<FileModel>;
     reservation_field: ReservationField;
+}
+
+export interface ReservationProduct {
+    id: number;
+    name: string;
+    price: string | null;
+    price_locale: string;
+    deleted: boolean;
+    organization_id: number;
+    organization: { id: number; name: string };
+    photos: Media[];
+}
+
+export interface ProviderReservationProduct extends ReservationProduct {
+    expire_at: string | null;
+    expire_at_locale: string | null;
+    expired: boolean;
+    sold_amount: number;
+    reserved_amount: number;
+    unlimited_stock: boolean;
+    stock_amount: number | null;
+    ean: string | null;
+    sku: string | null;
 }
 
 export default interface Reservation {
@@ -21,7 +44,7 @@ export default interface Reservation {
     state?: string;
     state_locale?: string;
     expired?: boolean;
-    product?: Product;
+    product: ReservationProduct;
     price?: string;
     price_locale?: string;
     price_voucher?: string;
@@ -70,4 +93,8 @@ export default interface Reservation {
     rejection_note?: string;
     invoice_number?: string;
     allow_provider_messages?: boolean;
+}
+
+export interface ProviderReservation extends Reservation {
+    product: ProviderReservationProduct;
 }

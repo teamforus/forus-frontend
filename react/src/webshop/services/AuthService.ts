@@ -17,7 +17,7 @@ export function useAuthService() {
             const funds = await fundService.list().then((res) => res.data.data);
             const vouchers = await voucherService.list({ per_page: 100 }).then((res) => res.data.data);
 
-            const takenFundIds = vouchers.filter((voucher) => !voucher.expired).map((voucher) => voucher.fund_id);
+            const takenFundIds = vouchers.filter((voucher) => !voucher.expired).map((voucher) => voucher.fund.id);
             const fundsList = funds.filter((fund) => fund.allow_direct_requests);
             const fundsNoVouchers = fundsList.filter((fund) => takenFundIds.indexOf(fund.id) === -1);
             const fundsWithVouchers = fundsList.filter((fund) => takenFundIds.indexOf(fund.id) !== -1);
@@ -38,7 +38,7 @@ export function useAuthService() {
                 // Go to the first vouchers
                 if (fundsWithVouchers.length === 1) {
                     return navigateState(WebshopRoutes.VOUCHER, {
-                        number: vouchers.find((voucher) => voucher.fund_id === fundsWithVouchers[0].id).number,
+                        number: vouchers.find((voucher) => voucher.fund.id === fundsWithVouchers[0].id).number,
                     });
                 }
 

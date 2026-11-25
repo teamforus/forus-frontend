@@ -74,7 +74,7 @@ export default function ProductCategoriesControl({
     );
 
     const loadProductCategoriesParent = useCallback(
-        async (category_id, ids) => {
+        async (category_id: number | null, ids: number[]): Promise<number[]> => {
             if (category_id === null) {
                 return ids;
             }

@@ -4,7 +4,7 @@ import LoadingCard from '../../elements/loading-card/LoadingCard';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { hasPermission } from '../../../helpers/utils';
 import useSetProgress from '../../../hooks/useSetProgress';
-import Reservation from '../../../props/models/Reservation';
+import Reservation, { ProviderReservation } from '../../../props/models/Reservation';
 import { useParams } from 'react-router';
 import useProductReservationService from '../../../services/ProductReservationService';
 import useTransactionService from '../../../services/TransactionService';
@@ -46,7 +46,7 @@ export default function ReservationsView() {
     const productReservationService = useProductReservationService();
 
     const [transaction, setTransaction] = useState<Transaction>(null);
-    const [reservation, setReservation] = useState<Reservation>(null);
+    const [reservation, setReservation] = useState<ProviderReservation>(null);
     const [product, setProduct] = useState<Product>(null);
 
     const fetchProviderMessagesRef = useRef<() => void>(null);

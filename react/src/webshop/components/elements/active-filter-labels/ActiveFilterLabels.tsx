@@ -200,7 +200,7 @@ export default function ActiveFilterLabels({
             );
         }
 
-        if (filter.activeValues.from || (filter.activeValues.to && filter.activeValues.to !== priceMax)) {
+        if (filter.activeValues.from || (filter.activeValues.to != null && filter.activeValues.to !== priceMax)) {
             labels.push({
                 type: 'price',
                 key: null,

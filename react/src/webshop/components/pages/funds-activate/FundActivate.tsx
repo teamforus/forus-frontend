@@ -91,7 +91,7 @@ export default function FundActivate() {
     }, [fund?.id, payouts]);
 
     const vouchersActive = useMemo(() => {
-        return vouchers?.filter((voucher) => voucher.fund_id === fund?.id && !voucher.expired);
+        return vouchers?.filter((voucher) => voucher.fund.id === fund?.id && !voucher.expired);
     }, [fund?.id, vouchers]);
 
     const [criteriaChecked, setCriteriaChecked] = useState(false);
@@ -150,7 +150,8 @@ export default function FundActivate() {
 
     const codeForm = useFormBuilder({ code: '' }, (values) => {
         if (!values.code) {
-            return codeForm.setErrors({ code: true });
+            codeForm.setIsLocked(false);
+            return codeForm.setErrors({ code: [translate('popup_auth.input.coding')] });
         }
 
         let code = values.code;

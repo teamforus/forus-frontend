@@ -1,11 +1,10 @@
 import React, { Fragment, useCallback, useMemo } from 'react';
 import Fund from '../../../../props/models/Fund';
 import Voucher from '../../../../../dashboard/props/models/Voucher';
-import Product from '../../../../props/models/Product';
+import Product, { ProductFund } from '../../../../props/models/Product';
 import StateNavLink from '../../../../modules/state_router/StateNavLink';
 import useEnvData from '../../../../hooks/useEnvData';
 import useShowTakenByPartnerModal from '../../../../services/helpers/useShowTakenByPartnerModal';
-import useAuthIdentity from '../../../../hooks/useAuthIdentity';
 import { useFundService } from '../../../../services/FundService';
 import { useNavigateState } from '../../../../modules/state_router/Router';
 import useTranslate from '../../../../../dashboard/hooks/useTranslate';
@@ -33,7 +32,6 @@ export default function ProductFunds({
     const translate = useTranslate();
     const navigateState = useNavigateState();
 
-    const authIdentity = useAuthIdentity();
     const showTakenByPartnerModal = useShowTakenByPartnerModal();
 
     const fundService = useFundService();
@@ -47,7 +45,7 @@ export default function ProductFunds({
     }, [onlyAvailableFunds, productMeta?.funds]);
 
     const requestFund = useCallback(
-        (fund: Fund) => {
+        (fund: ProductFund) => {
             fundService.read(fund.id).then((res) => {
                 const fund = res.data.data;
                 const fund_id = fund.id;
@@ -88,45 +86,24 @@ export default function ProductFunds({
                             </div>
                             <div className="product-funds-item-details-props">
                                 {/* Price */}
-                                {product.price_type !== 'informational' && (
+                                {fund.user_price.type !== 'informational' && (
                                     <Fragment>
                                         <div className="product-funds-item-details-prop product-funds-item-details-prop-price">
-                                            {(product.price_type === 'regular' || product.price_type === 'free') && (
-                                                <div className="product-funds-item-details-prop-value">
-                                                    {fund.user_price === '0.00'
-                                                        ? translate('product.price.free')
-                                                        : fund.user_price_locale}
-                                                </div>
-                                            )}
-
-                                            {(product.price_type === 'discount_fixed' ||
-                                                product.price_type === 'discount_percentage') && (
-                                                <div className="product-funds-item-details-prop-value">
-                                                    {product.price_discount_locale}
-                                                </div>
-                                            )}
+                                            <div className="product-funds-item-details-prop-value">
+                                                {fund.user_price.value}
+                                            </div>
                                         </div>
                                         <div className="product-funds-item-details-prop-separator" />
                                     </Fragment>
                                 )}
 
                                 {/* Quantity limit */}
-                                {(fund.meta.applicableVouchers?.length > 0
-                                    ? fund.limit_available
-                                    : fund.limit_per_identity) != null && (
+                                {fund.limit != null && (
                                     <Fragment>
                                         <div className="product-funds-item-details-prop">
                                             <em className="mdi mdi-account-multiple" />
 
-                                            {authIdentity
-                                                ? translate('product.labels.quantity_limit', {
-                                                      limit: fund.meta.applicableVouchers.length
-                                                          ? fund.limit_available
-                                                          : fund.limit_per_identity,
-                                                  })
-                                                : translate('product.labels.quantity_limit', {
-                                                      limit: fund.limit_per_identity,
-                                                  })}
+                                            {translate('product.labels.quantity_limit', { limit: fund.limit })}
                                         </div>
                                         <div className="product-funds-item-details-prop-separator" />
                                     </Fragment>
@@ -136,7 +113,7 @@ export default function ProductFunds({
                                 <div className="product-funds-item-details-prop">
                                     <em className="mdi mdi-calendar" />
                                     {translate('product.labels.expire_by_date', {
-                                        date: fund.meta.shownExpireDate.locale,
+                                        date: fund.expire_at_locale,
                                     })}
                                 </div>
                             </div>

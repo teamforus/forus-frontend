@@ -1,10 +1,9 @@
 import { useCallback } from 'react';
-import Voucher, { VoucherProduct } from '../../../dashboard/props/models/Voucher';
+import Voucher, { VoucherProduct, VoucherTransaction } from '../../../dashboard/props/models/Voucher';
+import type SmallProduct from '../../../props/models/SmallProduct';
 import useAssetUrl from '../../hooks/useAssetUrl';
 import { uniqueId } from 'lodash';
 import Office from '../../../dashboard/props/models/Office';
-import Reservation from '../../../dashboard/props/models/Reservation';
-import Organization from '../../../dashboard/props/models/Organization';
 import Reimbursement from '../../props/models/Reimbursement';
 
 type CardTransaction = {
@@ -13,13 +12,13 @@ type CardTransaction = {
     timestamp?: number;
     amount_locale?: string;
     type?: 'transaction' | 'product_voucher' | string;
-    product?: VoucherProduct;
+    product?: SmallProduct | VoucherProduct | null;
     target?: 'provider' | 'iban' | 'top_up' | 'payout';
-    product_reservation?: Reservation;
-    organization?: Organization;
+    product_reservation?: { id: number; code: string } | null;
+    organization?: VoucherTransaction['organization'] | null;
     created_at_locale?: string;
     incoming?: boolean;
-    reimbursement?: Reimbursement;
+    reimbursement?: Pick<Reimbursement, 'id' | 'code'> | null;
     initiator?: 'provider' | 'sponsor' | 'requester';
 };
 
@@ -53,7 +52,6 @@ export function useVoucherCombinedTransactionsList() {
         }));
 
         const productVouchers = (voucher.product_vouchers || []).map((product_voucher) => ({
-            id: product_voucher.id,
             unique_id: uniqueId('transaction_'),
             timestamp: product_voucher.timestamp,
             amount_locale: product_voucher.amount_locale,
@@ -108,7 +106,7 @@ export default function useComposeVoucherCardData() {
                 thumbnail: getVoucherThumbnail(voucher),
                 title: product ? product.name : fund.name,
                 subtitle: product ? product.organization.name : fund.organization.name,
-                description: product ? product.description_html : fund.description,
+                description: product ? product.description_html : fund.description_short,
                 transactionsList: voucherCombinedTransactionsList(voucher),
                 records_by_key: records?.reduce(
                     (records, record) => ({ ...records, [record.record_type_key]: record.value_locale }),

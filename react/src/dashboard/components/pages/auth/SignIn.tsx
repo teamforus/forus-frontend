@@ -34,7 +34,7 @@ export default function SignIn() {
     const [entraLoading, setEntraLoading] = useState(false);
     const [qrValue, setQrValue] = useState<{ type: 'auth_token'; value: string }>(null);
 
-    const signInForm = useFormBuilder({ email: '' }, async (values) => {
+    const signInForm = useFormBuilder({ email: '' }, async (values): Promise<void> => {
         return identityService
             .make({ email: values.email?.toString() })
             .then(() => signInForm.setState('success'))

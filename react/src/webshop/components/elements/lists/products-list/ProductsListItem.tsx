@@ -62,7 +62,7 @@ export default function ProductsListItem({
                 />
             )}
 
-            {display === 'search' && <ProductsListItemSearch product={product} />}
+            {display === 'search' && <ProductsListItemSearch product={product} price={price} />}
         </StateNavLink>
     );
 }

@@ -1,4 +1,4 @@
-import Product from '../../../dashboard/props/models/Product';
+import Product from '../../props/models/Product';
 import { useCallback } from 'react';
 import usePushRaw from '../../../dashboard/hooks/usePushRaw';
 import usePushSuccess from '../../../dashboard/hooks/usePushSuccess';

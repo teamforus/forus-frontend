@@ -1,11 +1,18 @@
 import React from 'react';
 import Office from '../../../../dashboard/props/models/Office';
+import type { ProductOffice } from '../../../props/models/Product';
 import useAssetUrl from '../../../hooks/useAssetUrl';
 import useTranslate from '../../../../dashboard/hooks/useTranslate';
 import StateNavLink from '../../../modules/state_router/StateNavLink';
 import { WebshopRoutes } from '../../../modules/state_router/RouterBuilder';
 
-export default function MapMarkerProviderOffice({ office }: { office: Office }) {
+export default function MapMarkerProviderOffice({
+    office,
+    organization,
+}: {
+    office: Office | ProductOffice;
+    organization: Office['organization'];
+}) {
     const assetUrl = useAssetUrl();
     const translate = useTranslate();
 
@@ -15,35 +22,35 @@ export default function MapMarkerProviderOffice({ office }: { office: Office }) 
                 <img
                     src={
                         office?.photo?.sizes?.thumbnail ||
-                        office?.organization?.logo?.sizes?.thumbnail ||
+                        organization?.logo?.sizes?.thumbnail ||
                         assetUrl('assets/img/placeholders/office-thumbnail.png')
                     }
                     alt=""
                 />
             </div>
             <div className="map-card-content">
-                <div className="map-card-title">{office?.organization?.name}</div>
+                <div className="map-card-title">{organization?.name}</div>
                 <div className="map-card-description">
                     <div className={'map-card-description-row'}>
                         <strong>{translate('global.map_marker.address')}:</strong>
                         {office.address}
                     </div>
-                    {office?.organization?.business_type?.name && (
+                    {organization?.business_type?.name && (
                         <div className={'map-card-description-row'}>
                             <strong>{translate('global.map_marker.organization_type')}:</strong>
-                            {office.organization.business_type.name}
+                            {organization.business_type.name}
                         </div>
                     )}
-                    {(office?.phone || office?.organization?.phone) && (
+                    {(office?.phone || organization?.phone) && (
                         <div className={'map-card-description-row'}>
                             <strong>{translate('global.map_marker.phone')}:</strong>
-                            {office.phone ? office.phone : office.organization.phone}
+                            {office.phone || organization.phone}
                         </div>
                     )}
-                    {office?.organization?.email && (
+                    {organization?.email && (
                         <div className={'map-card-description-row'}>
                             <strong>{translate('global.map_marker.email')}:</strong>
-                            {office?.organization?.email}
+                            {organization.email}
                         </div>
                     )}
                 </div>

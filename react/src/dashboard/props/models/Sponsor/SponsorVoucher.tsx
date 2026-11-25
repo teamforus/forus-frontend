@@ -1,14 +1,15 @@
 import Fund from '../Fund';
-import Product from '../Product';
+import type OrganizationBasic from '../OrganizationBasic';
+import type ProductCategory from '../ProductCategory';
 import Reservation from '../Reservation';
 import Office from '../Office';
 import PhysicalCard from '../PhysicalCard';
 import Transaction from '../Transaction';
 import Media from '../Media';
 import Employee from '../Employee';
+import type BaseVoucher from '../../../../props/models/BaseVoucher';
 
-export default interface SponsorVoucher {
-    id: number;
+export default interface SponsorVoucher extends BaseVoucher {
     number?: string;
     address?: string;
     fund_id: number;
@@ -26,7 +27,21 @@ export default interface SponsorVoucher {
         record_type_key: string;
         record_type_name: string;
     }>;
-    product: Product;
+    product: {
+        id: number;
+        name: string;
+        description: string;
+        price: string | null;
+        total_amount: number;
+        sold_amount: null;
+        product_category_id: number;
+        organization_id: number;
+        product_category: ProductCategory | null;
+        expire_at: string | null;
+        expire_at_locale: string | null;
+        photos: Media[];
+        organization: OrganizationBasic;
+    } | null;
     product_reservation: Reservation;
     offices?: Array<Office>;
     allowed_organizations: Array<{

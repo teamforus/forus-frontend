@@ -5,7 +5,7 @@ import { strLimit } from '../../../../helpers/string';
 import BlockInlineCopy from '../../../elements/block-inline-copy/BlockInlineCopy';
 import ReservationStateLabel from '../../../elements/resource-states/ReservationStateLabel';
 import TableRowActions from '../../../elements/tables/TableRowActions';
-import Reservation from '../../../../props/models/Reservation';
+import type SponsorReservation from '../../../../props/models/Sponsor/SponsorReservation';
 import Organization from '../../../../props/models/Organization';
 import TransactionStateLabel from '../../../elements/resource-states/TransactionStateLabel';
 import TableEmptyValue from '../../../elements/table-empty-value/TableEmptyValue';
@@ -15,12 +15,14 @@ import { DashboardRoutes } from '../../../../modules/state_router/RouterBuilder'
 export default function ReservationsTableRowSponsor({
     organization,
     reservation,
+    physicalCardCode,
     showExtraPayments = false,
     selected = null,
     toggle = null,
 }: {
     organization: Organization;
-    reservation: Reservation;
+    reservation: SponsorReservation;
+    physicalCardCode?: string;
     showExtraPayments?: boolean;
     selected?: Array<number>;
     toggle?: (e: React.MouseEvent<HTMLElement>, item: { id: number }) => void;
@@ -74,20 +76,16 @@ export default function ReservationsTableRowSponsor({
 
             <td>
                 <div className={'flex flex-vertical'}>
-                    {reservation.identity_physical_card ? (
-                        <div className={'flex flex-vertical'}>
-                            <div className="text-strong text-primary">{reservation.identity_physical_card}</div>
-                            <BlockInlineCopy
-                                className="text-strong text-small text-muted-dark"
-                                value={reservation.identity_email}>
-                                {strLimit(reservation.identity_email, 27)}
-                            </BlockInlineCopy>
-                        </div>
-                    ) : (
-                        <BlockInlineCopy className={'text-strong text-primary'} value={reservation.identity_email}>
-                            {strLimit(reservation.identity_email, 27)}
-                        </BlockInlineCopy>
-                    )}
+                    {physicalCardCode && <div className="text-strong text-primary">{physicalCardCode}</div>}
+
+                    <BlockInlineCopy
+                        className={
+                            physicalCardCode ? 'text-strong text-small text-muted-dark' : 'text-strong text-primary'
+                        }
+                        value={reservation.identity_email}>
+                        {strLimit(reservation.identity_email, 27)}
+                    </BlockInlineCopy>
+
                     {(reservation.first_name || reservation.last_name) && (
                         <strong>{reservation.first_name + ' ' + reservation.last_name}</strong>
                     )}

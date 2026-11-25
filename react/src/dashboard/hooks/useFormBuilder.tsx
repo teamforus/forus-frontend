@@ -1,8 +1,13 @@
-import { FormEvent, useCallback, useMemo, useState } from 'react';
+import { SubmitEvent, useCallback, useMemo, useState } from 'react';
 import FormValuesModel from '../types/FormValuesModel';
 import FormSetter from '../types/FormSetter';
 import FormSubmitter from '../types/FormSubmitter';
 import FormBuilder from '../types/FormBuilder';
+
+export default function useFormBuilder<T = FormValuesModel, D = unknown>(
+    initialValues: T | null,
+    onSubmit: ((values: T, e?: SubmitEvent<HTMLFormElement>, data?: D) => void) | false,
+): FormBuilder<T>;
 
 export default function useFormBuilder<T = FormValuesModel, D = unknown>(
     initialValues: T | null,
@@ -23,7 +28,7 @@ export default function useFormBuilder<T = FormValuesModel, D = unknown>(
         setIsLocked(false);
     }, [initValues]);
 
-    const submit = useCallback<(e?: FormEvent<HTMLFormElement>, data?: D) => void>(
+    const submit = useCallback<(e?: SubmitEvent<HTMLFormElement>, data?: D) => void>(
         (e = null, data): void => {
             e?.preventDefault();
 
@@ -36,7 +41,7 @@ export default function useFormBuilder<T = FormValuesModel, D = unknown>(
 
             const result = onSubmit(values, e, data);
 
-            if (result) {
+            if (result && typeof result.finally === 'function') {
                 result.finally(() => setIsLoading(false));
             } else {
                 setIsLoading(false);

@@ -5,6 +5,7 @@ import TableCheckboxControl from '../../../elements/tables/elements/TableCheckbo
 import Organization from '../../../../props/models/Organization';
 import { FilterModel, FilterScope, FilterSetter } from '../../../../modules/filter_next/types/FilterParams';
 import Reservation from '../../../../props/models/Reservation';
+import type SponsorReservation from '../../../../props/models/Sponsor/SponsorReservation';
 import useProductReservationService from '../../../../services/ProductReservationService';
 import ReservationsTableRowProvider from './ReservationsTableRowProvider';
 import ReservationsTableRowSponsor from './ReservationsTableRowSponsor';
@@ -15,6 +16,7 @@ export default function ReservationsTable({
     loading,
     paginatorKey,
     reservations,
+    physicalCardCode,
     organization,
     filter,
     filterValues,
@@ -28,7 +30,7 @@ export default function ReservationsTable({
     fetchReservations: () => void;
     loading: boolean;
     paginatorKey: string;
-    reservations: PaginationData<Reservation>;
+    physicalCardCode?: string;
     organization: Organization;
     filter: FilterScope<FilterModel>;
     filterValues: FilterModel;
@@ -37,8 +39,10 @@ export default function ReservationsTable({
     toggleAll?: (e: React.MouseEvent<HTMLElement>, items: { id: number }[]) => void;
     toggle?: (e: React.MouseEvent<HTMLElement>, item: { id: number }) => void;
     children?: ReactNode;
-    type: 'sponsor' | 'provider';
-}) {
+} & (
+    | { type: 'sponsor'; reservations: PaginationData<SponsorReservation> }
+    | { type: 'provider'; reservations: PaginationData<Reservation> }
+)) {
     const productReservationService = useProductReservationService();
 
     const showExtraPayments = useMemo(() => {
@@ -69,28 +73,29 @@ export default function ReservationsTable({
                         </th>
                     ) : null,
                 }}>
-                {reservations?.data?.map((reservation) =>
-                    type === 'sponsor' ? (
-                        <ReservationsTableRowSponsor
-                            key={reservation.id}
-                            organization={organization}
-                            reservation={reservation}
-                            showExtraPayments={showExtraPayments}
-                            selected={selected}
-                            toggle={toggle}
-                        />
-                    ) : (
-                        <ReservationsTableRowProvider
-                            key={reservation.id}
-                            reservation={reservation}
-                            fetchReservations={fetchReservations}
-                            organization={organization}
-                            showExtraPayments={showExtraPayments}
-                            selected={selected}
-                            toggle={toggle}
-                        />
-                    ),
-                )}
+                {type === 'sponsor'
+                    ? reservations?.data?.map((reservation) => (
+                          <ReservationsTableRowSponsor
+                              key={reservation.id}
+                              physicalCardCode={physicalCardCode}
+                              organization={organization}
+                              reservation={reservation}
+                              showExtraPayments={showExtraPayments}
+                              selected={selected}
+                              toggle={toggle}
+                          />
+                      ))
+                    : reservations?.data?.map((reservation) => (
+                          <ReservationsTableRowProvider
+                              key={reservation.id}
+                              reservation={reservation}
+                              fetchReservations={fetchReservations}
+                              organization={organization}
+                              showExtraPayments={showExtraPayments}
+                              selected={selected}
+                              toggle={toggle}
+                          />
+                      ))}
             </LoaderTableCard>
 
             {children}

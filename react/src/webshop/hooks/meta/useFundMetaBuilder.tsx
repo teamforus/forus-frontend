@@ -11,7 +11,7 @@ export default function useFundMetaBuilder() {
                 return null;
             }
 
-            const vouchersList = vouchers.filter((voucher) => voucher.fund_id == fund.id && !voucher.expired);
+            const vouchersList = vouchers.filter((voucher) => voucher.fund.id == fund.id && !voucher.expired);
             const payoutsList = payouts.filter((payout) => payout.fund.id == fund.id);
 
             const isApplicable =

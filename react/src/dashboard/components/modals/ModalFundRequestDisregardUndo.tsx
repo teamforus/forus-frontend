@@ -37,7 +37,8 @@ export default function ModalFundRequestDisregardUndo({
                 form.setIsLocked(false);
 
                 if (err.status === 422) {
-                    return form.setErrors(err.data.errors);
+                    form.setErrors(err.data.errors);
+                    return;
                 }
 
                 modal.close();

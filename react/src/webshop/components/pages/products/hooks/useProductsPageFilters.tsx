@@ -133,7 +133,7 @@ export default function useProductsPageFilters() {
             postcode: values.postcode || '',
             distance: values.distance || null,
             from: values.from || null,
-            to: values.to || null,
+            to: values.to ?? null,
             qr: hasFilters ? (values.qr ? 1 : 0) : 0,
             reservation: hasFilters ? (values.reservation ? 1 : 0) : 0,
             extra_payment: hasFilters ? (values.extra_payment ? 1 : 0) : 0,

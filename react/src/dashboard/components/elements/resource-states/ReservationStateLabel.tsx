@@ -1,8 +1,9 @@
 import React from 'react';
 import Reservation from '../../../props/models/Reservation';
+import type SponsorReservation from '../../../props/models/Sponsor/SponsorReservation';
 import Label from '../label/Label';
 
-export default function ReservationStateLabel({ reservation }: { reservation: Reservation }) {
+export default function ReservationStateLabel({ reservation }: { reservation: Reservation | SponsorReservation }) {
     if (reservation.expired) {
         return <Label type="danger-light">Verlopen</Label>;
     }
