@@ -35,7 +35,7 @@ export default class ApiRequestService<T = null> {
 
         return {
             Accept: 'application/json',
-            'Accept-Language': envData?.client_type === 'webshop' ? localStorage.locale || 'nl' : 'nl',
+            'Accept-Language': localStorage.locale ? localStorage.locale : 'nl',
             'Client-Key': envData?.client_key,
             'Client-Type': envData?.client_type,
             'Content-Type': 'application/json',
