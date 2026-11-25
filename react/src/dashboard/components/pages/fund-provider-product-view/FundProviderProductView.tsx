@@ -116,20 +116,16 @@ export default function FundProviderProductView() {
             return;
         }
 
-        chatOpenedRef.current = true;
         setShowChat(undefined, 'replaceIn');
 
-        const onClosed = () => {
-            fetchFundProvider();
-            chatOpenedRef.current = false;
-        };
-
         if (product.fund_provider_product_chat) {
-            openProductChat(product.fund_provider_product_chat, onClosed);
-        } else {
-            makeProductChat(product, onClosed);
+            chatOpenedRef.current = true;
+            openProductChat(product.fund_provider_product_chat, () => {
+                chatOpenedRef.current = false;
+                fetchFundProvider();
+            });
         }
-    }, [fetchFundProvider, makeProductChat, openProductChat, product, setShowChat, showChat]);
+    }, [fetchFundProvider, openProductChat, product, setShowChat, showChat]);
 
     if (!product || !fund || !fundProvider) {
         return <LoadingCard />;

@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router';
 import useTranslate from '../../../hooks/useTranslate';
 import useActiveOrganization from '../../../hooks/useActiveOrganization';
@@ -168,46 +168,59 @@ export default function ProductView() {
                 return;
             }
 
-            openModal((modal) => (
-                <ModalFundProviderChatProvider
-                    modal={modal}
-                    chat={fund.chat}
-                    product={product}
-                    providerOrganization={product.organization}
-                    sponsorOrganization={fund.organization}
-                    onClose={() => {
-                        fetchFunds();
+            openModal(
+                (modal) => (
+                    <ModalFundProviderChatProvider
+                        modal={modal}
+                        chat={fund.chat}
+                        product={product}
+                        providerOrganization={product.organization}
+                        sponsorOrganization={fund.organization}
+                    />
+                ),
+                {
+                    onClosed: () => {
                         chatOpenedRef.current = false;
-                    }}
-                />
-            ));
+                        fetchFunds();
+                    },
+                },
+            );
         },
         [fetchFunds, openModal, product],
     );
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (!chatFundId || !product || chatOpenedRef.current) {
             return;
         }
 
-        chatOpenedRef.current = true;
-        setChatFundId(undefined, 'replaceIn');
+        let isCurrent = true;
 
         Promise.all([
             productService.listProductFunds(product.organization_id, product.id, { fund_id: chatFundId }),
-            fetchChats(product),
+            productChatService.list(product.organization_id, product.id, { fund_id: chatFundId }),
         ])
             .then(([res, chats]) => {
-                const fund = mapFundsWithChats(res.data, chats).data.find((fund) => fund.id === chatFundId);
+                return mapFundsWithChats(res.data, chats.data).data.find((fund) => fund.id === chatFundId);
+            })
+            .catch(() => null)
+            .then((fund) => {
+                if (!isCurrent) {
+                    return;
+                }
+
+                setChatFundId(undefined, 'replaceIn');
 
                 if (fund?.chat) {
+                    chatOpenedRef.current = true;
                     showTheChat(fund);
-                } else {
-                    chatOpenedRef.current = false;
                 }
-            })
-            .catch(() => (chatOpenedRef.current = false));
-    }, [chatFundId, fetchChats, mapFundsWithChats, product, productService, setChatFundId, showTheChat]);
+            });
+
+        return () => {
+            isCurrent = false;
+        };
+    }, [chatFundId, mapFundsWithChats, product, productChatService, productService, setChatFundId, showTheChat]);
 
     useEffect(() => {
         fetchProduct()
