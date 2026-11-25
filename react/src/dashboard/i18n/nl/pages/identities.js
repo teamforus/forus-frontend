@@ -1,14 +1,14 @@
 export default {
     profile_groups: {
-        fallback: 'Other details',
+        fallback: 'Overige gegevens',
         edit_group: 'Bewerken',
         age: 'Leeftijd',
-        limit_reached: 'Some profile fields may be missing.',
+        limit_reached: 'Mogelijk ontbreken er velden met persoonsgegevens.',
     },
     custom_records: {
-        empty: 'No custom records',
-        record: 'Record type',
-        add: 'Add record',
+        empty: 'Geen overige gegevens',
+        record: 'Gegevenstype',
+        add: 'Gegeven toevoegen',
         cancel: 'Annuleren',
         save: 'Bevestigen',
         select: 'Selecteer...',
